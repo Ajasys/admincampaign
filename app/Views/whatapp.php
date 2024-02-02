@@ -3,8 +3,18 @@
 <?php $table_username = getMasterUsername(); ?>
 
 <style>
+    .hide {
+        display: none;
+    }
+
+    @media (max-width:575px) {
+        .title-1 h2 {
+            font-size: 13px;
+        }
+    }
+
     .wa-preview-main-div-cont {
-        max-width: 500px;
+        max-width: 600px;
         margin: auto;
     }
 
@@ -57,24 +67,12 @@
         cursor: pointer;
     }
 
-    /* .preview-chat-section {
-    background-color: #f1ede5;
-    width: 100%;
-    height: calc(100% - 100px) !important;
-    object-fit: cover;
-    object-position: center;
-    padding: 10px;
-    position: relative;
-    overflow-y: auto;
-} */
-
     .preview-chat-section {
         border: 1px solid #ccc;
         border-radius: 8px;
         overflow: hidden;
         object-fit: cover;
     }
-
 
     .preview-chat-section-chat {
         padding: 10px;
@@ -98,15 +96,8 @@
 
     .preview-chat-paragraph>p {
         word-break: break-all;
-    }
 
-    .single-t-text-chat {
-        white-space: pre-line;
-        font-size: 13px !important;
-        padding: 6px 10px;
-        color: black;
-        word-break: break-word;
-        font-family: 'Poppins', sans-serif;
+
     }
 
     .preview-chat-paragraph1 {
@@ -194,11 +185,13 @@
         color: #095f54;
         cursor: pointer;
     }
+
     .template-creation-heading {
         overflow-x: hidden;
 
 
     }
+
     .whatsapp-footer-1 i,
     .whatsapp-footer-2 i,
     .whatsapp-footer-3 i {
@@ -206,220 +199,7 @@
         color: #095f54;
         cursor: pointer;
     }
-    .single-button-whatsapp-template {
-        width: 50%;
-        border: 2px solid white;
-        background-color: white;
-        color: blue;
-        border-radius: 6px;
-        left: 20px;
-        padding: 7px 7px;
-        margin: 2px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-size: 12px;
-    }
-    .single-t-user-chat {
-        padding: 6px 2px 6px 9px;
-        font-size: 15px;
-        font-weight: 500;
-        color: black;
-        overflow-x: hidden;
-        overflow-wrap: break-word;
-        font-family: 'Poppins', sans-serif;
-    }
-    .single-t-text-chat {
-        white-space: pre-line;
-        font-size: 13px !important;
-        padding: 6px 10px;
-        color: black;
-        word-break: break-word;
-        font-family: 'Poppins', sans-serif;
-    }
-    .user-name-chat-footer {
-        white-space: pre-line;
-        font-size: 12px !important;
-        padding: 6px 10px;
-        color: black;
-        word-break: break-word;
-        font-family: 'Poppins', sans-serif;
-    }
-    .button {
-        line-height: 1.15;
-        cursor: pointer;
-        font-size: 100%;
 
-    }
-    .col-12.mb-3.justify-content-center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .add_user_role_css {
-        padding: 10px;
-    }
-</style>
-<style>
-    .wa-preview-main-div-cont {
-        max-width: 600px;
-        margin: auto;
-    }
-    .preview-header-paragraph .user-name-chat-header {
-        font-size: 13px;
-        font-family: 'poppins', sans-serif;
-        color: black;
-        text-align: left;
-        font-weight: bold;
-    }
-    .preview-chat-paragraph .msg-text-chat {
-        font-size: 12px;
-    }
-    .preview-footer-paragraph .user-name-chat-footer {
-        font-size: 9px;
-    }
-    .preview-header-main-cont {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: #095f54;
-        padding: 10px;
-        color: #fff;
-    }
-    .header-image img {
-        border-radius: 50%;
-        max-width: 40px;
-        height: auto;
-    }
-
-    .preview-header-text {
-        flex-grow: 1;
-        margin-left: 10px;
-    }
-    .wa-phone-header {
-        display: flex;
-    }
-    .wa-phone-header i {
-        font-size: 18px;
-        margin-right: 10px;
-        color: #fff;
-        cursor: pointer;
-    }
-    .preview-chat-section {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        overflow: hidden;
-        object-fit: cover;
-    }
-    .preview-chat-section-chat {
-        padding: 10px;
-        height: auto;
-        max-height: calc(38vh - 10px);
-        overflow-y: auto;
-        background-color: #F1EDE5;
-    }
-    .preview-chat-paragraph {
-        margin-bottom: 10px;
-        font-size: small;
-        word-break: break-all;
-        text-align: left;
-        color: black;
-        background-color: #fff;
-        word-break: break-all;
-        border-radius: 0px 30px 30px 30px;
-
-    }
-    .preview-chat-paragraph>p {
-        word-break: break-all;
-
-
-    }
-    .preview-chat-paragraph1 {
-        margin-bottom: 10px;
-        word-break: break-all;
-        text-align: left;
-        color: black;
-        max-width: '100%';
-        height: 'auto';
-
-    }
-    .preview-chat-paragraph1>* {
-        margin-top: 10px;
-    }
-    .cwt-info-facebook,
-    .cwt-info-whatsapp {
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid rgba(255, 199, 89, 1);
-        background: rgba(255, 199, 89, 0.12);
-        border-radius: 4px;
-    }
-    .cwt-info-whatsapp {
-        background-color: #d4edda;
-        border-color: #c3e6cb;
-    }
-    .cwt-info-facebook p,
-    .cwt-info-whatsapp p {
-        margin: 0;
-        color: #212529;
-        font-size: 12px;
-    }
-    /* .preview-call-button {
-        background-color: #095f54;
-        color: #fff;
-        padding: 10px;
-        text-align: center;
-        cursor: pointer;
-    } */
-    .preview-whatsapp-footer {
-        background-color: #F1EDE5;
-        padding: 10px;
-        text-align: center;
-        cursor: pointer;
-
-    }
-    .whatsapp-footer {
-        display: flex;
-        align-items: center;
-    }
-    .whatsapp-footer input {
-        flex-grow: 1;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        margin-right: 10px;
-    }
-    .whatsapp-footer i {
-        font-size: 18px;
-        margin-right: 10px;
-        color: #095f54;
-        cursor: pointer;
-    }
-    .whatsapp-footer-1 {
-        background-color: #F1EDE5;
-
-    }
-    .audio-icon-tem i {
-        font-size: 18px;
-        color: #095f54;
-        cursor: pointer;
-    }
-    .template-creation-heading {
-        overflow-x: hidden;
-
-
-    }
-    .whatsapp-footer-1 i,
-    .whatsapp-footer-2 i,
-    .whatsapp-footer-3 i {
-        font-size: 18px;
-        color: #095f54;
-        cursor: pointer;
-    }
-    /* .active-side-bar{
-        background-color: red;
-        color: white;
-    } */
     .first-container{
         width: 102px;
     }
@@ -1067,3 +847,80 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <?= $this->include('partials/footer') ?>
+<script>
+         $(document).ready(function () {
+
+            $('.preview-chat-paragraph').hide();
+
+    $('.body_div').on('input', function() {
+            var bodyText = $(this).val();
+
+            if (bodyText === "") {
+                $('.preview-chat-paragraph').hide();
+
+            } else {
+                $('.preview-chat-paragraph').show();
+            }
+
+            $('.preview-chat-paragraph .msg-text-chat').html(bodyText);
+        });
+
+
+        $('.footer_div').on('input', function() {
+            var footerText = $(this).val();
+            if (footerText === "") {
+                $('.preview-chat-paragraph').hide();
+            } else {
+                $('.preview-chat-paragraph').show();
+            }
+
+
+            $('.preview-footer-paragraph .user-name-chat-footer').html(footerText);
+        });
+
+        $('.header_text').on('input', function() {
+            var headerText = $(this).val();
+            if (headerText === "") {
+                $('.preview-chat-paragraph').hide();
+            } else {
+                $('.preview-chat-paragraph').show();
+            }
+
+
+            $('.preview-header-paragraph .user-name-chat-header').html(headerText);
+        });
+
+
+    });
+    $(document).on('click', '#template_data', function(e) {
+        e.preventDefault();
+
+        $("form[name='whatsapp_template_add_edit']")[0].reset();
+
+    });
+
+
+
+
+    $(document).ready(function() {
+        $('.cwt-header-open-box-c').hide();
+        $('.cwt-header-textarea-box').hide();
+
+
+
+        $('#header').change(function() {
+            var selectedOption = $(this).val();
+
+            if (selectedOption === 'TEXT') {
+                $('.cwt-header-open-box-c').hide();
+                $('.cwt-header-textarea-box').show();
+
+            } else {
+                $('.cwt-header-open-box-c').show();
+                $('.cwt-header-textarea-box').hide();
+
+            }
+        });
+    });
+
+</script>
