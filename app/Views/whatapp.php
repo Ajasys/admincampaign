@@ -439,7 +439,7 @@
 </div>
 
 <!-- add model -->
-<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg d-block show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -707,10 +707,12 @@
                         </div>
 
                         <textarea ng-if="selectedHeader === 'TEXT'"
-                            class="full-width cwt-header-textarea-box font-size-12 center-textarea header_text"
+                            class="full-width cwt-header-textarea-box HeaderTextareaDiv font-size-12 center-textarea header_text"
                             ng-model="header_data" rows="3" cols="50" minlength="0" maxlength="60"
                             ng-change="header_text_media(header_data)"
                             placeholder="Type your header text here..."></textarea>
+                            <p class="fs-12 d-flex flex-wrap header_text justify-content-between"><span class="text-start HeaderCharLimitWarning">There is a 60 characters limit
+</span><span class="PTagHeaderCountWord text-end">0</span></p>
 
 
                         <div ng-if="selectedHeader === 'IMAGE' && provider === 'meta'"
@@ -727,15 +729,16 @@
                                     </form>
                                 </div>
                             </div>
-                            <div id="selectedImageName"></div>
+                            <div id="selectedImageName "></div>
                         </div>
 
 
                         <div class="col-12 mb-3">
                             <label for="form-memberships" class="main-label fw-medium">BODY<sup
                                     class="validationn">*</sup></label>
-                            <textarea class="form-control main-control body_div" id="body_id"
+                            <textarea class="form-control main-control BodyCountCharClass body_div" id="body_id"
                                 placeholder="Type Your Body Text Here...{{|}}" name="" required></textarea>
+                            <p class="fs-12 d-flex flex-wrap justify-content-between"><span class="text-start BodyCharLimitWarning">Body character limit is 1024 characters</span><span class="PTagBodyCountWord text-end">0</span></p>
                         </div>
                         <div class="col-12 mb-3">
                             <label for="form-memberships" class="main-label fw-medium">FOOTER<sup
@@ -905,12 +908,8 @@
     $(document).ready(function() {
         $('.cwt-header-open-box-c').hide();
         $('.cwt-header-textarea-box').hide();
-
-
-
         $('#header').change(function() {
             var selectedOption = $(this).val();
-
             if (selectedOption === 'TEXT') {
                 $('.cwt-header-open-box-c').hide();
                 $('.cwt-header-textarea-box').show();
@@ -922,5 +921,38 @@
             }
         });
     });
+
+
+
+    $('.BodyCountCharClass').on('click input', function () {
+        var text = $(this).val();
+        var characterCount = text.length;
+        $('.PTagBodyCountWord').text(characterCount);
+        if(parseInt(characterCount) > 1024){
+            $('.PTagBodyCountWord').addClass('text-danger');
+            $('.BodyCharLimitWarning').addClass('text-danger');
+        }else{
+            $('.PTagBodyCountWord').removeClass('text-danger');
+            $('.BodyCharLimitWarning').removeClass('text-danger');
+        }
+    });
+
+    $('.HeaderTextareaDiv').on('click input', function () {
+        var text = $(this).val();
+        var characterCount = text.length;
+        $('.PTagHeaderCountWord').text(characterCount);
+        if(parseInt(characterCount) > 60){
+            $('.PTagHeaderCountWord').addClass('text-danger');
+            $('.HeaderCharLimitWarning').addClass('text-danger');
+        }else{
+            $('.PTagHeaderCountWord').removeClass('text-danger');
+            $('.HeaderCharLimitWarning').removeClass('text-danger');
+        }
+    });
+
+    
+
+
+
 
 </script>
