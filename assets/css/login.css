@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+*,
+*:before,
+*:after {
+  font-family: 'poppins', sans-serif;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.fs-14{
+  font-size: 14px;
+}
+
+/* login */
+.login-form .container {
+  height: 100vh;
+}
+
+.login-form label {
+  font-size: 14px;
+}
+
+.login-form .signup-btn {
+  color: #9158F8;
+}
+
+.login-form .signup-btn:hover {
+  text-decoration: underline !important;
+}
+
+.login-form .hero-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  background: linear-gradient(-250deg, #4309a7, #9e14b2, #6d38ca, #fe00fe);
+  background-size: 400% 400%;
+  animation: gradientBG 35s linear infinite;
+  animation-direction: alternate;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.login-form .banner-bg {
+  position: absolute;
+  top: 26%;
+  left: 52%;
+  opacity: 0.1;
+  animation: banner-bg 60s linear infinite;
+}
+
+@keyframes banner-bg {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.login-form .row::-webkit-scrollbar {
+  width: 3px;
+  background-color: transparent;
+}
+
+.login-form .row::-webkit-scrollbar-thumb {
+  background-color: #c2a1ff;
+  border-radius: 20px;
+}
+
+.submit {
+  width: 260px;
+  height: 36px;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'poppins', sans-serif;
+  border-radius: 50px;
+  background: -webkit-linear-gradient(left, #F12BB8, #9158F8, #D67FFF);
+  outline: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.login-form .custom-radio input {
+  display: none;
+}
+
+.login-form .custom-radio .pricing {
+  color: #404040;
+  border: 1px solid #fff;
+  height: 100%;
+}
+
+.login-form .custom-radio input:checked+.pricing {
+  background: linear-gradient(-250deg, #833bff, #e84bff);
+  color: #fff;
+}
+
+.login-form .custom-radio .price-1 sub {
+  opacity: 0.75;
+}
+
+.login-form .custom-radio .pricing button {
+  background-color: #ffffff;
+  color: #6d38ca;
+}
+
+.login-form .custom-radio input:checked+.pricing button {
+  background-color: #ffffff;
+  color: #6d38ca;
+}
+
+.login-form .radio-buttons::-webkit-scrollbar {
+  width: 0px;
+  background-color: transparent;
+}
+
+.login-form .radio-buttons::-webkit-scrollbar-thumb {
+  background-color: #c2a1ff;
+  border-radius: 20px;
+}
+
+.login-form .signup {
+  width: 270px;
+  height: 43px;
+  font-size: 17px;
+}
+
+.choose-plan{
+  color: #833bff;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c2a1ff;
+  border-radius: 20px;
+}
+
+.user-num-input .value-button{
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.user-num-input #number{
+  width: 40px;
+  height: 40px;
+  padding: 0px;
+  outline: none;
+}
+
+.user-num-input input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.modal .modal-header{
+  background-color: #833bff;
+}
+.modal .modal-price-1{
+  color: #995dff;
+}
+
+.pass-icon{
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  right: 16px;
+  cursor: pointer;
+}
+
+
+/* extra small-device */
+@media (max-width:575px) {
+
+  .login-form .radio-buttons {
+    overflow: visible;
+  }
+
+  .login-form .radio-buttons,
+  .login-form .container-fluid {
+    height: unset;
+  }
+
+}
+
+/* small-device */
+@media (min-width:576px) {
+
+  .login-form .radio-buttons {
+    overflow: visible;
+  }
+
+  .login-form .radio-buttons,
+  .login-form .container-fluid {
+    height: unset;
+  }
+
+}
+
+/* medium-device */
+@media (min-width:768px) {
+
+  .login-form .radio-buttons {
+    overflow: visible;
+  }
+
+  .login-form .radio-buttons,
+  .login-form .container-fluid {
+    height: unset;
+  }
+
+}
+
+/* large-device */
+@media (min-width:991px) {
+
+  .login-form .radio-buttons {
+    overflow: scroll;
+  }
+
+  .login-form .radio-buttons {
+    height: 100%;
+  }
+
+  .login-form .container-fluid {
+    height: 100vh;
+  }
+
+}
+
+/* extra large device */
+@media (min-width:1200px) {
+
+  .login-form .radio-buttons {
+    overflow: scroll;
+  }
+
+  .login-form .radio-buttons {
+    height: 100%;
+  }
+
+  .login-form .container-fluid {
+    height: 100vh;
+  }
+
+}
+
+/* extra extra large-device */
+@media (min-width:1400px) {
+
+  .login-form .radio-buttons {
+    overflow: visible;
+  }
+
+  .login-form .radio-buttons {
+    height: 100%;
+  }
+
+  .login-form .container-fluid {
+    height: 100vh;
+  }
+}
