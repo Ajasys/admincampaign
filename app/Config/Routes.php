@@ -80,12 +80,21 @@ $routes->post('/edit_data_t', 'Templates_Controller::edit_data_t');
 $routes->post('/update_data_t', 'Templates_Controller::update_data_t');
 $routes->post('template_delete_data', 'Templates_Controller::template_delete_data');
 
+$routes->post('/WhatAppConnectionCheck', 'WhatAppIntegrationController::WhatAppConnectionCheck');
+$routes->post('/SubmitWhatAppIntegrationResponse', 'WhatAppIntegrationController::SubmitWhatAppIntegrationResponse');
+$routes->post('/GetWhatAppIntegrationInformation', 'WhatAppIntegrationController::GetWhatAppIntegrationInformation');
+  
+
+
+
 
 $routes->get('/alert_setting', 'Home::alert_setting');
 $routes->post('/alert_update_data', 'Alertsetting::alert_update_data');
 $routes->post('/insert_data_alert', 'Alertsetting::insert_data');
 
 $routes->get('/add_account', 'Home::add_account');
+$routes->get('/whatapp_connection', 'Home::whatapp_connection');
+
 
 
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');

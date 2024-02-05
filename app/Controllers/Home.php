@@ -45,6 +45,12 @@ class Home extends BaseController
         return view('facebook_connection');
     }
 
+    public function whatapp_connection()
+    {
+        return view('whatapp_connection');
+    }
+    
+
     public function redirect_link()
     {
         if (get_previous_link() != 0) {
@@ -64,7 +70,24 @@ class Home extends BaseController
     }
     public function index()
     {
+        $table_name3 = 'admin_generale_setting';
+        $columns3 = [
+            'id int primary key AUTO_INCREMENT',
+            'Biometric_status int NOT NULL',
+            'biometric_username varchar(200)',
+            'biometric_password text',
+            'biometric_connection int NOT NULL',
+            'corporateid varchar(200)',
+            "whatapp_phone_number_id int(255) NOT NULL",
+            "whatapp_business_account_id int(255) NOT NULL",
+            "whatapp_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
+            "whatapp_verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
+            "whatapp_created_at_account datetime NOT NULL COMMENT 'Whatapp Created At Entry TimeDate '",
+            "facebook_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
 
+            
+        ];
+        $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
 
         $table_username = session_username($_SESSION['username']);
         $table_name11 = $table_username . '_task_status';
