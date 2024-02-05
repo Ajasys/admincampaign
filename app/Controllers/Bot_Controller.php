@@ -454,8 +454,7 @@ class Bot_Controller extends BaseController
 		$table = $this->request->getPost("table");
 
 		$action_name = $this->request->getPost("action");
-		print_r($table);
-		print_r($_POST);
+	
 		if ($this->request->getPost("action") == "insert") {
 			unset($_POST['action']);
 			unset($_POST['table']);
@@ -465,10 +464,10 @@ class Bot_Controller extends BaseController
 				// print_r($_POST);
 				// die(); 
 				$isduplicate = $this->duplicate_data($insert_data, $table);
-				pre($isduplicate);
+		
 				if ($isduplicate == 0) {
 					$response = $this->MasterInformationModel->insert_entry($insert_data, $table);
-					pre($response);
+				
 					$expenses_insertdisplaydata = $this->MasterInformationModel->display_all_records($table);
 					$expenses_insertdisplaydata = json_decode($expenses_insertdisplaydata, true);
 				} else {
