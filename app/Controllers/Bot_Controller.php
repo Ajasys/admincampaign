@@ -463,18 +463,66 @@ class Bot_Controller extends BaseController
 				//$insert_data['image'] = $newName;
 				// print_r($_POST);
 				// die(); 
-				$isduplicate = $this->duplicate_data($insert_data, $table);
+				// $isduplicate = $this->duplicate_data($insert_data, $table);
 		
-				if ($isduplicate == 0) {
-					$response = $this->MasterInformationModel->insert_entry($insert_data, $table);
+				// if ($isduplicate == 0) {
+					$response = $this->MasterInformationModel->insert_entry2($insert_data, $table);
 				
-					$expenses_insertdisplaydata = $this->MasterInformationModel->display_all_records($table);
+					$expenses_insertdisplaydata = $this->MasterInformationModel->display_all_records2($table);
 					$expenses_insertdisplaydata = json_decode($expenses_insertdisplaydata, true);
-				} else {
-					return "error";
-				}
+				// } else {
+				// 	return "error";
+				// }
 			}
 		}
+	}
+
+
+	public function bot_list_data()
+	{
+		
+		$table_name = $_POST['table'];
+		$action = $_POST['action'];
+		$botdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+		$botdisplaydata = json_decode($botdisplaydata, true);
+		$i = 1;
+		$html = "";
+
+		foreach ($botdisplaydata as $key => $value) {
+			// pre($botdisplaydata);
+			$html .= '
+					<div class="col-12 w-100 d-flex flex-wrap p-2">
+                            <div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
+                                <div class="col-10 d-flex flex-wrap align-items-center">
+                                    <label class="text-wrap px-2" for="">
+                                        <p class="fw-semibold">'.$value['question'].'</p>
+                                    </label>
+                                </div>
+                                <div class="col-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-pencil" data-bs-toggle="modal" data-bs-target="#add-email"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-sitemap"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-clone"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary">Users Replay</button>
+                            </div>
+                        </div>';
+		
+		}
+		$result['html'] = $html;
+		echo json_encode($result);
+		die();
 	}
 
     

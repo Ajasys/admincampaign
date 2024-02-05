@@ -492,7 +492,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
 	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
-	
+	$routes->post('bot_insert_data', 'Bot_Controller::bot_insert_data');
+	$routes->post('bot_list_data', 'Bot_Controller::bot_list_data');
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');
