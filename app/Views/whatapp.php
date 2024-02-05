@@ -471,7 +471,7 @@
                         <ul class="d-flex flex-wrap nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
 
                             <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle bg-body-secondary nav-item Tab1Class" role="presentation">
-                                <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" type="button" role="tab" aria-controls="#pills-ex-single-tab" aria-selected="false">
+                                <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" type="button" role="tab" aria-controls="#pills-ex-single-tab" aria-selected="true"> 
                                     <p>
                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                             <g>
@@ -525,13 +525,13 @@
             </div>
             <div class="col p-1">
 
-                <div class="main-dashbord Activeclass p-2 d-none">
-                    <div class="container-fluid p-0">
+                <div class="main-dashbord Activeclass p-2 ">
+                    <div class="container p-0 ms-0">
                         <div class="px-3 py-2 bg-white rounded-2 m-2">
                             <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
 
                                 <li class="nav-item  " role="presentation">
-                                    <button class="nav-link" id="single" data-table="single" DataStatus='3' data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" data-bs-toggle="modal" type="button" role="tab" aria-controls="pills-ex-single-tab" aria-selected="true">Single Template</button>
+                                    <button class="nav-link active" id="single" data-table="single" DataStatus='3' data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" data-bs-toggle="modal" type="button" role="tab" aria-controls="pills-ex-single-tab" aria-selected="true">Single Template</button>
                                 </li>
 
 
@@ -548,10 +548,10 @@
 
 
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show " id="pills-ex-single-tab" role="tabpanel" aria-labelledby="pills-ex-single" tabindex="0">
+                    <div class="tab-pane fade show active" id="pills-ex-single-tab" role="tabpanel" aria-labelledby="pills-ex-single" tabindex="0">
                         <div class="main-dashbord p-2 main-check-class">
 
-                            <div class="container-fluid p-0">
+                            <div class="container p-0 ms-0">
                                 <div class="px-3 py-2 bg-white rounded-2 mx-2">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <div class="title-1">
@@ -568,9 +568,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 justify-content-center container" style="width: 100%;">
+                                <div class="col-12 justify-content-center container ms-0" style="width: 100%;">
                                     <div class="col-12 hello">
-                                        <div class="d-flex flex-wrap align-items-start border p-3 justify-content-center">
+                                        <div class="d-flex flex-wrap align-items-start border p-3 justify-content-center ">
                                             <div class="col-6">
                                                 <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
                                                     <div class="modal-content">
@@ -673,7 +673,7 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show " id="pills-ex-schedule-tab" role="tabpanel" aria-labelledby="pills-ex-schedule" tabindex="0">
                         <div class="main-dashbord p-2 main-check-class">
-                            <div class="container-fluid p-0">
+                            <div class="container p-0 ms-0">
                                 <div class="px-3 py-2 bg-white rounded-2 mx-2">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <div class="title-1">
@@ -847,8 +847,8 @@
 
                 <div class="tab-content">
                     <div class="tab-pane fade " id="pills-ex-view-tab" role="tabpanel" aria-labelledby="pills-ex-view" tabindex="0">
-                        <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap ">
-                            <div class="col-12 d-flex flex-wrap my-2">
+                        <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap  ">
+                            <div class="col-12 d-flex flex-wrap my-2 justify-content-between">
 
                             <div class="col-2 d-flex align-items-center">
                                     <div class="input-group">
@@ -896,9 +896,10 @@
         </div>
 
         <!-- add model -->
-  
+
+
         <!-- view sent msg -->
-<script>
+    <script>
     // ========sidebar-jqury===================
     $('body').on('click','.menu-toggle',function() {
         $(this).addClass('bg-body-secondary');
@@ -972,23 +973,29 @@
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
 <?= $this->include('partials/footer') ?>
 <script>
-    $('body').on('click', '.Tab1Class', function() {
+            $('body').on('click', '.Tab1Class', function() {
 
-        $('.Activeclass').removeClass('d-none');
-        $('#pills-ex-schedule-tab').removeClass('d-none');
+                $('.Activeclass').removeClass('d-none');
+                $('#pills-ex-schedule-tab').removeClass('d-none');
+                $('#pills-ex-single-tab').removeClass('d-none');
 
-        
-    });
-    $('body').on('click', '.Tab2Class', function() {
+                
+            });
+            $('body').on('click', '.Tab2Class', function() {
 
-        $('.Activeclass').addClass('d-none');
-        $('#pills-ex-schedule-tab').addClass('d-none');
+                $('.Activeclass').addClass('d-none');
+                $('#pills-ex-schedule-tab').addClass('d-none');
+                $('#pills-ex-single-tab').addClass('d-none');
 
-    });
-    $('body').on('click', '.Tab3Class', function() {
+                
+            });
+            $('body').on('click', '.Tab3Class', function() {
 
-        $('.Activeclass').addClass('d-none');
-        $('#pills-ex-schedule--tab').addClass('d-none');
+                $('.Activeclass').addClass('d-none');
+                $('#pills-ex-schedule-tab').addClass('d-none');
+                $('#pills-ex-single-tab').addClass('d-none');
 
-    });
-</script>
+                
+
+            });
+        </script>
