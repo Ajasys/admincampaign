@@ -65,8 +65,6 @@ $routes->post('excercise_update_data_master', 'GymMasterController::excercise_up
 // all-diet
 $routes->get('/alldiet', 'Home::alldiet');
 
-
-
 // all-workout
 $routes->get('/allworkout', 'Home::allworkout');
 $routes->post('/masterworkout_list_data', 'workoutController::masterworkout_list_data');
@@ -493,6 +491,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
+	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
+	
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');

@@ -2999,3 +2999,25 @@ if (!function_exists('getCustomMonthDays')) {
         }
     }
 }
+
+function getFacebookData($url, $pageAccessToken)
+{
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
+        ),
+    ));
+    curl_setopt($curl, CURLOPT_URL, $url . '?access_token=' . $pageAccessToken);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
+}

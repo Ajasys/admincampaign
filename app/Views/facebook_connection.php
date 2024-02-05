@@ -5,6 +5,7 @@
     .inti-card {
         transition: all 0.5s;
     }
+
     .inti-card:hover {
         background-color: #E6E7EC !important;
     }
@@ -28,7 +29,7 @@
             <div class="modal-body-card col-4 flex-column justify-content-between mx-4 second-card comon-card position-relative">
                 <form class="needs-validation" name="fb_cnt" method="POST" novalidate="">
                     <div class="row">
-                        <div class="align-items-end d-flex col-12 my-2">
+                        <!-- <div class="align-items-end d-flex col-12 my-2">
                             <div class="col-12">
                                 <h6 class="modal-body-title">Phone Number Id<sup class="validationn">*</sup></h6>
                                 <input type="number" class="form-control main-control" id="phone_number_id" name="phone_number_id" placeholder="Enter Phone Number Id" required="">
@@ -37,10 +38,10 @@
                         <div class="col-12">
                             <h6 class="modal-body-title">Facebook Business Account ID<sup class="validationn">*</sup></h6>
                             <input type="number" class="form-control main-control" id="" name="" placeholder="Enter Facebook Business Account ID" required="">
-                        </div>
+                        </div> -->
                         <div class="col-12">
                             <h6 class="modal-body-title">Access Token<sup class="validationn">*</sup></h6>
-                            <textarea type="text" class="form-control main-control" id="" name="" placeholder="Enter Access Token" required=""></textarea>
+                            <textarea type="text" class="form-control main-control" id="access_token" name="access_token" placeholder="Enter Access Token" required></textarea>
                         </div>
                     </div>
                     <div class="col-12 d-flex justify-content-end ms-2 mt-3 justify-content-right align-items-center">
@@ -70,52 +71,24 @@
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
     $('body').on('click', '.facebook_cnt', function() {
-        var area = $(".area option:selected").val();
-        var int_site = $(".int_site option:selected").val();
-        var sub_type = $(".sub_type option:selected").val();
-        var assign_to = $(".assign_to option:selected").val();
-        var staff_to = $("#staff_to").val();
-        var staff_to = staff_to.join(',');
-        var page_id = $("#facebookpages option:selected").val();
-        var access_token = $("#facebookpages").find("option:selected").attr("data-access_token");
-        var page_name = $("#facebookpages").find("option:selected").attr("data-page_name");
-        var form_id = $("#facebookform option:selected").val();
-        var form_name = $("#facebookform option:selected").text();
-        var edit_id = $(this).attr('edit_id');
-        
-        if (int_site > 0 && assign_to != "" && sub_type > 0 && area > 0) {
+        var access_token = $("#access_token").val();
+        alert(access_token + '-----------');
+
+        if (access_token != '' && access_token > 0) {
             $.ajax({
                 type: "post",
-                url: "<?= site_url('facebook_page'); ?>",
+                url: "<?= site_url('check_fb_connection'); ?>",
                 data: {
-                    action: 'page',
-                    page_id: page_id,
+                    action: 'insert',
                     access_token: access_token,
-                    page_name: page_name,
-                    area: area,
-                    int_site: int_site,
-                    sub_type: sub_type,
-                    assign_to: assign_to,
-                    staff_to:staff_to,
-                    form_name: form_name,
-                    form_id: form_id,
-                    edit_id: edit_id,
                 },
                 success: function(res) {
                     var result = JSON.parse(res);
                     if (result.respoance == 1) {
-                        location.reload();
-                        FB.api('/' + page_id + '/subscribed_apps', 'post', {
-                                access_token: access_token,
-                                subscribed_fields: ['leadgen']
-                            },
-                            function(response) {}
-                        );
                         iziToast.success({
                             title: result.msg,
                         });
                     } else {
-                        location.reload();
                         iziToast.error({
                             title: result.msg,
                         });
@@ -145,6 +118,9 @@
                 } else {
                     $(this).closest("div").removeClass('selectpicker-validation');
                 }
+            });
+            iziToast.error({
+                title: 'Please fill required field..!',
             });
             return false;
         }
