@@ -190,8 +190,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/AddToMasterDiet', 'DietController::AddToMasterDiet');
 	$routes->post('/MainMasterDietView', 'DietController::MainMasterDietView');
 
-	
-	
+
+
 	$routes->post('/Food_delete_data', 'MasterInformation::Food_delete_data');
 	$routes->post('/food_list_request', 'MasterInformation::food_list_request');
 	$routes->post('/Food_request_approve', 'MasterInformation::Food_request_approve');
@@ -205,8 +205,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('show_task_comments', 'MasterInformation::show_task_comments');
 	// exrecise
 
-	
-	
+
+
 
 	$routes->post('/ExerciseRequestListData', 'ExerciseController::ExerciseRequestListData');
 	$routes->post('/master_exercise_update', 'ExerciseController::master_exercise_update');
@@ -480,6 +480,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('send_message_data_conversion', 'clint_support_controller::send_message_data_conversion');
 	$routes->post('searchbar_url', 'clint_support_controller::searchbar_url');
 	$routes->post('update_ticket_status', 'clint_support_controller::update_ticket_status');
+	$routes->get('/whatapp', 'Home::whatapp');
 
 	$routes->get('/messenger_bot', 'Home::messenger_bot');
 	$routes->get('/new_messenger_bot', 'Home::new_messenger_bot');
@@ -488,6 +489,9 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/messeging_bot_list', 'Bot_Controller::messeging_bot_list');
 	$routes->post('/update_data_conversion', 'Bot_Controller::update_data_conversion');
 	$routes->post('messeging_bot_list_data', 'Bot_Controller::messeging_bot_list_data');
+
+	// =====facebook-connection======
+	$routes->get('/facebook_connection', 'Home::facebook_connection');
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');

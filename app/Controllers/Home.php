@@ -1,8 +1,10 @@
 <?php
 namespace App\Controllers;
+
 use App\Models\MasterInformationModel;
+
 class Home extends BaseController
-{   
+{
     protected $db;
     public function __construct()
     {
@@ -19,19 +21,30 @@ class Home extends BaseController
                 $this->get_roll_id_to_roll_duty_var = array();
             }
         }
+    }    public function whatapp(){
+        return view('whatapp');
     }
-    public function emailsend(){
+    public function emailsend()
+    {
         return view('emailsend');
     }
-    public function create(){
+    public function create()
+    {
         return view('create');
     }
-    public function posts(){
+    public function posts()
+    {
         return view('posts');
     }
-    public function add_account(){
+    public function add_account()
+    {
         return view('add_accounts');
     }
+    public function facebook_connection()
+    {
+        return view('facebook_connection');
+    }
+
     public function redirect_link()
     {
         if (get_previous_link() != 0) {
@@ -50,9 +63,9 @@ class Home extends BaseController
         }
     }
     public function index()
-    {   
-        
-       
+    {
+
+
         $table_username = session_username($_SESSION['username']);
         $table_name11 = $table_username . '_task_status';
         $columns = [
@@ -62,7 +75,7 @@ class Home extends BaseController
             'user_id int(255) NULL DEFAULT NULL',
         ];
         $tables = tableCreateAndTableUpdate2($table_name11, '', $columns);
-       
+
         $table_name118 = $table_username . '_task_comments';
         $columns = [
             'id int primary key AUTO_INCREMENT',
@@ -102,7 +115,7 @@ class Home extends BaseController
             'created_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()',
             'updated_at timestamp NULL DEFAULT NULL',
         ];
-      
+
         $tasktable = tableCreateAndTableUpdate2($table_name10, '', $columns);
         $table_notes = $table_username . '_notes';
         $columns_notes = [
@@ -173,7 +186,7 @@ class Home extends BaseController
             'chatting longtext',
             'status varchar(500) NOT NULL',
         ];
-        tableCreateAndTableUpdate2($table_username .'_messeging_bot', '', $columns_mesures);
+        tableCreateAndTableUpdate2($table_username . '_messeging_bot', '', $columns_mesures);
         return view('messenger_bot');
     }
 
@@ -190,18 +203,18 @@ class Home extends BaseController
     public function manage_audience()
     {
         $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_type');
-            $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_source');
-            // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
-            $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
-            $data['admin_user'] = $this->MasterInformationModel->display_all_records2('admin_user');
-            // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
-            // $data['project_management_type'] = $this->MasterInformationModel->display_all_records('project_management_type');
-            $data['admin_subscription_master'] = $this->MasterInformationModel->display_all_records2('admin_subscription_master');
-            $data['admin_product'] = $this->MasterInformationModel->display_all_records2('admin_product');
-            $data['master_inquiry_close'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_close');
-            $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
-            $data['user_data'] = $this->MasterInformationModel->display_all_records2('admin_user');
-        return view('manage_audience' , $data);
+        $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_source');
+        // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
+        $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
+        $data['admin_user'] = $this->MasterInformationModel->display_all_records2('admin_user');
+        // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
+        // $data['project_management_type'] = $this->MasterInformationModel->display_all_records('project_management_type');
+        $data['admin_subscription_master'] = $this->MasterInformationModel->display_all_records2('admin_subscription_master');
+        $data['admin_product'] = $this->MasterInformationModel->display_all_records2('admin_product');
+        $data['master_inquiry_close'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_close');
+        $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
+        $data['user_data'] = $this->MasterInformationModel->display_all_records2('admin_user');
+        return view('manage_audience', $data);
     }
     public function integration()
     {
@@ -217,21 +230,23 @@ class Home extends BaseController
     }
     public function payment_method()
     {
-            return view('payment_method');
+        return view('payment_method');
     }
     public function user_demo()
     {
         if (in_array('subscription_check', $this->get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
             $data['product'] = $this->MasterInformationModel->display_all_records2('admin_product', 'ASC');
-            return view('demo_user',$data);
+            return view('demo_user', $data);
         } else {
             return redirect()->to($this->redirect_link());
         }
     }
-    public function add_data_module(){
+    public function add_data_module()
+    {
         return view('add_data_module');
     }
-    public function data_module(){
+    public function data_module()
+    {
         return view('data_module');
     }
     public function sign_up()
@@ -246,7 +261,7 @@ class Home extends BaseController
     {
         if (in_array('discount_check', $this->get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
             $data['type'] = $this->MasterInformationModel->display_all_records2('admin_product', 'ASC');
-            return view('coupon',$data);
+            return view('coupon', $data);
         } else {
             return redirect()->to($this->redirect_link());
         }
@@ -366,7 +381,7 @@ class Home extends BaseController
     }
     public function exercise_type()
     {
-        return view('exercise-type');   
+        return view('exercise-type');
     }
     public function alert_sms()
     {
@@ -436,33 +451,33 @@ class Home extends BaseController
     {
         // if (((isset($_SESSION['admin']) && $_SESSION['admin'] == 1) || $status_value === 1)) {
         //     if (in_array('task_manage', $this->get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
-                // food type table data fetch
-                $username = session_username($_SESSION['username']);
-                $data['task_status'] = $this->MasterInformationModel->display_all_records2('admin_task_status', 'ASC');
-                $data1['task_status_one'] = $this->MasterInformationModel->display_all_records2('admin_task_status', 'ASC');
-                // $data2['task_status_two'] = $this->MasterInformationModel->display_all_records($table_username . "_" .'task_priority','ASC');
-                // $data3['task_status_three'] = $this->MasterInformationModel->display_all_records($table_username . "_" .'task_priority','ASC');
-                $dataBs = \Config\Database::connect('second');
-                $getchild = '';
-                $getchild = getChildIds($_SESSION['id']);
-                if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
-                    $userCon = '';
-                } else {
-                    if (!empty($getchild)) {
-                        $getchilds = "'" . implode("', '", $getchild) . "'";
-                    } else {
-                        $getchilds = "'" . $_SESSION['id'] . "'";
-                    }
-                    $userCon = "  AND (id=" . $_SESSION['id'] . "  OR  id IN (" . $getchilds . "))";
-                }
-                $sql_comment = "SELECT * FROM " . $username . "_user WHERE head != 0 " . $userCon . " ORDER BY id DESC";
-                $result_comment = $dataBs->query($sql_comment);
-                $departmentdisplaydata = $result_comment->getResultArray();
-                $data4['user'] = $departmentdisplaydata;
-                return view('task', $data + $data1 + $data4);
-            // } else {
-            //     return redirect()->to($this->redirect_link());
-            // }
+        // food type table data fetch
+        $username = session_username($_SESSION['username']);
+        $data['task_status'] = $this->MasterInformationModel->display_all_records2('admin_task_status', 'ASC');
+        $data1['task_status_one'] = $this->MasterInformationModel->display_all_records2('admin_task_status', 'ASC');
+        // $data2['task_status_two'] = $this->MasterInformationModel->display_all_records($table_username . "_" .'task_priority','ASC');
+        // $data3['task_status_three'] = $this->MasterInformationModel->display_all_records($table_username . "_" .'task_priority','ASC');
+        $dataBs = \Config\Database::connect('second');
+        $getchild = '';
+        $getchild = getChildIds($_SESSION['id']);
+        if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+            $userCon = '';
+        } else {
+            if (!empty($getchild)) {
+                $getchilds = "'" . implode("', '", $getchild) . "'";
+            } else {
+                $getchilds = "'" . $_SESSION['id'] . "'";
+            }
+            $userCon = "  AND (id=" . $_SESSION['id'] . "  OR  id IN (" . $getchilds . "))";
+        }
+        $sql_comment = "SELECT * FROM " . $username . "_user WHERE head != 0 " . $userCon . " ORDER BY id DESC";
+        $result_comment = $dataBs->query($sql_comment);
+        $departmentdisplaydata = $result_comment->getResultArray();
+        $data4['user'] = $departmentdisplaydata;
+        return view('task', $data + $data1 + $data4);
+        // } else {
+        //     return redirect()->to($this->redirect_link());
+        // }
         // } else {
         //     return view('attendance');
         // }
@@ -470,16 +485,16 @@ class Home extends BaseController
     public function site_visit()
     {
         if (in_array('demo_register', $this->get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
-        $username = session_username($_SESSION['username']);
-        $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2($username.'_master_inquiry_type');
-        $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2($username.'_master_inquiry_source');
-        $data['master_inquiry_close'] = $this->MasterInformationModel->display_all_records2($username.'_master_inquiry_close');
-        $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
-        $data['admin_product'] = $this->MasterInformationModel->display_all_records2('admin_product');
-        return view('demo_register', $data);
-            } else {
-                return redirect()->to($this->redirect_link());
-            }
+            $username = session_username($_SESSION['username']);
+            $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2($username . '_master_inquiry_type');
+            $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2($username . '_master_inquiry_source');
+            $data['master_inquiry_close'] = $this->MasterInformationModel->display_all_records2($username . '_master_inquiry_close');
+            $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
+            $data['admin_product'] = $this->MasterInformationModel->display_all_records2('admin_product');
+            return view('demo_register', $data);
+        } else {
+            return redirect()->to($this->redirect_link());
+        }
     }
     public function attendance_2()
     {
@@ -740,7 +755,7 @@ class Home extends BaseController
     }
     public function login()
     {
-      
+
         return view('auth-login/login');
     }
     public function signup()
@@ -768,11 +783,11 @@ class Home extends BaseController
     public function conversion()
     {
         if (in_array('subscription_register_conversion_register', $this->get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
-        $username = session_username($_SESSION['username']);
-        // $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
-        // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
-        // $data['project_name'] = $this->MasterInformationModel->display_all_records($username . '_project');
-        return view('subscription-register');
+            $username = session_username($_SESSION['username']);
+            // $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
+            // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
+            // $data['project_name'] = $this->MasterInformationModel->display_all_records($username . '_project');
+            return view('subscription-register');
         } else {
             return redirect()->to($this->redirect_link());
         }
@@ -780,13 +795,13 @@ class Home extends BaseController
     public function conversion_request()
     {
         if (in_array('subscription_request_register_conversion_register', $this->get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
-        // $status_value = attendance_page();
-        // if (((isset($_SESSION['admin']) && $_SESSION['admin'] == 1) || $status_value === 1)) {
-        // $username = session_username($_SESSION['username']);
-        // $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
-        // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
-        // $data['project_name'] = $this->MasterInformationModel->display_all_records($username . '_project');
-        return view('subscription-request');
+            // $status_value = attendance_page();
+            // if (((isset($_SESSION['admin']) && $_SESSION['admin'] == 1) || $status_value === 1)) {
+            // $username = session_username($_SESSION['username']);
+            // $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
+            // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
+            // $data['project_name'] = $this->MasterInformationModel->display_all_records($username . '_project');
+            return view('subscription-request');
         } else {
             return redirect()->to($this->redirect_link());
         }
