@@ -200,15 +200,22 @@
                                                                 type="file" style="background:#F3F3F3;">
                                                                 Click or Drag & Drop Media
                                                             </button>
-                                                            <div class="row col-12">
-                                                                <div class="col-md-4 my-1 ">
-                                                                    <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
+                                                            <div class="row col-12 align-items-center ">
+                                                                <div class="col-6 d-flex justify-content-center align-items-center ">
+                                                                    <div style="width:200px;height:200px">
+                                                                        <img src="https://qph.cf2.quoracdn.net/main-qimg-753a324dc6ba1c6b941e2a1d3417b885" alt="#" class="w-100 h-100">
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
-                                                                    <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
-                                                                </div>
-                                                                <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
-                                                                    <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
+                                                                <div class="col-6">
+                                                                    <div class="col-md-12 my-2 ">
+                                                                        <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
+                                                                    </div>
+                                                                    <div class="col-md-12 my-2 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
+                                                                        <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
+                                                                    </div>
+                                                                    <div class="col-md-12 my-2 u-margin-bottom-10 undefined">
+                                                                        <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
