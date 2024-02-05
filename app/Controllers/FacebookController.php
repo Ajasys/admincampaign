@@ -34,30 +34,30 @@ class FaceBookController extends BaseController
         $action = $this->request->getPost("action");
         $access_token = $this->request->getPost("access_token");
 
-        $result = getFacebookData('https://graph.facebook.com/v17.0/me/accounts', $access_token);
+        $result = getFacebookData('https://graph.facebook.com/v19.0/me/accounts', $access_token);
         $result_array['response'] = 0;
-        $result_array['message'] = 'Something Went Wrong !';
+        $result_array['message'] = isset($result['error']['message']);
 
-        if($result['name'] && $result['id'] && $result['access_token'])
+        if(isset($result['data']) && is_array($result['data']) && $result['data']!='')
         {
-            $ColumnSocialMediaIntegrationData = [
-                "facebook_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
-            ];
-            tableCreateAndTableUpdate2('admin_generale_setting', '', $ColumnSocialMediaIntegrationData);
-            if (!empty($action) && $action == "insert") {
-
+            // print_r($result['data']);
+            $numberOfPages = count($result['data']);
+            // print_r($numberOfPages);
+            if($numberOfPages>0)
+            {
+                $ColumnSocialMediaIntegrationData = [
+                    "facebook_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
+                ];
+                tableCreateAndTableUpdate2('admin_generale_setting', '', $ColumnSocialMediaIntegrationData);
+                
                 $update_data['facebook_access_token'] = $access_token;
-                $departmentUpdatedata = $this->MasterInformationModel->update_entry($_SESSION['id'], $update_data, 'admin_generale_setting');
+                $departmentUpdatedata = $this->MasterInformationModel->update_entry2(1, $update_data, 'admin_generale_setting');
                 
                 $result_array['response'] = 1;
                 $result_array['message'] = 'Facebook connected successfully..!';
-            } else {
-                $update_data['facebook_access_token'] = $access_token;
-                $departmentUpdatedata = $this->MasterInformationModel->update_entry($_SESSION['id'], $update_data, 'admin_generale_setting');
-                
-                $result_array['response'] = 1;
-                $result_array['message'] = 'Facebook connected successfully..!';
+        
             }
+        
         }
 
         echo json_encode($result_array, true);

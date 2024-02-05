@@ -67,35 +67,35 @@
 
 
     
-     let editor_add;
-    ClassicEditor
-    ClassicEditor.create(document.querySelector('#editor_add'), {
-        toolbar: {
-            items: [
-                'undo',
-                'redo',
-                '|',
-                'heading',
-                '|',
-                'bold',
-                'italic',
-                '|',
-                'bulletedList',
-                'numberedList',
-                '|',
-                'insertTable',
-                'Blockquote',
-                'outdent',
-                'indent'
-            ],
-            shouldNotGroupWhenFull: false
-        },
-        language: 'en'
-    })
-        .then(instance => {
-            editor_add = instance;
-        })
-        .catch(error => { });
+    //  let editor_add;
+    // ClassicEditor
+    // ClassicEditor.create(document.querySelector('#editor_add'), {
+    //     toolbar: {
+    //         items: [
+    //             'undo',
+    //             'redo',
+    //             '|',
+    //             'heading',
+    //             '|',
+    //             'bold',
+    //             'italic',
+    //             '|',
+    //             'bulletedList',
+    //             'numberedList',
+    //             '|',
+    //             'insertTable',
+    //             'Blockquote',
+    //             'outdent',
+    //             'indent'
+    //         ],
+    //         shouldNotGroupWhenFull: false
+    //     },
+    //     language: 'en'
+    // })
+    //     .then(instance => {
+    //         editor_add = instance;
+    //     })
+    //     .catch(error => { });
 
     // global search 
 

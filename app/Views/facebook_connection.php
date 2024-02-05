@@ -45,8 +45,10 @@
                         </div>
                     </div>
                     <div class="col-12 d-flex justify-content-end ms-2 mt-3 justify-content-right align-items-center">
-                        <a href="<?= base_url('integration') ?>"><button type="button" class="btn-secondary mx-0" id="cancel" name="">Cancel</button></a>
-                        <button type="button facebook_cnt" class="btn-primary mx-2" id="facebook_cnt" name="">Submit</button>
+                        <a href="<?= base_url('integration') ?>">
+                            <button type="button" class="btn-secondary mx-0" id="cancel" name="">Cancel</button>
+                        </a>
+                        <div type="button facebook_cnt" class="btn-primary mx-2" id="facebook_cnt" name="">Submit</div>
                         <!-- <span class="whatapp_verification_status_class mx-1" id="basic-addon2">
                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 2.54 2.54" style="enable-background:new 0 0 512 512" xml:space="preserve" fill-rule="evenodd" class="">
                                 <g>
@@ -70,11 +72,12 @@
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-    $('body').on('click', '.facebook_cnt', function() {
+    $('body').on('click', '#facebook_cnt', function() {
+        // alert('hiii');
         var access_token = $("#access_token").val();
-        alert(access_token + '-----------');
+        // alert(access_token + '-----------');
 
-        if (access_token != '' && access_token > 0) {
+        if (access_token != '') {
             $.ajax({
                 type: "post",
                 url: "<?= site_url('check_fb_connection'); ?>",

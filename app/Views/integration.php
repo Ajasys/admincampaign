@@ -1,6 +1,18 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
-<?php $table_username = getMasterUsername(); ?>
+
+<?php
+$table_username = getMasterUsername();
+$db_connection = \Config\Database::connect('second');
+$query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+$result = $db_connection->query($query90);
+$total_dataa_userr_22 = $result->getResult();
+if (isset($total_dataa_userr_22[0])) {
+    $settings_data = get_object_vars($total_dataa_userr_22[0]);
+} else {
+    $settings_data = array();
+}
+?>
 <style>
     .inti-card {
         transition: all 0.5s;
@@ -40,7 +52,21 @@
                                                         opacity="1" data-original="#9b9b9b"></path>
                                                 </g>
                                             </svg> -->
-                                            <span class="fw-bold  text-danger  px-2 py-1 rounded-pill " style="font-size:10px">Disconnected</span>
+                                            <?php
+                                            if(isset($settings_data['facebook_access_token']) && $settings_data['facebook_access_token']!='')
+                                            {
+                                                ?>
+                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">connected</span>
+                                                <?php
+                                            }
+                                            else
+                                            {
+                                                ?>
+                                                 <span class="fw-bold  text-danger  px-2 py-1 rounded-pill " style="font-size:10px">Disconnected</span>
+                                                <?php
+                                            }
+                                            ?>
+                                           
                                         </div>
                                         <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -54,11 +80,28 @@
                                                 </g>
                                             </svg>
                                             <h5 class="text-center col-12 text-dark text-center mt-2">Facebook</h5>
-                                            <a href="<?= base_url('facebook_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a>
+                                            <?php
+                                            if($settings_data['facebook_access_token']=='')
+                                            {
+                                                ?>
+                                                 <a href="<?= base_url('facebook_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a>
+                                                <?php
+                                            }
+                                            ?>
+                                           
                                         </div>
-                                        <div class="d-flex justify-content-end p-2">
-                                            <button class="border-0 bg-transparent "><i class="fa-solid fa-pencil"></i></button>
-                                        </div>
+                                        <?php
+                                            if(isset($settings_data['facebook_access_token']) && $settings_data['facebook_access_token']!='')
+                                            {
+                                                ?>
+                                                <div class="d-flex justify-content-end p-2">
+                                                <a href="<?= base_url('facebook_connection') ?>"><button class="border-0 bg-transparent "><i class="fa-solid fa-pencil"></i></button></a>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
+                                           
+                                        
                                     </div>
                                 </div>
                                 <div class=" d-flex justify-content-center col-3">
@@ -77,7 +120,7 @@
                                                         opacity="1" data-original="#9b9b9b"></path>
                                                 </g>
                                             </svg> -->
-                                            <span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">Connected</span>
+                                            <span class="fw-bold  text-success  px-2 py-1 rounded-pill" style="font-size:10px">Connected</span>
                                         </div>
                                         <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
