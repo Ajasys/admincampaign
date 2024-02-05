@@ -482,6 +482,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/whatapp', 'Home::whatapp');
 
 	$routes->get('/messenger_bot', 'Home::messenger_bot');
+	$routes->get('/bot', 'Home::bot');
 	$routes->get('/new_messenger_bot', 'Home::new_messenger_bot');
 	$routes->get('/bot_setup', 'Home::bot_setup');
 	$routes->post('/messenging_bot_insert_data', 'Bot_Controller::messenging_bot_insert_data');
