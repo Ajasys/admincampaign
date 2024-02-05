@@ -832,11 +832,11 @@
                                                 <th class="template-creation-heading">Category</th>
                                                 <th class="template-creation-heading" style="max-width: 400px;">Preview</th>
                                                 <th class="template-creation-heading ">Language</th>
-
                                                 <th class="template-creation-heading text-center text-left">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="memberships_list">
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -896,7 +896,7 @@
         </div>
 
         <!-- add model -->
-        <div class="modal fade modal-lg show d-block" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade modal-lg " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -1214,28 +1214,31 @@
                                 <label for="form-memberships" class="main-label">BUTTON<sup
                                         class="validationn">*</sup></label>
                                 <div class="main-selectpicker">
-                                    <select class="selectpicker form-control main-control header_div" id="Button" name="Button"
+                                    <select class="selectpicker form-control main-control header_div" id="Button_make_picker" name="Button"
                                         ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
-                                        <option class="dropdown-item"  value="">Please select button type</option>
-                                        <option class="dropdown-item" value="TEXT">Quick reply</option>
-                                        <option class="dropdown-item" value="IMAGE">Call to action</option>
+                                        <option class="dropdown-item"  value="0" >Please select button type</option>
+                                        <option class="dropdown-item" value="Quick">Quick reply</option>
+                                        <option class="dropdown-item" value="Call">Call to action</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 my-3">
-                                <button class="btn btn-primary " ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</button>
+                                <button class="btn btn-primary Button_make" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</button>
                             </div>
                             <!-- quck replay -->
-                            <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative ">
-                                <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
-                                <textarea class="form-control main-control col " placeholder="Start typing button label here..."cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
-                                <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2"><i class="fa-solid fa-trash-can"></i></button>
-                            </div> -->
-                            <div class="col-12">
-                                <div class="col-12 d-flex flex-wrap link_buttons_emove">
+                            <div class=" button_link1 remove-data d-none">
+                                <div class="col-12 d-flex flex-wrap align-items-center position-relative ">
+                                    <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
+                                    <textarea class="form-control main-control col " placeholder="Start typing button label here..."cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
+                                    <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                            <!--call-replay-->
+                            <div class="col-12  button_link2 d-none">
+                                <div class="col-12 d-flex flex-wrap remove-data">
                                     <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
                                         <span class="fs-10">Url Button</span>
-                                        <button class="bg-transparent border-0 mx-2 end-0 me-2"><i class="fa-solid fa-trash-can"></i></button>
+                                        <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
                                     </div>
                                     <div class="col-12 border rounded-2 p-2">
                                         <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..."cols="1" rows="1" required="" ></textarea>
@@ -1249,10 +1252,10 @@
                                     </div>
 
                                 </div>
-                                <div class="col-12 d-flex flex-wrap my-2 link_buttons">
+                                <div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data">
                                     <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
                                         <span class="fs-10">Url Button</span>
-                                        <button class="bg-transparent border-0 mx-2 end-0 me-2"><i class="fa-solid fa-trash-can"></i></button>
+                                        <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
                                     </div>
                                     <div class="col-12 border rounded-2 p-2 ">
                                         <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..."cols="1" rows="1" required="" ></textarea>
@@ -1374,9 +1377,6 @@
             $(this).closest('.header-jqury').children('.text-comment').addClass('d-none');
         }   
     });
-    // =======button-link======
-    $('body').on('click')
-
 
     $('.body_div').on('input', function() {
             var bodyText = $(this).val();
@@ -1415,7 +1415,31 @@
 
             $('.preview-header-paragraph .user-name-chat-header').html(headerText);
         });
-   
+        
+            // =======button-link======
+        $('body').on('click','.Button_make',function(){
+            alert('nkls');
+            var  b = $('#Button_make_picker').val();
+            if(b == 'Quick'){
+                $('.button_link1').removeClass('d-none');
+                $('.button_link2').addClass('d-none');
+            }
+            else if(b == 'Call'){
+                $('.button_link2').removeClass('d-none');
+                $('.button_link1').addClass('d-none');
+            } 
+            else{
+                $('#button_link1').addClass('d-none');
+                $('#button_link2').addClass('d-none');
+            }
+        });
+        // ======remove-data======
+        $('body').on('click','.trash_section',function() {
+            $(this).closest('.remove-data').remove();
+        })
+
+       
+
     
 </script>   
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
