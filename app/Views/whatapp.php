@@ -850,48 +850,61 @@ $language_name = json_decode($language_name, true);
 
                 <div class="tab-content">
                     <div class="tab-pane fade " id="pills-ex-view-tab" role="tabpanel" aria-labelledby="pills-ex-view" tabindex="0">
-                        <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap  ">
-                            <div class="col-12 d-flex flex-wrap my-2 justify-content-between">
+                    <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex justify-content-between align-items-center mt-3">
+                <div class="input-group me-5">
+                        <input type="text" name="phone" class="form-control" placeholder="Phone....">
+                        <button class="btn btn-light"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <div class="input-group me-5">
+                        <input type="text" name="select-date" class="form-control" placeholder="Select Date">
+                        <button class="btn btn-light"><i class="fa-regular fa-calendar-days"></i></button>
+                </div>
+                <select name="Templates" class="form-select me-5">
+                            <option value="">Templates</option>
+                </select>
+                <select name="Status" class="form-select me-5">
+                            <option value="">Status</option>
+                </select>
 
-                                <div class="col-2 d-flex align-items-center">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="phone..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <button class="btn btn-outline-secondary border" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
-                                    </div>
-                                </div>
-
-                                <div class="col-5 d-flex flex-wrap align-items-center justify-content-end float-end ">
-                                    <div class="col-5 px-2">
-                                        <button type="button" class="btn-primary CancleBtn me-2  w-100" data-bs-dismiss="modal" data-bs-toggle="modal" id="cancel" data-delete_id=""><i class="bi bi-arrow-repeat"></i> Sync with Facebook</button>
-                                    </div>
-
-                                    <div class="col-1 px-2">
-                                        <button class="btn-primary-rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="bi bi-plus PlusButtonDiv" id="plus_btn"></i>
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="px-3 py-2 bg-white rounded-2 mx-2">
-                                    <table id="memberships_table" class="w-100 m-memberships table table-striped dt-responsive nowrap master_memberships_insert main-table">
-                                        <thead>
-                                            <tr class="th-header-noborder">
-                                                <th class="template-creation-heading">Name <i class="fa fa-sort p-l-10" ng-class="{'lblue' : temOrderBy == 'name' || temOrderBy == '-name'}" ng-click="setTemorder('name')" role="button" tabindex="0"></i></th>
-                                                <th class="template-creation-heading">Category</th>
-                                                <th class="template-creation-heading" style="max-width: 400px;">Preview</th>
-                                                <th class="template-creation-heading ">Language</th>
-
-                                                <th class="template-creation-heading text-center text-left">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="memberships_list">
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                <button class="btn btn-primary col-2">View Data</button>
+                 </div>
+                <table class="table whatsapp-table">
+                
+                <thead>
+                        <th>Receiver Number</th>
+                        <th>Template Name</th>
+                        <th >Whatsapp Message id</th>
+                        <th>Status</th>
+                        <th>WhatsApp Response</th>
+                        <th>Created At</th>
+                    </thead>
+                   
+                    <tbody >
+                       <tr>
+                            <td class="whatsapp-col">917016045</td>
+                            <td>offer1</td>
+                            <td ><div id="whatsapp-meassage">dsfddddddddddddddddddddddddddddddddddddddddddddddddjfdfgeigg</div></td>
+                            <td>read</td>
+                            <td>success</td>
+                            <td>01 feb 2024 17:45:34</td>
+                            </tr>
+                    </tbody>
+                   
+                    <tbody class="border rounded-5 px-4 py-3 bg-white"> 
+                      <tr>
+                        
+                            <td class="whatsapp-col">917016045</td>
+                            <td>offer1</td>
+                            <td ><div id="whatsapp-meassage">dsfjfdfgeiojdjdjfgdijgijgg<div></td>
+                            <td>read</td>
+                            <td>success</td>
+                            <td>01 feb 2024 17:45:34</td>
+                           </tr>
+                            </tbody>        
+                </table>
+        
+                    </div>
+                </div>
                     </div>
                 </div>
 
