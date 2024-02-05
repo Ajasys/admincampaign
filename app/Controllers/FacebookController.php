@@ -34,7 +34,27 @@ class FaceBookController extends BaseController
         $action = $this->request->getPost("action");
         $access_token = $this->request->getPost("access_token");
 
-        $result = getFacebookData('https://graph.facebook.com/v19.0/me/accounts', $access_token);
+        // $result = getFacebookData('https://graph.facebook.com/v19.0/me/accounts', $access_token);
+        $url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token;
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
+            ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $result = json_decode($response, true);
+        print_r($result);
         $result_array['response'] = 0;
         $result_array['message'] = isset($result['error']['message']);
 
