@@ -7,6 +7,15 @@
     textarea:focus {
         outline: none;
     }
+    li {
+        cursor: pointer;
+        padding: 10px;
+        border-bottom: 2px solid transparent;
+        }
+        
+    li.active {
+    border-color: #724ebf;
+    }
 </style>
 
 
@@ -39,12 +48,12 @@
                     <div class="card-header col-12 border rounded-3 bg-white d-flex flex-column flex-wrap justify-content-between h-100">
                         <div class="col-12  border-bottom ">
                             <div class="border-bottom p-3 col-12">
-                                <button class="border bg-transparent px-3 py-2 rounded-2 text-muted">Add lable</button>
+                                <button class="border bg-transparent px-3 py-2 rounded-2 text-muted">Add label</button>
                             </div>
                             <div class="col-12 ">
                                 <nav class="nav">
                                     <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
-                                        <li class="nav-item" role="presentation">
+                                        <li class="nav-item active" role="presentation">
                                             <a class="nav-link bg-white text-primary " id="pills-master-diet" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Update</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
@@ -59,7 +68,7 @@
                                     </ul>
                                 </nav>
                                 <div class="col-12">
-                                    <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-content active show" id="pills-tabContent">
                                         <div class="tab-pane fade" id="pills-master-diet-tab" role="tabpanel" aria-labelledby="update-all-tab-modal" tabindex="0">
                                             <div class="col-12  tab-compo">
                                                 <div class="card-body p-2">
@@ -120,13 +129,13 @@
                                                     <div class="col-6 my-1 p-1">
                                                         <div class="col-12">
                                                             <input type="text" class="form-control p-2 offer_start_date"
-                                                                id="event_title" placeholder="Start Date">
+                                                                id="event_start_date" placeholder="Start Date">
                                                         </div>
                                                     </div>
                                                     <div class="col-6 my-1 p-1">
                                                         <div class="col-12">
-                                                            <input type="text" class="form-control p-2 offer_end_date"
-                                                                id="event_title" placeholder="End Date">
+                                                            <input type="text" class="form-control p-2 event_end_date"
+                                                                id="event_end" placeholder="End Date">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 my-1 p-1">
@@ -140,9 +149,7 @@
                                                                 Click or Drag & Drop Media
 
                                                             </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 mx-1 my-2 col-md-4 col-sm-6">
+                                                            <div class="col-lg-3 mx-1 my-2 col-md-4 col-sm-6">
                                                         <div class="main-selectpicker">
                                                             <select id="approx_buy" name="approx_buy" class="selectpicker form-control form-main" data-live-search="true" required>
                                                                 <i class="fa-solid fa-caret-down"></i>
@@ -156,6 +163,9 @@
                                                             </select>
                                                         </div>
                                                     </div>
+                                                        </div>
+                                                    </div>
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -165,7 +175,7 @@
                                                 <div class="col-12 my-1 p-1">
                                                         <div class="col-12">
                                                             <input type="text" class="form-control p-2" id="event_title"
-                                                                placeholder="Event Title">
+                                                                placeholder="Offer Title">
                                                         </div>
                                                     </div>
                                                     <div class="col-6 my-1 p-1">
@@ -185,25 +195,25 @@
                                                             <textarea cols="30" rows="5" class="col-12 border-0"
                                                                 placeholder="Write something or use shortcodes, spintax..... "></textarea>
                                                             <button
-                                                                class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted "
+                                                                class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted mb-2 "
                                                                 data-bs-toggle="modal" data-bs-target="#get_file"
                                                                 type="file" style="background:#F3F3F3;">
                                                                 Click or Drag & Drop Media
-
                                                             </button>
+                                                            <div class="row col-12">
+                                                                <div class="col-md-4 my-1 ">
+                                                                    <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
+                                                                </div>
+                                                                <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
+                                                                    <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
+                                                                </div>
+                                                                <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
+                                                                    <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row col-12">
-                                                        <div class="col-md-4 my-1 ">
-                                                            <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
-                                                        </div>
-                                                        <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
-                                                            <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
-                                                        </div>
-                                                        <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
-                                                            <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
-                                                        </div>
-                                                    </div>
+                                                  
 
                                                 </div>
                                             </div>
@@ -218,23 +228,23 @@
                             </div>
                         </div>
                         <div class="card-footer border-top p-2 px-4 d-flex  align-content-center flex-wrap">
-                            <div class="col-4">
+                        <div class="col-4">
                                 <button class="bg-transparent border-0 text-muted">
                                     <i class="fa-regular fa-clone me-2 "></i>Bulk Option
                                 </button>
                             </div>
                             <div class="col-8 d-flex  flex-wrap justify-content-end ">
-                                <button class="btn bg-transparent border text-muted mx-1">
+                                <button class="btn btn-outline-secondary mx-1">
                                     Draft
                                 </button>
-                                <button class="btn bg-transparent border border-primary text-primary mx-1">
+                                <button class="btn btn-primary mx-1">
                                     Publish
                                 </button>
-                                <button class="btn bg-transparent border text-info mx-1 border-info Scedual_start_date">
+                                <button class="btn btn-secondery mx-1 Scedual_start_date">
                                     Scedual
                                 </button>
-                                <div class="btn-group dropup">
-                                    <button type="button" class="btn bg-transparent border rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="btn-group dropup btn-outline-dark mx-1">
+                                    <button type="button" class="btn btn-outline-dark rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-solid fa-angle-up"></i>
                                     </button>
                                     <ul class="dropdown-menu">
@@ -247,56 +257,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-4">
-                    <div class="col-12 border rounded-3 bg-white p-4">
-                        <div class="u-align-children-vertically u-margin-bottom-5">
-                            <h5 class="isBold textColorHeadline">
-                                Post Preview<i class="bi bi-info-circle mx-2"></i>
-                            </h5>
-                            <span data-toggle="tooltip" id="tooltip3069" data-html="true" data-delay="{&quot;show&quot;: &quot;100&quot;}" data-placement="right" data-original-title="Links will only be shortened on post creation and the published post may look slightly different. Click to learn more." class="default-tooltip u-margin-left-5 u-top-1">
-                                    <a class="isHoveredBlue500" href="https://publer.io/blog/preview-your-social-media-posts" target="_blank" tabindex="-1"><i class="icon-info isHoveredSecondary u-cursor-pointer"></i>
-                                </a>
-                            </span>
-                        </div> -->
-                        <!-- <div class="col-12 border-bottom pb-2 my-2">
-                            <div class="main-selectpicker">
-                                <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control product_type" data-live-search="true" required="" tabindex="-98">
-                                    <option class="dropdown-item">Google</option>
-                                    <option class="dropdown-item">Facebook</option>
-                                    <option class="dropdown-item">Instagram</option>
-                                </select>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-12 mt-4">
-                            <div class="col-12 ">
-                                <div class="col-12 d-flex flex-wrap align-content-center border p-4 rounded-3 justify-content-between">
-                                    <div class="rounded-circle" style="width:40px;height:40px">
-                                        <img src="https://cdn.publer.io/uploads/picture/google/14341256967700116538.jpg?v=6094f211e6e2c018f41a" alt="#" class="w-100 h-100">
-                                    </div>
-                                    <div class="me-2">
-                                        <h5>Vleri Official</h5>
-                                        <span class="fs-10">5 secs ago</span>
-                                    </div>
-                                    <div class="col-3 d-flex flex-wrap">
-                                        <div class="col-6">
-                                            <i class="bi bi-share-fill"></i>
-                                        </div>
-                                        <div class="col-6">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </div>
-                                    </div>    
-                                    <div class="col-3 d-flex flex-wrap">
-                                        <div class="col-6">
-                                        </div>
-                                    </div>   
-                                </div>
-                            </div>
-                        </div> -->
-                    <!-- </div>
-
-                </div> -->
             </div>
-
         </div>
     </div>
 </div>
@@ -341,7 +302,56 @@
 
 <script>
   
+        $('.offer_start_date').bootstrapMaterialDatePicker({
+               format:  'DD-MM-YYYY h:m A',
+               cancelText: 'cancel',
+               okText: 'ok',
+               clearText: 'clear',
+               time: true,
+               date: true,
+          }).on('change', function (e, date) {
+            var startDate = moment(date, 'DD-MM-YYYY ');
+            var endDate = startDate.clone().add(7, 'days');
+            $('.offer_end_date').val(endDate.format('DD-MM-YYYY h:m A'));
+        });
 
+
+          $('.offer_end_date').bootstrapMaterialDatePicker({
+               format: 'DD-MM-YYYY h:m A',
+               cancelText: 'cancel',
+               okText: 'ok',
+               clearText: 'clear',
+               time: true,
+               date: true,
+          });
+    
+          $('#event_end').bootstrapMaterialDatePicker({
+            format: 'DD-MM-YYYY h:m A',
+            cancelText: 'cancel',
+            okText: 'ok',
+            clearText: 'clear',
+            time: true,
+            date: true,
+          
+        });
+        $('#event_start_date').bootstrapMaterialDatePicker({
+            format: 'DD-MM-YYYY h:m A',
+            cancelText: 'cancel',
+            okText: 'ok',
+            clearText: 'clear',
+            time: true,
+            date: true,
+        }).on('change', function (e, date) {
+            var startDate = moment(date, 'DD-MM-YYYY ');
+            var endDate = startDate.clone().add(7, 'days');
+            $('#event_end').val(endDate.format('DD-MM-YYYY h:m A'));
+        });
+
+
+            $('.nav-item').click(function() {
+            $('.nav-item').removeClass('active');
+            $(this).addClass('active');
+  });
   
 </script>
 
