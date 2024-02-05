@@ -448,6 +448,35 @@ class Bot_Controller extends BaseController
 			}
 	}
 
+	public function bot_insert_data()
+	{
+		$post_data = $this->request->getPost();
+		$table = $this->request->getPost("table");
+
+		$action_name = $this->request->getPost("action");
+		print_r($table);
+		print_r($_POST);
+		if ($this->request->getPost("action") == "insert") {
+			unset($_POST['action']);
+			unset($_POST['table']);
+			if (!empty($_POST)) {
+				$insert_data = $_POST;
+				//$insert_data['image'] = $newName;
+				// print_r($_POST);
+				// die(); 
+				$isduplicate = $this->duplicate_data($insert_data, $table);
+				pre($isduplicate);
+				if ($isduplicate == 0) {
+					$response = $this->MasterInformationModel->insert_entry($insert_data, $table);
+					pre($response);
+					$expenses_insertdisplaydata = $this->MasterInformationModel->display_all_records($table);
+					$expenses_insertdisplaydata = json_decode($expenses_insertdisplaydata, true);
+				} else {
+					return "error";
+				}
+			}
+		}
+	}
 
     
 }

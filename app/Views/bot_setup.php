@@ -10,8 +10,9 @@
 
     .bot-box {
         width: 100%;
-        height: 70px;
+        height: 85px;
         transition: all 0.3s ease-in-out;
+        background-color: #f4f4f6;
     }
 
     .bot-box:hover {
@@ -37,62 +38,266 @@
                 <h2>Bot Chats</h2>
             </div>
             <div class="col-12 d-flex flex-wrap ">
-                <div class="col-3 border rounded-3 bg-white p-3 " style="height:80vh">
-                    <div class="col-12 d-flex justify-content-between my-3">
-                        <div class="col-6">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Main Flow</option>
+                <div class="col-4 p-1 ">
+                    <div class="col-12 border rounded-3 bg-white p-3 overflow-y-scroll d-flex flex-wrap" style="height:80vh">
+                        <div class="col-12  d-flex justify-content-between my-3">
+                            <div class="col-6">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Main Flow</option>
 
-                            </select>
-                        </div>
-                        <div class="col-1">
-                            <button class="btn-primary-rounded mx-1 All_memberPlusBtn" id="plus_btn" data-bs-toggle="modal" datamno="" data-bs-target="#add-member">
-                                <i class="bi bi-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-12 my-3 d-flex justify-content-center">
-                        <span><b>Ask User</b></span>
-                    </div>
-                    <div class="col-12 d-flex flex-wrap m-3">
-                        <div class="col-3 p-2">
-                            <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap justify-content-center question_add">
-                                <div class="col-12 d-flex flex-wrap justify-content-center">
-                                    <i class="fa fa-question"></i>
-                                </div>
-                                <div class="col-12 d-flex flex-wrap justify-content-center">
-                                    <span>Question</span>
-                                </div>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <button class="btn-primary-rounded mx-1 All_memberPlusBtn" id="plus_btn" data-bs-toggle="modal" datamno="" data-bs-target="#add-member">
+                                    <i class="bi bi-plus"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="col-3 p-2">
-                            <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap justify-content-center">
-                                <div class="col-12 d-flex flex-wrap justify-content-center">
-                                    <i class="fa fa-mobile"></i>
-                                </div>
-                                <div class="col-12 d-flex flex-wrap justify-content-center">
-                                    <span>Number</span>
-                                </div>
-                            </div>
+
+                        <div class="col-12 my-3 d-flex justify-content-center">
+                            <span><b>Ask User</b></span>
                         </div>
-                        <div class="col-3 p-2">
-                            <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap justify-content-center">
-                                <div class="col-12 d-flex flex-wrap justify-content-center">
-                                    <i class="fa fa-envelope"></i>
+
+                        <form class="needs-validation" name="add_form" method="POST" novalidate>
+                            <div class="col-12 d-flex flex-wrap p-3">
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Question</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-12 d-flex flex-wrap justify-content-center">
-                                    <span>Email</span>
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-dot-circle-o" ng-class="i.icon"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Single Choice</span>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-envelope"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Email</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-check-square" ng-class="i.icon"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Multiple Choice</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-mobile"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Mobile Number</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-hashtag"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Number</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Rating</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Date Picker</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Time Picker</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-map-marker"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Location</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-expand"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Range</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-upload"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">File Upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-link"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Website</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-user-plus"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Ask Contacts</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Order Items</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-key"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Authenticator</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-forumbee"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Form</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-list"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Carousel with buttons</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-bullseye"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Dynamic Question</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-search"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Real Time Search</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-calendar-check-o"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Appointment Booking</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
+                        </form>
                     </div>
-
-
                 </div>
 
 
-                <div class="col-8 border rounded-3 bg-white p-3 mx-4 " style="height:80vh">
-                    <div class="main-task left-main-task mt-2 ps-3 overflow-y-scroll " style="max-height:546.8px">
+                <div class="col-8 p-1 ">
+                    <div class="main-task col-12 border rounded-3 bg-white overflow-y-scroll left-main-task ps-3 overflow-y-scroll " style="height:80vh" style="max-height:546.8px">
                         <div class="col-12 w-100 d-flex flex-wrap p-2">
                             <div class="col-12 d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
                                 <div class="col-10 d-flex flex-wrap align-items-center">
@@ -115,6 +320,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 d-flex justify-content-end">
                                 <button type="button" class="btn btn-primary">User's Replay</button>
                             </div>
@@ -195,22 +401,49 @@
     });
 
 
-    $('body').on('click', '.question_add', function() {
+    $('body').on('click', '.question_add', function(e) {
+        e.preventDefault();
         // alert();
-        $.ajax({
-            method: "post",
-            url: "<?= site_url('insert_data'); ?>",
-            table: "admin_messeging_bot",
-            // data: formdata,
-            processData: false,
-            contentType: false,
+        var form = $("form[name='add_form']")[0];
+        var type_of_question = $(".first_question").text();
+        var formdata = new FormData(form);
+        // console.log(type_of_question);
+        if (type_of_question != "") {
+            formdata.append('action', 'insert');
+            formdata.append('table', 'admin_bot_setup');
 
-            success: function(res) {
-                iziToast.success({
-                    title: 'Added Successfully'
-                });
-                $('.selectpicker').selectpicker('refresh');
-            },
-        });
+            formdata.append('type_of_question', type_of_question);
+            formdata.append('question', 'What is your full name?');
+
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('bot_insert_data'); ?>",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if (data != "error") {
+                        $("form[name='add_form']")[0].reset();
+                        $("form[name='add_form']").removeClass("was-validated");
+                        $(".btn-cancel").trigger("click");
+
+                        iziToast.success({
+                            title: 'Added Successfully'
+                        });
+
+                    } else {
+                        $('.loader').hide();
+                        $("form[name='add_form']")[0].reset();
+                        $("form[name='add_form']").removeClass("was-validated");
+                        iziToast.error({
+                            title: 'Duplicate data'
+                        });
+                        $("form[name='add_form']").addClass("was-validated");
+                    }
+                },
+            });
+        } else {
+            $("form[name='add_form']").addClass("was-validated");
+        }
     });
 </Script>
