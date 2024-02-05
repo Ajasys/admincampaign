@@ -68,4 +68,204 @@ class WhatAppIntegrationController extends BaseController
             $response = $this->MasterInformationModel->insert_entry2($InsertData, 'admin_generale_setting');
         }
     }   
+
+
+    public function master_whatsapp_list_data()
+    {
+        $table_name = $_POST['table'];
+        $allow_data = json_decode($_POST['show_array']);
+        $action = $_POST['action'];
+        $master_membership_displaydata = $this->MasterInformationModel->display_all_records2($table_name);
+        $master_membership_displaydata = json_decode($master_membership_displaydata, true);
+
+        $i = 1;
+        $html = "";
+
+        foreach ($master_membership_displaydata as $key => $value) {
+
+            $html .= '<tr class="rounded-pill">
+						<td class="py-2 text-capitalize">' . strtolower($value['template_name']) . '</td>
+						<td class="py-2">' . $value['category_types'] . '</td>
+						<td class="py-2 " >
+                            <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
+                                ' . $value['body'] . '
+                            </div>
+                        </td>
+						<td class="py-2">' . $value['language'] . '</td>
+						<td class="template-creation-table-data text-center cwt-border-right p-l-25">
+							<span>
+								<i class="fa fa-eye fs-16 view_template"  data-bs-toggle="modal" data-bs-target="#view_template"  data-preview_id="' . $value['id'] . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<i class="fa fa-clone fs-16 Edit_template" data-edit_id="' . $value['id'] . '"  data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit"  data-edit_id="' . $value['id'] . '" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<i class="fa fa-trash fs-16 Delete_template"  data-delete_id="' . $value['id'] . '"  aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+							</span>
+						</td>
+					</tr>';
+
+
+            $html .= '</tr>';
+            $i++;
+        }
+
+        $return_array = array(
+            'html' => $html,
+        );
+
+        $recordsCount = count($master_membership_displaydata);
+        $return_array['records_count'] = $recordsCount;
+
+        return json_encode($return_array, true);
+        die();
+    }
+
+    public function duplicate_data2($data, $table)
+    {
+        $this->db = \Config\Database::connect('second');
+        $i = 0;
+        $data_duplicat_Query = "";
+        $numItems = count($data);
+        foreach ($data as $datakey => $data_value) {
+            if ($i == $numItems - 1) {
+                $data_duplicat_Query .= 'LOWER(TRIM(REPLACE(' . $datakey . ', " ",""))) = "' . strtolower(trim(str_replace(' ', '', $data_value))) . '"';
+            } else {
+                $data_duplicat_Query .= 'LOWER(TRIM(REPLACE(' . $datakey . '," ",""))) = "' . strtolower(trim(str_replace(' ', '', $data_value))) . '" AND ';
+            }
+            $i++;
+        }
+        $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $data_duplicat_Query;
+        $result = $this->db->query($sql);
+        if ($result->getNumRows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+
+
+
+
+
+        public function whatsapp_template_insert()
+    {
+        $imgfile = "";
+        $data = array();
+        $newName = '';
+        $files = $_FILES;
+        $fileName = '';
+        $fileNames ='';
+		if (!empty($files)) {
+            $uploadDir = 'assets/images/whatsapp_template/';
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+            $filesArr = $files["uploade_file"];
+            $fileName = $filesArr['name'];
+            $uploadedFile = '';
+            $fileName = $filesArr['name'];
+            $targetFilePath = $uploadDir . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+            if (in_array(strtolower($fileType), array('jpg', 'jpeg', 'png', 'gif')) && $filesArr["size"] > 1048576) {
+                $compressedImage = compressImage($filesArr["tmp_name"]);
+                if ($compressedImage !== false) {
+                    $targetFilePath = $uploadDir . $fileName;
+                    if (file_put_contents($targetFilePath, $compressedImage)) {
+                        $uploadedFile .= $fileName . ',';
+                    } else {
+                        $uploadStatus = 0;
+                        $response['message'] = 'Error while saving the compressed image.';
+                    }
+                } else {
+                    $uploadStatus = 0;
+                    $response['message'] = 'Error while compressing the image.';
+                }
+            } else {
+                if (move_uploaded_file($filesArr["tmp_name"], $targetFilePath)) {
+                    $uploadedFile .= $fileName . ',';
+                } else {
+                    $uploadStatus = 0;
+                    $response['message'] = 'Sorry, there was an error uploading your file.';
+                }
+            }
+        }
+
+        $post_data = $this->request->getPost();
+        $table_name = $this->request->getPost("table");
+        $action_name = $this->request->getPost("action");
+
+        if ($this->request->getPost("action") == "insert") {
+            unset($_POST['action']);
+            unset($_POST['table']);
+
+            if (!empty($_POST)) {
+                $insert_data = $_POST;
+
+                if ($fileName != '') {
+                    $insert_data['uploade_file'] = $fileName;
+                }else{
+                    $insert_data['uploade_file'] = '';
+
+                }
+
+                // $isduplicate = $this->duplicate_data2($insert_data, $table_name);
+
+                // if ($isduplicate == 0) {
+                    $response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
+                    $foodmasterdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+                    $foodmasterdisplaydata = json_decode($foodmasterdisplaydata, true);
+                // } else {
+                //     return "error";
+                // }
+            }
+        }
+    }
+
+
+
+
+  
+    public function whatsapp_template_delete_data()
+    {
+        if ($this->request->getPost("action") == "delete") {
+            $delete_id = $this->request->getPost('id');
+            $tablename = $this->request->getPost('table');
+
+
+            $delete_displaydata = $this->MasterInformationModel->delete_entry3($tablename, $delete_id);
+        }
+        die();
+    }
+
+    public function whatsappView()
+    {
+        $VIEW_id = $this->request->getPost('EditID');
+        $db = \Config\Database::connect('second');
+        $sql = 'SELECT * FROM `master_whatsapp_template` WHERE id =' . $VIEW_id . '';
+        $result = $db->query($sql);
+        $preview_Data = $result->getRowArray();
+    
+        return json_encode($preview_Data);
+
+    }
+    
+    
+
+    public function whatsapptemplate_edit_data()
+	{
+		
+		if ($this->request->getPost("action") == "edit") {
+			$edit_id = $this->request->getPost('edit_id');
+			$table_name = $this->request->getPost('table');
+			$departmentEditdata = $this->MasterInformationModel->edit_entry2($table_name, $edit_id);
+
+			
+			return json_encode($departmentEditdata, true);
+		}
+
+		die();
+	} 
+    
 }

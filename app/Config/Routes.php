@@ -502,8 +502,14 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
 	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
-	$routes->post('bot_insert_data', 'Bot_Controller::bot_insert_data');
-	$routes->post('bot_list_data', 'Bot_Controller::bot_list_data');
+	
+	// whatsapp integration 
+	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
+    $routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
+	$routes->post('/whatsapp_template_delete_data', 'WhatAppIntegrationController::whatsapp_template_delete_data');
+	$routes->post('/whatsappView', 'WhatAppIntegrationController::whatsappView');
+	$routes->post('/whatsapptemplate_edit_data', 'WhatAppIntegrationController::whatsapptemplate_edit_data');
+
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');

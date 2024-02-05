@@ -21,8 +21,13 @@ class Home extends BaseController
                 $this->get_roll_id_to_roll_duty_var = array();
             }
         }
-    }    public function whatapp(){
-        return view('whatapp');
+    }    
+    public function whatapp(){
+        
+        $data['language_name'] = $this->MasterInformationModel->display_all_records2('facebook_languages');
+        return view('whatapp' , $data);
+
+
     }
     public function emailsend()
     {
