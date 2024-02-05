@@ -499,9 +499,19 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/update_data_conversion', 'Bot_Controller::update_data_conversion');
 	$routes->post('messeging_bot_list_data', 'Bot_Controller::messeging_bot_list_data');
 
+
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
 	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
+	$routes->post('/facebook_user', 'FaceBookController::facebook_user');
+	$routes->post('/facebook_page', 'FaceBookController::facebook_page');
+	$routes->post('/pages_list_data', 'FaceBookController::pages_list_data');
+	$routes->post('/deleted_pages_list_data', 'FaceBookController::deleted_pages_list_data');
+	$routes->post('/updated_pages_list_data', 'FaceBookController::updated_pages_list_data');
+	$routes->post('/draft_pages_list_data', 'FaceBookController::draft_pages_list_data');
+	$routes->post('/delete_pages_fb', 'FaceBookController::delete_pages_fb');
+	$routes->post('/facebook_form', 'FaceBookController::facebook_form');
+	$routes->post('/queue_list_add', 'FaceBookController::queue_list_add');
 	
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');

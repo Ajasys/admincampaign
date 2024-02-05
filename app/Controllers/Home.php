@@ -567,7 +567,20 @@ class Home extends BaseController
     }
     public function lead_module()
     {
-        return view('lead_module');
+        $username = session_username($_SESSION['username']);
+        $this->db = \Config\Database::connect('second');
+        $find_Array_all = "SELECT * FROM admin_fb_account  where master_id='" . $_SESSION['master'] . "' ";
+        $find_Array_all = $this->db->query($find_Array_all);
+		$data['fb_account'] = $find_Array_all->getResultArray();
+        $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
+        // $whereConditions = [
+        //     ['column' => 'switcher_active', 'value' => 'active'],
+        // ];
+        // $data['user'] = $this->MasterInformationModel->display_records_for_project($username.'_user', 'DESC', $whereConditions);
+        // $table_name = $username."_integration";
+        // $duplicate_table = "urvi_integration";
+        // tableCreateAndTableUpdate($table_name,$duplicate_table);
+        return view('lead_module',$data);
     }
     public function projecttype()
     {

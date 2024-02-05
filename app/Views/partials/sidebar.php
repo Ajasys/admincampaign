@@ -474,7 +474,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      </li>
 
                      <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>">Lead Integration</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>lead_module">Lead Integration</a>
                      </li>
 
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>integration" ?>Integration</a> </li>
