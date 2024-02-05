@@ -530,13 +530,13 @@
                         <div class="px-3 py-2 bg-white rounded-2 m-2">
                             <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
 
-                                <li class="nav-item " role="presentation">
+                                <li class="nav-item  " role="presentation">
                                     <button class="nav-link" id="single" data-table="single" DataStatus='3' data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" data-bs-toggle="modal" type="button" role="tab" aria-controls="pills-ex-single-tab" aria-selected="true">Single Template</button>
                                 </li>
 
 
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link  schedule " id="schedule" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-schedule-tab" type="button" role="tab" aria-controls="pills-ex-schedule-tab" aria-selected="false">schedule
+                                    <button class="nav-link" id="schedule" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-schedule-tab" type="button" role="tab" aria-controls="pills-ex-schedule-tab" aria-selected="false">schedule
                                     </button>
                                 </li>
 
@@ -548,7 +548,7 @@
 
 
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show" id="pills-ex-single-tab" role="tabpanel" aria-labelledby="pills-ex-single" tabindex="0">
+                    <div class="tab-pane fade show " id="pills-ex-single-tab" role="tabpanel" aria-labelledby="pills-ex-single" tabindex="0">
                         <div class="main-dashbord p-2 main-check-class">
 
                             <div class="container-fluid p-0">
@@ -1309,13 +1309,20 @@
             $('body').on('click', '.Tab1Class', function() {
 
                 $('.Activeclass').removeClass('d-none');
+                $('#pills-ex-schedule-tab').removeClass('d-none');
+
+                
             });
             $('body').on('click', '.Tab2Class', function() {
 
                 $('.Activeclass').addClass('d-none');
+                $('#pills-ex-schedule-tab').addClass('d-none');
+
             });
             $('body').on('click', '.Tab3Class', function() {
 
                 $('.Activeclass').addClass('d-none');
+                $('#pills-ex-schedule--tab').addClass('d-none');
+
             });
         </script>
