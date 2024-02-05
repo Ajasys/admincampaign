@@ -20,12 +20,16 @@
     }
 
     .bot-flow-setup {
-        background-color: gainsboro;
+        background-color: #f4f4f6;
         transition: all 0.5s ease-in-out;
     }
 
     .bot-flow-setup:hover {
         box-shadow: 0 0 5px 2px #0000004d;
+    }
+
+    .icon{
+        color: #724EBF;
     }
 </style>
 
@@ -57,13 +61,12 @@
                         <div class="col-12 my-3 d-flex justify-content-center">
                             <span><b>Ask User</b></span>
                         </div>
-
-                        <form class="needs-validation" name="add_form" method="POST" novalidate>
+                        <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
                                 <div class="col-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
-                                            <i class="fa fa-question"></i>
+                                            <i class="fa fa-question icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <span class="first_question text-center" value="Question">Question</span>
@@ -73,7 +76,7 @@
                                 <div class="col-3 p-2">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
-                                            <i class="fa fa-dot-circle-o" ng-class="i.icon"></i>
+                                            <i class="fa-regular fa-circle-dot"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <span class="text-center">Single Choice</span>
@@ -150,7 +153,7 @@
                                 <div class="col-3 p-2">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
-                                            <i class="fa fa-clock-o"></i>
+                                            <i class="fa-regular fa-clock"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <span class="text-center">Time Picker</span>
@@ -161,7 +164,7 @@
                                 <div class="col-3 p-2">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
-                                            <i class="fa fa-map-marker"></i>
+                                            <i class="fa-solid fa-location-dot"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <span class="text-center">Location</span>
@@ -238,7 +241,7 @@
                                 <div class="col-3 p-2">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
-                                            <i class="fa fa-forumbee"></i>
+                                            <i class="fa-brands fa-forumbee"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <span class="text-center">Form</span>
@@ -282,7 +285,7 @@
                                 <div class="col-3 p-2">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
-                                            <i class="fa fa-calendar-check-o"></i>
+                                            <i class="fa-regular fa-calendar-check"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <span class="text-center">Appointment Booking</span>
@@ -292,6 +295,336 @@
 
                             </div>
                         </form>
+
+                        <div class="col-12 my-3 d-flex justify-content-center">
+                            <span><b>Show User</b></span>
+                        </div>
+                        <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
+                            <div class="col-12 d-flex flex-wrap p-3">
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Statement</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa-regular fa-circle-dot"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">URL Navigator</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-envelope"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Product Carousel</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-check-square" ng-class="i.icon"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Carousel</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-mobile"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Audio</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-hashtag"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Show Contacts</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Show Location</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Show File</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa-regular fa-clock"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">URL Auto Redirect</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">URL Based Flow</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-expand"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Country Based Flow</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 p-2">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-upload"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="text-center">Action Based Flow</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary">Setup Menu Options</button>
+                                </div>
+                        </form>
+
+                        <div class="col-12 my-3 d-flex justify-content-center">
+                            <span><b>FAQs Setup</b></span>
+                        </div>
+                        <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
+                            <div class="col-12 d-flex flex-wrap p-3">
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">FAQs</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="col-12 my-3 d-flex justify-content-center">
+                            <span><b>AI Enabled</b></span>
+                        </div>
+                        <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
+                            <div class="col-12 d-flex flex-wrap p-3">
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">AI Answering</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                
+                                
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary">Map Intents</button>
+                                </div>
+                        </form>
+
+                        <div class="col-12 my-3 d-flex justify-content-center">
+                            <span><b>Live Agent</b></span>
+                        </div>
+                        <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
+                            <div class="col-12 d-flex flex-wrap p-3">
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Human Handover</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Live Chats Redirect to</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="col-12 my-3 d-flex justify-content-center">
+                            <span><b>Only For Whatsapp</b></span>
+                        </div>
+                        <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
+                            <div class="col-12 d-flex flex-wrap p-3">
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Template's Based Flow</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">User's Initial Respone Based Flow</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Menu List</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Cart</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Buttons</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Catalog</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Address</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Ad Based Flow</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+                        <div class="col-12 my-3 d-flex justify-content-center">
+                            <span><b>Only For Instagram</b></span>
+                        </div>
+                        <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
+                            <div class="col-12 d-flex flex-wrap p-3">
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Generic Template</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 p-2 question_add">
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center">
+                                        <div class="col-12 d-flex flex-wrap justify-content-center">
+                                            <i class="fa fa-question"></i>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
+                                            <span class="first_question text-center" value="Question">Ice Breakers</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
 
@@ -325,6 +658,150 @@
                                 <button type="button" class="btn btn-primary">User's Replay</button>
                             </div>
                         </div>
+
+
+                        <div class="col-12 w-100 d-flex flex-wrap p-2">
+                            <div class="col-12 d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
+                                <div class="col-10 d-flex flex-wrap align-items-center">
+                                    <label class="text-wrap px-2" for="">
+                                        <p class="fw-semibold">? Great Enter Your email</p>
+                                    </label>
+                                </div>
+                                <div class="col-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-pencil" data-bs-toggle="modal" data-bs-target="#add-email"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-sitemap"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-clone"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary">User's Replay</button>
+                            </div>
+                        </div>
+
+                        <div class="col-12 w-100 d-flex flex-wrap p-2">
+                            <div class="col-12 d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
+                                <div class="col-10 d-flex flex-wrap align-items-center">
+                                    <label class="text-wrap px-2" for="">
+                                        <p class="fw-semibold">? Select Time</p>
+                                    </label>
+                                </div>
+                                <div class="col-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-pencil" data-bs-toggle="modal" data-bs-target="#add-email"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-sitemap"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-clone"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary">User's Replay</button>
+                            </div>
+                        </div>
+
+                        <div class="col-12 w-100 d-flex flex-wrap p-2">
+                            <div class="col-12 d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
+                                <div class="col-10 d-flex flex-wrap align-items-center">
+                                    <label class="text-wrap px-2" for="">
+                                        <p class="fw-semibold">? What is your gender</p>
+                                    </label>
+                                </div>
+                                <div class="col-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-pencil" data-bs-toggle="modal" data-bs-target="#add-email"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-sitemap"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-clone"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary">User's Replay</button>
+                            </div>
+                        </div>
+
+                        <div class="col-12 w-100 d-flex flex-wrap p-2">
+                            <div class="col-12 d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
+                                <div class="col-10 d-flex flex-wrap align-items-center">
+                                    <label class="text-wrap px-2" for="">
+                                        <p class="fw-semibold">? What is your age</p>
+                                    </label>
+                                </div>
+                                <div class="col-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-pencil" data-bs-toggle="modal" data-bs-target="#add-email"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-sitemap"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-clone"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary">User's Replay</button>
+                            </div>
+                        </div>
+
+                        <div class="col-12 w-100 d-flex flex-wrap p-2">
+                            <div class="col-12 d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
+                                <div class="col-10 d-flex flex-wrap align-items-center">
+                                    <label class="text-wrap px-2" for="">
+                                        <p class="fw-semibold">? Great Enter Your email</p>
+                                    </label>
+                                </div>
+                                <div class="col-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-pencil" data-bs-toggle="modal" data-bs-target="#add-email"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-sitemap"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-clone"></i>
+                                    </div>
+                                    <div class="col-3 p-1">
+                                        <i class="fa fa-trash"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary">User's Replay</button>
+                            </div>
+                        </div>
+
+
+                        
 
                     </div>
 
