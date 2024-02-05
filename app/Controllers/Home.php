@@ -202,19 +202,31 @@ class Home extends BaseController
 
     public function manage_audience()
     {
+        $table_username = getMasterUsername2();
+        $columns_audience = [
+            'id int primary key AUTO_INCREMENT',
+            'inquiry_id int(11) NOT NULL',
+            'inquiry_status varchar(500) NOT NULL',
+            'full_name varchar(500) NOT NULL',
+            'product_name int(11) NOT NULL',
+            'retansion int(11) NOT NULL',
+            'created_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()',
+            'updated_at timestamp NULL DEFAULT NULL',
+        ];
+        tableCreateAndTableUpdate2($table_username .'_audiences', '', $columns_audience);
         $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_type');
-        $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_source');
-        // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
-        $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
-        $data['admin_user'] = $this->MasterInformationModel->display_all_records2('admin_user');
-        // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
-        // $data['project_management_type'] = $this->MasterInformationModel->display_all_records('project_management_type');
-        $data['admin_subscription_master'] = $this->MasterInformationModel->display_all_records2('admin_subscription_master');
-        $data['admin_product'] = $this->MasterInformationModel->display_all_records2('admin_product');
-        $data['master_inquiry_close'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_close');
-        $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
-        $data['user_data'] = $this->MasterInformationModel->display_all_records2('admin_user');
-        return view('manage_audience', $data);
+            $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_source');
+            // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
+            $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
+            $data['admin_user'] = $this->MasterInformationModel->display_all_records2('admin_user');
+            // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
+            // $data['project_management_type'] = $this->MasterInformationModel->display_all_records('project_management_type');
+            $data['admin_subscription_master'] = $this->MasterInformationModel->display_all_records2('admin_subscription_master');
+            $data['admin_product'] = $this->MasterInformationModel->display_all_records2('admin_product');
+            $data['master_inquiry_close'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_close');
+            $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
+            $data['user_data'] = $this->MasterInformationModel->display_all_records2('admin_user');
+        return view('manage_audience' , $data);
     }
     public function integration()
     {

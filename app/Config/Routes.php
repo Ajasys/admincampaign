@@ -234,6 +234,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/audience_view_data', 'AudianceController::audience_view_data');
 	$routes->post('/audience_show_data', 'AudianceController::audience_show_data');
 	$routes->post('audience_inquiry_data_view', 'AudianceController::view_data_audience');
+	$routes->post('audience_insert_data', 'AudianceController::audience_insert_data');
 
 
 
