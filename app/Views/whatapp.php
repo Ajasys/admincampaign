@@ -473,7 +473,7 @@ $language_name = json_decode($language_name, true);
                         <ul class="d-flex flex-wrap nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
 
                             <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle bg-body-secondary nav-item Tab1Class" role="presentation">
-                                <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" type="button" role="tab" aria-controls="#pills-ex-single-tab" aria-selected="true"> 
+                                <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" type="button" role="tab" aria-controls="#pills-ex-single-tab" aria-selected="true">
                                     <p>
                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                             <g>
@@ -839,7 +839,7 @@ $language_name = json_decode($language_name, true);
                                             </tr>
                                         </thead>
                                         <tbody id="memberships_list">
-                                            
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -853,13 +853,13 @@ $language_name = json_decode($language_name, true);
                         <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap  ">
                             <div class="col-12 d-flex flex-wrap my-2 justify-content-between">
 
-                            <div class="col-2 d-flex align-items-center">
+                                <div class="col-2 d-flex align-items-center">
                                     <div class="input-group">
                                         <input type="text" class="form-control" placeholder="phone..." aria-label="Recipient's username" aria-describedby="button-addon2">
                                         <button class="btn btn-outline-secondary border" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-5 d-flex flex-wrap align-items-center justify-content-end float-end ">
                                     <div class="col-5 px-2">
                                         <button type="button" class="btn-primary CancleBtn me-2  w-100" data-bs-dismiss="modal" data-bs-toggle="modal" id="cancel" data-delete_id=""><i class="bi bi-arrow-repeat"></i> Sync with Facebook</button>
@@ -900,48 +900,43 @@ $language_name = json_decode($language_name, true);
 
         <!-- add model -->
         <div class="modal fade modal-lg" id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
-    
+
             <div class="modal-dialog modal-50 modal-dialog-centered">
-<form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title Add_editModelTitle">Create a Template Message</h1>
-                <button type="button" class="border-0 modal-close-btn close_btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-circle fs-5"></i></button>
-            </div>
-            <div class="modal-body modal-body-secondery d-flex flex-wrap">
-                <div class="col-6">
-                    <div class="modal-body-card justify-content-center">
-                        <div class="col-12 mb-3 ">
-                            <input type="text"
-                                class="form-control main-control Template_name_varification Template_name"
-                                id="Template_nameId" placeholder="Template name" name="Template_name" required>
-                            <p class="CheckTemplateNameAlertPTag text-danger fs-12" style="display:none;">Name can
-                                only contain lowercase alphanumeric characters and underscores ( _ )</p>
+                <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title Add_editModelTitle">Create a Template Message</h1>
+                            <button type="button" class="border-0 modal-close-btn close_btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-circle fs-5"></i></button>
                         </div>
+                        <div class="modal-body modal-body-secondery d-flex flex-wrap">
+                            <div class="col-6">
+                                <div class="modal-body-card justify-content-center">
+                                    <div class="col-12 mb-3 ">
+                                        <input type="text" class="form-control main-control Template_name_varification Template_name" id="Template_nameId" placeholder="Template name" name="Template_name" required>
+                                        <p class="CheckTemplateNameAlertPTag text-danger fs-12" style="display:none;">Name can
+                                            only contain lowercase alphanumeric characters and underscores ( _ )</p>
+                                    </div>
 
-                        <div class="col-12 mb-3 ">
-                            <div class="main-selectpicker">
-                                    <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control category_div"  id="category" name="category_types" required>
-                                        <option class=" dropdown-item"  value="">Please select your category</option>
+                                    <div class="col-12 mb-3 ">
+                                        <div class="main-selectpicker">
+                                            <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control category_div" id="category" name="category_types" required>
+                                                <option class=" dropdown-item" value="">Please select your category</option>
 
-                                        <option value="Utility" ng-repeat="category in category_types"
-                                            class="  dropdown-item">
-                                            Utility</option>
-                                        </option>
-                                        <option value="Authentication" ng-repeat="category in category_types"
-                                            class="  dropdown-item">
-                                            Authentication</option>
-                                        </option>
-                                        <option value="MARKETING" ng-repeat="category in category_types"
-                                            class="  dropdown-item">
-                                            Marketing</option>
-                                        </option>
-                                    </select>
-                                </div>
-                        </div>
-                        <div class="col-12 mb-3 ">
-                            <div class="main-selectpicker">
-                                <select class="selectpicker form-control main-control language_div" id="language" name="language" required>
+                                                <option value="Utility" ng-repeat="category in category_types" class="  dropdown-item">
+                                                    Utility</option>
+                                                </option>
+                                                <option value="Authentication" ng-repeat="category in category_types" class="  dropdown-item">
+                                                    Authentication</option>
+                                                </option>
+                                                <option value="MARKETING" ng-repeat="category in category_types" class="  dropdown-item">
+                                                    Marketing</option>
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-3 ">
+                                        <div class="main-selectpicker">
+                                            <select class="selectpicker form-control main-control language_div" id="language" name="language" required>
 
                                                 <?php
                                                 if (isset($language_name)) {
@@ -951,43 +946,41 @@ $language_name = json_decode($language_name, true);
                                                     }
                                                 }
                                                 ?>
-                                </select>
-                            </div>
-                        </div>
+                                            </select>
+                                        </div>
+                                    </div>
 
 
 
 
-                    <div class="col-12 header-jqury">
-                        <div class="col-12 mb-3">
-                            <label for="form-memberships" class="main-label">HEADER<sup
-                                    class="validationn">*</sup></label>
-                            <div class="main-selectpicker">
-                                <select class="selectpicker form-control main-control header_div Template_header1" id="Template_header" name="header"
-                                    ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
-                                    <option class="dropdown-item"  value="0">Please select your header type</option>
-                                    <option class="dropdown-item" value="TEXT">TEXT</option>
-                                    <option class="dropdown-item" value="IMAGE">IMAGE</option>
-                                    <option class="dropdown-item" value="VIDEO">VIDEO</option>
-                                    <option class="dropdown-item" value="DOCUMENT">DOCUMENT</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 mb-3 file_upload d-none">
-                            <label for="" class="form-label main-label">Inq file upload <sup class="validationn">*</sup></label>
-                            <input type="file" class="form-control main-control"  name="import_file" placeholder="Details" required="" >
-                        </div>
-                        <div class="col-12 mb-3 text-comment d-none">
-                            <textarea class="form-control main-control place MemberAddressClass" id="address" name="address" required="" placeholder="Type your header text here..." rows="3" cols="50" spellcheck="false"></textarea>
-                        </div>
-                        <!-- <textarea ng-if="selectedHeader === 'TEXT'"
+                                    <div class="col-12 header-jqury">
+                                        <div class="col-12 mb-3">
+                                            <label for="form-memberships" class="main-label">HEADER<sup class="validationn">*</sup></label>
+                                            <div class="main-selectpicker">
+                                                <select class="selectpicker form-control main-control header_div Template_header1" id="Template_header" name="header" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                    <option class="dropdown-item" value="0">Please select your header type</option>
+                                                    <option class="dropdown-item" value="TEXT">TEXT</option>
+                                                    <option class="dropdown-item" value="IMAGE">IMAGE</option>
+                                                    <option class="dropdown-item" value="VIDEO">VIDEO</option>
+                                                    <option class="dropdown-item" value="DOCUMENT">DOCUMENT</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-3 file_upload d-none">
+                                            <label for="" class="form-label main-label">Inq file upload <sup class="validationn">*</sup></label>
+                                            <input type="file" class="form-control main-control" name="import_file" placeholder="Details" required="">
+                                        </div>
+                                        <div class="col-12 mb-3 text-comment d-none">
+                                            <textarea class="form-control main-control place MemberAddressClass" id="address" name="address" required="" placeholder="Type your header text here..." rows="3" cols="50" spellcheck="false"></textarea>
+                                        </div>
+                                        <!-- <textarea ng-if="selectedHeader === 'TEXT'"
                             class="full-width cwt-header-textarea-box font-size-12 center-textarea header_text"
                             ng-model="header_data"  minlength="0" maxlength="60"
                             ng-change="header_text_media(header_data)"
                             ></textarea> -->
 
 
-                        <!-- <div ng-if="selectedHeader === 'IMAGE' && provider === 'meta'"
+                                        <!-- <div ng-if="selectedHeader === 'IMAGE' && provider === 'meta'"
                             class="cwt-header-open-box-c full-width p-relative " id="temLoaded">
                             <div class="text-center profile-btn-photo2 col-6 mt-3">
                                 <div class="upload-btn-wrapper">
@@ -1003,239 +996,216 @@ $language_name = json_decode($language_name, true);
                             </div>
                             <div id="selectedImageName"></div>
                         </div> -->
-                    </div>
-
-                        <div class="col-12 mb-3">
-                            <label for="form-memberships" class="main-label fw-medium">BODY<sup
-                                    class="validationn">*</sup></label>
-                            <textarea class="form-control main-control body_div" id="body_id"
-                                placeholder="Type Your Body Text Here...{{|}}" name="" required></textarea>
-                                <p class="fs-10">Body character limit is 1024 characters</p>
-                        </div>
-                        <div class="col-12 mb-5">
-                            <label for="form-memberships" class="main-label fw-medium">FOOTER<sup
-                                    class="validationn">*</sup></label>
-                            <textarea class="form-control main-control footer_div" id="footer"
-                                placeholder="Type Your Footer Text Here...{{|}}" name="" required></textarea>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <div class="col-12 ">
-                                <label for="form-memberships" class="main-label">BUTTON<sup
-                                        class="validationn">*</sup></label>
-                                <div class="main-selectpicker">
-                                    <select class="selectpicker form-control main-control header_div" id="Button_make_picker" name="Button"
-                                        ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
-                                        <option class="dropdown-item"  value="0" >Please select button type</option>
-                                        <option class="dropdown-item" value="Quick">Quick reply</option>
-                                        <option class="dropdown-item" value="Call">Call to action</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 my-3">
-                                <button class="btn btn-primary Button_make" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</button>
-                            </div>
-                            <!-- quck replay -->
-                            <div class=" button_link1 remove-data d-none">
-                                <div class="col-12 d-flex flex-wrap align-items-center position-relative ">
-                                    <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
-                                    <textarea class="form-control main-control col " placeholder="Start typing button label here..."cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
-                                    <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                </div>
-                            </div>
-                            <!--call-replay-->
-                            <div class="col-12  button_link2 d-none">
-                                <div class="col-12 d-flex flex-wrap remove-data">
-                                    <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
-                                        <span class="fs-10">Url Button</span>
-                                        <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
                                     </div>
-                                    <div class="col-12 border rounded-2 p-2">
-                                        <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..."cols="1" rows="1" required="" ></textarea>
-                                        <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between">
-                                            <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span>
-                                            <div class="col-7">
-                                                <input type="text" class="form-control main-control border-0"  placeholder="Input URL..."  required="">
+
+                                    <div class="col-12 mb-3">
+                                        <label for="form-memberships" class="main-label fw-medium">BODY<sup class="validationn">*</sup></label>
+                                        <textarea class="form-control main-control body_div" id="body_id" placeholder="Type Your Body Text Here...{{|}}" name="" required></textarea>
+                                        <p class="fs-10">Body character limit is 1024 characters</p>
+                                    </div>
+                                    <div class="col-12 mb-5">
+                                        <label for="form-memberships" class="main-label fw-medium">FOOTER<sup class="validationn">*</sup></label>
+                                        <textarea class="form-control main-control footer_div" id="footer" placeholder="Type Your Footer Text Here...{{|}}" name="" required></textarea>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <div class="col-12 ">
+                                            <label for="form-memberships" class="main-label">BUTTON<sup class="validationn">*</sup></label>
+                                            <div class="main-selectpicker">
+                                                <select class="selectpicker form-control main-control header_div" id="Button_make_picker" name="Button" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                    <option class="dropdown-item" value="0">Please select button type</option>
+                                                    <option class="dropdown-item" value="Quick">Quick reply</option>
+                                                    <option class="dropdown-item" value="Call">Call to action</option>
+                                                </select>
                                             </div>
-                                            <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button>
                                         </div>
-                                    </div>
+                                        <div class="col-12 my-3">
+                                            <button class="btn btn-primary Button_make" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</button>
+                                        </div>
+                                        <!-- quck replay -->
+                                        <div class=" button_link1 remove-data d-none">
+                                            <div class="col-12 d-flex flex-wrap align-items-center position-relative ">
+                                                <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
+                                                <textarea class="form-control main-control col " placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
+                                                <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                            </div>
+                                        </div>
+                                        <!--call-replay-->
+                                        <div class="col-12  button_link2 d-none">
+                                            <div class="col-12 d-flex flex-wrap remove-data">
+                                                <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                                    <span class="fs-10">Url Button</span>
+                                                    <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                                </div>
+                                                <div class="col-12 border rounded-2 p-2">
+                                                    <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
+                                                    <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between">
+                                                        <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span>
+                                                        <div class="col-7">
+                                                            <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
+                                                        </div>
+                                                        <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button>
+                                                    </div>
+                                                </div>
 
-                                </div>
-                                <div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data">
-                                    <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
-                                        <span class="fs-10">Url Button</span>
-                                        <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                    </div>
-                                    <div class="col-12 border rounded-2 p-2 ">
-                                        <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..."cols="1" rows="1" required="" ></textarea>
-                                        <div class="col-12 d-flex flex-wrap align-items-center border ">
-                                            <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span>
-                                            <div class="col-7">
-                                                <input type="text" class="form-control main-control border-0"  placeholder="Input URL..."  required="">
+                                            </div>
+                                            <div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data">
+                                                <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                                    <span class="fs-10">Url Button</span>
+                                                    <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                                </div>
+                                                <div class="col-12 border rounded-2 p-2 ">
+                                                    <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
+                                                    <div class="col-12 d-flex flex-wrap align-items-center border ">
+                                                        <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span>
+                                                        <div class="col-7">
+                                                            <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-6 hello">
+                                <div class="modal-body-card justify-content-center">
+                                    <!-- whatsapp   .. -->
+                                    <div class="wa-preview-main-div-cont">
+                                        <div class="preview-chat-section">
+                                            <div class="preview-header-main-cont">
+                                                <div class="header-image">
+                                                    <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
+                                                </div>
+                                                <div class="preview-header-text">
+                                                    <span class="company-name user ng-binding">appo</span>
+                                                </div>
+                                                <div class="wa-phone-header">
+                                                    <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
+                                                    <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
+                                                    <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
 
-                    </div>
-                </div>
-                <div class="col-6 hello">
-                    <div class="modal-body-card justify-content-center">
-                        <!-- whatsapp   .. -->
-                        <div class="wa-preview-main-div-cont">
-                            <div class="preview-chat-section">
-                                <div class="preview-header-main-cont">
-                                    <div class="header-image">
-                                        <img class="profile-img ng-scope"
-                                            ng-if="!company_photo || company_photo.length == 0"
-                                            ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"
-                                            alt="logo"
-                                            src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
+                                            <div class="preview-chat-section-chat overflow-y-scroll">
+                                                <div class="preview-chat-paragraph bg-white p-3 col-10">
+                                                    <div class="preview-header-paragraph" ng-if="submitParamDetails" class="ng-scope" style="">
+                                                        <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
+                                                        <!-- end ngIf: media_footer_text.length > 0 -->
+                                                    </div>
+                                                    <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
+                                                    </div>
+                                                    <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
+                                                        <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
+                                                        <!-- end ngIf: media_footer_text.length > 0 -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
+                                                <div class="preview-whatsapp-footer">
+                                                    <div class="whatsapp-footer">
+
+                                                        <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
+                                                        <input class="chat-btn-chat whatsapp-footer-1" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                                        <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
+                                                        <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
+                                                        <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
-                                    <div class="preview-header-text">
-                                        <span class="company-name user ng-binding">appo</span>
-                                    </div>
-                                    <div class="wa-phone-header">
-                                        <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
-                                        <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
-                                        <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
-                                    </div>
+
                                 </div>
-
-                                <div class="preview-chat-section-chat overflow-y-scroll">
-                                    <div class="preview-chat-paragraph bg-white p-3 col-10">
-                                        <div class="preview-header-paragraph" ng-if="submitParamDetails"
-                                            class="ng-scope" style="">
-                                            <div ng-if="media_footer_text.length > 0 "
-                                                class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope"
-                                                contenteditable="false" style=""></div>
-                                            <!-- end ngIf: media_footer_text.length > 0 -->
-                                        </div>
-                                        <div ng-if="final_bodyPreviewValue.length > 0"
-                                            class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope"
-                                            id="bodychange11">
-                                        </div>
-                                        <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails"
-                                            class="ng-scope" style="">
-                                            <div ng-if="media_footer_text.length > 0 "
-                                                class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope"
-                                                contenteditable="false" style=""></div>
-                                            <!-- end ngIf: media_footer_text.length > 0 -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="preview-call-button ng-scope"
-                                    ng-if="!edit_template &amp;&amp; !preview_open">
-                                    <div class="preview-whatsapp-footer">
-                                        <div class="whatsapp-footer">
-
-                                            <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
-                                            <input class="chat-btn-chat whatsapp-footer-1" placeholder="Type a message"
-                                                ng-disabled="true" aria-disabled="true" disabled="disabled">
-                                            <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
-                                            <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
-                                            <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro"
-                                                    aria-hidden="true"></i></p>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
-
                         </div>
-
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
-    </div>
-</div>
 
         <!-- view sent msg -->
-    <script>
-    // ========sidebar-jqury===================
-    $('body').on('click','.menu-toggle',function() {
-        $(this).addClass('bg-body-secondary');
-        $(this).siblings('.menu-toggle').removeClass('bg-body-secondary');
-    });
-    $('body').on('click', '.Arro-pro', function() {
-        $(this).closest('.first-container').toggleClass('slide-toggle');
-        $('.first-container-text').toggle();
-        $('.Arrowmovement').toggleClass("arrow-down");
-    }); 
-    // ==========modal-header-jqury=============
-    $('body').on('change','select#Template_header',function(){
-        var a = $(this).val();
-        if(a == 'TEXT'){
-            $('.file_upload').addClass('d-none');
-            $('.text-comment').removeClass('d-none');
-        }
-        else if(a == 0){
-            $('.file_upload').addClass('d-none');
-            $('.text-comment').addClass('d-none');
-        }
-        else{
-            $(this).closest('.header-jqury').children('.file_upload').removeClass('d-none');
-            $(this).closest('.header-jqury').children('.text-comment').addClass('d-none');
-        }   
-    });
+        <script>
+            // ========sidebar-jqury===================
+            $('body').on('click', '.menu-toggle', function() {
+                $(this).addClass('bg-body-secondary');
+                $(this).siblings('.menu-toggle').removeClass('bg-body-secondary');
+            });
+            $('body').on('click', '.Arro-pro', function() {
+                $(this).closest('.first-container').toggleClass('slide-toggle');
+                $('.first-container-text').toggle();
+                $('.Arrowmovement').toggleClass("arrow-down");
+            });
+            // ==========modal-header-jqury=============
+            $('body').on('change', 'select#Template_header', function() {
+                var a = $(this).val();
+                if (a == 'TEXT') {
+                    $('.file_upload').addClass('d-none');
+                    $('.text-comment').removeClass('d-none');
+                } else if (a == 0) {
+                    $('.file_upload').addClass('d-none');
+                    $('.text-comment').addClass('d-none');
+                } else {
+                    $(this).closest('.header-jqury').children('.file_upload').removeClass('d-none');
+                    $(this).closest('.header-jqury').children('.text-comment').addClass('d-none');
+                }
+            });
 
-    $('.body_div').on('input', function() {
-            var bodyText = $(this).val();
+            $('.body_div').on('input', function() {
+                var bodyText = $(this).val();
 
-            if (bodyText === "") {
-                $('.c').hide();
+                if (bodyText === "") {
+                    $('.c').hide();
 
-            } else {
-                $('.preview-chat-paragraph').show();
-            }
+                } else {
+                    $('.preview-chat-paragraph').show();
+                }
 
-            $('.preview-chat-paragraph .msg-text-chat').html(bodyText);
-        });
+                $('.preview-chat-paragraph .msg-text-chat').html(bodyText);
+            });
 
 
-        $('.footer_div').on('input', function() {
-            var footerText = $(this).val();
-            if (footerText === "") {
-                $('.preview-chat-paragraph').hide();
-            } else {
-                $('.preview-chat-paragraph').show();
-            }
+            $('.footer_div').on('input', function() {
+                var footerText = $(this).val();
+                if (footerText === "") {
+                    $('.preview-chat-paragraph').hide();
+                } else {
+                    $('.preview-chat-paragraph').show();
+                }
 
 
-            $('.preview-footer-paragraph .user-name-chat-footer').html(footerText);
-        });
+                $('.preview-footer-paragraph .user-name-chat-footer').html(footerText);
+            });
 
-        $('.MemberAddressClass').on('input', function() {
-            var headerText = $(this).val();
-            if (headerText === "") {
-                $('.preview-chat-paragraph').hide();
-            } else {
-                $('.preview-chat-paragraph').show();
-            }
+            $('.MemberAddressClass').on('input', function() {
+                var headerText = $(this).val();
+                if (headerText === "") {
+                    $('.preview-chat-paragraph').hide();
+                } else {
+                    $('.preview-chat-paragraph').show();
+                }
 
 
-            $('.preview-header-paragraph .user-name-chat-header').html(headerText);
-        });
-        </script>   
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
-<?= $this->include('partials/footer') ?>
-<script>
+                $('.preview-header-paragraph .user-name-chat-header').html(headerText);
+            });
+        </script>
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
+        <?= $this->include('partials/footer') ?>
+        <script>
             $('body').on('click', '.Tab1Class', function() {
 
                 $('.Activeclass').removeClass('d-none');
                 $('#pills-ex-schedule-tab').removeClass('d-none');
                 $('#pills-ex-single-tab').removeClass('d-none');
 
-                
+
             });
             $('body').on('click', '.Tab2Class', function() {
 
@@ -1243,7 +1213,7 @@ $language_name = json_decode($language_name, true);
                 $('#pills-ex-schedule-tab').addClass('d-none');
                 $('#pills-ex-single-tab').addClass('d-none');
 
-                
+
             });
             $('body').on('click', '.Tab3Class', function() {
 
@@ -1291,8 +1261,8 @@ $language_name = json_decode($language_name, true);
                 var footer = $('.footer_div').val();
                 var MemberAddressClass = $('.MemberAddressClass').val();
 
-                
- 
+
+
 
                 var table = 'master_whatsapp_template';
                 var uploade_file = $('#insert_image').prop('files')[0];
@@ -1315,7 +1285,7 @@ $language_name = json_decode($language_name, true);
 
 
 
-                if (Template_name != "" && footer != "" && category_types != "" && language != "") {
+                if (Template_name != "" && footer != "" && category_types != "") {
 
                     if (matches) {
                         $('.hello').modal('show');

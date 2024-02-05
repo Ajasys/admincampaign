@@ -24,7 +24,7 @@ class Home extends BaseController
     }    
     public function whatapp(){
         
-        $data['language_name'] = $this->MasterInformationModel->display_all_records2('facebook_languages');
+        $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
         return view('whatapp' , $data);
 
 
@@ -112,6 +112,31 @@ class Home extends BaseController
             'date_time datetime NOT NULL',
         ];
         $table = tableCreateAndTableUpdate2($table_name118, '', $columns);
+
+        $table_name120 = 'master_whatsapp_template';
+        $columns = [
+            'id int(255) primary key AUTO_INCREMENT',
+            'template_name varchar(255) NOT NULL',
+            'category_types varchar(265) NOT NULL',
+            'language varchar(265) NOT NULL',
+            'header varchar(265) NOT NULL',
+            'body longtext NOT NULL',
+            'footer varchar(265) NOT NULL',
+            'uploade_file longtext NOT NULL ',
+            'header_text varchar(265) NOT NULL',
+
+        ];
+        $table = tableCreateAndTableUpdate2($table_name120, '', $columns);
+
+        $table_name119 = 'master_languages';
+        $columns = [
+            'id int(255) primary key AUTO_INCREMENT',
+            'language_name varchar(250) NOT NULL',
+            'language_short_name varchar(265) NOT NULL',
+        ];
+        $table = tableCreateAndTableUpdate2($table_name119, '', $columns);
+
+        
 
         $table_name10 = $table_username . '_tasks';
         $columns = [
