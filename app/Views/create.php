@@ -18,7 +18,7 @@
                 <h2>Create</h2>
             </div>
             <div class="col-12 d-flex flex-wrap ">
-                <div class="col-2 p-2">
+                <div class="col-3 p-2">
                     <div class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
                         <div class="input-group mb-3 col-6">
                             <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-5 p-2">
+                <div class="col-9 p-2">
                     <div class="card-header col-12 border rounded-3 bg-white d-flex flex-column flex-wrap justify-content-between h-100">
                         <div class="col-12  border-bottom ">
                             <div class="border-bottom p-3 col-12">
@@ -45,7 +45,7 @@
                                 <nav class="nav">
                                     <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link bg-white text-primary" id="pills-master-diet" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Update</a>
+                                            <a class="nav-link bg-white text-primary " id="pills-master-diet" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Update</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <a class="nav-link bg-white text-primary" id="pills-all-diet" data-bs-toggle="pill" data-bs-target="#photo-all-tab" href="#">Photo</a>
@@ -111,23 +111,38 @@
                                         <div class="tab-pane fade " id="event-all-tab" role="tabpanel" aria-labelledby="event-all-tab-modal" tabindex="0">
                                             <div class="col-12  tab-compo">
                                                 <div class="card-body p-2 d-flex flex-wrap">
-                                                    <div class="col-12 ">
-                                                        <input type="text" class="form-control" id="event_title" placeholder="Event Title">
+                                                <div class="col-12 my-1 p-1">
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control p-2" id="event_title"
+                                                                placeholder="Event Title">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control event_start_date" id="event_title" placeholder="Start Date">
+                                                    <div class="col-6 my-1 p-1">
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control p-2 offer_start_date"
+                                                                id="event_title" placeholder="Start Date">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control event_end_date" id="event_title" placeholder="End Date">
+                                                    <div class="col-6 my-1 p-1">
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control p-2 offer_end_date"
+                                                                id="event_title" placeholder="End Date">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-12 border rounded  p-3">
-                                                        <textarea cols="30" rows="5" class="col-12 border-0" placeholder="Write something or use shortcodes, spintax..... "></textarea>
-                                                        <button class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted " data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#F3F3F3;">
-                                                            Click or Drag & Drop Media
+                                                    <div class="col-12 my-1 p-1">
+                                                        <div class="col-12 border rounded p-3">
+                                                            <textarea cols="30" rows="5" class="col-12 border-0"
+                                                                placeholder="Write something or use shortcodes, spintax..... "></textarea>
+                                                            <button
+                                                                class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted "
+                                                                data-bs-toggle="modal" data-bs-target="#get_file"
+                                                                type="file" style="background:#F3F3F3;">
+                                                                Click or Drag & Drop Media
 
-                                                        </button>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                                    <div class="col-lg-3 mx-1 my-2 col-md-4 col-sm-6">
                                                         <div class="main-selectpicker">
                                                             <select id="approx_buy" name="approx_buy" class="selectpicker form-control form-main" data-live-search="true" required>
                                                                 <i class="fa-solid fa-caret-down"></i>
@@ -144,33 +159,48 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade " id="offer-all-tab" role="tabpanel" aria-labelledby="offer-all-tab-modal" tabindex="0">
+                                        <div class="tab-pane fade " id="offer-all-tab" role="tabpanel"  aria-labelledby="offer-all-tab-modal" tabindex="0">
                                             <div class="col-12  tab-compo">
                                                 <div class="card-body p-2 d-flex flex-wrap">
-                                                    <div class="col-12 ">
-                                                        <input type="text" class="form-control" id="event_title" placeholder="Event Title">
+                                                <div class="col-12 my-1 p-1">
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control p-2" id="event_title"
+                                                                placeholder="Event Title">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control offer_start_date" id="event_title" placeholder="Start Date">
+                                                    <div class="col-6 my-1 p-1">
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control p-2 offer_start_date"
+                                                                id="event_title" placeholder="Start Date">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control offer_end_date" id="event_title" placeholder="End Date">
+                                                    <div class="col-6 my-1 p-1">
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control p-2 offer_end_date"
+                                                                id="event_title" placeholder="End Date">
+                                                        </div>
                                                     </div>
-                                                    <div class="col-12 border rounded  p-3">
-                                                        <textarea cols="30" rows="5" class="col-12 border-0" placeholder="Write something or use shortcodes, spintax..... "></textarea>
-                                                        <button class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted " data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#F3F3F3;">
-                                                            Click or Drag & Drop Media
+                                                    <div class="col-12 my-1 p-1">
+                                                        <div class="col-12 border rounded p-3">
+                                                            <textarea cols="30" rows="5" class="col-12 border-0"
+                                                                placeholder="Write something or use shortcodes, spintax..... "></textarea>
+                                                            <button
+                                                                class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted "
+                                                                data-bs-toggle="modal" data-bs-target="#get_file"
+                                                                type="file" style="background:#F3F3F3;">
+                                                                Click or Drag & Drop Media
 
-                                                        </button>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
+                                                    <div class="row col-12">
+                                                        <div class="col-md-4 my-1 ">
                                                             <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
                                                         </div>
-                                                        <div class="col-md-8 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
+                                                        <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
                                                             <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
                                                         </div>
-                                                        <div class="col-md-12 u-margin-bottom-10 undefined">
+                                                        <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
                                                             <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
                                                         </div>
                                                     </div>
@@ -217,7 +247,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <div class="col-12 border rounded-3 bg-white p-4">
                         <div class="u-align-children-vertically u-margin-bottom-5">
                             <h5 class="isBold textColorHeadline">
@@ -227,8 +257,8 @@
                                     <a class="isHoveredBlue500" href="https://publer.io/blog/preview-your-social-media-posts" target="_blank" tabindex="-1"><i class="icon-info isHoveredSecondary u-cursor-pointer"></i>
                                 </a>
                             </span>
-                        </div>
-                        <div class="col-12 border-bottom pb-2 my-2">
+                        </div> -->
+                        <!-- <div class="col-12 border-bottom pb-2 my-2">
                             <div class="main-selectpicker">
                                 <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control product_type" data-live-search="true" required="" tabindex="-98">
                                     <option class="dropdown-item">Google</option>
@@ -236,8 +266,8 @@
                                     <option class="dropdown-item">Instagram</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-12 mt-4">
+                        </div> -->
+                        <!-- <div class="col-12 mt-4">
                             <div class="col-12 ">
                                 <div class="col-12 d-flex flex-wrap align-content-center border p-4 rounded-3 justify-content-between">
                                     <div class="rounded-circle" style="width:40px;height:40px">
@@ -261,10 +291,10 @@
                                     </div>   
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div> -->
+                    <!-- </div>
 
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -310,46 +340,9 @@
 </div>
 
 <script>
-    $('.photo_start_date').bootstrapMaterialDatePicker({
-        minDate: new Date(),
-        time: true,
-        format: 'DD/MM/YYYY h:mm A',
-        cancelText: 'cancel',
-        okText: 'ok',
-        clearText: 'clear',
-    });
-    $('.photo_end_date').bootstrapMaterialDatePicker({
-        minDate: new Date(),
-        time: true,
-        format: 'DD/MM/YYYY h:mm A',
-        cancelText: 'cancel',
-        okText: 'ok',
-        clearText: 'clear',
-    });
-    $('.event_start_date').bootstrapMaterialDatePicker({
-        minDate: new Date(),
-        time: true,
-        format: 'DD/MM/YYYY h:mm A  ',
-        cancelText: 'cancel',
-        okText: 'ok',
-        clearText: 'clear',
-    });
-    $('.event_start_date').bootstrapMaterialDatePicker({
-        minDate: new Date(),
-        time: true,
-        format: 'DD/MM/YYYY h:mm A  ',
-        cancelText: 'cancel',
-        okText: 'ok',
-        clearText: 'clear',
-    });
-    $('.Scedual_start_date').bootstrapMaterialDatePicker({
-        minDate: new Date(),
-        time: true,
-        format: 'DD/MM/YYYY h:mm A  ',
-        cancelText: 'cancel',
-        okText: 'ok',
-        clearText: 'clear',
-    });
+  
+
+  
 </script>
 
 
