@@ -896,7 +896,455 @@
         </div>
 
         <!-- add model -->
+        <div class="modal fade modal-lg show d-block" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Create a Template Message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modal-body-secondery d-flex flex-wrap">
+                <div class="col-6">
+                    <div class="modal-body-card justify-content-center">
+                        <div class="col-12 mb-3 ">
+                            <input type="text"
+                                class="form-control main-control Template_name_varification Template_name"
+                                id="Template_nameId" placeholder="Template name" name="Template_name" required>
+                            <p class="CheckTemplateNameAlertPTag text-danger fs-12" style="display:none;">Name can
+                                only contain lowercase alphanumeric characters and underscores ( _ )</p>
+                        </div>
 
+                        <div class="col-12 mb-3 ">
+                            <div class="main-selectpicker">
+                                    <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control category_div"  id="category" name="category_types" required>
+                                        <option class=" dropdown-item"  value="">Please select your category</option>
+
+                                        <option value="Utility" ng-repeat="category in category_types"
+                                            class="  dropdown-item">
+                                            Utility</option>
+                                        </option>
+                                        <option value="Authentication" ng-repeat="category in category_types"
+                                            class="  dropdown-item">
+                                            Authentication</option>
+                                        </option>
+                                        <option value="MARKETING" ng-repeat="category in category_types"
+                                            class="  dropdown-item">
+                                            Marketing</option>
+                                        </option>
+                                    </select>
+                                </div>
+                        </div>
+                        <div class="col-12 mb-3 ">
+                            <div class="main-selectpicker">
+                                <select class="selectpicker form-control main-control language_div" id="language" name="language"
+                                    required>
+                                    <option class=" dropdown-item">Please select your language</option>
+                                    <option class=" dropdown-item " value="en_US"
+                                        ng-repeat="lang in template_lang">English US (en_US)</option>
+                                    <option class=" dropdown-item " value="en" ng-repeat="lang in template_lang">
+                                        English (en)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="af" ng-repeat="lang in template_lang">
+                                        Afrikaans</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="sq" ng-repeat="lang in template_lang">
+                                        Albanian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ar" ng-repeat="lang in template_lang">
+                                        Arabic</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="az" ng-repeat="lang in template_lang">
+                                        Azerbaijani</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="bn" ng-repeat="lang in template_lang">
+                                        Bengali</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="bg" ng-repeat="lang in template_lang">
+                                        Bulgarian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ca" ng-repeat="lang in template_lang">
+                                        Catalan</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="zh_CN"
+                                        ng-repeat="lang in template_lang">Chinese (CHN)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="zh_HK"
+                                        ng-repeat="lang in template_lang">Chinese (HKG)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="zh_TW"
+                                        ng-repeat="lang in template_lang">Chinese (TAI)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="hr" ng-repeat="lang in template_lang">
+                                        Croatian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="cs" ng-repeat="lang in template_lang">
+                                        Czech</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="da" ng-repeat="lang in template_lang">
+                                        Danish</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="nl" ng-repeat="lang in template_lang">
+                                        Dutch</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="en_GB"
+                                        ng-repeat="lang in template_lang">English (UK)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="et" ng-repeat="lang in template_lang">
+                                        Estonian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="fil" ng-repeat="lang in template_lang">
+                                        Filipino</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="fi" ng-repeat="lang in template_lang">
+                                        Finnish</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="fr" ng-repeat="lang in template_lang">
+                                        French</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="de" ng-repeat="lang in template_lang">
+                                        German</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="el" ng-repeat="lang in template_lang">
+                                        Greek</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="gu" ng-repeat="lang in template_lang">
+                                        Gujarati</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ha" ng-repeat="lang in template_lang">
+                                        Hausa</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="he" ng-repeat="lang in template_lang">
+                                        Hebrew</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="hi" ng-repeat="lang in template_lang">
+                                        Hindi</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="hu" ng-repeat="lang in template_lang">
+                                        Hungarian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="id" ng-repeat="lang in template_lang">
+                                        Indonesian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ga" ng-repeat="lang in template_lang">
+                                        Irish</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="it" ng-repeat="lang in template_lang">
+                                        Italian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ja" ng-repeat="lang in template_lang">
+                                        Japanese</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="kn" ng-repeat="lang in template_lang">
+                                        Kannada</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="kk" ng-repeat="lang in template_lang">
+                                        Kazakh</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ko" ng-repeat="lang in template_lang">
+                                        Korean</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="lo" ng-repeat="lang in template_lang">
+                                        Lao</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="lv" ng-repeat="lang in template_lang">
+                                        Latvian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="lt" ng-repeat="lang in template_lang">
+                                        Lithuanian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="mk" ng-repeat="lang in template_lang">
+                                        Macedonian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ms" ng-repeat="lang in template_lang">
+                                        Malay</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ml" ng-repeat="lang in template_lang">
+                                        Malayalam</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="mr" ng-repeat="lang in template_lang">
+                                        Marathi</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="nb" ng-repeat="lang in template_lang">
+                                        Norwegian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="fa" ng-repeat="lang in template_lang">
+                                        Persian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="pl" ng-repeat="lang in template_lang">
+                                        Polish</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="pt_BR"
+                                        ng-repeat="lang in template_lang">Portuguese (BR)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="pt_PT"
+                                        ng-repeat="lang in template_lang">Portuguese (POR)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="pa" ng-repeat="lang in template_lang">
+                                        Punjabi</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ro" ng-repeat="lang in template_lang">
+                                        Romanian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ru" ng-repeat="lang in template_lang">
+                                        Russian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="sr" ng-repeat="lang in template_lang">
+                                        Serbian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="sk" ng-repeat="lang in template_lang">
+                                        Slovak</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="sl" ng-repeat="lang in template_lang">
+                                        Slovenian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="es" ng-repeat="lang in template_lang">
+                                        Spanish</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="es_AR"
+                                        ng-repeat="lang in template_lang">Spanish (ARG)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="es_ES"
+                                        ng-repeat="lang in template_lang">Spanish (SPA)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="es_MX"
+                                        ng-repeat="lang in template_lang">Spanish (MEX)</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="sw" ng-repeat="lang in template_lang">
+                                        Swahili</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="sv" ng-repeat="lang in template_lang">
+                                        Swedish</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ta" ng-repeat="lang in template_lang">
+                                        Tamil</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="te" ng-repeat="lang in template_lang">
+                                        Telugu</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="th" ng-repeat="lang in template_lang">
+                                        Thai</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="tr" ng-repeat="lang in template_lang">
+                                        Turkish</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="uk" ng-repeat="lang in template_lang">
+                                        Ukrainian</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="ur" ng-repeat="lang in template_lang">
+                                        Urdu</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="uz" ng-repeat="lang in template_lang">
+                                        Uzbek</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="vi" ng-repeat="lang in template_lang">
+                                        Vietnamese</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                    <option class=" dropdown-item " value="zu" ng-repeat="lang in template_lang">
+                                        Zulu</option>
+                                    <!-- end ngRepeat: lang in template_lang -->
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+                    <div class="col-12 header-jqury">
+                        <div class="col-12 mb-3">
+                            <label for="form-memberships" class="main-label">HEADER<sup
+                                    class="validationn">*</sup></label>
+                            <div class="main-selectpicker">
+                                <select class="selectpicker form-control main-control header_div Template_header1" id="Template_header" name="header"
+                                    ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                    <option class="dropdown-item"  value="0">Please select your header type</option>
+                                    <option class="dropdown-item" value="TEXT">TEXT</option>
+                                    <option class="dropdown-item" value="IMAGE">IMAGE</option>
+                                    <option class="dropdown-item" value="VIDEO">VIDEO</option>
+                                    <option class="dropdown-item" value="DOCUMENT">DOCUMENT</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3 file_upload d-none">
+                            <label for="" class="form-label main-label">Inq file upload <sup class="validationn">*</sup></label>
+                            <input type="file" class="form-control main-control"  name="import_file" placeholder="Details" required="" >
+                        </div>
+                        <div class="col-12 mb-3 text-comment d-none">
+                            <textarea class="form-control main-control place MemberAddressClass" id="address" name="address" required="" placeholder="Type your header text here..." rows="3" cols="50" spellcheck="false"></textarea>
+                        </div>
+                        <!-- <textarea ng-if="selectedHeader === 'TEXT'"
+                            class="full-width cwt-header-textarea-box font-size-12 center-textarea header_text"
+                            ng-model="header_data"  minlength="0" maxlength="60"
+                            ng-change="header_text_media(header_data)"
+                            ></textarea> -->
+
+
+                        <!-- <div ng-if="selectedHeader === 'IMAGE' && provider === 'meta'"
+                            class="cwt-header-open-box-c full-width p-relative " id="temLoaded">
+                            <div class="text-center profile-btn-photo2 col-6 mt-3">
+                                <div class="upload-btn-wrapper">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <span class="upload-btn">
+                                            <i class="fi fi-rr-document"></i>
+                                        </span>
+                                        <input type="file" name="uploade_file[]" class="form-control main-control place"
+                                            id="insert_image" onchange="displayImageName()" />
+                                        <input type="submit" value="Upload" />
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="selectedImageName"></div>
+                        </div> -->
+                    </div>
+
+                        <div class="col-12 mb-3">
+                            <label for="form-memberships" class="main-label fw-medium">BODY<sup
+                                    class="validationn">*</sup></label>
+                            <textarea class="form-control main-control body_div" id="body_id"
+                                placeholder="Type Your Body Text Here...{{|}}" name="" required></textarea>
+                                <p class="fs-10">Body character limit is 1024 characters</p>
+                        </div>
+                        <div class="col-12 mb-5">
+                            <label for="form-memberships" class="main-label fw-medium">FOOTER<sup
+                                    class="validationn">*</sup></label>
+                            <textarea class="form-control main-control footer_div" id="footer"
+                                placeholder="Type Your Footer Text Here...{{|}}" name="" required></textarea>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="col-12 ">
+                                <label for="form-memberships" class="main-label">BUTTON<sup
+                                        class="validationn">*</sup></label>
+                                <div class="main-selectpicker">
+                                    <select class="selectpicker form-control main-control header_div" id="Button" name="Button"
+                                        ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                        <option class="dropdown-item"  value="">Please select button type</option>
+                                        <option class="dropdown-item" value="TEXT">Quick reply</option>
+                                        <option class="dropdown-item" value="IMAGE">Call to action</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 my-3">
+                                <button class="btn btn-primary " ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</button>
+                            </div>
+                            <!-- quck replay -->
+                            <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative ">
+                                <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
+                                <textarea class="form-control main-control col " placeholder="Start typing button label here..."cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
+                                <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2"><i class="fa-solid fa-trash-can"></i></button>
+                            </div> -->
+                            <div class="col-12">
+                                <div class="col-12 d-flex flex-wrap link_buttons_emove">
+                                    <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                        <span class="fs-10">Url Button</span>
+                                        <button class="bg-transparent border-0 mx-2 end-0 me-2"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                    <div class="col-12 border rounded-2 p-2">
+                                        <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..."cols="1" rows="1" required="" ></textarea>
+                                        <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between">
+                                            <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control main-control border-0"  placeholder="Input URL..."  required="">
+                                            </div>
+                                            <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-12 d-flex flex-wrap my-2 link_buttons">
+                                    <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                        <span class="fs-10">Url Button</span>
+                                        <button class="bg-transparent border-0 mx-2 end-0 me-2"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                    <div class="col-12 border rounded-2 p-2 ">
+                                        <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..."cols="1" rows="1" required="" ></textarea>
+                                        <div class="col-12 d-flex flex-wrap align-items-center border ">
+                                            <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span>
+                                            <div class="col-7">
+                                                <input type="text" class="form-control main-control border-0"  placeholder="Input URL..."  required="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-6 hello">
+                    <div class="modal-body-card justify-content-center">
+                        <!-- whatsapp   .. -->
+                        <div class="wa-preview-main-div-cont">
+                            <div class="preview-chat-section">
+                                <div class="preview-header-main-cont">
+                                    <div class="header-image">
+                                        <img class="profile-img ng-scope"
+                                            ng-if="!company_photo || company_photo.length == 0"
+                                            ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"
+                                            alt="logo"
+                                            src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
+                                    </div>
+                                    <div class="preview-header-text">
+                                        <span class="company-name user ng-binding">appo</span>
+                                    </div>
+                                    <div class="wa-phone-header">
+                                        <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
+                                        <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
+                                        <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+                                <div class="preview-chat-section-chat overflow-y-scroll">
+                                    <div class="preview-chat-paragraph bg-white p-3 col-10">
+                                        <div class="preview-header-paragraph" ng-if="submitParamDetails"
+                                            class="ng-scope" style="">
+                                            <div ng-if="media_footer_text.length > 0 "
+                                                class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope"
+                                                contenteditable="false" style=""></div>
+                                            <!-- end ngIf: media_footer_text.length > 0 -->
+                                        </div>
+                                        <div ng-if="final_bodyPreviewValue.length > 0"
+                                            class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope"
+                                            id="bodychange11">
+                                        </div>
+                                        <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails"
+                                            class="ng-scope" style="">
+                                            <div ng-if="media_footer_text.length > 0 "
+                                                class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope"
+                                                contenteditable="false" style=""></div>
+                                            <!-- end ngIf: media_footer_text.length > 0 -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="preview-call-button ng-scope"
+                                    ng-if="!edit_template &amp;&amp; !preview_open">
+                                    <div class="preview-whatsapp-footer">
+                                        <div class="whatsapp-footer">
+
+                                            <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
+                                            <input class="chat-btn-chat whatsapp-footer-1" placeholder="Type a message"
+                                                ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                            <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
+                                            <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
+                                            <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro"
+                                                    aria-hidden="true"></i></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
         <!-- view sent msg -->
     <script>
@@ -916,18 +1364,19 @@
         if(a == 'TEXT'){
             $('.file_upload').addClass('d-none');
             $('.text-comment').removeClass('d-none');
-            // alert('vahh one'); 
         }
         else if(a == 0){
             $('.file_upload').addClass('d-none');
             $('.text-comment').addClass('d-none');
-            // alert('vahh two'); 
         }
         else{
             $(this).closest('.header-jqury').children('.file_upload').removeClass('d-none');
             $(this).closest('.header-jqury').children('.text-comment').addClass('d-none');
         }   
-    })
+    });
+    // =======button-link======
+    $('body').on('click')
+
 
     $('.body_div').on('input', function() {
             var bodyText = $(this).val();
@@ -994,8 +1443,6 @@
                 $('.Activeclass').addClass('d-none');
                 $('#pills-ex-schedule-tab').addClass('d-none');
                 $('#pills-ex-single-tab').addClass('d-none');
-
-                
 
             });
         </script>
