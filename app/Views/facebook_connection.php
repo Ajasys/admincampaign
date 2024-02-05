@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-12">
                             <h6 class="modal-body-title">Facebook Business Account ID<sup class="validationn">*</sup></h6>
-                            <input type="number" class="form-control main-control" id="" name="" placeholder="Enter WhatApp Business Account ID" required="">
+                            <input type="number" class="form-control main-control" id="" name="" placeholder="Enter Facebook Business Account ID" required="">
                         </div>
                         <div class="col-12">
                             <h6 class="modal-body-title">Access Token<sup class="validationn">*</sup></h6>

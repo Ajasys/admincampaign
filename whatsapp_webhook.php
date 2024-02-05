@@ -3,7 +3,7 @@
 
 
 error_reporting(-1);
-$verifyToken = 'ABC123545454412';
+$verifyToken = 'AWA1235454406';
 $access_token = 'your_page_access_token';
 
 function writeToFile($data)
@@ -13,6 +13,15 @@ function writeToFile($data)
     $content = $currentDateTime . ': ' . $data . PHP_EOL;
     // $content = $currentDateTime . ': ' . json_encode($data) . PHP_EOL; // Encode the data before writing
     file_put_contents($filename, $content, FILE_APPEND);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['hub_mode']) && $_GET['hub_mode'] === 'subscribe') {
+    if ($_GET['hub_verify_token'] === $verifyToken) {
+        echo $_GET['hub_challenge'];
+    } else {
+        header('HTTP/1.1 403 Forbidden');
+    }
+    exit;
 }
 
 writeToFile('check file');

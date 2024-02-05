@@ -21,6 +21,8 @@ class Home extends BaseController
                 $this->get_roll_id_to_roll_duty_var = array();
             }
         }
+    }    public function whatapp(){
+        return view('whatapp');
     }
     public function emailsend()
     {
