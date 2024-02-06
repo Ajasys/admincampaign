@@ -345,6 +345,98 @@ class Templates_Controller extends BaseController
         die();
     }
 	// View Data Code End  =============================================================================>
+	function fetch_email_track_data()
+	{
+		$db_connection = \Config\Database::connect('second');
+
+		$query = "SELECT admin_email_data.email_subject,admin_email_data.email_address,admin_email_data.email_body,admin_email_data.email_track_code,admin_email_track.email_status,MAX(admin_email_track.email_open_datetime) AS email_open_datetime FROM admin_email_data LEFT JOIN admin_email_track ON admin_email_track.email_track_code = admin_email_data.email_track_code GROUP BY admin_email_data.email_subject,admin_email_data.email_address,admin_email_data.email_body,admin_email_data.email_track_code,admin_email_track.email_status ORDER BY email_open_datetime DESC";
+		$db_connection = \Config\Database::connect('second');
+		// $statement = $db_connection->prepare($query);
+		$result1 = $db_connection->query($query);
+		$result = $result1->getResultArray();
+
+		// $statement->execute();
+		// $result = $statement->fetchAll();
+		// $total_row = $statement->rowCount();
+		$total_row = 1;
+		$output = "";
+		if ($total_row > 0) {
+			foreach ($result as $row) {
+				$status = '';
+				if ($row['email_status'] == 'yes') {
+					$status = '<span class="label label-success">Open</span>';
+				} else {
+					$status = '<span class="label label-danger">Not Open</span>';
+				}
+				$open_date = date('d-m-Y h:i a',strtotime($row["email_open_datetime"]));
+				$output .= '
+				<tr>
+					<td>' . $row["email_address"] . '</td>
+					<td>' . $row["email_subject"] . '</td>
+					<td>' . $status . '</td>
+					<td>' . $open_date . '</td>
+					<td>
+								<div class="form-group">
+									<input type="text" name="email_address"  value="' . $row["email_address"] . '" hidden="true"/>
+									<input type="text" name="email_subject"  value="' . $row["email_subject"] . '" hidden="true"/>
+									<input type="text" name="email_track_code"  value="' . $row["email_track_code"] . '" hidden="true"/>
+									<input type="text" name="email_body"  value="' . $row["email_body"] . '" hidden="true"/>
+									
+									<a href="' . base_url('email_history_show?email_track_id=' . $row['email_track_code'] . '') . '" class="btn bg-transperent rounded-2 border">See Details</a>
+								</div>
+						</td>
+				</tr>';
+			}
+		}
+		$return_array['html'] = $output;
+		echo json_encode($return_array);
+		die();
+	}
+
+	function show_data_email()
+	{
+		$track_id = $_REQUEST['email_trac_id'];
+
+		$db = \Config\Database::connect('second');
+		// $db->query('TRUNCATE TABLE admin_email_data');
+		// $db->query('TRUNCATE TABLE admin_email_track');
+		$query = "SELECT  admin_email_data.email_subject,admin_email_data.email_address,admin_email_data.email_body,admin_email_data.email_track_code ,admin_email_track.email_status,admin_email_track.email_open_datetime
+FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_track_code = admin_email_data.email_track_code WHERE admin_email_data.email_track_code = admin_email_track.email_track_code  ORDER BY admin_email_track.email_open_datetime DESC";
+		$db_connection = \Config\Database::connect('second');
+		// $statement = $db_connection->prepare($query);
+		$result1 = $db_connection->query($query);
+		$result = $result1->getResultArray();
+		// pre($result);
+		// die();
+		$total_row = 1;
+		// $statement = $connect->prepare($query);
+		// $statement->execute([$email_track_code]);
+		// $result = $statement->fetchAll();
+		// $total_row = $statement->rowCount();
+		$output = "";
+		if ($total_row > 0) {
+			foreach ($result as $row) {
+				if ($row['email_track_code'] == $track_id) {
+					$status = '';
+					if ($row['email_status'] == 'yes') {
+						$status = '<span class="label label-success">Open</span>';
+					} else {
+						$status = '<span class="label label-danger">Not Open</span>';
+					}
+					$open_date = date('d-m-Y h:i a',strtotime($row["email_open_datetime"]));
+
+					$output .= '
+					<tr>
+					<td class="text-center"> <span>' . $status . '</span></td>
+					<td class="text-center"> <span>' . $open_date . '</span></td>
+					</tr>';
+				}
+			}
+		}
+		$return_array['html'] = $output;
+		echo json_encode($return_array, true);
+		die();
+	}
 	public function delete_all_t()
 	{
 		if ($this->request->getPost('checkbox_value')) {

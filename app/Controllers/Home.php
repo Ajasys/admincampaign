@@ -41,6 +41,18 @@ class Home extends BaseController
     {
         return view('posts');
     }
+    public function email_fetch()
+    {
+        return view('details_email_send');
+    }
+    public function email_track()
+    {
+        return view('email_track');
+    }
+    public function email_history_show()
+    {
+        return view('email_history_show');
+    }
     public function add_account()
     {
         return view('add_accounts');

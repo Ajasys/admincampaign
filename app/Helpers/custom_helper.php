@@ -85,93 +85,131 @@ if (!function_exists('getMasterUsername')) {
     }
 }
 if (!function_exists('SendMail')) {
-    function SendMail($toemail = '', $subject = '', $message = '', $attachment = '', $username='')
+    function SendMail($toemail = '', $subject = '', $message = '', $attachment = '', $username = '')
     {
-       
+        $db_connection = \Config\Database::connect('second');
+        
+        // $table_username = session_username($_SESSION['username']);
+        // $table_name118 = $table_username . '_email_data';
+        // $columns = [
+        //     'id int primary key AUTO_INCREMENT',
+        //     'email_address varchar(50) NOT NULL',
+        //     'email_track_code varchar(50) NOT NULL',
+        //     'email_subject varchar(50) NOT NULL',
+        //     'email_body text NOT NULL',
+        //     'PRIMARY KEY (`email_track_code`)'
+        // ];
+        // $table = tableCreateAndTableUpdate2($table_name118, '', $columns);
+
+        // $table_name1189 = $table_username . '_email_data';
+        // $columns50 = [
+        //     'id int primary key AUTO_INCREMENT',
+        //     'email_track_code varchar(50) NOT NULL',
+        //     'email_status varchar(50) DEFAULT NULL',
+        //     'email_open_datetime varchar(50) DEFAULT NULL',
+        // ];
+        // $table50 = tableCreateAndTableUpdate2($table_name1189, '', $columns50);
         try {
             $first_db = \Config\Database::connect('second');
             $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
             // $email_from = $generalSetting->email_from;
             // cc code
-            $SendMailUsing = $generalSetting->email_radio;
-  
-           
-            if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 1) {
-                // $username = session_username($_SESSION['username']);
-                $first_db = \Config\Database::connect();
-                $email = \Config\Services::email();
-                $email->setto($toemail);
-                $email->setfrom('info@ajasys.in', $subject);
-                $email->setSubject($subject); // templete nu title 
-                $email->setMailType('html');
-                $email->setMessage(html_entity_decode($message));
-                if (!empty($attachment)) {
-                    $email->attach($attachment);
-                }
-                $email->send();
-               
-            } else if(isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 2) {
+            // $SendMailUsing = $generalSetting->email_radio;
+
+
+            // if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 1) {
+            //     // $username = session_username($_SESSION['username']);
+            //     $first_db = \Config\Database::connect();
+            //     $email = \Config\Services::email();
+            //     $email->setto($toemail);
+            //     $email->setfrom('info@ajasys.in', $subject);
+            //     $email->setSubject($subject); // templete nu title 
+            //     $email->setMailType('html');
+            //     $email->setMessage(html_entity_decode($message));
+            //     if (!empty($attachment)) {
+            //         $email->attach($attachment);
+            //     }
+            //     $email->send();
+            // } else if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 2) {
                 try {
-                    $first_db = \Config\Database::connect();
+                    $first_db = \Config\Database::connect('second');
                     $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
-                   
-                    if ($generalSetting) {
-                        
-                        $senderEmail = $generalSetting->smtp_user;
-                       
+
+                    // if ($generalSetting) {
+
+                        // $senderEmail = $generalSetting->smtp_user;
+
                         $email = \Config\Services::email();
                         $smtpConfigInfo = [
                             'protocol' => 'smtp',
-                            'SMTPHost' => $generalSetting->smtp_host,
-                            'SMTPPort' => $generalSetting->smtp_port,
-                            'SMTPUser' => $generalSetting->smtp_user,
-                            'SMTPPass' => $generalSetting->smtp_password,
-                            'SMTPCrypto' => $generalSetting->smtp_crypto,
+                            'SMTPHost' => 'mail.ajasys.com',
+                            'SMTPPort' => '2525',
+                            'SMTPUser' => 'neel@ajasys.com',
+                            'SMTPPass' => 'Ti=clIJD8Yo5',
+                            'SMTPCrypto' => 'tls',
                             'mailType' => 'html',
                             'charset' => 'utf-8',
                             'validate' => true,
                             'CRLF' => "\r\n",
                             'newline' => "\r\n"
                         ];
-                      
+
                         $email->initialize($smtpConfigInfo);
                         $email->setTo($toemail);
-                        $email->setFrom($senderEmail, $subject);
-                        
+                        $email->setFrom('neel@ajasys.com', $subject);
+
                         if (isset($generalSetting->mail_cc) && !empty($generalSetting->mail_cc)) {
                             $email->setCC($generalSetting->mail_cc);
                         }
-                       
+
                         $email->setSubject($subject);
-                        $email->setMessage(html_entity_decode($message));
-                        
+                        //$email->setMessage(html_entity_decode($message));
+                        $email->setMessage(base64_encode($message));
+                        //
                         if (!empty($attachment)) {
                             $email->attach($attachment);
                         }
-                       
+                        $base_url = base_url('');
+                        $track_code = md5(rand());
+                     
+                        $message_body = $message;
+                        $message_body .= '<img src="'.$base_url.'email_track?code='.$track_code.'" width="1" height="1" />';
+                        // $email->Body = $message_body;
+                        $email->setMessage($message_body);
+                      
                         if ($email->send()) {
-                            return 0; 
+                         
+                            $data = array(
+                                'email_subject'=>$subject,
+                                'email_body'=>'hello',
+                                'email_address'=>$toemail,
+                                'email_track_code'=>$track_code
+                            );
+                            $db = \Config\Database::connect('second');
+                            $builder = $db->table('admin_email_data');
+                            $builder->insert($data);
+                         
+                            return 0;
                             // pre($email); 
                         } else {
                             $error_message = $email->printDebugger(['headers']);
-         
+
                             error_log("Email sending failed: " . $error_message);
                             return 1; // Failed to send email
                         }
                         die();
-                      
-                    } else {
-                        return 1; // General settings not found
-                    }
+                    // } else {
+                    //     return 1; // General settings not found
+                    // }
                 } catch (Exception $e) {
                     $error_message = $e->getMessage();
                     error_log("Email sending failed: " . $error_message);
                     return 1; // Failed to send email due to exception
                 }
-            }
-            
+            // }
+
             // echo "Email sent to $toemail<br>";
-            
+
             return 0;
         } catch (Exception $e) {
             return 1;

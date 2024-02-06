@@ -70,7 +70,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                         <p class="text-white dp-title">Master</p>
                         <li> <a class="dropdown-item" href="<?= base_url(); ?>alert_setting" ?>Alert Setting</a> </li>
-                        <li> <a class="dropdown-item" href="<?= base_url(); ?>template" ?>Email Tools</a> </li>
                         <?php if (in_array('subscription_management', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
 
                            <li>
@@ -479,6 +478,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>integration" ?>Integration</a> </li>
 
+                     <li> <a class="dropdown-item" href="<?= base_url(); ?>template" ?>Email Tools</a> </li>
 
 
                   </ul>

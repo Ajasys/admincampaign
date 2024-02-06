@@ -79,7 +79,11 @@ $routes->post('/insert_data_t', 'Templates_Controller::insert_data_t');
 $routes->post('/edit_data_t', 'Templates_Controller::edit_data_t');
 $routes->post('/update_data_t', 'Templates_Controller::update_data_t');
 $routes->post('template_delete_data', 'Templates_Controller::template_delete_data');
-
+$routes->get('email_fetch', 'Home::email_fetch');
+$routes->get('email_track', 'Home::email_track');
+$routes->post('show_data_email', 'Templates_Controller::show_data_email');
+$routes->get('email_history_show', 'Home::email_history_show');
+$routes->post('fetch_email_track_data', 'Templates_Controller::fetch_email_track_data');
 
 
 $routes->get('/alert_setting', 'Home::alert_setting');

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\MasterInformationModel;
 use CodeIgniter\I18n\Time;
+// use CodeIgniter\Files\File;
 
 class Inquiryinformation extends BaseController
 {
@@ -155,6 +156,9 @@ class Inquiryinformation extends BaseController
 
 							// $first_db = \Config\Database::connect();
 							// $generalSetting = $first_db->table('master_general_settings')->get()->getRow();
+							$queru = "SELECT * FROM admin_email_data";
+							$result = $db_connection->query($queru);
+							$followup_data = $result->getResultArray();
 
 							if ($notification_data['is_email'] != 0 && $notification_data['email_template_id'] != 0) {
 								$mail_send = SendMail($email, $subject, $var_message, $attachment, '');
@@ -432,6 +436,7 @@ class Inquiryinformation extends BaseController
 
 		die();
 	}
+
 	public function inquiry_log_show()
 	{
 		$table_name = $_POST['table'];
