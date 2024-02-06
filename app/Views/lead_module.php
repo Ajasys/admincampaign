@@ -133,7 +133,7 @@
         z-index: 2;
     }
 
-    .big_circle_fb_inner{
+    .big_circle_fb_inner {
         width: 176px;
         height: 176px;
     }
@@ -220,12 +220,12 @@ $data = $find_Array_all->getResultArray();
 
                                 <i class="fa-solid fa-angle-left position-absolute top-0 start-0 translate-middle m-4 fs-4 text-secondary-emphasis cursor-pointer discard-tag" data-bs-toggle="modal" data-bs-target="#discard_main_box"></i>
 
-                               
 
 
 
 
-<!--updated ka code  -->
+
+                                <!--updated ka code  -->
                                 <div class="d-flex justify-content-center align-items-center gap-3 py-4">
 
                                     <div class="big_list_add_outer_main big_list_add_outer_main_1 position-relative">
@@ -265,7 +265,7 @@ $data = $find_Array_all->getResultArray();
                                         <div class="big_circle_fb_outer position-relative logo-1">
                                             <div class="big_circle_fb cursor-pointer">
                                                 <div class="big_circle_fb_inner p-5 rounded-circle position-relative profile_div">
-                                                    
+
                                                     <div class="z-2 position-relative fb_div_hide">
                                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                             <g>
@@ -342,148 +342,148 @@ $data = $find_Array_all->getResultArray();
                                                         </select>
                                                     </div>
                                                     <div class="text-end mt-3 page_frm_save">
-                                                        <button class="btn-primary d-inline-block big_falcebook_circle_2_sbt" edit-id="" >Save</button>
+                                                        <button class="btn-primary d-inline-block big_falcebook_circle_2_sbt" edit-id="">Save</button>
                                                     </div>
-                                                </div>
-                                                </form>
-                                            <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
-                                                <b>Facebook Pages & Forms</b>
-                                            </h6>
-                                        </div>
-
-                                        <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
-                                            <div class="btn-primary-rounded add_next_big_plus_2">
-                                                <i class="bi bi-plus"></i>
                                             </div>
-                                        </div>
-                                    </div>
+                        </form>
+                        <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
+                            <b>Facebook Pages & Forms</b>
+                        </h6>
+                    </div>
 
-                                    <div class="lead_module_devider lead_module_devider_2"></div>
-                                    <div class="big_list_add_outer_main big_list_add_outer_main_3 position-relative">
-                                        <div class="big_circle_fb_outer position-relative">
-                                            <div class="big_circle_fb after-none cursor-pointer">
-                                                <div class="big_circle_fb_inner bg-white shadow-none p-5 rounded-circle position-relative">
-                                                    <div class="position-relative">
-                                                        <img src="https://dev.realtosmart.com/assets/images/r-logo.png" alt="" width="80">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
-                                                <label class="form-label main-label fs-14 text-nowrap">Int Area</label> <sup class="validationn">*</sup>
-                                                <div class="main-selectpicker">
-                                                    <select id="area" class="selectpicker form-control form-main area" data-live-search="true" required>
-                                                        <option value="0">Select Int Area</option>
-                                                        <?php
-                                                        if (isset($area)) {
-                                                            foreach ($area as $area_key => $area_value) {
-                                                                echo '<option data-area_option_id="' . $area_value["id"] . '" value="' . $area_value["id"] . '" data-city="' . $area_value["city"] . '">' . $area_value["area"] . '</option>';
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <label class="form-label main-label fs-14 text-nowrap mt-3">Select Int Site <sup class="validationn">*</sup></label>
-                                                <div class="main-selectpicker">
-                                                    <select id="int_site" class="selectpicker form-control form-main int_site" data-live-search="true" required>
-                                                        <option value="0">Select Int Site</option>
-                                                        <?php
-                                                        // if (isset($project)) {
-                                                        //     foreach ($project as $area_key => $type_value) {
-                                                        //         if ($type_value['is_inactive'] == 0) {
-                                                        //             echo '<option value="' . $type_value["id"] . '" data-intersted_site_id="' . $type_value["project_name"] . '" >' . $type_value["project_name"] . '</option>';
-                                                        //         }
-                                                        //     }
-                                                        // }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <label class="form-label main-label fs-14 text-nowrap mt-3">Property Sub
-                                                    Type <sup class="validationn">*</sup></label>
-                                                <div class="main-selectpicker">
-                                                    <select id="sub_type" class="selectpicker form-control form-main sub_type" data-live-search="true" required>
-                                                        <option value="0">Select Sub Type</option>
-                                                        <?php
-                                                        // if (isset($project_management_subtype)) {
-                                                        //     foreach ($project_management_subtype as $type_key => $type_value) {
-                                                        //         echo '<option class="dropdown-item" value="' . $type_value["id"] . '" data-property_type="' . $type_value["project_type"] . '" >' . $type_value["project_sub_type"] . '</option>';
-                                                        //     }
-                                                        // }
-                                                        ?>
-                                                    </select>
-                                                </div>
+                    <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
+                        <div class="btn-primary-rounded add_next_big_plus_2">
+                            <i class="bi bi-plus"></i>
+                        </div>
+                    </div>
+                </div>
 
-                                                <label class="form-label main-label fs-14 text-nowrap mt-3">Assign
-                                                    to <sup class="validationn">*</sup></label>
-                                                <div class="main-selectpicker">
-                                                    <select id="assign_to" class="selectpicker form-control form-main assign_to" data-live-search="true" required>
-                                                        <option class="dropdown-item" data-sourcetype_name="employee" value="0">Roll Over Staff</option>
-                                                        <option class="dropdown-item" data-sourcetype_name="employee" value="1">Assign To Staff</option>
-                                                    </select>
-                                                </div>
+                <div class="lead_module_devider lead_module_devider_2"></div>
+                <div class="big_list_add_outer_main big_list_add_outer_main_3 position-relative">
+                    <div class="big_circle_fb_outer position-relative">
+                        <div class="big_circle_fb after-none cursor-pointer">
+                            <div class="big_circle_fb_inner bg-white shadow-none p-5 rounded-circle position-relative">
+                                <div class="position-relative">
+                                    <img src="https://dev.realtosmart.com/assets/images/r-logo.png" alt="" width="80">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+                            <label class="form-label main-label fs-14 text-nowrap">Int Area</label> <sup class="validationn">*</sup>
+                            <div class="main-selectpicker">
+                                <select id="area" class="selectpicker form-control form-main area" data-live-search="true" required>
+                                    <option value="0">Select Int Area</option>
+                                    <?php
+                                    if (isset($area)) {
+                                        foreach ($area as $area_key => $area_value) {
+                                            echo '<option data-area_option_id="' . $area_value["id"] . '" value="' . $area_value["id"] . '" data-city="' . $area_value["city"] . '">' . $area_value["area"] . '</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <label class="form-label main-label fs-14 text-nowrap mt-3">Select Int Site <sup class="validationn">*</sup></label>
+                            <div class="main-selectpicker">
+                                <select id="int_site" class="selectpicker form-control form-main int_site" data-live-search="true" required>
+                                    <option value="0">Select Int Site</option>
+                                    <?php
+                                    // if (isset($project)) {
+                                    //     foreach ($project as $area_key => $type_value) {
+                                    //         if ($type_value['is_inactive'] == 0) {
+                                    //             echo '<option value="' . $type_value["id"] . '" data-intersted_site_id="' . $type_value["project_name"] . '" >' . $type_value["project_name"] . '</option>';
+                                    //         }
+                                    //     }
+                                    // }
+                                    ?>
+                                </select>
+                            </div>
+                            <label class="form-label main-label fs-14 text-nowrap mt-3">Property Sub
+                                Type <sup class="validationn">*</sup></label>
+                            <div class="main-selectpicker">
+                                <select id="sub_type" class="selectpicker form-control form-main sub_type" data-live-search="true" required>
+                                    <option value="0">Select Sub Type</option>
+                                    <?php
+                                    // if (isset($project_management_subtype)) {
+                                    //     foreach ($project_management_subtype as $type_key => $type_value) {
+                                    //         echo '<option class="dropdown-item" value="' . $type_value["id"] . '" data-property_type="' . $type_value["project_type"] . '" >' . $type_value["project_sub_type"] . '</option>';
+                                    //     }
+                                    // }
+                                    ?>
+                                </select>
+                            </div>
 
-                                                <label class="form-label main-label fs-14 text-nowrap mt-3 staff">Staff<sup class="validationn">*</sup></label>
-                                                    <div class="main-selectpicker multiple-select staff">
-                                                    <select class="selectpicker form-control form-main staff_to" multiple id="staff_to" name="staff_to" data-live-search="true" required="">
-                                                        <?php
-                                                            // if (isset($user)) {
-                                                            //     foreach ($user as $type_key => $user_value) {
-                                                            //         echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
-                                                            //     }
-                                                            // }
-                                                        ?>
-                                                    </select>
-                                                </div>
+                            <label class="form-label main-label fs-14 text-nowrap mt-3">Assign
+                                to <sup class="validationn">*</sup></label>
+                            <div class="main-selectpicker">
+                                <select id="assign_to" class="selectpicker form-control form-main assign_to" data-live-search="true" required>
+                                    <option class="dropdown-item" data-sourcetype_name="employee" value="0">Roll Over Staff</option>
+                                    <option class="dropdown-item" data-sourcetype_name="employee" value="1">Assign To Staff</option>
+                                </select>
+                            </div>
 
-                                                <div class="text-end mt-3">
-                                                    <button class="btn-primary big_falcebook_circle_4_sbt">Save</button>
-                                                </div>
-                                            </div>
-                                            <!-- <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
+                            <label class="form-label main-label fs-14 text-nowrap mt-3 staff">Staff<sup class="validationn">*</sup></label>
+                            <div class="main-selectpicker multiple-select staff">
+                                <select class="selectpicker form-control form-main staff_to" multiple id="staff_to" name="staff_to" data-live-search="true" required="">
+                                    <?php
+                                    // if (isset($user)) {
+                                    //     foreach ($user as $type_key => $user_value) {
+                                    //         echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
+                                    //     }
+                                    // }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="text-end mt-3">
+                                <button class="btn-primary big_falcebook_circle_4_sbt">Save</button>
+                            </div>
+                        </div>
+                        <!-- <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
                                                 <b>Facebook Lead Connection</b>
                                             </h6> -->
-                                        </div>
+                    </div>
 
-                                        <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
-                                            <div class="btn-primary-rounded add_next_big_plus_2">
-                                                <i class="bi bi-plus"></i>
-                                            </div>
-                                        </div>
+                    <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
+                        <div class="btn-primary-rounded add_next_big_plus_2">
+                            <i class="bi bi-plus"></i>
+                        </div>
+                    </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="p-2 bg-white rounded-2 mx-2 pages_list">
-                        </div>
+                </div>
+            </div>
+        </div>
+        </form>
+        <div class="p-2 bg-white rounded-2 mx-2 pages_list">
+        </div>
 
-                        <div class="delete_div">
-                            <div class="border-bottom m-3"></div>
-                            <div class="p-2 bg-white rounded-2 mx-2">
-                                <div class="mb-2">
-                                    <h2 class="fs-14 text-gray">Recently deleted</h2>
-                                </div>
-                                <div class="deleted_pages_list"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="update_div">
-                            <div class="border-bottom m-3"></div>
-                            <div class="p-2 bg-white rounded-2 mx-2">
-                                <div class="mb-2">
-                                    <h2 class="fs-14 text-gray">Before updated Form</h2>
-                                </div>
-                                <div class="updated_pages_list"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="draft_div">
-                            <div class="border-bottom m-3"></div>
-                            <div class="p-2 bg-white rounded-2 mx-2">
-                                <div class="mb-2">
-                                    <h2 class="fs-14 text-gray">Saved Drafts</h2>
-                                </div>
-                                <div class="draft_pages_list"></div>
-                                <!-- <div class="lead_list p-2 rounded-2 position-relative">
+        <div class="delete_div">
+            <div class="border-bottom m-3"></div>
+            <div class="p-2 bg-white rounded-2 mx-2">
+                <div class="mb-2">
+                    <h2 class="fs-14 text-gray">Recently deleted</h2>
+                </div>
+                <div class="deleted_pages_list"></div>
+            </div>
+        </div>
+
+        <div class="update_div">
+            <div class="border-bottom m-3"></div>
+            <div class="p-2 bg-white rounded-2 mx-2">
+                <div class="mb-2">
+                    <h2 class="fs-14 text-gray">Before updated Form</h2>
+                </div>
+                <div class="updated_pages_list"></div>
+            </div>
+        </div>
+
+        <div class="draft_div">
+            <div class="border-bottom m-3"></div>
+            <div class="p-2 bg-white rounded-2 mx-2">
+                <div class="mb-2">
+                    <h2 class="fs-14 text-gray">Saved Drafts</h2>
+                </div>
+                <div class="draft_pages_list"></div>
+                <!-- <div class="lead_list p-2 rounded-2 position-relative">
                                     <div class="d-flex align-items-center justify-content-end">
                                         <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
                                             <div class="mx-1">
@@ -539,13 +539,13 @@ $data = $find_Array_all->getResultArray();
                                         </div>
                                     </div>
                                 </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="modal fade" id="discard_main_box" tabindex="-1" role="dialog">
@@ -582,7 +582,7 @@ $data = $find_Array_all->getResultArray();
 
         $('body').on('click', '.lead_main_box_add', function() {
             $(".lead_add_main_box").show();
-            $(".add_next_big_plus_outer").hide  ();
+            $(".add_next_big_plus_outer").hide();
         });
 
         $(".big_list_add_outer_main").hide();
@@ -598,17 +598,42 @@ $data = $find_Array_all->getResultArray();
             $(this).closest(".big_circle_fb_outer").find(".big_circle_fb_list").toggle();
             $(this).closest(".big_circle_fb_outer").closest('.big_list_add_outer_main').siblings().find('.big_circle_fb_list').slideUp();
         });
-       
+
         $(".big_circle_fb_outer").hide();
         // $(".add_next_big_plus_outer").hide();
 
         $('body').on('click', '#facebook_lead_drop_1', function() {
-            // $(this).closest(".big_circle_plus_outer").hide();
-            // $(this).closest(".big_list_add_outer_main").find(".big_circle_fb_outer").show();
             $(this).closest(".big_circle_plus_outer").hide();
             $(".lead_module_devider_1").show();
             $(".big_list_add_outer_main_2").show();
             $(".big_list_add_outer_main_2 .big_circle_fb_outer").show();
+
+            $.ajax({
+                type: "post",
+                url: "<?= site_url('facebook_user'); ?>",
+                data: {
+                    action: 'user'
+                },
+                success: function(res) {
+                    $('.loader').hide();
+                    var result = JSON.parse(res);
+                    $('.big_list_add_outer_main_1 .add_next_big_plus_outer').show();
+                    $('.big_list_add_outer_main_1').closest(".add_next_big_plus_outer").show();
+                    $('.big_list_add_outer_main_2,.big_list_add_outer_main_3,.lead_module_devider_1,.lead_module_devider_2').hide();
+                    $('.logo-1 .all_circle_plus_list').hide();
+                    if (result.profile_pic) {
+                        $('.fb_div_hide').hide();
+                        $('.profile_div').html('<img src="' + result.profile_pic + '" class="w-100 h-100 object-fit-contain rounded-circle">');
+
+                    }
+                    $('#facebookpages').html(result.html);
+                    $('#facebookpages').selectpicker('refresh');
+                },
+                error: function(error) {
+                    $('.loader').hide();
+                }
+            });
+
         });
 
         $('body').on('click', '.fb_user_next .btn-primary', function() {
@@ -718,8 +743,7 @@ $data = $find_Array_all->getResultArray();
             success: function(res) {
                 $('.loader').hide();
                 var result = JSON.parse(res);
-                if(result.pages_list_status==1)
-                {
+                if (result.pages_list_status == 1) {
                     $('.delete_div').show();
                     $('.deleted_pages_list').html(result.pages_list);
                     $('.selectpicker').selectpicker('refresh');
@@ -741,8 +765,7 @@ $data = $find_Array_all->getResultArray();
             success: function(res) {
                 $('.loader').hide();
                 var result = JSON.parse(res);
-                if(result.pages_list_status==1)
-                {
+                if (result.pages_list_status == 1) {
                     $('.update_div').show();
                     $('.updated_pages_list').html(result.pages_list);
                     $('.selectpicker').selectpicker('refresh');
@@ -754,8 +777,7 @@ $data = $find_Array_all->getResultArray();
         });
     }
 
-    function draft_pages_list_data()
-    {
+    function draft_pages_list_data() {
         $.ajax({
             type: "post",
             url: "<?= site_url('draft_pages_list_data'); ?>",
@@ -765,8 +787,7 @@ $data = $find_Array_all->getResultArray();
             success: function(res) {
                 $('.loader').hide();
                 var result = JSON.parse(res);
-                if(result.pages_list_status==1)
-                {
+                if (result.pages_list_status == 1) {
                     $('.draft_div').show();
                     $('.draft_pages_list').html(result.pages_list);
                     $('.selectpicker').selectpicker('refresh');
@@ -783,56 +804,56 @@ $data = $find_Array_all->getResultArray();
     updated_pages_list_data();
     draft_pages_list_data();
 
-    function myFacebookLogin() {
-        FB.login(function(response) {
-            $('.loader').show();
-            if (response.authResponse) {
-                // Exchange short-lived token for a long-lived token
-                FB.api('/oauth/access_token', 'GET', {
-                    "grant_type": "fb_exchange_token",
-                    "client_id": "692703766025178",
-                    "client_secret": "67e1dc6e799ae0ea2af3b38a0fa6face",
-                    "fb_exchange_token": response.authResponse.accessToken
-                }, function(tokenResponse) {
-                    var longLivedToken = tokenResponse.access_token;
-                    FB.api('/me', function(userResponse) {
-                        $.ajax({
-                            type: "post",
-                            url: "<?= site_url('facebook_user'); ?>",
-                            data: {
-                                action: 'user',
-                                response: response.authResponse,
-                                userinformation: userResponse,
-                                longLivedToken: longLivedToken // Include the long-lived token
-                            },
-                            success: function(res) {
-                                $('.loader').hide();
-                                var result = JSON.parse(res);
-                                $('.big_list_add_outer_main_1 .add_next_big_plus_outer').show();
-                                $('.big_list_add_outer_main_1').closest(".add_next_big_plus_outer").show();
-                                $('.big_list_add_outer_main_2,.big_list_add_outer_main_3,.lead_module_devider_1,.lead_module_devider_2').hide();
-                                $('.logo-1 .all_circle_plus_list').hide();
-                                if(result.profile_pic)
-                                {
-                                    $('.fb_div_hide').hide();
-                                    $('.profile_div').html('<img src="'+result.profile_pic+'" class="w-100 h-100 object-fit-contain rounded-circle">');   
-                                
-                                }
-                                // $("#big_falcebook_circle_1 .big_list_add_drop").hide();
-                                $('#facebookpages').html(result.html);
-                                $('#facebookpages').selectpicker('refresh');
-                            },
-                            error: function(error) {
-                                $('.loader').hide();
-                            }
-                        });
-                    });
-                });
-            }
-        }, {
-            scope: 'public_profile,pages_show_list,leads_retrieval,pages_manage_ads, pages_manage_engagement, pages_read_engagement, pages_manage_metadata'
-        });
-    }
+    // function myFacebookLogin() {
+    //     FB.login(function(response) {
+    //         $('.loader').show();
+    //         if (response.authResponse) {
+    //             // Exchange short-lived token for a long-lived token
+    //             FB.api('/oauth/access_token', 'GET', {
+    //                 "grant_type": "fb_exchange_token",
+    //                 "client_id": "692703766025178",
+    //                 "client_secret": "67e1dc6e799ae0ea2af3b38a0fa6face",
+    //                 "fb_exchange_token": response.authResponse.accessToken
+    //             }, function(tokenResponse) {
+    //                 var longLivedToken = tokenResponse.access_token;
+    //                 FB.api('/me', function(userResponse) {
+    //                     $.ajax({
+    //                         type: "post",
+    //                         url: "<?= site_url('facebook_user'); ?>",
+    //                         data: {
+    //                             action: 'user',
+    //                             response: response.authResponse,
+    //                             userinformation: userResponse,
+    //                             longLivedToken: longLivedToken // Include the long-lived token
+    //                         },
+    //                         success: function(res) {
+    //                             $('.loader').hide();
+    //                             var result = JSON.parse(res);
+    //                             $('.big_list_add_outer_main_1 .add_next_big_plus_outer').show();
+    //                             $('.big_list_add_outer_main_1').closest(".add_next_big_plus_outer").show();
+    //                             $('.big_list_add_outer_main_2,.big_list_add_outer_main_3,.lead_module_devider_1,.lead_module_devider_2').hide();
+    //                             $('.logo-1 .all_circle_plus_list').hide();
+    //                             if(result.profile_pic)
+    //                             {
+    //                                 $('.fb_div_hide').hide();
+    //                                 $('.profile_div').html('<img src="'+result.profile_pic+'" class="w-100 h-100 object-fit-contain rounded-circle">');   
+
+    //                             }
+    //                             // $("#big_falcebook_circle_1 .big_list_add_drop").hide();
+    //                             $('#facebookpages').html(result.html);
+    //                             $('#facebookpages').selectpicker('refresh');
+    //                         },
+    //                         error: function(error) {
+    //                             $('.loader').hide();
+    //                         }
+    //                     });
+    //                 });
+    //             });
+    //         }
+    //     }, {
+    //         scope: 'public_profile,pages_show_list,leads_retrieval,pages_manage_ads, pages_manage_engagement, pages_read_engagement, pages_manage_metadata'
+    //     });
+    // }
 
     $('body').on('click', '.big_falcebook_circle_sbt,.new_module_add_btn1', function() {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
@@ -855,11 +876,10 @@ $data = $find_Array_all->getResultArray();
             success: function(res) {
                 var result = JSON.parse(res);
                 if ($("#facebookpages").val() == "0" || $("#facebookpages").val() == "") {
-                    if('<?php echo isset($data[0]['user_profile']) ?>')
-                    {
+                    if ('<?php echo isset($data[0]['user_profile']) ?>') {
                         $('.fb_div_hide').hide();
-                        $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');   
-                    
+                        $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');
+
                     }
                     $('#facebookpages').html(result.html);
                     $('#facebookpages').selectpicker('refresh');
@@ -986,8 +1006,7 @@ $data = $find_Array_all->getResultArray();
 
     $('body').on('change', '#assign_to', function() {
         $('.staff').hide();
-        if($(this).val()==1)
-        {
+        if ($(this).val() == 1) {
             $('.staff').show();
         }
     });
@@ -1006,7 +1025,7 @@ $data = $find_Array_all->getResultArray();
         var form_id = $("#facebookform option:selected").val();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
-        
+
         if (int_site > 0 && assign_to != "" && sub_type > 0 && area > 0) {
             $.ajax({
                 type: "post",
@@ -1020,7 +1039,7 @@ $data = $find_Array_all->getResultArray();
                     int_site: int_site,
                     sub_type: sub_type,
                     assign_to: assign_to,
-                    staff_to:staff_to,
+                    staff_to: staff_to,
                     form_name: form_name,
                     form_id: form_id,
                     edit_id: edit_id,
@@ -1087,10 +1106,9 @@ $data = $find_Array_all->getResultArray();
         var form_id = $("#facebookform option:selected").val();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
-        if(int_site > 0 && assign_to != "" && sub_type > 0 && area > 0 && page_id != "" && form_id != ""){
+        if (int_site > 0 && assign_to != "" && sub_type > 0 && area > 0 && page_id != "" && form_id != "") {
             var draft_status = 0;
-        }
-        else{
+        } else {
             var draft_status = 3;
         }
         if (page_id > 0 && form_id > 0) {
@@ -1110,16 +1128,15 @@ $data = $find_Array_all->getResultArray();
                     form_name: form_name,
                     form_id: form_id,
                     edit_id: edit_id,
-                    is_status:draft_status,
+                    is_status: draft_status,
                 },
                 success: function(res) {
                     var result = JSON.parse(res);
                     $('.discard_main_box').val(result.id);
                     $('.fb_div_hide1').hide();
-                    if(result.page_profile)
-                    {
-                        $('.page-profile').html('<img src="'+result.page_profile+'" class="w-100 h-100 object-fit-contain rounded-circle">');
-                   
+                    if (result.page_profile) {
+                        $('.page-profile').html('<img src="' + result.page_profile + '" class="w-100 h-100 object-fit-contain rounded-circle">');
+
                     }
                     $(".big_list_add_outer_main_2 .all_circle_plus_list").hide();
                     if (result.respoance == 1) {
@@ -1139,7 +1156,7 @@ $data = $find_Array_all->getResultArray();
             });
             return false;
         } else {
-      
+
             var form = $("form[name='pagelist']")[0];
             $(form).find('.selectpicker').each(function() {
                 var selectpicker_valid = 0;
@@ -1243,8 +1260,7 @@ $data = $find_Array_all->getResultArray();
         });
     });
 
-    function discard_page()
-    {
+    function discard_page() {
         var delete_id = $('.discard_main_box').val();
         $.ajax({
             url: "<?= site_url('delete_pages_fb'); ?>",
@@ -1303,7 +1319,7 @@ $data = $find_Array_all->getResultArray();
     //     location.reload();
     // });
 
-    function EditScenarios(edit_id, page_id, form_id, intrested_area, intrested_site, property_sub_type, setassign_id,staff_to,page_img,status_id) {
+    function EditScenarios(edit_id, page_id, form_id, intrested_area, intrested_site, property_sub_type, setassign_id, staff_to, page_img, status_id) {
         $('.logo-1,.big_list_add_outer_main_2,.lead_module_devider_1,.big_list_add_outer_main_3,.lead_module_devider_2').show();
         $('.big_circle_plus_outer,.add_next_big_plus_outer,.all_circle_plus_list,.lead_main_box_add,.discard-tag').hide();
         $('.big_list_add_outer_main_1,.big_circle_fb_outer,.lead_add_main_box').show();
@@ -1314,14 +1330,13 @@ $data = $find_Array_all->getResultArray();
         var user_id = $(".user_agent option:selected").attr("data-user_id");
 
         $('.fb_div_hide1,.fb_div_hide').hide();
-        if('<?php echo isset($data[0]['user_profile']) ?>')
-        {
+        if ('<?php echo isset($data[0]['user_profile']) ?>') {
             $('.fb_div_hide').hide();
-            $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');   
-        
+            $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');
+
         }
-        $('.page-profile').html('<img src="'+page_img+'" class="w-100 h-100 object-fit-contain rounded-circle">');
-          
+        $('.page-profile').html('<img src="' + page_img + '" class="w-100 h-100 object-fit-contain rounded-circle">');
+
         $.ajax({
             type: "post",
             url: "<?= site_url('facebook_user'); ?>",
@@ -1367,17 +1382,14 @@ $data = $find_Array_all->getResultArray();
                 $('.loader').hide();
             }
         });
-                 
+
         $('#area').val(intrested_area);
         $('#int_site').val(intrested_site);
         $('#sub_type').val(property_sub_type);
         $('#assign_to').val(setassign_id);
-        if(setassign_id==0)
-        {
+        if (setassign_id == 0) {
             $('.staff').hide();
-        }
-        else
-        {
+        } else {
             $('.staff').show();
             var assignIdsArray = staff_to.split(',');
             $('#staff_to').val(assignIdsArray);
@@ -1385,16 +1397,12 @@ $data = $find_Array_all->getResultArray();
         }
         $('.selectpicker').selectpicker('refresh');
         $('.big_falcebook_circle_4_sbt').attr('edit_id', edit_id);
-        if(status_id==3)
-        {
+        if (status_id == 3) {
             $('.big_list_add_outer_main_3 .all_circle_plus_list').show();
             $('.big_falcebook_circle_4_sbt').html('Save As');
-        }
-        else
-        {
+        } else {
             $('.big_falcebook_circle_4_sbt').html('Update');
         }
-        
+
     }
-    
 </script>

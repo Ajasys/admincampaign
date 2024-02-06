@@ -83,12 +83,12 @@ class Home extends BaseController
             'biometric_password text',
             'biometric_connection int NOT NULL',
             'corporateid varchar(200)',
-            "whatapp_phone_number_id varchar(255) NOT NULL",
-            "whatapp_business_account_id varchar(255) NOT NULL",
-            "whatapp_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
+            "whatapp_phone_number_id int(255) NOT NULL",
+            "whatapp_business_account_id int(255) NOT NULL",
+            "whatapp_access_token longtext   NOT NULL",
             "whatapp_verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
             // "whatapp_created_at_account datetime NOT NULL COMMENT 'Whatapp Created At Entry TimeDate '",
-            "facebook_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
+            "facebook_access_token longtext   NOT NULL",
             "is_facebook_connect int NOT NULL",
         ];
         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
@@ -180,18 +180,18 @@ class Home extends BaseController
         $fb_table = $table_username . '_fb_pages';
         $fb_column = [
             'id int(11) primary key AUTO_INCREMENT NOT NULL',
-            'page_id varchar(250) utf8mb4_unicode_ci NOT NULL',
-            'page_name varchar(250) utf8mb4_unicode_ci NOT NULL',
-            'page_access_token longtext utf8mb4_unicode_ci NOT NULL',
+            'page_id varchar(250)  NOT NULL',
+            'page_name varchar(250)  NOT NULL',
+            'page_access_token longtext  NOT NULL',
             'master_id int(11) NOT NULL',
-            'intrested_area varchar(11) utf8mb4_unicode_ci NOT NULL',
-            'property_sub_type varchar(11) utf8mb4_unicode_ci NOT NULL',
-            'intrested_site varchar(11) utf8mb4_unicode_ci NOT NULL',
-            'user_id varchar(11) utf8mb4_unicode_ci NOT NULL',
+            'intrested_area varchar(11)  NOT NULL',
+            'property_sub_type varchar(11)  NOT NULL',
+            'intrested_site varchar(11)  NOT NULL',
+            'user_id varchar(11)  NOT NULL',
             'status int(255) NOT NULL DEFAULT 1',
-            'form_id varchar(255) utf8mb4_unicode_ci NOT NULL',
-            'form_name varchar(255) utf8mb4_unicode_ci NOT NULL',
-            'page_img longtext utf8mb4_unicode_ci NOT NULL',
+            'form_id varchar(255)  NOT NULL',
+            'form_name varchar(255)  NOT NULL',
+            'page_img longtext  NOT NULL',
             'is_status smallint(1) NOT NULL DEFAULT 0  COMMENT \'0=fresh connection, 1=deleted, 2=old connection\''
         ];
         $fbtable = tableCreateAndTableUpdate2($fb_table, '', $fb_column);
@@ -200,37 +200,37 @@ class Home extends BaseController
         $fba_table = $table_username . '_fb_account';
         $fba_column = [
             'id int(11) primary key AUTO_INCREMENT NOT NULL',
-            'userid varchar(255) utf8mb4_unicode_ci NOT NULL',
-            'accessToken longtext utf8mb4_unicode_ci NOT NULL',
-            'username longtext utf8mb4_unicode_ci NOT NULL',
+            'userid varchar(255)  NOT NULL',
+            'accessToken longtext  NOT NULL',
+            'username longtext  NOT NULL',
             'master_id int(11) NOT NULL',
-            'user_profile longtext utf8mb4_unicode_ci NOT NULL'
+            'user_profile longtext  NOT NULL'
         ];
         $fbatable = tableCreateAndTableUpdate2($fba_table, '', $fba_column);
 
         $integration_table = $table_username . '_integration';
         $integration_columns = [
             'unquie_id int(11) primary key AUTO_INCREMENT NOT NULL',
-            'lead_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'inquiry_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'campaign_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'campaign_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'adset_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'adset_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'ad_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'ad_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'form_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'form_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'platform varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'full_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'phone_number varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'page_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'lead_id varchar(255)   NOT NULL',
+            'inquiry_id varchar(255)   NOT NULL',
+            'campaign_id varchar(255)   NOT NULL',
+            'campaign_name varchar(255)   NOT NULL',
+            'adset_id varchar(255)   NOT NULL',
+            'adset_name varchar(255)   NOT NULL',
+            'ad_id varchar(255)   NOT NULL',
+            'ad_name varchar(255)   NOT NULL',
+            'form_id varchar(255)   NOT NULL',
+            'form_name varchar(255)   NOT NULL',
+            'platform varchar(255)   NOT NULL',
+            'full_name varchar(255)   NOT NULL',
+            'phone_number varchar(255)   NOT NULL',
+            'page_id varchar(255)   NOT NULL',
             'id int(11) NOT NULL',
             'fb_update int(11) NOT NULL DEFAULT 0',
             'assign_id int(11) NOT NULL DEFAULT 0',
             'lead_status int(11) NOT NULL DEFAULT 0',
-            'created_time varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
-            'lead_details text COLLATE utf8mb4_unicode_ci NOT NULL',
+            'created_time varchar(255)   NOT NULL',
+            'lead_details text   NOT NULL',
         ];
         $inttable = tableCreateAndTableUpdate2($integration_table, '', $integration_columns);
 

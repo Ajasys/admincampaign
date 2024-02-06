@@ -103,7 +103,6 @@ class FaceBookController extends BaseController
     }
     function facebook_user()
     {
-
         $action = $this->request->getPost("action");
         $name = $this->request->getPost("name");
         $response = $this->request->getPost("response");
@@ -111,7 +110,6 @@ class FaceBookController extends BaseController
         $userinformation = $this->request->getPost("userinformation");
         $resultff = array();
         $html = "";
-
         $curl = curl_init();
         curl_setopt_array(
             $curl,
