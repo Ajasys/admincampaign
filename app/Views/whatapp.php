@@ -82,6 +82,9 @@ $language_name = json_decode($language_name, true);
         padding: 10px;
         height: calc(45vh - 10px);
         background-color: #F1EDE5;
+        min-height: 400px;
+        max-height: 400px;
+
 
 
     }
@@ -461,6 +464,11 @@ $language_name = json_decode($language_name, true);
 
     .slide-toggle {
         width: 443px;
+    }
+    .msssege-box{
+        border: 1px solid #FFC759;
+        background-color: #FFF8EB;
+        font-size: 12px;
     }
 </style>
 
@@ -913,7 +921,6 @@ $language_name = json_decode($language_name, true);
 
         <!-- add model -->
         <div class="modal fade modal-lg" id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
-
             <div class="modal-dialog modal-50 modal-dialog-centered">
                 <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
                     <div class="modal-content">
@@ -922,14 +929,13 @@ $language_name = json_decode($language_name, true);
                             <button type="button" class="border-0 modal-close-btn close_btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-circle fs-5"></i></button>
                         </div>
                         <div class="modal-body modal-body-secondery d-flex flex-wrap">
-                            <div class="col-6">
-                                <div class="modal-body-card justify-content-center">
+                            <div class="col-6" >
+                                <div class="modal-body-card justify-content-center overflow-y-scroll" style="max-height:657px;">
                                     <div class="col-12 mb-3 ">
                                         <input type="text" class="form-control main-control Template_name_varification Template_name" id="Template_nameId" placeholder="Template name" name="Template_name" required>
                                         <p class="CheckTemplateNameAlertPTag text-danger fs-12" style="display:none;">Name can
                                             only contain lowercase alphanumeric characters and underscores ( _ )</p>
                                     </div>
-
                                     <div class="col-12 mb-3 ">
                                         <div class="main-selectpicker">
                                             <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control category_div" id="category" name="category_types" required>
@@ -962,10 +968,6 @@ $language_name = json_decode($language_name, true);
                                             </select>
                                         </div>
                                     </div>
-
-
-
-
                                     <div class="col-12 header-jqury">
                                         <div class="col-12 mb-3">
                                             <label for="form-memberships" class="main-label">HEADER<sup class="validationn">*</sup></label>
@@ -1016,7 +1018,7 @@ $language_name = json_decode($language_name, true);
                                         <textarea class="form-control main-control body_div" id="body_id" placeholder="Type Your Body Text Here...{{|}}" name="" required></textarea>
                                         <p class="fs-10">Body character limit is 1024 characters</p>
                                     </div>
-                                    <div class="col-12 mb-5">
+                                    <div class="col-12 mb-3">
                                         <label for="form-memberships" class="main-label fw-medium">FOOTER<sup class="validationn">*</sup></label>
                                         <textarea class="form-control main-control footer_div" id="footer" placeholder="Type Your Footer Text Here...{{|}}" name="" required></textarea>
                                     </div>
@@ -1032,11 +1034,21 @@ $language_name = json_decode($language_name, true);
                                             </div>
                                         </div>
                                         <div class="col-12 my-3">
-                                            <button class="btn btn-primary Button_make" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</button>
+                                            <span class="btn btn-primary Button_make" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</span>
                                         </div>
                                         <!-- quck replay -->
-                                        <div class=" button_link1 remove-data d-none">
-                                            <div class="col-12 d-flex flex-wrap align-items-center position-relative ">
+                                        <div class="button_link1  d-none">
+                                            <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
+                                                <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
+                                                <textarea class="form-control main-control col " placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
+                                                <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                            </div>
+                                            <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
+                                                <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
+                                                <textarea class="form-control main-control col " placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
+                                                <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                            </div>
+                                            <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
                                                 <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
                                                 <textarea class="form-control main-control col " placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
                                                 <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
@@ -1079,11 +1091,10 @@ $language_name = json_decode($language_name, true);
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="col-6 hello">
-                                <div class="modal-body-card justify-content-center">
+                                <div class="modal-body-card justify-content-center h-100">
                                     <!-- whatsapp   .. -->
                                     <div class="wa-preview-main-div-cont">
                                         <div class="preview-chat-section">
@@ -1108,11 +1119,15 @@ $language_name = json_decode($language_name, true);
                                                         <!-- end ngIf: media_footer_text.length > 0 -->
                                                     </div>
                                                     <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
-                                                    </div>
+                                                    </div>  
                                                     <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
                                                         <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                                         <!-- end ngIf: media_footer_text.length > 0 -->
                                                     </div>
+                                                    <!-- <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
+                                                        <a href="#" ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></a>
+                                                        end ngIf: media_footer_text.length > 0
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
@@ -1137,13 +1152,36 @@ $language_name = json_decode($language_name, true);
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Preview and Submit</button>
                         </div>
                     </div>
             </div>
         </div>
+        <!-- last-modal -->
+        <div class="modal fade modal-lg" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body modal-body-secondery d-flex flex-wrap">
+                            <div class="col-6">
+                                <div class="modal-body-card justify-content-center">
+                                    <p class=" msssege-box py-2 px-3 rounded-3 col-12 text-center">You haven't used any variable in your text.</p>
+                                    <p class=" msssege-box py-2 px-3 rounded-3 col-12  my-2">The provided example values will be submitted to Facebook as part of the template submission process. If no relevant examples are provided, templates may be rejected by Facebook.</p>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
 
-        <!-- view sent msg -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- view sent msg -->  
         <script>
             // ========sidebar-jqury===================
             $('body').on('click', '.menu-toggle', function() {
@@ -1187,8 +1225,7 @@ $language_name = json_decode($language_name, true);
             $('.footer_div').on('input', function() {
                 var footerText = $(this).val();
                 if (footerText === "") {
-                    $('.preview-chat-paragraph').hide();
-                } else {
+c                } else {
                     $('.preview-chat-paragraph').show();
                 }
 
@@ -1207,6 +1244,28 @@ $language_name = json_decode($language_name, true);
 
                 $('.preview-header-paragraph .user-name-chat-header').html(headerText);
             });
+
+            // =======button-link======
+            $('body').on('click','.Button_make',function(){
+                alert('nkls');
+                var  b = $('#Button_make_picker').val();
+                if(b == 'Quick'){
+                    $('.button_link1').removeClass('d-none');
+                    $('.button_link2').addClass('d-none');
+                }
+                else if(b == 'Call'){
+                    $('.button_link2').removeClass('d-none');
+                    $('.button_link1').addClass('d-none');
+                } 
+                else{
+                    $('#button_link1').addClass('d-none');
+                    $('#button_link2').addClass('d-none');
+                }
+            });
+            // ======remove-data======
+            $('body').on('click','.trash_section',function() {
+                $(this).closest('.remove-data').remove();
+            })
         </script>
         <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
         <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
