@@ -41,7 +41,7 @@ if (isset($total_dataa_userr_22[0])) {
                 <form class="needs-validation row" name="fb_cnt" method="POST" novalidate="">
                     <div class="col-12">
                         <h6 class="modal-body-title">Access Token<sup class="validationn">*</sup></h6>
-                        <textarea type="text" class="form-control main-control" id="access_token" name="access_token" placeholder="Enter Access Token" required><?php echo $settings_data['facebook_access_token']?></textarea>
+                        <textarea type="text" class="form-control main-control" id="access_token" name="access_token" placeholder="Enter Access Token" required><?php echo isset($settings_data['facebook_access_token'])?></textarea>
                     </div>
                     <div class="col-12 d-flex justify-content-end ms-2 mt-3 justify-content-right align-items-center">
                         <a href="<?= base_url('integration') ?>">

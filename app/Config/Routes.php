@@ -81,11 +81,14 @@ $routes->post('/update_data_t', 'Templates_Controller::update_data_t');
 $routes->post('template_delete_data', 'Templates_Controller::template_delete_data');
 
 
+
 $routes->get('/alert_setting', 'Home::alert_setting');
 $routes->post('/alert_update_data', 'Alertsetting::alert_update_data');
 $routes->post('/insert_data_alert', 'Alertsetting::insert_data');
 
 $routes->get('/add_account', 'Home::add_account');
+$routes->get('/whatapp_connection', 'Home::whatapp_connection');
+
 
 
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');
@@ -490,11 +493,31 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/update_data_conversion', 'Bot_Controller::update_data_conversion');
 	$routes->post('messeging_bot_list_data', 'Bot_Controller::messeging_bot_list_data');
 
+
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
 	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
-	$routes->post('bot_insert_data', 'Bot_Controller::bot_insert_data');
-	$routes->post('bot_list_data', 'Bot_Controller::bot_list_data');
+	$routes->post('/facebook_user', 'FaceBookController::facebook_user');
+	$routes->post('/facebook_page', 'FaceBookController::facebook_page');
+	$routes->post('/pages_list_data', 'FaceBookController::pages_list_data');
+	$routes->post('/deleted_pages_list_data', 'FaceBookController::deleted_pages_list_data');
+	$routes->post('/updated_pages_list_data', 'FaceBookController::updated_pages_list_data');
+	$routes->post('/draft_pages_list_data', 'FaceBookController::draft_pages_list_data');
+	$routes->post('/delete_pages_fb', 'FaceBookController::delete_pages_fb');
+	$routes->post('/facebook_form', 'FaceBookController::facebook_form');
+	$routes->post('/queue_list_add', 'FaceBookController::queue_list_add');
+	
+	// whatsapp integration 
+	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
+    $routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
+	$routes->post('/whatsapp_template_delete_data', 'WhatAppIntegrationController::whatsapp_template_delete_data');
+	$routes->post('/whatsappView', 'WhatAppIntegrationController::whatsappView');
+	$routes->post('/whatsapptemplate_edit_data', 'WhatAppIntegrationController::whatsapptemplate_edit_data');
+	$routes->post('/WhatAppConnectionCheck', 'WhatAppIntegrationController::WhatAppConnectionCheck');
+	$routes->post('/SubmitWhatAppIntegrationResponse', 'WhatAppIntegrationController::SubmitWhatAppIntegrationResponse');
+	$routes->post('/GetWhatAppIntegrationInformation', 'WhatAppIntegrationController::GetWhatAppIntegrationInformation');
+	$routes->post('/GetWhatAppTemplateList', 'WhatAppIntegrationController::GetWhatAppTemplateList');
+	$routes->post('/CheckWhataAppConnection', 'WhatAppIntegrationController::CheckWhataAppConnection');
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');

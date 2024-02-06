@@ -21,8 +21,13 @@ class Home extends BaseController
                 $this->get_roll_id_to_roll_duty_var = array();
             }
         }
-    }    public function whatapp(){
-        return view('whatapp');
+    }    
+    public function whatapp(){
+        
+        $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
+        return view('whatapp' , $data);
+
+
     }
     public function emailsend()
     {
@@ -45,6 +50,12 @@ class Home extends BaseController
         return view('facebook_connection');
     }
 
+    public function whatapp_connection()
+    {
+        return view('whatapp_connection');
+    }
+    
+
     public function redirect_link()
     {
         if (get_previous_link() != 0) {
@@ -64,7 +75,24 @@ class Home extends BaseController
     }
     public function index()
     {
+        $table_name3 = 'admin_generale_setting';
+        $columns3 = [
+            'id int primary key AUTO_INCREMENT',
+            'Biometric_status int NOT NULL',
+            'biometric_username varchar(200)',
+            'biometric_password text',
+            'biometric_connection int NOT NULL',
+            'corporateid varchar(200)',
+            "whatapp_phone_number_id int(255) NOT NULL",
+            "whatapp_business_account_id int(255) NOT NULL",
+            "whatapp_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
+            "whatapp_verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
+            "whatapp_created_at_account datetime NOT NULL COMMENT 'Whatapp Created At Entry TimeDate '",
+            "facebook_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
 
+            
+        ];
+        $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
 
         $table_username = session_username($_SESSION['username']);
         $table_name11 = $table_username . '_task_status';
@@ -84,6 +112,31 @@ class Home extends BaseController
             'date_time datetime NOT NULL',
         ];
         $table = tableCreateAndTableUpdate2($table_name118, '', $columns);
+
+        $table_name120 = 'master_whatsapp_template';
+        $columns = [
+            'id int(255) primary key AUTO_INCREMENT',
+            'template_name varchar(255) NOT NULL',
+            'category_types varchar(265) NOT NULL',
+            'language varchar(265) NOT NULL',
+            'header varchar(265) NOT NULL',
+            'body longtext NOT NULL',
+            'footer varchar(265) NOT NULL',
+            'uploade_file longtext NOT NULL ',
+            'header_text varchar(265) NOT NULL',
+
+        ];
+        $table = tableCreateAndTableUpdate2($table_name120, '', $columns);
+
+        $table_name119 = 'master_languages';
+        $columns = [
+            'id int(255) primary key AUTO_INCREMENT',
+            'language_name varchar(250) NOT NULL',
+            'language_short_name varchar(265) NOT NULL',
+        ];
+        $table = tableCreateAndTableUpdate2($table_name119, '', $columns);
+
+        
 
         $table_name10 = $table_username . '_tasks';
         $columns = [
@@ -543,7 +596,20 @@ class Home extends BaseController
     }
     public function lead_module()
     {
-        return view('lead_module');
+        $username = session_username($_SESSION['username']);
+        $this->db = \Config\Database::connect('second');
+        $find_Array_all = "SELECT * FROM admin_fb_account  where master_id='" . $_SESSION['master'] . "' ";
+        $find_Array_all = $this->db->query($find_Array_all);
+		$data['fb_account'] = $find_Array_all->getResultArray();
+        $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
+        // $whereConditions = [
+        //     ['column' => 'switcher_active', 'value' => 'active'],
+        // ];
+        // $data['user'] = $this->MasterInformationModel->display_records_for_project($username.'_user', 'DESC', $whereConditions);
+        // $table_name = $username."_integration";
+        // $duplicate_table = "urvi_integration";
+        // tableCreateAndTableUpdate($table_name,$duplicate_table);
+        return view('lead_module',$data);
     }
     public function projecttype()
     {
