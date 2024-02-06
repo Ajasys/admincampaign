@@ -454,7 +454,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <p class="text-white dp-title"></p>
 
                      <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>messenger_bot">Messenger & Bots</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>bot">Messenger & Bots</a>
                      </li>
 
                      <li>
