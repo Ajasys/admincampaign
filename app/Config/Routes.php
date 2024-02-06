@@ -40,7 +40,7 @@ $routes->post('leadmgtCard', 'Quatation_Controller::leadmgtCard');
 // $routes->get('convertToPdf1', 'Quatation_Controller::convertToPdf');
 $routes->get('/facebook_cron_job', 'FacebookCron::facebook_cron_job');
 $routes->get('/signup', 'Home::signup');
-$routes->get('/post_create', 'Home::post_create');
+
 $routes->get('/posts', 'Home::posts');
 
 $routes->get('/login', 'Home::login');
@@ -92,6 +92,12 @@ $routes->post('/insert_data_alert', 'Alertsetting::insert_data');
 
 $routes->get('/add_account', 'Home::add_account');
 $routes->get('/whatapp_connection', 'Home::whatapp_connection');
+
+
+
+// post and comment
+$routes->get('/post_create', 'Home::post_create');
+$routes->post('/create_insert_data', 'CreateController::create_insert_data');	
 
 
 
