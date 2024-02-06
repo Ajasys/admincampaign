@@ -597,7 +597,7 @@ $language_name = json_decode($language_name, true);
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-12 mb-3 mt-2">
-                                                                    <input type="text" class="form-control main-control phone_number_div" id="phone_number" placeholder="Enter your phone number" name="max_cost" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
+                                                                    <input type="text" class="form-control main-control phone_number_div" id="phone_number" placeholder="Enter your phone number" name="" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
                                                                 </div>
                                                                 <div class="col-12 mb-3 mt-2">
                                                                     <select class="form-control main-control language_div" id="language" name="language" required>
@@ -728,7 +728,7 @@ $language_name = json_decode($language_name, true);
 
                                                                 </div>
                                                                 <div class="col-12 mb-3">
-                                                                    <input type="text" class="form-control main-control campaign_name_div" id="campaign_name" placeholder="campaign name..." name="max_cost" required>
+                                                                    <input type="text" class="form-control main-control campaign_name_div" id="campaign_name" placeholder="campaign name..." name="" required>
                                                                 </div>
                                                                 <div class=" col-6 mb-3 ">
                                                                     <input type="text" name="" id="fromDate_edit" class="date-picker form-control main-control " placeholder="DD-MM-YYYY">
@@ -931,6 +931,7 @@ $language_name = json_decode($language_name, true);
                         <div class="modal-body modal-body-secondery d-flex flex-wrap">
                             <div class="col-6" >
                                 <div class="modal-body-card justify-content-center overflow-y-scroll" style="max-height:657px;">
+                                <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
                                     <div class="col-12 mb-3 ">
                                         <input type="text" class="form-control main-control Template_name_varification Template_name" id="Template_nameId" placeholder="Template name" name="Template_name" required>
                                         <p class="CheckTemplateNameAlertPTag text-danger fs-12" style="display:none;">Name can
@@ -938,7 +939,7 @@ $language_name = json_decode($language_name, true);
                                     </div>
                                     <div class="col-12 mb-3 ">
                                         <div class="main-selectpicker">
-                                            <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control category_div" id="category" name="category_types" required>
+                                            <select id="category_types" name="category_types" class="selectpicker form-control form-main main-control category_div" required>
                                                 <option class=" dropdown-item" value="">Please select your category</option>
 
                                                 <option value="Utility" ng-repeat="category in category_types" class="  dropdown-item">
@@ -955,17 +956,80 @@ $language_name = json_decode($language_name, true);
                                     </div>
                                     <div class="col-12 mb-3 ">
                                         <div class="main-selectpicker">
-                                            <select class="selectpicker form-control main-control language_div" id="language" name="language" required>
+                                            <!-- <select class="selectpicker form-control main-control language_div" id="language" name="language" required> -->
 
-                                                <?php
-                                                if (isset($language_name)) {
-                                                    foreach ($language_name as $type_key => $type_value) {
-                                                        print_r($type_value);
-                                                        echo '<option value="' . $type_value["language_short_name"] . '">' . $type_value["language_name"] . '</option>';
-                                                    }
-                                                }
-                                                ?>
-                                            </select>
+                                            <select class="form-control main-control language_div" id="languageid" name="language" required>
+                                    <option class="fs-12" label="Please select your language" value=""></option>
+                                    <option class="fs-12 ng-binding ng-scope" value="en_US" ng-repeat="lang in template_lang">English US (en_US)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">English (en)</option>
+                                   
+                                    <option class="fs-12 ng-binding ng-scope" value="af" ng-repeat="lang in template_lang">Afrikaans</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="sq" ng-repeat="lang in template_lang">Albanian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ar" ng-repeat="lang in template_lang">Arabic</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="az" ng-repeat="lang in template_lang">Azerbaijani</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="bn" ng-repeat="lang in template_lang">Bengali</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="bg" ng-repeat="lang in template_lang">Bulgarian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ca" ng-repeat="lang in template_lang">Catalan</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="zh_CN" ng-repeat="lang in template_lang">Chinese (CHN)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="zh_HK" ng-repeat="lang in template_lang">Chinese (HKG)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="zh_TW" ng-repeat="lang in template_lang">Chinese (TAI)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="hr" ng-repeat="lang in template_lang">Croatian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="cs" ng-repeat="lang in template_lang">Czech</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="da" ng-repeat="lang in template_lang">Danish</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="nl" ng-repeat="lang in template_lang">Dutch</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="en_GB" ng-repeat="lang in template_lang">English (UK)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="et" ng-repeat="lang in template_lang">Estonian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="fil" ng-repeat="lang in template_lang">Filipino</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="fi" ng-repeat="lang in template_lang">Finnish</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="fr" ng-repeat="lang in template_lang">French</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="de" ng-repeat="lang in template_lang">German</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="el" ng-repeat="lang in template_lang">Greek</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="gu" ng-repeat="lang in template_lang">Gujarati</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ha" ng-repeat="lang in template_lang">Hausa</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="he" ng-repeat="lang in template_lang">Hebrew</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="hi" ng-repeat="lang in template_lang">Hindi</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="hu" ng-repeat="lang in template_lang">Hungarian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="id" ng-repeat="lang in template_lang">Indonesian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ga" ng-repeat="lang in template_lang">Irish</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="it" ng-repeat="lang in template_lang">Italian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ja" ng-repeat="lang in template_lang">Japanese</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="kn" ng-repeat="lang in template_lang">Kannada</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="kk" ng-repeat="lang in template_lang">Kazakh</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ko" ng-repeat="lang in template_lang">Korean</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="lo" ng-repeat="lang in template_lang">Lao</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="lv" ng-repeat="lang in template_lang">Latvian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="lt" ng-repeat="lang in template_lang">Lithuanian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="mk" ng-repeat="lang in template_lang">Macedonian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ms" ng-repeat="lang in template_lang">Malay</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ml" ng-repeat="lang in template_lang">Malayalam</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="mr" ng-repeat="lang in template_lang">Marathi</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="nb" ng-repeat="lang in template_lang">Norwegian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="fa" ng-repeat="lang in template_lang">Persian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="pl" ng-repeat="lang in template_lang">Polish</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="pt_BR" ng-repeat="lang in template_lang">Portuguese (BR)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="pt_PT" ng-repeat="lang in template_lang">Portuguese (POR)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="pa" ng-repeat="lang in template_lang">Punjabi</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ro" ng-repeat="lang in template_lang">Romanian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ru" ng-repeat="lang in template_lang">Russian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="sr" ng-repeat="lang in template_lang">Serbian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="sk" ng-repeat="lang in template_lang">Slovak</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="sl" ng-repeat="lang in template_lang">Slovenian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="es" ng-repeat="lang in template_lang">Spanish</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="es_AR" ng-repeat="lang in template_lang">Spanish (ARG)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="es_ES" ng-repeat="lang in template_lang">Spanish (SPA)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="es_MX" ng-repeat="lang in template_lang">Spanish (MEX)</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="sw" ng-repeat="lang in template_lang">Swahili</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="sv" ng-repeat="lang in template_lang">Swedish</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ta" ng-repeat="lang in template_lang">Tamil</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="te" ng-repeat="lang in template_lang">Telugu</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="th" ng-repeat="lang in template_lang">Thai</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="tr" ng-repeat="lang in template_lang">Turkish</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="uk" ng-repeat="lang in template_lang">Ukrainian</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="ur" ng-repeat="lang in template_lang">Urdu</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="uz" ng-repeat="lang in template_lang">Uzbek</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="vi" ng-repeat="lang in template_lang">Vietnamese</option>
+                                    <option class="fs-12 ng-binding ng-scope" value="zu" ng-repeat="lang in template_lang">Zulu</option>
+                                </select>
                                         </div>
                                     </div>
                                     <div class="col-12 header-jqury">
@@ -983,34 +1047,34 @@ $language_name = json_decode($language_name, true);
                                         </div>
                                         <div class="col-12 mb-3 file_upload d-none">
                                             <label for="" class="form-label main-label">Inq file upload <sup class="validationn">*</sup></label>
-                                            <input type="file" class="form-control main-control" name="import_file" placeholder="Details" required="">
+                                            <input type="file" class="form-control main-control" id="insert_image" name="uploade_file" placeholder="Details" required="">
                                         </div>
                                         <div class="col-12 mb-3 text-comment d-none">
                                             <textarea class="form-control main-control place MemberAddressClass" id="address" name="address" required="" placeholder="Type your header text here..." rows="3" cols="50" spellcheck="false"></textarea>
                                         </div>
                                         <!-- <textarea ng-if="selectedHeader === 'TEXT'"
-                            class="full-width cwt-header-textarea-box font-size-12 center-textarea header_text"
-                            ng-model="header_data"  minlength="0" maxlength="60"
-                            ng-change="header_text_media(header_data)"
-                            ></textarea> -->
+                                class="full-width cwt-header-textarea-box font-size-12 center-textarea header_text"
+                                ng-model="header_data"  minlength="0" maxlength="60"
+                                ng-change="header_text_media(header_data)"
+                                ></textarea> -->
 
 
-                                        <!-- <div ng-if="selectedHeader === 'IMAGE' && provider === 'meta'"
-                            class="cwt-header-open-box-c full-width p-relative " id="temLoaded">
-                            <div class="text-center profile-btn-photo2 col-6 mt-3">
-                                <div class="upload-btn-wrapper">
-                                    <form action="" method="post" enctype="multipart/form-data">
-                                        <span class="upload-btn">
-                                            <i class="fi fi-rr-document"></i>
-                                        </span>
-                                        <input type="file" name="uploade_file[]" class="form-control main-control place"
-                                            id="insert_image" onchange="displayImageName()" />
-                                        <input type="submit" value="Upload" />
-                                    </form>
+                                            <!-- <div ng-if="selectedHeader === 'IMAGE' && provider === 'meta'"
+                                class="cwt-header-open-box-c full-width p-relative " id="temLoaded">
+                                <div class="text-center profile-btn-photo2 col-6 mt-3">
+                                    <div class="upload-btn-wrapper">
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            <span class="upload-btn">
+                                                <i class="fi fi-rr-document"></i>
+                                            </span>
+                                            <input type="file" name="uploade_file[]" class="form-control main-control place"
+                                                id="insert_image" onchange="displayImageName()" />
+                                            <input type="submit" value="Upload" />
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="selectedImageName"></div>
-                        </div> -->
+                                <div id="selectedImageName"></div>
+                            </div> -->
                                     </div>
 
                                     <div class="col-12 mb-3">
@@ -1091,6 +1155,7 @@ $language_name = json_decode($language_name, true);
                                             </div>
                                         </div>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-6 hello">
@@ -1152,7 +1217,7 @@ $language_name = json_decode($language_name, true);
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Preview and Submit</button>
+                            <button type="button" class="btn btn-primary SaveBtnDiv" >Preview and Submit</button>
                         </div>
                     </div>
             </div>
@@ -1325,17 +1390,14 @@ c                } else {
             $('.SaveBtnDiv').on('click', function(e) {
                 e.preventDefault();
 
+
                 var Template_name = $('.Template_name').val();
-                var category_types = $('#category').val();
-                var language = $('select.language_div option:selected').val();
+                var category_types = $('#category_types').val();
+                var language = $('#languageid').val();
                 var header = $('#Template_header').val();
                 var body = $('.body_div').val();
                 var footer = $('.footer_div').val();
-                var MemberAddressClass = $('.MemberAddressClass').val();
-
-
-
-
+                var header_text = $('.MemberAddressClass').val();
                 var table = 'master_whatsapp_template';
                 var uploade_file = $('#insert_image').prop('files')[0];
                 var regex = /{{\d+}}/g;
@@ -1351,30 +1413,12 @@ c                } else {
                 formData.append('body', body);
                 formData.append('footer', footer);
                 formData.append('table', table);
+formData.append('uploade_file', uploade_file);
                 formData.append('header_text', header_text);
-                formData.append('uploade_file', uploade_file);
-                formData.append('action', 'insert');
+                                formData.append('action', 'insert');
 
 
-
-                if (Template_name != "" && footer != "" && category_types != "") {
-
-                    if (matches) {
-                        $('.hello').modal('show');
-
-                        $('#dynamicInputsContainer').empty();
-
-                        for (var i = 0; i < matches.length; i++) {
-                            var inputField = '<input type="text" class="form-control main-control body_div mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
-                            $('#dynamicInputsContainer').append(inputField);
-                        }
-                    } else {
-                        $('.hello').modal('hide');
-                    }
-
-                    function getValue(match) {
-                        return match.replace(/[{}]/g, '');
-                    }
+if (Template_name != "" && footer != "" && category_types != "" && language != "") {
 
                     $.ajax({
                         method: "post",
@@ -1412,7 +1456,9 @@ c                } else {
                 } else {
                     $(".membershipDiv").addClass("was-validated");
                 }
+
             });
+
 
 
 

@@ -149,48 +149,110 @@ class WhatAppIntegrationController extends BaseController
 
         public function whatsapp_template_insert()
     {
+
         $imgfile = "";
         $data = array();
         $newName = '';
         $files = $_FILES;
         $fileName = '';
-        $fileNames ='';
+        $fileNames = '';
+$uploadStatus = 1;
+        $response = array();
+
 		if (!empty($files)) {
-            $uploadDir = 'assets/images/whatsapp_template/';
+            $uploadDir = 'assets/Master_Social_Media_Folder/WhatApp_Media/';
+            $serverDomain = 'http://localhost/admincampaign/whatapp';
 
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
+
             $filesArr = $files["uploade_file"];
             $fileName = $filesArr['name'];
+$fileName = str_replace(' ', '', $fileName);
+
             $uploadedFile = '';
-            $fileName = $filesArr['name'];
-            $targetFilePath = $uploadDir . $fileName;
+                        $targetFilePath = $uploadDir . $fileName;
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
-            if (in_array(strtolower($fileType), array('jpg', 'jpeg', 'png', 'gif')) && $filesArr["size"] > 1048576) {
-                $compressedImage = compressImage($filesArr["tmp_name"]);
-                if ($compressedImage !== false) {
-                    $targetFilePath = $uploadDir . $fileName;
-                    if (file_put_contents($targetFilePath, $compressedImage)) {
+            if (in_array(strtolower($fileType), array('jpg', 'jpeg', 'png', 'gif'))) {
+                $uploadSubDir = 'images/';
+                if (!is_dir($uploadDir . $uploadSubDir)) {
+                    mkdir($uploadDir . $uploadSubDir, 0755, true);
+                }
+                if ($filesArr["size"] > 1048576) {
+                } else {
+                    $targetFilePath = $uploadDir . $uploadSubDir . $fileName;
+                    if (move_uploaded_file($filesArr["tmp_name"], $targetFilePath)) {
                         $uploadedFile .= $fileName . ',';
+$photoUrl = $serverDomain . $uploadSubDir . $fileName;
+                        $response['photoUrl'] = $photoUrl;
                     } else {
                         $uploadStatus = 0;
-                        $response['message'] = 'Error while saving the compressed image.';
+                        $response['message'] = 'Sorry, there was an error uploading your file.';
                     }
-                } else {
-                    $uploadStatus = 0;
-                    $response['message'] = 'Error while compressing the image.';
                 }
-            } else {
+            } elseif (in_array(strtolower($fileType), array('mp4', 'mov', 'avi', 'mkv'))) {
+                $uploadSubDir = 'videos/';
+                if (!is_dir($uploadDir . $uploadSubDir)) {
+                    mkdir($uploadDir . $uploadSubDir, 0755, true);
+                }
+                $targetFilePath = $uploadDir . $uploadSubDir . $fileName;
                 if (move_uploaded_file($filesArr["tmp_name"], $targetFilePath)) {
                     $uploadedFile .= $fileName . ',';
+                    $videoUrl = $serverDomain . $uploadSubDir . $fileName;
+                    $response['videoUrl'] = $videoUrl;
+                } else {
+                    $uploadStatus = 0;
+                    $response['message'] = 'Sorry, there was an error uploading your file.';
+                }
+                // if (command_exists('ffmpeg')) {
+                //     $compressedVideoPath = compressVideo($filesArr["tmp_name"], $uploadDir . $uploadSubDir);
+
+                //     if ($compressedVideoPath !== false) {
+                //         $uploadedFile .= $compressedVideoPath;
+                //     } else {
+                //         $uploadStatus = 0;
+                //         $response['message'] = 'Error while compressing the video.';
+                //     }
+                // } else {
+                //     $uploadStatus = 0;
+                //     $response['message'] = 'FFmpeg is not installed on the server.';
+                // }
+            } elseif (in_array(strtolower($fileType), array('pdf', 'doc', 'docx', 'txt'))) {
+                $uploadSubDir = 'documents/';
+                if (!is_dir($uploadDir . $uploadSubDir)) {
+                    mkdir($uploadDir . $uploadSubDir, 0755, true);
+                }
+                $targetFilePath = $uploadDir . $uploadSubDir . $fileName;
+                if (move_uploaded_file($filesArr["tmp_name"], $targetFilePath)) {
+                    $uploadedFile .= $fileName . ',';
+                    $documentsurl = $serverDomain . $uploadSubDir . $fileName;
+                    $response['documentsurl'] = $documentsurl;
+                } else {
+                    $uploadStatus = 0;
+                    $response['message'] = 'Sorry, there was an error uploading your file.';
+                }
+            } else {
+$uploadSubDir = 'other/';
+                if (!is_dir($uploadDir . $uploadSubDir)) {
+                    mkdir($uploadDir . $uploadSubDir, 0755, true);
+                }
+                $targetFilePath = $uploadDir . $uploadSubDir . $fileName;
+                if (move_uploaded_file($filesArr["tmp_name"], $targetFilePath)) {
+                    $uploadedFile .= $fileName . ',';
+$otherurl = $serverDomain . $uploadSubDir . $fileName;
+                    $response['otherurl'] = $otherurl;
                 } else {
                     $uploadStatus = 0;
                     $response['message'] = 'Sorry, there was an error uploading your file.';
                 }
             }
         }
+
+
+
+
 
         $post_data = $this->request->getPost();
         $table_name = $this->request->getPost("table");
@@ -205,10 +267,22 @@ class WhatAppIntegrationController extends BaseController
 
                 if ($fileName != '') {
                     $insert_data['uploade_file'] = $fileName;
-                }else{
+                } else {
                     $insert_data['uploade_file'] = '';
+}
 
-                }
+              if (!empty($response['photoUrl'])) {
+                $insert_data['media_url'] = $response['photoUrl'];
+            } elseif (!empty($response['videoUrl'])) {
+                $insert_data['media_url'] = $response['videoUrl'];
+            } elseif (!empty($response['documentsurl'])) {
+                $insert_data['media_url'] = $response['documentsurl'];
+            } elseif (!empty($response['otherurl'])) {
+                $insert_data['media_url'] = $response['otherurl'];
+            } else {
+                $insert_data['media_url'] = '';
+            }
+
 
                 // $isduplicate = $this->duplicate_data2($insert_data, $table_name);
 

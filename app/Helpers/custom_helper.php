@@ -30,6 +30,43 @@ if(!function_exists("customErrorHandlerCheck")) {
     }
 
 }
+if (!function_exists('compressImage')) {
+    function compressImage($sourcePath)
+    {
+        $maxSize = 1048576;
+        if (!file_exists($sourcePath)) {
+            return false;
+        }
+        $sourceImage = imagecreatefromjpeg($sourcePath);
+        if (!$sourceImage) {
+            return false;
+        }
+        list($width, $height) = getimagesize($sourcePath);
+        $compression = 1.0;
+        $targetSize = filesize($sourcePath);
+        while ($targetSize > $maxSize && $compression > 0) {
+            $compression -= 0.1;
+            $newWidth = $width * $compression;
+            $newHeight = $height * $compression;
+            $targetImage = imagecreatetruecolor($newWidth, $newHeight);
+            if (imagecopyresampled($targetImage, $sourceImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height)) {
+                ob_start();
+                imagejpeg($targetImage, null, 75);
+                $compressedImageData = ob_get_clean();
+                $targetSize = strlen($compressedImageData);
+                imagedestroy($targetImage);
+            } else {
+                break;
+            }
+        }
+        imagedestroy($sourceImage);
+        if ($targetSize > $maxSize) {
+            return false;
+        } else {
+            return $compressedImageData;
+        }
+    }
+}
 if (!function_exists('getMasterUsername')) {
     function getMasterUsername()
     {
