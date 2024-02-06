@@ -451,36 +451,101 @@ class Bot_Controller extends BaseController
 	public function bot_insert_data()
 	{
 		$post_data = $this->request->getPost();
-		$table = $this->request->getPost("table");
-
+		$table_name = $this->request->getPost("table");
 		$action_name = $this->request->getPost("action");
-	
 		if ($this->request->getPost("action") == "insert") {
 			unset($_POST['action']);
 			unset($_POST['table']);
 			if (!empty($_POST)) {
 				$insert_data = $_POST;
-				//$insert_data['image'] = $newName;
-				// print_r($_POST);
-				// die(); 
-				// $isduplicate = $this->duplicate_data($insert_data, $table);
-		
+				// $isduplicate = $this->duplicate_data($insert_data, $table_name);
 				// if ($isduplicate == 0) {
-					$response = $this->MasterInformationModel->insert_entry2($insert_data, $table);
-				
-					$expenses_insertdisplaydata = $this->MasterInformationModel->display_all_records2($table);
-					$expenses_insertdisplaydata = json_decode($expenses_insertdisplaydata, true);
+					$response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
+					$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+					$departmentdisplaydata = json_decode($departmentdisplaydata, true);
 				// } else {
 				// 	return "error";
 				// }
 			}
 		}
+		die();
 	}
+
+	
+	public function duplicate_Question() 
+	{
+		$questionId = $this->request->getPost("questionId");
+		$db = \Config\Database::connect('second');
+		$sql = 'SELECT * FROM `admin_bot_setup` where id=' . $questionId . '';
+		$result = $db->query($sql);
+		$question_data = $result->getRowArray();
+
+		$insertedId = $this->insertQuestionData($question_data);
+		return $insertedId;
+	}
+
+
+	private function insertQuestionData($question_data) 
+	{
+		$db = \Config\Database::connect('second');
+		$question_data['sequence'] = 0;
+		unset($question_data['id']);
+
+		$db->table('admin_bot_setup')->insert($question_data);
+		return $db->insertID();
+	}
+
+
+	public function bot_delete_data()
+	{
+
+		if ($this->request->getPost("action") == "delete") {
+			$delete_id = $this->request->getPost('id');
+			$table_name = $this->request->getPost('table');
+			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
+		}
+		die();
+	}
+	// public function bot_update_data()
+	// {
+	// 	$table_name = $this->request->getPost("table");
+	// 	$action_name = $this->request->getPost("action");
+
+	// 	$questionArray = [];
+	// 	$bot_id = $this->request->getPost("bot_id");
+	// 	// pre($bot_id);
+	// 	if (isset($_SESSION['questionArrays'][$bot_id])) {
+	// 		$questionArray = $_SESSION['questionArrays'][$bot_id];
+	// 	}
+
+	// 	if ($action_name == "update") {
+	// 		$questionsJson = $this->request->getPost("questions");
+	// 		$questionsArray = json_decode($questionsJson, true);
+			
+	// 		if (!empty($questionsArray) && is_array($questionsArray)) {
+	// 			$questionArray = array_merge($questionArray, $questionsArray);
+
+	// 			$update_data = [
+	// 				'question_type' => json_encode($questionArray),
+	// 			];
+	// 			// pre($table_name);
+	// 			// $_SESSION['questionArrays'][$bot_id] = $questionArray;
+
+	// 			$departmentUpdatedata = $this->MasterInformationModel->update_entry2($bot_id, $update_data, $table_name);
+	// 			// $departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+	// 			// $departmentdisplaydata = json_decode($departmentdisplaydata, true);
+
+	// 			$response = 1;
+	// 		}
+	// 	}
+	// 	echo json_encode(['response' => $response]);
+	// 	die();
+	// }
+
 
 
 	public function bot_list_data()
 	{
-		
 		$table_name = $_POST['table'];
 		$action = $_POST['action'];
 		$botdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
@@ -489,41 +554,41 @@ class Bot_Controller extends BaseController
 		$html = "";
 
 		foreach ($botdisplaydata as $key => $value) {
-			// pre($botdisplaydata);
-			$html .= '
+			
+				$html .= '
 					<div class="col-12 w-100 d-flex flex-wrap p-2">
-                            <div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
-                                <div class="col-10 d-flex flex-wrap align-items-center">
-                                    <label class="text-wrap px-2" for="">
-                                        <p class="fw-semibold">'.$value['question'].'</p>
-                                    </label>
-                                </div>
-                                <div class="col-2 d-flex flex-wrap align-items-center">
-                                    <div class="col-3 p-1">
-                                        <i class="fa fa-pencil" data-bs-toggle="modal" data-bs-target="#add-email"></i>
-                                    </div>
-                                    <div class="col-3 p-1">
-                                        <i class="fa fa-sitemap"></i>
-                                    </div>
-                                    <div class="col-3 p-1">
-                                        <i class="fa fa-clone"></i>
-                                    </div>
-                                    <div class="col-3 p-1">
-                                        <i class="fa fa-trash"></i>
-                                    </div>
-                                </div>
-                            </div>
+						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
+							<div class="col-10 d-flex flex-wrap align-items-center">
+								<label class="text-wrap px-2" for="">
+									<p class="fw-semibold">' . $value['question'] . '</p>
+								</label>
+							</div>
+							<div class="col-2 d-flex flex-wrap align-items-center">
+								<div class="col-3 p-1">
+									<i class="fa fa-pencil cursor-pointer" data-bs-toggle="modal" data-bs-target="#add-email"></i>
+								</div>
+								<div class="col-3 p-1">
+									<i class="fa fa-sitemap cursor-pointer"></i>
+								</div>
+								<div class="col-3 p-1">
+									<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question='.$value['id'].'></i>
+								</div>
+								<div class="col-3 p-1">
+									<i class="fa fa-trash question_delete cursor-pointer" data-question='.$value['id'].'></i>
+								</div>
+							</div>
+						</div>
 
-                            <div class="col-12 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary">Users Replay</button>
-                            </div>
-                        </div>';
-		
+						<div class="col-12 d-flex justify-content-end">
+							<button type="button" class="btn btn-primary">Users Replay</button>
+						</div>
+					</div>';
+			
 		}
+
 		$result['html'] = $html;
 		echo json_encode($result);
 		die();
 	}
 
-    
 }

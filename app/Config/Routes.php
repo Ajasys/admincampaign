@@ -484,6 +484,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('update_ticket_status', 'clint_support_controller::update_ticket_status');
 	$routes->get('/whatapp', 'Home::whatapp');
 
+
+	//bot setup
 	$routes->get('/messenger_bot', 'Home::messenger_bot');
 	$routes->get('/bot', 'Home::bot');
 	$routes->get('/new_messenger_bot', 'Home::new_messenger_bot');
@@ -493,6 +495,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/update_data_conversion', 'Bot_Controller::update_data_conversion');
 	$routes->post('messeging_bot_list_data', 'Bot_Controller::messeging_bot_list_data');
 
+	$routes->post('bot_insert_data', 'Bot_Controller::bot_insert_data');
+	$routes->post('bot_list_data', 'Bot_Controller::bot_list_data');
+	$routes->post('duplicate_Question', 'Bot_Controller::duplicate_Question');
+	$routes->post('bot_delete_data', 'Bot_Controller::bot_delete_data');
 
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
