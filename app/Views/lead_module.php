@@ -220,6 +220,12 @@ $data = $find_Array_all->getResultArray();
 
                                 <i class="fa-solid fa-angle-left position-absolute top-0 start-0 translate-middle m-4 fs-4 text-secondary-emphasis cursor-pointer discard-tag" data-bs-toggle="modal" data-bs-target="#discard_main_box"></i>
 
+                               
+
+
+
+
+<!--updated ka code  -->
                                 <div class="d-flex justify-content-center align-items-center gap-3 py-4">
 
                                     <div class="big_list_add_outer_main big_list_add_outer_main_1 position-relative">
@@ -307,7 +313,7 @@ $data = $find_Array_all->getResultArray();
 
                                     </div>
 
-                                    <div class="lead_module_devider lead_module_devider_1"></div>
+
                                     <div class="big_list_add_outer_main big_list_add_outer_main_2 position-relative">
                                         <div class="big_circle_fb_outer position-relative">
                                             <div class="big_circle_fb cursor-pointer">
@@ -576,6 +582,7 @@ $data = $find_Array_all->getResultArray();
 
         $('body').on('click', '.lead_main_box_add', function() {
             $(".lead_add_main_box").show();
+            $(".add_next_big_plus_outer").hide  ();
         });
 
         $(".big_list_add_outer_main").hide();
@@ -593,11 +600,15 @@ $data = $find_Array_all->getResultArray();
         });
        
         $(".big_circle_fb_outer").hide();
-        $(".add_next_big_plus_outer").hide();
+        // $(".add_next_big_plus_outer").hide();
 
         $('body').on('click', '#facebook_lead_drop_1', function() {
+            // $(this).closest(".big_circle_plus_outer").hide();
+            // $(this).closest(".big_list_add_outer_main").find(".big_circle_fb_outer").show();
             $(this).closest(".big_circle_plus_outer").hide();
-            $(this).closest(".big_list_add_outer_main").find(".big_circle_fb_outer").show();
+            $(".lead_module_devider_1").show();
+            $(".big_list_add_outer_main_2").show();
+            $(".big_list_add_outer_main_2 .big_circle_fb_outer").show();
         });
 
         $('body').on('click', '.fb_user_next .btn-primary', function() {
