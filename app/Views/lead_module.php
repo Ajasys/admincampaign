@@ -256,6 +256,49 @@ $data = $find_Array_all->getResultArray();
                                             </div>
                                         </div>
 
+                                        <div class="big_circle_fb_outer position-relative logo-1">
+                                            <div class="big_circle_fb cursor-pointer">
+                                                <div class="big_circle_fb_inner p-5 rounded-circle position-relative profile_div">
+                                                    
+                                                    <div class="z-2 position-relative fb_div_hide">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                            <g>
+                                                                <path fill-rule="evenodd" d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z" fill="#ffffff" data-original="#000000" opacity="1" class=""></path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+
+                                                    <!-- <img src="https://dev.realtosmart.com/assets/images/r-logo.png" class="w-100 h-100 object-fit-contain rounded-circle"> -->
+                                                </div>
+                                            </div>
+                                            <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+                                                <?php if (isset($fb_account) && !empty($fb_account)) { ?>
+                                                    <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
+                                                        Name</label>
+                                                    <div class="main-selectpicker">
+                                                        <select id="user_agent" class="selectpicker form-control form-main user_agent" data-live-search="true">
+                                                            <?php foreach ($fb_account as $key => $value) {
+                                                                echo "<option value=" . $value['accessToken'] . " data-user_id=" . $value['userid'] . " data-username='" . $value['username'] . "'>" . $value['username'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="text-end mt-3 fb_user_next">
+                                                        <button class="btn-primary big_falcebook_circle_sbt" data-master_id=<?php if (isset($fb_account[0]['master_id'])) {
+                                                                                                                                echo $fb_account[0]['master_id'];
+                                                                                                                            } ?>>Next</button>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="text-end mt-2">
+                                                        <fb:login-button onlogin="myFacebookLogin();"></fb:login-button>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                            <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
+                                                <b>Facebook Lead Connection</b>
+                                            </h6>
+                                        </div>
+
                                         <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
                                             <div class="btn-primary-rounded add_next_big_plus_1">
                                                 <i class="bi bi-plus"></i>
@@ -557,6 +600,17 @@ $data = $find_Array_all->getResultArray();
             $(this).closest(".big_list_add_outer_main").find(".big_circle_fb_outer").show();
         });
 
+        $('body').on('click', '.fb_user_next .btn-primary', function() {
+            if ($(this).closest(".big_circle_fb_list").find("#user_agent").val() != "") {
+                // $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
+                $(this).closest(".big_circle_fb_outer").find(".big_circle_fb_list").hide();
+                $(".lead_module_devider , .big_list_add_outer_main_2 , .big_list_add_outer_main_3").hide();
+                $(".big_list_add_outer_main_2 .all_circle_plus_list , .big_list_add_outer_main_3 .all_circle_plus_list").show();
+            } else {
+                $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
+            }
+        });
+
         $(".lead_module_devider").hide();
 
         $('body').on('click', '.add_next_big_plus_1', function() {
@@ -718,58 +772,58 @@ $data = $find_Array_all->getResultArray();
     updated_pages_list_data();
     draft_pages_list_data();
 
-    // function myFacebookLogin() {
-    //     FB.login(function(response) {
-    //         $('.loader').show();
-    //         if (response.authResponse) {
-    //             // Exchange short-lived token for a long-lived token
-    //             FB.api('/oauth/access_token', 'GET', {
-    //                 "grant_type": "fb_exchange_token",
-    //                 "client_id": "692703766025178",
-    //                 "client_secret": "67e1dc6e799ae0ea2af3b38a0fa6face",
-    //                 "fb_exchange_token": response.authResponse.accessToken
-    //             }, function(tokenResponse) {
-    //                 var longLivedToken = tokenResponse.access_token;
-    //                 FB.api('/me', function(userResponse) {
-    //                     $.ajax({
-    //                         type: "post",
-    //                         url: "<?= site_url('facebook_user'); ?>",
-    //                         data: {
-    //                             action: 'user',
-    //                             response: response.authResponse,
-    //                             userinformation: userResponse,
-    //                             longLivedToken: longLivedToken // Include the long-lived token
-    //                         },
-    //                         success: function(res) {
-    //                             $('.loader').hide();
-    //                             var result = JSON.parse(res);
-    //                             $('.big_list_add_outer_main_1 .add_next_big_plus_outer').show();
-    //                             $('.big_list_add_outer_main_1').closest(".add_next_big_plus_outer").show();
-    //                             $('.big_list_add_outer_main_2,.big_list_add_outer_main_3,.lead_module_devider_1,.lead_module_devider_2').hide();
-    //                             $('.logo-1 .all_circle_plus_list').hide();
-    //                             if(result.profile_pic)
-    //                             {
-    //                                 $('.fb_div_hide').hide();
-    //                                 $('.profile_div').html('<img src="'+result.profile_pic+'" class="w-100 h-100 object-fit-contain rounded-circle">');   
+    function myFacebookLogin() {
+        FB.login(function(response) {
+            $('.loader').show();
+            if (response.authResponse) {
+                // Exchange short-lived token for a long-lived token
+                FB.api('/oauth/access_token', 'GET', {
+                    "grant_type": "fb_exchange_token",
+                    "client_id": "692703766025178",
+                    "client_secret": "67e1dc6e799ae0ea2af3b38a0fa6face",
+                    "fb_exchange_token": response.authResponse.accessToken
+                }, function(tokenResponse) {
+                    var longLivedToken = tokenResponse.access_token;
+                    FB.api('/me', function(userResponse) {
+                        $.ajax({
+                            type: "post",
+                            url: "<?= site_url('facebook_user'); ?>",
+                            data: {
+                                action: 'user',
+                                response: response.authResponse,
+                                userinformation: userResponse,
+                                longLivedToken: longLivedToken // Include the long-lived token
+                            },
+                            success: function(res) {
+                                $('.loader').hide();
+                                var result = JSON.parse(res);
+                                $('.big_list_add_outer_main_1 .add_next_big_plus_outer').show();
+                                $('.big_list_add_outer_main_1').closest(".add_next_big_plus_outer").show();
+                                $('.big_list_add_outer_main_2,.big_list_add_outer_main_3,.lead_module_devider_1,.lead_module_devider_2').hide();
+                                $('.logo-1 .all_circle_plus_list').hide();
+                                if(result.profile_pic)
+                                {
+                                    $('.fb_div_hide').hide();
+                                    $('.profile_div').html('<img src="'+result.profile_pic+'" class="w-100 h-100 object-fit-contain rounded-circle">');   
                                 
-    //                             }
-    //                             // $("#big_falcebook_circle_1 .big_list_add_drop").hide();
-    //                             $('#facebookpages').html(result.html);
-    //                             $('#facebookpages').selectpicker('refresh');
-    //                         },
-    //                         error: function(error) {
-    //                             $('.loader').hide();
-    //                         }
-    //                     });
-    //                 });
-    //             });
-    //         }
-    //     }, {
-    //         scope: 'public_profile,pages_show_list,leads_retrieval,pages_manage_ads, pages_manage_engagement, pages_read_engagement, pages_manage_metadata'
-    //     });
-    // }
+                                }
+                                // $("#big_falcebook_circle_1 .big_list_add_drop").hide();
+                                $('#facebookpages').html(result.html);
+                                $('#facebookpages').selectpicker('refresh');
+                            },
+                            error: function(error) {
+                                $('.loader').hide();
+                            }
+                        });
+                    });
+                });
+            }
+        }, {
+            scope: 'public_profile,pages_show_list,leads_retrieval,pages_manage_ads, pages_manage_engagement, pages_read_engagement, pages_manage_metadata'
+        });
+    }
 
-    $('body').on('click', '.new_module_add_btn1', function() {
+    $('body').on('click', '.big_falcebook_circle_sbt,.new_module_add_btn1', function() {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
 
         var master_id = $(this).attr("data-master_id");
@@ -1243,7 +1297,7 @@ $data = $find_Array_all->getResultArray();
         $('.big_circle_plus_outer,.add_next_big_plus_outer,.all_circle_plus_list,.lead_main_box_add,.discard-tag').hide();
         $('.big_list_add_outer_main_1,.big_circle_fb_outer,.lead_add_main_box').show();
 
-        var master_id = $('.new_module_add_btn1').attr("data-master_id");
+        var master_id = $('.big_falcebook_circle_sbt,.new_module_add_btn1').attr("data-master_id");
         var access_token = $(".user_agent option:selected").val();
         var username = $(".user_agent option:selected").attr("data-username");
         var user_id = $(".user_agent option:selected").attr("data-user_id");
