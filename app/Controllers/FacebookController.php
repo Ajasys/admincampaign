@@ -5,11 +5,6 @@ namespace App\Controllers;
 //use CodeIgniter\Database\ConnectionInterface;
 use App\Models\MasterInformationModel;
 use Config\Database;
-use Facebook\Facebook;
-use Facebook\Exceptions\FacebookResponseException;
-use Facebook\Exceptions\FacebookSDKException;
-
-
 class FaceBookController extends BaseController
 {
     //private $db;
@@ -170,6 +165,7 @@ class FaceBookController extends BaseController
         $html = "";
         $page_id = $this->request->getPost("page_id");
         $access_token = $this->request->getPost("access_token");
+    
         try {
             $result = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/leadgen_forms?access_token=' . $access_token . '');
             $html .= '<option value="0">Select Form</option>';
@@ -181,9 +177,9 @@ class FaceBookController extends BaseController
                     }
                 }
             }
-        } catch (FacebookResponseException $e) {
+        } catch (\Exception $e) {
             echo 'Graph returned an error: ' . $e->getMessage();
-        } catch (FacebookSDKException $e) {
+        } catch (\Exception $e) {
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
         }
         $resultff['html'] = $html;
@@ -360,7 +356,7 @@ class FaceBookController extends BaseController
                                    <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
                                 </div>
                             </div>
-                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="/leadlist?id=' . $value['form_id'] . '">
+                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="'.base_url().'leadlist?id=' . $value['form_id'] . '">
                                 <p class="d-block col-12 text-dark">' . $value['page_name'] . '(' . $form_name . ')</p>
                                 <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
                                 <i class="bi bi-gear me-1"></i>
@@ -466,7 +462,7 @@ class FaceBookController extends BaseController
                                    <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
                                 </div>
                             </div>
-                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="/leadlist?id=' . $value['form_id'] . '">
+                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="'.base_url().'leadlist?id=' . $value['form_id'] . '">
                                 <p class="d-block col-12 text-dark">' . $value['page_name'] . '(' . $form_name . ')</p>
                                 <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
                                 <i class="bi bi-gear me-1"></i>
@@ -551,7 +547,7 @@ class FaceBookController extends BaseController
                                    <img src="https://ajasys.com/img/favicon.png">
                                 </div>
                             </div>
-                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="/leadlist?id=' . $value['form_id'] . '">
+                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="'.base_url().'leadlist?id=' . $value['form_id'] . '">
                                 <p class="d-block col-12 text-dark">' . $value['page_name'] . '(' . $form_name . ')</p>
                                 <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
                                 <i class="bi bi-gear me-1"></i>
