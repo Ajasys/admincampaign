@@ -1380,59 +1380,6 @@ $language_name = json_decode($language_name, true);
 <!-- view sent msg -->
 <?= $this->include('partials/footer') ?>
 <script>
-$('body').on('click', '.previewbutton', function() {
-
-        var body = $('.body_div').val();
-        var regex = /{{\d+}}/g;
-        var matches = body.match(regex);
-
-        if (matches) {
-
-            $('#dynamicInputsContainer').empty();
-
-            for (var i = 0; i < matches.length; i++) {
-                var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
-                $('#dynamicInputsContainer').append(inputField);
-
-            }
-        }
-
-
-    });
-
-    $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
-        var bodyText = $(this).val();
-        var index = $('.inputypeBody').index($(this)) + 1; 
-    var regex = new RegExp("{{" + index + "}}", "g");
-
-// var regex = new RegExp('{{' + index + '}}');
-        if (bodyText === "") {
-            $('.preview-chat-paragraph').hide();
-        } else {
-            $('.preview-chat-paragraph').show();
-        
-        var originalText = $('.preview-chat-paragraph .msg-text-chat').html();
-        var match = originalText.match(regex);
-       console.log(match);
-        if (match) {
-            console.log(match[0].slice(2, -2));
-        }
-        var newText = originalText.replace(regex, bodyText);
-        
-        $('.preview-chat-paragraph .msg-text-chat').html(newText);
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
     // ========sidebar-jqury===================
     $('body').on('click', '.menu-toggle', function() {
         $(this).addClass('bg-body-secondary');
@@ -1509,7 +1456,7 @@ $('body').on('click', '.previewbutton', function() {
 
     $('.body_div').on('input', function() {
         var bodyText = $(this).val();
-console.log(bodyText);
+        console.log(bodyText);
 
         if (bodyText === "") {
             $('.c').hide();
@@ -1604,18 +1551,31 @@ console.log(bodyText);
             for (var i = 0; i < matches.length; i++) {
                 var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
                 $('#dynamicInputsContainer').append(inputField);
-                // $('.msg-text-chat').append(body);
 
             }
         }
 
-        function getValue(match) {
-            return match.replace(/[{}]/g, '');
+
+    });
+
+    $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
+        var bodyText = $(this).val();
+        var index = $('.inputypeBody').index($(this)) + 1;
+        var regex = /{{\d+}}/g;
+        if (bodyText === "") {
+            $('.preview-chat-paragraph').hide();
+        } else {
+            $('.preview-chat-paragraph').show();
+
+            var originalText = $('.preview-chat-paragraph .msg-text-chat').html();
+            var match = originalText.match(regex);
+            if (match) {
+                console.log(match[0].slice(2, -2));
+            }
+            var newText = originalText.replace(regex, bodyText);
+
+            $('.preview-chat-paragraph .msg-text-chat').html(newText);
         }
-
-
-
-
     });
 
     function list_data() {
@@ -1798,49 +1758,42 @@ console.log(bodyText);
 
 
 
-    $('body').on('click', '.Delete_template_id', function(e) {
+    $('body').on('click', '.Delete_template', function(e) {
         e.preventDefault();
         var record_text = "Are you sure you want to Delete this?";
-        var id = $(this).attr("id");
-        var name = $(this).attr("name");
 
-        if (id != '') {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: record_text,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'CONFIRM',
-                cancelButtonText: 'CANCEL',
-                cancelButtonColor: '#6e7881',
-                confirmButtonColor: '#dd3333',
-                reverseButtons: true
-            }).then(function(result) {
-                if (result.value) {
-                    console.log(id);
-                    $.ajax({
-                        method: "post",
-                        url: "<?= site_url('WhatsAppRTemplateDeleteRequest'); ?>",
-                        data: {
-                            id: id,
-                            name: name,
-                        },
-                        success: function(data) {
-                            if (data == '0') {
-                                iziToast.error({
-                                    title: "Can't Deleted"
-                                });
-                            } else {
-                                iziToast.error({
-                                    title: 'Deleted Successfully'
-                                });
-                            }
-                            $(".close_btn").trigger("click");
-                            list_data();
-                        }
-                    });
-                }
-            });
-        }
+        var Delete_value = $(this).attr("data-delete_id");
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: record_text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'CONFIRM',
+            cancelButtonText: 'CANCEL',
+            cancelButtonColor: '#6e7881',
+            confirmButtonColor: '#dd3333',
+            reverseButtons: true
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    method: "post",
+                    url: "<?= site_url('whatsapp_template_delete_data'); ?>",
+                    data: {
+                        action: 'delete',
+                        id: Delete_value,
+                        table: 'master_whatsapp_template'
+                    },
+                    success: function(data) {
+                        iziToast.error({
+                            title: 'Deleted Successfully'
+                        });
+                        $(".close_btn").trigger("click");
+                        list_data();
+                    }
+                });
+            }
+        });
+
     });
 </script>
