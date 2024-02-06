@@ -176,6 +176,65 @@ class Home extends BaseController
             'note varchar(500) NOT NULL',
         ];
         $notestable = tableCreateAndTableUpdate2($table_notes, '', $columns_notes);
+
+        $fb_table = $table_username . '_fb_pages';
+        $fb_column = [
+            'id int(11) primary key AUTO_INCREMENT NOT NULL',
+            'page_id varchar(250) utf8mb4_unicode_ci NOT NULL',
+            'page_name varchar(250) utf8mb4_unicode_ci NOT NULL',
+            'page_access_token longtext utf8mb4_unicode_ci NOT NULL',
+            'master_id int(11) NOT NULL',
+            'intrested_area varchar(11) utf8mb4_unicode_ci NOT NULL',
+            'property_sub_type varchar(11) utf8mb4_unicode_ci NOT NULL',
+            'intrested_site varchar(11) utf8mb4_unicode_ci NOT NULL',
+            'user_id varchar(11) utf8mb4_unicode_ci NOT NULL',
+            'status int(255) NOT NULL DEFAULT 1',
+            'form_id varchar(255) utf8mb4_unicode_ci NOT NULL',
+            'form_name varchar(255) utf8mb4_unicode_ci NOT NULL',
+            'page_img longtext utf8mb4_unicode_ci NOT NULL',
+            'is_status smallint(1) NOT NULL DEFAULT 0  COMMENT \'0=fresh connection, 1=deleted, 2=old connection\''
+        ];
+        $fbtable = tableCreateAndTableUpdate2($fb_table, '', $fb_column);
+
+
+        $fba_table = $table_username . '_fb_account';
+        $fba_column = [
+            'id int(11) primary key AUTO_INCREMENT NOT NULL',
+            'userid varchar(255) utf8mb4_unicode_ci NOT NULL',
+            'accessToken longtext utf8mb4_unicode_ci NOT NULL',
+            'username longtext utf8mb4_unicode_ci NOT NULL',
+            'master_id int(11) NOT NULL',
+            'user_profile longtext utf8mb4_unicode_ci NOT NULL'
+        ];
+        $fbatable = tableCreateAndTableUpdate2($fba_table, '', $fba_column);
+
+        $integration_table = $table_username . '_integration';
+        $integration_columns = [
+            'unquie_id int(11) primary key AUTO_INCREMENT NOT NULL',
+            'lead_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'inquiry_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'campaign_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'campaign_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'adset_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'adset_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'ad_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'ad_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'form_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'form_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'platform varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'full_name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'phone_number varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'page_id varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'id int(11) NOT NULL',
+            'fb_update int(11) NOT NULL DEFAULT 0',
+            'assign_id int(11) NOT NULL DEFAULT 0',
+            'lead_status int(11) NOT NULL DEFAULT 0',
+            'created_time varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL',
+            'lead_details text COLLATE utf8mb4_unicode_ci NOT NULL',
+        ];
+        $inttable = tableCreateAndTableUpdate2($integration_table, '', $integration_columns);
+
+
         return view('index');
     }
     public function occupation()
