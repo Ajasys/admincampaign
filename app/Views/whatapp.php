@@ -1380,20 +1380,51 @@ $language_name = json_decode($language_name, true);
 <!-- view sent msg -->
 <?= $this->include('partials/footer') ?>
 <script>
+$('body').on('click', '.previewbutton', function() {
+
+        var body = $('.body_div').val();
+        var regex = /{{\d+}}/g;
+        var matches = body.match(regex);
+
+        if (matches) {
+
+            $('#dynamicInputsContainer').empty();
+
+            for (var i = 0; i < matches.length; i++) {
+                var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
+                $('#dynamicInputsContainer').append(inputField);
+
+            }
+        }
+
+
+    });
+
     $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
         var bodyText = $(this).val();
-        console.log(bodyText);
+        var index = $('.inputypeBody').index($(this)) + 1; 
+    var regex = new RegExp("{{" + index + "}}", "g");
 
+// var regex = new RegExp('{{' + index + '}}');
         if (bodyText === "") {
             $('.preview-chat-paragraph').hide();
         } else {
             $('.preview-chat-paragraph').show();
+        
+        var originalText = $('.preview-chat-paragraph .msg-text-chat').html();
+        var match = originalText.match(regex);
+       console.log(match);
+        if (match) {
+            console.log(match[0].slice(2, -2));
         }
+        var newText = originalText.replace(regex, bodyText);
+        
+        $('.preview-chat-paragraph .msg-text-chat').html(newText);
+    }
+});
 
 
-        var updatedHTML = $('.preview-chat-paragraph .msg-text-chat').html().replace('{{1}}', bodyText);
-        $('.preview-chat-paragraph .msg-text-chat').html(updatedHTML);
-    });
+
 
 
 
@@ -1478,6 +1509,7 @@ $language_name = json_decode($language_name, true);
 
     $('.body_div').on('input', function() {
         var bodyText = $(this).val();
+console.log(bodyText);
 
         if (bodyText === "") {
             $('.c').hide();
