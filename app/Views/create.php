@@ -17,8 +17,6 @@
     border-color: #724ebf;
     }
 </style>
-
-
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2">
@@ -73,121 +71,102 @@
                                         <div class="tab-pane fade" id="pills-master-diet-tab" role="tabpanel" aria-labelledby="update-all-tab-modal" tabindex="0">
                                             <div class="col-12  tab-compo">
                                                 <div class="card-body p-2">
-
-                            <div id="event-input">
-                                    <div class="col-12 my-1 p-1">
-                                            <div class="col-12">
-                                                <input type="text" class="form-control p-2" id="event_title"
-                                                    placeholder="Event Title">
-                                            </div>
-                                        </div>
-                                        <div class="d-flex">
-                                        <div class="col-6 my-1 p-1">
-                                            <div class="col-12">
-                                                <input type="text" class="form-control p-2 offer_start_date"
-                                                    id="event_start_date" placeholder="Start Date">
-                                            </div>
-                                        </div>
-                                        <div class="col-6 my-1 p-1">
-                                            <div class="col-12">
-                                                <input type="text" class="form-control p-2 event_end_date"
-                                                    id="event_end" placeholder="End Date">
-                                            </div>
-                                        </div></div>
-
-                                 </div>
-                                                
+                                                    <div id="event-input">
+                                                        <div class="col-12 my-1 p-1">
+                                                                <div class="col-12">
+                                                                    <input type="text" class="form-control p-2" id="event_title"
+                                                                        placeholder="Event Title">
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                            <div class="col-6 my-1 p-1">
+                                                                <div class="col-12">
+                                                                    <input type="text" class="form-control p-2 offer_start_date"
+                                                                        id="event_start_date" placeholder="Start Date">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 my-1 p-1">
+                                                                <div class="col-12">
+                                                                    <input type="text" class="form-control p-2 event_end_date"
+                                                                        id="event_end" placeholder="End Date">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-12 border rounded  p-3">
                                                         <textarea cols="30" rows="5" class="col-12 border-0" placeholder="Write something or use shortcodes, spintax..... "></textarea>
-                                                        <button class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted " data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#F3F3F3;">
-                                                            Click or Drag & Drop Media
-
-                                                        </button>
-                                                        
-                                                <div class="row col-12" id="offer-input">
-                                                        <div class="col-md-4 my-1 ">
-                                                            <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
+                                                        <button class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted " data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#F3F3F3;">Click or Drag & Drop Media</button>
+                                                        <div class="row col-12" id="offer-input">
+                                                            <div class="col-md-4 my-1 ">
+                                                                <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
+                                                            </div>
+                                                            <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
+                                                                <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
+                                                            </div>
+                                                            <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
+                                                                <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
-                                                            <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
-                                                        </div>
-                                                        <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
-                                                            <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
-                                                        </div>
-                                                </div>
                                                         <div id="select-box">
-                                                        <div class="col-lg-3 col-md-4 col-sm-6">
-                                                        <div class="main-selectpicker">
-                                                            <select id="approx_buy" name="approx_buy" class="selectpicker form-control form-main" data-live-search="true" required>
-                                                                <i class="fa-solid fa-caret-down"></i>
-                                                                <option class="dropdown-item" value="">Unspecified</option>
-                                                                <option class="dropdown-item" value="2-3 days">Cover</option>
-                                                                <option class="dropdown-item" value="week">Profile</option>
-                                                                <option class="dropdown-item" value="week">Buy</option>
-                                                                <option class="dropdown-item" value="week">Logo</option>
-                                                                <option class="dropdown-item" value="week">Exteriro</option>
-                                                                <option class="dropdown-item" value="week">Interior</option>
-                                                                <option class="dropdown-item" value="week">Product</option>
-                                                                <option class="dropdown-item" value="week">At-Work</option>
-                                                                <option class="dropdown-item" value="week">Food ANd Drink</option>
-                                                                <option class="dropdown-item" value="week">Menu</option>
-                                                                <option class="dropdown-item" value="week">Comman Area</option>
-                                                                <option class="dropdown-item" value="week">Rooms</option>
-                                                                <option class="dropdown-item" value="week">Workspaces</option>
-                                                                <option class="dropdown-item" value="week">Additional</option>
-                                                            </select>
+                                                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                                                <div class="main-selectpicker">
+                                                                    <select id="approx_buy" name="approx_buy" class="selectpicker form-control form-main" data-live-search="true" required>
+                                                                        <i class="fa-solid fa-caret-down"></i>
+                                                                        <option class="dropdown-item" value="">Unspecified</option>
+                                                                        <option class="dropdown-item" value="2-3 days">Cover</option>
+                                                                        <option class="dropdown-item" value="week">Profile</option>
+                                                                        <option class="dropdown-item" value="week">Buy</option>
+                                                                        <option class="dropdown-item" value="week">Logo</option>
+                                                                        <option class="dropdown-item" value="week">Exteriro</option>
+                                                                        <option class="dropdown-item" value="week">Interior</option>
+                                                                        <option class="dropdown-item" value="week">Product</option>
+                                                                        <option class="dropdown-item" value="week">At-Work</option>
+                                                                        <option class="dropdown-item" value="week">Food ANd Drink</option>
+                                                                        <option class="dropdown-item" value="week">Menu</option>
+                                                                        <option class="dropdown-item" value="week">Comman Area</option>
+                                                                        <option class="dropdown-item" value="week">Rooms</option>
+                                                                        <option class="dropdown-item" value="week">Workspaces</option>
+                                                                        <option class="dropdown-item" value="week">Additional</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                  </div>
-
-                                                    </div>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                    
-
-
-                        <div class="card-footer border-top p-2 px-4 d-flex  align-content-center flex-wrap">
-                        <div class="col-4">
-                                <button class="bg-transparent border-0 text-muted">
-                                    <i class="fa-regular fa-clone me-2 "></i>Bulk Option
-                                </button>
-                            </div>
-                            <div class="col-8 d-flex  flex-wrap justify-content-end ">
-                                <button class="btn btn-outline-secondary mx-1 "id="draft_create">
-                                    Draft
-                                </button>
-                                <button class="btn btn-primary mx-1">
-                                    Publish
-                                </button>
-                                <button class="btn btn-secondery mx-1 Scedual_start_date">
-                                    Scedual
-                                </button>
-                                <div class="btn-group dropup btn-outline-dark mx-1">
-                                    <button type="button" class="btn btn-outline-dark rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fa-solid fa-angle-up"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Action two</a></li>
-                                        <li><a class="dropdown-item" href="#">Action three</a></li>
-                                    </ul>
+                                        <div class="card-footer border-top p-2 px-4 d-flex  align-content-center flex-wrap">
+                                            <div class="col-4">
+                                                <button class="bg-transparent border-0 text-muted">
+                                                    <i class="fa-regular fa-clone me-2 "></i>Bulk Option</button>
+                                            </div>
+                                            <div class="col-8 d-flex  flex-wrap justify-content-end ">
+                                                <button class="btn btn-outline-secondary mx-1 "id="draft_create">Draft</button>
+                                                <button class="btn btn-primary mx-1">Publish</button>
+                                                <button class="btn btn-secondery mx-1 Scedual_start_date">Scedual</button>
+                                                <div class="btn-group dropup btn-outline-dark mx-1">
+                                                    <button type="button" class="btn btn-outline-dark rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-angle-up"></i></button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                                        <li><a class="dropdown-item" href="#">Action two</a></li>
+                                                        <li><a class="dropdown-item" href="#">Action three</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-</form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</div>
 
 
 <!-- modal-section-->
-<div class="modal fade " id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" data-bs-backdrop="static">
+<div class="modal fade active show" id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
