@@ -65,7 +65,6 @@ class FaceBookController extends BaseController
         echo json_encode($result_array, true);
         die();
     }
-
     //delete
     public function delete_pages_fb()
     {
@@ -88,7 +87,7 @@ class FaceBookController extends BaseController
             $delete_id = $this->request->getPost('delete_id');
             $username = session_username($_SESSION['username']);
             $table_name = $this->request->getPost('table');
-            $departmentdisplaydata = $this->MasterInformationModel->delete_entry($table_name, $delete_id);
+            $departmentdisplaydata = $this->MasterInformationModel->delete_entry2($table_name, $delete_id);
 
             $response['response'] = 0;
             echo json_encode($response);
@@ -158,69 +157,7 @@ class FaceBookController extends BaseController
                 $resultff['response'] = 0;
                 $resultff['message'] = 'Please Connect with Facebook..!';
             }
-        } else {
-
-            $user_id = $this->request->getPost("user_id");
-            $username = $this->request->getPost("username");
-            $access_token = $this->request->getPost("access_token");
-            try {
-                // Make the API call to get user's accounts (returns a GraphEdge)
-                $response = $this->fb->get('/' . $user_id . '/accounts', $access_token);
-            } catch (FacebookResponseException $e) {
-                $resultff['response'] = 0;
-                $resultff['message'] = 'Graph returned an error: ' . $e->getMessage();
-                exit;
-            } catch (FacebookSDKException $e) {
-                $resultff['response'] = 0;
-                $resultff['message'] = 'Facebook SDK returned an error: ' . $e->getMessage();
-                exit;
-            }
-
-            // Convert the GraphEdge to an array
-            $accountsArray = $response->getGraphEdge()->asArray();
-
-
-            $html .= '<option value="0">Select Page</option>';
-            foreach ($accountsArray as $aa_key => $aa_value) {
-                try {
-                    $curl = curl_init();
-
-                    curl_setopt_array(
-                        $curl,
-                        array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id=692703766025178&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
-                            CURLOPT_RETURNTRANSFER => true,
-                            CURLOPT_ENCODING => '',
-                            CURLOPT_MAXREDIRS => 10,
-                            CURLOPT_TIMEOUT => 0,
-                            CURLOPT_FOLLOWLOCATION => true,
-                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                            CURLOPT_CUSTOMREQUEST => 'POST',
-                            CURLOPT_HTTPHEADER => array(
-                                'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-                            ),
-                        )
-                    );
-
-                    $response = curl_exec($curl);
-
-                    curl_close($curl);
-
-                    $result = json_decode($response, true);
-                    //   pre($result );die();
-                    // Extract the long-lived access token
-                    $longLivedAccessToken = $result['access_token'];
-
-
-
-                    $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
-                } catch (FacebookResponseException $e) {
-                    echo 'Graph returned an error: ' . $e->getMessage();
-                } catch (FacebookSDKException $e) {
-                    echo 'Facebook SDK returned an error: ' . $e->getMessage();
-                }
-            }
-        }
+        } 
 
         $resultff['html'] = $html;
         $resultff['profile_pic'] = '';
@@ -297,10 +234,18 @@ class FaceBookController extends BaseController
                 // $result_array['respoance'] = 1;
                 // $result_array['msg'] = "Form Connected successfully";
             } else {
-                if ($result_facebook_data[0]['is_status'] == 1) {
-                    //is_status==0-for delete to connection
+                if ($result_facebook_data[0]['is_status'] == 0) {
+                    //is_status==0-for fresh to connection
+                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
+                    $result_array['respoance'] = 1;
+                    $result_array['msg'] = "Form Re-connect successfully";
+                }
+                else if ($result_facebook_data[0]['is_status'] == 1) {
+                    //is_status==1-for delete to connection
                     $this->db->query('UPDATE `admin_fb_pages` SET `is_status`=0 WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
+
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 3) {
@@ -460,22 +405,20 @@ class FaceBookController extends BaseController
         echo json_encode($result_array, true);
         die();
     }
-
     function deleted_pages_list_data()
     {
         $html = "";
         $status = 0;
         $query = $this->db->query("SELECT * , p.id AS page_ids
                 FROM admin_fb_pages AS p
-                JOIN admin_fb_account AS a ON p.master_id = a.master_id
-                WHERE p.master_id = '" . $_SESSION['master'] . "' AND is_status=1");
+                WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status=1");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         if ($count_num > 0) {
             $status = 1;
             foreach ($result_facebook_data as $key => $value) {
                 $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM " . $this->username . "_integration
+                        FROM admin_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
                 $count_lead = $queryd->getResultArray();
 
@@ -484,7 +427,7 @@ class FaceBookController extends BaseController
                     $count = $count_lead[0]['form_count'];
                 }
                 $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM " . $this->username . "_integration
+                        FROM admin_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
                 $count_leads = $queryds->getResultArray();
 
@@ -520,7 +463,7 @@ class FaceBookController extends BaseController
                                 </div>          
 
                                 <div class="mx-1">
-                                   <img src="https://ajasys.com/img/favicon.png">
+                                   <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
                                 </div>
                             </div>
                             <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="/leadlist?id=' . $value['form_id'] . '">
@@ -530,7 +473,7 @@ class FaceBookController extends BaseController
                                 <span class="me-2">' . $count . '</span>
                                    
                                     <i class="bi bi-person me-1"></i>
-                                    <span>' . $value['username'] . '</span>
+                                    <span>' . $_SESSION['username'] . '</span>
                                 </div>
                             </a></div></div>';
             }
@@ -545,7 +488,6 @@ class FaceBookController extends BaseController
         echo json_encode($result_array, true);
         die();
     }
-
     function updated_pages_list_data()
     {
         $html = "";
@@ -638,8 +580,7 @@ class FaceBookController extends BaseController
         $status = 0;
         $query = $this->db->query("SELECT * , p.id AS page_ids
                 FROM admin_fb_pages AS p
-                JOIN admin_fb_account AS a ON p.master_id = a.master_id
-                WHERE p.master_id = '" . $_SESSION['master'] . "' AND is_status=3");
+                WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status=3");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         if ($count_num > 0) {
@@ -653,7 +594,7 @@ class FaceBookController extends BaseController
                     $staff_id = $value['user_id'];
                 }
                 $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM " . $this->username . "_integration
+                        FROM admin_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
                 $count_lead = $queryd->getResultArray();
 
@@ -662,7 +603,7 @@ class FaceBookController extends BaseController
                     $count = $count_lead[0]['form_count'];
                 }
                 $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM " . $this->username . "_integration
+                        FROM admin_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
                 $count_leads = $queryds->getResultArray();
 
@@ -695,7 +636,7 @@ class FaceBookController extends BaseController
                                         <span><i class="bi bi-caret-right-fill fs-10"></i></span>
                                     </div>  
                                     <div class="mx-1">
-                                    <img src="https://ajasys.com/img/favicon.png">
+                                    <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
                                     </div>
                                 </div>
                                 <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill">
@@ -704,17 +645,14 @@ class FaceBookController extends BaseController
                                             <button class="btn-primary-rounded fs-14">1</button>
                                         </div>   
                                         <div class="mx-1" style="width: 50px; border: 2px solid var(--first-color);"></div>
-                                        <div class="d_saved_2">
-                                            <button class="btn-primary-rounded fs-14">2</button>
-                                        </div>
-                                        <div class="mx-1" style="width: 50px; border: 2px solid var(--first-color);"></div>
+                                       
                                         <div class="d_unsaved_3">
                                             <button class="btn-primary-rounded fs-14 bg-secondary-subtle border-0 shadow-sm text-dark">?</button>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
                                         <i class="bi bi-person me-1"></i>
-                                        <span>' . $value['username'] . '</span>
+                                        <span>' . $_SESSION['username'] . '</span>
                                     </div>
                                 </a>
                                 ';

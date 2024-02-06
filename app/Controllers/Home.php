@@ -698,6 +698,10 @@ class Home extends BaseController
         // tableCreateAndTableUpdate($table_name,$duplicate_table);
         return view('lead_module',$data);
     }
+    public function leadlist()
+    {
+        return view('leadlist');
+    }
     public function projecttype()
     {
         return view('projecttype');

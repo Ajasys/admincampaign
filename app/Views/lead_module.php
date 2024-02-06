@@ -258,7 +258,7 @@ $user_data = $user_result->getResultArray();
                                                     </li>
                                                     <li class="py-1">
                                                         <a class="dropdown-item cursor-pointer">
-                                                            <img src="https://dev.realtosmart.com/assets/images/r-logo.png" width="35px" alt="realtosmart" class="me-2">
+                                                            <img src="https://ajasys.com/img/favicon.png" width="35px" alt="realtosmart" class="me-2">
                                                             <span>Website Lead Setting</span>
                                                         </a>
                                                     </li>
@@ -278,7 +278,7 @@ $user_data = $user_result->getResultArray();
                                                         </svg>
                                                     </div>
 
-                                                    <!-- <img src="https://dev.realtosmart.com/assets/images/r-logo.png" class="w-100 h-100 object-fit-contain rounded-circle"> -->
+                                                    <!-- <img src="https://ajasys.com/img/favicon.png" class="w-100 h-100 object-fit-contain rounded-circle"> -->
                                                 </div>
                                             </div>
                                             <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
@@ -368,7 +368,7 @@ $user_data = $user_result->getResultArray();
                         <div class="big_circle_fb after-none cursor-pointer">
                             <div class="big_circle_fb_inner bg-white shadow-none p-5 rounded-circle position-relative">
                                 <div class="position-relative">
-                                    <img src="https://dev.realtosmart.com/assets/images/r-logo.png" alt="" width="80">
+                                    <img src="https://ajasys.com/img/favicon.png" alt="" width="80">
                                 </div>
                             </div>
                         </div>
@@ -822,7 +822,6 @@ $user_data = $user_result->getResultArray();
 
     $('body').on('click', '.big_falcebook_circle_sbt,.new_module_add_btn1', function() {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
-
         var master_id = $(this).attr("data-master_id");
         var access_token = $(".user_agent option:selected").val();
         var username = $(".user_agent option:selected").attr("data-username");
@@ -1100,9 +1099,9 @@ $user_data = $user_result->getResultArray();
                     $(".big_list_add_outer_main_2 .all_circle_plus_list").hide();
                     if (result.respoance == 1) {
 
-                        iziToast.success({
-                            title: result.msg,
-                        });
+                        // iziToast.success({
+                        //     title: result.msg,
+                        // });
                     } else {
                         iziToast.error({
                             title: result.msg,
@@ -1283,11 +1282,6 @@ $user_data = $user_result->getResultArray();
         $('.big_list_add_outer_main_1,.big_circle_plus_outer,.add_next_big_plus_outer,.all_circle_plus_list,.lead_main_box_add,.discard-tag').hide();
         $('.big_circle_fb_outer,.lead_add_main_box').show();
 
-        var master_id = $('.big_falcebook_circle_sbt,.new_module_add_btn1').attr("data-master_id");
-        var access_token = $(".user_agent option:selected").val();
-        var username = $(".user_agent option:selected").attr("data-username");
-        var user_id = $(".user_agent option:selected").attr("data-user_id");
-
         $('.fb_div_hide1,.fb_div_hide').hide();
         if ('<?php echo isset($data[0]['user_profile']) ?>') {
             $('.fb_div_hide').hide();
@@ -1300,11 +1294,7 @@ $user_data = $user_result->getResultArray();
             type: "post",
             url: "<?= site_url('facebook_user'); ?>",
             data: {
-                action: 'user_already',
-                access_token: access_token,
-                username: username,
-                user_id: user_id,
-                master_id: master_id,
+                action: 'user'
             },
             success: function(res) {
                 var result = JSON.parse(res);

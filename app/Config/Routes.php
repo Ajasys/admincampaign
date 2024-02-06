@@ -512,7 +512,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/delete_pages_fb', 'FaceBookController::delete_pages_fb');
 	$routes->post('/facebook_form', 'FaceBookController::facebook_form');
 	$routes->post('/queue_list_add', 'FaceBookController::queue_list_add');
-	
+	$routes->post('/lead_list', 'FaceBookController::lead_list');	
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
     $routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
