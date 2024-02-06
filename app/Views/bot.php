@@ -15,6 +15,11 @@
         box-shadow: 0px 0px 10px #c5d1ff;
         transform: translateY(-5px);
     }
+    .modal-header .close {
+        border: none;
+        background: white;
+        font-size: 20px;
+    }
 </style>
 
 <div class="main-dashbord p-2 main-check-class">
@@ -102,14 +107,14 @@
 
 <div class="modal fade show d-block" id="bot_crate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" id="first_bot">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Bot Create</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex justify-content-center flex-wrap position-relative ">
                 <div class="col-12">
-                    <div class="col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card">
+                    <div class="col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-toggle="modal" data-target="#botfirstmodal">
                         <div style="width:80px;height:80px;" class="border rounded-circle d-flex justify-content-center align-items-center">
                             <i class="bi bi-funnel fs-2"></i>
                         </div>
@@ -117,7 +122,7 @@
                             <p class="fs-6 text-dark fs-semibold">Lead Generation Bot <span class="text-muted fs-6">(or)</span>Any Data Collection Bot</p>
                         </div>
                     </div>
-                    <div class="col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card">
+                    <div class="col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-toggle="modal" data-target="#botfirstmodal">
                         <div style="width:80px;height:80px;" class="border rounded-circle d-flex justify-content-center align-items-center">
                             <i class="bi bi-headset fs-2"></i>
                         </div>
@@ -126,27 +131,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="next-card">
-                    <div class="col-12">
-                        <div class="col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card">
-                            <div style="width:80px;height:80px;" class="border rounded-circle d-flex justify-content-center align-items-center">
-                                <i class="bi bi-funnel fs-2"></i>
-                            </div>
-                            <div class="col px-3">
-                                <p class="fs-6 text-dark fs-semibold">Lead Generation Bot <span class="text-muted fs-6">(or)</span>Any Data Collection Bot</p>
-                            </div>
-                        </div>
-                        <div class="col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card">
-                            <div style="width:80px;height:80px;" class="border rounded-circle d-flex justify-content-center align-items-center">
-                                <i class="bi bi-headset fs-2"></i>
-                            </div>
-                            <div class="col px-3">
-                                <p class="fs-6 text-dark fs-semibold">Lead Generation Bot <span class="text-muted fs-6">(or)</span>Any Data Collection Bot</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Send message</button>
@@ -156,9 +141,35 @@
 </div>
 
 
+<!-----------------------botfirstmodal--------------------------->
+
+<div class="modal fade firstmodal" tabindex="-1" role="dialog" aria-labelledby="botfirstmodal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="botfirstmodal">Create New Bot</h5>
+        <button type="button" class="close border-none " data-dismiss="modal" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body"><br><br>
+        <input type="text" id="botmodalinput" class="form-control w-75 m-auto" placeholder="Enter a name for your bot">
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary m-auto">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
+
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -168,4 +179,18 @@
         $('.next-card').slideUp(3000);
         // alert('jklns');
     })
+
+
+    //-------------------modal-card---------
+    $('.modal-card').click(function () {
+       //  $('#first_bot').slideUp(1000);
+        $('#first_bot').hide();
+        $(".firstmodal").attr("id","botfirstmodal").slideDown();
+    
+    });
+
+    $('.modal-header .close ').click(function () {
+        $('#first_bot').modal('show').slideDown(1000);
+    });
+
 </script>
