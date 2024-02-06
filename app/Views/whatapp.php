@@ -1380,24 +1380,23 @@ $language_name = json_decode($language_name, true);
 <!-- view sent msg -->
 <?= $this->include('partials/footer') ?>
 <script>
+    $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
+        var bodyText = $(this).val();
+        console.log(bodyText);
 
-$('#dynamicInputsContainer').on('input', '.inputypeBody', function() {       
-    var bodyText = $(this).val();
-    console.log(bodyText);
-
-    if (bodyText === "") {
-        $('.preview-chat-paragraph').hide();
-    } else {
-        $('.preview-chat-paragraph').show();
-    }
-
-
-    var updatedHTML = $('.preview-chat-paragraph .msg-text-chat').html().replace('{{1}}', bodyText);
-    $('.preview-chat-paragraph .msg-text-chat').html(updatedHTML);
-});
+        if (bodyText === "") {
+            $('.preview-chat-paragraph').hide();
+        } else {
+            $('.preview-chat-paragraph').show();
+        }
 
 
-    
+        var updatedHTML = $('.preview-chat-paragraph .msg-text-chat').html().replace('{{1}}', bodyText);
+        $('.preview-chat-paragraph .msg-text-chat').html(updatedHTML);
+    });
+
+
+
 
 
 
@@ -1582,7 +1581,7 @@ $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
             return match.replace(/[{}]/g, '');
         }
 
-       
+
 
 
     });
@@ -1767,42 +1766,49 @@ $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
 
 
 
-    $('body').on('click', '.Delete_template', function(e) {
+    $('body').on('click', '.Delete_template_id', function(e) {
         e.preventDefault();
         var record_text = "Are you sure you want to Delete this?";
+        var id = $(this).attr("id");
+        var name = $(this).attr("name");
 
-        var Delete_value = $(this).attr("data-delete_id");
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: record_text,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'CONFIRM',
-            cancelButtonText: 'CANCEL',
-            cancelButtonColor: '#6e7881',
-            confirmButtonColor: '#dd3333',
-            reverseButtons: true
-        }).then(function(result) {
-            if (result.value) {
-                $.ajax({
-                    method: "post",
-                    url: "<?= site_url('whatsapp_template_delete_data'); ?>",
-                    data: {
-                        action: 'delete',
-                        id: Delete_value,
-                        table: 'master_whatsapp_template'
-                    },
-                    success: function(data) {
-                        iziToast.error({
-                            title: 'Deleted Successfully'
-                        });
-                        $(".close_btn").trigger("click");
-                        list_data();
-                    }
-                });
-            }
-        });
-
+        if (id != '') {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: record_text,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'CONFIRM',
+                cancelButtonText: 'CANCEL',
+                cancelButtonColor: '#6e7881',
+                confirmButtonColor: '#dd3333',
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+                    console.log(id);
+                    $.ajax({
+                        method: "post",
+                        url: "<?= site_url('WhatsAppRTemplateDeleteRequest'); ?>",
+                        data: {
+                            id: id,
+                            name: name,
+                        },
+                        success: function(data) {
+                            if (data == '0') {
+                                iziToast.error({
+                                    title: "Can't Deleted"
+                                });
+                            } else {
+                                iziToast.error({
+                                    title: 'Deleted Successfully'
+                                });
+                            }
+                            $(".close_btn").trigger("click");
+                            list_data();
+                        }
+                    });
+                }
+            });
+        }
     });
 </script>

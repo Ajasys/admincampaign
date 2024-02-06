@@ -122,10 +122,12 @@ class WhatAppIntegrationController extends BaseController
                         if(isset($responselistdata)){
                             if(isset($responselistdata['data'])){
                                 if(!empty($responselistdata['data'])){
+                                    // pre($responselistdata['data']);
                                     foreach ($responselistdata['data'] as $key => $value) {
                                         $Name = $value['name'];
                                         $Category = $value['category'];
                                         $Body = ''; 
+                                        $id = $value['id'];
                                         $language = $value['language'];
                                         if(isset($value['components']) && !empty($value['components'])){
                                             foreach ($value['components'] as $key1 => $value1) {
@@ -150,7 +152,7 @@ class WhatAppIntegrationController extends BaseController
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         <i class="fa fa-clone fs-16 Edit_template" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <i class="fa fa-trash fs-16 Delete_template" data-delete_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                        <i class="fa fa-trash fs-16 Delete_template_id" name="'.$Name.'" id="'.$id.'" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
                                                     </span>
                                                 </td>
                                             </tr>
@@ -296,8 +298,6 @@ class WhatAppIntegrationController extends BaseController
         if ($this->request->getPost("action") == "delete") {
             $delete_id = $this->request->getPost('id');
             $tablename = $this->request->getPost('table');
-
-
             $delete_displaydata = $this->MasterInformationModel->delete_entry3($tablename, $delete_id);
         }
         die();
@@ -337,12 +337,48 @@ class WhatAppIntegrationController extends BaseController
 
   }
 
+
+  public function WhatsAppRTemplateDeleteRequest(){
+    if(isset($_POST['id']) && !empty($_POST['id'])){
+        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';       
+        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?hsm_id='.$_POST['id'].'&name='.$_POST['name'].'&access_token='.$access_token;
+        $Result = deleteSocialData($url);
+        $DeleteStatus = 0;
+        if(isset($Result)){
+            $DeleteStatus = 1;
+        }
+        echo $DeleteStatus;
+    }
+  }
+
+
+
   public function GetWhatAppTemplateList(){
+
+    die();
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'DELETE',  
+        CURLOPT_HTTPHEADER => array(
+            'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
+        ),
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    pre($response);
+    die();
     // $RResult = CheckWhataAppConnection();
     $RRR = WhatsAppConnectionCheck();
     $RRR = json_decode($RRR, true);
     // echo $RRR;
-        pre($RRR);  
+    pre($RRR);  
     die();
     // function CheckWhataAppConnection(){
 
