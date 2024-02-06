@@ -57,14 +57,14 @@
                                         <li class="nav-item active" role="presentation">
                                             <a class="nav-link bg-white text-primary create-input-toggle" id="pills-master-diet" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Update</a>
                                         </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link bg-white text-primary create-input-toggle" id="pills-all-diet" data-bs-toggle="pill" data-bs-target="#photo-all-tab" href="#">Photo</a>
+                                        <li class="nav-item " role="presentation">
+                                            <a class="nav-link bg-white text-primary create-input-toggle" id="pills-all-diet" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Photo</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link bg-white text-primary" id="pills-all-event" data-bs-toggle="pill" data-bs-target="#event-all-tab" href="#">Event</a>
+                                            <a class="nav-link bg-white text-primary" id="pills-all-event"  data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Event</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link bg-white text-primary" id="pills-all-offer" data-bs-toggle="pill" data-bs-target="#offer-all-tab" href="#">Offer</a>
+                                            <a class="nav-link bg-white text-primary" id="pills-all-offer"  data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Offer</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -73,27 +73,50 @@
                                         <div class="tab-pane fade" id="pills-master-diet-tab" role="tabpanel" aria-labelledby="update-all-tab-modal" tabindex="0">
                                             <div class="col-12  tab-compo">
                                                 <div class="card-body p-2">
-                                                    <div class="col-12 border rounded  p-3">
-                                                        <textarea cols="30" rows="5" class="col-12 border-0" placeholder="Write something or use shortcodes, spintax..... "></textarea>
-                                                        <button class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted " data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#F3F3F3;">
-                                                            Click or Drag & Drop Media
 
-                                                        </button>
-                                                    </div>
-                                                </div>
+                            <div id="event-input">
+                                    <div class="col-12 my-1 p-1">
+                                            <div class="col-12">
+                                                <input type="text" class="form-control p-2" id="event_title"
+                                                    placeholder="Event Title">
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="photo-all-tab" role="tabpanel" aria-labelledby="photo-all-tab-modal" tabindex="0">
-                                            <div class="col-12  tab-compo">
-                                                <div class="card-body p-2">
+                                        <div class="d-flex">
+                                        <div class="col-6 my-1 p-1">
+                                            <div class="col-12">
+                                                <input type="text" class="form-control p-2 offer_start_date"
+                                                    id="event_start_date" placeholder="Start Date">
+                                            </div>
+                                        </div>
+                                        <div class="col-6 my-1 p-1">
+                                            <div class="col-12">
+                                                <input type="text" class="form-control p-2 event_end_date"
+                                                    id="event_end" placeholder="End Date">
+                                            </div>
+                                        </div></div>
+
+                                 </div>
+                                                
                                                     <div class="col-12 border rounded  p-3">
                                                         <textarea cols="30" rows="5" class="col-12 border-0" placeholder="Write something or use shortcodes, spintax..... "></textarea>
                                                         <button class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted " data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#F3F3F3;">
                                                             Click or Drag & Drop Media
 
                                                         </button>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                                        
+                                                <div class="row col-12" id="offer-input">
+                                                        <div class="col-md-4 my-1 ">
+                                                            <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
+                                                        </div>
+                                                        <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
+                                                            <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
+                                                        </div>
+                                                        <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
+                                                            <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
+                                                        </div>
+                                                </div>
+                                                        <div id="select-box">
+                                                        <div class="col-lg-3 col-md-4 col-sm-6">
                                                         <div class="main-selectpicker">
                                                             <select id="approx_buy" name="approx_buy" class="selectpicker form-control form-main" data-live-search="true" required>
                                                                 <i class="fa-solid fa-caret-down"></i>
@@ -115,125 +138,16 @@
                                                             </select>
                                                         </div>
                                                     </div>
+                                                  </div>
+
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade " id="event-all-tab" role="tabpanel" aria-labelledby="event-all-tab-modal" tabindex="0">
-                                            <div class="col-12  tab-compo">
-                                                <div class="card-body p-2 d-flex flex-wrap">
-                                                <div class="col-12 my-1 p-1">
-                                                        <div class="col-12">
-                                                            <input type="text" class="form-control p-2" id="event_title"
-                                                                placeholder="Event Title">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6 my-1 p-1">
-                                                        <div class="col-12">
-                                                            <input type="text" class="form-control p-2 offer_start_date"
-                                                                id="event_start_date" placeholder="Start Date">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6 my-1 p-1">
-                                                        <div class="col-12">
-                                                            <input type="text" class="form-control p-2 event_end_date"
-                                                                id="event_end" placeholder="End Date">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 my-1 p-1">
-                                                        <div class="col-12 border rounded p-3">
-                                                            <textarea cols="30" rows="5" class="col-12 border-0"
-                                                                placeholder="Write something or use shortcodes, spintax..... " id="event_address"></textarea>
-                                                            <button
-                                                                class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted "id="event_image"
-                                                                data-bs-toggle="modal" data-bs-target="#get_file"
-                                                                type="file" style="background:#F3F3F3;">
-                                                                Click or Drag & Drop Media
+                                    
 
-                                                            </button>
-                                                            
-                                                            <div class="col-lg-3 mx-1 my-2 col-md-4 col-sm-6">
-                                                        <div class="main-selectpicker">
-                                                            <select id="approx_buy" name="approx_buy" class="selectpicker form-control form-main" data-live-search="true" required>
-                                                                <i class="fa-solid fa-caret-down"></i>
-                                                                <option class="dropdown-item" value="">No Button</option>
-                                                                <option class="dropdown-item" value="2-3 days">BOOK</option>
-                                                                <option class="dropdown-item" value="week">Order Online</option>
-                                                                <option class="dropdown-item" value="week">Buy</option>
-                                                                <option class="dropdown-item" value="week">Learn More</option>
-                                                                <option class="dropdown-item" value="week">Sign Up</option>
-                                                                <option class="dropdown-item" value="week">Call Now</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade " id="offer-all-tab" role="tabpanel"  aria-labelledby="offer-all-tab-modal" tabindex="0">
-                                            <div class="col-12  tab-compo">
-                                                <div class="card-body p-2 d-flex flex-wrap">
-                                                <div class="col-12 my-1 p-1">
-                                                        <div class="col-12">
-                                                            <input type="text" class="form-control p-2" id=""
-                                                                placeholder="Offer Title">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6 my-1 p-1">
-                                                        <div class="col-12">
-                                                            <input type="text" class="form-control p-2 offer_start_date"
-                                                                id="" placeholder="Start Date">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6 my-1 p-1">
-                                                        <div class="col-12">
-                                                            <input type="text" class="form-control p-2 offer_end_date"
-                                                                id="" placeholder="End Date">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 my-1 p-1">
-                                                        <div class="col-12 border rounded p-3">
-                                                            <textarea cols="30" rows="5" class="col-12 border-0"
-                                                                placeholder="Write something or use shortcodes, spintax..... "></textarea>
-                                                            <button
-                                                                class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted mb-2 "
-                                                                data-bs-toggle="modal" data-bs-target="#get_file"
-                                                                type="file" style="background:#F3F3F3;">
-                                                                Click or Drag & Drop Media
-                                                            </button>
-                                                            <div class="row col-12 align-items-center ">
-                                                                <div class="col-6 d-flex justify-content-center align-items-center ">
-                                                               
-                                                                </div>
-                                                                <div class="row col-12">
-                                                                    <div class="col-md-4 my-1 ">
-                                                                        <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
-                                                                    </div>
-                                                                    <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
-                                                                        <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
-                                                                    </div>
-                                                                    <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
-                                                                        <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                  
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade " id="pills-all-diet-tab" role="tabpanel"  aria-labelledby="pills-all-diet" tabindex="0">
-                                            <div class="main-dashbord p-2 main-check-class">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                         <div class="card-footer border-top p-2 px-4 d-flex  align-content-center flex-wrap">
                         <div class="col-4">
                                 <button class="bg-transparent border-0 text-muted">
@@ -470,6 +384,38 @@
  
 
         });
+
+
+        //---------------------------- modal input ----------------------------
+
+        $("#pills-master-diet").click(function(){
+            $(".card-body").show();
+            $("#select-box").hide();
+            $("#event-input").hide();
+            $("#offer-input").hide();
+
+        })
+        $("#pills-master-diet").trigger("click");
+        
+        //photo
+        $("#pills-all-diet").click(function(){
+            $("#select-box").show();
+            $("#event-input").hide();
+            $("#offer-input").hide();
+
+        });
+
+        //event
+        $("#pills-all-event").click(function(){
+            $("#event-input").show();
+            $("#offer-input").hide();
+            $("#select-box").show();
+        });
+        //offer
+        $("#pills-all-offer").click(function(){
+            $("#offer-input").show();
+            $("#select-box").hide();
+        })
 </script>
 
 
