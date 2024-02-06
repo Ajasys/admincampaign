@@ -847,7 +847,25 @@ $language_name = json_decode($language_name, true);
                                             </tr>
                                         </thead>
                                         <tbody id="memberships_list">
-
+                                        <tr class="rounded-pill">
+                                            <td class="py-2 text-capitalize">aakash</td>
+                                            <td class="py-2">Authentication</td>
+                                            <td class="py-2 ">
+                                                <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
+                                                    a1
+                                                </div>
+                                            </td>
+                                            <td class="py-2">en</td>
+                                            <td class="template-creation-table-data text-center cwt-border-right p-l-25">
+                                                <span>
+                                                    <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <i class="fa fa-clone fs-16 Edit_template" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <i class="fa fa-trash fs-16 Delete_template" data-delete_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                </span>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

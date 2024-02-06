@@ -67,7 +67,7 @@ class WhatAppIntegrationController extends BaseController
             // $InsertData['whatapp_created_at_account'] = date('Y-m-d H:i:s', time());
             $response = $this->MasterInformationModel->insert_entry2($InsertData, 'admin_generale_setting');
         }
-    
+
 
         $WhatAppRedirectStatus = 0;
         $ConnectionName = '';
@@ -92,49 +92,93 @@ class WhatAppIntegrationController extends BaseController
 
     public function master_whatsapp_list_data()
     {
-        $table_name = $_POST['table'];
-        $allow_data = json_decode($_POST['show_array']);
-        $action = $_POST['action'];
-        $master_membership_displaydata = $this->MasterInformationModel->display_all_records2($table_name);
-        $master_membership_displaydata = json_decode($master_membership_displaydata, true);
+        //06-02-2024
 
-        $i = 1;
-        $html = "";
+        $table_username = getMasterUsername();
+        $db_connection = \Config\Database::connect('second');
+        $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+        $result = $db_connection->query($query90);
+        $total_dataa_userr_22 = $result->getResult();
+        if (isset($total_dataa_userr_22[0])) {
+            $settings_data = get_object_vars($total_dataa_userr_22[0]);
+        } else {
+            $settings_data = array();
+        }   
+        $WhatAppRedirectStatus = 0;
+        $Error = '';
+        $ConnectionName = '';
+        $ConnectionStatus = 0;
 
-        foreach ($master_membership_displaydata as $key => $value) {
-
-            $html .= '<tr class="rounded-pill">
-						<td class="py-2 text-capitalize">' . strtolower($value['template_name']) . '</td>
-						<td class="py-2">' . $value['category_types'] . '</td>
-						<td class="py-2 " >
-                            <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
-                                ' . $value['body'] . '
-                            </div>
-                        </td>
-						<td class="py-2">' . $value['language'] . '</td>
-						<td class="template-creation-table-data text-center cwt-border-right p-l-25">
-							<span>
-								<i class="fa fa-eye fs-16 view_template"  data-bs-toggle="modal" data-bs-target="#view_template"  data-preview_id="' . $value['id'] . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<i class="fa fa-clone fs-16 Edit_template" data-edit_id="' . $value['id'] . '"  data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit"  data-edit_id="' . $value['id'] . '" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<i class="fa fa-trash fs-16 Delete_template"  data-delete_id="' . $value['id'] . '"  aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
-							</span>
-						</td>
-					</tr>';
-
-
-            $html .= '</tr>';
-            $i++;
+        $Html = '';
+        if(isset($settings_data) && !empty($settings_data)){
+            if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
+                $url = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
+                $DataArray =  getSocialData($url);
+                if(isset($DataArray) && !empty($DataArray)){
+                    if(isset($DataArray['id']) && !empty($DataArray['id'])){
+                        $ConnectionStatus = 1;
+                        $urllistdata = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/message_templates?fields=name,status,category,language,components&access_token='.$settings_data['whatapp_access_token'];
+                        $responselistdata =  getSocialData($urllistdata);
+                        if(isset($responselistdata)){
+                            if(isset($responselistdata['data'])){
+                                if(!empty($responselistdata['data'])){
+                                    foreach ($responselistdata['data'] as $key => $value) {
+                                        $Name = $value['name'];
+                                        $Category = $value['category'];
+                                        $Body = ''; 
+                                        $language = $value['language'];
+                                        if(isset($value['components']) && !empty($value['components'])){
+                                            foreach ($value['components'] as $key1 => $value1) {
+                                                if($value1['type'] == 'BODY'){
+                                                    $Body = $value1['text'];
+                                                }
+                                            }
+                                        }
+                                        $Html .= '
+                                        <tr class="rounded-pill">
+                                                <td class="py-2 text-capitalize">'.$Name.'</td>
+                                                <td class="py-2">'.$Category.'</td>
+                                                <td class="py-2 ">
+                                                    <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
+                                                        '.$Body.'
+                                                    </div>
+                                                </td>
+                                                <td class="py-2">'.$language.'</td>
+                                                <td class="template-creation-table-data text-center cwt-border-right p-l-25">
+                                                    <span>
+                                                        <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <i class="fa fa-clone fs-16 Edit_template" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <i class="fa fa-trash fs-16 Delete_template" data-delete_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ';
+                                    }
+                                }else{
+                                    $Html .= '<p>No Templates Found</p>';
+                                }
+                            }else{
+                                if(isset($responselistdata['error']['message'])){
+                                    $Html .= '<p>'.$responselistdata['error']['message'].'</p>';
+                                }
+                            }
+                        }
+                    }else{
+                        if(isset($DataArray['error'])){
+                            if(isset($DataArray['error']['message'])){
+                                $Error = $DataArray['error']['message'];
+                                $Html .= '<p>'.$DataArray['error']['message'].'</p>';
+                            }
+                        }
+                    }
+                }
+            }
         }
-
-        $return_array = array(
-            'html' => $html,
-        );
-
-        $recordsCount = count($master_membership_displaydata);
+        $recordsCount = '';
         $return_array['records_count'] = $recordsCount;
-
+        $return_array['html'] = $Html;
         return json_encode($return_array, true);
         die();
     }
@@ -169,110 +213,48 @@ class WhatAppIntegrationController extends BaseController
 
         public function whatsapp_template_insert()
     {
-
         $imgfile = "";
         $data = array();
         $newName = '';
         $files = $_FILES;
         $fileName = '';
-        $fileNames = '';
-$uploadStatus = 1;
-        $response = array();
-
+        $fileNames ='';
 		if (!empty($files)) {
-            $uploadDir = 'assets/Master_Social_Media_Folder/WhatApp_Media/';
-            $serverDomain = 'http://localhost/admincampaign/whatapp';
+            $uploadDir = 'assets/images/whatsapp_template/';
 
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
-
             $filesArr = $files["uploade_file"];
             $fileName = $filesArr['name'];
-$fileName = str_replace(' ', '', $fileName);
-
             $uploadedFile = '';
-                        $targetFilePath = $uploadDir . $fileName;
+            $fileName = $filesArr['name'];
+            $targetFilePath = $uploadDir . $fileName;
             $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
-            if (in_array(strtolower($fileType), array('jpg', 'jpeg', 'png', 'gif'))) {
-                $uploadSubDir = 'images/';
-                if (!is_dir($uploadDir . $uploadSubDir)) {
-                    mkdir($uploadDir . $uploadSubDir, 0755, true);
-                }
-                if ($filesArr["size"] > 1048576) {
-                } else {
-                    $targetFilePath = $uploadDir . $uploadSubDir . $fileName;
-                    if (move_uploaded_file($filesArr["tmp_name"], $targetFilePath)) {
+            if (in_array(strtolower($fileType), array('jpg', 'jpeg', 'png', 'gif')) && $filesArr["size"] > 1048576) {
+                $compressedImage = compressImage($filesArr["tmp_name"]);
+                if ($compressedImage !== false) {
+                    $targetFilePath = $uploadDir . $fileName;
+                    if (file_put_contents($targetFilePath, $compressedImage)) {
                         $uploadedFile .= $fileName . ',';
-$photoUrl = $serverDomain . $uploadSubDir . $fileName;
-                        $response['photoUrl'] = $photoUrl;
                     } else {
                         $uploadStatus = 0;
-                        $response['message'] = 'Sorry, there was an error uploading your file.';
+                        $response['message'] = 'Error while saving the compressed image.';
                     }
-                }
-            } elseif (in_array(strtolower($fileType), array('mp4', 'mov', 'avi', 'mkv'))) {
-                $uploadSubDir = 'videos/';
-                if (!is_dir($uploadDir . $uploadSubDir)) {
-                    mkdir($uploadDir . $uploadSubDir, 0755, true);
-                }
-                $targetFilePath = $uploadDir . $uploadSubDir . $fileName;
-                if (move_uploaded_file($filesArr["tmp_name"], $targetFilePath)) {
-                    $uploadedFile .= $fileName . ',';
-                    $videoUrl = $serverDomain . $uploadSubDir . $fileName;
-                    $response['videoUrl'] = $videoUrl;
                 } else {
                     $uploadStatus = 0;
-                    $response['message'] = 'Sorry, there was an error uploading your file.';
-                }
-                // if (command_exists('ffmpeg')) {
-                //     $compressedVideoPath = compressVideo($filesArr["tmp_name"], $uploadDir . $uploadSubDir);
-
-                //     if ($compressedVideoPath !== false) {
-                //         $uploadedFile .= $compressedVideoPath;
-                //     } else {
-                //         $uploadStatus = 0;
-                //         $response['message'] = 'Error while compressing the video.';
-                //     }
-                // } else {
-                //     $uploadStatus = 0;
-                //     $response['message'] = 'FFmpeg is not installed on the server.';
-                // }
-            } elseif (in_array(strtolower($fileType), array('pdf', 'doc', 'docx', 'txt'))) {
-                $uploadSubDir = 'documents/';
-                if (!is_dir($uploadDir . $uploadSubDir)) {
-                    mkdir($uploadDir . $uploadSubDir, 0755, true);
-                }
-                $targetFilePath = $uploadDir . $uploadSubDir . $fileName;
-                if (move_uploaded_file($filesArr["tmp_name"], $targetFilePath)) {
-                    $uploadedFile .= $fileName . ',';
-                    $documentsurl = $serverDomain . $uploadSubDir . $fileName;
-                    $response['documentsurl'] = $documentsurl;
-                } else {
-                    $uploadStatus = 0;
-                    $response['message'] = 'Sorry, there was an error uploading your file.';
+                    $response['message'] = 'Error while compressing the image.';
                 }
             } else {
-$uploadSubDir = 'other/';
-                if (!is_dir($uploadDir . $uploadSubDir)) {
-                    mkdir($uploadDir . $uploadSubDir, 0755, true);
-                }
-                $targetFilePath = $uploadDir . $uploadSubDir . $fileName;
                 if (move_uploaded_file($filesArr["tmp_name"], $targetFilePath)) {
                     $uploadedFile .= $fileName . ',';
-$otherurl = $serverDomain . $uploadSubDir . $fileName;
-                    $response['otherurl'] = $otherurl;
                 } else {
                     $uploadStatus = 0;
                     $response['message'] = 'Sorry, there was an error uploading your file.';
                 }
             }
         }
-
-
-
-
 
         $post_data = $this->request->getPost();
         $table_name = $this->request->getPost("table");
@@ -287,22 +269,10 @@ $otherurl = $serverDomain . $uploadSubDir . $fileName;
 
                 if ($fileName != '') {
                     $insert_data['uploade_file'] = $fileName;
-                } else {
+                }else{
                     $insert_data['uploade_file'] = '';
-}
 
-              if (!empty($response['photoUrl'])) {
-                $insert_data['media_url'] = $response['photoUrl'];
-            } elseif (!empty($response['videoUrl'])) {
-                $insert_data['media_url'] = $response['videoUrl'];
-            } elseif (!empty($response['documentsurl'])) {
-                $insert_data['media_url'] = $response['documentsurl'];
-            } elseif (!empty($response['otherurl'])) {
-                $insert_data['media_url'] = $response['otherurl'];
-            } else {
-                $insert_data['media_url'] = '';
-            }
-
+                }
 
                 // $isduplicate = $this->duplicate_data2($insert_data, $table_name);
 
@@ -368,7 +338,7 @@ $otherurl = $serverDomain . $uploadSubDir . $fileName;
   }
 
   public function GetWhatAppTemplateList(){
-// $RResult = CheckWhataAppConnection();
+    // $RResult = CheckWhataAppConnection();
     $RRR = WhatsAppConnectionCheck();
     $RRR = json_decode($RRR, true);
     // echo $RRR;
@@ -390,7 +360,7 @@ $otherurl = $serverDomain . $uploadSubDir . $fileName;
         $Error = '';
         $ConnectionName = '';
         $ConnectionStatus = 0;
-  
+
         if(isset($settings_data) && !empty($settings_data)){
             if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
                 $url = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
@@ -570,7 +540,7 @@ $otherurl = $serverDomain . $uploadSubDir . $fileName;
       curl_close($curl);
       pre($response);
       die();
-
+        // postSocialData($url, $JsonData);
       // function getFacebookData($url, $pageAccessToken)
       // {
       //     $curl = curl_init();
@@ -638,5 +608,8 @@ $otherurl = $serverDomain . $uploadSubDir . $fileName;
 
           }
       }
-  }  
+  }
+  
+  
+
 }
