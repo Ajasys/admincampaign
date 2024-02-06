@@ -312,7 +312,8 @@ class Home extends BaseController
 
     public function bot_setup()
     {
-        return view('bot_setup');
+        $data['master_bot_typeof_question'] = $this->MasterInformationModel->display_all_records2('master_bot_typeof_question');
+        return view('bot_setup', $data);
     }
 
     public function manage_audience()
