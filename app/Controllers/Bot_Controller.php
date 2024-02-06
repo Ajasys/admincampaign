@@ -449,34 +449,41 @@ class Bot_Controller extends BaseController
 	}
 
 	public function bot_insert_data()
-	{
-		$post_data = $this->request->getPost();
-		$table_name = $this->request->getPost("table");
-		$action_name = $this->request->getPost("action");
-		if ($this->request->getPost("action") == "insert") {
-			unset($_POST['action']);
-			unset($_POST['table']);
-			if (!empty($_POST)) {
-				$insert_data = $_POST;
-				// $isduplicate = $this->duplicate_data($insert_data, $table_name);
-				// if ($isduplicate == 0) {
-					$response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
-					$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
-					$departmentdisplaydata = json_decode($departmentdisplaydata, true);
-				// } else {
-				// 	return "error";
-				// }
-			}
-		}
-		die();
-	}
+{
+    $post_data = $this->request->getPost();
+    $table_name = $this->request->getPost("table");
+    $action_name = $this->request->getPost("action");
+
+    if ($this->request->getPost("action") == "insert") {
+        unset($_POST['action']);
+        unset($_POST['table']);
+
+        if (!empty($_POST)) {
+            $insert_data = $_POST;
+            
+            // Get the current number of records in the table
+            $record_count = $this->MasterInformationModel->getRecordCount2($table_name);
+            pre($record_count);
+            // Increment the sequence number by 1 for each new record
+            $insert_data['sequence'] = $record_count + 1;
+            
+            $response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
+            $departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+            $departmentdisplaydata = json_decode($departmentdisplaydata, true);
+        }
+    }
+    die();
+}
+
+
 
 	
 	public function duplicate_Question() 
 	{
+		$table_username = getMasterUsername2();
 		$questionId = $this->request->getPost("questionId");
 		$db = \Config\Database::connect('second');
-		$sql = 'SELECT * FROM `admin_bot_setup` where id=' . $questionId . '';
+		$sql = 'SELECT * FROM ' . $table_username . '_bot_setup WHERE id = ' . $questionId;
 		$result = $db->query($sql);
 		$question_data = $result->getRowArray();
 
@@ -487,18 +494,18 @@ class Bot_Controller extends BaseController
 
 	private function insertQuestionData($question_data) 
 	{
+		$table_username = getMasterUsername2();
 		$db = \Config\Database::connect('second');
 		$question_data['sequence'] = 0;
 		unset($question_data['id']);
 
-		$db->table('admin_bot_setup')->insert($question_data);
+		$db->table($table_username . '_bot_setup')->insert($question_data);
 		return $db->insertID();
 	}
 
 
 	public function bot_delete_data()
 	{
-
 		if ($this->request->getPost("action") == "delete") {
 			$delete_id = $this->request->getPost('id');
 			$table_name = $this->request->getPost('table');
@@ -541,7 +548,6 @@ class Bot_Controller extends BaseController
 	// 	echo json_encode(['response' => $response]);
 	// 	die();
 	// }
-
 
 
 	public function bot_list_data()

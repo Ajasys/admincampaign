@@ -17,7 +17,10 @@ class MasterInformationModel extends Model
     }
  
     
-
+    public function getRecordCount2($table_name)
+    {
+        return $this->db->table($table_name)->countAll();
+    }
 
     public function insert_entry($data,$tablename){
 

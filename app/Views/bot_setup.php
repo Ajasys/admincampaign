@@ -100,9 +100,6 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-question icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <!-- <span class="span_text text-center">
-                                            Question -->
-
                                             <?php
                                                 if (isset($master_bot_typeof_question)) {
                                                     foreach ($master_bot_typeof_question as $type_key => $type_value) {
@@ -112,10 +109,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                                     }
                                                 }
                                             ?>
-                                            
                                         </div>
-
-                                       
                                     </div>
                                 </div>
                                 <div class="col-3 p-2 question_add" data-qu="What is Your Gender?">
@@ -124,7 +118,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-regular fa-circle-dot icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Single Choice</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Single Choice') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +136,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-envelope icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Email</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Email') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +155,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-check-square icon" ng-class="i.icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Multiple Choice</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Multiple Choice') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -157,7 +175,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-mobile-screen-button icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Mobile Number</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Mobile Number') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +194,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-hashtag icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Number</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Number') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +213,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-star icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Rating</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Rating') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +232,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-regular fa-calendar-days icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Date Picker</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Date Picker') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -201,7 +251,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-regular fa-clock icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Time Picker</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Time Picker') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +270,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-location-dot icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Location</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Location') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +289,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-expand icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Range</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Range') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -234,7 +308,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-upload icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">File Upload</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'File Upload') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -245,7 +327,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-link icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Website</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Website') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -256,7 +346,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-user-plus icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Ask Contacts</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Ask Contacts') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -267,7 +365,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-shopping-cart icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Order Items</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Order Items') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -278,7 +384,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-key icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Authenticator</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Authenticator') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -289,7 +403,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-brands fa-forumbee icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Form</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Form') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -300,7 +422,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-list icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Carousel with buttons</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Carousel with buttons') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -311,7 +441,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-bullseye icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Dynamic Question</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Dynamic Question') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -322,7 +460,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa fa-search icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Real Time Search</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Real Time Search') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -333,7 +479,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-regular fa-calendar-check icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Appointment Booking</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Appointment Booking') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -352,7 +506,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-quote-left icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center" value="Statement">Statement</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Statement') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -362,7 +524,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-regular fa-compass icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">URL Navigator</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'URL Navigator') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -372,7 +542,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-sharp fa-solid fa-sliders icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Product Carousel</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Product Carousel') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -383,7 +561,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-regular fa-image icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Carousel</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Carousel') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -395,7 +581,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-regular fa-file-audio icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Audio</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Audio') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -406,7 +600,16 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-sharp fa-solid fa-address-book icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Show Contacts</span>
+  
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Audio') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -417,7 +620,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-sharp fa-solid fa-paper-plane icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Show Location</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Show Location') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -428,7 +639,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-file icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Show File</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Show File') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -439,7 +658,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-arrow-up-right-from-square icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">URL Auto Redirect</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'URL Auto Redirect') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -450,7 +677,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-scissors icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">URL Based Flow</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'URL Based Flow') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -461,7 +696,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-earth-americas icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Country Based Flow</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Country Based Flow') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -472,7 +715,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-signs-post icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Action Based Flow</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Action Based Flow') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -493,7 +744,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-regular fa-circle-question icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">FAQs</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'FAQs') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -511,7 +770,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-brands fa-wpexplorer icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">AI Answering</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'AI Answering') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -533,7 +800,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-headphones icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Human Handover</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Human Handover') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -543,7 +818,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-diamond-turn-right icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Live Chats Redirect to whatsapp</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Live Chats Redirect to whatsapp') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -561,7 +844,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-comment-dots icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Template's Based Flow</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Templates Based Flow') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -571,7 +862,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-users icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">User's Initial Respone Based Flow</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Users Initial Respone Based Flow') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -581,7 +880,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-list-ol icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Menu List</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Menu List') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -591,7 +898,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-cart-shopping icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Cart</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Cart') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -601,7 +916,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-brands fa-whatsapp icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Buttons</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Buttons') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -611,7 +934,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-cart-arrow-down icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Catalog</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Catalog') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -621,7 +952,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-map-pin icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Address</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Address') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -631,7 +970,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-solid fa-rectangle-ad icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Ad Based Flow</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Ad Based Flow') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -650,7 +997,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-brands fa-instagram icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Generic Template</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Generic Template') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -660,7 +1015,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-brands fa-instagram icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-                                            <span class="span_text text-center">Ice Breakers</span>
+                                            <?php
+                                                if (isset($master_bot_typeof_question)) {
+                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                        if ($type_value['question_type'] == 'Ice Breakers') {
+                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -1118,14 +1481,14 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         $(this).addClass('active');
     });
     $(document).ready(function() {
-  $('#flexSwitchCheckDefault').change(function() {
-    if ($(this).prop('checked')) {
-      $('.form-check-label').text('kam kar ne magic ghare jy ne joje');
-    } else {
-      $('.form-check-label').text('Click Here and saw magic');
-    }
-  });
-});
+        $('#flexSwitchCheckDefault').change(function() {
+            if ($(this).prop('checked')) {
+            $('.form-check-label').text('Remove Menu Message (For WhatsApp)');
+            } else {
+            $('.form-check-label').text('Do Not Remove Menu Message (For WhatsApp)');
+            }
+        });
+    });
 
 </script>
 <script>
@@ -1169,12 +1532,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
 
     function bot_list_data() {
         $('.loader').show();
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         $.ajax({
             datatype: 'json',
             method: "post",
             url: "<?= site_url('bot_list_data'); ?>",
             data: {
-                'table': 'admin_bot_setup',
+                'table': table,
                 'action': true
             },
             success: function (res) {
@@ -1193,10 +1557,11 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         var form = $("form[name='bot_form']")[0];
         var bot_id = '<?php echo $botId; ?>';
         var formdata = new FormData(form);
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
         if (typeOfQuestion !== "") {
             formdata.append('action', 'insert');
-            formdata.append('table', 'admin_bot_setup');
+            formdata.append('table', table);
             formdata.append('type_of_question', typeOfQuestion);
             formdata.append('question', questionText);
             // formdata.append('sequence', sequence);
@@ -1225,23 +1590,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         }
     }
 
-    // function handleQuestionClick(e) {
-    //     e.preventDefault();
-    //     var typeOfQuestion = $(this).attr('data-question_id');
-    //     var textOfQuestion = $(this).attr('data-qu');
-    //     handleQuestionAdd(typeOfQuestion, textOfQuestion);
-    // }
-
     function handleQuestionClick(e) {
         e.preventDefault();
-        var questionId = $(this).attr('data-question_id'); 
-        console.log(questionId); // Check if this prints the correct value
+        var questionId = $(this).find('.span_text').attr('data-question_id'); 
+        console.log(questionId); 
         var textOfQuestion = $(this).attr('data-qu');
         handleQuestionAdd(questionId, textOfQuestion);
     }
-
-
-
     $('body').on('click', '.question_add', handleQuestionClick);
 
 
@@ -1268,7 +1623,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
     $('body').on('click', '.question_delete', function() {
         var questionId = $(this).data('question');
         var record_text = "Are you sure you want to delete this question?";
-
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         Swal.fire({
                 title: 'Delete Question?',
                 text: record_text,
@@ -1287,7 +1642,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                         data: {
                             action: 'delete',
                             id: questionId,
-                            table: 'admin_bot_setup'
+                            table: table
                         },
                         success: function(data) {
                             iziToast.error({
