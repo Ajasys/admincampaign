@@ -41,11 +41,14 @@ if (isset($total_dataa_userr_22[0])) {
                 <form class="needs-validation row" name="fb_cnt" method="POST" novalidate="">
                     <div class="col-12">
                         <h6 class="modal-body-title">Access Token<sup class="validationn">*</sup></h6>
-                        <textarea type="text" class="form-control main-control" id="access_token" name="access_token" placeholder="Enter Access Token" required><?php echo isset($settings_data['facebook_access_token'])?></textarea>
+                        <textarea type="text" class="form-control main-control" id="access_token" name="access_token" placeholder="Enter Access Token" required><?php if(isset($settings_data['facebook_access_token']))
+                        {
+                            echo $settings_data['facebook_access_token'];
+                        }?></textarea>
                     </div>
                     <div class="col-12 d-flex justify-content-end ms-2 mt-3 justify-content-right align-items-center">
                         <a href="<?= base_url('integration') ?>">
-                            <button type="button" class="btn-secondary mx-0" id="cancel" name="">Cancel</button>
+                            <button type="button" class="btn-secondary mx-0" id="cancel" name="">Back</button>
                         </a>
                         <div type="button facebook_cnt" class="btn-primary mx-2" id="facebook_cnt">Submit</div>
                     </div>
@@ -72,13 +75,13 @@ if (isset($total_dataa_userr_22[0])) {
                 },
                 success: function(res) {
                     var result = JSON.parse(res);
-                    if (result.respoance == 1) {
+                    if (result.response == 1) {
                         iziToast.success({
-                            title: result.msg,
+                            title: result.message,
                         });
                     } else {
                         iziToast.error({
-                            title: result.msg,
+                            title: result.message,
                         });
                     }
                 },

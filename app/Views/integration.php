@@ -96,7 +96,7 @@ if(isset($settings_data) && !empty($settings_data)){
                                             </svg>
                                             <h5 class="text-center col-12 text-dark text-center mt-2">Facebook</h5>
                                             <?php
-                                            if($chk_fb_token==0)
+                                            if($settings_data['facebook_access_token']=='')
                                             {
                                                 ?>
                                                  <a href="<?= base_url('facebook_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a>
@@ -107,7 +107,7 @@ if(isset($settings_data) && !empty($settings_data)){
                                         </div>
                                         <div class="d-flex justify-content-end p-2" style="height: 40px;">
                                         <?php
-                                            if($chk_fb_token==1)
+                                            if(isset($settings_data['facebook_access_token']) && $settings_data['facebook_access_token'])
                                             {
                                                 ?>
                                                 
@@ -116,7 +116,6 @@ if(isset($settings_data) && !empty($settings_data)){
                                                 <?php
                                             }
                                             ?>
-                                           
                                            </div>
                                     </div>
                                 </div>

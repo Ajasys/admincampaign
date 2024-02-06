@@ -32,14 +32,14 @@ class FaceBookController extends BaseController
         $action = $this->request->getPost("action");
         $access_token = $this->request->getPost("access_token");
         $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token='.$access_token);
-        print_r($result);
-        $result_array['response'] = 0;
-        $result_array['message'] = isset($result['error']['message']);
 
-        // $ColumnSocialMediaIntegrationData = [
-        //     "facebook_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
-        // ];
-        // tableCreateAndTableUpdate2('admin_generale_setting', '', $ColumnSocialMediaIntegrationData);
+        $errorMsg = 'Something Went wrong..!';
+        if(isset($result['error']['message']))
+        {
+            $errorMsg = $result['error']['message'];
+        }
+        $result_array['response'] = 0;
+        $result_array['message'] = $errorMsg;
 
         if(isset($result['data']) && is_array($result['data']) && $result['data']!='')
         {
@@ -54,19 +54,20 @@ class FaceBookController extends BaseController
             {
                 $is_facebook_connect = 0;
                 $result_array['response'] = 0;
-                $result_array['message'] = isset($result['error']['message']);
+                $result_array['message'] = $errorMsg;
             }
         }
         else
         {
             $is_facebook_connect = 0;
             $result_array['response'] = 0;
-            $result_array['message'] = isset($result['error']['message']);
+            $result_array['message'] = $errorMsg;
         }
 
         $update_data['facebook_access_token'] = $access_token;
-        $update_data['is_facebook_connect'] = 1;
+        $update_data['is_facebook_connect'] = $is_facebook_connect;
         $departmentUpdatedata = $this->MasterInformationModel->update_entry2(1, $update_data, 'admin_generale_setting');
+
         echo json_encode($result_array, true);
         die();
     }
