@@ -267,5 +267,159 @@ class WhatAppIntegrationController extends BaseController
 
 		die();
 	} 
-    
+  public function CheckWhataAppConnection(){
+        
+
+
+  }
+
+  public function GetWhatAppTemplateList(){
+
+
+
+
+
+      die();
+      $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';       
+      $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token='.$access_token;
+
+      $DataSttring = '
+      {
+          "name": "dishant_testing_6_19",
+          "language": "en_US",
+          "category": "MARKETING",
+          "components": [
+            {
+              "type": "HEADER",
+              "format": "TEXT",
+              "text": "Our {{1}} is on!",
+              "example": {
+                "header_text": [
+                  "Summer Sale"
+                ]
+              }
+            },
+            {
+              "type": "BODY",
+              "text": "Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.",
+              "example": {
+                "body_text": [
+                  [
+                    "the end of August",
+                    "25OFF",
+                    "25%"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "FOOTER",
+              "text": "Use the buttons below to manage your marketing subscriptions"
+            },
+            {
+              "type": "BUTTONS",
+              "buttons": [
+                {
+                  "type": "QUICK_REPLY",
+                  "text": "Unsubscribe from Promos"
+                },
+                {
+                  "type": "QUICK_REPLY",
+                  "text": "Unsubscribe from All"
+                }
+              ]
+            }
+          ]
+        }';
+      $curl = curl_init();
+      curl_setopt_array(
+          $curl,
+          array(
+              CURLOPT_URL => $url,
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => '',
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => 'POST',
+              CURLOPT_POSTFIELDS => $DataSttring,
+              CURLOPT_HTTPHEADER => array(
+                  'Content-Type: application/json'
+              ),
+          )
+      );
+      $response = curl_exec($curl);
+      curl_close($curl);
+      pre($response);
+      die();
+
+      // function getFacebookData($url, $pageAccessToken)
+      // {
+      //     $curl = curl_init();
+      //     curl_setopt_array($curl, array(
+      //         CURLOPT_URL => $url,
+      //         CURLOPT_RETURNTRANSFER => true,
+      //         CURLOPT_ENCODING => '',
+      //         CURLOPT_MAXREDIRS => 10,
+      //         CURLOPT_TIMEOUT => 0,
+      //         CURLOPT_FOLLOWLOCATION => true,
+      //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      //         CURLOPT_CUSTOMREQUEST => 'GET',
+      //         CURLOPT_HTTPHEADER => array(
+      //             'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
+      //         ),
+      //     ));
+      //     curl_setopt($curl, CURLOPT_URL, $url . '?access_token=' . $pageAccessToken);
+      //     $response = curl_exec($curl);
+      //     curl_close($curl);
+      //     return json_decode($response, true);
+      // }
+
+      die();
+
+      $errormsg = '';
+      $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';       
+      $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token='.$access_token;
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => array(
+              'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
+          ),
+      ));
+      $response = curl_exec($curl);
+      $DataTemplateListArray = '';
+      curl_close($curl);
+      if($response != '' || !empty($response)){
+          $DataArray = json_decode($response, true);
+          if(isset($DataArray) && !empty($DataArray)){
+              if(isset($DataArray['data'])){
+                  if(!empty($DataArray['data'])){
+                      $DataTemplateListArray = $DataArray['data'];
+                  }else{
+
+                  }
+              }else{
+                  if(isset($DataArray['error'])){
+                      if(!empty($DataArray['error'])){
+                          $errormsg = $DataArray['error']['message'];
+                      }else{
+                          
+                      }
+                  }
+              }
+
+          }else{
+
+          }
+      }
+  }  
 }

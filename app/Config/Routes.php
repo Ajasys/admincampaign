@@ -80,12 +80,6 @@ $routes->post('/edit_data_t', 'Templates_Controller::edit_data_t');
 $routes->post('/update_data_t', 'Templates_Controller::update_data_t');
 $routes->post('template_delete_data', 'Templates_Controller::template_delete_data');
 
-$routes->post('/WhatAppConnectionCheck', 'WhatAppIntegrationController::WhatAppConnectionCheck');
-$routes->post('/SubmitWhatAppIntegrationResponse', 'WhatAppIntegrationController::SubmitWhatAppIntegrationResponse');
-$routes->post('/GetWhatAppIntegrationInformation', 'WhatAppIntegrationController::GetWhatAppIntegrationInformation');
-  
-
-
 
 
 $routes->get('/alert_setting', 'Home::alert_setting');
@@ -519,7 +513,11 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/whatsapp_template_delete_data', 'WhatAppIntegrationController::whatsapp_template_delete_data');
 	$routes->post('/whatsappView', 'WhatAppIntegrationController::whatsappView');
 	$routes->post('/whatsapptemplate_edit_data', 'WhatAppIntegrationController::whatsapptemplate_edit_data');
-
+	$routes->post('/WhatAppConnectionCheck', 'WhatAppIntegrationController::WhatAppConnectionCheck');
+	$routes->post('/SubmitWhatAppIntegrationResponse', 'WhatAppIntegrationController::SubmitWhatAppIntegrationResponse');
+	$routes->post('/GetWhatAppIntegrationInformation', 'WhatAppIntegrationController::GetWhatAppIntegrationInformation');
+	$routes->post('/GetWhatAppTemplateList', 'WhatAppIntegrationController::GetWhatAppTemplateList');
+	$routes->post('/CheckWhataAppConnection', 'WhatAppIntegrationController::CheckWhataAppConnection');
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');

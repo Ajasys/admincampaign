@@ -50,7 +50,7 @@
                             </g>
                         </g>
                     </svg>
-                    <h2 class="ps-2">WhatApp Connection
+                    <h2 class="ps-2 WhatAppConnectionHeadingText">WhatApp Connection
                     </h2>
                 </div>
             </div>
@@ -180,4 +180,21 @@
             });
         }
     });
+
+
+    $('body').on('click', '.WhatAppConnectionHeadingText', function(){
+        $.ajax({
+                method: "post",
+                url: "GetWhatAppTemplateList",
+                data: {
+                    'action' : 'list',
+                },
+                success: function (res) {
+               
+                },
+            });
+        // alert();
+    });
+
+
 </script>
