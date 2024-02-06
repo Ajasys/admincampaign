@@ -2,14 +2,7 @@
 <?= $this->include('partials/sidebar') ?>
 <?php
 $db_connection = \Config\Database::connect('second');
-$query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
-$result = $db_connection->query($query90);
-$total_dataa_userr_22 = $result->getResult();
-if (isset($total_dataa_userr_22[0])) {
-    $settings_data = get_object_vars($total_dataa_userr_22[0]);
-} else {
-    $settings_data = array();
-}
+$settings_data = getGeneraleData();
 ?>
 <style>
     .pass-icon {

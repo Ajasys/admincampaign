@@ -3037,6 +3037,20 @@ if (!function_exists('getCustomMonthDays')) {
     }
 }
 
+function getGeneraleData()
+{
+    $db_connection = \Config\Database::connect('second');
+    $query = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+    $rows = $db_connection->query($query);
+    $result = $rows->getResult();
+    if (isset($result[0])) {
+        $settings_data = get_object_vars($result[0]);
+    } else {
+        $settings_data = array();
+    }
+    return $settings_data;
+}
+
 function getSocialData($url)
 {
     $curl = curl_init();
@@ -3082,9 +3096,6 @@ function postSocialData($url, $JsonData){
     curl_close($curl);
     return json_decode($response, true);
 }
-
-
-
 
 
 function WhatsAppConnectionCheck(){

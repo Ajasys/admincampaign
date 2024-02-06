@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 //use CodeIgniter\Database\ConnectionInterface;
@@ -16,7 +17,7 @@ class FaceBookController extends BaseController
     {
         helper("custom");
         $db = db_connect();
-        $this->db = \Config\Database::connect();
+        $this->db = \Config\Database::connect('second');
         $this->MasterInformationModel = new MasterInformationModel($db);
         $this->username = session_username($_SESSION["username"]);
         $this->admin = 0;
@@ -31,34 +32,27 @@ class FaceBookController extends BaseController
         $this->db = \Config\Database::connect();
         $action = $this->request->getPost("action");
         $access_token = $this->request->getPost("access_token");
-        $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token='.$access_token);
+        $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token);
 
         $errorMsg = 'Something Went wrong..!';
-        if(isset($result['error']['message']))
-        {
+        if (isset($result['error']['message'])) {
             $errorMsg = $result['error']['message'];
         }
         $result_array['response'] = 0;
         $result_array['message'] = $errorMsg;
 
-        if(isset($result['data']) && is_array($result['data']) && $result['data']!='')
-        {
+        if (isset($result['data']) && is_array($result['data']) && $result['data'] != '') {
             $numberOfPages = count($result['data']);
-            if($numberOfPages>0)
-            {
+            if ($numberOfPages > 0) {
                 $is_facebook_connect = 1;
                 $result_array['response'] = 1;
                 $result_array['message'] = 'Facebook connected successfully..!';
-            }
-            else
-            {
+            } else {
                 $is_facebook_connect = 0;
                 $result_array['response'] = 0;
                 $result_array['message'] = $errorMsg;
             }
-        }
-        else
-        {
+        } else {
             $is_facebook_connect = 0;
             $result_array['response'] = 0;
             $result_array['message'] = $errorMsg;
@@ -71,7 +65,7 @@ class FaceBookController extends BaseController
         echo json_encode($result_array, true);
         die();
     }
-    
+
     //delete
     public function delete_pages_fb()
     {
@@ -105,110 +99,65 @@ class FaceBookController extends BaseController
     {
         $action = $this->request->getPost("action");
         $name = $this->request->getPost("name");
-        $response = $this->request->getPost("response");
-        $longLivedToken = $this->request->getPost("longLivedToken");
-        $userinformation = $this->request->getPost("userinformation");
-        $resultff = array();
-        $html = "";
-        $curl = curl_init();
-        curl_setopt_array(
-            $curl,
-            array(
-                CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $response['userID'] . '/picture?redirect=false&&access_token=' . $longLivedToken . '',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-                ),
-            )
-        );
-        $response_picture = curl_exec($curl);
-        $response_pictures = json_decode($response_picture);
+        $settings_data = getGeneraleData();
 
-        echo $response_pictures->data->url;
-        curl_close($curl);
+        $errorMsg = 'Something Went wrong..!';
+
+        $resultff = array();
+        $resultff['response'] = 0;
+        $resultff['message'] = $errorMsg;
+
+        $html = "";
 
         if ($action == "user") {
-            $query = $this->db->query('SELECT * FROM admin_fb_account  WHERE userid = "' . $response['userID'] . '"');
-            $count_num = $query->getNumRows();
-            if ($count_num > 0) {
-                $result_facebook_data = $query->getResultArray()[0];
-                $query = $this->db->query("UPDATE admin_fb_account  SET accessToken = '" . $longLivedToken . "'  WHERE userid = '" . $response['userID'] . "'");
-            } else {
+            $html .= '<option value="0">Select Page</option>';
+            if (isset($settings_data['facebook_access_token']) && $settings_data['is_facebook_connect'] == 1) {
+                $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $settings_data['facebook_access_token']);
+                foreach ($pageresult['data'] as $aa_key => $aa_value) {
+                    // print_R($aa_value);
 
-                $insert_data['accessToken'] = $longLivedToken;
-                $insert_data['userid'] = $response['userID'];
-                $insert_data['master_id'] = $_SESSION['master'];
-                $insert_data['username'] = $userinformation['name'];
-                $insert_data['user_profile'] = $response_pictures->data->url;
-                $response_status_log = $this->MasterInformationModel->insert_entry($insert_data, 'admin_fb_account');
-            }
+                    // $curl = curl_init();
 
+                    // curl_setopt_array(
+                    //     $curl,
+                    //     array(
+                    //         CURLOPT_URL => 'https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id=692703766025178&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
+                    //         CURLOPT_RETURNTRANSFER => true,
+                    //         CURLOPT_ENCODING => '',
+                    //         CURLOPT_MAXREDIRS => 10,
+                    //         CURLOPT_TIMEOUT => 0,
+                    //         CURLOPT_FOLLOWLOCATION => true,
+                    //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    //         CURLOPT_CUSTOMREQUEST => 'POST',
+                    //         CURLOPT_HTTPHEADER => array(
+                    //             'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
+                    //         ),
+                    //     )
+                    // );
 
+                    // $response = curl_exec($curl);
 
-            try {
-                // Make the API call to get user's accounts (returns a GraphEdge)
-                $response = $this->fb->get('/' . $response['userID'] . '/accounts', $longLivedToken);
-            } catch (FacebookResponseException $e) {
-                echo 'Graph returned an error: ' . $e->getMessage();
-                exit;
-            } catch (FacebookSDKException $e) {
-                echo 'Facebook SDK returned an error: ' . $e->getMessage();
-                exit;
-            }
+                    // curl_close($curl);
 
-
-            $accountsArray = $response->getGraphEdge()->asArray();
-
-
-            $html .= '<option value="0">Select Form</option>';
-            foreach ($accountsArray as $aa_key => $aa_value) {
-                // print_R($aa_value);
-                try {
-                    $curl = curl_init();
-
-                    curl_setopt_array(
-                        $curl,
-                        array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v17.0/oauth/access_token?grant_type=fb_exchange_token&client_id=692703766025178&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
-                            CURLOPT_RETURNTRANSFER => true,
-                            CURLOPT_ENCODING => '',
-                            CURLOPT_MAXREDIRS => 10,
-                            CURLOPT_TIMEOUT => 0,
-                            CURLOPT_FOLLOWLOCATION => true,
-                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                            CURLOPT_CUSTOMREQUEST => 'POST',
-                            CURLOPT_HTTPHEADER => array(
-                                'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-                            ),
-                        )
-                    );
-
-                    $response = curl_exec($curl);
-
-                    curl_close($curl);
-
-                    $result = json_decode($response, true);
+                    // $result = json_decode($response, true);
 
 
-                    $longLivedAccessToken = $result['access_token'];
+                    $longLivedAccessToken = $aa_value['access_token'];
 
 
                     $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
-
-
-                } catch (FacebookResponseException $e) {
-                    echo 'Graph returned an error: ' . $e->getMessage();
-                } catch (FacebookSDKException $e) {
-                    echo 'Facebook SDK returned an error: ' . $e->getMessage();
                 }
+                if (isset($result['error']['message'])) {
+                    $Msg = $result['error']['message'];
+                } else {
+                    $Msg = 'Page list Succesfully..';
+                }
+                $resultff['response'] = 1;
+                $resultff['message'] = $Msg;
+            } else {
+                $resultff['response'] = 0;
+                $resultff['message'] = 'Please Connect with Facebook..!';
             }
-
         } else {
 
             $user_id = $this->request->getPost("user_id");
@@ -218,10 +167,12 @@ class FaceBookController extends BaseController
                 // Make the API call to get user's accounts (returns a GraphEdge)
                 $response = $this->fb->get('/' . $user_id . '/accounts', $access_token);
             } catch (FacebookResponseException $e) {
-                echo 'Graph returned an error: ' . $e->getMessage();
+                $resultff['response'] = 0;
+                $resultff['message'] = 'Graph returned an error: ' . $e->getMessage();
                 exit;
             } catch (FacebookSDKException $e) {
-                echo 'Facebook SDK returned an error: ' . $e->getMessage();
+                $resultff['response'] = 0;
+                $resultff['message'] = 'Facebook SDK returned an error: ' . $e->getMessage();
                 exit;
             }
 
@@ -237,7 +188,7 @@ class FaceBookController extends BaseController
                     curl_setopt_array(
                         $curl,
                         array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v17.0/oauth/access_token?grant_type=fb_exchange_token&client_id=692703766025178&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
+                            CURLOPT_URL => 'https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id=692703766025178&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -272,8 +223,7 @@ class FaceBookController extends BaseController
         }
 
         $resultff['html'] = $html;
-        $resultff['profile_pic'] = $response_pictures->data->url;
-
+        $resultff['profile_pic'] = '';
         return json_encode($resultff);
         die();
     }
@@ -282,66 +232,29 @@ class FaceBookController extends BaseController
         $resultff = array();
         $html = "";
         $page_id = $this->request->getPost("page_id");
-
         $access_token = $this->request->getPost("access_token");
-
         try {
-            $curl = curl_init();
-
-
-            curl_setopt_array(
-                $curl,
-                array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $page_id . '/leadgen_forms?access_token=' . $access_token . '',
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => 'GET',
-                    CURLOPT_HTTPHEADER => array(
-                        'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-                    ),
-                )
-            );
-
-            $response = curl_exec($curl);
-
-            curl_close($curl);
-
-            $result = json_decode($response, true);
+            $result = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/leadgen_forms?access_token=' . $access_token . '');
             $html .= '<option value="0">Select Form</option>';
-
             if (isset($result['data'])) {
                 foreach ($result['data'] as $result_key => $result_value) {
                     // pre($result_value);
                     if ($result_value['status'] == 'ACTIVE') {
                         $html .= '<option value=' . $result_value['id'] . ' >' . $result_value['name'] . '</option>';
                     }
-
                 }
             }
-
-
-
-
-
         } catch (FacebookResponseException $e) {
             echo 'Graph returned an error: ' . $e->getMessage();
         } catch (FacebookSDKException $e) {
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
         }
-
         $resultff['html'] = $html;
-
         return json_encode($resultff);
         die();
-
     }
     function facebook_page()
     {
-        // pre($_POST);
         $this->db = \Config\Database::connect('second');
         $action = $this->request->getPost("action");
         $page_id = $this->request->getPost("page_id");
@@ -376,33 +289,11 @@ class FaceBookController extends BaseController
                 $insert_data['form_id'] = $form_id;
                 $insert_data['form_name'] = $form_name;
                 $insert_data['is_status'] = $is_status;
-                $curl = curl_init();
-
-                curl_setopt_array(
-                    $curl,
-                    array(
-                        CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'GET',
-                        CURLOPT_HTTPHEADER => array(
-                            'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-                        ),
-                    )
-                );
-
-                $response_picture = curl_exec($curl);
-                $response_pictures = json_decode($response_picture);
-                curl_close($curl);
-
-                $insert_data['page_img'] = $response_pictures->data->url;
-                $response_status_log = $this->MasterInformationModel->insert_entry($insert_data, 'admin_fb_pages');
+                $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
+                $insert_data['page_img'] = $response_pictures['data']['url'];
+                $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, 'admin_fb_pages');
                 $result_array['id'] = $response_status_log;
-                $result_array['page_profile'] = $response_pictures->data->url;
+                $result_array['page_profile'] = $response_pictures['data']['url'];
                 // $result_array['respoance'] = 1;
                 // $result_array['msg'] = "Form Connected successfully";
             } else {
@@ -433,34 +324,10 @@ class FaceBookController extends BaseController
                     $insert_data['form_id'] = $form_id;
                     $insert_data['form_name'] = $form_name;
                     $insert_data['is_status'] = $is_status;
-                    $curl = curl_init();
-
-                    curl_setopt_array(
-                        $curl,
-                        array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
-                            CURLOPT_RETURNTRANSFER => true,
-                            CURLOPT_ENCODING => '',
-                            CURLOPT_MAXREDIRS => 10,
-                            CURLOPT_TIMEOUT => 0,
-                            CURLOPT_FOLLOWLOCATION => true,
-                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                            CURLOPT_CUSTOMREQUEST => 'GET',
-                            CURLOPT_HTTPHEADER => array(
-                                'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-                            ),
-                        )
-                    );
-
-                    $response_picture = curl_exec($curl);
-
-                    $response_pictures = json_decode($response_picture);
-                    curl_close($curl);
-
-                    $insert_data['page_img'] = $response_pictures->data->url;
-
-                    $response_status_log = $this->MasterInformationModel->insert_entry($insert_data, 'admin_fb_pages');
-                    $result_array['page_profile'] = $response_pictures->data->url;
+                    $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
+                    $insert_data['page_img'] = $response_pictures['data']['url'];
+                    $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, 'admin_fb_pages');
+                    $result_array['page_profile'] = $response_pictures['data']['url'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
@@ -487,8 +354,7 @@ class FaceBookController extends BaseController
         $html = "";
         $query = $this->db->query("SELECT * , p.id AS page_ids
                 FROM admin_fb_pages AS p
-                JOIN admin_fb_account AS a ON p.master_id = a.master_id
-                WHERE p.master_id = '" . $_SESSION['master'] . "' AND is_status=0");
+                WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status=0");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         if ($count_num > 0) {
@@ -501,7 +367,7 @@ class FaceBookController extends BaseController
                     $staff_id = $value['user_id'];
                 }
                 $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM " . $this->username . "_integration
+                        FROM admin_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
                 $count_lead = $queryd->getResultArray();
 
@@ -510,7 +376,7 @@ class FaceBookController extends BaseController
                     $count = $count_lead[0]['form_count'];
                 }
                 $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM " . $this->username . "_integration
+                        FROM admin_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
                 $count_leads = $queryds->getResultArray();
 
@@ -546,7 +412,7 @@ class FaceBookController extends BaseController
                                 </div>          
 
                                 <div class="mx-1">
-                                   <img src="https://dev.realtosmart.com/assets/images/l_intigration.svg">
+                                   <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
                                 </div>
                             </div>
                             <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="/leadlist?id=' . $value['form_id'] . '">
@@ -556,7 +422,7 @@ class FaceBookController extends BaseController
                                 <span class="me-2">' . $count . '</span>
                                    
                                     <i class="bi bi-person me-1"></i>
-                                    <span>' . $value['username'] . '</span>
+                                    <span>'  . $_SESSION['username'] .  '</span>
                                 </div>
                             </a>';
 
@@ -654,7 +520,7 @@ class FaceBookController extends BaseController
                                 </div>          
 
                                 <div class="mx-1">
-                                   <img src="https://dev.realtosmart.com/assets/images/l_intigration.svg">
+                                   <img src="https://ajasys.com/img/favicon.png">
                                 </div>
                             </div>
                             <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="/leadlist?id=' . $value['form_id'] . '">
@@ -740,7 +606,7 @@ class FaceBookController extends BaseController
                                 </div>          
 
                                 <div class="mx-1">
-                                   <img src="https://dev.realtosmart.com/assets/images/l_intigration.svg">
+                                   <img src="https://ajasys.com/img/favicon.png">
                                 </div>
                             </div>
                             <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="/leadlist?id=' . $value['form_id'] . '">
@@ -829,7 +695,7 @@ class FaceBookController extends BaseController
                                         <span><i class="bi bi-caret-right-fill fs-10"></i></span>
                                     </div>  
                                     <div class="mx-1">
-                                    <img src="https://dev.realtosmart.com/assets/images/l_intigration.svg">
+                                    <img src="https://ajasys.com/img/favicon.png">
                                     </div>
                                 </div>
                                 <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill">
@@ -895,7 +761,7 @@ class FaceBookController extends BaseController
             foreach ($count_lead as $aa_key => $row) {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $row['lead_id'] . '?access_token=' . $row['page_access_token'] . '',
+                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $row['lead_id'] . '?access_token=' . $row['page_access_token'] . '',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -1179,18 +1045,18 @@ class FaceBookController extends BaseController
             'total_page' => 0,
             'response' => 0
         );
-    
+
         $perPageCount = isset($_POST['perPageCount']) && !empty($_POST['perPageCount']) ? $_POST['perPageCount'] : 10;
         $pageNumber = isset($_POST['pageNumber']) && !empty($_POST['pageNumber']) ? $_POST['pageNumber'] : 1;
         $ajaxsearch = isset($_POST['ajaxsearch']) && !empty($_POST['ajaxsearch']) ? $_POST['ajaxsearch'] : '';
-    
+
         // Calculate the offset based on pagination parameters
         $offset = ($pageNumber - 1) * $perPageCount;
-    
+
         // Build the SQL query for data retrieval
         $find_Array_data = "SELECT * FROM " . $username . "_integration 
-                            WHERE form_id = ".$_POST['id']." AND page_id != '' ";
-    
+                            WHERE form_id = " . $_POST['id'] . " AND page_id != '' ";
+
         // Add search condition if ajaxsearch is provided
         if (!empty($ajaxsearch)) {
             $find_Array_data .= " AND (
@@ -1200,19 +1066,19 @@ class FaceBookController extends BaseController
                 inquiry_id LIKE '%" . $_POST['ajaxsearch'] . "%'
             ) ";
         }
-        
-    
+
+
         $find_Array_data .= "ORDER BY unquie_id DESC 
                              LIMIT $perPageCount OFFSET $offset";
-    
+
         // Execute the query for data retrieval
         $find_Array_data = $this->db->query($find_Array_data);
         $data = $find_Array_data->getResultArray();
-    
+
 
         // Build the SQL query for total count
         $find_Array_count = "SELECT COUNT(*) as total_count FROM " . $username . "_integration 
-                         WHERE form_id = ".$_POST['id']." AND page_id != '' ";
+                         WHERE form_id = " . $_POST['id'] . " AND page_id != '' ";
 
         // Add search condition if ajaxsearch is provided
         if (!empty($ajaxsearch)) {
