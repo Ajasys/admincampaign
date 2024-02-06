@@ -454,7 +454,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <p class="text-white dp-title"></p>
 
                      <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>bot">Messenger & Bots</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>messenger_bot">Messenger & Bots</a>
                      </li>
 
                      <li>
@@ -781,7 +781,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
          <?php if (in_array('main_create', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
                      <a class="drop_icon d-flex align-items-center py-2"
-                        href="<?= base_url('create'); ?>" data-tbs-toggle="tooltip"
+                        href="<?= base_url('post_create'); ?>" data-tbs-toggle="tooltip"
                         data-bs-placement="right" data-bs-title="Create">
                         <span class="drop_icon_main">
                            <i class="fa-solid fa-plus"></i>
@@ -790,8 +790,9 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      </a>
                </li>
          <?php } ?>
-        
-               <!-- <li class="main-drop">
+       
+<!---      
+               <li class="main-drop">
                      <a class="drop_icon d-flex align-items-center py-2"
                         href="<?= base_url('posts'); ?>" data-tbs-toggle="tooltip"
                         data-bs-placement="right" data-bs-title="Post">
@@ -801,6 +802,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         <span class="link_name">post</span>
                      </a>
                </li> -->
+             
       
          <?php if (in_array('main_calender', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">

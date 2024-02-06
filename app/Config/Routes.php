@@ -40,7 +40,7 @@ $routes->post('leadmgtCard', 'Quatation_Controller::leadmgtCard');
 // $routes->get('convertToPdf1', 'Quatation_Controller::convertToPdf');
 $routes->get('/facebook_cron_job', 'FacebookCron::facebook_cron_job');
 $routes->get('/signup', 'Home::signup');
-$routes->get('/create', 'Home::create');
+$routes->get('/post_create', 'Home::post_create');
 $routes->get('/posts', 'Home::posts');
 
 $routes->get('/login', 'Home::login');

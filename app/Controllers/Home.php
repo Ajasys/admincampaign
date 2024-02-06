@@ -33,9 +33,9 @@ class Home extends BaseController
     {
         return view('emailsend');
     }
-    public function create()
+    public function post_create()
     {
-        return view('create');
+        return view('post_create');
     }
     public function posts()
     {
