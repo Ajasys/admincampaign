@@ -87,10 +87,9 @@ class Home extends BaseController
             "whatapp_business_account_id int(255) NOT NULL",
             "whatapp_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
             "whatapp_verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
-            "whatapp_created_at_account datetime NOT NULL COMMENT 'Whatapp Created At Entry TimeDate '",
+            // "whatapp_created_at_account datetime NOT NULL COMMENT 'Whatapp Created At Entry TimeDate '",
             "facebook_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
-
-            
+            "is_facebook_connect int NOT NULL",
         ];
         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
 

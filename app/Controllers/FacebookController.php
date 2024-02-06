@@ -36,22 +36,37 @@ class FaceBookController extends BaseController
         $result_array['response'] = 0;
         $result_array['message'] = isset($result['error']['message']);
 
+        // $ColumnSocialMediaIntegrationData = [
+        //     "facebook_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
+        // ];
+        // tableCreateAndTableUpdate2('admin_generale_setting', '', $ColumnSocialMediaIntegrationData);
+
         if(isset($result['data']) && is_array($result['data']) && $result['data']!='')
         {
             $numberOfPages = count($result['data']);
             if($numberOfPages>0)
             {
-                $ColumnSocialMediaIntegrationData = [
-                    "facebook_access_token longtext COLLATE utf8mb4_unicode_ci NOT NULL",
-                ];
-                tableCreateAndTableUpdate2('admin_generale_setting', '', $ColumnSocialMediaIntegrationData);
-                $update_data['facebook_access_token'] = $access_token;
-                $departmentUpdatedata = $this->MasterInformationModel->update_entry2(1, $update_data, 'admin_generale_setting');
+                $is_facebook_connect = 1;
                 $result_array['response'] = 1;
                 $result_array['message'] = 'Facebook connected successfully..!';
             }
+            else
+            {
+                $is_facebook_connect = 0;
+                $result_array['response'] = 0;
+                $result_array['message'] = isset($result['error']['message']);
+            }
+        }
+        else
+        {
+            $is_facebook_connect = 0;
+            $result_array['response'] = 0;
+            $result_array['message'] = isset($result['error']['message']);
         }
 
+        $update_data['facebook_access_token'] = $access_token;
+        $update_data['is_facebook_connect'] = 1;
+        $departmentUpdatedata = $this->MasterInformationModel->update_entry2(1, $update_data, 'admin_generale_setting');
         echo json_encode($result_array, true);
         die();
     }

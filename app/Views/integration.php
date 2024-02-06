@@ -12,7 +12,7 @@ if (isset($total_dataa_userr_22[0])) {
 } else {
     $settings_data = array();
 }
-if(isset($settings_data['facebook_access_token']) && $settings_data['facebook_access_token'])
+if(isset($settings_data['facebook_access_token']) && $settings_data['facebook_access_token'] && $settings_data['is_facebook_connect']==1)
 {
     $chk_fb_token = 1;
 }
