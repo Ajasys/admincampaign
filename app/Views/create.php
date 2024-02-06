@@ -50,14 +50,15 @@
                             <div class="border-bottom p-3 col-12">
                                 <button class="border bg-transparent px-3 py-2 rounded-2 text-muted">Add label</button>
                             </div>
-                            <div class="col-12 ">
+                            <div class="col-12">
                                 <nav class="nav">
+                                    <form class="needs-validation" id="create_form" name="create_form" method="POST" novalidate>
                                     <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
                                         <li class="nav-item active" role="presentation">
-                                            <a class="nav-link bg-white text-primary " id="pills-master-diet" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Update</a>
+                                            <a class="nav-link bg-white text-primary create-input-toggle" id="pills-master-diet" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Update</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link bg-white text-primary" id="pills-all-diet" data-bs-toggle="pill" data-bs-target="#photo-all-tab" href="#">Photo</a>
+                                            <a class="nav-link bg-white text-primary create-input-toggle" id="pills-all-diet" data-bs-toggle="pill" data-bs-target="#photo-all-tab" href="#">Photo</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <a class="nav-link bg-white text-primary" id="pills-all-event" data-bs-toggle="pill" data-bs-target="#event-all-tab" href="#">Event</a>
@@ -141,14 +142,15 @@
                                                     <div class="col-12 my-1 p-1">
                                                         <div class="col-12 border rounded p-3">
                                                             <textarea cols="30" rows="5" class="col-12 border-0"
-                                                                placeholder="Write something or use shortcodes, spintax..... "></textarea>
+                                                                placeholder="Write something or use shortcodes, spintax..... " id="event_address"></textarea>
                                                             <button
-                                                                class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted "
+                                                                class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted "id="event_image"
                                                                 data-bs-toggle="modal" data-bs-target="#get_file"
                                                                 type="file" style="background:#F3F3F3;">
                                                                 Click or Drag & Drop Media
 
                                                             </button>
+                                                            
                                                             <div class="col-lg-3 mx-1 my-2 col-md-4 col-sm-6">
                                                         <div class="main-selectpicker">
                                                             <select id="approx_buy" name="approx_buy" class="selectpicker form-control form-main" data-live-search="true" required>
@@ -174,20 +176,20 @@
                                                 <div class="card-body p-2 d-flex flex-wrap">
                                                 <div class="col-12 my-1 p-1">
                                                         <div class="col-12">
-                                                            <input type="text" class="form-control p-2" id="event_title"
+                                                            <input type="text" class="form-control p-2" id=""
                                                                 placeholder="Offer Title">
                                                         </div>
                                                     </div>
                                                     <div class="col-6 my-1 p-1">
                                                         <div class="col-12">
                                                             <input type="text" class="form-control p-2 offer_start_date"
-                                                                id="event_title" placeholder="Start Date">
+                                                                id="" placeholder="Start Date">
                                                         </div>
                                                     </div>
                                                     <div class="col-6 my-1 p-1">
                                                         <div class="col-12">
                                                             <input type="text" class="form-control p-2 offer_end_date"
-                                                                id="event_title" placeholder="End Date">
+                                                                id="" placeholder="End Date">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 my-1 p-1">
@@ -202,18 +204,16 @@
                                                             </button>
                                                             <div class="row col-12 align-items-center ">
                                                                 <div class="col-6 d-flex justify-content-center align-items-center ">
-                                                                    <div style="width:200px;height:200px">
-                                                                        <img src="https://qph.cf2.quoracdn.net/main-qimg-753a324dc6ba1c6b941e2a1d3417b885" alt="#" class="w-100 h-100">
-                                                                    </div>
+                                                               
                                                                 </div>
-                                                                <div class="col-6">
-                                                                    <div class="col-md-12 my-2 ">
+                                                                <div class="row col-12">
+                                                                    <div class="col-md-4 my-1 ">
                                                                         <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
                                                                     </div>
-                                                                    <div class="col-md-12 my-2 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
+                                                                    <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
                                                                         <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
                                                                     </div>
-                                                                    <div class="col-md-12 my-2 u-margin-bottom-10 undefined">
+                                                                    <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
                                                                         <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
                                                                     </div>
                                                                 </div>
@@ -225,7 +225,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade " id="pills-all-diet-tab" role="tabpanel" aria-labelledby="pills-all-diet" tabindex="0">
+                                        <div class="tab-pane fade " id="pills-all-diet-tab" role="tabpanel"  aria-labelledby="pills-all-diet" tabindex="0">
                                             <div class="main-dashbord p-2 main-check-class">
                                             </div>
                                         </div>
@@ -241,7 +241,7 @@
                                 </button>
                             </div>
                             <div class="col-8 d-flex  flex-wrap justify-content-end ">
-                                <button class="btn btn-outline-secondary mx-1">
+                                <button class="btn btn-outline-secondary mx-1 "id="draft_create">
                                     Draft
                                 </button>
                                 <button class="btn btn-primary mx-1">
@@ -262,6 +262,7 @@
                                 </div>
                             </div>
                         </div>
+</form>
                     </div>
                 </div>
             </div>
@@ -298,11 +299,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer flex-wrap ">
-                <button class="btn btn-secondary btn-lg" type="button">
-                    Large split
-                </button>
-            </div>
+        
         </div>
     </div>
 </div>
@@ -359,7 +356,120 @@
             $('.nav-item').removeClass('active');
             $(this).addClass('active');
   });
-  
+
+
+  $("#draft_create").click(function (e) {
+        //  alert("dfe");
+        e.preventDefault();
+        var form = $("form[name='create_form']")[0];
+        var event_title = $('#event_title').val();
+        var event_start_date = $('#event_start_date').val();
+        var event_end = $('#event_end').val();
+        var event_address = $('#event_address').val();
+        var event_image = $('#event_image').val();
+        // var email = $('#email').val();
+      
+        var formdata = new FormData(form);
+        // var edit_id = $('#reminder_btn_add').attr("data-edit_id");
+        // console.log(event_title);
+        // die();
+        if (event_title != "") {
+            var form = $('form[name="create_form"]')[0];
+            // console.log(form);
+            var formdata = new FormData(form);
+            formdata.append('event_title', event_title);
+            formdata.append('event_start_date', event_start_date);
+            formdata.append('event_end', event_end);
+            formdata.append('event_address', event_address);
+            formdata.append('event_image', event_image);
+        
+            formdata.append('table', 'event');
+            formdata.append('action', 'insert');
+            // console.log(image);
+            // die();
+            // if (edit_id == '') {
+                // console.log(edit_id);
+                // die();
+                $.ajax({
+                    method: "post",
+                    url: "<?= site_url('datainsert_data'); ?>",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        if (res != "error") {
+                            list_data();
+                            $("form[name='create_form']")[0].reset();
+                            $(".modal-close-btn").trigger("click");
+                            $("form[name='create_form']").removeClass("was-validated");
+                            iziToast.success({
+                                title: 'Draft Successfully'
+                            });
+                            $('.selectpicker').selectpicker('refresh');
+                        } else {
+                            //alert("this");
+                            $("form[name='create_form']")[0].reset();
+                            iziToast.error1({
+                                title: 'Duplicate data'
+                            });
+                            $("form[name='create_form']").addClass("was-validated");
+                        }
+                        list_data();
+                    },
+                });
+            }
+        //     } else {
+        //         var formdata = new FormData(form);
+        //         // console.log(formdata);
+        //         formdata.append('action', 'update');
+        //         formdata.append('table', 'reminders_details');
+        //         formdata.append('date', date);
+        //         formdata.append('time', time);
+        //         formdata.append('week', week);
+        //         formdata.append('user', user);
+        //         formdata.append('message', message);
+        //         formdata.append('email', email);
+        //         formdata.append('whatsapp', whatsapp);
+        //         formdata.append('type', type);
+        //         formdata.append('edit_id', edit_id);
+
+        //         // console.log(edit_id);
+        //         // die();
+        //         $('.loader').hide();
+        //         $.ajax({
+        //             method: "post",
+        //             url: "<?= site_url('dataupdate_data'); ?>",
+        //             data: formdata,
+        //             processData: false,
+        //             contentType: false,
+        //             success: function (res) {
+        //                 if (res != "error") {
+        //                     $("form[name='create_form']")[0].reset();
+        //                     $("form[name='create_form']").removeClass("was-validated");
+        //                     $(".btn-cancel").trigger("click");
+        //                     iziToast.success({
+        //                         title: 'update Successfully'
+        //                     });
+
+        //                     list_data();
+        //                     $('.selectpicker').selectpicker('refresh');
+        //                 }
+        //                 else {
+        //                     // alert("hello");
+        //                     $("form[name='create_form']")[0].reset();
+        //                     iziToast.error1({
+        //                         title: 'Duplicate data'
+        //                     });
+        //                 }
+        //             },
+        //         });
+        //     }
+        // } else {
+        //     $("form[name='create_form']").addClass("was-validated");
+        // }
+ 
+
+        });
 </script>
 
 
