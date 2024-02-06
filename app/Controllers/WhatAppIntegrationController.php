@@ -64,11 +64,31 @@ class WhatAppIntegrationController extends BaseController
             $response = $this->MasterInformationModel->update_entry2('1', $UpdateData, 'admin_generale_setting');
         }else{
             $InsertData = $_POST;
-            $InsertData['whatapp_created_at_account'] = date('Y-m-d H:i:s', time());
+            // $InsertData['whatapp_created_at_account'] = date('Y-m-d H:i:s', time());
             $response = $this->MasterInformationModel->insert_entry2($InsertData, 'admin_generale_setting');
         }
-    }   
+    
 
+        $WhatAppRedirectStatus = 0;
+        $ConnectionName = '';
+        $Error = '';
+        $WhatsAppConnectionCheckArray = WhatsAppConnectionCheck();
+        $WhatsAppConnectionCheckArray = json_decode($WhatsAppConnectionCheckArray, true);
+        if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)){
+            if(isset($WhatsAppConnectionCheckArray['ConnectionStatus'])){
+                $WhatAppRedirectStatus = $WhatsAppConnectionCheckArray['ConnectionStatus'];
+                $ConnectionName = $WhatsAppConnectionCheckArray['ConnectionName'];
+                $Error = $WhatsAppConnectionCheckArray['Error'];
+                // pre($WhatsAppConnectionCheckArray);
+            }
+        }
+
+        $ReturnArray['ConnectionName'] = $ConnectionName;
+        $ReturnArray['ConnectionStatus'] = $WhatAppRedirectStatus;
+        $ReturnArray['Error'] = $Error;
+        $ReturnArray = json_encode($ReturnArray);
+        return $ReturnArray; 
+    }   
 
     public function master_whatsapp_list_data()
     {
@@ -348,9 +368,132 @@ $otherurl = $serverDomain . $uploadSubDir . $fileName;
   }
 
   public function GetWhatAppTemplateList(){
+// $RResult = CheckWhataAppConnection();
+    $RRR = WhatsAppConnectionCheck();
+    $RRR = json_decode($RRR, true);
+    // echo $RRR;
+        pre($RRR);  
+    die();
+    // function CheckWhataAppConnection(){
+
+        $table_username = getMasterUsername();
+        $db_connection = \Config\Database::connect('second');
+        $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+        $result = $db_connection->query($query90);
+        $total_dataa_userr_22 = $result->getResult();
+        if (isset($total_dataa_userr_22[0])) {
+            $settings_data = get_object_vars($total_dataa_userr_22[0]);
+        } else {
+            $settings_data = array();
+        }
+        $WhatAppRedirectStatus = 0;
+        $Error = '';
+        $ConnectionName = '';
+        $ConnectionStatus = 0;
+  
+        if(isset($settings_data) && !empty($settings_data)){
+            if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
+                $url = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
+                $DataArray =  getSocialData($url);
+                if(isset($DataArray) && !empty($DataArray)){
+                    if(isset($DataArray['id']) && !empty($DataArray['id'])){
+                        if(isset($DataArray['name'])){
+                            $ConnectionName = $DataArray['name'];
+                            // pre($ConnectionName);
+                        }   
+                        $ConnectionStatus = 1;
+                    }else{
+                        if(isset($DataArray['error'])){
+                            if(isset($DataArray['error']['message'])){
+                                $Error = $DataArray['error']['message'];
+                                $ConnectionStatus = 2;
+                                // pre($Error);
+                            }
+                        }
+                    }
+                }
+                // return $response;
+                // '.$settings_data['whatapp_business_account_id'].'
+                // pre($settings_data['whatapp_business_account_id']);
+                // pre($settings_data['whatapp_access_token']);
+            }
+        }
+        // die();
+
+        $ReturnArray['ConnectionName'] = $ConnectionName;
+        $ReturnArray['ConnectionStatus'] = $ConnectionStatus;
+        $ReturnArray['Error'] = $Error;
+
+        return json_decode($ReturnArray, true);
 
 
+    // }
+    // pre($RResult);
+    die();
 
+
+      $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';       
+
+      $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token='.$access_token;
+      $DataSttring = '
+      {
+          "name": "dishant_testing_9_52",
+          "language": "en_US",
+          "category": "MARKETING",
+          "components": [
+            {
+              "type": "HEADER",
+              "format": "TEXT",
+              "text": "Our {{1}} is on!",
+              "example": {
+                "header_text": [
+                  "Summer Sale"
+                ]
+              }
+            },
+            {
+              "type": "BODY",
+              "text": "Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.",
+              "example": {
+                "body_text": [
+                  [
+                    "the end of August",
+                    "25OFF",
+                    "25%"
+                  ]
+                ]
+              }
+            },
+            {
+              "type": "FOOTER",
+              "text": "Use the buttons below to manage your marketing subscriptions"
+            },
+            {
+              "type": "BUTTONS",
+              "buttons": [
+                {
+                  "type": "QUICK_REPLY",
+                  "text": "Unsubscribe from Promos"
+                },
+                {
+                  "type": "QUICK_REPLY",
+                  "text": "Unsubscribe from All"
+                }
+              ]
+            }
+          ]
+        }';
+
+    $Result =     postSocialData($url, $DataSttring);
+        pre($Result);
+
+        // die();
+
+     
+     //Get All template Api
+      $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token='.$access_token;
+     $response =  getSocialData($url);
+    pre($response);
 
 
       die();

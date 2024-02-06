@@ -22,11 +22,21 @@ else
 }
 $WhatAppRedirectStatus = 0;
 
-if(isset($settings_data) && !empty($settings_data)){
-    if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-        $WhatAppRedirectStatus = 1;
-    } 
+// if(isset($settings_data) && !empty($settings_data)){
+    //     if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
+        //         $WhatAppRedirectStatus = 1;
+    //     } 
+// }
+
+
+$WhatsAppConnectionCheckArray = WhatsAppConnectionCheck();
+$WhatsAppConnectionCheckArray = json_decode($WhatsAppConnectionCheckArray, true);
+if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)){
+    if(isset($WhatsAppConnectionCheckArray['ConnectionStatus'])){
+        $WhatAppRedirectStatus = $WhatsAppConnectionCheckArray['ConnectionStatus'];
+    }
 }
+
 ?>
 <style>
     .inti-card {
@@ -135,7 +145,15 @@ if(isset($settings_data) && !empty($settings_data)){
                                                         opacity="1" data-original="#9b9b9b"></path>
                                                 </g>
                                             </svg> -->
-<span class="fw-bold  text-danger  px-2 py-1 rounded-pill " style="font-size:10px">Disconnected</span>
+
+                                                <?php
+                                                    if($WhatAppRedirectStatus == '1'){
+                                                        echo '<span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">Connected</span>';
+                                                    }else{
+                                                        echo '<span class="fw-bold  text-danger  px-2 py-1 rounded-pill " style="font-size:10px">Disconnected</span>';
+                                                    }
+                                                ?>
+                                                
                                         </div>
                                         <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="hovered-paths">
@@ -154,19 +172,16 @@ if(isset($settings_data) && !empty($settings_data)){
                                             <h5 class="text-center col-12 text-dark text-center mt-2">WhatsApp</h5>
                                             
                                             <?php if($WhatAppRedirectStatus == '1'){?>
-                                                <button class="btn btn-success fs-10 fw-semibold mt-3 WhatAppConnectBtn"> Connected
+                                                <button class="btn btn-success fs-10 fw-semibold mt-3 WhatAppConnectBtn d-none"> Connected  </button>
                                                 <?php
+}elseif ($WhatAppRedirectStatus == '2'){
+                                                 echo   '<button class="btn btn-danger fs-10 fw-semibold mt-3 WhatAppConnectBtn d-none"> Disconnected  </button>';
                                                 }else{
                                                     ?>
                                                     <a href="<?= base_url('whatapp_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a>
                                                     <?php 
                                                 } ?>
-                                                
-                                                  
-                                        
-                                        
-                                            </button>
-                                        </div>
+                                                                                        </div>
                                         <div class="d-flex justify-content-end p-2  " style="height: 40px;">
                                             <a href="<?= base_url('whatapp_connection') ?>" class="border-0 text-dark bg-transparent <?php if($WhatAppRedirectStatus == '0'){echo 'd-none';} ?>"><i class="fa-solid fa-pencil"></i></a>
                                         </div>

@@ -3057,3 +3057,75 @@ function getSocialData($url)
     curl_close($curl);
     return json_decode($response, true);
 }
+
+
+function postSocialData($url, $JsonData){
+    $curl = curl_init();
+    curl_setopt_array(
+        $curl,
+        array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $JsonData,
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        )
+    );
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
+}
+
+
+
+
+
+function WhatsAppConnectionCheck(){
+    $table_username = getMasterUsername();
+    $db_connection = \Config\Database::connect('second');
+    $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+    $result = $db_connection->query($query90);
+    $total_dataa_userr_22 = $result->getResult();
+    if (isset($total_dataa_userr_22[0])) {
+        $settings_data = get_object_vars($total_dataa_userr_22[0]);
+    } else {
+        $settings_data = array();
+    }   
+    $WhatAppRedirectStatus = 0;
+    $Error = '';
+    $ConnectionName = '';
+    $ConnectionStatus = 0;
+    if(isset($settings_data) && !empty($settings_data)){
+        if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
+            $url = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
+            $DataArray =  getSocialData($url);
+            if(isset($DataArray) && !empty($DataArray)){
+                if(isset($DataArray['id']) && !empty($DataArray['id'])){
+                    if(isset($DataArray['name'])){
+                        $ConnectionName = $DataArray['name'];
+                    }   
+                    $ConnectionStatus = 1;
+                }else{
+                    if(isset($DataArray['error'])){
+                        if(isset($DataArray['error']['message'])){
+                            $Error = $DataArray['error']['message'];
+                            $ConnectionStatus = 2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    $ReturnArray['ConnectionName'] = $ConnectionName;
+    $ReturnArray['ConnectionStatus'] = $ConnectionStatus;
+    $ReturnArray['Error'] = $Error;
+    $ReturnArray = json_encode($ReturnArray);
+    return $ReturnArray;
+}

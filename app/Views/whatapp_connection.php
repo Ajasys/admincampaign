@@ -84,10 +84,13 @@
                     </div>
                 </div>
                 <div class="col-12 d-flex justify-content-end ms-2 mt-3 justify-content-center align-items-center">
+                        <a href="<?= base_url('integration') ?>">
+                            <button type="button" class="btn-secondary mx-0" id="cancel" name="">Back</button>
+                        </a>
                     <button type="button" class="btn-primary mx-2" id="SubmitWhatAppIntegrationData"
                         name="">Submit</button>
-                        
-                    <span class="whatapp_verification_status_class mx-1" id="basic-addon2">
+                    
+                    <!-- <span class="whatapp_verification_status_class mx-1" id="basic-addon2">
                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
                             xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0"
                             viewBox="0 0 2.54 2.54" style="enable-background:new 0 0 512 512" xml:space="preserve"
@@ -113,7 +116,7 @@
                                 d="M350.273 320.105c8.34 8.344 8.34 21.825 0 30.168a21.275 21.275 0 0 1-15.086 6.25c-5.46 0-10.921-2.09-15.082-6.25L256 286.164l-64.105 64.11a21.273 21.273 0 0 1-15.083 6.25 21.275 21.275 0 0 1-15.085-6.25c-8.34-8.344-8.34-21.825 0-30.169L225.836 256l-64.11-64.105c-8.34-8.344-8.34-21.825 0-30.168 8.344-8.34 21.825-8.34 30.169 0L256 225.836l64.105-64.11c8.344-8.34 21.825-8.34 30.168 0 8.34 8.344 8.34 21.825 0 30.169L286.164 256zm0 0"
                                 opacity="1" data-original="#fafafa" class=""></path>
                         </g>
-                    </svg>
+                    </svg> -->
                 </div>
             </div>
         </div>
@@ -175,8 +178,39 @@
                     'whatapp_access_token': AccessTokenInput,
                 },
                 success: function (res) {
-               
+                    var response = JSON.parse(res);
+                    if(response.ConnectionStatus){
+                        if(response.ConnectionStatus == '1'){
+                            if(response.ConnectionName != ''){
+                                iziToast.success({
+                                    title: 'Successfully Connected with '+response.ConnectionName+'',
+                                });
+                            }else{
+                                iziToast.success({
+                                    title: 'Successfully Connected',
+                                });
+                            }
+                        }else if(response.ConnectionStatus == '2'){
+                            if(response.Error != ''){
+                                iziToast.error({
+                                    title: response.Error,
+                                });
+                            }else{
+                                iziToast.error({
+                                    title: 'Failed to Connect',
+                                });
+                            }
+                        }else{
+                            iziToast.warning({
+                                    title: 'Please Fill All the Field',
+                                });
+                        }
+                    }
                 },
+            });
+        }else{
+            iziToast.warning({
+                title: 'Please Fill All the Field',
             });
         }
     });
@@ -193,7 +227,6 @@
                
                 },
             });
-        // alert();
     });
 
 
