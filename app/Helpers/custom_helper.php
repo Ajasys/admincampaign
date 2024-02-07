@@ -3044,6 +3044,36 @@ if (!function_exists('any_id_to_full_data')) {
 
 }
 
+if(!function_exists('getTimeDifference')) {
+    function getTimeDifference($targetTime) {
+        // Create DateTime objects for current time and target time
+        $currentTime = new DateTime();
+        $targetDateTime = new DateTime($targetTime);
+    
+        // Calculate the difference
+        $interval = $currentTime->diff($targetDateTime);
+    
+        // Get the difference in hours, minutes, and days
+        $hours = $interval->h + $interval->d * 24;
+        $minutes = $interval->i;
+        $days = $interval->days;
+    
+        // // If minutes exceed 60, adjust hours and minutes
+        // if ($minutes >= 60) {
+        //     $hours += floor($minutes / 60);
+        //     $minutes %= 60;
+        // }
+    
+        // // If hours exceed 24, adjust days and hours
+        // if ($hours >= 24) {
+        //     $days += floor($hours / 24);
+        //     $hours %= 24;
+        // }
+    
+        return array('hours' => $hours, 'minutes' => $minutes, 'days' => $days);
+    }
+}
+
 
 function getAllDatesInCurrentMonth()
 {
@@ -3231,6 +3261,5 @@ function fb_page_list($access_token)
     }
     
 
-    echo json_encode($result_array, true);
-    die();
+    return json_encode($result_array, true);
 }

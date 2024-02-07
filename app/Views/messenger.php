@@ -27,7 +27,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 overflow-y-scroll " style="max-height: 100%;">
+                    <div class="col-12 overflow-y-scroll chat_list" style="max-height: 100%;">
                         <div class="chat-nav-search-bar p-2  border my-2 col-12  rounded-3">
                             <div class="d-flex justify-content-between align-items-center col-12">
                                     <div class="col-2">
@@ -138,7 +138,7 @@
                         </div>
                     </div>
 
-                    <div class="main-task left-main-task mt-2 ps-3 overflow-y-scroll " style="max-height:546.8px">
+                    <div class="main-task left-main-task mt-2 p-2 overflow-y-scroll chat_bord" style="max-height:546.8px">
                         <div class="d-flex  mb-1 col-3">
                             <i class="me-2 bi bi-people-fill"></i>
                            <a href="" class="ms-3">https://www.facebook.com/</a>
@@ -191,3 +191,47 @@
 
 
 <?= $this->include('partials/footer') ?>
+
+
+<script>
+    $(document).ready(function() {
+        // massage list data
+        function list_data() {
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('get_chat_data'); ?>",
+                data: {
+                    action: 'chat_list',
+                },
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    $('.chat_list').html(obj.chat_list_html);
+                }
+            });
+        }
+        list_data();
+
+        $('body').on('click','.chat_list',function() {
+            var conversion_id = $(this).data('conversion_id');
+            var page_access_token = $(this).data('page_token');
+            var page_id = $(this).data('page_id');
+
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('get_chat_data'); ?>",
+                data: {
+                    action: 'chat_massage_list',
+                    conversion_id: conversion_id,
+                    page_access_token: page_access_token,
+                    page_id: page_id,
+                },
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    $('.chat_bord').html(obj.html);
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
