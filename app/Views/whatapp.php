@@ -1061,6 +1061,7 @@ $language_name = json_decode($language_name, true);
                                                         ng-click="setTemorder('name')" role="button" tabindex="0"></i>
                                                 </th>
                                                 <th class="template-creation-heading">Category</th>
+                                                <th class="template-creation-heading">Status</th>
                                                 <th class="template-creation-heading" style="max-width: 400px;">Preview
                                                 </th>
                                                 <th class="template-creation-heading ">Language</th>
@@ -1148,7 +1149,7 @@ $language_name = json_decode($language_name, true);
 </div>
 
 <!-- add model -->
-<div class="modal fade modal-lg" id="whatsapp_template_add_edit" tabindex="-1"
+<div class="modal fade modal-lg " id="whatsapp_template_add_edit" tabindex="-1"
     aria-labelledby="membershipseditModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-50 modal-dialog-centered">
         <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
@@ -1175,15 +1176,15 @@ $language_name = json_decode($language_name, true);
                                 <div class="col-12 mb-3 ">
                                     <div class="main-selectpicker">
                                         <select id="category_types" name="category_types"
-                                            class="selectpicker form-control form-main main-control category_div"
+                                            class="selectpicker form-control form-main TemplateCategorySelectionDiv main-control category_div"
                                             required>
                                             <option class=" dropdown-item" value="">Please select your category</option>
 
-                                            <option value="Utility" ng-repeat="category in category_types"
+                                            <option value="UTILITY" ng-repeat="category in category_types"
                                                 class="  dropdown-item">
                                                 Utility</option>
                                             </option>
-                                            <option value="Authentication" ng-repeat="category in category_types"
+                                            <option value="AUTHENTICATION" ng-repeat="category in category_types"
                                                 class="  dropdown-item">
                                                 Authentication</option>
                                             </option>
@@ -1198,8 +1199,8 @@ $language_name = json_decode($language_name, true);
                                     <div class="main-selectpicker">
                                         <!-- <select class="selectpicker form-control main-control language_div" id="language" name="language" required> -->
 
-                                        <select class="form-control main-control language_div" id="languageid"
-                                            name="language" required>
+                                        <select class="form-control main-control TemplateLanguageDDList language_div"
+                                            id="languageid" name="language" required>
                                             <option class="fs-12" label="Please select your language" value=""></option>
                                             <option class="fs-12 ng-binding ng-scope" value="en_US"
                                                 ng-repeat="lang in template_lang">English US (en_US)</option>
@@ -1347,7 +1348,7 @@ $language_name = json_decode($language_name, true);
                                                 class="validationn">*</sup></label>
                                         <div class="main-selectpicker">
                                             <select
-                                                class="selectpicker form-control main-control header_div  Template_header1"
+                                                class="selectpicker form-control main-control header_div HeaderSelectionDD Template_header1"
                                                 id="Template_header" name="header" ng-model="selectedHeader"
                                                 ng-change="handleHeaderChange()" required>
                                                 <option class="dropdown-item" value="">Please select your header type
@@ -1363,10 +1364,11 @@ $language_name = json_decode($language_name, true);
                                         <label for="" class="form-label main-label">Inq file upload <sup
                                                 class="validationn">*</sup></label>
                                         <input type="file" class="form-control main-control" id="insert_image"
-                                            name="uploade_file" placeholder="Details" required="">
+                                            name="uploade_file" placeholder="Details" DataStoreURL = "" required="">
                                     </div>
                                     <div class="col-12 mb-3 text-comment d-none">
-                                        <textarea class="form-control main-control place MemberAddressClass"
+                                        <textarea
+                                            class="form-control main-control ClassHeaderTEXT place MemberAddressClass"
                                             id="address" name="address" required=""
                                             placeholder="Type your header text here..." rows="3" cols="50"
                                             spellcheck="false"></textarea>
@@ -1399,15 +1401,16 @@ $language_name = json_decode($language_name, true);
                                 <div class="col-12 mb-3">
                                     <label for="form-memberships" class="main-label fw-medium">BODY<sup
                                             class="validationn">*</sup></label>
-                                    <textarea class="form-control main-control body_div" id="body_id"
+                                    <textarea class="form-control main-control TemplateBodyClass body_div" id="body_id"
                                         placeholder="Type Your Body Text Here...{{|}}" name="" required></textarea>
                                     <p class="fs-10">Body character limit is 1024 characters</p>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label for="form-memberships" class="main-label fw-medium">FOOTER<sup
                                             class="validationn">*</sup></label>
-                                    <textarea class="form-control main-control footer_div" id="footer"
-                                        placeholder="Type Your Footer Text Here...{{|}}" name="" required></textarea>
+                                    <textarea class="form-control main-control footer_div FotterTextDIvClass"
+                                        id="footer" placeholder="Type Your Footer Text Here...{{|}}" name=""
+                                        required></textarea>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <div class="col-12 ">
@@ -1867,7 +1870,7 @@ $language_name = json_decode($language_name, true);
 
     $('.body_div').on('input', function () {
         var bodyText = $(this).val();
-        console.log(bodyText);
+        // console.log(bodyText);
 
         if (bodyText === "") {
             $('.c').hide();
@@ -2015,7 +2018,7 @@ $language_name = json_decode($language_name, true);
         var uploade_file = $('#insert_image').prop('files')[0];
         var body = $('.body_div').val();
 
-
+        // 07-02-2024
 
         var form = $("form[name='master_membership_update_form']")[0];
         var formData = new FormData(form);
@@ -2213,7 +2216,7 @@ $language_name = json_decode($language_name, true);
             $('.SetButtonHTMLClass').html('');
         } else if (DDValue == '2') {
             var previous_hmml = $('.SetButtonHTMLClass').html();
-            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
+            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col  button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
             var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
             if (parseInt(numberOfSubElements) < 3) {
                 $('.SetButtonHTMLClass').html(previous_hmml + StaticHtml);
@@ -2222,16 +2225,218 @@ $language_name = json_decode($language_name, true);
             var SetHtml = $('.SetButtonHTMLClass').html();
             var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
             var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
-            if(numberOfSubElementsUrl == '0'){
+            if (numberOfSubElementsUrl == '0') {
                 var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col-7"> <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required=""> </div> <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
                 $('.SetButtonHTMLClass').html(SetHtml + urlbtnhtml);
 
             }
-            if(numberOfSubElementsCno == '0'){
+            if (numberOfSubElementsCno == '0') {
                 var SetHtml = $('.SetButtonHTMLClass').html();
-                var phonenobtn='<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
+                var phonenobtn = '<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
                 $('.SetButtonHTMLClass').html(SetHtml + phonenobtn);
             }
         }
     });
+
+
+
+    // $('body').on('click', '.Add_editModelTitle', function () {
+    //     var name = $('.Template_name').val();
+    //     var category = $('select.TemplateCategorySelectionDiv option:selected').val();
+    //     var language = $('select.TemplateLanguageDDList option:selected').val();
+    //     var headertype = $('select.HeaderSelectionDD option:selected').val();
+    //     var headertext = $('.ClassHeaderTEXT').val();
+    //     var body = $('.TemplateBodyClass').val();
+    //     var footer = $('.FotterTextDIvClass').val();
+
+    //     var templateArray = {
+    //         'name': name,
+    //         'category': category,
+    //         'language': language,
+    //         'components': []
+    //     };
+
+    //     if (headertext) {
+    //         templateArray.components.push({
+    //             'type': 'HEADER',
+    //             'format': 'TEXT',
+    //             'text': headertext
+    //         });
+    //     }
+
+    //     if (body) {
+    //         templateArray.components.push({
+    //             'type': 'BODY',
+    //             'text': body
+    //         });
+    //     }
+
+    //     if (footer) {
+    //         templateArray.components.push({
+    //             'type': 'FOOTER',
+    //             'text': footer
+    //         });
+    //     }
+
+    //     var jsonString = JSON.stringify(templateArray);
+
+
+    //     // $.ajax({
+    //     //     method: "post",
+    //     //     url: "<?= site_url('SendWhatsAppTemplate'); ?>",
+    //     //     data: {
+    //     //         jsonString: jsonString,
+    //     //     },
+    //     //     success: function (data) {
+    //     //         if (data == '0') {
+    //     //             iziToast.error({
+    //     //                 title: "Failed to add template"
+    //     //             });
+    //     //         } else {
+    //     //             iziToast.success({
+    //     //                 title: "Added Successfully"
+    //     //             });
+    //     //         }
+    //     //         $(".close_btn").trigger("click");
+    //     //         list_data();
+    //     //     }
+    //     // });
+    // });
+
+    $(document).ready(function () {
+        $('#insert_image').on('change', function () {
+            var fileInput = $(this);
+            var fileName = fileInput.val();
+            if (fileName) {
+                var form = $("form[name='master_membership_update_form']")[0];
+                var formData = new FormData(form);
+                var uploade_file = $('#insert_image').prop('files')[0];
+                formData.append('uploade_file', uploade_file);
+                $.ajax({
+                    method: "post",
+                    url: "<?= site_url('WhatappFileUpload'); ?>",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        $(this).attr('DataStoreURL', data);
+                    }
+                });
+            } else {
+                $(this).attr('DataStoreURL', '');
+            }
+        });
+    });
+    
+    $('body').on('click', '.Add_editModelTitle', function () {
+    var name = $('.Template_name').val();
+    var category = $('select.TemplateCategorySelectionDiv option:selected').val();
+    var language = $('select.TemplateLanguageDDList option:selected').val();
+    var headertype = $('select.HeaderSelectionDD option:selected').val();
+    var headerfile = $('#insert_image').attr('DataStoreURL');  
+    var headertext = $('.ClassHeaderTEXT').val();
+    var body = $('.TemplateBodyClass').val();
+    var footer = $('.FotterTextDIvClass').val();
+
+
+    var buttontype =  $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+
+    if(buttontype == '1'){
+               
+
+    }else if (buttontype == '2'){
+
+        var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
+        console.log(numberOfSubElements);
+        if(numberOfSubElements){
+
+        }
+
+    }else if(buttontype == '3'){
+
+
+
+    }
+
+    var templateArray = {
+        'name': name,
+        'category': category,
+        'language': language,
+        'components': []
+    };
+
+    if (headertype != '') {
+        if (headertype == 'TEXT') {
+            if (headertext) {
+                templateArray.components.push({
+                    'type': 'HEADER',
+                    'format': 'TEXT',
+                    'text': headertext
+                });
+            }
+        }
+        if (headertype == 'IMAGE' && headerfile != '') {
+            var exampleData = {
+                "header_handle": [
+                    {'link': headerfile}
+                ]
+            };
+            templateArray.components.push({
+                'type': 'HEADER',
+                'format': 'IMAGE',
+                'example': exampleData
+            });
+        }
+        if (headertype == 'VIDEO' && headerfile != '') {
+            var exampleData = {
+                "header_handle": [
+                    {'link': headerfile}
+                ]
+            };
+            templateArray.components.push({
+                'type': 'HEADER',
+                'format': 'VIDEO',
+                'example': exampleData
+            });
+        }
+        if (headertype == 'DOCUMENT' && headerfile != '') {
+            var exampleData = {
+                "header_handle": [
+                    {'link': headerfile}
+                ]
+            };
+            templateArray.components.push({
+                'type': 'HEADER',
+                'format': 'DOCUMENT',
+                'example': exampleData
+            });
+        }
+    }
+
+    if (body) {
+        templateArray.components.push({
+            'type': 'BODY',
+            'text': body
+        });
+    }
+
+    if (footer) {
+        templateArray.components.push({
+            'type': 'FOOTER',
+            'text': footer
+        });
+    }
+
+
+
+
+    var jsonString = JSON.stringify(templateArray);
+    // console.log(jsonString);
+});
+
+
+
+
+
+
 </script>
