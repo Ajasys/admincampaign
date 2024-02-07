@@ -143,6 +143,7 @@
 // $userUnderEmployee = userUnderEmployees($_SESSION['id']);
 // $project_management_subtype = json_decode($project_management_subtype, true);
 $area = json_decode($area, true);
+$product = json_decode($product, true);
 // $master_inquiry_type = json_decode($master_inquiry_type, true);
 // $master_inquiry_source = json_decode($master_inquiry_source, true);
 // $project_management_type = json_decode($project_management_type, true);
@@ -373,7 +374,22 @@ $user_data = $user_result->getResultArray();
                             </div>
                         </div>
                         <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
-                            <label class="form-label main-label fs-14 text-nowrap">Int Area</label> <sup class="validationn">*</sup>
+                        
+                            <label class="form-label main-label fs-14 text-nowrap mt-2">Int Product</label> <sup class="validationn">*</sup>
+                            <div class="main-selectpicker">
+                                <select id="product" class="selectpicker form-control form-main product" data-live-search="true" required>
+                                    <option value="0">Select Int Product</option>
+                                    <?php
+                                    if (isset($product)) {
+                                        foreach ($product as $product_key => $product_value) {
+                                            echo '<option data-product_option_id="' . $product_value["id"] . '" value="' . $product_value["id"] . '">' . $product_value["product_name"] . '</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <label class="form-label main-label fs-14 text-nowrap mt-2">Int Area</label> <sup class="validationn">*</sup>
                             <div class="main-selectpicker">
                                 <select id="area" class="selectpicker form-control form-main area" data-live-search="true" required>
                                     <option value="0">Select Int Area</option>
@@ -387,7 +403,7 @@ $user_data = $user_result->getResultArray();
                                 </select>
                             </div>
                             
-                            <label class="form-label main-label fs-14 text-nowrap mt-3">Assign
+                            <label class="form-label main-label fs-14 text-nowrap mt-2">Assign
                                 to <sup class="validationn">*</sup></label>
                             <div class="main-selectpicker">
                                 <select id="assign_to" class="selectpicker form-control form-main assign_to" data-live-search="true" required>
@@ -396,7 +412,7 @@ $user_data = $user_result->getResultArray();
                                 </select>
                             </div>
 
-                            <label class="form-label main-label fs-14 text-nowrap mt-3 staff">Staff<sup class="validationn">*</sup></label>
+                            <label class="form-label main-label fs-14 text-nowrap mt-2 staff">Staff<sup class="validationn">*</sup></label>
                             <div class="main-selectpicker multiple-select staff">
                                 <select class="selectpicker form-control form-main staff_to" multiple id="staff_to" name="staff_to" data-live-search="true" required="">
                                     <?php
@@ -455,62 +471,6 @@ $user_data = $user_result->getResultArray();
                     <h2 class="fs-14 text-gray">Saved Drafts</h2>
                 </div>
                 <div class="draft_pages_list"></div>
-                <!-- <div class="lead_list p-2 rounded-2 position-relative">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
-                                            <div class="mx-1">
-                                                <img src="https://scontent-dus1-1.xx.fbcdn.net/v/t39.30808-1/294935068_455927246545151_6937570783544724723_n.jpg?stp=cp0_dst-jpg_p50x50&amp;_nc_cat=104&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=2pmSwaNY8-0AX8lR-41&amp;_nc_ht=scontent-dus1-1.xx&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfAxBNu5qco_6YEvMf3Z_m7sgVoRFocbu3FtJs7tnDf1ew&amp;oe=65AE3497" class="rounded-circle" width="50px" hright="50px">
-                                            </div>
-
-                                            <div class="load-icon center d-none">
-                                                <span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                                <span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                                <span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                                <span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                            </div>
-
-                                            <div class="mx-1">
-                                                <img src="https://ajasys.com/img/favicon.png" class="rounded-circle" width="50px" hright="50px">
-                                            </div>
-                                        </div>
-                                        <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill">
-                                            <div class="d-flex align-items-center">
-                                                <div class="d_saved_1">
-                                                    <button class="btn-primary-rounded fs-14">1</button>
-                                                </div>    
-                                                <div class="d_unsaved_1">
-                                                    <button class="btn-primary-rounded fs-14 bg-secondary-subtle border-0 shadow-sm text-dark">?</button>
-                                                </div>
-                                                <div class="mx-1" style="width: 50px; border: 2px solid var(--first-color);"></div>
-                                                <div class="d_saved_2">
-                                                    <button class="btn-primary-rounded fs-14">2</button>
-                                                </div>
-                                                <div class="d_unsaved_2">
-                                                    <button class="btn-primary-rounded fs-14 bg-secondary-subtle border-0 shadow-sm text-dark">?</button>
-                                                </div>
-                                                <div class="mx-1" style="width: 50px; border: 2px solid var(--first-color);"></div>
-                                                <div class="d_saved_3">
-                                                    <button class="btn-primary-rounded fs-14">3</button>
-                                                </div>
-                                                <div class="d_unsaved_3">
-                                                    <button class="btn-primary-rounded fs-14 bg-secondary-subtle border-0 shadow-sm text-dark">?</button>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12 mt-2">
-                                                <i class="bi bi-gear me-1"></i>
-                                                <span class="me-2">0</span>
-                                                <i class="bi bi-person me-1"></i>
-                                                <span>Hiren Vaghasiya</span>
-                                            </div>
-                                        </a>
-                                        <div class="lead_list_switch d-flex align-items-center flex-wrap">
-                                            <label class="switch_toggle mx-2">
-                                                <input type="checkbox" class="page_actiive" value="1" data-form_id="237950712661626" checked="">
-                                                <span class="check_input round"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div> -->
             </div>
         </div>
     </div>
@@ -659,7 +619,7 @@ $user_data = $user_result->getResultArray();
 
 
         $('body').on('click', '.big_falcebook_circle_4_sbt .btn-primary', function() {
-            if ($(this).closest(".big_circle_fb_list").find("#area").val() != "" && $(this).closest(".big_circle_fb_list").find("#int_site").val() != "" && $(this).closest(".big_circle_fb_list").find("#sub_type").val() != "" && $(this).closest(".big_circle_fb_list").find("#assign_to").val() != "") {
+            if ($(this).closest(".big_circle_fb_list").find("#area").val() != "" && $(this).closest(".big_circle_fb_list").find("#product").val() != "" && $(this).closest(".big_circle_fb_list").find("#sub_type").val() != "" && $(this).closest(".big_circle_fb_list").find("#assign_to").val() != "") {
                 $(this).closest(".big_circle_fb_outer").find(".big_circle_fb_list").hide();
             } else {
                 $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
@@ -978,7 +938,7 @@ $user_data = $user_result->getResultArray();
     //for save connection and all functionality...
     $('body').on('click', '.big_falcebook_circle_4_sbt', function() {
         var area = $(".area option:selected").val();
-        var int_site = $(".int_site option:selected").val();
+        var int_product = $(".product option:selected").val();
         var sub_type = $(".sub_type option:selected").val();
         var assign_to = $(".assign_to option:selected").val();
         var staff_to = $("#staff_to").val();
@@ -990,7 +950,7 @@ $user_data = $user_result->getResultArray();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
 
-        if (assign_to != "" && area > 0) {
+        if (assign_to != "" && area > 0 && int_product>0) {
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_page'); ?>",
@@ -1000,7 +960,7 @@ $user_data = $user_result->getResultArray();
                     access_token: access_token,
                     page_name: page_name,
                     area: area,
-                    int_site: int_site,
+                    int_product:int_product,
                     sub_type: sub_type,
                     assign_to: assign_to,
                     staff_to: staff_to,
@@ -1055,7 +1015,7 @@ $user_data = $user_result->getResultArray();
     $('body').on('click', '.big_falcebook_circle_2_sbt', function() {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
         var area = $(".area option:selected").val();
-        var int_site = $(".int_site option:selected").val();
+        var int_product = $(".product option:selected").val();
         var sub_type = $(".sub_type option:selected").val();
         var assign_to = $(".assign_to option:selected").val();
         var page_id = $("#facebookpages option:selected").val();
@@ -1064,7 +1024,7 @@ $user_data = $user_result->getResultArray();
         var form_id = $("#facebookform option:selected").val();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
-        if (int_site > 0 && assign_to != "" && sub_type > 0 && area > 0 && page_id != "" && form_id != "") {
+        if (int_product > 0 && assign_to != "" && sub_type > 0 && area > 0 && page_id != "" && form_id != "") {
             var draft_status = 0;
         } else {
             var draft_status = 3;
@@ -1080,7 +1040,7 @@ $user_data = $user_result->getResultArray();
                     access_token: access_token,
                     page_name: page_name,
                     area: area,
-                    int_site: int_site,
+                    int_product: int_product,
                     sub_type: sub_type,
                     assign_to: assign_to,
                     form_name: form_name,
@@ -1333,7 +1293,7 @@ $user_data = $user_result->getResultArray();
         });
 
         $('#area').val(intrested_area);
-        $('#int_site').val(intrested_site);
+        $('#product').val(int_product);
         $('#sub_type').val(property_sub_type);
         $('#assign_to').val(setassign_id);
         if (setassign_id == 0) {

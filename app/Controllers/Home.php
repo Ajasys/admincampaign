@@ -100,6 +100,7 @@ class Home extends BaseController
     }
     public function index()
     {
+        $table_username = session_username($_SESSION['username']);
         $table_name3 = 'admin_generale_setting';
         $columns3 = [
             'id int primary key AUTO_INCREMENT',
@@ -108,17 +109,21 @@ class Home extends BaseController
             'biometric_password text',
             'biometric_connection int NOT NULL',
             'corporateid varchar(200)',
-            "whatapp_phone_number_id int(255) NOT NULL",
-            "whatapp_business_account_id int(255) NOT NULL",
-            "whatapp_access_token longtext   NOT NULL",
-            "whatapp_verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
-            // "whatapp_created_at_account datetime NOT NULL COMMENT 'Whatapp Created At Entry TimeDate '",
-            "facebook_access_token longtext   NOT NULL",
-            "is_facebook_connect int NOT NULL",
         ];
         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
 
-        $table_username = session_username($_SESSION['username']);
+        $table_name3 = $table_username . '_platform_integration';
+        $columns3 = [
+            'id int primary key AUTO_INCREMENT',
+            "phone_number_id int(255) NOT NULL",
+            "business_account_id int(255) NOT NULL",
+            "access_token longtext   NOT NULL",
+            "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
+            "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook'",
+        ];
+        $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
+
+        
         $table_name11 = $table_username . '_task_status';
         $columns = [
             'id int primary key AUTO_INCREMENT',
@@ -211,7 +216,7 @@ class Home extends BaseController
             'master_id int(11) NOT NULL',
             'intrested_area varchar(11)  NOT NULL',
             'property_sub_type varchar(11)  NOT NULL',
-            'intrested_site varchar(11)  NOT NULL',
+            'intrested_product varchar(11)  NOT NULL',
             'user_id varchar(11)  NOT NULL',
             'status int(255) NOT NULL DEFAULT 1',
             'form_id varchar(255)  NOT NULL',
@@ -743,17 +748,11 @@ class Home extends BaseController
     {
         $username = session_username($_SESSION['username']);
         $this->db = \Config\Database::connect('second');
-        $find_Array_all = "SELECT * FROM admin_fb_account  where master_id='" . $_SESSION['master'] . "' ";
-        $find_Array_all = $this->db->query($find_Array_all);
-		$data['fb_account'] = $find_Array_all->getResultArray();
+        // $find_Array_all = "SELECT * FROM admin_fb_account  where master_id='" . $_SESSION['master'] . "' ";
+        // $find_Array_all = $this->db->query($find_Array_all);
+		// $data['fb_account'] = $find_Array_all->getResultArray();
         $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
-        // $whereConditions = [
-        //     ['column' => 'switcher_active', 'value' => 'active'],
-        // ];
-        // $data['user'] = $this->MasterInformationModel->display_records_for_project($username.'_user', 'DESC', $whereConditions);
-        // $table_name = $username."_integration";
-        // $duplicate_table = "urvi_integration";
-        // tableCreateAndTableUpdate($table_name,$duplicate_table);
+        $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
         return view('lead_module',$data);
     }
     public function leadlist()

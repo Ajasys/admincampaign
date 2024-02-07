@@ -54,10 +54,7 @@ $settings_data = getGeneraleData();
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
     $('body').on('click', '#facebook_cnt', function() {
-        // alert('hiii');
         var access_token = $("#access_token").val();
-        // alert(access_token + '-----------');
-
         if (access_token != '') {
             $.ajax({
                 type: "post",

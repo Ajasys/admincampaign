@@ -194,7 +194,8 @@ class FaceBookController extends BaseController
         $access_token = $this->request->getPost("access_token");
         $page_name = $this->request->getPost("page_name");
         $area = $this->request->getPost("area") ? $this->request->getPost("area") : 0;
-        $int_site = $this->request->getPost("int_site") ? $this->request->getPost("int_site") : 0;
+        $int_product = $this->request->getPost("int_product") ? $this->request->getPost("int_product") : 0;
+        $int_product = $this->request->getPost("int_product") ? $this->request->getPost("int_product") : 0;
         $sub_type = $this->request->getPost("sub_type") ? $this->request->getPost("sub_type") : 0;
         if ($this->request->getPost("assign_to") == 1) {
             $assign_to = "'" . $this->request->getPost("staff_to") . "'";
@@ -217,7 +218,7 @@ class FaceBookController extends BaseController
                 $insert_data['page_name'] = $page_name;
                 $insert_data['intrested_area'] = $area;
                 $insert_data['property_sub_type'] = $sub_type;
-                $insert_data['intrested_site'] = $int_site;
+                $insert_data['intrested_product'] = $int_product;
                 $insert_data['user_id'] = $assign_to;
                 $insert_data['form_id'] = $form_id;
                 $insert_data['form_name'] = $form_name;
@@ -232,7 +233,7 @@ class FaceBookController extends BaseController
             } else {
                 if ($result_facebook_data[0]['is_status'] == 0) {
                     //is_status==0-for fresh to connection
-                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Re-connect successfully";
@@ -246,7 +247,7 @@ class FaceBookController extends BaseController
                     $result_array['msg'] = "Form Re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 3) {
                     //is_status==0-for draft to connection
-                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_site`=' . $int_site . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form connection successfully";
@@ -260,7 +261,7 @@ class FaceBookController extends BaseController
                     $insert_data['page_name'] = $page_name;
                     $insert_data['intrested_area'] = $area;
                     $insert_data['property_sub_type'] = $sub_type;
-                    $insert_data['intrested_site'] = $int_site;
+                    $insert_data['intrested_product'] = $int_product;
                     $insert_data['user_id'] = $assign_to;
                     $insert_data['form_id'] = $form_id;
                     $insert_data['form_name'] = $form_name;
@@ -272,7 +273,7 @@ class FaceBookController extends BaseController
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
-                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_site`=' . $int_site . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Updated successfully";
@@ -383,7 +384,7 @@ class FaceBookController extends BaseController
                                         <i class="bi bi-caret-down-fill fs-12 text-secondary-emphasis"></i>
                                     </button>
                                     <ul class="dropdown-menu py-2">
-                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $value['page_id'] . '\',\'' . $value['form_id'] . '\',\'' . $value['intrested_area'] . '\',\'' . $value['intrested_site'] . '\',\'' . $value['property_sub_type'] . '\',\'' . $assign_id . '\',\'' . $staff_id . '\',\'' . $value['page_img'] . '\',\'' . $value['is_status'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
+                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $value['page_id'] . '\',\'' . $value['form_id'] . '\',\'' . $value['intrested_area'] . '\',\'' . $value['intrested_product'] . '\',\'' . $value['property_sub_type'] . '\',\'' . $assign_id . '\',\'' . $staff_id . '\',\'' . $value['page_img'] . '\',\'' . $value['is_status'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
                                         <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . '><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
                                     </ul>
                                 </div>
@@ -659,7 +660,7 @@ class FaceBookController extends BaseController
                                         <i class="bi bi-caret-down-fill fs-12 text-secondary-emphasis"></i>
                                     </button>
                                     <ul class="dropdown-menu py-2">
-                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $value['page_id'] . '\',\'' . $value['form_id'] . '\',\'' . $value['intrested_area'] . '\',\'' . $value['intrested_site'] . '\',\'' . $value['property_sub_type'] . '\',\'' . $assign_id . '\',\'' . $staff_id . '\',\'' . $value['page_img'] . '\',\'' . $value['is_status'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
+                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $value['page_id'] . '\',\'' . $value['form_id'] . '\',\'' . $value['intrested_area'] . '\',\'' . $value['intrested_product'] . '\',\'' . $value['property_sub_type'] . '\',\'' . $assign_id . '\',\'' . $staff_id . '\',\'' . $value['page_img'] . '\',\'' . $value['is_status'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
                                         <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . '><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
                                     </ul>
                                 </div>
@@ -712,7 +713,7 @@ class FaceBookController extends BaseController
 
                 $result = json_decode($response, true);
 
-                $intrested_site = $row['intrested_site'];
+                $intrested_product = $row['intrested_product'];
                 // echo '<pre>';   
                 $fulll_name = "";
                 if (isset($result['field_data'][0])) {
@@ -797,7 +798,7 @@ class FaceBookController extends BaseController
                 $next = 1;
                 $cccd = 0;
                 foreach ($user_list_executive as $k => $v) {
-                    if ($intrested_site == $k) {
+                    if ($intrested_product == $k) {
                         $count = count($v);
                         $values = array_values($v);
                         $search = array_search($assign_id, $values);
@@ -807,7 +808,7 @@ class FaceBookController extends BaseController
                 }
                 if ($cccd == 0) {
                     foreach ($user_list_manager as $k_m => $v_m) {
-                        if ($intrested_site == $k_m) {
+                        if ($intrested_product == $k_m) {
                             $count = count($v_m);
                             $values = array_values($v_m);
                             $search = array_search($assign_id, $values);
@@ -835,7 +836,7 @@ class FaceBookController extends BaseController
                 $insert_data['full_name'] =  isset($full) ? $full : '';
                 $insert_data['property_sub_type'] = isset($row['property_sub_type']) ? $row['property_sub_type'] : '';
                 $insert_data['intrested_area'] = $row['intrested_area'];
-                $insert_data['intrested_site'] = isset($row['intrested_site']) ? $row['intrested_site'] : '';
+                $insert_data['intrested_product'] = isset($row['intrested_product']) ? $row['intrested_product'] : '';
                 $insert_data['inquiry_type'] = 1;
                 $insert_data['inquiry_source_type'] = 2;
                 $insert_data['nxt_follow_up'] = isset($nxt_follow_up) ? $nxt_follow_up : '';
