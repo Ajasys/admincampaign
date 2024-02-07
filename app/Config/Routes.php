@@ -538,6 +538,11 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/CheckWhataAppConnection', 'WhatAppIntegrationController::CheckWhataAppConnection');
 	$routes->post('/WhatsAppRTemplateDeleteRequest', 'WhatAppIntegrationController::WhatsAppRTemplateDeleteRequest');
 
+
+
+	// aaksh
+	$routes->get('/whatappaakash', 'Home::whatappaakash');
+
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');
