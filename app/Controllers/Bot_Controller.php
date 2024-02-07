@@ -455,24 +455,24 @@ class Bot_Controller extends BaseController
 		$table_name = $this->request->getPost("table");
 		$action_name = $this->request->getPost("action");
 
-		if ($this->request->getPost("action") == "insert") {
-			unset($_POST['action']);
-			unset($_POST['table']);
-
-			if (!empty($_POST)) {
-				$insert_data = $_POST;
-
-				// Get the current number of records in the table
-				$record_count = $this->MasterInformationModel->getRecordCount2($table_name);
-				pre($record_count);
-				// Increment the sequence number by 1 for each new record
-				$insert_data['sequence'] = $record_count + 1;
-
-				$response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
-				$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
-				$departmentdisplaydata = json_decode($departmentdisplaydata, true);
-			}
+		if (!isset($_SESSION['records_count'])) {
+			$_SESSION['records_count'] = 0;
 		}
+		if ($action_name == "insert" && !empty($post_data)) {
+			unset($post_data['action']);
+			unset($post_data['table']);
+
+			$existing_records_count = $this->MasterInformationModel->get_record_count($table_name);
+
+			$_SESSION['records_count'] = $existing_records_count;
+			$_SESSION['records_count']++;
+			$post_data['sequence'] = $_SESSION['records_count'];
+
+			$response = $this->MasterInformationModel->insert_entry2($post_data, $table_name);
+			$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+			$departmentdisplaydata = json_decode($departmentdisplaydata, true);
+		}
+
 		if ($this->request->getPost("action") == "bot_insert") {
 			unset($_POST['action']);
 			unset($_POST['table']);
@@ -491,9 +491,7 @@ class Bot_Controller extends BaseController
 	}
 
 
-
-
-	public function duplicate_Question()
+	public function duplicate_Question() 
 	{
 		$table_username = getMasterUsername2();
 		$questionId = $this->request->getPost("questionId");
@@ -507,17 +505,21 @@ class Bot_Controller extends BaseController
 	}
 
 
-	private function insertQuestionData($question_data)
+	private function insertQuestionData($question_data) 
 	{
 		$table_username = getMasterUsername2();
 		$db = \Config\Database::connect('second');
-		$question_data['sequence'] = 0;
+		$table_name = $this->request->getPost("table");
+		$existing_records_count = $this->MasterInformationModel->get_record_count($table_name);
+		$_SESSION['records_count'] = $existing_records_count;
+		$_SESSION['records_count']++;
+		$question_data['sequence'] = $_SESSION['records_count'];
+		// $question_data['sequence'] = 0;
 		unset($question_data['id']);
 
 		$db->table($table_username . '_bot_setup')->insert($question_data);
 		return $db->insertID();
 	}
-
 
 	public function bot_delete_data()
 	{
@@ -528,6 +530,7 @@ class Bot_Controller extends BaseController
 		}
 		die();
 	}
+
 	// public function bot_update_data()
 	// {
 	// 	$table_name = $this->request->getPost("table");
@@ -569,44 +572,143 @@ class Bot_Controller extends BaseController
 	{
 		$table_name = $_POST['table'];
 		$action = $_POST['action'];
+		$bot_id = $_POST['bot_id'];
 		$botdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
 		$botdisplaydata = json_decode($botdisplaydata, true);
 		$i = 1;
 		$html = "";
 
-		foreach ($botdisplaydata as $key => $value) {
 
-			$html .= '
+		foreach ($botdisplaydata as $key => $value) {
+			if($value['bot_id'] == $bot_id){
+				$html .= '
 					<div class="col-12 w-100 d-flex flex-wrap p-2">
 						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
 							<div class="col-10 d-flex flex-wrap align-items-center">
-								<label class="text-wrap px-2" for="">
-									<p class="fw-semibold">' . $value['question'] . '</p>
-								</label>
+								<label class="text-wrap px-2" for="">';
+								if(isset($value['type_of_question']) && $value['type_of_question'] == 1) {
+									$html .= '<i class="fa fa-question"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 2){
+									$html .= ' <i class="fa-regular fa-circle-dot"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 3){
+									$html .= ' <i class="fa fa-envelope"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 4){
+									$html .= ' <i class="fa fa-check-square"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 5){
+									$html .= ' <i class="fa-solid fa-mobile-screen-button"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 6){
+									$html .= ' <i class="fa fa-hashtag"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 7){
+									$html .= ' <i class="fa fa-star"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 8){
+									$html .= ' <i class="fa-regular fa-calendar-days"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 9){
+									$html .= ' <i class="fa-regular fa-clock"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 10){
+									$html .= ' <i class="fa-solid fa-location-dot"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 11){
+									$html .= ' <i class="fa fa-expand"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 12){
+									$html .= ' <i class="fa fa-upload"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 13){
+									$html .= ' <i class="fa fa-link"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 14){
+									$html .= ' <i class="fa fa-user-plus"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 15){
+									$html .= ' <i class="fa fa-shopping-cart"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 16){
+									$html .= ' <i class="fa fa-key"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 17){
+									$html .= ' <i class="fa-brands fa-forumbee"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 18){
+									$html .= ' <i class="fa fa-list"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 19){
+									$html .= ' <i class="fa fa-bullseye"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 20){
+									$html .= ' <i class="fa fa-search"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 21){
+									$html .= ' <i class="fa-regular fa-calendar-check"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 22){
+									$html .= ' <i class="fa-solid fa-quote-left"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 23){
+									$html .= ' <i class="fa-regular fa-compass"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 24){
+									$html .= ' <i class="fa-sharp fa-solid fa-sliders"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 25){
+									$html .= ' <i class="fa-regular fa-image"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 26){
+									$html .= ' <i class="fa-regular fa-file-audio"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 27){
+									$html .= ' <i class="fa-sharp fa-solid fa-address-book"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 28){
+									$html .= ' <i class="fa-sharp fa-solid fa-paper-plane"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 29){
+									$html .= ' <i class="fa-solid fa-file"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 30){
+									$html .= ' <i class="fa-solid fa-arrow-up-right-from-square"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 31){
+									$html .= ' <i class="fa-solid fa-scissors"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 32){
+									$html .= ' <i class="fa-solid fa-earth-americas"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 33){
+									$html .= ' <i class="fa-solid fa-signs-post"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 34){
+									$html .= ' <i class="fa-regular fa-circle-question"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 35){
+									$html .= ' <i class="fa-brands fa-wpexplorer"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 36){
+									$html .= ' <i class="fa-solid fa-headphones"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 37){
+									$html .= ' <i class="fa-solid fa-diamond-turn-right"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 38){
+									$html .= ' <i class="fa-solid fa-comment-dots"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 39){
+									$html .= ' <i class="fa-solid fa-users"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 40){
+									$html .= ' <i class="fa-solid fa-list-ol"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 41){
+									$html .= ' <i class="fa-solid fa-cart-shopping"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 42){
+									$html .= ' <i class="fa-brands fa-whatsapp"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 43){
+									$html .= ' <i class="fa-solid fa-cart-arrow-down"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 44){
+									$html .= ' <i class="fa-solid fa-map-pin"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 45){
+									$html .= ' <i class="fa-solid fa-rectangle-ad"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 46){
+									$html .= ' <i class="fa-brands fa-instagram"></i>';
+								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 47){
+									$html .= ' <i class="fa-brands fa-instagram"></i>';
+								}
+								
+							$html .= '
+								<p class="fw-semibold d-inline block mx-2">' . $value['question'] . '</p>
+							</label>
+						</div>
+						<div class="col-2 d-flex flex-wrap align-items-center">
+							<div class="col-3 p-1">
+								<i class="fa fa-pencil cursor-pointer" data-bs-toggle="modal" data-bs-target="#add-email"></i>
 							</div>
-							<div class="col-2 d-flex flex-wrap align-items-center">
-								<div class="col-3 p-1">
-									<i class="fa fa-pencil cursor-pointer" data-bs-toggle="modal" data-bs-target="#add-email"></i>
-								</div>
-								<div class="col-3 p-1">
-									<i class="fa fa-sitemap cursor-pointer"></i>
-								</div>
-								<div class="col-3 p-1">
-									<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question=' . $value['id'] . '></i>
-								</div>
-								<div class="col-3 p-1">
-									<i class="fa fa-trash question_delete cursor-pointer" data-question=' . $value['id'] . '></i>
-								</div>
+							<div class="col-3 p-1">
+								<i class="fa fa-sitemap cursor-pointer"></i>
+							</div>
+							<div class="col-3 p-1">
+								<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question='.$value['id'].'></i>
+							</div>
+							<div class="col-3 p-1">
+								<i class="fa fa-trash question_delete cursor-pointer" data-question='.$value['id'].'></i>
 							</div>
 						</div>
+					</div>
 
-						<div class="col-12 d-flex justify-content-end">
-							<button type="button" class="btn btn-primary">Users Replay</button>
-						</div>
-					</div>';
-
+					<div class="col-12 d-flex justify-content-end">
+						<button type="button" class="btn btn-primary">Users Replay</button>
+					</div>
+				</div>';
+		
+			}
 		}
-
 		$result['html'] = $html;
 		echo json_encode($result);
 		die();
