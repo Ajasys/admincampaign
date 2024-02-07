@@ -195,7 +195,6 @@ class FaceBookController extends BaseController
         $page_name = $this->request->getPost("page_name");
         $area = $this->request->getPost("area") ? $this->request->getPost("area") : 0;
         $int_product = $this->request->getPost("int_product") ? $this->request->getPost("int_product") : 0;
-        $int_product = $this->request->getPost("int_product") ? $this->request->getPost("int_product") : 0;
         $sub_type = $this->request->getPost("sub_type") ? $this->request->getPost("sub_type") : 0;
         if ($this->request->getPost("assign_to") == 1) {
             $assign_to = "'" . $this->request->getPost("staff_to") . "'";

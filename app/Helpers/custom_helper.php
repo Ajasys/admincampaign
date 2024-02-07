@@ -3201,3 +3201,36 @@ function deleteSocialData($url)
     curl_close($curl);
     return json_decode($response, true);
 }
+
+function fb_page_list($access_token)
+{
+    $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token);
+
+    $errorMsg = 'Something Went wrong..!';
+    if (isset($result['error']['message'])) {
+        $errorMsg = $result['error']['message'];
+    }
+    $result_array['response'] = 0;
+    $result_array['message'] = $errorMsg;
+
+    if (isset($result['data']) && is_array($result['data']) && $result['data'] != '') {
+        $numberOfPages = count($result['data']);
+        if ($numberOfPages > 0) {
+            $result_array['response'] = 1;
+            $result_array['message'] = 'Facebook connected successfully..!';
+        } else {
+            $result_array['response'] = 0;
+            $result_array['message'] = $errorMsg;
+        }
+        $result_array['page_list'] = $result['data'];
+    } else {
+        $is_facebook_connect = 0;
+        $result_array['response'] = 0;
+        $result_array['message'] = $errorMsg;
+        $result_array['page_list'] = '';
+    }
+    
+
+    echo json_encode($result_array, true);
+    die();
+}
