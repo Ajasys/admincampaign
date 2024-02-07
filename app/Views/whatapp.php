@@ -1364,7 +1364,7 @@ $language_name = json_decode($language_name, true);
                                         <label for="" class="form-label main-label">Inq file upload <sup
                                                 class="validationn">*</sup></label>
                                         <input type="file" class="form-control main-control" id="insert_image"
-                                            name="uploade_file" placeholder="Details" DataStoreURL = "" required="">
+                                            name="uploade_file" placeholder="Details" DataStoreURL="" required="">
                                     </div>
                                     <div class="col-12 mb-3 text-comment d-none">
                                         <textarea
@@ -2216,7 +2216,7 @@ $language_name = json_decode($language_name, true);
             $('.SetButtonHTMLClass').html('');
         } else if (DDValue == '2') {
             var previous_hmml = $('.SetButtonHTMLClass').html();
-            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col  button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
+            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col  button1input QuickSubButtonInput" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
             var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
             if (parseInt(numberOfSubElements) < 3) {
                 $('.SetButtonHTMLClass').html(previous_hmml + StaticHtml);
@@ -2226,13 +2226,13 @@ $language_name = json_decode($language_name, true);
             var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
             var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
             if (numberOfSubElementsUrl == '0') {
-                var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col-7"> <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required=""> </div> <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
+                var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="form-control lableUrlInputField main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col-7"> <input type="text" class="form-control main-control UrlUrlInputField border-0" placeholder="Input URL..." required=""> </div> <button class="btn btn-primary  d-none mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
                 $('.SetButtonHTMLClass').html(SetHtml + urlbtnhtml);
 
             }
             if (numberOfSubElementsCno == '0') {
                 var SetHtml = $('.SetButtonHTMLClass').html();
-                var phonenobtn = '<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
+                var phonenobtn = '<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control lablCnoInputField main-control  col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input type="text" class="form-control CnoCnoInputField main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
                 $('.SetButtonHTMLClass').html(SetHtml + phonenobtn);
             }
         }
@@ -2327,112 +2327,178 @@ $language_name = json_decode($language_name, true);
             }
         });
     });
-    
+
     $('body').on('click', '.Add_editModelTitle', function () {
-    var name = $('.Template_name').val();
-    var category = $('select.TemplateCategorySelectionDiv option:selected').val();
-    var language = $('select.TemplateLanguageDDList option:selected').val();
-    var headertype = $('select.HeaderSelectionDD option:selected').val();
-    var headerfile = $('#insert_image').attr('DataStoreURL');  
-    var headertext = $('.ClassHeaderTEXT').val();
-    var body = $('.TemplateBodyClass').val();
-    var footer = $('.FotterTextDIvClass').val();
+        var name = $('.Template_name').val();
+        var category = $('select.TemplateCategorySelectionDiv option:selected').val();
+        var language = $('select.TemplateLanguageDDList option:selected').val();
+        var headertype = $('select.HeaderSelectionDD option:selected').val();
+        var headerfile = $('#insert_image').attr('DataStoreURL');
+        var headertext = $('.ClassHeaderTEXT').val();
+        var body = $('.TemplateBodyClass').val();
+        var footer = $('.FotterTextDIvClass').val();
 
 
-    var buttontype =  $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+        var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+        var QuickArray = []; 
 
-    if(buttontype == '1'){
-               
+        if (buttontype == '1') {
 
-    }else if (buttontype == '2'){
 
-        var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
-        console.log(numberOfSubElements);
-        if(numberOfSubElements){
+        } else if (buttontype == '2') {
 
+            var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
+            if (numberOfSubElements > 0) {
+                var QuickArray = []; 
+
+                $(".QuickSubButtonInput").each(function () {
+                    var QuickBtntext = $(this).val();
+                    if (QuickBtntext != '') {
+                        QuickArray.push({
+                            'type': 'QUICK_REPLY',
+                            'text': QuickBtntext
+                        });
+                    }
+                });
+
+                // console.log(QuickArray);
+            }
+        } else if (buttontype == '3') {
+            var QuickArray = []; 
+            var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
+            var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
+            if(numberOfSubElementsUrl > 0){
+                var QuickArray = []; 
+                var label = $('.lableUrlInputField').val();
+                var Url = $('.UrlUrlInputField').val();
+                if(label != '' && Url != ''){
+                    QuickArray.push({
+                            'type': 'URL',
+                            'text': label,
+                            'url':Url
+                        });
+                }
+            }
+            if(numberOfSubElementsCno > 0){
+                var label = $('.lablCnoInputField').val();
+                var Url = $('.CnoCnoInputField').val();
+                if(label != '' && Url != ''){
+                    QuickArray.push({
+                            'type': 'PHONE_NUMBER',
+                            'text': label,
+                            'phone_number':Url
+                        });
+                }
+            }            
         }
 
-    }else if(buttontype == '3'){
+
+ 
+
+        var templateArray = {
+            'name': name,
+            'category': category,
+            'language': language,
+            'components': []
+        };
 
 
-
-    }
-
-    var templateArray = {
-        'name': name,
-        'category': category,
-        'language': language,
-        'components': []
-    };
-
-    if (headertype != '') {
-        if (headertype == 'TEXT') {
-            if (headertext) {
+        if (headertype != '') {
+            if (headertype == 'TEXT') {
+                if (headertext) {
+                    templateArray.components.push({
+                        'type': 'HEADER',
+                        'format': 'TEXT',
+                        'text': headertext
+                    });
+                }
+            }
+            console.log(headerfile);
+            console.log(headertype);
+            if (headertype == 'IMAGE' && headerfile != '') {
+                var exampleData = {
+                    "header_handle": [
+                        { 'link': headerfile }
+                    ]
+                };
                 templateArray.components.push({
                     'type': 'HEADER',
-                    'format': 'TEXT',
-                    'text': headertext
+                    'format': 'IMAGE',
+                    'example': exampleData
+                });
+            }
+            if (headertype == 'VIDEO' && headerfile != '') {
+                var exampleData = {
+                    "header_handle": [
+                        { 'link': headerfile }
+                    ]
+                };
+                templateArray.components.push({
+                    'type': 'HEADER',
+                    'format': 'VIDEO',
+                    'example': exampleData
+                });
+            }
+            if (headertype == 'DOCUMENT' && headerfile != '') {
+                var exampleData = {
+                    "header_handle": [
+                        { 'link': headerfile }
+                    ]
+                };
+                templateArray.components.push({
+                    'type': 'HEADER',
+                    'format': 'DOCUMENT',
+                    'example': exampleData
                 });
             }
         }
-        if (headertype == 'IMAGE' && headerfile != '') {
-            var exampleData = {
-                "header_handle": [
-                    {'link': headerfile}
-                ]
-            };
-            templateArray.components.push({
-                'type': 'HEADER',
-                'format': 'IMAGE',
-                'example': exampleData
-            });
-        }
-        if (headertype == 'VIDEO' && headerfile != '') {
-            var exampleData = {
-                "header_handle": [
-                    {'link': headerfile}
-                ]
-            };
-            templateArray.components.push({
-                'type': 'HEADER',
-                'format': 'VIDEO',
-                'example': exampleData
-            });
-        }
-        if (headertype == 'DOCUMENT' && headerfile != '') {
-            var exampleData = {
-                "header_handle": [
-                    {'link': headerfile}
-                ]
-            };
-            templateArray.components.push({
-                'type': 'HEADER',
-                'format': 'DOCUMENT',
-                'example': exampleData
-            });
-        }
-    }
 
-    if (body) {
-        templateArray.components.push({
-            'type': 'BODY',
-            'text': body
+        if (body) {
+            templateArray.components.push({
+                'type': 'BODY',
+                'text': body
+            });
+        }
+
+        if (footer) {
+            templateArray.components.push({
+                'type': 'FOOTER',
+                'text': footer
+            });
+        }
+
+        if(QuickArray.length > 0){
+            templateArray.components.push({
+                'type': 'BUTTONS',
+                'buttons': QuickArray
+            });
+            // console.log(QuickArray);
+        }
+        
+
+        var jsonString = JSON.stringify(templateArray);
+        // console.log(jsonString);
+          $.ajax({
+            method: "post",
+            url: "<?= site_url('SendWhatsAppTemplate'); ?>",
+            data: {
+                jsonString: jsonString,
+            },
+            success: function (data) {
+                if (data == '0') {
+                    iziToast.error({
+                        title: "Failed to add template"
+                    });
+                } else {
+                    iziToast.success({
+                        title: "Added Successfully"
+                    });
+                }
+                $(".close_btn").trigger("click");
+                list_data();
+            }
         });
-    }
-
-    if (footer) {
-        templateArray.components.push({
-            'type': 'FOOTER',
-            'text': footer
-        });
-    }
-
-
-
-
-    var jsonString = JSON.stringify(templateArray);
-    // console.log(jsonString);
-});
+    });
 
 
 
