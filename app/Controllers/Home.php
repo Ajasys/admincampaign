@@ -798,6 +798,10 @@ class Home extends BaseController
     {
         return view('competitormasters');
     }
+    public function email_connection()
+    {
+        return view('email_connection');
+    }
     public function peoplelist()
     {
         if (in_array('peopleinformation', $this->get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
