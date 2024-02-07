@@ -28,6 +28,11 @@ class Home extends BaseController
         return view('whatapp' , $data);
 
 
+}
+    // ======phone-number-page======
+    public function phone_number()
+    {
+        return view('phone_number');
     }
     public function emailsend()
     {
