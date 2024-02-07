@@ -931,7 +931,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
 
 
                                 <!--Question-->
-                                <!-- <div class="col-12 d-flex flex-wrap px-2">
+                                <div class="col-12 d-flex flex-wrap px-2">
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
                                         <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-1" type="checkbox" role="switch" id="Question-1">
                                         <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
@@ -948,7 +948,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid answer" placeholder="Enter Error Message">
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
 
 
                                 <!--Single Choice-->
