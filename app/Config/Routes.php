@@ -84,6 +84,7 @@ $routes->get('email_track', 'Home::email_track');
 $routes->post('show_data_email', 'Templates_Controller::show_data_email');
 $routes->get('email_history_show', 'Home::email_history_show');
 $routes->post('fetch_email_track_data', 'Templates_Controller::fetch_email_track_data');
+$routes->post('/allinqsmssend', 'Templates_Controller::allinq_sms_send');
 
 
 $routes->get('/alert_setting', 'Home::alert_setting');

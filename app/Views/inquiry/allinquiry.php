@@ -5,6 +5,8 @@
 } else {
 	$get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
 }
+$admin_emailtemplate = json_decode($admin_emailtemplate, true);
+
 $this->db = \Config\Database::connect('second');
 ?>
 <style type="text/css">
@@ -414,6 +416,12 @@ $username = session_username($_SESSION['username']);
 								<span class="btn-primary-rounded">
 									<i class="bi bi-trash3 fs-14"></i>
 								</span>
+								
+							</div>
+							<div class="deleted-all2">
+							<button class="btn-primary-rounded" data-bs-toggle="modal" data-bs-target="#sms_send">
+									<i class="bi bi-chat-right-dots d-flex fs-14"></i>
+								</button>
 							</div>
 						<?php } ?>
 						<?php if (!isset($_REQUEST['followup'])) { ?>
@@ -690,12 +698,12 @@ $username = session_username($_SESSION['username']);
 									<option class="dropdown-item" value="">Assign To</option>
 									<?php if (!empty($user_full_data)) {
 										foreach ($user_full_data as $key => $user_valuess) {
-											if ($user_valuess['switcher_active'] == 'active') {?>
-													<option class="dropdown-item" data-sourcetype_name="employee" value="<?php echo $user_valuess['id']; ?>"><?php echo $user_valuess['firstname']; ?></option>
+											if ($user_valuess['switcher_active'] == 'active') { ?>
+												<option class="dropdown-item" data-sourcetype_name="employee" value="<?php echo $user_valuess['id']; ?>"><?php echo $user_valuess['firstname']; ?></option>
 
-											<?php }
+									<?php }
 										}
-									}?>
+									} ?>
 
 								</select>
 							</div>
@@ -1589,7 +1597,7 @@ $username = session_username($_SESSION['username']);
 						<option class="dropdown-item" value="">Inq Source To</option>
 						<?php if (!empty($master_inquiry_source)) {
 							foreach ($master_inquiry_source as $key => $user_valuess) { ?>
-									<option class="dropdown-item" data-sourcetype_name="employee" value="<?php echo $user_valuess['id']; ?>"><?php echo $user_valuess['source']; ?></option>
+								<option class="dropdown-item" data-sourcetype_name="employee" value="<?php echo $user_valuess['id']; ?>"><?php echo $user_valuess['source']; ?></option>
 						<?php
 							}
 						}
@@ -2064,6 +2072,76 @@ $username = session_username($_SESSION['username']);
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="sms_send" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<form action="post" class="w-100" name="sms_send_form">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title">Templates</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul class="nav nav-pills navtab_primary_sm mb-2" id="pills-tab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link btn nav_btn" data-sms_check_id="3" id="customer_alert_tab" data-bs-toggle="pill" data-bs-target="#customer_alert" data-table="emailtemplate" type="button" role="tab" aria-controls="customer_alert" aria-selected="false" tabindex="-1">Email </button>
+						</li>
+					</ul>
+					<div class="tab-content p-0" id="pills-tabContentS">
+						<!-- <div class="tab-pane fade show active -whatapp" id="user_alert" role="tabpanel" aria-labelledby="user_alert_tab" tabindex="0">
+							<h6 class="mt-3 mb-2 fs-6">Whatsapp Template</h6>
+							<div class="main-selectpicker">
+								<select class="selectpicker form-control form-main main-control" name="whatsapp_template" id="whatsapp_template" data-live-search="true" tabindex="-98">
+									<option value="">Select Tamplete</option>
+									<?php
+									if (isset($leadmgt_whatsapp_template)) {
+										foreach ($leadmgt_whatsapp_template as $area_key => $type_value) {
+											echo '<option value="' . $type_value["id"] . '">' . '  ' . $type_value["title"] . '</option>';
+										}
+									}
+									?>
+								</select>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="inquiry_alert" role="tabpanel" aria-labelledby="inquiry_alert_tab" tabindex="0">
+							<h6 class="mt-3 mb-2 fs-6">SMS Template</h6>
+							<div class="main-selectpicker">
+								<select class="selectpicker form-control form-main main-control" name="sms_template" id="sms_template" data-live-search="true" tabindex="-98">
+									<option value="">Select Tamplete</option>
+									<?php
+									if (isset($leadmgt_smstemplate)) {
+										foreach ($leadmgt_smstemplate as $area_key => $type_value) {
+											echo '<option value="' . $type_value["id"] . '">' . '  ' . $type_value["title"] . '</option>';
+										}
+									}
+									?>
+								</select>
+							</div>
+						</div> -->
+						<div class="tab-pane fade show active" id="customer_alert" role="tabpanel" aria-labelledby="customer_alert_tab" tabindex="0">
+							<h6 class="mt-3 mb-2 fs-6">Email Template</h6>
+							<div class="main-selectpicker">
+								<select class="selectpicker form-control form-main main-control" name="email_template" id="email_template" data-live-search="true" tabindex="-98">
+									<option value="">Select Tamplete</option>
+									<?php
+									if (isset($admin_emailtemplate)) {
+										foreach ($admin_emailtemplate as $area_key => $type_value) {
+											echo '<option value="' . $type_value["id"] . '">' . '  ' . $type_value["title"] . '</option>';
+										}
+									}
+									?>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary message_send_customer">Send</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.1/jquery.twbsPagination.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
@@ -2184,6 +2262,65 @@ $username = session_username($_SESSION['username']);
 			clearText: 'clear',
 		});
 	}
+	$("body").on('click', '.message_send_customer', function(e) {
+		event.preventDefault();
+		var checkbox = $('.table_list_check:checked');
+		var checkbox_value = [];
+		$(checkbox).each(function() {
+			checkbox_value.push($(this).attr("data-sms_id"));
+		});
+		console.log(checkbox_value);
+		// var tab_sms_id = $("#sms_send #pills-tab .nav-link.active").attr("data-sms_check_id");
+		var sms_template = $("#sms_send #sms_template").val();
+		var email_template = $("#sms_send #email_template").val();
+		var whatsapp_template = $("#sms_send #whatsapp_template").val();
+
+		var form = $("form[name='sms_send_form']")[0];
+		var formdata = new FormData(form);
+		formdata.append('customer_id', checkbox_value);
+		// formdata.append('tab_sms_id', tab_sms_id);
+
+
+
+
+		$.ajax({
+			method: "post",
+			url: "<?= site_url('allinqsmssend'); ?>",
+			data: formdata,
+			processData: false,
+			contentType: false,
+			success: function(res) {
+				var response = JSON.parse(res);
+
+				// alert("sucess");
+				$('.loader').hide();
+				//   $('.selectpicker').selectpicker('refresh');
+				//   $('form[name="product_purchase_form"]')[0].reset();
+				//   $("form[name='product_purchase_form']").removeClass("was-validated");
+				//   $(".modal-close-btn").trigger("click");
+				//   list_data();
+				//   $('.selectpicker').selectpicker('refresh');
+				//   iziToast.success({
+				//      title: response.message
+				//   });
+				//   var pdfUrl = $(this).attr('href');
+
+				//   var pathWithQuotes = '' + response.file_name + '';
+				//   var path = pathWithQuotes.replace(/"/g, '');
+
+
+				//   setTimeout(() => {
+				//      window.open(path, '_blank');
+				//   }, 1500);
+				// var pdfUrl = $(this).attr('href');
+				// setTimeout(() => {
+				//     window.open(response.file_name, '_blank');
+				// }, 1500);
+
+
+			},
+		});
+	});
 	$('body').on('click', '.generate_pdf_button', function() {
 		var edit_id = $(this).attr('data_table_id');
 		var discount_amount = $('.discount_quatation').val();

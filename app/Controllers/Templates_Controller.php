@@ -16,7 +16,57 @@ class Templates_Controller extends BaseController
             $this->admin = 1;
         }
     }
+	public function allinq_sms_send()
+	{
+		$db = \Config\Database::connect('second');
+		$customer_id = $_POST['customer_id'];
+		$customer_id_array = explode(",", $customer_id);
 
+		if (isset($_POST['email_template']) && !empty($_POST['email_template'])) {
+			$email_template = $_POST['email_template'];
+			$email_template_send = $db->query("SELECT * FROM " . $this->username . "_emailtemplate WHERE id =" . $email_template);
+			$get_data_email = $email_template_send->getResult();
+
+			if (isset($get_data_email[0])) {
+				$email_data_template = get_object_vars($get_data_email[0]);
+				$subject = $email_data_template['title'];
+				$var_message = $email_data_template['template'];
+
+				$attachment = $email_data_template['attachment'];
+			} else {
+				$email_data_template = array();
+			}
+		} else {
+			$email_data_template = array();
+		}
+
+		$cat = $db->query("SELECT * FROM master_user WHERE id =" . $_SESSION['master']);
+		$result = $cat->getResult();
+		if (isset($result[0])) {
+			$settings_data = get_object_vars($result[0]);
+		} else {
+			$settings_data = array();
+		}
+		$masterId = $settings_data['id'];
+		foreach ($customer_id_array as $key => $value) {
+			$inq_id = $customer_id_array[$key];
+			$data = inquiry_id_to_full_inquiry_data($inq_id);
+			$full_name = $data['full_name'];
+			$dob = $data['dob'];
+			$anni_date = $data['anni_date'];
+			$mobileno = $data['mobileno'];
+			$email = $data['email'];
+			// Replace placeholders in the template
+			$var_message = str_replace("{{Enquirer Full Name}}", $full_name, $var_message);
+			$var_message = str_replace("{{Enquirer Mobile Number}}", $mobileno, $var_message);
+			$var_message = str_replace("{{Enquirer Date of Birth}}", $dob, $var_message);
+			$var_message = str_replace("{{Enquirer Anniversary Date}}", $anni_date, $var_message);
+			$var_message = str_replace("{{Enquirer Email}}", $email, $var_message);
+
+			$mail_send = SendMail($email, $subject, $var_message, $attachment, '');
+	
+		}
+	}
 	public function template()
 	{
 		$table_name = $this->username.'_all_inquiry';
