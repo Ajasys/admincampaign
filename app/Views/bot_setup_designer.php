@@ -60,6 +60,14 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
     .media-upload-box {
         border: 2px dotted black;
     }
+
+    .second-add {
+        display: block !important;
+    }
+
+    .second-remove {
+        display: none !important;
+    }
 </style>
 
 
@@ -1152,7 +1160,6 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                     </div>
                                 </div> -->
 
-
                                 <!--Single Choice-->
                                 <!-- <div class="col-12 d-flex flex-wrap single-choice">
                                     <div class="col-12 d-flex flex-wrap">
@@ -1692,7 +1699,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 </div> -->
 
                                 <!--Forms-->
-                                <div class="col-12 d-flex flex-wrap single-choice">
+                                <!-- <div class="col-12 d-flex flex-wrap Forms-choice">
                                     <div class="col-12 d-flex flex-wrap">
                                         <div class="col-12 d-flex justify-content-center">
                                             <label class="form-check-label d-flex align-items-center single-choice-show-options fw-semibold">Ask users to submit a form</label>
@@ -1713,38 +1720,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                                     <th scope="col" class="fs-12 fw-medium"></th>
                                                 </tr>
                                             </thead>
-                                            <!-- <tr class="col-12">
-                                                    <td class="col">
-                                                        <select class="form-select form-select-sm form-select-picker" aria-label="Default select example">
-                                                            <option value="Question" selected>Question</option>
-                                                            <option value="Dropdown">Dropdown</option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="col">
-                                                        <input type="text" class="form-control form-control-sm fw-medium form-qa-text" id="" placeholder="Question Text" value="">
-                                                    </td>
-                                                    <td class="col">
-                                                        <div class="form-check form-switch mx-2 form-required">
-                                                            <input class="form-check-input " type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col">
-                                                        <input type="text" class="form-control form-control-sm fw-medium form-regex" id="" placeholder="Regex" value="">
-                                                    </td>
-                                                    <td class="col">
-                                                        <div class="form-floating">
-                                                            <textarea class="form-control fs-12 fw-medium" placeholder="Description form-detail" id=""></textarea>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col">
-                                                        <button type="button" class="btn btn-danger form-remove-btn">D</button>
-                                                    </td>
-                                                </tr> -->
                                             <tbody class="form-table-body">
-
-                                                
-
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -1753,7 +1729,395 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <button type="button" class="btn btn-outline-dark form-add-tabal">Add</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+
+                                <!--Corousel-->
+                                <!-- <div class="col-12 d-flex flex-wrap Corousel-choice">
+                                    <div class="col-12 d-flex flex-wrap my-3">
+                                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-4 m-2">
+                                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Corousel-1" type="checkbox" role="switch" id="Corousel-1">
+                                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Corousel-1" for="Corousel-1">Do Not Auto Slide</label>
+                                        </div>
+                                        <div class="col-4 d-flex flex-wrap align-items-center corousel-sec-input d-none">
+                                            <span>Delay (sec)</span>
+                                            <span class="col-3 mx-2"><input type="number" class="form-control" id="" value="1"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex flex-wrap my-3">
+                                        <table class="table w-100 col-12">
+                                            <thead>
+                                                <tr class="Corousel-table-head">
+                                                    <th scope="col" class="fs-12 fw-medium">Options</th>
+                                                    <th scope="col" class="fs-12 fw-medium">Questions</th>
+                                                    <th scope="col" class="fs-12 fw-medium">Required</th>
+                                                    <th scope="col" class="fs-12 fw-medium">File</th>
+                                                    <th scope="col" class="fs-12 fw-medium"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="Corousel-table-body">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-outline-dark Corousel-add-tabal">Add</button>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <!--Appointment Booking-->
+                                <!-- <div class="col-12 d-flex flex-wrap">
+                                    <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
+                                        <div class="col-1">
+                                            <span><b>NOTE:</b></span>
+                                        </div>
+                                        <div class="col-11">
+                                            <span>Please note that the below conditions are an intersection of each other.</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex flex-wrap border justify-content-center rounded-3 my-2 p-2">
+                                        <div class="col-12 text-center my-1">
+                                            <span><b>Google Calendar</b></span>
+                                        </div>
+                                        <div class="col-6 d-flex flex-wrap justify-content-center">
+                                            <div class="input-group col-4">
+                                                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex flex-wrap p-3 px-5 my-2 border rounded-3">
+                                        <div class="form-check form-check-inline col">
+                                            <input class="form-check-input fw-bold" type="checkbox" id="" value="MON" checked>
+                                            <label class="form-check-label fw-semibold" for="">MON</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col">
+                                            <input class="form-check-input fw-bold" type="checkbox" id="" value="TUE" checked>
+                                            <label class="form-check-label fw-semibold" for="">TUE</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col">
+                                            <input class="form-check-input fw-bold" type="checkbox" id="" value="WED" checked>
+                                            <label class="form-check-label fw-semibold" for="">WED</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col">
+                                            <input class="form-check-input fw-bold" type="checkbox" id="" value="THU" checked>
+                                            <label class="form-check-label fw-semibold" for="">THU</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col">
+                                            <input class="form-check-input fw-bold" type="checkbox" id="" value="FRI" checked>
+                                            <label class="form-check-label fw-semibold" for="">FRI</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col">
+                                            <input class="form-check-input fw-bold" type="checkbox" id="" value="SAT" checked>
+                                            <label class="form-check-label fw-semibold" for="">SAT</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col">
+                                            <input class="form-check-input fw-bold" type="checkbox" id="" value="SUN" checked>
+                                            <label class="form-check-label fw-semibold" for="">SUN</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                                        <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label">Disable Next (Days)</label>
+                                                    <input type="number" class="form-control" id="" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label">End Date :</label>
+                                                    <input type="number" class="form-control" id="" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label">Enable Future (Days)</label>
+                                                    <input type="number" class="form-control" id="" placeholder="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap align-items-center justify-content-between my-1">
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label">Disable Next (Days)</label>
+                                                    <input type="number" class="form-control" id="" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-7 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                                                    <input class="form-check-input fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Appointment-1 col-1" type="checkbox" role="switch" id="Appointment-1">
+                                                    <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Appointment-1 col" for="Appointment-1">Enable Timezone Selection</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                                        <div class="col-12 d-flex flex-wrap align-items-center">
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label">Slot Timings :</label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Open this select menu</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label"></label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Open this select menu</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label">Timezone</label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Open this select menu</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap align-items-center">
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label">Slot Interval <span class="text-denger">*</span>(Mins) :</label>
+                                                    <input type="number" class="form-control" id="" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label">Format</label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Open this select menu</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label">Meetings per slot </label>
+                                                    <input type="number" class="form-control" id="" placeholder="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                                        <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                            <div class="col-12">
+                                                <label for="" class="form-label">Data Referencing (You can use it only for Title) </label>
+                                            </div>
+                                            <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Main Flow</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-8 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Open this select menu</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                                        <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                            <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label fw-medium">Title <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="" placeholder="Title">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label fw-medium">Description </label>
+                                                    <input type="text" class="form-control" id="" placeholder="Description">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label fw-medium">Meeting Location<span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="" placeholder="Meeting Location">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label fw-medium">Message to show when selected slot is already booked </label>
+                                                    <input type="text" class="form-control" id="" placeholder="Text to show when selected slot is already booked">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label fw-medium">Message to show when slots are unavailable </label>
+                                                    <input type="text" class="form-control" id="" placeholder="Text to show when slots are unavailable">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <!--url redirect-->
+                                <!-- <div class="col-12 d-flex flex-warp">
+                                    <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                                        <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                            <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label fw-medium">Enter your URL <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="" placeholder="your URL">
+                                                </div>
+                                            </div>
+                                            <div class="col-6 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label fw-medium">Open In </label>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected>Same Tab</option>
+                                                        <option value="1">New Tab</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 p-2 d-flex flex-wrap align-items-center">
+                                                <div class="col-12">
+                                                    <label for="" class="form-label fw-medium">Delay </label>
+                                                    <input type="number" class="form-control" id="" placeholder="" value="0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <!--proudect carousel-->
+                                <!-- <div class="col-12 d-flex flex-wrap">
+                                    <div class="col-12 d-flex flex-wrap my-3">
+                                        <div class="d-flex flex-wrap align-items-center col-4 m-2">
+                                            <div class="d-flex align-items-center ">
+                                                <label class="switch_toggle_primary">
+                                                    <input class="toggle-checkbox proudect-1" type="checkbox" id="proudect-1">
+                                                    <span class="check_input_primary round"></span>
+                                                </label>
+                                                <p class="mx-2 fw-medium proudect-1">Do Not Auto Slide</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 d-flex flex-wrap  align-items-center proudect-corousel-sec-input second-remove">
+                                            <span class="col">Delay (sec)</span>
+                                            <span class="col mx-2"><input type="number" class="form-control" id="" value="1"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex flex-wrap my-3">
+                                        <div class="proudect-table-body">
+                                            <div class="d-flex flex-wrap col-12 w-100 proudect-table-row">
+                                                <div class="proudect-table-1 col-12 w-100 ">
+                                                    <table class="table w-100 col-12 proudect-table-upper">
+                                                        <tbody class="proudect-table-upper-body">
+                                                            <tr>
+                                                                <td class="proudect-table-1 col-2">
+                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
+                                                                        <div class="col-12">
+                                                                            <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label>
+                                                                            <select class="form-select" aria-label="Default select example">
+                                                                                <option value="1">Image</option>
+                                                                                <option value="2">Video</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="proudect-table-1 col">
+                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
+                                                                        <div class="col-12">
+                                                                            <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label>
+                                                                            <input type="text" class="form-control" id="" placeholder="your URL">
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="proudect-table-1 col">
+                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
+                                                                        <div class="col-12">
+                                                                            <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label>
+                                                                            <input type="text" class="form-control" id="" placeholder="your URL">
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="proudect-table-1 col-2">
+                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
+                                                                        <div class="col-12">
+                                                                            <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label>
+                                                                            <input class="form-control Corousel-file" type="file" id="formFile">
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="proudect-table-1 col-12 w-100">
+                                                    <table class="table w-100 col-12 proudect-table-lower">
+                                                        <tbody class="proudect-table-lower-body">
+                                                            <tr>
+                                                                <td class="proudect-table-1 col-4">
+                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
+                                                                        <div class="col-12 d-flex flex-wrap align-items-center">
+                                                                            <div class="col-12">
+                                                                                <label for="" class="form-label fw-medium">Description</label>
+                                                                                <input type="text" class="form-control" id="" placeholder="Description">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="proudect-table-1 col-2">
+                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
+                                                                        <div class="col-12">
+                                                                            <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label>
+                                                                            <input type="text" class="form-control" id="" placeholder="your URL">
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="proudect-table-1 col">
+                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
+                                                                        <div class="col-12">
+                                                                            <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label>
+                                                                            <input type="text" class="form-control" id="" placeholder="your URL">
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="proudect-table-1 col-2">
+                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
+                                                                        <div class="col-12">
+                                                                            <label for="" class="form-label fw-medium col-12">Remove</label>
+                                                                            <button type="button" class="btn btn-danger multiple-remove-btn ">D</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="col-2">
+                                            <button type="button" class="btn btn-outline-dark proudect-add-tabal">Add</button>
+                                        </div>
+                                    </div>
+                                </div> -->
 
 
                             </div>
@@ -2088,12 +2452,34 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
             }
         });
 
+        //Appointment
+        $('#Appointment-1').change(function() {
+            if ($(this).prop('checked')) {
+                $('.Appointment-1').text('Enable Timezone Selection');
+            } else {
+                $('.Appointment-1').text('Enable Timezone Selection');
+            }
+        });
+
+        //proudect
+        $('#proudect-1').change(function() {
+            if ($(this).prop('checked')) {
+                $('.proudect-1').text('Auto Slide');
+                $('.proudect-corousel-sec-input').removeClass('second-remove');
+                $('.proudect-corousel-sec-input').addClass('second-add');
+            } else {
+                $('.proudect-1').text('Do Not Auto Slide');
+                $('.proudect-corousel-sec-input').removeClass('second-add');
+                $('.proudect-corousel-sec-input').addClass('second-remove');
+            }
+        });
+
 
 
         //Single Choile Table Row Add
 
         function table_html() {
-            var main_table_html = '<tr class="col-12"><td class="col-3"><input type="text" class="form-control row-option-value" id="" placeholder="" value="option1"></td><td class="col-3">    <select class="form-select" aria-label="Default select example">        <option value="1">Main-flow</option>    </select></td><td class="col-4">    <select class="form-select" aria-label="Default select example">        <option selected>No Jump</option>        <option value="1">One</option>        <option value="2">Two</option>        <option value="3">Three</option>    </select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn">D</button></td></tr>';
+            var main_table_html = '<tr class="d-flex flex-wrap col-12 w-100><td class="col-3"><input type="text" class="form-control row-option-value" id="" placeholder="" value="option1"></td><td class="col-3">    <select class="form-select" aria-label="Default select example">        <option value="1">Main-flow</option>    </select></td><td class="col-4">    <select class="form-select" aria-label="Default select example">        <option selected>No Jump</option>        <option value="1">One</option>        <option value="2">Two</option>        <option value="3">Three</option>    </select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn">D</button></td></tr>';
             $(".tbody").append(main_table_html);
         }
 
@@ -2166,92 +2552,110 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         });
 
 
-        //Form
 
-        // function form_table_row() {
-        //     var form_table_row = '<tr class="col-12">   <td class="col">       <select class="form-select form-select-sm form-select-picker" aria-label="Default select example">           <option value="Question" selected>Question</option>           <option value="Dropdown">Dropdown</option>       </select>   </td>   <td class="col">       <input type="text" class="form-control form-control-sm fw-medium form-qa-text" id="" placeholder="Question Text" value=""> </td>  <td class="col">      <div class="form-check form-switch mx-2 form-required">         <input class="form-check-input " type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>     </div> </td>  <td class="col">      <input type="text" class="form-control form-control-sm fw-medium form-regex" id="" placeholder="Regex" value="">  </td>  <td class="col">       <div class="form-floating">          <textarea class="form-control fs-12 fw-medium" placeholder="Description form-detail" id=""></textarea>      </div>   </td>   <td class="col">       <button type="button" class="btn btn-danger form-remove-btn">D</button>   </td></tr>';
-        //     $(".form-table-body").append(form_table_row);
-        // }
-
-        // form_table_row();
-
-        // $('body').on('click', '.form-add-tabal', function() {
-        //     form_table_row();
-        // });
-
-        // $('body').on('click', '.form-remove-btn', function() {
-
-        //     $(this).closest('tr').remove();
-
-        // });
-
-        // $('body').on('change', '.form-select-picker', function() {
-
-        //     form_value_change($(this).closest('tr'));
-
-            
-
-        // });
-
-        // function form_value_change (row){
-
-        //     // var form_value = $('.form-select-picker').val();
-
-        //     var form_value = (row.find(".form-select-picker").val());;
-
-        //     console.log(form_value);
-
-            
-        // if (form_value == "Dropdown") {
-
-        //   console.log("this is right value");
-
-        //   $('.form-regex').hide();
-
-        // }
-
-        // if (form_value == "Question") {
-
-        //   console.log("this is right okey value");
-
-        //   $('.form-regex').show();
-
-        // }
-
-        // }
-
-
+        //forms
         function form_table_row() {
-    var form_table_row = '<tr class="col-12">   <td class="col">       <select class="form-select form-select-sm form-select-picker" aria-label="Default select example">           <option value="Question" selected>Question</option>           <option value="Dropdown">Dropdown</option>       </select>   </td>   <td class="col">       <input type="text" class="form-control form-control-sm fw-medium form-qa-text" id="" placeholder="Question Text" value=""> </td>  <td class="col">      <div class="form-check form-switch mx-2 form-required">         <input class="form-check-input " type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>     </div> </td>  <td class="col">      <input type="text" class="form-control form-control-sm fw-medium form-regex" id="" placeholder="Regex" value="">  </td>  <td class="col">       <div class="form-floating">          <textarea class="form-control fs-12 fw-medium form-detail" placeholder="Description form-detail" id=""></textarea>      </div>   </td>   <td class="col">       <button type="button" class="btn btn-danger form-remove-btn">D</button>   </td></tr>';
-    $(".form-table-body").append(form_table_row);
-}
+            var form_table_row = '<tr class="col-12">   <td class="col">       <select class="form-select form-select-sm form-select-picker" aria-label="Default select example">           <option value="Question" selected>Question</option>           <option value="Dropdown">Dropdown</option>       </select>   </td>   <td class="col">       <input type="text" class="form-control form-control-sm fw-medium form-qa-text" id="" placeholder="Question Text" value=""> </td>  <td class="col">      <div class="form-check form-switch mx-2 form-required">         <input class="form-check-input " type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>     </div> </td>  <td class="col">      <input type="text" class="form-control form-control-sm fw-medium form-regex" id="" placeholder="Regex" value="">  </td>  <td class="col">       <div class="form-floating">          <textarea class="form-control fs-12 fw-medium form-detail" placeholder="Description form-detail" id=""></textarea>      </div>   </td>   <td class="col">       <button type="button" class="btn btn-danger form-remove-btn">D</button>   </td></tr>';
+            $(".form-table-body").append(form_table_row);
+        }
 
-form_table_row();
+        form_table_row();
 
-$('body').on('click', '.form-add-tabal', function() {
-    form_table_row();
-});
+        $('body').on('click', '.form-add-tabal', function() {
+            form_table_row();
+        });
 
-$('body').on('click', '.form-remove-btn', function() {
-    $(this).closest('tr').hide();
-});
+        $('body').on('click', '.form-remove-btn', function() {
+            $(this).closest('tr').hide();
+        });
 
-$('body').on('change', '.form-select-picker', function() {
-    form_value_change($(this).closest('tr'));
-});
+        $('body').on('change', '.form-select-picker', function() {
+            form_value_change($(this).closest('tr'));
+        });
 
-function form_value_change(row) {
-    var form_value = row.find(".form-select-picker").val();
-    console.log(form_value);
-    
-    if (form_value == "Dropdown") {
-        console.log("this is right value");
-        row.find('.form-regex').closest('td').hide();
-    } else if (form_value == "Question") {
-        console.log("this is right okey value");
-        row.find('.form-regex').closest('td').show();
-    }
-}
+        function form_value_change(row) {
+            var form_value = row.find(".form-select-picker").val();
+            if (form_value == "Dropdown") {
+                row.find('.form-regex').closest('td').children('input').attr('disabled', true);
+
+            } else if (form_value == "Question") {
+                row.find('.form-regex').closest('td').children('input').attr('disabled', false);
+            }
+        }
+
+        //Corousel
+        function Corousel_table_row() {
+            var Corousel_table_row = '<tr class="col-12 "><td class="col"><input type="text" class="form-control form-control-sm fw-medium Corousel-qa-text" id="" placeholder="Question Text" value=""></td><td class="col"><select class="form-select form-select-sm Corousel-select-picker" aria-label="Default select example"><option value="Main_Flow" selected>Main Flow</option></select></td><td class="col"><select class="form-select form-select-sm Corousel-select-picker" aria-label="Default select example"><option value="" selected>No Jumpe</option><option value="">one</option><option value="">two</option><option value="">three</option></select></td><td class="col-2"><div class="col"><input class="form-control form-control-sm Corousel-file" type="file" id="formFile"></div></td><td class="col"><button type="button" class="btn btn-danger btn-sm Corousel-remove-btn">D</button></td></tr>';
+            $(".Corousel-table-body").append(Corousel_table_row);
+        }
+
+        Corousel_table_row();
+
+        $('body').on('click', '.Corousel-add-tabal', function() {
+            Corousel_table_row();
+        });
+
+        $('body').on('click', '.Corousel-remove-btn', function() {
+            $(this).closest('tr').hide();
+        });
+
+        $('body').on('change', '.Corousel-select-picker', function() {
+            Corousel_value_change($(this).closest('tr'));
+        });
+
+        function Corousel_value_change(row) {
+
+            var Corousel_value = row.find(".Corousel-select-picker").val();
+            if (form_value == "Dropdown") {
+                row.find('.form-regex').closest('td').children('input').attr('disabled', true);
+
+            } else if (form_value == "Question") {
+                row.find('.form-regex').closest('td').children('input').attr('disabled', false);
+            }
+        }
+
+
+        //Corousel-1
+        $('#Corousel-1').change(function() {
+            if ($(this).prop('checked')) {
+                $('.Corousel-1').text('Auto Slide');
+                $('.corousel-sec-input').attr('class', 'd-block');
+            } else {
+                $('.Corousel-1').text('Do Not Auto Slide');
+            }
+        });
+
+
+        //proudect 
+
+        function proudect_table_row() {
+            var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control Corousel-file" type="file" id="formFile"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class="btn btn-danger multiple-remove-btn ">D</button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
+            $(".proudect-table-body").append(proudect_table_row);
+        }
+
+        proudect_table_row();
+
+        $('body').on('click', '.proudect-add-tabal', function() {
+            proudect_table_row();
+        });
+
+        $('body').on('click', '.proudect-remove-btn', function() {
+            $(this).closest('tr').hide();
+        });
+
+        $('body').on('change', '.form-select-picker', function() {
+            form_value_change($(this).closest('tr'));
+        });
+
+        function form_value_change(row) {
+            var form_value = row.find(".form-select-picker").val();
+            if (form_value == "Dropdown") {
+                row.find('.form-regex').closest('td').children('input').attr('disabled', true);
+
+            } else if (form_value == "Question") {
+                row.find('.form-regex').closest('td').children('input').attr('disabled', false);
+            }
+        }
 
 
 

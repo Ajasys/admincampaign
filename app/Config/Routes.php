@@ -61,6 +61,7 @@ $routes->post('exercise_view', 'MasterInformation::view_data2');
 $routes->post('ExerciseViewData', 'GymMasterController::ExerciseViewData');
 $routes->post('excercise_insert_data_master', 'GymMasterController::excercise_insert_data_master');
 $routes->post('excercise_update_data_master', 'GymMasterController::excercise_update_data_master');
+$routes->get('/bot_setup_designer', 'Home::bot_setup_designer');
 
 // all-diet
 $routes->get('/alldiet', 'Home::alldiet');
