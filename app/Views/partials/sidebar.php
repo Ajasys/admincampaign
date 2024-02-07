@@ -424,7 +424,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                </li> -->
             <li class="main-drop ">
 
-               <a class="drop_icon d-flex align-items-center py-2 justify-content-center" href="javascript:void(0)"
+               <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)"
                   data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Social Campaign">
 
                   <span class="drop_icon_main  ">
@@ -439,7 +439,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                            </g>
                         </svg>
                      </i>
-
                   </span>
 
                   <span class="link_name">Social Campaign</span>
@@ -447,6 +446,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                   <i class="bx bxs-chevron-down arrow ms-auto"></i>
 
                </a>
+           
 
                <div class="drop_down " style="">
 
