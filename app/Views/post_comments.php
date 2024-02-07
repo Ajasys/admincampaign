@@ -1,10 +1,9 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
-<?php $table_username = getMasterUsername(); ?>
+
 
 <style>
-    textarea:focus {
+     /* textarea:focus {
         outline: none;
     }
 
@@ -16,8 +15,9 @@
 
     li.active {
         border-color: #724ebf;
-    }
+    } */
 </style>
+
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2">
@@ -27,8 +27,7 @@
             </div>
             <div class="col-12 d-flex flex-wrap ">
                 <div class="col-3 p-2">
-                    <div
-                        class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between h-100">
+                    <div class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between h-100">
                         <div class="input-group mb-3 col-6">
                             <input type="text" class="form-control" placeholder="Recipient's username"
                                 aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -79,6 +78,8 @@
                                                     href="#">Offer</a>
                                             </li>
                                         </ul>
+
+                                        </form>
                                 </nav>
                                 <div class="col-12">
                                     <div class="tab-content active show" id="pills-tabContent">
@@ -207,7 +208,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        </form>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -218,9 +219,6 @@
         </div>
     </div>
 </div>
-
-
-<!-- modal-section-->
 <div class="modal fade" id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog"
     data-bs-backdrop="static">
     <div class="modal-dialog modal-lg">
@@ -254,7 +252,12 @@
     </div>
 </div>
 
-<script>
+
+<!-- Modal -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
+    <script>
 
 
     $('#event_end').bootstrapMaterialDatePicker({
@@ -436,6 +439,6 @@
         $("#select-box").hide();
     });
 </script>
-
-
-<?= $this->include('partials/footer') ?>
+    
+    <?= $this->include('partials/footer') ?>
+    <?= $this->include('partials/vendor-scripts') ?>
