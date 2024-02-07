@@ -618,9 +618,11 @@ class Bot_Controller extends BaseController
 		$bot_id = $_POST['bot_id'];
 		$botdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
 		$botdisplaydata = json_decode($botdisplaydata, true);
-		$i = 1;
 		$html = "";
 
+		usort($botdisplaydata, function($a, $b) {
+			return $a['sequence'] <=> $b['sequence'];
+		});
 
 		foreach ($botdisplaydata as $key => $value) {
 			if($value['bot_id'] == $bot_id){
@@ -726,7 +728,7 @@ class Bot_Controller extends BaseController
 								}
 								
 							$html .= '
-								<p class="fw-semibold d-inline block mx-2 cursor-pointer">' . $value['question'] . '</p>
+								<p class="fw-semibold d-inline block mx-2 cursor-pointer sequence" data-id='.$value['id'].' data-sequence='.$value['sequence'].'>' . $value['question'] . '</p>
 							</label>
 						</div>
 						<div class="col-2 d-flex flex-wrap align-items-center">
