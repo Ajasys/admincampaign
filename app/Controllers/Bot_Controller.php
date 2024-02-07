@@ -558,6 +558,18 @@ class Bot_Controller extends BaseController
 	}
 
 
+	//edit question 
+	public function bot_question_edit_data()
+	{
+		if ($this->request->getPost("action") == "edit") {
+			$edit_id = $this->request->getPost('edit_id');
+			$table_name = $this->request->getPost('table');
+			$username = session_username($_SESSION['username']);
+			$departmentEditdata = $this->MasterInformationModel->edit_entry2($username . "_" . $table_name, $edit_id);
+			return json_encode($departmentEditdata, true);
+		}
+		die();
+	}
 
 	//bot delete question
 	public function bot_delete_data()
@@ -735,7 +747,7 @@ class Bot_Controller extends BaseController
 						</div>
 						<div class="col-2 d-flex flex-wrap align-items-center">
 							<div class="col-3 p-1">
-								<i class="fa fa-pencil cursor-pointer" data-bs-toggle="modal" data-bs-target="#add-email"></i>
+								<i class="fa fa-pencil cursor-pointer question_edit" data-id='.$value['id'].' data-bs-toggle="modal" data-bs-target="#add-email"></i>
 							</div>
 							<div class="col-3 p-1">
 								<i class="fa fa-sitemap cursor-pointer"></i>
