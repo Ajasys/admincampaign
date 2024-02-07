@@ -23,6 +23,10 @@
         background: white;
         font-size: 20px;
     }
+
+    .card-border-color {
+        border-color: #FAFAFA;
+    }
 </style>
 
 <div class="main-dashbord p-2 main-check-class">
@@ -110,7 +114,7 @@
 
 <div class="modal fade " id="bot_crate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content" id="first_bot">
+        <div class="modal-content bot_type_modal" id="first_bot">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Bot Create</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -118,7 +122,7 @@
             <div class="modal-body d-flex justify-content-center flex-wrap position-relative ">
                 <div class="col-12">
                     <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card"
-                        data-toggle="modal" data-bs-dismiss="modal" data-target="#bot_name_model" data-bot_type="1">
+                        data-bot_type="1">
                         <div style="width:50px;height:50px;"
                             class="border rounded-circle d-flex justify-content-center align-items-center">
                             <i class="bi bi-funnel fs-2"></i>
@@ -128,7 +132,7 @@
                         </div>
                     </div>
                     <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card"
-                        data-toggle="modal" data-bs-dismiss="modal" data-target="#bot_name_model" data-bot_type="2">
+                        data-bot_type="2">
                         <div style="width:50px;height:50px;"
                             class="border rounded-circle d-flex justify-content-center align-items-center">
                             <i class="bi bi-headset fs-2"></i>
@@ -140,20 +144,10 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-
-
-<!-----------------------botfirstmodal--------------------------->
-
-<div class="modal fade firstmodal" id="bot_name_model" tabindex="-1" role="dialog" aria-labelledby="botfirstmodal"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content bot_name_modal">
             <div class="modal-header">
                 <h5 class="modal-title" id="botfirstmodal">Create New Bot</h5>
-                <button type="button" class="close border-none " data-dismiss="modal" aria-label="Close"
+                <button type="button" class="close border-none close-modal" data-dismiss="modal" aria-label="Close"
                     data-bs-toggle="modal">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -169,6 +163,33 @@
         </div>
     </div>
 </div>
+
+
+
+<!-----------------------botfirstmodal--------------------------->
+
+<!-- <div class="modal fade firstmodal" id="bot_name_model" tabindex="-1" role="dialog" aria-labelledby="botfirstmodal"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="botfirstmodal">Create New Bot</h5>
+                <button type="button" class="close border-none close-modal" data-dismiss="modal" aria-label="Close"
+                    data-bs-toggle="modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="botNameInput" class="form-label">Bot Name :</label>
+                <input type="text" id="bot_name" name="bot_name" class="form-control m-auto"
+                    placeholder="name for your bot">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary m-auto bot_create_btn" data-bot_type="0">Create</button>
+            </div>
+        </div>
+    </div>
+</div> -->
 
 
 
@@ -191,12 +212,19 @@
 
     // });
 
-    $('.modal-header .close ').click(function () {
-        $('#first_bot').modal('show').slideDown(1000);
+    // $('.modal-header .close').click(function () {
+    //     $('#first_bot').modal('show').slideDown(1000);
+    // });
+    
+    $('.add').on('click',function() {
+        $('.bot_name_modal').hide();
+        $('.bot_type_modal').show();
     });
-
+    $('.bot_name_modal').hide();
     $('body').on('click', '.modal-card', function () {
-        $('.next-card').slideUp(300);
+        $('.bot_type_modal').slideUp(300);
+        $('.bot_type_modal').hide();
+        $('.bot_name_modal').slideDown(600);
         var bot_type = $(this).attr('data-bot_type');
         $('.bot_create_btn').attr('data-bot_type', bot_type);
     });
@@ -215,7 +243,7 @@
                 $('.loader').hide();
                 if (res != '') {
                     $('.bot_list').html(res);
-
+                    $('[data-toggle="tooltip"]').tooltip();
                 }
             },
         });
@@ -245,6 +273,8 @@
                     $('.loader').hide();
                     list_data();
                     $('#bot_name_model').modal('hide');
+                    $('#bot_crate').modal('hide');
+                    // $('#bot_name_model .close-modal').trigger('click');
                     iziToast.success({
                         title: 'Bot Created Successfully!',
                     });
