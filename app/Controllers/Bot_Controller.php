@@ -783,6 +783,7 @@ class Bot_Controller extends BaseController
 	}
 
 	public function main_bot_list_data() {
+		// bot main page list data
 		$table_name = $_POST['table'];
 		$botdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
 		$botdisplaydata = json_decode($botdisplaydata, true);
@@ -855,12 +856,14 @@ class Bot_Controller extends BaseController
 	}
 
 	public function bot_update() {
+		// bot active / inactive code
 		if ($this->request->getPost("action") == "update") {
 			$update_id = $this->request->getPost('id');
 			$table_name = $this->request->getPost('table');
 			unset($_POST['id']);
 			unset($_POST['table']);
 			unset($_POST['action']);
+			// bot check data
 			if($_POST['type'] == 'activation') {
 				$second_table = $this->request->getPost('second_table');
 				unset($_POST['type']);
@@ -874,6 +877,7 @@ class Bot_Controller extends BaseController
 					}
 				}
 
+				// if $i < 0 then user is not setup the bot data and it's not active
 				if($i <= 0 && $_POST['active'] == 1) {
 					return 'empty';
 				}
@@ -882,6 +886,118 @@ class Bot_Controller extends BaseController
 			$delete_displaydata = $this->MasterInformationModel->update_entry2($update_id,$update_data,$table_name);
 
             echo "success";
+		}
+	}
+
+	public function get_chat_data() {
+
+		if($_POST['action'] == 'chat_list') {
+			$token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+			$fb_page_list = fb_page_list($token);
+			$fb_page_list = get_object_vars(json_decode($fb_page_list));
+			// pre($fb_page_list);
+
+			$chat_list_html = '';
+			$return_result = array();
+			foreach($fb_page_list['page_list'] as $key => $value){
+				// if($key == 0) {
+
+					$page_access_token = $value->access_token;
+					$page_id = $value->id;
+					
+					$url = "https://graph.facebook.com/$page_id/conversations?fields=id,participants,messages.limit(1)&pretty=0&access_token=$page_access_token";
+					$response = file_get_contents($url);
+					// pre($url);
+					$data = json_decode($response, true);
+					
+					// pre($data['data']);
+					// die();
+					foreach($data['data'] as $conversion_value) {
+						$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
+						// pre($times);
+						// continue;
+						if($times['days'] >= 1) {
+							$time_count_text = ($times['days'] > 1 ? $times['days'] : 'a').' Day ago';
+						} else if($times['hours'] > 0){
+							$time_count_text = $times['hours'].' Hour ago';
+						} else {
+							$time_count_text = $times['minutes'].' min ago';
+						}
+						$chat_list_html .= '
+						<div class="chat-nav-search-bar p-2  border my-2 col-12  rounded-3 chat_list" data-conversion_id="'.$conversion_value['id'].'" data-page_token="'.$page_access_token.'" data-page_id="'.$page_id.'">
+							<div class="d-flex justify-content-between align-items-center col-12">
+									<div class="col-2">
+										<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+											xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" x="0" y="0"
+											viewBox="0 0 176 176" style="enable-background:new 0 0 512 512"
+											xml:space="preserve" class="">
+											<g>
+												<g data-name="Layer 2">
+													<g data-name="01.facebook">
+														<circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1"
+															data-original="#3a559f"></circle>
+														<path fill="#ffffff"
+															d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z"
+															opacity="1" data-original="#ffffff"></path>
+													</g>
+												</g>
+											</g>
+										</svg>
+									</div>
+									<div class="col-10">
+										<p class="fs-5">'.$conversion_value['participants']['data'][0]['name'].'('.$value->name.')</p>
+										<p class="fs-12 "></p>
+										<div class="text-end">
+											<span class="fs-12">'.$time_count_text.'</span>
+										</div>
+									</div>
+									
+							</div>
+						</div>
+						';
+					}
+				// }
+			}
+
+			$return_result['chat_list_html'] = $chat_list_html;
+			return json_encode($return_result);
+		}
+
+		if($_POST['action'] == 'chat_massage_list') {
+			$conversion_id = $_POST['conversion_id'];
+			$page_access_token = $_POST['page_access_token'];
+
+			$url = "https://graph.facebook.com/$conversion_id/messages?access_token=$page_access_token&fields=id,message,created_time,from,to";
+			$response = file_get_contents($url);
+
+			$massage_data = json_decode($response);
+			$html = '';
+			$massage_array = array_reverse($massage_data->data);
+			foreach($massage_array as $massage_key => $massage_value) {
+				// pre($massage_value);
+				$massage_value = get_object_vars($massage_value);
+				$message = $massage_value['message'];
+				// $time = date('');
+				if($_POST['page_id'] == $massage_value['from']->id) {
+					$html .= '
+							<div class="d-flex mb-4 justify-content-end">
+                                <div class="col-6 text-end">
+                                    <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">'.$message.'</span>
+                                </div>
+                            </div>';
+				} else {
+					$html .= '
+						<div class="d-flex mb-4">
+								<div class="col-6 text-start">
+									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">'.$message.'</span>
+								</div>
+							</div>';
+				}
+			}
+
+			$return_result = array();
+			$return_result['html'] = $html;
+			return json_encode($return_result);
 		}
 	}
 }
