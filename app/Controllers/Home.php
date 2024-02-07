@@ -845,6 +845,7 @@ class Home extends BaseController
             // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
             $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
             $data['admin_user'] = $this->MasterInformationModel->display_all_records2('admin_user');
+            $data['admin_emailtemplate'] = $this->MasterInformationModel->display_all_records2($username . '_emailtemplate');
             // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
             // $data['project_management_type'] = $this->MasterInformationModel->display_all_records('project_management_type');
             $data['admin_subscription_master'] = $this->MasterInformationModel->display_all_records2('admin_subscription_master');

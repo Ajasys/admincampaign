@@ -459,7 +459,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>manage_audience">Manage Audience</a>
                      </li>
-                     <li> <a class="dropdown-item" href="<?= base_url(); ?>template" ?>Email Conversions</a> </li>
+                     <li> <a class="dropdown-item" href="<?= base_url(); ?>EmailConversions" ?>Email Conversions</a> </li>
                      <!-- <li> <a class="dropdown-item" href="<?= base_url(); ?>email_history" ?>Email Conversion</a> </li> -->
 
 
