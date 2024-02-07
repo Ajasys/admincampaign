@@ -530,7 +530,9 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/queue_list_add', 'FacebookController::queue_list_add');
 	$routes->get('/leadlist', 'Home::leadlist');
 	$routes->post('/lead_list', 'FacebookController::lead_list');
-		// whatsapp integration 
+	$routes->post('/fb_connection_list', 'FacebookController::fb_connection_list');
+	
+	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
     $routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
 	$routes->post('/whatsapp_template_delete_data', 'WhatAppIntegrationController::whatsapp_template_delete_data');

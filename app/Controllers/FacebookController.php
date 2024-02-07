@@ -24,7 +24,7 @@ class FaceBookController extends BaseController
 
     function check_fb_connection()
     {
-        $this->db = \Config\Database::connect();
+        $table_username = session_username($_SESSION['username']);
         $action = $this->request->getPost("action");
         $access_token = $this->request->getPost("access_token");
         $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token);
@@ -40,8 +40,34 @@ class FaceBookController extends BaseController
             $numberOfPages = count($result['data']);
             if ($numberOfPages > 0) {
                 $is_facebook_connect = 1;
-                $result_array['response'] = 1;
-                $result_array['message'] = 'Facebook connected successfully..!';
+                $query = "SELECT * FROM ".$table_username."_platform_integration WHERE access_token='".$access_token."' AND platform_status=2";
+                $int_rows = $this->db->query($query);
+                $int_result = $int_rows->getResult();
+                if (isset($int_result[0])) {
+                    $int_data = get_object_vars($int_result[0]);
+                    if($int_data['verification_status']==1)
+                    {
+                        $result_array['response'] = 1;
+                        $result_array['message'] = 'Facebook connection already exists..!';
+                    }
+                    else
+                    {
+                        $update_data['verification_status'] = $is_facebook_connect;
+                        $departmentUpdatedata = $this->MasterInformationModel->update_entry2($int_data['id'], $update_data, $table_username.'_platform_integration');
+                        $result_array['response'] = 1;
+                        $result_array['message'] = 'Facebook connection successfully..!';
+                    }
+
+                } else {
+                    //insert 
+                    $insert_data['access_token'] = $access_token;
+                    $insert_data['verification_status'] = $is_facebook_connect;
+                    $insert_data['platform_status'] = 2;
+                    $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $table_username.'_platform_integration');
+                    $result_array['response'] = 1;
+                    $result_array['message'] = 'Facebook connection successfully..!';
+                }  
+                
             } else {
                 $is_facebook_connect = 0;
                 $result_array['response'] = 0;
@@ -53,9 +79,7 @@ class FaceBookController extends BaseController
             $result_array['message'] = $errorMsg;
         }
 
-        $update_data['facebook_access_token'] = $access_token;
-        $update_data['is_facebook_connect'] = $is_facebook_connect;
-        $departmentUpdatedata = $this->MasterInformationModel->update_entry2(1, $update_data, 'admin_generale_setting');
+        
 
         echo json_encode($result_array, true);
         die();
@@ -1088,6 +1112,113 @@ class FaceBookController extends BaseController
                         </svg>';
                 }
                 $html .=  '</td></tr>';
+            }
+        }
+
+        // Set response values
+        $return_array['row_count_html'] = 'Showing ' . $start_entries . ' to ' . $last_entries . ' of ' . $rowCount . ' entries';
+        $return_array['rowCount'] = $rowCount;
+        $return_array['html'] = $html;
+        $return_array['total_page'] = $pagesCount;
+        $return_array['response'] = 1;
+
+        echo json_encode($return_array);
+    }
+
+    public function fb_connection_list()
+    {
+        $this->db = \Config\Database::connect('second');
+        $username = session_username($_SESSION['username']);
+        $html = "";
+        $row_count_html = '';
+        $return_array = array(
+            'row_count_html' => '',
+            'html' => '',
+            'total_page' => 0,
+            'response' => 0
+        );
+
+        $perPageCount = isset($_POST['perPageCount']) && !empty($_POST['perPageCount']) ? $_POST['perPageCount'] : 10;
+        $pageNumber = isset($_POST['pageNumber']) && !empty($_POST['pageNumber']) ? $_POST['pageNumber'] : 1;
+        $ajaxsearch = isset($_POST['ajaxsearch']) && !empty($_POST['ajaxsearch']) ? $_POST['ajaxsearch'] : '';
+
+        // Calculate the offset based on pagination parameters
+        $offset = ($pageNumber - 1) * $perPageCount;
+
+        // Build the SQL query for data retrieval
+        $find_Array_data = "SELECT * FROM " . $username . "_platform_integration 
+                            WHERE platform_status=2 ";
+
+        // Add search condition if ajaxsearch is provided
+        if (!empty($ajaxsearch)) {
+            $find_Array_data .= " AND (
+                lead_id LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                full_name LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                phone_number LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                inquiry_id LIKE '%" . $_POST['ajaxsearch'] . "%'
+            ) ";
+        }
+
+
+        $find_Array_data .= " ORDER BY id DESC 
+                             LIMIT $perPageCount OFFSET $offset";
+
+        // Execute the query for data retrieval
+        $find_Array_data = $this->db->query($find_Array_data);
+        $data = $find_Array_data->getResultArray();
+
+
+        // Build the SQL query for total count
+        $find_Array_count = "SELECT COUNT(*) as total_count FROM " . $username . "_platform_integration 
+                            WHERE platform_status=2";
+
+        // Add search condition if ajaxsearch is provided
+        if (!empty($ajaxsearch)) {
+            $find_Array_count .= " AND (
+                lead_id LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                full_name LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                phone_number LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                inquiry_id LIKE '%" . $_POST['ajaxsearch'] . "%'
+            ) ";
+        }
+
+        // Execute the query for total count
+        $count_result = $this->db->query($find_Array_count);
+        $rowCount = $count_result->getRow()->total_count;
+
+        // Calculate pagination details
+        $start_entries = $offset + 1;
+        $last_entries = min($offset + $perPageCount, $rowCount);
+
+        // Calculate total pages
+        $pagesCount = ceil($rowCount / $perPageCount);
+
+        // Generate HTML for data
+        if ($find_Array_data->getNumRows() > 0) {
+            foreach ($data as $key => $value) {
+                $result = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' .$value['access_token'].'&access_token='.$value['access_token']);
+                if(isset($result['data']))
+                {
+                    $fbdata = $result['data'];
+                }
+                else
+                {
+                    $fbdata = '';
+                }
+               
+                $html .= '<tr onclick="viewLead(' . $value['id'] . ');">
+                <td class="p-2 text-nowrap">' . $fbdata['application'] . '</td>
+                <td class="p-2 text-nowrap">' . $fbdata['app_id'] . '</td>
+                <td class="p-2 text-nowrap">' . $fbdata['type'] . '</td>
+                <td class="p-2 text-nowrap"></td>
+                <td class="p-2 text-nowrap">';
+                if ($value['verification_status']==1) {
+                    $html .=  '<span class="rounded-2 text-white fs-12 sm-btn Success">connect</span>';
+                } else {
+                    $html .=  '<span class="rounded-2 text-white fs-12 sm-btn Error">failure</span>';
+                }
+                $html .=  '</td>
+                <td class="p-2 text-nowrap text-center"></td></tr>';
             }
         }
 
