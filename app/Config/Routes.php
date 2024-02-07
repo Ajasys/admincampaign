@@ -245,6 +245,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/audience_show_data', 'AudianceController::audience_show_data');
 	$routes->post('audience_inquiry_data_view', 'AudianceController::view_data_audience');
 	$routes->post('audience_insert_data', 'AudianceController::audience_insert_data');
+	$routes->post('get_data_header_by_file_audience', 'AudianceController::get_data_header_by_file_audience');
+    $routes->post('get_data_header_by_file_audience', 'AudianceController::get_data_header_by_file_audience');
 
 
 
