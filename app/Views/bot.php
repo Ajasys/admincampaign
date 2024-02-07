@@ -29,7 +29,7 @@
     }
 </style>
 
-<div class="main-dashbord p-2 d-flex main-check-class">
+<div class="main-dashbord p-2">
     <div class="p-1">
         <div class="container-fluid p-0 mb-3">
             <div class="bg-white px-3 py-1">
@@ -288,6 +288,88 @@
         } else {
             iziToast.error({
                 title: 'Bot Name or Bot Type is not Found!',
+            });
+        }
+    });
+
+    $('body').on('click', '.bot_delete', function() {
+        var delete_id = $(this).data('delete_id');
+        var record_text = "Are you sure you want to delete this Bot?";
+        var table = '<?php echo getMasterUsername2(); ?>_bot';
+        Swal.fire({
+                title: 'Delete Bot?',
+                text: record_text,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'CONFIRM',
+                cancelButtonText: 'CANCEL',
+                cancelButtonColor: '#6e7881',
+                confirmButtonColor: '#dd3333',
+                reverseButtons: true
+        }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        method: "post",
+                        url: "<?= site_url('bot_delete_data'); ?>",
+                        data: {
+                            action: 'delete',
+                            id: delete_id,
+                            table: table,
+                            bot: '',
+                        },
+                        success: function(data) {
+                            iziToast.error({
+                                    title: 'Deleted Successfully'
+                            });
+                            // $(".close_btn").trigger("click");
+                            list_data();
+                        }
+                    });
+                }
+        });
+
+    });
+
+    $('body').on('change','.bot_active',function() {
+        var update_id = $(this).data('update_id');
+        if($(this).is(':checked')) {
+            var status = 1;
+            var massage = 'Bot activated!';
+        } else {
+            var status = 0;
+            var massage = 'Now Bot is inactivate';
+        }
+
+        if(update_id != '') {
+            var table = '<?php echo getMasterUsername2(); ?>_bot';
+            var second_table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('bot_update'); ?>",
+                data: {
+                    action: 'update',
+                    type: 'activation',
+                    id: update_id,
+                    table: table,
+                    active: status,
+                    second_table: second_table,
+                },
+                success: function(data) {
+                    if(data == 'empty') {
+                        iziToast.error({
+                            title: 'Please add bot setup first for this bot!',
+                        });
+
+                        setTimeout(function(){
+                            window.location.href = "<?= base_url(); ?>bot_setup?bot_id="+update_id;
+                        }, 2000);
+                    } else {
+                        iziToast.success({
+                                title: massage,
+                        });
+                    }
+                    list_data();
+                }
             });
         }
     });

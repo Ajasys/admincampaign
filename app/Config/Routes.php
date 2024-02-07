@@ -503,6 +503,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/messenger', 'Home::messenger');
 	$routes->get('/bot_setup', 'Home::bot_setup');
 	$routes->get('/bot_setup_designer', 'Home::bot_setup_designer');
+	$routes->post('/bot_update','Bot_Controller::bot_update');
 	$routes->post('/main_bot_list_data', 'Bot_Controller::main_bot_list_data');
 	$routes->post('/messenging_bot_insert_data', 'Bot_Controller::messenging_bot_insert_data');
 	$routes->post('/messeging_bot_list', 'Bot_Controller::messeging_bot_list');

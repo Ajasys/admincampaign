@@ -567,8 +567,10 @@ class Bot_Controller extends BaseController
 			$table_name = $this->request->getPost('table');
 			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
 
-			$this->MasterInformationModel->delete_question_sequence($table_name);
-			echo "success";
+			if(!isset($_POST['bot'])) {
+                $this->MasterInformationModel->delete_question_sequence($table_name);
+            }
+            echo "success";
 		}
 		die();
 	}
@@ -811,13 +813,13 @@ class Bot_Controller extends BaseController
 									<div
 										class="card-body d-flex flex-wrap py-1 px-2 justify-content-between align-items-center">
 										<div class="form-check form-switch">
-											<input class="form-check-input" type="checkbox" role="switch" id="is_active"
-												'.($value['active'] == 1 ? 'checked' : '').'>
+											<input class="form-check-input bot_active" type="checkbox" role="switch" id="is_active"
+												'.($value['active'] == 1 ? 'checked' : '').' data-update_id="'.$value['id'].'">
 											<label class="form-check-label" for="is_active">Active</label>
 										</div>
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted"
-											data-toggle="tooltip" data-placement="top" title="Delete">
-											<i class="fa-solid fa-trash"></i>
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted bot_delete"
+                                            data-toggle="tooltip" data-placement="top" title="Delete" data-delete_id="'.$value['id'].'">
+                                            <i class="fa-solid fa-trash"></i>
 										</div>
 									</div>
 								</div>
@@ -831,4 +833,34 @@ class Bot_Controller extends BaseController
 		return $html;
 	}
 
+	public function bot_update() {
+		if ($this->request->getPost("action") == "update") {
+			$update_id = $this->request->getPost('id');
+			$table_name = $this->request->getPost('table');
+			unset($_POST['id']);
+			unset($_POST['table']);
+			unset($_POST['action']);
+			if($_POST['type'] == 'activation') {
+				$second_table = $this->request->getPost('second_table');
+				unset($_POST['type']);
+				unset($_POST['second_table']);
+				$botdisplaydata = $this->MasterInformationModel->display_all_records2($second_table);
+				$botdisplaydata = json_decode($botdisplaydata);
+				$i = 0;
+				foreach ($botdisplaydata as $key => $val) {
+					if($val->bot_id == $update_id) {
+						$i++;
+					}
+				}
+
+				if($i <= 0 && $_POST['active'] == 1) {
+					return 'empty';
+				}
+			}
+			$update_data = $_POST;
+			$delete_displaydata = $this->MasterInformationModel->update_entry2($update_id,$update_data,$table_name);
+
+            echo "success";
+		}
+	}
 }
