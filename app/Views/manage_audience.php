@@ -4,6 +4,17 @@
 $admin_product = json_decode($admin_product, true);
 $master_inquiry_status = json_decode($master_inquiry_status, true);
 ?>
+<?php
+$username = session_username($_SESSION['username']);
+$db_connection = \Config\Database::connect('second');
+$query = $db_connection->table($username . '_audiences')->get();
+if ($query->getNumRows() > 0) {
+    $columnNames = $query->getFieldNames();
+} else {
+    $columnNames = array();
+}
+// pre($columnNames);
+?>
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2 position-relative">
@@ -68,7 +79,8 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
                 </div>
             </div>
             <div class="px-3 col-6">
-                <div class=" py-2  bg-white rounded-2 col-12 border h-100 d-flex flex-column justify-content-between">
+                <div id="lead_list_modal"
+                    class=" py-2  bg-white rounded-2 col-12 border h-100 d-flex flex-column justify-content-between lead_list_modal">
                     <div class="p-3 py-1 border-bottom">
                         <div class="card-header">
                             <div class="text-end">
@@ -86,50 +98,45 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
                         <div class="card-header my-2">
                             <div class="col-12">
                                 <label for="#" class="fw-bolder">Audience Name</label>
-                                <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, in!</P>
+                                <P class="product_name"></P>
                             </div>
                         </div>
                         <div class="card-header my-2">
                             <div class="col-12">
                                 <label for="#" class="fw-bolder">Estimated Audience Size</label>
-                                <P>22000-55000</P>
+                                <P class="size"></P>
                             </div>
                         </div>
                         <div class="card-header my-2">
                             <div class="col-12">
                                 <label for="#" class="fw-bolder">Type</label>
-                                <P>Lorem ipsum dolor</P>
+                                <P class="type"></P>
                             </div>
                         </div>
                         <div class="card-header my-2">
                             <div class="col-12">
                                 <label for="#" class="fw-bolder">Created</label>
-                                <P>1/23/24 6:30pm</P>
+                                <P class="created_at"></P>
                             </div>
                         </div>
                         <div class="card-header my-2">
                             <div class="col-12">
                                 <label for="#" class="fw-bolder">Last Updated</label>
-                                <P>--</P>
-                            </div>
-                        </div>
-                        <div class="card-header my-2">
-                            <div class="col-12">
-                                <label for="#" class="fw-bolder">Country</label>
-                                <P>Surat</P>
+                                <P class="last_updated"></P>
                             </div>
                         </div>
                         <div class="card-header my-2">
                             <div class="col-12">
                                 <label for="#" class="fw-bolder">Source</label>
-                                <P>Leadmgt CRM Demo data .csv</P>
+                                <P class="source"></P>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 px-2">
                         <div class="card-header">
                             <div class="col-12">
-                               <button type="button" class="btn-primary me-2 Cancle_Btn close_container" >Cancel</button>
+                                <button type="button"
+                                    class="btn-primary me-2 Cancle_Btn close_container">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -168,83 +175,7 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
         </div>
     </div>
 </div>
-<div class="modal fade " id="lead_list_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Lead View</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class=" modal-body modal-body-secondery">
-                <div class="modal-body-card">
-                    <div class="row col-12">
-                        <div class="col-lg-6 col-md-6 col-6">
-                            <div class="add-user-input">
-                                <label for="relation" class="form-label main-label fw-semibold">Inquiry Id
-                                    :</label>
-                                <span id="inquiry_id"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="name" class="form-label main-label fw-semibold">Name :</label>
-                                <span id="full_name"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="form_id" class="form-label main-label fw-semibold">Form Id:</label>
-                                <span id="form_id"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="campaign_id" class="form-label main-label fw-semibold">Campaign Id :</label>
-                                <span id="campaign_id"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="adset_id" class="form-label main-label fw-semibold">Adset Id :</label>
-                                <span id="adset_id"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="ad_id" class="form-label main-label fw-semibold">Ad Id :</label>
-                                <span id="ad_id"></span>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-6">
-                            <div class="add-user-input">
-                                <label for="relation" class="form-label main-label fw-semibold">Platform
-                                    :</label>
-                                <span id="platform"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="em_mobile" class="form-label main-label fw-semibold">Mobile
-                                    Number :</label>
-                                <span id="mobile"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="form_name" class="form-label main-label fw-semibold">Form Name
-                                    :</label>
-                                <span id="form_name"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="campaign_name" class="form-label main-label fw-semibold">Campaign Name
-                                    :</label>
-                                <span id="campaign_name"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="adset_name" class="form-label main-label fw-semibold">Adset Name :</label>
-                                <span id="adset_name"></span>
-                            </div>
-                            <div class="add-user-input">
-                                <label for="ad_name" class="form-label main-label fw-semibold">Ad Name :</label>
-                                <span id="ad_name"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!-- <button type="button" class="btn btn-primary">Save</button> -->
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="offcanvas offcanvas-end" tabindex="-1" id="audience_filter" aria-labelledby="offcanvasRightLabel">
     <form method="post" class="d-flex flex-column h-100" name="filter_form">
         <div class="offcanvas-header FilterTitleDiv">
@@ -289,8 +220,8 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
                                 <h6 for="fname">Crm Sources </h3>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault" checked>
-                                        <label class="form-label main-label" for="flexRadioDefault2">
+                                            id="flexRadioDefault" value="Customer List" checked>
+                                        <label class="form-label main-label" for="flexRadioDefault">
                                             Customer List
                                         </label>
                                     </div>
@@ -305,7 +236,7 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
                                 <h6 for="fname">Custom Audience</h3>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault2" >
+                                            id="flexRadioDefault2" value="Custom audience">
                                         <label class="form-label main-label" for="flexRadioDefault2">
                                             Data
                                         </label>
@@ -332,18 +263,18 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Create a Customer Custom Audience</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-<!--============= second============  -->
+            <!--============= second============  -->
             <div class="modal-header d-none" id="second_modalheader">
                 <h4 class="modal-title fs-5" id="exampleModalToggleLabel2">Create a Custom Audience</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-<!--==============first  -->
+            <!--==============first  -->
             <div class="modal-body " id="first_modalbody">
                 <form class="col-12" name="project_type_form">
                     <div class="main-selectpicker">
                         <label for="#">Product <sup class="validationn">*</sup></label>
-                        <select id="product_name" placeholder="Enter Subject" name="task_type"
-                            class="selectpicker form-control form-main main-control select_product product_name"
+                        <select id="intrested_product" placeholder="Enter Subject" name="task_type"
+                            class="selectpicker form-control form-main main-control select_product intrested_product"
                             data-live-search="true" required="" tabindex="-98">
                             <option value="0">Select Product</option>
                             <?php
@@ -359,278 +290,131 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
                     <div class="main-selectpicker">
                         <label for="#">Status<sup class="validationn">*</sup></label>
                         <select id="inquiry_status" placeholder="Enter Subject" name="inquiry_status"
-                            class="selectpicker form-control form-main main-control FIStatus inquiry_status" data-live-search="true"
-                            required="" tabindex="-98">
+                            class="selectpicker form-control form-main main-control FIStatus inquiry_status"
+                            data-live-search="true" required="" tabindex="-98">
                             <option value="0">Select Status</option>
                             <?php
                             if (isset($master_inquiry_status)) {
                                 foreach ($master_inquiry_status as $type_key => $type_value) {
-                                    echo '<option class="dropdown-item" value="' . $type_value["inquiry_status"] . '">' . $type_value["inquiry_status"] . '</option>';
+                                    echo '<option class="dropdown-item" value="' . $type_value["id"] . '">' . $type_value["inquiry_status"] . '</option>';
                                 }
                             }
                             ?>
                         </select>
                     </div>
-                <div class="col-12 mt-3">
-                    <div class="main-selectpicker">
-                        <label for="#">Retention<i class="bi bi-info-circle-fill mx-2"></i></label>
-                        <div class="col-12 d-flex align-items-center">
-                            <input type="text" placeholder="Enter Days" class="form-control form-main main-control">
-                            <span class="mx-2">Days</span>
+                    <div class="col-12 mt-3">
+                        <div class="main-selectpicker">
+                            <label for="#">Retention<i class="bi bi-info-circle-fill mx-2"></i></label>
+                            <div class="col-12 d-flex align-items-center">
+                                <input type="text" placeholder="Enter Days"
+                                    class="form-control form-main main-control retansion" id="retansion">
+                                <span class="mx-2">Days</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-12 mt-3">
+                        <div class="main-selectpicker">
+                            <label for="#">Name</label>
+                            <div class="col-12 d-flex align-items-center">
+                                <input type="text" placeholder="Enter name"
+                                    class="form-control form-main main-control product_name" id="product_name">
+                            </div>
+                        </div>
+                    </div>
                 </form>
 
             </div>
-<!--============= second============  -->
+            <!--============= second============  -->
             <div class="modal-body d-none" id="second_modalbody">
                 <div class=" bg-white rounded-2  col-12">
-                    <div class="col-12">
-                        <label for="" class="form-label main-label">Inq file upload <sup class="validationn">*</sup></label>
-                        <input type="file" class="form-control main-control get_exel_file"   name="import_file" placeholder="Details" required="" accept=".xls,.xlsx">
-                    </div>
-                    <div class="col-12 mt-4 custom_exel d-none">
-                        <div class="d-flex justify-content-between align-items-center my-2 flex-wrap w-100 mt-2">
-                            <div class="title-1">
-                                <i class="fa-solid fa-table-columns"></i>
-                                <h6>File Column Handling</h2>
-                            </div>
-                            <div class="title-side-icons column-btn">
-                                <!-- <button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add" aria-controls="column_add">
-                            + Add Column
-                        </button> -->
+                <form class="needs-validation" name="import_inquiry_csv" method="POST" novalidate="">
+                        <div class="col-12">
+                            <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
+                                <div class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
+                                    style="width:30px;height:30px;">1</div>Name Your Audiance<sup class="validationn">*
+                            </h6>
+                            <div class="col-12 d-flex flex-wrap">
+                                <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
+                                <div class="col">
+                                <input type="text" placeholder="Enter name"
+                                    class="form-control form-main main-control product_names" id="product_names">
+                                </div>
                             </div>
                         </div>
-                        <form name="column_data_form" id="column_data_form" class="needs-validation" method="POST"
-                            novalidate="">
-                            <div class="mt-1 file_columns">
-                                <div class="col-12 d-sm-flex d-none flex-wrap">
-                                    <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 text-center">
-                                        <span class="fs-6">From</span>
-                                    </div>
-                                    <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 text-center">
-                                        <span class="fs-6">to</span>
-                                    </div>
-                                </div>
-                                <div class="col-12 d-flex flex-wrap mb-2">
-                                    <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1">
-                                        <input type="text" class="form-control main-control" id="id_file" name=""
-                                            placeholder="File Column name" value="id" readonly="" required="">
-                                    </div>
-                                    <div
-                                        class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">
-                                        <span class="mx-auto col-1">to</span>
-                                        <div class="main-selectpicker col-11 dropdown">
-                                            <input type="text" id="list"
-                                                class="form-control list main-control dropdown-toggle file_columns_input"
-                                                data-bs-toggle="dropdown" aria-expanded="false" name="0" placeholder="id">
-                                            <ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>full_name</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>address</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>dob</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>mobileno</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>altmobileno</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>email</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>houseno</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>society</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>area</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>city</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>state</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>country</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>subscription</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>int_subscription</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>budget</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>intrested_product</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>feedback</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>remark</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>broker</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>message</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>quatation</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>qualified</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>prospect</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>contacted</span></button></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 d-flex flex-wrap mb-2">
-                                    <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1">
-                                        <input type="text" class="form-control main-control" id="firstname_file" name=""
-                                            placeholder="File Column name" value="firstname" readonly="" required="">
-                                    </div>
-                                    <div
-                                        class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center column_name_list">
-                                        <span class="mx-auto col-1">to</span>
-                                        <div class="main-selectpicker col-11 dropdown">
-                                            <input type="text" id="list"
-                                                class="form-control list main-control dropdown-toggle file_columns_input"
-                                                data-bs-toggle="dropdown" aria-expanded="false" name="1"
-                                                placeholder="firstname">
-                                            <ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>full_name</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>address</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>dob</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>mobileno</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>altmobileno</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>email</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>houseno</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>society</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>area</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>city</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>state</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>country</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>subscription</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>int_subscription</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>budget</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>intrested_product</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>feedback</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>remark</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>broker</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>message</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>quatation</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>qualified</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>prospect</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>contacted</span></button></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 d-flex flex-wrap mb-2">
-                                    <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1">
-                                        <input type="text" class="form-control main-control" id="mobileno_file" name=""
-                                            placeholder="File Column name" value="mobileno" readonly="" required="">
-                                    </div>
-                                    <div
-                                        class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">
-                                        <span class="mx-auto col-1">to</span>
-                                        <div class="main-selectpicker col-11 dropdown">
-                                            <input type="text" id="list"
-                                                class="form-control list main-control dropdown-toggle file_columns_input"
-                                                data-bs-toggle="dropdown" aria-expanded="false" name="2"
-                                                placeholder="mobileno">
-                                            <ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>full_name</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>address</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>dob</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>mobileno</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>altmobileno</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>email</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>houseno</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>society</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>area</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>city</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>state</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>country</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>subscription</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>int_subscription</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>budget</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>intrested_product</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>feedback</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>remark</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>broker</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>message</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>quatation</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>qualified</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>prospect</span></button></li>
-                                                <li><button class="dropdown-item list_item"
-                                                        type="button"><span>contacted</span></button></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                        <div class="col-12 mt-2 mb-3">
+                            <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
+                                <div class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
+                                    style="width:30px;height:30px;">2</div>Prepare your file Data
+                            </h6>
+                            <div class="col-12 d-flex flex-wrap">
+                                <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
+                                <div class="col">
+                                    <span class="py-1 px-2 border fs-10 me-2 fw-medium">Email</span>
+                                    <span class="py-1 px-2 border fs-10 mx-2 fw-medium">Phone Number</span>
+                                    <span class="py-1 px-2 border fs-10 mx-2 fw-medium">Full Name</span>
                                 </div>
                             </div>
-                            <div class="mt-3 custome_column" style="display: none;">
-                                <div class="text-start">
-                                    <span class="fs-6">Custome Columns</span>
+                        </div>
+                   
+                        <div class="col-12">
+                            <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
+                                <div class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
+                                    style="width:30px;height:30px;">3</div>Inq file upload <sup class="validationn">*
+                            </h6>
+                            <div class="col-12 d-flex flex-wrap">
+                                <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
+                                <div class="col">
+                                    <input type="file" class="form-control main-control get_exel_file" name="import_file"
+                                        placeholder="Details" required="" accept=".xls,.xlsx">
                                 </div>
-                                <!-- <div class="col-12 d-flex">
-                            <div class="bulk-action select col-lg-6 col-12 px-1 mt-lg-0 mb-1">
-                                <input type="text" class="form-control main-control" id="import_file" name="import_file" placeholder="Details" required="">
+                                <button class=" btn-primary import_btn mx-2" type="submit" id="import_inquiry_csv_btn" name="import_btn" disabled>Import</button>
                             </div>
-                            <div class="bulk-action select col-lg-6 col-12 px-1 mt-lg-0 mb-1">
-                                <div class="main-selectpicker">
-                                    <select name="action_name" id="action_name" id="bulk-action" class="selectpicker form-control form-main" data-live-search="true" required="">
-                                        <option value="">Select Action</option>
-                                        <option value="assign_followups">Assign Followups</option>
-                                        <option value="transfer_ownership">Transfer Inq</option>
-                                    </select>
+                        </div>
+                    </form>
+                    <div class="col-12 mt-4 custom_exel d-flex flex-wrap">
+                        <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
+                        <div class="col">
+                            <div class="d-flex justify-content-between align-items-center my-2 flex-wrap w-100 mt-2">
+                                <div class="title-1">
+                                    <i class="fa-solid fa-table-columns"></i>
+                                    <label for="" class="form-label main-label">File Column Handling</label>
+                                </div>
+                                <div class="title-side-icons column-btn">
+                                    <!-- <button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add" aria-controls="column_add">
+                                + Add Column
+                            </button> -->
                                 </div>
                             </div>
-                        </div> -->
-                            </div>
-                        </form>
+                            <form name="column_data_form" id="column_data_form" class="needs-validation" method="POST" novalidate="">
+                                <div class="mt-3 file_columns">
+                                    <div class="text-center">
+                                        <span class="fs-6">File Not Imported</span>
+                                    </div>
+                                   
+                                </div>
+                                <!-- <div class="mt-3 custome_column">
+                                    <div class="text-start">
+                                        <span class="fs-6">Custome Columns</span>
+                                    </div>
+                                   
+                                </div> -->
+                            </form>
+                            <!-- <div class="justify-content-between d-flex">
+                                <button class=" btn-primary custome_col" type="submit" id="custome_col" name="custome_col">Add Custome
+                                    Column</button>
+                                <button class=" btn-primary import_btn" type="submit" id="import_btn" name="import_btn">Import
+                                    Data</button>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center my-2 mt-4 flex-wrap w-100 mt-2">
+                       
+
+                        <div class="title-side-icons column-btn">
+                            <!-- <button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add" aria-controls="column_add">
+                            + Add Column
+                        </button> -->
+                        </div>
                     </div>
                     <!-- <div class="justify-content-between d-flex">
                         <button class=" btn-primary custome_col" type="submit" id="custome_col" name="custome_col">Add
@@ -645,7 +429,10 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
             <div class="modal-footer">
                 <button class="btn btn-primary" data-bs-target="#create_audience_list" data-bs-toggle="modal">Back to
                     first</button>
-                <button class="btn btn-primary create_audiences" name="create_audiences" data-bs-dismiss="modal">Create Audiance</button>
+                <button class="btn btn-primary create_audiences" name="create_audiences" data-bs-dismiss="modal">Create
+                    Audiance</button>
+                <button class=" btn-primary imported_btn" type="submit" id="imported_btn" name="imported_btn" disabled>Create
+                Audiance</button>
             </div>
         </div>
     </div>
@@ -690,7 +477,7 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
             method: "post",
             url: "<?= site_url('audience_list_data'); ?>",
             data: {
-                'table': 'all_inquiry',
+                'table': 'audiences',
                 'show_array': show_val,
                 'action': true
             },
@@ -703,41 +490,7 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
     }
     list_data();
 
-    // Event listener for the "View" button
-    $("#audiunse_btn").on("click", function () {
-        var FilterStock = '';
-        $('#product_name :selected').each(function () {
-            if (FilterStock !== "") {
-                FilterStock += ",";
-            }
-            FilterStock += $(this).val(); // Use val() instead of attr('Data_TypeId')
-        });
-        // var FIStatus = '';
-        //  $('.FIStatus :selected').each(function() {
-        //     if (FIStatus !== "") {
-        //        FIStatus += ",";
-        //     }
-        //     FIStatus += $(this).val();
-        //  });
-        var selectedAudienceType = $("#inquiry_status").val();
-        $.ajax({
-            type: "POST",
-            url: "audience_show_data",
-            data: {
-                'table': 'all_inquiry',
-                'show_array': selectedAudienceType,
-                'action': true,
-                'FilterStock': FilterStock, // Corrected variable name
-            },
-            success: function (res) {
-                $('.loader').hide();
-                datatables_view(res);
-            },
-            error: function () {
-                alert("Error fetching data");
-            }
-        });
-    });
+   
 
     // view data 
     $('body').on('click', '.audiance_view', function (e) {
@@ -750,27 +503,18 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
                 data: {
                     action: 'view',
                     view_id: edit_value,
-                    table: 'all_inquiry',
+                    table: 'audiences',
                 },
                 success: function (res) {
                     $('.loader').hide();
                     var response = JSON.parse(res);
-                    // console.log();
-
-                    $('#lead_list_modal #user_id').text(response[0].user_id);
-                    $('#lead_list_modal #full_name').text(response[0].full_name);
-                    $('#lead_list_modal #mobile').text(response[0].mobileno);
-                    $('#lead_list_modal #form_id').text(response[0].id);
-                    if (response[0]['platform'] == 'ig') {
-                        $platform = '<i class="fa-brands fa-instagram transition-5 icon1" style="background: -webkit-linear-gradient(#f32170, #ff6b08, #cf23cf, #eedd44);-webkit-background-clip: text;-webkit-text-fill-color: transparent;"></i>';
-                    }
-                    else {
-                        $platform = '<i class="fa-brands fa-facebook transition-5 icon2 rounded-circle" style="color: #0b85ed;"></i>';
-                    }
-                    $('#platform').text($platform);
-                    $('#lead_list_modal #form_name').text(response[0].inquiry_status);
-                    $('#lead_list_modal #ad_id').text(response[0].intrested_product);
-                    $('#lead_list_modal #campaign_id').text(response[0].user_id);
+                    console.log();
+                    $('.lead_list_modal .product_name').text(response[0].product_name);
+                    // $('#lead_list_modal .size').text(response[0].full_name);
+                    $('.lead_list_modal .type').text(response[0].source);
+                    $('.lead_list_modal .created_at').text(response[0].created_at);
+                    $('.lead_list_modal .last_updated').text(response[0].updated_at);
+                    $('.lead_list_modal .source').text(response[0].intrested_product);
                     $('.selectpicker').selectpicker('refresh');
                 },
             });
@@ -779,32 +523,35 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
             alert("Data Not Edit.");
         }
     });
+    $(document).ready(function () {
+        // Listen for change event on radio buttons
+        $("input[name='flexRadioDefault']").change(function () {
+            // Get the selected value
+            var selectedValue = $("input[name='flexRadioDefault']:checked").val();
 
+            // Log the selected value to the console (you can use it as needed)
+            console.log("Selected Value: " + selectedValue);
+        });
+    });
     $("button[name='create_audiences']").click(function (e) {
-        alert('');
-    e.preventDefault();
-    var form = $("form[name='project_type_form']")[0];
-    console.log(form);
-    // Get selected product, status, and retention value
-    var product_name = $("#product_name").val();
-    console.log(product_name);
-    var inquiry_status = $("#inquiry_status").val();
-    var retansion = $(".main-selectpicker input[type='text']").val();
-
-    if (product_name != 0 && inquiry_status != 0 && retansion != "") {
-        // Calculate date 90 days ago
-        var retentionDate = new Date();
-        retentionDate.setDate(retentionDate.getDate() - parseInt(retentionDays, 10));
-        var retentionDateFormatted = retentionDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        e.preventDefault();
+        var form = $("form[name='project_type_form']")[0];
+        // Get selected product, status, and retention value
+        var intrested_product = $("#intrested_product").val();
+        var inquiry_status = $("#inquiry_status").val();
+        var retansion = $("#retansion").val();
+        var product_name = $("#product_name").val();
+        var source = $("input[name='flexRadioDefault']:checked").val();
 
         // Create data to be sent to the server
         var formData = new FormData();
         formData.append('action', 'insert');
         formData.append('table', 'audiences');
-        formData.append('product_name', product_name);
+        formData.append('intrested_product', intrested_product);
         formData.append('inquiry_status', inquiry_status);
         formData.append('retansion', retansion);
-        formData.append('retention_date', retentionDateFormatted);
+        formData.append('product_name', product_name);
+        formData.append('source', source); // Add the selected radio button value
 
         $('.loader').show();
 
@@ -818,30 +565,23 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
             success: function (data) {
                 if (data != "error") {
                     $("form[name='project_type_form']")[0].reset();
+                    $('.btn-close').trigger('click');
                     $("form[name='project_type_form']").removeClass("was-validated");
                     $('.loader').hide();
                     iziToast.success({
                         title: 'Added Successfully'
                     });
                     list_data();
-                } else {
-                    $('.loader').hide();
-                    iziToast.error({
-                        title: 'Duplicate data'
-                    });
                 }
             },
         });
-    } else {
-        // Handle validation error
-        $("form[name='project_type_form']").addClass("was-validated");
-    }
-});
+    });
 </script>
 <script>
+    $('#imported_btn').hide();
     $('#audiunse_btn').attr('disabled', true);
     $('.second-page').hide();
-    $('body').on('change', '#product_name', function () {
+    $('body').on('change', '#intrested_product', function () {
         // $('#selscr_user2').closest('.col-12').addClass('d-none');
         var a = $(this).val();
         // console.log(a);
@@ -878,11 +618,40 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
         $('.first-container').addClass('col-12');
         $('.first-container').removeClass('col-6');
     })
-    $('body').on('change','.get_exel_file', function () {
-        $('.custom_exel').removeClass('d-none');
-        // alert('dfhslkfhsfh');
-    });
-    $('body').on('change','#flexRadioDefault2',function(){
+    $('body').on('change', '.get_exel_file', function () {
+        // alert('LKJC');
+            $('.import_btn').attr('disabled',false);
+        // alert('mital');
+        
+        });
+        $('body').on('change', '.get_exel_file', function () {
+            
+        })
+        $('body').on('click', '#import_inquiry_csv_btn', function (e) {
+            e.preventDefault();
+            var form = $('form[name="import_inquiry_csv"]')[0];
+            var formdata = new FormData(form);
+            var file = $('#import_file').val();
+            if (file != '') {
+                $.ajax({
+                    method: "post",
+                    url: "<?= site_url('get_data_header_by_file_audience'); ?>",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function (res) {
+                        var responce = JSON.parse(res);
+                        $('.loader').hide();
+                        $('.file_columns').html(responce.html);
+                        $('.selectpicker').selectpicker('refresh');
+                        $('#imported_btn').attr('disabled',false);
+                        $('.import_btn').prop('disabled', false);
+                        $('.custome_col').prop('disabled', false);
+                    },
+                });
+            }
+        });
+    $('body').on('change', '#flexRadioDefault2', function () {
         // if($(this).is('::checked')){
         //     alert('jksdfgh');
         // }
@@ -891,9 +660,13 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
             $('#second_modalheader').removeClass('d-none');
             $('#first_modalbody').addClass('d-none');
             $('#first_modalheader').addClass('d-none');
+            // $('.create_audiences').addClass('d-none');
+            $('#import_data').removeClass('d-none');
+            $('.create_audiences').hide();
+            $('#imported_btn').show();
         }
     })
-    $('body').on('change','#flexRadioDefault',function(){
+    $('body').on('change', '#flexRadioDefault', function () {
         // if($(this).is('::checked')){
         //     alert('jksdfgh');
         // }
@@ -903,6 +676,9 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
             $('#second_modalheader').addClass('d-none');
             $('#first_modalbody').removeClass('d-none');
             $('#first_modalheader').removeClass('d-none');
+            $('.create_audiences').show();
+            $('#imported_btn').hide();
+            
         }
         // else{
         //     $('#second_modalbody').removeClass('d-none');
@@ -911,6 +687,141 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
         //     $('#first_modalheader').addClass('d-none');
         // }
     })
+    $('body').on('click', '.button-add', function() {
+          $('form[name="project_type_form"]')[0].reset();
+          $('.selectpicker').selectpicker('refresh');
+          $('form[name="import_inquiry_csv"]')[0].reset();
+          $('.selectpicker').selectpicker('refresh');
+          $('#flexRadioDefault').prop('checked');
+
+     });
+    $('body').on('click', '.list_item', function (e) {
+            e.preventDefault();
+            var text = $(this).text();
+            console.log(text);
+            text = text.replace('+ add', '');
+            $(this).closest('.main-selectpicker').find('input').val(text);
+        });
+
+        $('body').on('keyup', '#list', function (event) {
+            var input, filter, ul, li, i, txtValue;
+            input = $(this);
+            input_val = input.val().trim();
+            filter = input_val.toUpperCase();
+            ul = input.closest('.main-selectpicker').find("ul");
+            li = ul.find("li");
+
+            if (event.key === ' ') {
+                input_val = input_val.replace(/ /g, '_');
+                input.val(input_val);
+            }
+
+            var found = false;
+
+            for (i = 0; i < li.length; i++) {
+                txtValue = li.eq(i).text();
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li.eq(i).css("display", "block");
+                    found = true;
+                } else {
+                    li.eq(i).css("display", "none");
+                }
+            }
+
+            if (!found) {
+                ul.append('<li><button class="dropdown-item list_item d-flex" type="button"><span>' + input_val + '</span><span class="text-success ms-auto">+ add</span></button></li>');
+            }
+        });
+        $('.custome_column').hide();
+    $('body').on('click', '#custome_col', function (e) {
+            e.preventDefault();
+            var col_incriment_val = $('.custome_column').find('.custome_column_input');
+            if (col_incriment_val.length == 0) {
+                var i = 0;
+            } else {
+                var i = parseInt($('.custome_column').find('.custome_column_input:last').attr('data-check_id')) + 1;
+            }
+            $('.custome_column').show();
+            var inputs = $('.file_columns').find('.file_columns_input');
+            var html = '';
+            var input_fileds = '';
+            input_fileds += '<div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">'
+                                + '<div class="main-selectpicker col-12 dropdown">'
+                                    + '<input type="text" id="list" class="form-control list main-control dropdown-toggle custome_column_input" data-bs-toggle="dropdown" aria-expanded="false" data-check_id="' + i + '" name="' + i + '_col" id="' + i + '_col" placeholder="Custome Column">'
+                                    + '<ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">';
+                                    <?php foreach ($columnNames as $columnName) {
+                                        if (!preg_match("/id/", $columnName) && !preg_match("/date/", $columnName) && !preg_match("/status/", $columnName) && !preg_match("/type/", $columnName) && !preg_match("/amount/", $columnName) && !preg_match("/inquiry/", $columnName) && !preg_match("/buy/", $columnName) && !preg_match("/pay/", $columnName) && !preg_match("/created/", $columnName) && !preg_match("/head/", $columnName) && !preg_match("/unit/", $columnName) && !preg_match("/follow/", $columnName) && !preg_match("/is/", $columnName) && !preg_match("/tooltip/", $columnName) && !preg_match("/site_/", $columnName) && !preg_match("/area_/", $columnName)) { ?>
+                                        var allValuesAreSame = 0;
+                                        inputs.each(function() {
+                                            console.log($(this).val());
+                                            console.log('<?php echo $columnName; ?>');
+                                            if ($(this).val() == '<?php echo $columnName; ?>') {
+                                                allValuesAreSame = 1;
+                                                // return false; // Break out of the loop
+                                            } 
+                                        });
+                                        if(allValuesAreSame != 1) {
+                                            input_fileds += '<li><button class="dropdown-item list_item" type="button"><span><?php echo $columnName; ?></span></button></li>';
+                                        }
+                                        <?php }
+                                    } ?>
+            input_fileds += '</ul>'
+                                + '</div>'
+                            + '</div>'
+                            + '<div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">'
+                                + '<div class="main-selectpicker col-12 dropdown">'
+                                    + '<div class="bulk-action select col-12 px-1 mt-lg-0 mb-1">'
+                                        + '<input type="text" class="form-control main-control" id="' + i + '_value" name="' + i + '_value" placeholder="to Column Value" value="" required>'
+                                    + '</div>'
+                                + '</div>'  
+                            + '</div>';
+            html += '<div class="col-12 d-flex flex-wrap mb-2">' + input_fileds + '</div>';
+
+            $('.custome_column').append(html);
+        });
+   
+        $('body').on('click', '#imported_btn', function (e) {
+            e.preventDefault();
+            var import_form = $('form[name="import_inquiry_csv"]')[0];
+            var col_data_form = $('form[name="column_data_form"]')[0];
+            var import_formdata = new FormData(import_form);
+            var col_data_formdata = new FormData(col_data_form);
+
+            // Iterate over the FormData object and append its data to import_formdata
+            col_data_formdata.forEach(function (value, key) {
+                import_formdata.append(key, value);
+            });
+
+            // Get the product_name from the form
+            var product_name = $("#product_names").val();
+            import_formdata.append('product_name', product_name);
+
+            // Get the value of the checked radio button
+            var source = $("input[id='flexRadioDefault2']:checked").val();
+            import_formdata.append('source', source);
+
+            // Send the AJAX request
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('import_file_data_audience'); ?>",
+                data: import_formdata,
+                processData: false,
+                contentType: false,
+                beforeSend: function (f) {
+                    $('.loader').show();
+                },
+                success: function (res) {
+                    $('.loader').hide();
+                    $('.btn-close').trigger('click');
+                    $('.selectpicker').selectpicker('refresh');
+                    iziToast.success({
+                        title: 'data imported successfully'
+                    });
+                    data_module_list_data();
+                },
+            });
+        });
+
 </script>
 <script>
     $('body').on('change', '#inquiry_status', function () {
@@ -922,5 +833,8 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
         else {
             $('#audiunse_btn').attr('disabled', true);
         }
+    })
+    $('body').on('click','#import_inquiry_csv_btn',function(){
+        
     })
 </script>
