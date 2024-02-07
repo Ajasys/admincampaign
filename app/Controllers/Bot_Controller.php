@@ -571,6 +571,50 @@ class Bot_Controller extends BaseController
 		die();
 	}
 
+
+	public function bot_question_update()
+	{
+		$post_data = $this->request->getPost();
+		$table_name = $this->request->getPost("table");
+		$action_name = $this->request->getPost("action");
+		$update_id = $this->request->getPost("edit_id");
+		$reports_name = "";
+		if (isset($_POST['reports_name'])) {
+			$reports_name2 = $_POST['reports_name'];
+			$reports_name = implode(',', $reports_name2);
+		}
+		$integrations_type = "";
+		if (isset($_POST['integration_type'])) {
+			$integration_type2 = $_POST['integration_type'];
+			$integrations_type = implode(',', $integration_type2);
+		}
+		$response = 0;
+		if ($this->request->getPost("action") == "update") {
+			//print_r($_POST);
+			unset($_POST['action']);
+			unset($_POST['edit_id']);
+			unset($_POST['table']);
+			unset($_POST['reports_name']);
+			if (!empty($post_data)) {
+				$update_data = $_POST;
+				//pre($integrations_type);
+				if ($reports_name != '') {
+					$update_data['reports_name'] = $reports_name;
+				}
+				if ($integrations_type != '') {
+					$update_data['integration_type'] = $integrations_type;
+				}
+				$departmentUpdatedata = $this->MasterInformationModel->update_entry2($update_id, $update_data, $table_name);
+				$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+				$departmentdisplaydata = json_decode($departmentdisplaydata, true);
+				$response = 1;
+				
+			}
+		}
+		echo $response;
+		die();
+	}
+
 	//bot delete question
 	public function bot_delete_data()
 	{
@@ -587,42 +631,7 @@ class Bot_Controller extends BaseController
 		die();
 	}
 
-	// public function bot_update_data()
-	// {
-	// 	$table_name = $this->request->getPost("table");
-	// 	$action_name = $this->request->getPost("action");
-
-	// 	$questionArray = [];
-	// 	$bot_id = $this->request->getPost("bot_id");
-	// 	// pre($bot_id);
-	// 	if (isset($_SESSION['questionArrays'][$bot_id])) {
-	// 		$questionArray = $_SESSION['questionArrays'][$bot_id];
-	// 	}
-
-	// 	if ($action_name == "update") {
-	// 		$questionsJson = $this->request->getPost("questions");
-	// 		$questionsArray = json_decode($questionsJson, true);
-
-	// 		if (!empty($questionsArray) && is_array($questionsArray)) {
-	// 			$questionArray = array_merge($questionArray, $questionsArray);
-
-	// 			$update_data = [
-	// 				'question_type' => json_encode($questionArray),
-	// 			];
-	// 			// pre($table_name);
-	// 			// $_SESSION['questionArrays'][$bot_id] = $questionArray;
-
-	// 			$departmentUpdatedata = $this->MasterInformationModel->update_entry2($bot_id, $update_data, $table_name);
-	// 			// $departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
-	// 			// $departmentdisplaydata = json_decode($departmentdisplaydata, true);
-
-	// 			$response = 1;
-	// 		}
-	// 	}
-	// 	echo json_encode(['response' => $response]);
-	// 	die();
-	// }
-
+	
 
 	//bot list question
 	public function bot_list_data()
@@ -750,7 +759,7 @@ class Bot_Controller extends BaseController
 								<i class="fa fa-pencil cursor-pointer question_edit" data-id='.$value['id'].' data-bs-toggle="modal" data-bs-target="#add-email"></i>
 							</div>
 							<div class="col-3 p-1">
-								<i class="fa fa-sitemap cursor-pointer"></i>
+								<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id='.$value['id'].' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
 							</div>
 							<div class="col-3 p-1">
 								<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question='.$value['id'].'></i>

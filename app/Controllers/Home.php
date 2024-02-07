@@ -380,6 +380,10 @@ class Home extends BaseController
             'question longtext NOT NULL',
             'sequence int(11) NOT NULL',
             'bot_id int(11) NOT NULL',
+            'next_question_id int(11) NOT NULL',
+            'menu_message int(11) NOT NULL',
+            'skip_question int(11) NOT NULL',
+            'error_text varchar(500) NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_username . '_bot_setup', '', $columns_bot);
 
@@ -402,6 +406,7 @@ class Home extends BaseController
         }
 
         $data['master_bot_typeof_question'] = $this->MasterInformationModel->display_all_records2('master_bot_typeof_question');
+        $data['admin_bot_setup'] = $this->MasterInformationModel->display_all_records2($table_username . '_bot_setup');
         return view('bot_setup', $data);
     }
     

@@ -5,12 +5,13 @@
 
 <?php
 if (isset($_GET['bot_id'])) {
-     $botId = $_GET['bot_id'];
+    $botId = $_GET['bot_id'];
 } else {
-     $botId = "";
+    $botId = "";
 }
 
 $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
+$admin_bot_setup = json_decode($admin_bot_setup, true);
 ?>
 
 <style>
@@ -39,7 +40,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         box-shadow: 0 0 5px 2px #0000004d;
     }
 
-    .icon{
+    .icon {
         color: #724EBF;
     }
 
@@ -57,11 +58,9 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         background-color: #f4f4f6;
     }
 
-    .media-upload-box{
+    .media-upload-box {
         border: 2px dotted black;
     }
-
-    
 </style>
 
 
@@ -101,13 +100,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Question') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Question') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -119,13 +118,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Single Choice') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Single Choice') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -137,13 +136,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Email') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Email') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -156,13 +155,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Multiple Choice') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Multiple Choice') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -176,13 +175,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Mobile Number') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Mobile Number') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -195,13 +194,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Number') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Number') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -214,13 +213,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Rating') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Rating') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -233,13 +232,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Date Picker') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Date Picker') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -252,13 +251,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Time Picker') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Time Picker') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -271,13 +270,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Location') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Location') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -290,13 +289,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Range') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Range') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -309,13 +308,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'File Upload') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'File Upload') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -328,13 +327,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Website') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Website') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -347,13 +346,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Ask Contacts') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Ask Contacts') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -366,32 +365,32 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Order Items') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Order Items') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-3 p-2 question_add" data-qu="Please authenticate">
-                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true" >
+                                    <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-key icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Authenticator') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Authenticator') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -404,13 +403,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Form') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Form') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -423,13 +422,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Carousel with buttons') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Carousel with buttons') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -442,13 +441,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Dynamic Question') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Dynamic Question') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -461,13 +460,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Real Time Search') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Real Time Search') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -480,13 +479,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Appointment Booking') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Appointment Booking') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -507,13 +506,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Statement') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Statement') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -525,13 +524,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'URL Navigator') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'URL Navigator') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -543,13 +542,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Product Carousel') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Product Carousel') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -562,13 +561,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Carousel') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Carousel') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -582,13 +581,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Audio') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Audio') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -600,15 +599,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                             <i class="fa-sharp fa-solid fa-address-book icon"></i>
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
-  
+
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Audio') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Audio') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -621,13 +620,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Show Location') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Show Location') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -640,13 +639,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Show File') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Show File') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -659,13 +658,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'URL Auto Redirect') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'URL Auto Redirect') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -678,13 +677,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'URL Based Flow') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'URL Based Flow') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -697,13 +696,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Country Based Flow') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Country Based Flow') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -716,13 +715,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Action Based Flow') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Action Based Flow') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -745,13 +744,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'FAQs') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'FAQs') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -771,21 +770,21 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'AI Answering') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'AI Answering') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
                                 </div>
-              
+
                             </div>
                             <div class="col-12 d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary">Map Intents</button>
+                                <button type="button" class="btn btn-primary">Map Intents</button>
                             </div>
                         </form>
 
@@ -801,13 +800,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Human Handover') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Human Handover') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -819,13 +818,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Live Chats Redirect to whatsapp') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Live Chats Redirect to whatsapp') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -845,13 +844,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Templates Based Flow') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Templates Based Flow') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -863,13 +862,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Users Initial Respone Based Flow') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Users Initial Respone Based Flow') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -881,13 +880,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Menu List') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Menu List') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -899,13 +898,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Cart') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Cart') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -917,13 +916,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Buttons') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Buttons') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -935,13 +934,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Catalog') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Catalog') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -953,13 +952,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Address') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Address') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -971,13 +970,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Ad Based Flow') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Ad Based Flow') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -998,13 +997,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Generic Template') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Generic Template') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -1016,13 +1015,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                         </div>
                                         <div class="col-12 d-flex flex-wrap justify-content-center fs-12">
                                             <?php
-                                                if (isset($master_bot_typeof_question)) {
-                                                    foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                        if ($type_value['question_type'] == 'Ice Breakers') {
-                                                            echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
-                                                        }
+                                            if (isset($master_bot_typeof_question)) {
+                                                foreach ($master_bot_typeof_question as $type_key => $type_value) {
+                                                    if ($type_value['question_type'] == 'Ice Breakers') {
+                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -1228,7 +1227,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                         <span>
                             <p>Note : Please press "Enter" for Paragraph break</p>
                         </span>
-                      
+
                     </div>
                     <div class="col-2 d-flex justify-content-end align-items-center px-2">
                         <i class="fa-regular fa-face-smile fa-lg"></i>
@@ -1257,7 +1256,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                 <div class="col-12 d-flex flex-wrap p-2 my-3">
 
                     <div class="tab-content col-12 edit-data-panal">
-                    <div class="tab-pane active" id="basic-edit" role="tabpanel" aria-labelledby="basic-tab" tabindex="0">
+                        <div class="tab-pane active" id="basic-edit" role="tabpanel" aria-labelledby="basic-tab" tabindex="0">
                             <div class="col-12 d-flex flex-wrap p-1">
                                 <!--Whatsapp-->
                                 <!-- <div class="col-12 d-flex flex-wrap px-3">
@@ -1269,25 +1268,27 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
 
 
                                 <!--Question-->
-                                <div class="col-12 d-flex flex-wrap px-2">
-                                    <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-1" type="checkbox" role="switch" id="Question-1">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
-                                    </div>
-                                    <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-2" type="checkbox" role="switch" id="Question-2">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
-                                    </div>
-                                    <div class="col-12 my-2">
-                                        <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="mb-3">
-                                            <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid answer" placeholder="Enter Error Message">
+                                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                                    <div class="col-12 d-flex flex-wrap px-2">
+                                    
+                                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 menu_message" value="1" type="checkbox" role="switch" id="Question-1">
+                                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                                        </div>
+                                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
+                                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-2 skip_question" type="checkbox" role="switch" id="Question-2">
+                                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
+                                        </div>
+                                        <div class="col-12 my-2">
+                                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid answer" placeholder="Enter Error Message">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-
+                                </form>
 
                                 <!--Single Choice-->
                                 <!-- <div class="col-12 d-flex flex-wrap single-choice">
@@ -1789,7 +1790,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                     </div>
                                 </div> -->
 
-                                 <!--Ask Contact-->
+                                <!--Ask Contact-->
                                 <!-- <div class="col-12 d-flex flex-wrap">
                                     <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
                                         <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 mx-3 px-5 ">
@@ -1989,154 +1990,153 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
             </div>
             <div class="col-12 d-flex flex-wrap p-1 my-3">
 
-                    <div class="tab-content col-12 edit-data-panal">
-                        <div class="tab-pane" id="media-edit" role="tabpanel" aria-labelledby="media-tab" tabindex="0">
-                            <div class="col-12 d-flex flex-wrap px-3">
-                                <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box">
-                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                        <g>
-                                            <defs>
-                                                <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                                                    <path d="M0 512h512V0H0Z" fill="#000000" opacity="1" data-original="#000000"></path>
-                                                </clipPath>
-                                            </defs>
-                                            <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
-                                                <path d="M0 0h-189.325c-18.299 0-33.133 14.834-33.133 33.132v33.134H31.824Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(246.509 90.334)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
-                                                <path d="M0 0v-231.933h-397.633c-18.299 0-33.133 14.834-33.133 33.133V0l231.95 82.834z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(454.816 355.4)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
-                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(281.128 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(347.384 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(413.65 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0v24.85a8.282 8.282 0 0 1-8.283 8.283H-24.85a8.282 8.282 0 0 1-8.283-8.283V8.283A8.282 8.282 0 0 1-24.85 0Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(289.128 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 156.6)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 156.6)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 156.6)" fill="#3c58a0" data-original="#3c58a0"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(413.65 322.267)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(347.384 322.267)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(281.128 322.267)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 322.267)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 322.267)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 322.267)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 256)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.619-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 189.733)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 256)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.619-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 189.733)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 256)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0v25.133a8 8 0 0 1-8 8h-17.133a7.961 7.961 0 0 1-2.933-.562C-25.102 31.4-23 28.515-23 25.133V8c0-3.382-2.102-6.267-5.066-7.438A7.982 7.982 0 0 1-25.133 0Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(289.128 222.867)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.619-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 189.733)" fill="#2a428c" data-original="#2a428c"></path>
-                                                <path d="M0 0v-241.522h23.016V-9.589z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(431.8 364.99)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
-                                                <path d="M0 0v82.834c0 18.299-14.834 33.133-33.132 33.133h-364.501c-18.299 0-33.133-14.834-33.133-33.133V0z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(454.816 355.4)" fill="#ff4155" data-original="#ff4155"></path>
-                                                <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.438 0-20.709 9.271-20.709 20.708v41.417c0 11.437 9.271 20.708 20.709 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(164.867 442.375)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
-                                                <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.437 0-20.708 9.271-20.708 20.708v41.417c0 11.437 9.271 20.708 20.708 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(355.394 442.375)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
-                                                <path d="M0 0a20.604 20.604 0 0 1-11.488-3.482C-5.932-7.196-2.27-13.523-2.27-20.708v-41.417c0-7.186-3.662-13.513-9.218-17.226A20.604 20.604 0 0 1 0-82.833c11.437 0 20.708 9.271 20.708 20.708v41.417C20.708-9.271 11.437 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(334.687 504.5)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
-                                                <path d="M0 0a20.607 20.607 0 0 1-11.489-3.482C-5.932-7.196-2.27-13.523-2.27-20.708v-41.417c0-7.186-3.662-13.513-9.219-17.226A20.607 20.607 0 0 1 0-82.833c11.437 0 20.708 9.271 20.708 20.708v41.417C20.708-9.271 11.437 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(144.16 504.5)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
-                                                <path d="M0 0h-23.009C-4.71 0 10.124-14.833 10.124-33.132v-82.835h23.008v82.835C33.132-14.833 18.298 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(421.685 471.367)" fill="#e80054" data-original="#e80054"></path>
-                                                <path d="M0 0c0 68.622 55.629 124.25 124.25 124.25C192.871 124.25 248.5 68.622 248.5 0s-55.629-124.25-124.25-124.25C55.629-124.25 0-68.622 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(239.434 131.75)" fill="#4fabf7" data-original="#4fabf7"></path>
-                                                <path d="M0 0c0 50.322 40.794 91.117 91.116 91.117S182.233 50.322 182.233 0s-40.795-91.117-91.117-91.117S0-50.322 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(272.567 131.75)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
-                                                <path d="M0 0c-3.878 0-7.712-.187-11.5-.535C51.729-6.339 101.25-59.507 101.25-124.25S51.729-242.161-11.5-247.965A125.64 125.64 0 0 1 0-248.5c68.621 0 124.25 55.629 124.25 124.25C124.25-55.629 68.621 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(363.684 256)" fill="#1886ea" data-original="#1886ea"></path>
-                                                <path d="M0 0c-3.893 0-7.728-.246-11.492-.719C33.405-6.37 68.133-44.687 68.133-91.117c0-46.429-34.728-84.747-79.625-90.397A91.942 91.942 0 0 1 0-182.233c50.322 0 91.117 40.794 91.117 91.116C91.117-40.794 50.322 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(363.684 222.867)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
-                                                <path d="M0 0c0-9.149-7.417-16.567-16.566-16.567-9.15 0-16.567 7.418-16.567 16.567 0 9.149 7.417 16.567 16.567 16.567C-7.417 16.567 0 9.149 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(380.25 131.75)" fill="#ffdd40" data-original="#ffdd40"></path>
-                                                <path d="M0 0v222.032c0 18.298-14.834 33.132-33.133 33.132h-66.266" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(454.816 216.203)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0v-134.1c0-18.298 14.834-33.132 33.133-33.132h182.595" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(24.05 290.7)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-66.267c-18.298 0-33.132-14.834-33.132-33.132v-117.535" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(123.45 471.367)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-149.111" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(313.978 471.367)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-18.145c-18.298 0-33.132 14.834-33.132 33.132v33.134" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(75.328 90.334)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-141.181" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(246.509 90.334)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.438 0-20.709 9.271-20.709 20.708v41.417c0 11.437 9.271 20.708 20.709 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(164.867 442.375)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-16.566" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(123.45 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h16.566" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(164.867 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h430.766" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(24.05 355.4)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h430.766" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(24.05 388.533)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.437 0-20.708 9.271-20.708 20.708v41.417c0 11.437 9.271 20.708 20.708 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(355.394 442.375)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-16.567" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(313.978 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h16.567" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(355.394 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(82.328 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(148.595 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(214.861 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(281.128 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(347.384 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(413.65 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(82.328 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(148.595 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(214.861 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-14.931a8.282 8.282 0 0 0-8.283 8.283V24.85a8.282 8.282 0 0 0 8.283 8.283H1.636a8.282 8.282 0 0 0 8.283-8.283V8.283" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(279.209 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(82.328 156.6)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(148.595 156.6)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(214.861 156.6)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0c0 68.622 55.629 124.25 124.25 124.25C192.871 124.25 248.5 68.622 248.5 0s-55.629-124.25-124.25-124.25C55.629-124.25 0-68.622 0 0Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(239.434 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0c0 50.322 40.794 91.117 91.116 91.117S182.233 50.322 182.233 0s-40.795-91.117-91.117-91.117S0-50.322 0 0Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(272.567 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0c0-9.149-7.417-16.567-16.566-16.567-9.15 0-16.567 7.418-16.567 16.567 0 9.149 7.417 16.567 16.567 16.567C-7.417 16.567 0 9.149 0 0Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(380.25 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0v41.417" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(363.684 148.317)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                                <path d="M0 0h24.851" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(380.25 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
-                                            </g>
+                <div class="tab-content col-12 edit-data-panal">
+                    <div class="tab-pane" id="media-edit" role="tabpanel" aria-labelledby="media-tab" tabindex="0">
+                        <div class="col-12 d-flex flex-wrap px-3">
+                            <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <defs>
+                                            <clipPath id="a" clipPathUnits="userSpaceOnUse">
+                                                <path d="M0 512h512V0H0Z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                            </clipPath>
+                                        </defs>
+                                        <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
+                                            <path d="M0 0h-189.325c-18.299 0-33.133 14.834-33.133 33.132v33.134H31.824Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(246.509 90.334)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                            <path d="M0 0v-231.933h-397.633c-18.299 0-33.133 14.834-33.133 33.133V0l231.95 82.834z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(454.816 355.4)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
+                                            <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(281.128 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(347.384 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(413.65 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0v24.85a8.282 8.282 0 0 1-8.283 8.283H-24.85a8.282 8.282 0 0 1-8.283-8.283V8.283A8.282 8.282 0 0 1-24.85 0Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(289.128 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 156.6)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 156.6)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 156.6)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(413.65 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(347.384 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(281.128 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 256)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.619-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 189.733)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 256)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.619-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 189.733)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 256)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0v25.133a8 8 0 0 1-8 8h-17.133a7.961 7.961 0 0 1-2.933-.562C-25.102 31.4-23 28.515-23 25.133V8c0-3.382-2.102-6.267-5.066-7.438A7.982 7.982 0 0 1-25.133 0Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(289.128 222.867)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.619-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 189.733)" fill="#2a428c" data-original="#2a428c"></path>
+                                            <path d="M0 0v-241.522h23.016V-9.589z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(431.8 364.99)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                            <path d="M0 0v82.834c0 18.299-14.834 33.133-33.132 33.133h-364.501c-18.299 0-33.133-14.834-33.133-33.133V0z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(454.816 355.4)" fill="#ff4155" data-original="#ff4155"></path>
+                                            <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.438 0-20.709 9.271-20.709 20.708v41.417c0 11.437 9.271 20.708 20.709 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(164.867 442.375)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
+                                            <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.437 0-20.708 9.271-20.708 20.708v41.417c0 11.437 9.271 20.708 20.708 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(355.394 442.375)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
+                                            <path d="M0 0a20.604 20.604 0 0 1-11.488-3.482C-5.932-7.196-2.27-13.523-2.27-20.708v-41.417c0-7.186-3.662-13.513-9.218-17.226A20.604 20.604 0 0 1 0-82.833c11.437 0 20.708 9.271 20.708 20.708v41.417C20.708-9.271 11.437 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(334.687 504.5)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                            <path d="M0 0a20.607 20.607 0 0 1-11.489-3.482C-5.932-7.196-2.27-13.523-2.27-20.708v-41.417c0-7.186-3.662-13.513-9.219-17.226A20.607 20.607 0 0 1 0-82.833c11.437 0 20.708 9.271 20.708 20.708v41.417C20.708-9.271 11.437 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(144.16 504.5)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                            <path d="M0 0h-23.009C-4.71 0 10.124-14.833 10.124-33.132v-82.835h23.008v82.835C33.132-14.833 18.298 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(421.685 471.367)" fill="#e80054" data-original="#e80054"></path>
+                                            <path d="M0 0c0 68.622 55.629 124.25 124.25 124.25C192.871 124.25 248.5 68.622 248.5 0s-55.629-124.25-124.25-124.25C55.629-124.25 0-68.622 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(239.434 131.75)" fill="#4fabf7" data-original="#4fabf7"></path>
+                                            <path d="M0 0c0 50.322 40.794 91.117 91.116 91.117S182.233 50.322 182.233 0s-40.795-91.117-91.117-91.117S0-50.322 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(272.567 131.75)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
+                                            <path d="M0 0c-3.878 0-7.712-.187-11.5-.535C51.729-6.339 101.25-59.507 101.25-124.25S51.729-242.161-11.5-247.965A125.64 125.64 0 0 1 0-248.5c68.621 0 124.25 55.629 124.25 124.25C124.25-55.629 68.621 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(363.684 256)" fill="#1886ea" data-original="#1886ea"></path>
+                                            <path d="M0 0c-3.893 0-7.728-.246-11.492-.719C33.405-6.37 68.133-44.687 68.133-91.117c0-46.429-34.728-84.747-79.625-90.397A91.942 91.942 0 0 1 0-182.233c50.322 0 91.117 40.794 91.117 91.116C91.117-40.794 50.322 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(363.684 222.867)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                            <path d="M0 0c0-9.149-7.417-16.567-16.566-16.567-9.15 0-16.567 7.418-16.567 16.567 0 9.149 7.417 16.567 16.567 16.567C-7.417 16.567 0 9.149 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(380.25 131.75)" fill="#ffdd40" data-original="#ffdd40"></path>
+                                            <path d="M0 0v222.032c0 18.298-14.834 33.132-33.133 33.132h-66.266" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(454.816 216.203)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v-134.1c0-18.298 14.834-33.132 33.133-33.132h182.595" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(24.05 290.7)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-66.267c-18.298 0-33.132-14.834-33.132-33.132v-117.535" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(123.45 471.367)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-149.111" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(313.978 471.367)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-18.145c-18.298 0-33.132 14.834-33.132 33.132v33.134" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(75.328 90.334)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-141.181" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(246.509 90.334)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.438 0-20.709 9.271-20.709 20.708v41.417c0 11.437 9.271 20.708 20.709 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(164.867 442.375)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-16.566" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(123.45 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h16.566" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(164.867 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h430.766" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(24.05 355.4)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h430.766" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(24.05 388.533)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.437 0-20.708 9.271-20.708 20.708v41.417c0 11.437 9.271 20.708 20.708 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(355.394 442.375)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-16.567" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(313.978 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h16.567" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(355.394 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(82.328 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(148.595 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(214.861 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(281.128 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(347.384 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(413.65 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(82.328 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(148.595 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(214.861 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-14.931a8.282 8.282 0 0 0-8.283 8.283V24.85a8.282 8.282 0 0 0 8.283 8.283H1.636a8.282 8.282 0 0 0 8.283-8.283V8.283" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(279.209 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(82.328 156.6)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(148.595 156.6)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(214.861 156.6)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0c0 68.622 55.629 124.25 124.25 124.25C192.871 124.25 248.5 68.622 248.5 0s-55.629-124.25-124.25-124.25C55.629-124.25 0-68.622 0 0Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(239.434 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0c0 50.322 40.794 91.117 91.116 91.117S182.233 50.322 182.233 0s-40.795-91.117-91.117-91.117S0-50.322 0 0Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(272.567 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0c0-9.149-7.417-16.567-16.566-16.567-9.15 0-16.567 7.418-16.567 16.567 0 9.149 7.417 16.567 16.567 16.567C-7.417 16.567 0 9.149 0 0Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(380.25 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0v41.417" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(363.684 148.317)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            <path d="M0 0h24.851" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(380.25 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
                                         </g>
-                                    </svg>
-                                </div>
+                                    </g>
+                                </svg>
                             </div>
                         </div>
-                        <div class="tab-pane" id="advanced-edit" role="tabpanel" aria-labelledby="advanced-tab" tabindex="0">
-                            <div class="accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Data Referencing
-                                        </button>
-                                    </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="col-12 d-flex flex-wrap my-2">
-                                                <div class="col-5 p-2">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Open this select menu</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-6 p-2">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Open this select menu</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
-                                                </div>
+                    </div>
+                    <div class="tab-pane" id="advanced-edit" role="tabpanel" aria-labelledby="advanced-tab" tabindex="0">
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Data Referencing
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="col-12 d-flex flex-wrap my-2">
+                                            <div class="col-5 p-2">
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
                                             </div>
-                                            <div class="col-12 d-flex flex-wrap my-2 px-2 fw-medium">
-                                                <span>Select data from SDK Object / Whatsapp User Info</span>
+                                            <div class="col-6 p-2">
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
                                             </div>
-                                            <div class="col-12 my-2">
-                                                <div class="col-5 p-2">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Open this select menu</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
-                                                </div>
+                                        </div>
+                                        <div class="col-12 d-flex flex-wrap my-2 px-2 fw-medium">
+                                            <span>Select data from SDK Object / Whatsapp User Info</span>
+                                        </div>
+                                        <div class="col-12 my-2">
+                                            <div class="col-5 p-2">
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Time Based Greeting
-                                        </button>
-                                    </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="col-12 d-flex flex-wrap">
-                                                <div class="col-8">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Coppy Text Hear" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                                        <button class="btn btn-primary" type="button" id="button-addon2">Coppy</button>
-                                                    </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Time Based Greeting
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="col-12 d-flex flex-wrap">
+                                            <div class="col-8">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" placeholder="Coppy Text Hear" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                                                    <button class="btn btn-primary" type="button" id="button-addon2">Coppy</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2146,6 +2146,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                         </div>
                     </div>
                 </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary update_question">Update</button>
@@ -2154,6 +2155,437 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
     </div>
 </div>
 
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Conditional Flow</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+
+                <div class="modal-body1 p-3">
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Question</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="URL Auto Redirect" disabled>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="formGroupExampleInput" class="form-label">Subflows</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Main Flow</option>
+                            </select>
+                        </div>
+                        <div class="col-8">
+                            <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
+                            <select class="form-select question_select" aria-label="Default select example">
+
+                                <option value="No Jump">No Jump</option>
+                                
+                                <?php
+                                    if (isset($admin_bot_setup)) {
+                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                            // pre($type_value);
+                                            if($type_value['sequence'] == '1'){
+                                                echo '<option value="End of Conversion">End of Conversion</option>';
+                                            }
+                                            if ($type_value['bot_id'] == $botId ) {
+                                               
+                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                            }
+                                        }
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                </div> 
+
+                <!-- Conditional Flow -->
+                <!-- <div class="model-body2 p-3">
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Question</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="URL Auto Redirect">
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="formGroupExampleInput" class="form-label">Question</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <label for="formGroupExampleInput" class="form-label">Question</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="formGroupExampleInput" class="form-label">Question</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this </option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>   -->
+
+                <!-- How would you rate our company? -->
+                <!-- <div class="model-body3 p-3">
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Question</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="URL Auto Redirect">
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <label for="formGroupExampleInput" class="form-label">Subflows</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <label for="formGroupExampleInput" class="form-label">Question</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="model-body4 p-3">
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Question</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="URL Auto Redirect">
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <label for="formGroupExampleInput" class="form-label">Subflows</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <label for="formGroupExampleInput" class="form-label">Question</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2 mb-3">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="URL Auto Redirect" disabled>
+                        </div>
+                        <div class="col-3">
+                            <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle w-100 text-start" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="dropdown">
+                                <button class="btn btn-light dropdown-toggle w-100 text-start" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- This will call your api and show the response to the user -->
+                <!-- <div class="modal-body4 p-3">
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Question</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput"
+                            placeholder="URL Auto Redirect">
+                    </div>
+                    <h6 class="mt-2 mb-3">If your response for dynamic question is a radio type Please set options and
+                        their respective
+                        jumps here</h6>
+
+
+                    <div class="man_div">
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" id="addButton" class="btn btn-outline-primary">ADD</button>
+                        </div>
+                    </div>
+
+                    <h6 class="mt-2 mb-3">If your response for dynamic question is not a radio type Next question to
+                        jump to</h6>
+                    <div class="row">
+                        <div class="col-4">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-8">
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary conditional_flow_update">Save</button>
+                </div>
+            </div>
+        </div>
+</div>
 
 
 <?= $this->include('partials/footer') ?>
@@ -2179,7 +2611,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
     //     var draggedElement = $('.dragging');
     //     $(this).append(draggedElement);
     //     draggedElement.removeClass('dragging');
-        
+
     //     // Alert when dropped
     //     alert('Item dropped!');
     // });
@@ -2189,45 +2621,48 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         $(this).addClass('dragging');
         e.originalEvent.dataTransfer.setData("text/plain", event.target.id);
 
-        var questionId = $(this).find('.span_text').attr('data-question_id'); 
+        var questionId = $(this).find('.span_text').attr('data-question_id');
         var textOfQuestion = $(this).attr('data-qu');
-        
-        e.originalEvent.dataTransfer.setData("questionId", questionId);
-        var textOfQuestion = $('.droppable').attr('data-qu',textOfQuestion);
 
-        $('.droppable').css("outline","2px dotted black");
-        $('.droppable').css("background-color","#d5d5d5");
+        e.originalEvent.dataTransfer.setData("questionId", questionId);
+        var textOfQuestion = $('.droppable').attr('data-qu', textOfQuestion);
+
+        $('.droppable').css("outline", "2px dotted black");
+        $('.droppable').css("background-color", "#d5d5d5");
     });
     $(".question_add").on("dragend", function() {
         $(this).removeClass('dragging');
-        $('.droppable').css("outline","3px dotted transparent");
-        $('.droppable').css("background-color","#f4f4f6");
+        $('.droppable').css("outline", "3px dotted transparent");
+        $('.droppable').css("background-color", "#f4f4f6");
     });
-    $('body').on('dragover','.droppable', function(e) {
+    $('body').on('dragover', '.droppable', function(e) {
         e.preventDefault();
     });
-  
+
 
     //drag and drop controller question js
-    var targetSequence; 
+    var targetSequence;
     var targetQuestionId;
     $('body').on('dragstart', '.drag_question', function(e) {
         $(this).addClass('dragging');
         e.originalEvent.dataTransfer.setData("text/plain", event.target.id);
-        $('.droppable').css("outline","2px dotted black");
-        $('.droppable').css("background-color","#d5d5d5");
+        $('.droppable').css("outline", "2px dotted black");
+        $('.droppable').css("background-color", "#d5d5d5");
 
         targetSequence = parseInt($(this).find('.sequence').data('sequence'));
         targetQuestionId = $(this).find('.question_delete').data('question');
     });
     $('body').on('dragend', '.drag_question', function(e) {
         $(this).removeClass('dragging');
-        $('.droppable').css("outline","3px dotted transparent");
-        $('.droppable').css("background-color","#f4f4f6");
+        $('.droppable').css("outline", "3px dotted transparent");
+        $('.droppable').css("background-color", "#f4f4f6");
     });
-    $('body').on('dragover','.drag_question', function(e) {
+    $('body').on('dragover', '.drag_question', function(e) {
         e.preventDefault();
     });
+
+
+  
 
 </script>
 
@@ -2472,7 +2907,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                 bot_id: bot_id,
                 'action': true
             },
-            success: function (res) {
+            success: function(res) {
                 var result = JSON.parse(res);
                 $('.loader').hide();
                 $(".bot_list").html(result.html);
@@ -2481,7 +2916,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         });
     }
     bot_list_data();
-        
+
 
     // Function to question add
     function handleQuestionAdd(typeOfQuestion, questionText) {
@@ -2503,7 +2938,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                 data: formdata,
                 processData: false,
                 contentType: false,
-                success: function (data) {
+                success: function(data) {
                     if (data !== "error") {
                         $("form[name='bot_form']")[0].reset();
                         $("form[name='bot_form']").removeClass("was-validated");
@@ -2525,7 +2960,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
     //function for get value
     function handleQuestionClick(e) {
         e.preventDefault();
-        var questionId = $(this).find('.span_text').attr('data-question_id'); 
+        var questionId = $(this).find('.span_text').attr('data-question_id');
         // console.log(questionId); 
         var textOfQuestion = $(this).attr('data-qu');
         handleQuestionAdd(questionId, textOfQuestion);
@@ -2538,11 +2973,11 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         e.preventDefault();
         var questionId = e.originalEvent.dataTransfer.getData("questionId");
         $(this).attr('data-question_id', questionId);
-        var textOfQuestion = $(this).attr('data-qu'); 
+        var textOfQuestion = $(this).attr('data-qu');
         handleQuestionAdd(questionId, textOfQuestion);
     });
 
-    
+
     // drag question sequence changed
     $('body').on('drop', '.drag_question', function(e) {
         e.preventDefault();
@@ -2555,7 +2990,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
 
         $.ajax({
             method: "post",
-            url: "update_sequence", 
+            url: "update_sequence",
             data: {
                 droppedQuestionId: droppedQuestionId,
                 targetQuestionId: targetQuestionId,
@@ -2576,8 +3011,8 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
 
 
     // question edit
-    $("body").on('click', '.question_edit', function (e) {
-        
+    $("body").on('click', '.question_edit', function(e) {
+
         e.preventDefault();
         var edit_value = $(this).attr("data-id");
         var className = '.Email_Add_Ckeditor';
@@ -2587,7 +3022,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
             editorElement.style.border = '1px solid #ccc';
             editorElement.style.backgroundImage = 'none';
         }
-        
+
         if (edit_value != "") {
             $('.loader').show();
             $.ajax({
@@ -2598,7 +3033,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                     edit_id: edit_value,
                     table: 'bot_setup'
                 },
-                success: function (res) {
+                success: function(res) {
                     $('.loader').hide();
                     // console.log(res);
                     var response = JSON.parse(res);
@@ -2607,15 +3042,31 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                     if (editors[className]) {
                         editors[className].setData(new_data);
                     }
+
+                    $("#Question_error_message").val(response[0].error_text);
                     
+                    var menu_message = response[0].menu_message;
+                    if (menu_message == 1) {
+                        $(".menu_message").prop("checked", true);
+                    } else {
+                        $(".menu_message").prop("checked", false);
+                    }
+
+                    var skip_question = response[0].skip_question;
+                    if (skip_question == 1) {
+                        $(".skip_question").prop("checked", true);
+                    } else {
+                        $(".skip_question").prop("checked", false);
+                    }
+                    $(".update_question").attr('data-id',response[0].id);
+
                 },
-                error: function (error) {
+                error: function(error) {
                     $('.loader').hide();
                     // console.log(error);
                 }
             });
-        } 
-        else {
+        } else {
             $('.loader').hide();
             alert("Data Not Edit.");
         }
@@ -2623,40 +3074,161 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
 
 
     //question update
-    $("body").on('click', '.update_question', function (e) {
+    $("body").on('click', '.update_question', function(e) {
         e.preventDefault();
-        var edit_id = $(this).attr("data-id");
-        
-        if (edit_id != "") {
+        var update_id = $(this).attr("data-id");
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+       
+        var editor = editors['.Email_Add_Ckeditor'];
+        if (editor) {
+            var htmlContent = editor.getData();
+        }
+        var menu_message = $(".menu_message").is(":checked") ? "1" : "0";
+        var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
+        var error_text = $('#Question_error_message').val();
+
+        if (update_id != "") {
+            var form = $("form[name='question_update_form']")[0];
+            var formdata = new FormData(form);
+            formdata.append('action', 'update');
+            formdata.append('edit_id', update_id);
+            formdata.append('table', table);
+            formdata.append('question', htmlContent);
+            formdata.append('menu_message', menu_message);
+            formdata.append('skip_question', skip_question);
+            formdata.append('error_text', error_text);
+
             $('.loader').show();
             $.ajax({
-                type: "post",
-                url: "<?= site_url('MasterInformation_edit'); ?>",
-                data: {
-                    action: 'edit',
-                    edit_id: edit_id,
-                    table: 'bot_setup'
-                },
+                method: "post",
+                url: "<?= site_url('bot_question_update'); ?>",
+                data: formdata,
+                processData: false,
+                contentType: false,
                 success: function (res) {
-                    $('.loader').hide();
-                    // console.log(res);
-                    var response = JSON.parse(res);
-
-                
-                    var new_data = response[0].question;
-                    if (editors[className]) {
-                        editors[className].setData(new_data);
+                    if (res == true) {
+                        $('.loader').hide();
+                        $("form[name='question_update_form']")[0].reset();
+                        $("form[name='question_update_form']").removeClass("was-validated");
+                        $(".btn-close").trigger("click");
+                        iziToast.success({
+                            title: 'Update Successfully'
+                        });
+                        bot_list_data();
+                    } else {
+                        $('.loader').hide();
+                        $(".btn-close").trigger("click");
+                        $("form[name='question_update_form']").removeClass("was-validated");
+                        iziToast.error({
+                            title: 'Duplicate data'
+                        });
                     }
                 },
                 error: function (error) {
                     $('.loader').hide();
-                    // console.log(error);
                 }
             });
         } 
         else {
             $('.loader').hide();
+        }
+    });
+
+
+    //question condition flow edit
+    $("body").on('click', '.question_flow_edit', function(e) {
+
+        e.preventDefault();
+        var edit_value = $(this).attr("data-id");
+        var className = '.Email_Add_Ckeditor';
+        if (editors[className]) {
+            var editor = editors[className];
+            var editorElement = editor.ui.getEditableElement();
+            editorElement.style.border = '1px solid #ccc';
+            editorElement.style.backgroundImage = 'none';
+        }
+
+        if (edit_value != "") {
+            $('.loader').show();
+            $.ajax({
+                type: "post",
+                url: "<?= site_url('bot_question_edit_data'); ?>",
+                data: {
+                    action: 'edit',
+                    edit_id: edit_value,
+                    table: 'bot_setup'
+                },
+                success: function(res) {
+                    $('.loader').hide();
+                    // console.log(res);
+                    var response = JSON.parse(res);
+
+                    $("#formGroupExampleInput").val(response[0].question);
+                    $(".conditional_flow_update").attr('data-id',response[0].id);
+                },
+                error: function(error) {
+                    $('.loader').hide();
+                    // console.log(error);
+                }
+            });
+        } else {
+            $('.loader').hide();
             alert("Data Not Edit.");
+        }
+    });
+
+
+    //question condition flow update
+    $("body").on('click', '.conditional_flow_update', function(e) {
+        e.preventDefault();
+        var update_id = $(this).attr("data-id");
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+       
+     
+        var next_question_id = $('.question_select').val(); 
+        console.log(next_question_id);
+
+        if (update_id != "") {
+            var form = $("form[name='question_update_form']")[0];
+            var formdata = new FormData(form);
+            formdata.append('action', 'update');
+            formdata.append('edit_id', update_id);
+            formdata.append('table', table);
+            formdata.append('next_question_id', next_question_id);
+
+            $('.loader').show();
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('bot_question_update'); ?>",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res == true) {
+                        $('.loader').hide();
+                        $("form[name='question_update_form']")[0].reset();
+                        $("form[name='question_update_form']").removeClass("was-validated");
+                        $(".btn-close").trigger("click");
+                        iziToast.success({
+                            title: 'Update Successfully'
+                        });
+                        bot_list_data();
+                    } else {
+                        $('.loader').hide();
+                        $(".btn-close").trigger("click");
+                        $("form[name='question_update_form']").removeClass("was-validated");
+                        iziToast.error({
+                            title: 'Duplicate data'
+                        });
+                    }
+                },
+                error: function (error) {
+                    $('.loader').hide();
+                }
+            });
+        } 
+        else {
+            $('.loader').hide();
         }
     });
 
@@ -2668,8 +3240,10 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         $.ajax({
             method: 'post',
             url: 'duplicate_Question',
-            data: { questionId: questionId,
-            table: table, },
+            data: {
+                questionId: questionId,
+                table: table,
+            },
             success: function(response) {
                 var duplicatedQuestionId = response.duplicatedQuestionId;
                 iziToast.success({
@@ -2687,34 +3261,34 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         var record_text = "Are you sure you want to delete this question?";
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         Swal.fire({
-                title: 'Delete Question?',
-                text: record_text,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'CONFIRM',
-                cancelButtonText: 'CANCEL',
-                cancelButtonColor: '#6e7881',
-                confirmButtonColor: '#dd3333',
-                reverseButtons: true
+            title: 'Delete Question?',
+            text: record_text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'CONFIRM',
+            cancelButtonText: 'CANCEL',
+            cancelButtonColor: '#6e7881',
+            confirmButtonColor: '#dd3333',
+            reverseButtons: true
         }).then(function(result) {
-                if (result.value) {
-                    $.ajax({
-                        method: "post",
-                        url: "<?= site_url('bot_delete_data'); ?>",
-                        data: {
-                            action: 'delete',
-                            id: questionId,
-                            table: table
-                        },
-                        success: function(data) {
-                            iziToast.error({
-                                    title: 'Deleted Successfully'
-                            });
-                            $(".close_btn").trigger("click");
-                            bot_list_data();
-                        }
-                    });
-                }
+            if (result.value) {
+                $.ajax({
+                    method: "post",
+                    url: "<?= site_url('bot_delete_data'); ?>",
+                    data: {
+                        action: 'delete',
+                        id: questionId,
+                        table: table
+                    },
+                    success: function(data) {
+                        iziToast.error({
+                            title: 'Deleted Successfully'
+                        });
+                        $(".close_btn").trigger("click");
+                        bot_list_data();
+                    }
+                });
+            }
         });
 
     });
