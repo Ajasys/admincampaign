@@ -469,7 +469,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      </li>
 
                      <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>">WhatsApp Integration</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>whatsapp">WhatsApp Integration</a>
                      </li>
 
                      <li>
