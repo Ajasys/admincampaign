@@ -27,12 +27,12 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     $get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
 }
 ?>
-<div class="main-dashbord p-2">
+<div class="main-dashbord p-3">
     <div class="container-fluid p-0">
         <div>
             <div class="col-xl-12 d-flex justify-content-between">
                 <div class="title-1  d-flex align-items-center">
-                    <i class="fa-solid fa-house-signal"></i>
+                    <i class="fa-brands fa-facebook transition-5 icon2 rounded-circle" style="font-size: 35px;color: #3a559f;"></i>
                     <h2>Facebook Connections</h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end  col-1">
@@ -317,5 +317,24 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         $('.fb_pagination').twbsPagination('destroy');
         var perPageCount = $(this).val();
         list_data('integration', 1, perPageCount)
+    });
+    $('body').on('click','.get-permission', function() {
+        
+        var access_token=$(this).attr('data-access-token');
+        var data = {
+            'access_token': access_token,
+        };
+        $.ajax({
+            datatype: 'json',
+            method: "POST",
+            url: 'fb_permission_list',
+            data: data,
+            success: function(res) {
+                var result = JSON.parse(res);
+                if (result.response == 1) {
+                    $('.set-permission').html(result.tableHtml);
+                }
+            }
+        });
     });
 </script>
