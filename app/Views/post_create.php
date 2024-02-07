@@ -94,17 +94,18 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12 border rounded  p-3">
-                                                        <textarea cols="30" rows="5" class="col-12 border-0" placeholder="Write something or use shortcodes, spintax..... "></textarea>
-                                                        <button class="border-0 col-12 mt-4 rounded-pill px-4 py-2 fw-semibold text-muted " data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#F3F3F3;">Click or Drag & Drop Media</button>
+                                                        <textarea cols="30" rows="5" class="col-12 border-0 event_address" placeholder="Write something or use shortcodes, spintax..... " id="event_address"></textarea>
+                                                        
+                                                        <span class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 " data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#bdbaba;;">Click or Drag & Drop Media</span>
                                                         <div class="row col-12" id="offer-input">
                                                             <div class="col-md-4 my-1 ">
-                                                                <input type="text" placeholder="Coupon code (optional)" class="form-control" value="">
+                                                                <input type="text" placeholder="Coupon code (optional)" class="form-control" id="coupon_event" value="">
                                                             </div>
                                                             <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
-                                                                <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="">
+                                                                <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="" id="link_event">
                                                             </div>
                                                             <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
-                                                                <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control"></textarea>
+                                                                <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control" id="terms_event"></textarea>
                                                             </div>
                                                         </div>
                                                         <div id="select-box">
@@ -141,7 +142,7 @@
                                                     <i class="fa-regular fa-clone me-2 "></i>Bulk Option</button>
                                             </div>
                                             <div class="col-8 d-flex  flex-wrap justify-content-end ">
-                                                <button class="btn btn-outline-secondary mx-1 "id="draft_create">Draft</button>
+                                                <button class="btn btn-outline-secondary mx-1 draft_create"id="draft_create">Draft</button>
                                                 <button class="btn btn-primary mx-1">Publish</button>
                                                 <button class="btn btn-secondery mx-1 Scedual_start_date">Scedual</button>
                                                 <div class="btn-group dropup btn-outline-dark mx-1">
@@ -166,7 +167,7 @@
 
 
 <!-- modal-section-->
-<div class="modal fade active show" id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" data-bs-backdrop="static">
+<div class="modal fade" id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -187,7 +188,7 @@
                                 </div>
 
                             </div>
-                            <input class="form-control main-control" id="attachment" name="attachment[]" multiple="" type="file" placeholder="">
+                            <input class="form-control main-control #coupon_event attachment" id="attachment" name="attachment[]" multiple="" type="file" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -200,14 +201,13 @@
 <script>
   
     
-          $('#event_end').bootstrapMaterialDatePicker({
+        $('#event_end').bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY h:m A',
             cancelText: 'cancel',
             okText: 'ok',
             clearText: 'clear',
             time: true,
             date: true,
-          
         });
         $('#event_start_date').bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY h:m A',
@@ -226,26 +226,29 @@
             $('.nav-item').click(function() {
             $('.nav-item').removeClass('active');
             $(this).addClass('active');
-  });
+        });
 
 
-  $("#draft_create").click(function (e) {
+        $(".draft_create").click(function (e) {
         //  alert("dfe");
         e.preventDefault();
         var form = $("form[name='create_form']")[0];
         var event_title = $('#event_title').val();
         var event_start_date = $('#event_start_date').val();
         var event_end = $('#event_end').val();
-        var event_address = $('#event_address').val();
-        // var event_image = $('#event_image').val();
-        var attachment = $('#attachment').prop('files')[0];
+        var event_address = $('.event_address').val();
+        var attachment = $('.attachment').prop('files')[0];
+        var coupon_event = $('#coupon_event').val();
+        var link_event = $('#link_event').val();
+        var terms_event = $('#terms_event').val();
+
         // var email = $('#email').val();
       
         var formdata = new FormData(form);
         // var edit_id = $('#reminder_btn_add').attr("data-edit_id");
-        // console.log(event_title);
+        // console.log(event_address);
         // die();
-        if (event_title != "") {
+        if (event_title != "" || event_address != "" ) {
             var form = $('form[name="create_form"]')[0];
             // console.log(form);
             var formdata = new FormData(form);
@@ -254,16 +257,19 @@
             formdata.append('event_end', event_end);
             formdata.append('event_address', event_address);
             formdata.append('attachment', attachment);
-            formdata.append('table', 'event');
-            formdata.append('action', 'insert');
-            // console.log(image);
+            formdata.append('coupon_event', coupon_event); 
+            formdata.append('link_event', link_event);
+            formdata.append('terms_event', terms_event);
+            formdata.append('table', 'create_post');
+            formdata.append('action', 'create_insert_data');
+            // console.log(event_address);
             // die();
             // if (edit_id == '') {
                 // console.log(edit_id);
                 // die();
                 $.ajax({
                     method: "post",
-                    url: "<?= site_url('datainsert_data'); ?>",
+                    url: "<?= site_url('create_insert_data'); ?>",
                     data: formdata,
                     processData: false,
                     contentType: false,
@@ -285,7 +291,7 @@
                             });
                             $("form[name='create_form']").addClass("was-validated");
                         }
-                        list_data();
+                        // list_data();
                     },
                 });
             }

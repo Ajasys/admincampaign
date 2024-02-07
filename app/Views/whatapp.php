@@ -82,11 +82,8 @@ $language_name = json_decode($language_name, true);
         padding: 10px;
         height: calc(45vh - 10px);
         background-color: #F1EDE5;
-        min-height: 400px;
-        max-height: 400px;
-
-
-
+        min-height: 503px;
+        max-height: 503px;
     }
 
     .preview-chat-paragraph {
@@ -967,7 +964,7 @@ $language_name = json_decode($language_name, true);
 </div>
 
 <!-- add model -->
-<div class="modal fade modal-lg" id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg d-block show" id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-50 modal-dialog-centered">
         <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
             <div class="modal-content">
@@ -975,9 +972,9 @@ $language_name = json_decode($language_name, true);
                     <h1 class="modal-title Add_editModelTitle">Create a Template Message</h1>
                     <button type="button" class="border-0 modal-close-btn close_btn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-circle fs-5"></i></button>
                 </div>
-                <div class="modal-body modal-body-secondery d-flex flex-wrap">
+                <div class="modal-body modal-body-secondery d-flex flex-wrap bg-white">
                     <div class="col-6">
-                        <div class="modal-body-card justify-content-center overflow-y-scroll" style="max-height:657px;">
+                        <div class="modal-body-card justify-content-center overflow-y-scroll border-0" style="max-height:657px;">
                             <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
                                 <div class="col-12 mb-3 ">
                                     <input type="text" class="form-control main-control Template_name_varification Template_name" id="Template_nameId" placeholder="Template name" name="Template_name" required>
@@ -1083,8 +1080,8 @@ $language_name = json_decode($language_name, true);
                                     <div class="col-12 mb-3">
                                         <label for="form-memberships" class="main-label">HEADER<sup class="validationn">*</sup></label>
                                         <div class="main-selectpicker">
-                                            <select class="selectpicker form-control main-control header_div Template_header1" id="Template_header" name="header" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
-                                                <option class="dropdown-item" value="0">Please select your header type</option>
+                                            <select class="selectpicker form-control main-control header_div  Template_header1" id="Template_header" name="header" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                <option class="dropdown-item" value="">Please select your header type</option>
                                                 <option class="dropdown-item" value="TEXT">TEXT</option>
                                                 <option class="dropdown-item" value="IMAGE">IMAGE</option>
                                                 <option class="dropdown-item" value="VIDEO">VIDEO</option>
@@ -1137,25 +1134,27 @@ $language_name = json_decode($language_name, true);
                                     <div class="col-12 ">
                                         <label for="form-memberships" class="main-label">BUTTON<sup class="validationn">*</sup></label>
                                         <div class="main-selectpicker">
-                                            <select class="selectpicker form-control main-control header_div" id="Button_make_picker" name="Button" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
-                                                <option class="dropdown-item" value="0">Please select button type</option>
-                                                <option class="dropdown-item" value="Quick">Quick reply</option>
-                                                <option class="dropdown-item" value="Call">Call to action</option>
+                                            <select class="selectpicker form-control main-control ButtonSelctionDropDown header_div" id="Button_make_picker" name="Button" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                <option class="dropdown-item" DataStaticId = "1" value="">Please select button type</option>
+                                                <option class="dropdown-item" DataStaticId = "2" value="Quick">Quick reply</option>
+                                                <option class="dropdown-item" DataStaticId = "3" value="Call">Call to action</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-12 my-3">
-                                        <span class="btn btn-primary Button_make" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</span>
+                                        <!-- <span class="btn btn-primary Button_make" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</span> -->
+                                        <span class="btn btn-primary ButtonVariableClass" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</span>
+
                                     </div>
                                     <!-- quck replay -->
 
-                                    <div class="button_link1  d-none">
+                                    <div class="button_link1 SetButtonHTMLClass">
                                         <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
-                                            <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
+                                            <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span>
                                             <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
                                             <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
                                         </div>
-                                        <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
+                                        <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
                                             <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
                                             <textarea class="form-control main-control col button2input " data-template="2" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
                                             <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
@@ -1164,11 +1163,43 @@ $language_name = json_decode($language_name, true);
                                             <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
                                             <textarea class="form-control main-control col button3input" data-template="3" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
                                             <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                        </div> -->
+                                        <!-- <div class="col-12 d-flex flex-wrap remove-data">
+                                            <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                                <span class="fs-10">Url Button</span>
+                                                <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                            </div>
+                                            <div class="col-12 border rounded-2 p-2">
+                                                <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
+                                                <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between">
+                                                    <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span>
+                                                    <div class="col-7">
+                                                        <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
+                                                    </div>
+                                                    <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button>
+                                                </div>
+                                            </div>
+
                                         </div>
+                                        <div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data">
+                                            <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                                <span class="fs-10">Url Button</span>
+                                                <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                            </div>
+                                            <div class="col-12 border rounded-2 p-2 ">
+                                                <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
+                                                <div class="col-12 d-flex flex-wrap align-items-center border ">
+                                                    <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span>
+                                                    <div class="col-7">
+                                                        <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
                                     </div>
                                     <!--call-replay-->
                                     <div class="col-12  button_link2 d-none">
-                                        <div class="col-12 d-flex flex-wrap remove-data">
+                                        <!-- <div class="col-12 d-flex flex-wrap remove-data">
                                             <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
                                                 <span class="fs-10">Url Button</span>
                                                 <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
@@ -1200,14 +1231,14 @@ $language_name = json_decode($language_name, true);
                                                 </div>
                                             </div>
 
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="col-6 hello">
-                        <div class="modal-body-card justify-content-center h-100">
+                        <div class=" justify-content-center h-100 d-flex flex-wrap p-3">
                             <!-- whatsapp   .. -->
                             <div class="wa-preview-main-div-cont">
                                 <div class="preview-chat-section">
@@ -1380,20 +1411,51 @@ $language_name = json_decode($language_name, true);
 <!-- view sent msg -->
 <?= $this->include('partials/footer') ?>
 <script>
+$('body').on('click', '.previewbutton', function() {
+
+        var body = $('.body_div').val();
+        var regex = /{{\d+}}/g;
+        var matches = body.match(regex);
+
+        if (matches) {
+
+            $('#dynamicInputsContainer').empty();
+
+            for (var i = 0; i < matches.length; i++) {
+                var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
+                $('#dynamicInputsContainer').append(inputField);
+
+            }
+        }
+
+
+    });
+
     $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
         var bodyText = $(this).val();
-        console.log(bodyText);
+        var index = $('.inputypeBody').index($(this)) + 1; 
+    var regex = new RegExp("{{" + index + "}}", "g");
 
+// var regex = new RegExp('{{' + index + '}}');
         if (bodyText === "") {
             $('.preview-chat-paragraph').hide();
         } else {
             $('.preview-chat-paragraph').show();
+        
+        var originalText = $('.preview-chat-paragraph .msg-text-chat').html();
+        var match = originalText.match(regex);
+       console.log(match);
+        if (match) {
+            console.log(match[0].slice(2, -2));
         }
+        var newText = originalText.replace(regex, bodyText);
+        
+        $('.preview-chat-paragraph .msg-text-chat').html(newText);
+    }
+});
 
 
-        var updatedHTML = $('.preview-chat-paragraph .msg-text-chat').html().replace('{{1}}', bodyText);
-        $('.preview-chat-paragraph .msg-text-chat').html(updatedHTML);
-    });
+
 
 
 
@@ -1478,6 +1540,7 @@ $language_name = json_decode($language_name, true);
 
     $('.body_div').on('input', function() {
         var bodyText = $(this).val();
+console.log(bodyText);
 
         if (bodyText === "") {
             $('.c').hide();
@@ -1811,4 +1874,23 @@ $language_name = json_decode($language_name, true);
             });
         }
     });
+
+
+    $('body').on('click', '.ButtonVariableClass', function(){
+        // alert();
+        // 
+        var DDValue =  $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+        // 1 - Empty && 2 - Quick (Only 3 Max Button) && 3 - Call To Active (Link - Phone No)
+        if(DDValue == '1'){
+            // var 
+        }else if (DDValue == '2'){
+
+        }else if (DDValue == '3'){
+
+        }
+
+        // SetButtonHTMLClass
+        // console.log(DDValue);
+    });
+
 </script>

@@ -40,7 +40,7 @@ $routes->post('leadmgtCard', 'Quatation_Controller::leadmgtCard');
 // $routes->get('convertToPdf1', 'Quatation_Controller::convertToPdf');
 $routes->get('/facebook_cron_job', 'FacebookCron::facebook_cron_job');
 $routes->get('/signup', 'Home::signup');
-$routes->get('/post_create', 'Home::post_create');
+
 $routes->get('/posts', 'Home::posts');
 
 $routes->get('/login', 'Home::login');
@@ -92,6 +92,12 @@ $routes->post('/insert_data_alert', 'Alertsetting::insert_data');
 
 $routes->get('/add_account', 'Home::add_account');
 $routes->get('/whatapp_connection', 'Home::whatapp_connection');
+
+
+
+// post and comment
+$routes->get('/post_create', 'Home::post_create');
+$routes->post('/create_insert_data', 'CreateController::create_insert_data');	
 
 
 
@@ -507,17 +513,18 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
 	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
-	$routes->post('/facebook_user', 'FaceBookController::facebook_user');
-	$routes->post('/facebook_page', 'FaceBookController::facebook_page');
-	$routes->post('/pages_list_data', 'FaceBookController::pages_list_data');
-	$routes->post('/deleted_pages_list_data', 'FaceBookController::deleted_pages_list_data');
-	$routes->post('/updated_pages_list_data', 'FaceBookController::updated_pages_list_data');
-	$routes->post('/draft_pages_list_data', 'FaceBookController::draft_pages_list_data');
-	$routes->post('/delete_pages_fb', 'FaceBookController::delete_pages_fb');
-	$routes->post('/facebook_form', 'FaceBookController::facebook_form');
-	$routes->post('/queue_list_add', 'FaceBookController::queue_list_add');
-	$routes->post('/lead_list', 'FaceBookController::lead_list');	
-	// whatsapp integration 
+	$routes->post('/facebook_user', 'FacebookController::facebook_user');
+	$routes->post('/facebook_page', 'FacebookController::facebook_page');
+	$routes->post('/pages_list_data', 'FacebookController::pages_list_data');
+	$routes->post('/deleted_pages_list_data', 'FacebookController::deleted_pages_list_data');
+	$routes->post('/updated_pages_list_data', 'FacebookController::updated_pages_list_data');
+	$routes->post('/draft_pages_list_data', 'FacebookController::draft_pages_list_data');
+	$routes->post('/delete_pages_fb', 'FacebookController::delete_pages_fb');
+	$routes->post('/facebook_form', 'FacebookController::facebook_form');
+	$routes->post('/queue_list_add', 'FacebookController::queue_list_add');
+	$routes->get('/leadlist', 'Home::leadlist');
+	$routes->post('/lead_list', 'FacebookController::lead_list');
+		// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
     $routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
 	$routes->post('/whatsapp_template_delete_data', 'WhatAppIntegrationController::whatsapp_template_delete_data');
