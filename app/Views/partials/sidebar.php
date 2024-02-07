@@ -446,9 +446,9 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>whatsapp">WhatsApp Integration</a>
                      </li>
-                     <li>
+                     <!-- <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>">Email Integration</a>
-                     </li>
+                     </li> -->
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>manage_audience">Manage Audience</a>
                      </li>
@@ -458,8 +458,8 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>post_comments">Manage Post & Comments</a>
                      </li>
-                     <li> <a class="dropdown-item" href="<?= base_url(); ?>template" ?>Email Tools</a> </li>
-                     <li> <a class="dropdown-item" href="<?= base_url(); ?>email_history" ?>Email History</a> </li>
+                     <li> <a class="dropdown-item" href="<?= base_url(); ?>template" ?>Email Conversions</a> </li>
+                     <!-- <li> <a class="dropdown-item" href="<?= base_url(); ?>email_history" ?>Email Conversion</a> </li> -->
 
 
                   </ul>
