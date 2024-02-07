@@ -67,7 +67,17 @@ class MasterInformationModel extends Model
     }
     
    
-  
+    public function insert_entry3($data,$tablename){
+
+        $secondDb = \Config\Database::connect('second');
+        
+        $secondDb->table($tablename)->insertBatch($data);
+        
+        $insert_id = $secondDb->insertID();
+        
+        return $insert_id;
+        
+        }
 
     public function display_all_records2($tablename ,$oreder = 'ASE'){
 

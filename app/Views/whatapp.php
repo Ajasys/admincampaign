@@ -964,7 +964,7 @@ $language_name = json_decode($language_name, true);
 </div>
 
 <!-- add model -->
-<div class="modal fade modal-lg d-block show" id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-50 modal-dialog-centered">
         <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
             <div class="modal-content">
@@ -1149,11 +1149,11 @@ $language_name = json_decode($language_name, true);
                                     <!-- quck replay -->
 
                                     <div class="button_link1 SetButtonHTMLClass">
-                                        <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
+                                        <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
                                             <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span>
                                             <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
                                             <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
                                             <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
                                             <textarea class="form-control main-control col button2input " data-template="2" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
@@ -1876,21 +1876,50 @@ console.log(bodyText);
     });
 
 
+    
+
+
     $('body').on('click', '.ButtonVariableClass', function(){
-        // alert();
-        // 
         var DDValue =  $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
         // 1 - Empty && 2 - Quick (Only 3 Max Button) && 3 - Call To Active (Link - Phone No)
         if(DDValue == '1'){
-            // var 
+            $('.SetButtonHTMLClass').html('');
         }else if (DDValue == '2'){
-
+            var previous_hmml = $('.SetButtonHTMLClass').html();
+            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
+            var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
+            if(parseInt(numberOfSubElements) < 3){
+                $('.SetButtonHTMLClass').html(previous_hmml+StaticHtml);
+            }
+            // console.log(numberOfSubElements);
         }else if (DDValue == '3'){
+            <div class="col-12 d-flex flex-wrap remove-data">
+                                            <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                                <span class="fs-10">Url Button</span>
+                                                <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                            </div>
+                                            <div class="col-12 border rounded-2 p-2">
+                                                <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
+                                                <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between">
+                                                    <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span>
+                                                    <div class="col-7">
+                                                        <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
+                                                    </div>
+                                                    <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button>
+                                                </div>
+                                            </div>
 
+                                        </div>
+                                        
         }
 
         // SetButtonHTMLClass
         // console.log(DDValue);
+    });
+
+
+    $("body").on('change', '.ButtonSelctionDropDown', function() {  
+        $('.SetButtonHTMLClass').html('');
     });
 
 </script>
