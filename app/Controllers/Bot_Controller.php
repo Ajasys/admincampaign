@@ -7,39 +7,40 @@ use CodeIgniter\I18n\Time;
 
 class Bot_Controller extends BaseController
 {
-    public function __construct()
-    {
-        helper('custom');
-        helper('custom1');
-        $db = db_connect();
-        $this->MasterInformationModel = new MasterInformationModel($db);
-        $this->username = session_username($_SESSION['username']);
-        $this->admin = 0;
-        if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
-            $this->admin = 1;
-        }
-    }
-    public function bot_messenger(){
-        return view('bot_messenger');
-    }
+	public function __construct()
+	{
+		helper('custom');
+		helper('custom1');
+		$db = db_connect();
+		$this->MasterInformationModel = new MasterInformationModel($db);
+		$this->username = session_username($_SESSION['username']);
+		$this->admin = 0;
+		if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
+			$this->admin = 1;
+		}
+	}
+	public function bot_messenger()
+	{
+		return view('bot_messenger');
+	}
 
 
-    // public function messenging_bot_insert_data()
+	// public function messenging_bot_insert_data()
 	// {
 	// 	$defaultTimezone = 'UTC';
 	// 	$timezoneToUse = timezonedata();
 	// 	$transaction_date = $this->request->getPost("transaction_date");
-	
+
 	// 	$post_data = $this->request->getPost();
 	// 	$table_name = $this->request->getPost("table");
-	
+
 	// 	$action_name = $this->request->getPost("action");
 	// 	if ($this->request->getPost("action") == "insert") {
 	// 		unset($_POST['action']);
 	// 		unset($_POST['table']);
 	// 		if (!empty($_POST)) {
 	// 			$insert_data = $_POST;
-				
+
 	// 			if (isset($transaction_date) && !empty($transaction_date)) {
 	// 				$insert_data['transaction_date'] = UtcTime('Y-m-d', $timezoneToUse, $transaction_date);
 	// 			}
@@ -56,7 +57,7 @@ class Bot_Controller extends BaseController
 	// 	}
 	// }
 
-    public function messenging_bot_insert_data()
+	public function messenging_bot_insert_data()
 	{
 		$defaultTimezone = 'UTC';
 		$timezoneToUse = timezonedata();
@@ -81,15 +82,15 @@ class Bot_Controller extends BaseController
 					$response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
 					return json_encode(['status' => 'success', 'userStatus' => 'new', 'insertedData' => $response]);
 				} else {
-					
+
 					$isduplicate = $this->duplicate_data($insert_data, $table_name);
 					return json_encode(['status' => 'duplicate']);
 				}
 			}
 		}
 	}
-	
-   
+
+
 	public function duplicate_data($data, $table)
 	{
 		$this->db = \Config\Database::connect();
@@ -118,30 +119,30 @@ class Bot_Controller extends BaseController
 	public function update_data_conversion()
 	{
 		$table_username = getMasterUsername2();
-		$GetOldConversation = get_editData2($table_username .'_messeging_bot', intval($_POST['edit_id']));
+		$GetOldConversation = get_editData2($table_username . '_messeging_bot', intval($_POST['edit_id']));
 		$currentDate = date("d-m-Y");
 		$currentDate = UtcTime('d-m-Y', timezonedata(), $currentDate);
 		// $master_id = $this->master_id;
 		$current_time = date('H:i');
 		$current_time = UtcTime('H:i', timezonedata(), $current_time);
-		if($_POST['chat'] !== ""){
+		if ($_POST['chat'] !== "") {
 			$old_chat = $GetOldConversation['chatting'];
 			$chat = $_POST['chat'];
-			$user_chat=array(
+			$user_chat = array(
 				// "user_id" => $master_id,
 				"chat" => $chat,
 				"date" => $currentDate,
 				"time" => $current_time
 			);
 			$chatArray = json_encode($user_chat);
-			if($old_chat == ""){
+			if ($old_chat == "") {
 				$update_chat = $chatArray;
-			}else{
-				$update_chat = $old_chat."[,]".$chatArray;
+			} else {
+				$update_chat = $old_chat . "[,]" . $chatArray;
 			}
 			$post_data = $this->request->getPost();
 			$table = $_POST['table'];
-			$table_name = $this->username.'_'.$table;
+			$table_name = $this->username . '_' . $table;
 			$action_name = $this->request->getPost("action");
 			$update_id = $this->request->getPost("edit_id");
 			$response = 0;
@@ -152,20 +153,20 @@ class Bot_Controller extends BaseController
 				unset($_POST['chat']);
 				unset($_POST['date']);
 				unset($_POST['time']);
-					$update_data = $_POST;
-					$update_data['chatting'] = $update_chat;
-					$departmentUpdatedata = $this->MasterInformationModel->update_entry2($update_id, $update_data, $table);
-					$response = 1;		
+				$update_data = $_POST;
+				$update_data['chatting'] = $update_chat;
+				$departmentUpdatedata = $this->MasterInformationModel->update_entry2($update_id, $update_data, $table);
+				$response = 1;
 			}
 			return $update_chat;
 			die();
-		}else{
+		} else {
 			$old_convertsaion = $GetOldConversation['chatting'];
 			$edit_id = $_POST['edit_id'];
 			$table = $_POST['table'];
 			$attachment = $_POST['attachment_files'];
 			$attachment_array = explode(',', $attachment);
-			$name="";
+			$name = "";
 			$chatArray = array();
 			foreach ($attachment_array as $file) {
 				$user_chat = array(
@@ -177,14 +178,14 @@ class Bot_Controller extends BaseController
 				);
 				$chatArray[] = json_encode($user_chat);
 			}
-			$chatString = implode('[,]', $chatArray); 
-			if($chatString !== ""){
+			$chatString = implode('[,]', $chatArray);
+			if ($chatString !== "") {
 				$newstring = $old_convertsaion . "[,]" . $chatString;
 				$update_data['chatting'] = $newstring;
 				$departmentUpdatedata = $this->MasterInformationModel->update_entry2($edit_id, $update_data, $table);
 			}
-			$files= $_FILES;
-			if(!empty($files)){
+			$files = $_FILES;
+			if (!empty($files)) {
 				$uploadDir = 'assets/support_ticket_store/';
 				if (!is_dir($uploadDir)) {
 					mkdir($uploadDir, 0777, true);
@@ -197,10 +198,10 @@ class Bot_Controller extends BaseController
 					$targetFilePath = $uploadDir . $fileName;
 					$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 					if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
-						if($fileName !== ""){
-							if(strlen($fileName) == 1){
+						if ($fileName !== "") {
+							if (strlen($fileName) == 1) {
 								$uploadedFile .= $fileName;
-							}else{
+							} else {
 								$uploadedFile .= $fileName;
 							}
 						}
@@ -212,7 +213,7 @@ class Bot_Controller extends BaseController
 			}
 		}
 	}
-	
+
 	public function messeging_bot_list_data()
 	{
 		$baseurl = base_url();
@@ -220,7 +221,7 @@ class Bot_Controller extends BaseController
 		$currentDate = UtcTime('d-m-Y', timezonedata(), $currentDate);
 		$currentDate = Utctodate('d-m-Y', timezonedata(), $currentDate);
 
-        $previousDate = date("d-m-Y", strtotime("-1 day"));
+		$previousDate = date("d-m-Y", strtotime("-1 day"));
 		$previousDate = UtcTime('d-m-Y', timezonedata(), $previousDate);
 		$previousDate = Utctodate('d-m-Y', timezonedata(), $previousDate);
 
@@ -231,12 +232,12 @@ class Bot_Controller extends BaseController
 		$departmentEditdata = $this->MasterInformationModel->edit_entry2($table_name, $user_id);
 		foreach ($departmentEditdata as $d_key => $d_value) {
 		}
-			if (isset($d_value->chatting)) {
-				if($d_value->chatting !== ""){
-					$file_array = explode('[,]', $d_value->chatting);
-					$uniqueDates = array(); 
-					
-					$html .='
+		if (isset($d_value->chatting)) {
+			if ($d_value->chatting !== "") {
+				$file_array = explode('[,]', $d_value->chatting);
+				$uniqueDates = array();
+
+				$html .= '
 									<div class="bot-msg-bg-color-bg p-4 rounded-2" style="background-color: #82a7de3d;">
 										<div class="msg-content">
 											<p>Hi there! 👋, <br><br>Welcome to live chat support. <br><br>How can we help you today?</p>
@@ -254,180 +255,180 @@ class Bot_Controller extends BaseController
 										document.getElementById("current-time").innerText = formattedTime;
 									</script>
 								';
-								
 
-								foreach ($file_array as $key => $value) {
-									$vv = json_decode($value, true);
-									// pre($vv);
-									$html .= '';
-									$date = $vv["date"];
-									$date = Utctodate('d-m-Y', timezonedata(), $date);
-			
-									// if (!in_array($date, $uniqueDates)) {
-									// 	$uniqueDates[] = $date;
-									// 	if($date == $currentDate){
-									// 		$html .='
-									// 		<div class="user-chat-box col-12 user-day-chat w-100 text-center">
-									// 			<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">Today</p>
-									// 		</div>';			
-									// 	}else if($date == $previousDate){
-									// 		$html .='
-									// 			<div class="user-chat-box col-12 user-day-chat w-100 text-center">
-									// 				<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">Yesterday</p>
-									// 			</div>';
-									// 	}else{
-									// 		$html .='
-									// 			<div class="user-chat-box col-12 user-day-chat w-100 text-center">
-									// 				<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">'.$date.'</p>
-									// 			</div>';
-									// 	}
-									// }
-									if($vv["chat"] !== ""){
-										// pre($vv["chat"]);
-										// if($vv["user_id"] !== "ADMIN"){						
-											$html .='
+
+				foreach ($file_array as $key => $value) {
+					$vv = json_decode($value, true);
+					// pre($vv);
+					$html .= '';
+					$date = $vv["date"];
+					$date = Utctodate('d-m-Y', timezonedata(), $date);
+
+					// if (!in_array($date, $uniqueDates)) {
+					// 	$uniqueDates[] = $date;
+					// 	if($date == $currentDate){
+					// 		$html .='
+					// 		<div class="user-chat-box col-12 user-day-chat w-100 text-center">
+					// 			<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">Today</p>
+					// 		</div>';			
+					// 	}else if($date == $previousDate){
+					// 		$html .='
+					// 			<div class="user-chat-box col-12 user-day-chat w-100 text-center">
+					// 				<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">Yesterday</p>
+					// 			</div>';
+					// 	}else{
+					// 		$html .='
+					// 			<div class="user-chat-box col-12 user-day-chat w-100 text-center">
+					// 				<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">'.$date.'</p>
+					// 			</div>';
+					// 	}
+					// }
+					if ($vv["chat"] !== "") {
+						// pre($vv["chat"]);
+						// if($vv["user_id"] !== "ADMIN"){						
+						$html .= '
 			
 											<div class="user-chat-box user-right-chat w-100 text-end mb-2 user_controller_chat">
-												<div class="user-chat rounded-2 p-2 shadow-sm d-inline-block position-relative text-start text-white" style="max-width: 50%; background-color: #724EBF;">'.$vv["chat"].'
+												<div class="user-chat rounded-2 p-2 shadow-sm d-inline-block position-relative text-start text-white" style="max-width: 50%; background-color: #724EBF;">' . $vv["chat"] . '
 													
 												</div>
 
-												<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase col-12" style="font-size:14px;">'.Utctodate('H:i', timezonedata(), $vv["time"]).'
+												<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase col-12" style="font-size:14px;">' . Utctodate('H:i', timezonedata(), $vv["time"]) . '
 												</div>
 											</div>';
-									}
+					}
 
-								}
-								
-
-
-					// foreach ($file_array as $key => $value) {
-						$vv = json_decode($value, true);
-						// pre($vv);
-						$html .= '';
-						$date = $vv["date"];
-						$date = Utctodate('d-m-Y', timezonedata(), $date);
-
-						// if (!in_array($date, $uniqueDates)) {
-						// 	$uniqueDates[] = $date;
-						// 	if($date == $currentDate){
-						// 		$html .='
-						// 		<div class="user-chat-box col-12 user-day-chat w-100 text-center">
-						// 			<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">Today</p>
-						// 		</div>';			
-						// 	}else if($date == $previousDate){
-						// 		$html .='
-						// 			<div class="user-chat-box col-12 user-day-chat w-100 text-center">
-						// 				<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">Yesterday</p>
-						// 			</div>';
-						// 	}else{
-						// 		$html .='
-						// 			<div class="user-chat-box col-12 user-day-chat w-100 text-center">
-						// 				<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">'.$date.'</p>
-						// 			</div>';
-						// 	}
-						// }
-						// if($vv["chat"] !== ""){
-						// 	// pre($vv["chat"]);
-						// 	// if($vv["user_id"] !== "ADMIN"){						
-						// 		$html .='
-
-								
-								
-						// 		<div class="user-chat-box user-right-chat w-100 text-end mb-2 user_controller_chat">
-						// 			<div class="user-chat bg-white rounded-2 p-2 shadow-sm d-inline-block position-relative text-start" style="max-width: 50%;">'.$vv["chat"].'
-						// 				<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase">'.Utctodate('H:i', timezonedata(), $vv["time"]).'
-						// 				</div>
-						// 			</div>
-						// 		</div>';
-								// echo $html;
-							// }
-							// if($vv["user_id"] == "ADMIN" || $vv["user_id"] == " "){
-									// $html .='
-									// 	<div class="user-chat-box user-right-chat w-100 text-start mb-2 user_controller_chat">
-									// 		<div class="user-chat bg-white rounded-2 p-2 shadow-sm d-inline-block position-relative text-start" style="max-width: 50%;">'.$vv["chat"].'
-									// 			<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase">'.Utctodate('H:i', timezonedata(), $vv["time"]).'
-									// 			</div>
-									// 		</div>
-									// 	</div>';
-							// }
-						// }else{
-						// 	if(isset($vv['attachment'])){
-						// 		// pre($vv["user_id"]);
-						// 		// die();
-						// 		// if($vv["user_id"] != "ADMIN" && $vv["user_id"] != ''){	
-						// 				$filename = $vv['attachment'];
-						// 				$file_info = pathinfo($filename);
-						// 				$extension = strtolower($file_info['extension']);
-						// 				$image_extensions = array("jpg", "jpeg", "png", "gif", "bmp");
-						// 				if (in_array($extension, $image_extensions)) {
-						// 					$html .='
-						// 					<div class="user-chat-box user-right-chat w-100 text-end mb-2 user_controller_chat">
-						// 						<div class="user-chat rounded-2 p-2 d-inline-block position-relative text-start"
-						// 							style="max-width: 50%;"><span href="'.$baseurl.'assets/support_ticket_store/'.$filename.'" class="file_attachment_open_div cursor-pointer">
-						// 							<img src="'.$baseurl.'assets/support_ticket_store/'.$filename.'" alt="" style="max-width: 150px; height: auto;" class="d-block rounded-2"></span>
-						// 							<div class="user-chat-time text-body-tertiary d-block text-lowercase">
-						// 								'.Utctodate('H:i', timezonedata(), $vv["time"]).'
-						// 							</div>
-						// 						</div>
-						// 					</div>';
-											
-						// 				} else {
-						// 					$html .='
-						// 					<div class="user-chat-box user-right-chat w-100 text-end mb-2 user_controller_chat">
-						// 						<div class="user-chat bg-white rounded-2 p-2 shadow-sm border d-inline-block position-relative text-start"
-						// 							style="max-width: 50%;">
-						// 							<img src="https://dev.realtosmart.com/assets/images/chat-document.svg" alt="">
-						// 							<span href="'.$baseurl.'assets/support_ticket_store/'.$vv["attachment"].'" class="file_attachment_open_div cursor-pointer">
-						// 							'.$vv["attachment"].'</span>
-						// 							<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase">
-						// 							'.Utctodate('H:i', timezonedata(), $vv["time"]).'
-						// 							</div>
-						// 						</div>
-						// 					</div>';
-						// 				}
-						// 		// }
-						// 		// if($vv["user_id"] == "ADMIN" && $vv["user_id"] == ''){
-						// 			if(isset($vv['attachment'])){
-						// 				$filename = $vv['attachment'];
-						// 				$file_info = pathinfo($filename);
-						// 				$extension = strtolower($file_info['extension']);
-						// 				$image_extensions = array("jpg", "jpeg", "png", "gif", "bmp");
-						// 				if (in_array($extension, $image_extensions)) {
-						// 					$html .='
-						// 					<div class="user-chat-box user-right-chat w-100 text-start mb-2 user_controller_chat">
-						// 						<div class="user-chat rounded-2 p-2 d-inline-block position-relative text-start"
-						// 							style="max-width: 50%;"><span href="http://localhost/RealtoSmartAdmin/assets/support_ticket_store_admin/'.$filename.'" class="file_attachment_open_div cursor-pointer">
-						// 							<img src="http://localhost/RealtoSmartAdmin/assets/support_ticket_store_admin/'.$filename.'" alt="" style="max-width: 150px; height: auto;" class="d-block rounded-2"><span>
-						// 							<div class="user-chat-time text-body-tertiary d-block text-lowercase">
-						// 								'.Utctodate('H:i', timezonedata(), $vv["time"]).'
-						// 							</div>
-						// 						</div>
-						// 					</div>';
-						// 				} else {
-						// 					$html .='
-						// 					<div class="user-chat-box user-right-chat w-100 text-start mb-2 user_controller_chat">
-						// 						<div class="user-chat bg-white rounded-2 p-2 shadow-sm border d-inline-block position-relative text-start"
-						// 							style="max-width: 50%;">
-						// 							<img src="https://dev.realtosmart.com/assets/images/chat-document.svg" alt=""> <span href="http://localhost/RealtoSmartAdmin/assets/support_ticket_store_admin/'.$vv["attachment"].'" class="file_attachment_open_div cursor-pointer" >
-						// 							'.$vv["attachment"].' </span>
-						// 							<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase">
-						// 							'.Utctodate('H:i', timezonedata(), $vv["time"]).'
-						// 							</div>
-						// 						</div>
-						// 					</div>';
-						// 				}
-						// 			}
-						// 		// }
-						// 	}
-						// }
-					// }
 				}
+
+
+
+				// foreach ($file_array as $key => $value) {
+				$vv = json_decode($value, true);
+				// pre($vv);
+				$html .= '';
+				$date = $vv["date"];
+				$date = Utctodate('d-m-Y', timezonedata(), $date);
+
+				// if (!in_array($date, $uniqueDates)) {
+				// 	$uniqueDates[] = $date;
+				// 	if($date == $currentDate){
+				// 		$html .='
+				// 		<div class="user-chat-box col-12 user-day-chat w-100 text-center">
+				// 			<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">Today</p>
+				// 		</div>';			
+				// 	}else if($date == $previousDate){
+				// 		$html .='
+				// 			<div class="user-chat-box col-12 user-day-chat w-100 text-center">
+				// 				<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">Yesterday</p>
+				// 			</div>';
+				// 	}else{
+				// 		$html .='
+				// 			<div class="user-chat-box col-12 user-day-chat w-100 text-center">
+				// 				<p class="bg-white rounded-2 p-2 shadow-sm d-inline-block mb-2 "style="font-size:11px;">'.$date.'</p>
+				// 			</div>';
+				// 	}
+				// }
+				// if($vv["chat"] !== ""){
+				// 	// pre($vv["chat"]);
+				// 	// if($vv["user_id"] !== "ADMIN"){						
+				// 		$html .='
+
+
+
+				// 		<div class="user-chat-box user-right-chat w-100 text-end mb-2 user_controller_chat">
+				// 			<div class="user-chat bg-white rounded-2 p-2 shadow-sm d-inline-block position-relative text-start" style="max-width: 50%;">'.$vv["chat"].'
+				// 				<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase">'.Utctodate('H:i', timezonedata(), $vv["time"]).'
+				// 				</div>
+				// 			</div>
+				// 		</div>';
+				// echo $html;
+				// }
+				// if($vv["user_id"] == "ADMIN" || $vv["user_id"] == " "){
+				// $html .='
+				// 	<div class="user-chat-box user-right-chat w-100 text-start mb-2 user_controller_chat">
+				// 		<div class="user-chat bg-white rounded-2 p-2 shadow-sm d-inline-block position-relative text-start" style="max-width: 50%;">'.$vv["chat"].'
+				// 			<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase">'.Utctodate('H:i', timezonedata(), $vv["time"]).'
+				// 			</div>
+				// 		</div>
+				// 	</div>';
+				// }
+				// }else{
+				// 	if(isset($vv['attachment'])){
+				// 		// pre($vv["user_id"]);
+				// 		// die();
+				// 		// if($vv["user_id"] != "ADMIN" && $vv["user_id"] != ''){	
+				// 				$filename = $vv['attachment'];
+				// 				$file_info = pathinfo($filename);
+				// 				$extension = strtolower($file_info['extension']);
+				// 				$image_extensions = array("jpg", "jpeg", "png", "gif", "bmp");
+				// 				if (in_array($extension, $image_extensions)) {
+				// 					$html .='
+				// 					<div class="user-chat-box user-right-chat w-100 text-end mb-2 user_controller_chat">
+				// 						<div class="user-chat rounded-2 p-2 d-inline-block position-relative text-start"
+				// 							style="max-width: 50%;"><span href="'.$baseurl.'assets/support_ticket_store/'.$filename.'" class="file_attachment_open_div cursor-pointer">
+				// 							<img src="'.$baseurl.'assets/support_ticket_store/'.$filename.'" alt="" style="max-width: 150px; height: auto;" class="d-block rounded-2"></span>
+				// 							<div class="user-chat-time text-body-tertiary d-block text-lowercase">
+				// 								'.Utctodate('H:i', timezonedata(), $vv["time"]).'
+				// 							</div>
+				// 						</div>
+				// 					</div>';
+
+				// 				} else {
+				// 					$html .='
+				// 					<div class="user-chat-box user-right-chat w-100 text-end mb-2 user_controller_chat">
+				// 						<div class="user-chat bg-white rounded-2 p-2 shadow-sm border d-inline-block position-relative text-start"
+				// 							style="max-width: 50%;">
+				// 							<img src="https://dev.realtosmart.com/assets/images/chat-document.svg" alt="">
+				// 							<span href="'.$baseurl.'assets/support_ticket_store/'.$vv["attachment"].'" class="file_attachment_open_div cursor-pointer">
+				// 							'.$vv["attachment"].'</span>
+				// 							<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase">
+				// 							'.Utctodate('H:i', timezonedata(), $vv["time"]).'
+				// 							</div>
+				// 						</div>
+				// 					</div>';
+				// 				}
+				// 		// }
+				// 		// if($vv["user_id"] == "ADMIN" && $vv["user_id"] == ''){
+				// 			if(isset($vv['attachment'])){
+				// 				$filename = $vv['attachment'];
+				// 				$file_info = pathinfo($filename);
+				// 				$extension = strtolower($file_info['extension']);
+				// 				$image_extensions = array("jpg", "jpeg", "png", "gif", "bmp");
+				// 				if (in_array($extension, $image_extensions)) {
+				// 					$html .='
+				// 					<div class="user-chat-box user-right-chat w-100 text-start mb-2 user_controller_chat">
+				// 						<div class="user-chat rounded-2 p-2 d-inline-block position-relative text-start"
+				// 							style="max-width: 50%;"><span href="http://localhost/RealtoSmartAdmin/assets/support_ticket_store_admin/'.$filename.'" class="file_attachment_open_div cursor-pointer">
+				// 							<img src="http://localhost/RealtoSmartAdmin/assets/support_ticket_store_admin/'.$filename.'" alt="" style="max-width: 150px; height: auto;" class="d-block rounded-2"><span>
+				// 							<div class="user-chat-time text-body-tertiary d-block text-lowercase">
+				// 								'.Utctodate('H:i', timezonedata(), $vv["time"]).'
+				// 							</div>
+				// 						</div>
+				// 					</div>';
+				// 				} else {
+				// 					$html .='
+				// 					<div class="user-chat-box user-right-chat w-100 text-start mb-2 user_controller_chat">
+				// 						<div class="user-chat bg-white rounded-2 p-2 shadow-sm border d-inline-block position-relative text-start"
+				// 							style="max-width: 50%;">
+				// 							<img src="https://dev.realtosmart.com/assets/images/chat-document.svg" alt=""> <span href="http://localhost/RealtoSmartAdmin/assets/support_ticket_store_admin/'.$vv["attachment"].'" class="file_attachment_open_div cursor-pointer" >
+				// 							'.$vv["attachment"].' </span>
+				// 							<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase">
+				// 							'.Utctodate('H:i', timezonedata(), $vv["time"]).'
+				// 							</div>
+				// 						</div>
+				// 					</div>';
+				// 				}
+				// 			}
+				// 		// }
+				// 	}
+				// }
+				// }
 			}
-			if (!empty($html)) {
-				echo $html;
-			} else {
-				echo '
+		}
+		if (!empty($html)) {
+			echo $html;
+		} else {
+			echo '
 				<div class="bot-msg-bg-color-bg p-4 rounded-2" style="background-color: #82a7de3d;">
 					<div class="msg-content">
 						<p>Hi there! 👋, <br><br>Welcome to live chat support. <br><br>How can we help you today?</p>
@@ -445,40 +446,54 @@ class Bot_Controller extends BaseController
 					document.getElementById("current-time").innerText = formattedTime;
 				</script>
 					';
-			}
+		}
 	}
 
 	public function bot_insert_data()
-{
-    $post_data = $this->request->getPost();
-    $table_name = $this->request->getPost("table");
-    $action_name = $this->request->getPost("action");
+	{
+		$post_data = $this->request->getPost();
+		$table_name = $this->request->getPost("table");
+		$action_name = $this->request->getPost("action");
 
-    if ($this->request->getPost("action") == "insert") {
-        unset($_POST['action']);
-        unset($_POST['table']);
+		if ($this->request->getPost("action") == "insert") {
+			unset($_POST['action']);
+			unset($_POST['table']);
 
-        if (!empty($_POST)) {
-            $insert_data = $_POST;
-            
-            // Get the current number of records in the table
-            $record_count = $this->MasterInformationModel->getRecordCount2($table_name);
-            pre($record_count);
-            // Increment the sequence number by 1 for each new record
-            $insert_data['sequence'] = $record_count + 1;
-            
-            $response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
-            $departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
-            $departmentdisplaydata = json_decode($departmentdisplaydata, true);
-        }
-    }
-    die();
-}
+			if (!empty($_POST)) {
+				$insert_data = $_POST;
+
+				// Get the current number of records in the table
+				$record_count = $this->MasterInformationModel->getRecordCount2($table_name);
+				pre($record_count);
+				// Increment the sequence number by 1 for each new record
+				$insert_data['sequence'] = $record_count + 1;
+
+				$response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
+				$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+				$departmentdisplaydata = json_decode($departmentdisplaydata, true);
+			}
+		}
+		if ($this->request->getPost("action") == "bot_insert") {
+			unset($_POST['action']);
+			unset($_POST['table']);
+			if (!empty($_POST)) {
+				$insert_data = $_POST;
+
+				$response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
+				$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+				$departmentdisplaydata = json_decode($departmentdisplaydata, true);
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+		die();
+	}
 
 
 
-	
-	public function duplicate_Question() 
+
+	public function duplicate_Question()
 	{
 		$table_username = getMasterUsername2();
 		$questionId = $this->request->getPost("questionId");
@@ -492,7 +507,7 @@ class Bot_Controller extends BaseController
 	}
 
 
-	private function insertQuestionData($question_data) 
+	private function insertQuestionData($question_data)
 	{
 		$table_username = getMasterUsername2();
 		$db = \Config\Database::connect('second');
@@ -528,7 +543,7 @@ class Bot_Controller extends BaseController
 	// 	if ($action_name == "update") {
 	// 		$questionsJson = $this->request->getPost("questions");
 	// 		$questionsArray = json_decode($questionsJson, true);
-			
+
 	// 		if (!empty($questionsArray) && is_array($questionsArray)) {
 	// 			$questionArray = array_merge($questionArray, $questionsArray);
 
@@ -560,8 +575,8 @@ class Bot_Controller extends BaseController
 		$html = "";
 
 		foreach ($botdisplaydata as $key => $value) {
-			
-				$html .= '
+
+			$html .= '
 					<div class="col-12 w-100 d-flex flex-wrap p-2">
 						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
 							<div class="col-10 d-flex flex-wrap align-items-center">
@@ -577,10 +592,10 @@ class Bot_Controller extends BaseController
 									<i class="fa fa-sitemap cursor-pointer"></i>
 								</div>
 								<div class="col-3 p-1">
-									<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question='.$value['id'].'></i>
+									<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question=' . $value['id'] . '></i>
 								</div>
 								<div class="col-3 p-1">
-									<i class="fa fa-trash question_delete cursor-pointer" data-question='.$value['id'].'></i>
+									<i class="fa fa-trash question_delete cursor-pointer" data-question=' . $value['id'] . '></i>
 								</div>
 							</div>
 						</div>
@@ -589,12 +604,84 @@ class Bot_Controller extends BaseController
 							<button type="button" class="btn btn-primary">Users Replay</button>
 						</div>
 					</div>';
-			
+
 		}
 
 		$result['html'] = $html;
 		echo json_encode($result);
 		die();
+	}
+
+	public function main_bot_list_data() {
+		$table_name = $_POST['table'];
+		$botdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+		$botdisplaydata = json_decode($botdisplaydata, true);
+		$i = 1;
+		$html = "";
+
+		foreach($botdisplaydata as $key => $value) {
+			$bot_img = empty($value['bot_img']) ? base_url('') .'assets/images/bot_img/bot-1.png' : /* bot img uploading path */base_url('') .'assets/images/bot_img/bot-1.png' ;
+			$html .= '
+			<div class="col-3 p-2">
+			<div class="card mb-3 bg-white shadow">
+				<div class="row g-0 p-2">
+					<div class="d-flex align-items-center">
+						<div class="col-md-4 text-center">
+							<div class="p-2">
+								<img src="'. $bot_img .'"
+											class="img-fluid rounded-start mb-1" width="30px">
+										<p class="card-text"><small class="text-body-secondary">'.$value['name'].'</small></p>
+									</div>
+								</div>
+								<div class="border h-100"></div>
+								<div class="col-md-8">
+									<div class="card-body d-flex flex-wrap py-1 px-2 justify-content-between">
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted"
+											data-toggle="tooltip" data-placement="top" title="Setup">
+											<a href="'. base_url('') .'/bot_setup?bot_id='.$value['id'].'" class="text-muted">
+												<i class="fa-solid fa-screwdriver-wrench"></i>
+											</a>
+										</div>
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted"
+											data-toggle="tooltip" data-placement="top" title="Trigger">
+											<a href="#" class="text-muted">
+												<i class="fa-solid fa-bell"></i>
+											</a>
+										</div>
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted"
+											data-toggle="tooltip" data-placement="top" title="Bot Chats">
+											<a href="#" class="text-muted">
+												<i class="fa-solid fa-comment"></i>
+											</a>
+										</div>
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted"
+											data-toggle="tooltip" data-placement="top" title="Setting">
+											<a href="#" class="text-muted">
+												<i class="fa-solid fa-gear"></i>
+											</a>
+										</div>
+									</div>
+									<div
+										class="card-body d-flex flex-wrap py-1 px-2 justify-content-between align-items-center">
+										<div class="form-check form-switch">
+											<input class="form-check-input" type="checkbox" role="switch" id="is_active"
+												'.($value['active'] == 1 ? 'checked' : '').'>
+											<label class="form-check-label" for="is_active">Active</label>
+										</div>
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted"
+											data-toggle="tooltip" data-placement="top" title="Delete">
+											<i class="fa-solid fa-trash"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			';
+		}
+
+		return $html;
 	}
 
 }
