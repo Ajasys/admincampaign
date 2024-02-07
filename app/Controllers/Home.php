@@ -128,6 +128,7 @@ class Home extends BaseController
         $table_name3 = $table_username . '_platform_integration';
         $columns3 = [
             'id int primary key AUTO_INCREMENT',
+            'master_id int(11) NOT NULL',
             "phone_number_id int(255) NOT NULL",
             "business_account_id int(255) NOT NULL",
             "access_token longtext   NOT NULL",
