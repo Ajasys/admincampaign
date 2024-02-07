@@ -15,16 +15,16 @@ if (isset($total_dataa_userr_22[0])) {
 $WhatAppRedirectStatus = 0;
 
 // if(isset($settings_data) && !empty($settings_data)){
-    //     if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-        //         $WhatAppRedirectStatus = 1;
-    //     } 
+//     if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
+//         $WhatAppRedirectStatus = 1;
+//     } 
 // }
 
 
 $WhatsAppConnectionCheckArray = WhatsAppConnectionCheck();
 $WhatsAppConnectionCheckArray = json_decode($WhatsAppConnectionCheckArray, true);
-if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)){
-    if(isset($WhatsAppConnectionCheckArray['ConnectionStatus'])){
+if (isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)) {
+    if (isset($WhatsAppConnectionCheckArray['ConnectionStatus'])) {
         $WhatAppRedirectStatus = $WhatsAppConnectionCheckArray['ConnectionStatus'];
     }
 }
@@ -34,6 +34,7 @@ if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)
     .inti-card {
         transition: all 0.5s;
     }
+
     .inti-card:hover {
         background-color: #E6E7EC !important;
     }
@@ -57,8 +58,8 @@ if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)
                                     <a href="<?= base_url('facebook_connection') ?>">
                                         <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center ">
-                                            
-                                                    <!-- <span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">connected</span>
+
+                                                <!-- <span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">connected</span>
                                                   
                                                     <span class="fw-bold  text-danger  px-2 py-1 rounded-pill " style="font-size:10px">Disconnected</span>
                                                     
@@ -77,17 +78,17 @@ if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)
                                                     </g>
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Facebook</h5>
-                                                
-                                                    <!-- <a href="<?= base_url('facebook_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a> -->
-                                                   
-                                            
+
+                                                <!-- <a href="<?= base_url('facebook_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a> -->
+
+
                                             </div>
                                             <div class="d-flex justify-content-end p-2" style="height: 40px;">
-                                            
-                                                    
-                                                    <!-- <a href="<?= base_url('facebook_connection') ?>"><button class="border-0 bg-transparent "><i class="fa-solid fa-pencil"></i></button></a> -->
-                                                
-                                                   
+
+
+                                                <!-- <a href="<?= base_url('facebook_connection') ?>"><button class="border-0 bg-transparent "><i class="fa-solid fa-pencil"></i></button></a> -->
+
+
                                             </div>
                                         </div>
                                     </a>
@@ -109,17 +110,17 @@ if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)
                                                 </g>
                                             </svg> -->
 
-                                                <?php
-                                                    if($WhatAppRedirectStatus == '1'){
-                                                        echo '<span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">Connected</span>';
-                                                    }else{
-                                                        echo '<span class="fw-bold  text-danger  px-2 py-1 rounded-pill " style="font-size:10px">Disconnected</span>';
-                                                    }
-                                                ?>
-                                                
+                                            <?php
+                                            if ($WhatAppRedirectStatus == '1') {
+                                                echo '<span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">Connected</span>';
+                                            } else {
+                                                echo '<span class="fw-bold  text-danger  px-2 py-1 rounded-pill " style="font-size:10px">Disconnected</span>';
+                                            }
+                                            ?>
+
                                         </div>
                                         <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="hovered-paths">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="hovered-paths">
                                                 <g>
                                                     <g data-name="Layer 2">
                                                         <g data-name="09.whatsapp">
@@ -133,24 +134,50 @@ if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)
                                                 </g>
                                             </svg>
                                             <h5 class="text-center col-12 text-dark text-center mt-2">WhatsApp</h5>
-                                            
-                                            <?php if($WhatAppRedirectStatus == '1'){?>
-                                                <button class="btn btn-success fs-10 fw-semibold mt-3 WhatAppConnectBtn d-none"> Connected  </button>
-                                                <?php
-}elseif ($WhatAppRedirectStatus == '2'){
-                                                 echo   '<button class="btn btn-danger fs-10 fw-semibold mt-3 WhatAppConnectBtn d-none"> Disconnected  </button>';
-                                                }else{
-                                                    ?>
-                                                    <a href="<?= base_url('whatapp_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a>
-                                                    <?php 
-                                                } ?>
-                                                                                        </div>
+
+                                            <?php if ($WhatAppRedirectStatus == '1') { ?>
+                                                <button class="btn btn-success fs-10 fw-semibold mt-3 WhatAppConnectBtn d-none"> Connected </button>
+                                            <?php
+                                            } elseif ($WhatAppRedirectStatus == '2') {
+                                                echo   '<button class="btn btn-danger fs-10 fw-semibold mt-3 WhatAppConnectBtn d-none"> Disconnected  </button>';
+                                            } else {
+                                            ?>
+                                                <a href="<?= base_url('whatapp_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a>
+                                            <?php
+                                            } ?>
+                                        </div>
                                         <div class="d-flex justify-content-end p-2  " style="height: 40px;">
-                                            <a href="<?= base_url('whatapp_connection') ?>" class="border-0 text-dark bg-transparent <?php if($WhatAppRedirectStatus == '0'){echo 'd-none';} ?>"><i class="fa-solid fa-pencil"></i></a>
+                                            <a href="<?= base_url('whatapp_connection') ?>" class="border-0 text-dark bg-transparent <?php if ($WhatAppRedirectStatus == '0') {
+                                                                                                                                            echo 'd-none';
+                                                                                                                                        } ?>"><i class="fa-solid fa-pencil"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                            
+
+                                <div class=" d-flex justify-content-center col-3">
+                                    <!-- email  -->
+                                    <a href="<?= base_url('email_connection') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center ">
+                                            </div>
+                                            <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                    <g>
+                                                        <path d="M64 64h384v384H64z" style="" fill="#eceff1" data-original="#eceff1" class=""></path>
+                                                        <path d="M256 296.384 448 448V148.672z" style="" fill="#cfd8dc" data-original="#cfd8dc"></path>
+                                                        <path d="M464 64h-16L256 215.616 64 64H48C21.504 64 0 85.504 0 112v288c0 26.496 21.504 48 48 48h16V148.672l192 147.68L448 148.64V448h16c26.496 0 48-21.504 48-48V112c0-26.496-21.504-48-48-48z" style="" fill="#f44336" data-original="#f44336" class=""></path>
+                                                    </g>
+                                                </svg>
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">Email</h5>
+
+                                            </div>
+                                            <div class="d-flex justify-content-end p-2  " style="height: 40px;">
+                                            
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
                                 <!-- <div class="col-3 d-flex justify-content-center">
                                     <a href="#"
                                         class="col-9 bg-white border rounded-3 p-3 d-inline-flex justify-content-center flex-wrap">
