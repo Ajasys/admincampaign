@@ -54,6 +54,14 @@ class Home extends BaseController
     {
         return view('posts');
     }
+
+    public function whatappaakash()
+    {
+        $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
+
+        return view('whatappaakash', $data);
+    }
+    
     public function email_fetch()
     {
         return view('details_email_send');
