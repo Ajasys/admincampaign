@@ -479,6 +479,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>integration" ?>Integration</a> </li>
 
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>template" ?>Email Tools</a> </li>
+                     <li> <a class="dropdown-item" href="<?= base_url(); ?>email_fetch" ?>Email History</a> </li>
 
 
                   </ul>
