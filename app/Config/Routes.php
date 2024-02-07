@@ -521,6 +521,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
 
+	
+	// massager code routes 
+	$routes->post('get_chat_data', 'Bot_Controller::get_chat_data');
+
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
 	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
