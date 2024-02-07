@@ -885,7 +885,7 @@ class Inquiryinformation extends BaseController
 					// die();
 					$html .= '<tr>
 					<td>
-						<input type="checkbox" name="inquiry_id[]" class="checkbox table_list_check mt-2 inquiry_id" value="' . $value['id'] . '">
+						<input type="checkbox" name="inquiry_id[]" class="checkbox table_list_check mt-2 inquiry_id" data-sms_id="' . $value['id'] . '" value="' . $value['id'] . '">
 					</td>';
 					$html .= ' <td type="button" class="today-follow-tab-content-td ee-todayfollow mt-2 col-xxl-12">
 								<div class="tfp-inquiry-list pe-3 bg-white">
