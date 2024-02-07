@@ -1237,7 +1237,7 @@ $user_data = $user_result->getResultArray();
     //     location.reload();
     // });
 
-    function EditScenarios(edit_id, page_id, form_id, intrested_area, intrested_site, property_sub_type, setassign_id, staff_to, page_img, status_id) {
+    function EditScenarios(edit_id, page_id, form_id, intrested_area, intrested_product, property_sub_type, setassign_id, staff_to, page_img, status_id) {
         $('.big_list_add_outer_main_2,.lead_module_devider_1,.big_list_add_outer_main_3,.lead_module_devider_2').show();
         $('.big_list_add_outer_main_1,.big_circle_plus_outer,.add_next_big_plus_outer,.all_circle_plus_list,.lead_main_box_add,.discard-tag').hide();
         $('.big_circle_fb_outer,.lead_add_main_box').show();
@@ -1293,7 +1293,7 @@ $user_data = $user_result->getResultArray();
         });
 
         $('#area').val(intrested_area);
-        $('#product').val(int_product);
+        $('#product').val(intrested_product);
         $('#sub_type').val(property_sub_type);
         $('#assign_to').val(setassign_id);
         if (setassign_id == 0) {
