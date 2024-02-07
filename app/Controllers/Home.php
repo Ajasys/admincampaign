@@ -340,6 +340,15 @@ class Home extends BaseController
     }
 
     public function bot() {
+        $table_name = getMasterUsername2().'_bot';
+        $columns = [
+            'id int primary key AUTO_INCREMENT',
+            'name varchar(255)',
+            'bot_img varchar(255)',
+            'bot_type int DEFAULT 0 NOT NULL',
+            'active int DEFAULT 0 NOT NULL',
+        ];
+        tableCreateAndTableUpdate2($table_name, '', $columns);
         return view('bot');
     }
 
