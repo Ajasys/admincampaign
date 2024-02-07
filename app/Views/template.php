@@ -97,16 +97,44 @@
         <div class="bg-white rounded-2 p-2 mb-2">
             <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link   " id="inquiry_alert_tab" data-bs-toggle="pill" data-bs-target="#inquiry_alert_main" type="button" role="tab" aria-controls="inquiry_alert_main" aria-selected="false">Email Conversions</button>
+                    <button class="nav-link  active " id="inquiry_alert_tab" data-bs-toggle="pill" data-bs-target="#inquiry_alert_main" type="button" role="tab" aria-controls="inquiry_alert_main" aria-selected="false">Email Conversions</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link  active  " id="user_alert_tab" data-bs-toggle="pill" data-bs-target="#user_alert_main" type="button" role="tab" aria-controls="user_alert_main" aria-selected="true">Email Templates</button>
+                    <button class="nav-link    " id="user_alert_tab" data-bs-toggle="pill" data-bs-target="#user_alert_main" type="button" role="tab" aria-controls="user_alert_main" aria-selected="true">Email Templates</button>
                 </li>
                 
             </ul>
         </div>
         <div class="tab-content p-0 " id="pills-tabContent">
-            <div class="tab-pane fade show active" id="user_alert_main" role="tabpanel" aria-labelledby="user_alert_tab"        tabindex="0">
+            <div class="tab-pane fade show active" id="inquiry_alert_main" role="tabpanel" aria-labelledby="inquiry_alert_tab" tabindex="0">
+                <div class="">
+                    <div class="bg-white p-2 rounded-2">
+                        <div class="title-2 mb-2">
+                            <h2>Email Send List</h2>
+                        </div>
+                        <div class="overflow-x-scroll">
+                            <table id="myTable" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="25%">Email</th>
+                                        <th width="40%">Subject</th>
+                                        <th width="10%">Status</th>
+                                        <th width="15%">Open Datetime</th>
+                                        <th width="10%">See Details</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody id="demo_list_data">
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade " id="user_alert_main" role="tabpanel" aria-labelledby="user_alert_tab"        tabindex="0">
                 <div class="tab-content p-0" id="pills-tabContentS">
                     <div class="tab-pane fade show active -whatapp" id="user_alert" role="tabpanel" aria-labelledby="user_alert_tab" tabindex="0">
                         <div class="container-fluid p-0 main-check-class">
@@ -219,34 +247,6 @@
                                     <tbody id="email_list" class="email_list_comman"></tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="inquiry_alert_main" role="tabpanel" aria-labelledby="inquiry_alert_tab" tabindex="0">
-                <div class="">
-                    <div class="bg-white p-2 rounded-2">
-                        <div class="title-2 mb-2">
-                            <h2>Email Send List</h2>
-                        </div>
-                        <div class="overflow-x-scroll">
-                            <table id="myTable" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th width="25%">Email</th>
-                                        <th width="40%">Subject</th>
-                                        <th width="10%">Status</th>
-                                        <th width="15%">Open Datetime</th>
-                                        <th width="10%">See Details</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody id="demo_list_data">
-
-                                </tbody>
-
-                            </table>
                         </div>
                     </div>
                 </div>
