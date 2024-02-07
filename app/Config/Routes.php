@@ -546,6 +546,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
+	$routes->post('/master_whatsapp_list_dataaaksh', 'WhatAppAakashController::master_whatsapp_list_dataaaksh');
 
 });
 // // occupation

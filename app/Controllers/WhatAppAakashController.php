@@ -119,11 +119,14 @@ class WhatAppAakashController extends BaseController
                         $ConnectionStatus = 1;
                         $urllistdata = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/message_templates?fields=name,status,category,language,components&access_token='.$settings_data['whatapp_access_token'];
                         $responselistdata =  getSocialData($urllistdata);
+
                         if(isset($responselistdata)){
                             if(isset($responselistdata['data'])){
                                 if(!empty($responselistdata['data'])){
                                     // pre($responselistdata['data']);
                                     foreach ($responselistdata['data'] as $key => $value) {
+                                        print_r($value);
+
                                         $Name = $value['name'];
                                         $Category = $value['category'];
                                         $Body = ''; 
@@ -647,5 +650,108 @@ class WhatAppAakashController extends BaseController
   }
   
 //   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+public function master_whatsapp_list_dataaaksh()
+{
+    //06-02-2024
+
+    $table_username = getMasterUsername();
+    $db_connection = \Config\Database::connect('second');
+    $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+    $result = $db_connection->query($query90);
+    $total_dataa_userr_22 = $result->getResult();
+    if (isset($total_dataa_userr_22[0])) {
+        $settings_data = get_object_vars($total_dataa_userr_22[0]);
+    } else {
+        $settings_data = array();
+    }   
+    $WhatAppRedirectStatus = 0;
+    $Error = '';
+    $ConnectionName = '';
+    $templatelistdata='';
+    $ConnectionStatus = 0;
+
+    $Html = '';
+    if(isset($settings_data) && !empty($settings_data)){
+        if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
+            $url = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
+            $DataArray =  getSocialData($url);
+
+            if(isset($DataArray) && !empty($DataArray)){
+                if(isset($DataArray['id']) && !empty($DataArray['id'])){
+                    $ConnectionStatus = 1;
+                    $urllistdata = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/message_templates?fields=name,status,category,language,components&access_token='.$settings_data['whatapp_access_token'];
+                    $responselistdata =  getSocialData($urllistdata);
+                
+                    $templateNames = array_column($responselistdata['data'], 'name');
+                    if(isset($responselistdata)){
+                        if(isset($responselistdata['data'])){
+                            if(!empty($responselistdata['data'])){
+                                // pre($responselistdata['data']);
+                                foreach ($responselistdata['data'] as $key => $value) {
+
+                                    $Name = $value['name'];
+                                    $Category = $value['category'];
+                                    $Body = ''; 
+                                    $id = $value['id'];
+                                    $language = $value['language'];
+                                    if(isset($value['components']) && !empty($value['components'])){
+                                        foreach ($value['components'] as $key1 => $value1) {
+                                            if($value1['type'] == 'BODY'){
+                                                $Body = $value1['text'];
+                                            }
+                                        }
+                                    }
+                                    $Html .= '
+                                    <tr class="rounded-pill">
+                                            <td class="py-2 text-capitalize">'.$Name.'</td>
+                                            <td class="py-2">'.$Category.'</td>
+                                            <td class="py-2 ">
+                                                <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
+                                                    '.$Body.'
+                                                </div>
+                                            </td>
+                                            <td class="py-2">'.$language.'</td>
+                                            <td class="template-creation-table-data text-center cwt-border-right p-l-25">
+                                                <span>
+                                                    <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <i class="fa fa-clone fs-16 Edit_template" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <i class="fa fa-trash fs-16 Delete_template_id" name="'.$Name.'" id="'.$id.'" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ';
+                                }
+                            }else{
+                                $Html .= '<p>No Templates Found</p>';
+                            }
+                        }else{
+                            if(isset($responselistdata['error']['message'])){
+                                $Html .= '<p>'.$responselistdata['error']['message'].'</p>';
+                            }
+                        }
+                    }
+                }else{
+                    if(isset($DataArray['error'])){
+                        if(isset($DataArray['error']['message'])){
+                            $Error = $DataArray['error']['message'];
+                            $Html .= '<p>'.$DataArray['error']['message'].'</p>';
+                        }
+                    }
+                }
+            }
+        }
+    }
+    $recordsCount = '';
+    $return_array['records_count'] = $recordsCount;
+    $return_array['template_name'] = $templateNames;
+
+    $return_array['html'] = $Html;
+    return json_encode($return_array, true);
+    die();
+}
 
 }

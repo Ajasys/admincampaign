@@ -627,15 +627,11 @@ $language_name = json_decode($language_name, true);
 
                                                         <div class="modal-body-secondery">
                                                             <div class="modal-body-card">
-                                                                <div class="col-12 mb-3 mt-2">
-                                                                    <select class="form-control main-control header_div" id="header" name="header" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
-                                                                        <option value="" selected disabled>Please select template</option>
-                                                                        <option value="TEXT">TEXT</option>
-                                                                        <option value="IMAGE">IMAGE</option>
-                                                                        <option value="VIDEO">VIDEO</option>
-                                                                        <option value="DOCUMENT">DOCUMENT</option>
-                                                                    </select>
-                                                                </div>
+                                                            <div class="col-12 mb-3 mt-2">
+                                                                <select class="form-control main-control header_div" id="header" name="header" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                                    <option value="" selected disabled>Please select template</option>
+                                                                </select>
+                                                            </div>
                                                                 <div class="col-12 mb-3 mt-2">
                                                                     <input type="text" class="form-control main-control phone_number_div" id="phone_number" placeholder="Enter your phone number" name="" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
                                                                 </div>
@@ -1135,9 +1131,9 @@ $language_name = json_decode($language_name, true);
                                         <label for="form-memberships" class="main-label">BUTTON<sup class="validationn">*</sup></label>
                                         <div class="main-selectpicker">
                                             <select class="selectpicker form-control main-control ButtonSelctionDropDown header_div" id="Button_make_picker" name="Button" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
-                                                <option class="dropdown-item" DataStaticId = "1" value="">Please select button type</option>
-                                                <option class="dropdown-item" DataStaticId = "2" value="Quick">Quick reply</option>
-                                                <option class="dropdown-item" DataStaticId = "3" value="Call">Call to action</option>
+                                                <option class="dropdown-item" DataStaticId="1" value="">Please select button type</option>
+                                                <option class="dropdown-item" DataStaticId="2" value="Quick">Quick reply</option>
+                                                <option class="dropdown-item" DataStaticId="3" value="Call">Call to action</option>
                                             </select>
                                         </div>
                                     </div>
@@ -1411,7 +1407,7 @@ $language_name = json_decode($language_name, true);
 <!-- view sent msg -->
 <?= $this->include('partials/footer') ?>
 <script>
-$('body').on('click', '.previewbutton', function() {
+    $('body').on('click', '.previewbutton', function() {
 
         var body = $('.body_div').val();
         var regex = /{{\d+}}/g;
@@ -1433,26 +1429,26 @@ $('body').on('click', '.previewbutton', function() {
 
     $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
         var bodyText = $(this).val();
-        var index = $('.inputypeBody').index($(this)) + 1; 
-    var regex = new RegExp("{{" + index + "}}", "g");
+        var index = $('.inputypeBody').index($(this)) + 1;
+        var regex = new RegExp("{{" + index + "}}", "g");
 
-// var regex = new RegExp('{{' + index + '}}');
+        // var regex = new RegExp('{{' + index + '}}');
         if (bodyText === "") {
             $('.preview-chat-paragraph').hide();
         } else {
             $('.preview-chat-paragraph').show();
-        
-        var originalText = $('.preview-chat-paragraph .msg-text-chat').html();
-        var match = originalText.match(regex);
-       console.log(match);
-        if (match) {
-            console.log(match[0].slice(2, -2));
+
+            var originalText = $('.preview-chat-paragraph .msg-text-chat').html();
+            var match = originalText.match(regex);
+            console.log(match);
+            if (match) {
+                console.log(match[0].slice(2, -2));
+            }
+            var newText = originalText.replace(regex, bodyText);
+
+            $('.preview-chat-paragraph .msg-text-chat').html(newText);
         }
-        var newText = originalText.replace(regex, bodyText);
-        
-        $('.preview-chat-paragraph .msg-text-chat').html(newText);
-    }
-});
+    });
 
 
 
@@ -1540,7 +1536,7 @@ $('body').on('click', '.previewbutton', function() {
 
     $('.body_div').on('input', function() {
         var bodyText = $(this).val();
-console.log(bodyText);
+        console.log(bodyText);
 
         if (bodyText === "") {
             $('.c').hide();
@@ -1876,41 +1872,25 @@ console.log(bodyText);
     });
 
 
-    
 
 
-    $('body').on('click', '.ButtonVariableClass', function(){
-        var DDValue =  $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+
+    $('body').on('click', '.ButtonVariableClass', function() {
+        var DDValue = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
         // 1 - Empty && 2 - Quick (Only 3 Max Button) && 3 - Call To Active (Link - Phone No)
-        if(DDValue == '1'){
+        if (DDValue == '1') {
             $('.SetButtonHTMLClass').html('');
-        }else if (DDValue == '2'){
+        } else if (DDValue == '2') {
             var previous_hmml = $('.SetButtonHTMLClass').html();
             var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
             var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
-            if(parseInt(numberOfSubElements) < 3){
-                $('.SetButtonHTMLClass').html(previous_hmml+StaticHtml);
+            if (parseInt(numberOfSubElements) < 3) {
+                $('.SetButtonHTMLClass').html(previous_hmml + StaticHtml);
             }
             // console.log(numberOfSubElements);
-        }else if (DDValue == '3'){
-            <div class="col-12 d-flex flex-wrap remove-data">
-                                            <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
-                                                <span class="fs-10">Url Button</span>
-                                                <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                            </div>
-                                            <div class="col-12 border rounded-2 p-2">
-                                                <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
-                                                <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between">
-                                                    <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span>
-                                                    <div class="col-7">
-                                                        <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
-                                                    </div>
-                                                    <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button>
-                                                </div>
-                                            </div>
+        } else if (DDValue == '3') {
 
-                                        </div>
-                                        
+
         }
 
         // SetButtonHTMLClass
@@ -1918,8 +1898,47 @@ console.log(bodyText);
     });
 
 
-    $("body").on('change', '.ButtonSelctionDropDown', function() {  
+    $("body").on('change', '.ButtonSelctionDropDown', function() {
         $('.SetButtonHTMLClass').html('');
     });
 
+    $('body').on('click', '.title-1', function() {
+
+        $.ajax({
+            datatype: 'json',
+            method: "post",
+            url: "<?= site_url('master_whatsapp_list_dataaaksh'); ?>",
+            data: {
+                // 'table': table,
+                // 'show_array': show_val,
+                'action': true,
+
+            },
+            success: function(res) {
+                $('.loader').hide()
+                var response = JSON.parse(res);
+                var template_name = response.template_name;
+                console.log(template_name);
+                var dropdown = document.getElementById("header");
+
+                dropdown.innerHTML = "";
+
+                var defaultOption = document.createElement("option");
+                defaultOption.text = "Please select template";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                dropdown.appendChild(defaultOption);
+
+                template_name.forEach(function(name) {
+                    var option = document.createElement("option");
+                    option.value = name;
+                    option.text = name;
+                    dropdown.appendChild(option);
+                });
+
+                $('#memberships_list').html(response.html);
+            }
+        });
+
+    }); 
 </script>
