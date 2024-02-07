@@ -19,6 +19,11 @@
     .main-table.lead_list_table tbody tr:nth-child(even) {
         background-color: #edd9ff29;
     }
+    @media(min-width:990px){
+        .responsivetable{
+            overflow: visible!important;
+        }
+    }
 </style>
 <?php
 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
@@ -122,7 +127,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     </div> -->
 
                     <div class="col-12 py-3 px-3 bg-white rounded-2">
-                        <div class="w-100 overflow-x-auto scroll-small row_none">
+                        <div class="w-100 overflow-x-scroll scroll-small row_none responsivetable">
                             <div class="attendence-search mb-1 d-flex align-items-center flex-wrap justify-content-between">
                                 <div class="dataTables_length" id="project_length">
                                     <label>
