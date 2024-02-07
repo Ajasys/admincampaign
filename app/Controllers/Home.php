@@ -361,7 +361,7 @@ class Home extends BaseController
         if ($inquiry_status_afcount[0]['count'] == '0') {
             $sql_insert = "INSERT INTO master_bot_typeof_question(`id`, `question_type`) VALUES ('1', 'Question'),('2', 'Single Choice'),('3', 'Email'),('4', 'Multiple Choice'),('5', 'Mobile Number'),('6', 'Number'),('7', 'Rating'),('8', 'Date Picker'),('9', 'Time Picker'),('10', 'Location'),('11', 'Range'),('12', 'File Upload'),('13', 'Website'),('14', 'Ask Contacts'),('15', 'Order Items'),
             ('16', 'Authenticator'),('17', 'Form'),('18', 'Carousel with buttons'),('19', 'Dynamic Question'),('20', 'Real Time Search'),('21', 'Appointment Booking'),('22', 'Statement'),('23', 'URL Navigator'),('24', 'Product Carousel'),('25', 'Carousel'),('26', 'Audio'),('27', 'Show Contacts'),('28', 'Show Location'),
-            ('29', 'Show File'),('30', 'URL Auto Redirect'),('31', 'URL Based Flow'),('32', 'Country Based Flow'),('33', 'Action Based Flow'),('34', 'Setup Menu Options'),('35', 'FAQs'),('36', 'AI Answering'),('37', 'Human Handover'),('38', 'Live Chats Redirect to whatsapp'),('39', 'Templates Based Flow'),('40', 'Users Initial Respone Based Flow'),('41', 'Menu List'),('42', 'Cart'),('43', 'Buttons'),('44', 'Catalog'),('45', 'Address'),('46', 'Ad Based Flow'),('47', 'Generic Template'),('48', 'Ice Breakers');";
+            ('29', 'Show File'),('30', 'URL Auto Redirect'),('31', 'URL Based Flow'),('32', 'Country Based Flow'),('33', 'Action Based Flow'),('34', 'FAQs'),('35', 'AI Answering'),('36', 'Human Handover'),('37', 'Live Chats Redirect to whatsapp'),('38', 'Templates Based Flow'),('39', 'Users Initial Respone Based Flow'),('40', 'Menu List'),('41', 'Cart'),('42', 'Buttons'),('43', 'Catalog'),('44', 'Address'),('45', 'Ad Based Flow'),('46', 'Generic Template'),('47', 'Ice Breakers');";
             $res = $db_connection->query($sql_insert);
         }
 
@@ -369,6 +369,39 @@ class Home extends BaseController
         return view('bot_setup', $data);
     }
     
+    public function bot_setup_designer()
+    {
+        $table_username = getMasterUsername2();
+        $columns_bot = [
+            'id int primary key AUTO_INCREMENT',
+            'type_of_question varchar(500) NOT NULL',
+            'question longtext NOT NULL',
+            'sequence int(11) NOT NULL',
+            'bot_id int(11) NOT NULL',
+        ];
+        tableCreateAndTableUpdate2($table_username . '_bot_setup', '', $columns_bot);
+
+        $table_username = getMasterUsername2();
+        $columns_bot = [
+            'id int primary key AUTO_INCREMENT',
+            'question_type varchar(500) NOT NULL',
+        ];
+        tableCreateAndTableUpdate2('master_bot_typeof_question', '', $columns_bot);
+
+        $db_connection = \Config\Database::connect('second');
+        $sql_1 = "SELECT COUNT(*) as count FROM master_bot_typeof_question";
+        $Getresult = $db_connection->query($sql_1);
+        $inquiry_status_afcount = $Getresult->getResultArray();
+        if ($inquiry_status_afcount[0]['count'] == '0') {
+            $sql_insert = "INSERT INTO master_bot_typeof_question(`id`, `question_type`) VALUES ('1', 'Question'),('2', 'Single Choice'),('3', 'Email'),('4', 'Multiple Choice'),('5', 'Mobile Number'),('6', 'Number'),('7', 'Rating'),('8', 'Date Picker'),('9', 'Time Picker'),('10', 'Location'),('11', 'Range'),('12', 'File Upload'),('13', 'Website'),('14', 'Ask Contacts'),('15', 'Order Items'),
+            ('16', 'Authenticator'),('17', 'Form'),('18', 'Carousel with buttons'),('19', 'Dynamic Question'),('20', 'Real Time Search'),('21', 'Appointment Booking'),('22', 'Statement'),('23', 'URL Navigator'),('24', 'Product Carousel'),('25', 'Carousel'),('26', 'Audio'),('27', 'Show Contacts'),('28', 'Show Location'),
+            ('29', 'Show File'),('30', 'URL Auto Redirect'),('31', 'URL Based Flow'),('32', 'Country Based Flow'),('33', 'Action Based Flow'),('34', 'FAQs'),('35', 'AI Answering'),('36', 'Human Handover'),('37', 'Live Chats Redirect to whatsapp'),('38', 'Templates Based Flow'),('39', 'Users Initial Respone Based Flow'),('40', 'Menu List'),('41', 'Cart'),('42', 'Buttons'),('43', 'Catalog'),('44', 'Address'),('45', 'Ad Based Flow'),('46', 'Generic Template'),('47', 'Ice Breakers');";
+            $res = $db_connection->query($sql_insert);
+        }
+
+        $data['master_bot_typeof_question'] = $this->MasterInformationModel->display_all_records2('master_bot_typeof_question');
+        return view('bot_setup', $data);
+    }
     public function manage_audience()
     {
         $table_username = getMasterUsername2();

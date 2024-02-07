@@ -15,12 +15,6 @@ class MasterInformationModel extends Model
         $this->db =& $db;
 
     }
- 
-    
-    public function getRecordCount2($table_name)
-    {
-        return $this->db->table($table_name)->countAll();
-    }
 
     public function insert_entry($data,$tablename){
 
@@ -35,17 +29,6 @@ class MasterInformationModel extends Model
 
 
     }
-
-    public function get_record($id, $tablename)
-    {
-        $secondDb = \Config\Database::connect('second');
-        
-        $query = $secondDb->query("SELECT * FROM $tablename WHERE id = ?", [$id]);
-    
-        return $query->getRow();
-    }
-    
-
 
     public function insert_entry2($data,$tablename){
 
@@ -450,6 +433,15 @@ class MasterInformationModel extends Model
 
     }
 
+
+    public function get_record_count($table_name)
+    {
+        $secondDb = \Config\Database::connect('second');
+        $query = $secondDb->query("SELECT COUNT(*) AS record_count FROM $table_name");
+        
+        $result = $query->getRow();
+        return $result->record_count;
+    }
     
 
 }
