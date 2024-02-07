@@ -1218,7 +1218,20 @@ class FaceBookController extends BaseController
                     $html .=  '<span class="rounded-2 text-white fs-12 sm-btn Error">failure</span>';
                 }
                 $html .=  '</td>
-                <td class="p-2 text-nowrap text-center"></td></tr>';
+                    <td class="p-2 text-nowrap text-center">
+                        <button type="button" class="btn border-0 bg-transparent ">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                        <div class="btn-group dropend">
+                            <button type="button" class="btn border-0 bg-transparent " data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <ul class="dropdown-menu p-3">
+                                modal-2 dkjdgdgdfgd
+                            </ul>
+                        </div>
+                    </td>
+                </tr>';
             }
         }
 
@@ -1232,3 +1245,7 @@ class FaceBookController extends BaseController
         echo json_encode($return_array);
     }
 }
+
+
+
+

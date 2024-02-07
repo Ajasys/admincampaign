@@ -29,13 +29,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 ?>
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
-        <div class="p-2">
+        <div>
             <div class="col-xl-12 d-flex justify-content-between">
                 <div class="title-1  d-flex align-items-center">
-                    <!-- <i class="fa-solid fa-phone"></i> -->
+                    <i class="fa-solid fa-house-signal"></i>
                     <h2>Facebook Connections</h2>
                 </div>
-                <div class="d-flex align-items-center col-1">
+                <div class="d-flex align-items-center justify-content-end  col-1">
                     <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-primary-rounded mx-2">
                         <i class="bi bi-plus"></i>
                     </button>
@@ -151,7 +151,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                         <th class="p-2 text-nowrap"><span>Type</span></th>
                                         <th class="p-2 text-nowrap"><span></span></th>
                                         <th class="p-2 text-nowrap"><span>Status</span></th>
-                                        <th class="p-2 text-nowrap text-center"><span>Delete</span></th>
+                                        <th class="p-2 text-nowrap text-center"><span></span></th>
                                     </tr>
                                 </thead>
                                 <tbody id="fb_list_data"></tbody>
