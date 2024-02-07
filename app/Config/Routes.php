@@ -73,7 +73,7 @@ $routes->post('/workoutAvailable', 'workoutController::workoutAvailable');
 $routes->post('/AddToMasterworkout', 'workoutController::AddToMasterworkout');
 $routes->post('/MainMasterworkoutView', 'workoutController::MainMasterworkoutView');
 
-$routes->get('/template', 'Templates_Controller::template');
+$routes->get('/EmailConversions', 'Templates_Controller::template');
 $routes->post('/template_list_data', 'Templates_Controller::template_list_data');
 $routes->post('/insert_data_t', 'Templates_Controller::insert_data_t');
 $routes->post('/edit_data_t', 'Templates_Controller::edit_data_t');
