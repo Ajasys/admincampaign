@@ -80,7 +80,7 @@ $routes->post('/edit_data_t', 'Templates_Controller::edit_data_t');
 $routes->post('/update_data_t', 'Templates_Controller::update_data_t');
 $routes->post('template_delete_data', 'Templates_Controller::template_delete_data');
 $routes->get('email_fetch', 'Home::email_fetch');
-$routes->get('email_track', 'Home::email_track');
+$routes->get('email_history', 'Home::email_track');
 $routes->post('show_data_email', 'Templates_Controller::show_data_email');
 $routes->get('email_history_show', 'Home::email_history_show');
 $routes->post('fetch_email_track_data', 'Templates_Controller::fetch_email_track_data');
@@ -186,7 +186,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('que_ans', 'Home::que_ans');
 	$routes->get('pdf', 'UserInformation::pdf');
 
-	
+	// bot
+	$routes->get('bot_messenger', 'Bot_controller::bot_messenger');
 
 
 	// food
@@ -491,7 +492,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('send_message_data_conversion', 'clint_support_controller::send_message_data_conversion');
 	$routes->post('searchbar_url', 'clint_support_controller::searchbar_url');
 	$routes->post('update_ticket_status', 'clint_support_controller::update_ticket_status');
-	$routes->get('/whatsapp', 'Home::whatapp');
+	$routes->get('/whatapp', 'Home::whatapp');
 
 
 	//bot setup
@@ -499,8 +500,6 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/bot', 'Home::bot');
 	$routes->get('/new_messenger_bot', 'Home::new_messenger_bot');
 	$routes->get('/bot_setup', 'Home::bot_setup');
-	$routes->get('bot_messenger', 'Bot_controller::bot_messenger');
-	$routes->post('/main_bot_list_data', 'Bot_Controller::main_bot_list_data');
 	$routes->post('/messenging_bot_insert_data', 'Bot_Controller::messenging_bot_insert_data');
 	$routes->post('/messeging_bot_list', 'Bot_Controller::messeging_bot_list');
 	$routes->post('/update_data_conversion', 'Bot_Controller::update_data_conversion');
