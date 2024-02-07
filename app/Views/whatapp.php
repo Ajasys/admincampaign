@@ -1611,8 +1611,9 @@ $language_name = json_decode($language_name, true);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary previewbutton" data-bs-target="#view_modal"
+                    <button type="button" class="btn btn-primary previewbutton d-none" data-bs-target="#view_modal"
                         data-bs-toggle="modal">Preview and Submit</button>
+                        <button type="button" class="btn btn-primary Add_editModelTitle" >Preview and Submit</button>
                 </div>
             </div>
     </div>
