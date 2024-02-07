@@ -352,9 +352,8 @@ class Home extends BaseController
         return view('bot');
     }
 
-    public function new_messenger_bot()
-    {
-        return view('new_messenger_bot');
+    public function messenger() {
+        return view('messenger');
     }
 
     public function bot_setup()

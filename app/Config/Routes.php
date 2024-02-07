@@ -500,7 +500,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	//bot setup
 	$routes->get('/messenger_bot', 'Home::messenger_bot');
 	$routes->get('/bot', 'Home::bot');
-	$routes->get('/new_messenger_bot', 'Home::new_messenger_bot');
+	$routes->get('/messenger', 'Home::messenger');
 	$routes->get('/bot_setup', 'Home::bot_setup');
 	$routes->get('/bot_setup_designer', 'Home::bot_setup_designer');
 	$routes->post('/main_bot_list_data', 'Bot_Controller::main_bot_list_data');
