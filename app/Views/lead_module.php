@@ -140,18 +140,7 @@
 </style>
 
 <?php
-// $userUnderEmployee = userUnderEmployees($_SESSION['id']);
-// $project_management_subtype = json_decode($project_management_subtype, true);
-$area = json_decode($area, true);
 $product = json_decode($product, true);
-// $master_inquiry_type = json_decode($master_inquiry_type, true);
-// $master_inquiry_source = json_decode($master_inquiry_source, true);
-// $project_management_type = json_decode($project_management_type, true);
-// $master_inquiry_close = json_decode($master_inquiry_close, true);
-// $master_inquiry_status = json_decode($master_inquiry_status, true);
-// $project_management_properties = json_decode($project_management_properties, true);
-// $project = json_decode($project, true);
-// $user = json_decode($user, true);
 $this->db = \Config\Database::connect('second');
 $find_Array_all = "SELECT * FROM admin_fb_account  Where master_id=" . $_SESSION['master'];
 $find_Array_all = $this->db->query($find_Array_all);
@@ -388,20 +377,6 @@ $user_data = $user_result->getResultArray();
                                     ?>
                                 </select>
                             </div>
-
-                            <label class="form-label main-label fs-14 text-nowrap mt-2">Int Area</label> <sup class="validationn">*</sup>
-                            <div class="main-selectpicker">
-                                <select id="area" class="selectpicker form-control form-main area" data-live-search="true" required>
-                                    <option value="0">Select Int Area</option>
-                                    <?php
-                                    if (isset($area)) {
-                                        foreach ($area as $area_key => $area_value) {
-                                            echo '<option data-area_option_id="' . $area_value["id"] . '" value="' . $area_value["id"] . '" data-city="' . $area_value["city"] . '">' . $area_value["area"] . '</option>';
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                            </div>
                             
                             <label class="form-label main-label fs-14 text-nowrap mt-2">Assign
                                 to <sup class="validationn">*</sup></label>
@@ -619,7 +594,7 @@ $user_data = $user_result->getResultArray();
 
 
         $('body').on('click', '.big_falcebook_circle_4_sbt .btn-primary', function() {
-            if ($(this).closest(".big_circle_fb_list").find("#area").val() != "" && $(this).closest(".big_circle_fb_list").find("#product").val() != "" && $(this).closest(".big_circle_fb_list").find("#sub_type").val() != "" && $(this).closest(".big_circle_fb_list").find("#assign_to").val() != "") {
+            if ($(this).closest(".big_circle_fb_list").find("#product").val() != "" && $(this).closest(".big_circle_fb_list").find("#sub_type").val() != "" && $(this).closest(".big_circle_fb_list").find("#assign_to").val() != "") {
                 $(this).closest(".big_circle_fb_outer").find(".big_circle_fb_list").hide();
             } else {
                 $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
@@ -937,7 +912,6 @@ $user_data = $user_result->getResultArray();
 
     //for save connection and all functionality...
     $('body').on('click', '.big_falcebook_circle_4_sbt', function() {
-        var area = $(".area option:selected").val();
         var int_product = $(".product option:selected").val();
         var sub_type = $(".sub_type option:selected").val();
         var assign_to = $(".assign_to option:selected").val();
@@ -950,7 +924,7 @@ $user_data = $user_result->getResultArray();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
 
-        if (assign_to != "" && area > 0 && int_product>0) {
+        if (assign_to != "" && int_product>0) {
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_page'); ?>",
@@ -959,7 +933,6 @@ $user_data = $user_result->getResultArray();
                     page_id: page_id,
                     access_token: access_token,
                     page_name: page_name,
-                    area: area,
                     int_product:int_product,
                     sub_type: sub_type,
                     assign_to: assign_to,
@@ -1014,7 +987,6 @@ $user_data = $user_result->getResultArray();
     //save as draft and all save also
     $('body').on('click', '.big_falcebook_circle_2_sbt', function() {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
-        var area = $(".area option:selected").val();
         var int_product = $(".product option:selected").val();
         var sub_type = $(".sub_type option:selected").val();
         var assign_to = $(".assign_to option:selected").val();
@@ -1024,7 +996,7 @@ $user_data = $user_result->getResultArray();
         var form_id = $("#facebookform option:selected").val();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
-        if (int_product > 0 && assign_to != "" && sub_type > 0 && area > 0 && page_id != "" && form_id != "") {
+        if (int_product > 0 && assign_to != "" && page_id != "" && form_id != "") {
             var draft_status = 0;
         } else {
             var draft_status = 3;
@@ -1039,7 +1011,6 @@ $user_data = $user_result->getResultArray();
                     page_id: page_id,
                     access_token: access_token,
                     page_name: page_name,
-                    area: area,
                     int_product: int_product,
                     sub_type: sub_type,
                     assign_to: assign_to,
@@ -1292,7 +1263,6 @@ $user_data = $user_result->getResultArray();
             }
         });
 
-        $('#area').val(intrested_area);
         $('#product').val(intrested_product);
         $('#sub_type').val(property_sub_type);
         $('#assign_to').val(setassign_id);

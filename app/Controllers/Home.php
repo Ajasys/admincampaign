@@ -774,10 +774,6 @@ class Home extends BaseController
     {
         $username = session_username($_SESSION['username']);
         $this->db = \Config\Database::connect('second');
-        // $find_Array_all = "SELECT * FROM admin_fb_account  where master_id='" . $_SESSION['master'] . "' ";
-        // $find_Array_all = $this->db->query($find_Array_all);
-		// $data['fb_account'] = $find_Array_all->getResultArray();
-        $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
         $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
         return view('lead_module',$data);
     }

@@ -459,12 +459,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <!-- <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>">Email Integration</a>
                      </li> -->
-
-                     <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>bot">Bots</a>
-                     </li>
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>messenger">Messenger</a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" href="<?= base_url(); ?>bot">Manage Bot</a>
                      </li>
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>post_comments">Manage Post & Comments</a>
