@@ -97,7 +97,7 @@ $routes->get('/whatapp_connection', 'Home::whatapp_connection');
 
 
 // post and comment
-$routes->get('/post_create', 'Home::post_create');
+$routes->get('/post_comments', 'Home::post_comments');
 $routes->post('/create_insert_data', 'CreateController::create_insert_data');	
 
 

@@ -33,22 +33,22 @@ class Home extends BaseController
     {
         return view('emailsend');
     }
-    public function post_create()
+    public function post_comments()
     {
         $table_username = getMasterUsername2();
         $columns_mesures = [
             'id int primary key AUTO_INCREMENT',
             'event_title varchar(500) NOT NULL',
             'event_start_date datetime',
-            'event_end varchar(500) NOT NULL',
+            'event_end datetime',
             'event_address longtext',
-            'attachment long(50) NOT NULL',
+            'attachment longtext NOT NULL',
             'coupon_event varchar(50) NOT NULL',
             'link_event varchar(50) NOT NULL',
             'terms_event varchar(50) NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_username . '_create_post', '', $columns_mesures);
-        return view('post_create');
+        return view('post_comments');
     }
     public function posts()
     {

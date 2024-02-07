@@ -449,14 +449,15 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <!-- <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>">Email Integration</a>
                      </li> -->
-                     <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>manage_audience">Manage Audience</a>
-                     </li>
+                     
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>messenger_bot">Messenger & Bots</a>
                      </li>
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>post_comments">Manage Post & Comments</a>
+                     </li>
+                     <li>
+                        <a class="dropdown-item" href="<?= base_url(); ?>manage_audience">Manage Audience</a>
                      </li>
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>template" ?>Email Conversions</a> </li>
                      <!-- <li> <a class="dropdown-item" href="<?= base_url(); ?>email_history" ?>Email Conversion</a> </li> -->
@@ -745,30 +746,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                   </a>
                </li>
             <?php } ?>
-
-            <?php if (in_array('main_create', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-               <li class="main-drop">
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url('post_create'); ?>" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Create">
-                     <span class="drop_icon_main">
-                        <i class="fa-solid fa-plus"></i>
-                     </span>
-                     <span class="link_name">create</span>
-                  </a>
-               </li>
-            <?php } ?>
-
-            <!---      
-               <li class="main-drop">
-                     <a class="drop_icon d-flex align-items-center py-2"
-                        href="<?= base_url('posts'); ?>" data-tbs-toggle="tooltip"
-                        data-bs-placement="right" data-bs-title="Post">
-                        <span class="drop_icon_main">
-                        <i class="fa-regular fa-clone"></i>
-                        </span>
-                        <span class="link_name">post</span>
-                     </a>
-               </li> -->
-
 
             <?php if (in_array('main_calender', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
