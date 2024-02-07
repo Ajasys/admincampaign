@@ -217,7 +217,6 @@ class FaceBookController extends BaseController
         $page_id = $this->request->getPost("page_id");
         $access_token = $this->request->getPost("access_token");
         $page_name = $this->request->getPost("page_name");
-        $area = $this->request->getPost("area") ? $this->request->getPost("area") : 0;
         $int_product = $this->request->getPost("int_product") ? $this->request->getPost("int_product") : 0;
         $sub_type = $this->request->getPost("sub_type") ? $this->request->getPost("sub_type") : 0;
         if ($this->request->getPost("assign_to") == 1) {
@@ -239,7 +238,6 @@ class FaceBookController extends BaseController
                 $insert_data['page_access_token'] = $access_token;
                 $insert_data['page_id'] = $page_id;
                 $insert_data['page_name'] = $page_name;
-                $insert_data['intrested_area'] = $area;
                 $insert_data['property_sub_type'] = $sub_type;
                 $insert_data['intrested_product'] = $int_product;
                 $insert_data['user_id'] = $assign_to;
@@ -256,7 +254,7 @@ class FaceBookController extends BaseController
             } else {
                 if ($result_facebook_data[0]['is_status'] == 0) {
                     //is_status==0-for fresh to connection
-                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Re-connect successfully";
@@ -270,7 +268,7 @@ class FaceBookController extends BaseController
                     $result_array['msg'] = "Form Re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 3) {
                     //is_status==0-for draft to connection
-                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE `admin_fb_pages` SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form connection successfully";
@@ -282,7 +280,6 @@ class FaceBookController extends BaseController
                     $insert_data['page_access_token'] = $access_token;
                     $insert_data['page_id'] = $page_id;
                     $insert_data['page_name'] = $page_name;
-                    $insert_data['intrested_area'] = $area;
                     $insert_data['property_sub_type'] = $sub_type;
                     $insert_data['intrested_product'] = $int_product;
                     $insert_data['user_id'] = $assign_to;
@@ -296,7 +293,7 @@ class FaceBookController extends BaseController
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
-                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE `admin_fb_pages` SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Updated successfully";
@@ -858,7 +855,6 @@ class FaceBookController extends BaseController
                 $insert_data['mobileno'] = !empty($mobile_nffo) ? $mobile_nffo : '';
                 $insert_data['full_name'] =  isset($full) ? $full : '';
                 $insert_data['property_sub_type'] = isset($row['property_sub_type']) ? $row['property_sub_type'] : '';
-                $insert_data['intrested_area'] = $row['intrested_area'];
                 $insert_data['intrested_product'] = isset($row['intrested_product']) ? $row['intrested_product'] : '';
                 $insert_data['inquiry_type'] = 1;
                 $insert_data['inquiry_source_type'] = 2;
@@ -1219,17 +1215,15 @@ class FaceBookController extends BaseController
                 }
                 $html .=  '</td>
                     <td class="p-2 text-nowrap text-center">
-                        <button type="button" class="btn border-0 bg-transparent ">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
                         <div class="btn-group dropend">
-                            <button type="button" class="btn border-0 bg-transparent " data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-eye"></i>
+                            <button type="button" class="btn border-0 bg-transparent get-permission" data-bs-toggle="dropdown" aria-expanded="false" data-access-token="'.$value['access_token'].'">
+                                <i class="fa-solid fa-circle-info"></i>
                             </button>
-                            <ul class="dropdown-menu p-3">
+                            <ul class="dropdown-menu p-3 set-permission">
                                 modal-2 dkjdgdgdfgd
                             </ul>
                         </div>
+                        <i class="fa-solid fa-trash-can"></i>
                     </td>
                 </tr>';
             }
@@ -1242,6 +1236,37 @@ class FaceBookController extends BaseController
         $return_array['total_page'] = $pagesCount;
         $return_array['response'] = 1;
 
+        echo json_encode($return_array);
+    }
+
+    public function fb_permission_list()
+    {
+        if(isset($_POST['access_token']))
+        {
+            $result = getSocialData('https://graph.facebook.com/v19.0/me/permissions?access_token='.$_POST['access_token']);
+            if(isset($result['data']))
+            {
+                $tableHtml = '<table>';
+                $tableHtml .= '<tr><th>Permission</th><th>Status</th></tr>';
+
+                foreach ($result['data'] as $permission) {
+                    $tableHtml .= '<tr>';
+                    $tableHtml .= '<td>' . htmlspecialchars($permission['permission']) . '</td>';
+                    $tableHtml .= '<td>' . htmlspecialchars($permission['status']) . '</td>';
+                    $tableHtml .= '</tr>';
+                }
+
+                $tableHtml .= '</table>';
+
+                $return_array['tableHtml'] = $tableHtml;
+                $return_array['response'] = 1;
+            }
+            else
+            {
+                $return_array['tableHtml'] = '';
+                $return_array['response'] = 0;
+            }
+        }
         echo json_encode($return_array);
     }
 }
