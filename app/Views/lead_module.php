@@ -226,6 +226,10 @@ $user_data = $user_result->getResultArray();
                                 <i class="fa-solid fa-angle-left position-absolute top-0 start-0 translate-middle m-4 fs-4 text-secondary-emphasis cursor-pointer discard-tag" data-bs-toggle="modal" data-bs-target="#discard_main_box"></i>
 
 
+
+
+
+
                                 <!--updated ka code  -->
                                 <div class="d-flex justify-content-center align-items-center gap-3 py-4">
 
@@ -262,6 +266,7 @@ $user_data = $user_result->getResultArray();
                                                 </ul>
                                             </div>
                                         </div>
+
                                         <div class="big_circle_fb_outer position-relative logo-1">
                                             <div class="big_circle_fb cursor-pointer">
                                                 <div class="big_circle_fb_inner p-5 rounded-circle position-relative profile_div">
@@ -466,62 +471,6 @@ $user_data = $user_result->getResultArray();
                     <h2 class="fs-14 text-gray">Saved Drafts</h2>
                 </div>
                 <div class="draft_pages_list"></div>
-<!-- <div class="lead_list p-2 rounded-2 position-relative">
-                                    <div class="d-flex align-items-center justify-content-end">
-                                        <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
-                                            <div class="mx-1">
-                                                <img src="https://scontent-dus1-1.xx.fbcdn.net/v/t39.30808-1/294935068_455927246545151_6937570783544724723_n.jpg?stp=cp0_dst-jpg_p50x50&amp;_nc_cat=104&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=2pmSwaNY8-0AX8lR-41&amp;_nc_ht=scontent-dus1-1.xx&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfAxBNu5qco_6YEvMf3Z_m7sgVoRFocbu3FtJs7tnDf1ew&amp;oe=65AE3497" class="rounded-circle" width="50px" hright="50px">
-            </div>
-
-                                            <div class="load-icon center d-none">
-                                                <span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                                <span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                                <span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                                <span><i class="bi bi-caret-right-fill fs-10"></i></span>
-        </div>
-
-                                            <div class="mx-1">
-                                                <img src="https://dev.realtosmart.com/assets/images/l_intigration.svg" class="rounded-circle" width="50px" hright="50px">
-    </div>
-</div>
-<a class="lead_list_content d-flex align-items-center flex-wrap flex-fill">
-                                            <div class="d-flex align-items-center">
-                                                <div class="d_saved_1">
-                                                    <button class="btn-primary-rounded fs-14">1</button>
-</div>
-<div class="d_unsaved_1">
-                                                    <button class="btn-primary-rounded fs-14 bg-secondary-subtle border-0 shadow-sm text-dark">?</button>
-</div>
-<div class="mx-1" style="width: 50px; border: 2px solid var(--first-color);"></div>
-                                                <div class="d_saved_2">
-                                                    <button class="btn-primary-rounded fs-14">2</button>
-                                                </div>
-                                                <div class="d_unsaved_2">
-                                                    <button class="btn-primary-rounded fs-14 bg-secondary-subtle border-0 shadow-sm text-dark">?</button>
-                                                </div>
-                                                <div class="mx-1" style="width: 50px; border: 2px solid var(--first-color);"></div>
-                                                <div class="d_saved_3">
-                                                    <button class="btn-primary-rounded fs-14">3</button>
-                                                </div>
-                                                <div class="d_unsaved_3">
-                                                    <button class="btn-primary-rounded fs-14 bg-secondary-subtle border-0 shadow-sm text-dark">?</button>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12 mt-2">
-                                                <i class="bi bi-gear me-1"></i>
-                                                <span class="me-2">0</span>
-                                                <i class="bi bi-person me-1"></i>
-                                                <span>Hiren Vaghasiya</span>
-                                            </div>
-                                        </a>
-                                        <div class="lead_list_switch d-flex align-items-center flex-wrap">
-                                            <label class="switch_toggle mx-2">
-                                                <input type="checkbox" class="page_actiive" value="1" data-form_id="237950712661626" checked="">
-                                                <span class="check_input round"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div> -->
             </div>
         </div>
     </div>

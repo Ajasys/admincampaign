@@ -12,14 +12,6 @@ if (isset($total_dataa_userr_22[0])) {
 } else {
     $settings_data = array();
 }
-if(isset($settings_data['facebook_access_token']) && $settings_data['facebook_access_token'] && $settings_data['is_facebook_connect']==1)
-{
-    $chk_fb_token = 1;
-}
-else
-{
-    $chk_fb_token = 0;
-}
 $WhatAppRedirectStatus = 0;
 
 // if(isset($settings_data) && !empty($settings_data)){
@@ -66,21 +58,11 @@ if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)
                                         <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center ">
                                             
-                                                <?php
-                                                if($chk_fb_token==1)
-                                                {
-                                                    ?>
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">connected</span>
-                                                    <?php
-                                                }
-                                                else
-                                                {
-                                                    ?>
+                                                    <!-- <span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">connected</span>
+                                                  
                                                     <span class="fw-bold  text-danger  px-2 py-1 rounded-pill " style="font-size:10px">Disconnected</span>
-                                                    <?php
-                                                }
-                                                ?>
-                                            
+                                                    
+                                             -->
                                             </div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
 
@@ -95,27 +77,17 @@ if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)
                                                     </g>
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Facebook</h5>
-                                                <?php
-                                                if($settings_data['facebook_access_token']=='')
-                                                {
-                                                    ?>
-                                                    <a href="<?= base_url('facebook_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a>
-                                                    <?php
-                                                }
-                                                ?>
+                                                
+                                                    <!-- <a href="<?= base_url('facebook_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a> -->
+                                                   
                                             
                                             </div>
                                             <div class="d-flex justify-content-end p-2" style="height: 40px;">
-                                            <?php
-                                                if(isset($settings_data['facebook_access_token']) && $settings_data['facebook_access_token'])
-                                                {
-                                                    ?>
+                                            
                                                     
-                                                    <a href="<?= base_url('facebook_connection') ?>"><button class="border-0 bg-transparent "><i class="fa-solid fa-pencil"></i></button></a>
+                                                    <!-- <a href="<?= base_url('facebook_connection') ?>"><button class="border-0 bg-transparent "><i class="fa-solid fa-pencil"></i></button></a> -->
                                                 
-                                                    <?php
-                                                }
-                                                ?>
+                                                   
                                             </div>
                                         </div>
                                     </a>
