@@ -1489,7 +1489,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
     //     alert('Item dropped!');
     // });
 
-
+    //page js for drag and drop
     $(".question_add").on("dragstart", function(e) {
         $(this).addClass('dragging');
         e.originalEvent.dataTransfer.setData("text/plain", event.target.id);
@@ -1515,6 +1515,50 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
     });
   
 
+    //controller js for drag and drop
+    $('body').on('dragstart', '.drag_question', function(e) {
+        $(this).addClass('dragging');
+        e.originalEvent.dataTransfer.setData("text/plain", event.target.id);
+        $('.droppable').css("outline","2px dotted black");
+        $('.droppable').css("background-color","#d5d5d5");
+    });
+    $('body').on('dragend', '.drag_question', function(e) {
+        $(this).removeClass('dragging');
+        $('.droppable').css("outline","3px dotted transparent");
+        $('.droppable').css("background-color","#f4f4f6");
+    });
+    $('body').on('dragover','.drag_question', function(e) {
+        e.preventDefault();
+    });
+
+    $('body').on('drop', '.drag_question', function(e) {
+        e.preventDefault();
+        var droppedQuestionId = $(this).find('.question_delete').data('question');
+        var targetContainer = $(e.target).closest('.droppable');
+        var targetQuestionId = targetContainer.find('.question_delete').data('question');
+
+        var droppedSequence = parseInt($(this).find('.sequence').text());
+        var targetSequence
+        $(this).find('.sequence').text(targetSequence);
+        targetContainer.find('.sequence').text(droppedSequence);
+
+        $.ajax({
+            method: "post",
+            url: "update_sequence", 
+            data: {
+                droppedQuestionId: droppedQuestionId,
+                targetQuestionId: targetQuestionId,
+                droppedSequence: targetSequence,
+                targetSequence: droppedSequence
+            },
+            success: function(data) {
+                console.log("Sequence updated successfully");
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
     
 </script>
 

@@ -449,24 +449,27 @@ class Bot_Controller extends BaseController
 		}
 	}
 
+
+	//bot question add
 	public function bot_insert_data()
 	{
 		$post_data = $this->request->getPost();
 		$table_name = $this->request->getPost("table");
 		$action_name = $this->request->getPost("action");
+		$bot_id = $this->request->getPost("bot_id");
 
-		if (!isset($_SESSION['records_count'])) {
-			$_SESSION['records_count'] = 0;
-		}
 		if ($action_name == "insert" && !empty($post_data)) {
 			unset($post_data['action']);
 			unset($post_data['table']);
 
-			$existing_records_count = $this->MasterInformationModel->get_record_count($table_name);
+			$max_sequence = $this->MasterInformationModel->get_max_sequence($table_name, $bot_id);
 
-			$_SESSION['records_count'] = $existing_records_count;
-			$_SESSION['records_count']++;
-			$post_data['sequence'] = $_SESSION['records_count'];
+			if ($max_sequence === null) {
+				$sequence = 1;
+			} else {
+				$sequence = $max_sequence + 1;
+			}
+			$post_data['sequence'] = $sequence;
 
 			$response = $this->MasterInformationModel->insert_entry2($post_data, $table_name);
 			$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
@@ -490,7 +493,7 @@ class Bot_Controller extends BaseController
 		die();
 	}
 
-
+	//bot duplicate question add
 	public function duplicate_Question() 
 	{
 		$table_username = getMasterUsername2();
@@ -505,6 +508,7 @@ class Bot_Controller extends BaseController
 	}
 
 
+	//bot insert duplicate question
 	private function insertQuestionData($question_data) 
 	{
 		$table_username = getMasterUsername2();
@@ -521,12 +525,50 @@ class Bot_Controller extends BaseController
 		return $db->insertID();
 	}
 
+
+	//update question sequence
+	public function update_sequence()
+	{
+		$droppedQuestionId = $_POST['droppedQuestionId'];
+		$targetQuestionId = $_POST['targetQuestionId'];
+		$droppedSequence = $_POST['droppedSequence'];
+		$targetSequence = $_POST['targetSequence'];
+		
+		$db = \Config\Database::connect('second');
+		$table_username = getMasterUsername2();
+
+		$db->transStart();
+		$db->table($table_username . '_bot_setup')
+		->where('id', $droppedQuestionId)
+		->set('sequence', $droppedSequence)
+		->update();
+
+		$db->table($table_username . '_bot_setup')
+		->where('id', $targetQuestionId)
+		->set('sequence', $targetSequence)
+		->update();
+
+		$db->transComplete();
+
+		if ($db->transStatus() === FALSE) {
+			echo "Transaction failed!";
+		} else {
+			echo "Sequence updated successfully!";
+		}
+	}
+
+
+
+	//bot delete question
 	public function bot_delete_data()
 	{
 		if ($this->request->getPost("action") == "delete") {
 			$delete_id = $this->request->getPost('id');
 			$table_name = $this->request->getPost('table');
 			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
+
+			$this->MasterInformationModel->delete_question_sequence($table_name);
+			echo "success";
 		}
 		die();
 	}
@@ -568,6 +610,7 @@ class Bot_Controller extends BaseController
 	// }
 
 
+	//bot list question
 	public function bot_list_data()
 	{
 		$table_name = $_POST['table'];
@@ -582,8 +625,8 @@ class Bot_Controller extends BaseController
 		foreach ($botdisplaydata as $key => $value) {
 			if($value['bot_id'] == $bot_id){
 				$html .= '
-					<div class="col-12 w-100 d-flex flex-wrap p-2">
-						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
+					<div class="col-12 w-100 d-flex flex-wrap p-2 cursor-pointer drag_question">
+						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup" draggable="true">
 							<div class="col-10 d-flex flex-wrap align-items-center">
 								<label class="text-wrap px-2" for="">';
 								if(isset($value['type_of_question']) && $value['type_of_question'] == 1) {
@@ -683,7 +726,7 @@ class Bot_Controller extends BaseController
 								}
 								
 							$html .= '
-								<p class="fw-semibold d-inline block mx-2">' . $value['question'] . '</p>
+								<p class="fw-semibold d-inline block mx-2 cursor-pointer">' . $value['question'] . '</p>
 							</label>
 						</div>
 						<div class="col-2 d-flex flex-wrap align-items-center">

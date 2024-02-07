@@ -444,6 +444,7 @@ class MasterInformationModel extends Model
     }
 
 
+    //for bot sequence
     public function get_record_count($table_name)
     {
         $secondDb = \Config\Database::connect('second');
@@ -452,7 +453,26 @@ class MasterInformationModel extends Model
         $result = $query->getRow();
         return $result->record_count;
     }
-    
+    public function get_max_sequence($table_name, $bot_id)
+    {
+        $secondDb = \Config\Database::connect('second');
+        $query = $secondDb->query("SELECT MAX(sequence) AS max_sequence FROM $table_name WHERE bot_id = $bot_id");
+        
+        $result = $query->getRow();
+        return $result ? $result->max_sequence : null;
+    }
+    public function delete_question_sequence($table_name)
+    {
+        $secondDb = \Config\Database::connect('second');
+        $questions = $secondDb->table($table_name)->get()->getResultArray();
+        $sequence = 1;
+        foreach ($questions as $question) {
+            $secondDb->table($table_name)
+                ->where('id', $question['id'])
+                ->update(['sequence' => $sequence]);
+            $sequence++;
+        }
+    }
 
 }
 

@@ -422,7 +422,7 @@ class Home extends BaseController
         }
 
         $data['master_bot_typeof_question'] = $this->MasterInformationModel->display_all_records2('master_bot_typeof_question');
-        return view('bot_setup', $data);
+        return view('bot_setup_designer', $data);
     }
     public function manage_audience()
     {
