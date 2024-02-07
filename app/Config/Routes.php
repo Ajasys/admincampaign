@@ -494,7 +494,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('send_message_data_conversion', 'clint_support_controller::send_message_data_conversion');
 	$routes->post('searchbar_url', 'clint_support_controller::searchbar_url');
 	$routes->post('update_ticket_status', 'clint_support_controller::update_ticket_status');
-	$routes->get('/whatapp', 'Home::whatapp');
+	$routes->get('/whatsapp', 'Home::whatapp');
 
 
 	//bot setup
