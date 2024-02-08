@@ -1134,4 +1134,10 @@ class WhatAppIntegrationController extends BaseController
         return json_encode($msgStatus, true);
     }
     
+    public function GetWhatsAppTemplateDetails(){
+        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?name='.strtolower($_POST['name']).'&access_token=' . $access_token;
+        $responselistdata = getSocialData($url);
+        echo json_encode($responselistdata);
+    }
 }

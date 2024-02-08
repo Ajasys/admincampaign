@@ -1063,7 +1063,7 @@ $language_name = json_decode($language_name, true);
                                 </div>
                                 <div class="col-5 d-flex flex-wrap align-items-center justify-content-end float-end ">
                                     <div class="col-5 px-2">
-                                        <button type="button" class="btn-primary CancleBtn me-2  w-100"
+                                        <button type="button" class="btn-primary CancleBtn me-2  w-100 d-none"
                                             data-bs-dismiss="modal" data-bs-toggle="modal" id="cancel"
                                             data-delete_id=""><i class="bi bi-arrow-repeat"></i> Sync with
                                             Facebook</button>
@@ -1074,7 +1074,8 @@ $language_name = json_decode($language_name, true);
                                             data-bs-target="#whatsapp_template_add_edit">
                                             <i class="bi bi-plus PlusButtonDiv" id="plus_btn"></i>
                                         </button>
-
+                                        <p class="d-none EditBtnTemplate" data-bs-toggle="modal"
+                                            data-bs-target="#whatsapp_template_add_edit"></p>
                                     </div>
 
                                 </div>
@@ -2630,4 +2631,33 @@ $('body').on('click', '.Template_send', function() {
             $('.ButtonSelctionDropDown').selectpicker('refresh');
         });
        
+        $('body').on('click', '.WhatsAppTemplateModelViewBtn', function(){
+            $('.EditBtnTemplate').trigger('click');
+            var name = $(this).attr('name');
+            var id = $(this).attr('id');
+            $.ajax({
+                dataType: 'json',
+                method: "POST",
+                url: "<?= site_url('GetWhatsAppTemplateDetails'); ?>",
+                data: {
+                    'name': name,
+                    'id': id,
+                },
+                success: function(res) {
+                    console.log(res);
+                    // console.log(res);
+                    // $('.loader').hide();
+                    // if (res == '1') {
+                    //     iziToast.success({
+                    //         title: "Template sent successfully"
+                    //     });
+                    // } else {
+                    //     iziToast.error({
+                    //         title: 'Something went wrong!'
+                    //     });
+                    // }
+                },
+
+            });
+        });
 </script>
