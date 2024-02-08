@@ -1439,6 +1439,31 @@ $language_name = json_decode($language_name, true);
                                     <!-- quck replay -->
 
                                     <div class="button_link1 SetButtonHTMLClass">
+                                        <div
+                                            class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass">
+                                            <div
+                                                class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                                <span class="fs-10">Url
+                                                    Button</span> <button
+                                                    class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i
+                                                        class="fa-solid fa-trash-can"></i></button> </div>
+                                            <div class="col-12 border rounded-2 p-2 "> <textarea
+                                                    class="form-control lablCnoInputField main-control  col border-0"
+                                                    placeholder="Start typing button label here..." cols="1" rows="1"
+                                                    required=""></textarea>
+                                                <div class="col-12 d-flex flex-wrap align-items-center border "> 
+                                                    <span
+                                                        class="text-primary  mx-2 text-white "><i
+                                                            class="fa-solid fa-phone"></i></span>
+                                                    <div class="col">
+                                                         <!-- <input type="text"
+                                                            class="form-control CnoCnoInputField main-control border-0"
+                                                            placeholder="Input URL..." required="">  -->
+                                                            <input type="text" id="mobile_code" class="form-control main-control border-0" placeholder="Phone Number" name="name">
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
                                             <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span>
                                             <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
@@ -1627,35 +1652,13 @@ $language_name = json_decode($language_name, true);
                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body modal-body-secondery d-flex flex-wrap">
-                <div class="col-6">
-                    <div class="modal-body-card justify-content-center">
-                        <div id="dynamicInputsContainer" class="col-12 mb-3 mt-2 inputbodyfield">
-                        </div>
+            <div class="modal-body modal-body-secondery d-flex flex-wrap p-0">
 
-
-                        <div ng-if="!headerTextLength && !urlParam && !bodyTextLength"
-                            class="cwt-info-facebook ng-scope">
-                            <p class="font-size-12 text-center">You haven't used any variable in your text.</p>
-                        </div>
-
-
-
-                        <div class="cwt-info-facebook">
-                            <p class="font-size-12">The provided example values will be submitted to Facebook as part of
-                                the template submission process. If no relevant examples are provided, templates may be
-                                rejected by Facebook.</p>
-                        </div>
-
-
-
-                    </div>
-                </div>
-                <div class="col-6 hello">
-                    <div class="modal-body-card justify-content-center h-100">
+                <div class="col-12 hello">
+                    <div class=" justify-content-center h-100">
                         <!-- whatsapp   .. -->
                         <div class="wa-preview-main-div-cont">
-                            <div class="preview-chat-section">
+                            <div class="preview-chat-section rounded-0">
                                 <div class="preview-header-main-cont">
                                     <div class="header-image">
                                         <img class="profile-img ng-scope"
@@ -1730,10 +1733,9 @@ $language_name = json_decode($language_name, true);
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary btn btn-secondary" data-bs-target="#whatsapp_template_add_edit"
-                    data-bs-toggle="modal">Back to first</button>
-                <button type="button" class="btn btn-primary SaveBtnDiv" data-bs-dismiss="modal">Submit</button>
-
+                <button type="button" class="btn btn-primary SaveBtnDiv" data-bs-dismiss="modal">Delete</button>
+                <button class="btn  btn-primary   Elbtn" data-bs-target="#whatsapp_template_add_edit"
+                    data-bs-toggle="modal"><i class="bi bi-pencil"></i></button>
             </div>
 
         </div>
@@ -2227,7 +2229,7 @@ $language_name = json_decode($language_name, true);
             var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
             var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
             if (numberOfSubElementsUrl == '0') {
-                var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="form-control lableUrlInputField main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col-7"> <input type="text" class="form-control main-control UrlUrlInputField border-0" placeholder="Input URL..." required=""> </div> <button class="btn btn-primary  d-none mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
+                var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="form-control lableUrlInputField main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col"> <input type="text" class="form-control main-control UrlUrlInputField border-0" placeholder="Input URL..." required=""> </div> <button class="btn btn-primary  d-none mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
                 $('.SetButtonHTMLClass').html(SetHtml + urlbtnhtml);
 
             }
@@ -2437,7 +2439,7 @@ $language_name = json_decode($language_name, true);
                             if (headertype == 'IMAGE' && headerfile != '') {
                                 var exampleData = {
                                     "header_handle": [
-                                       headerfile 
+                                        headerfile
                                     ]
                                 };
                                 templateArray.components.push({
@@ -2491,8 +2493,8 @@ $language_name = json_decode($language_name, true);
                         }
                         var jsonString = JSON.stringify(templateArray);
                         console.log(jsonString);
-                        if(headerfile != ''){
-                            
+                        if (headerfile != '') {
+
                             $.ajax({
                                 method: "post",
                                 url: "<?= site_url('SendWhatsAppTemplate'); ?>",
@@ -2664,35 +2666,46 @@ $language_name = json_decode($language_name, true);
 
             var jsonString = JSON.stringify(templateArray);
             $.ajax({
-            method: "post",
-            url: "<?= site_url('SendWhatsAppTemplate'); ?>",
-            data: {
-                jsonString: jsonString,
-            },
-            success: function (data) {
-                if (data == '0') {
-                    iziToast.error({
-                        title: "Failed to add template"
-                    });
-                } else {
-                    iziToast.success({
-                        title: "Added Successfully"
-                    });
+                method: "post",
+                url: "<?= site_url('SendWhatsAppTemplate'); ?>",
+                data: {
+                    jsonString: jsonString,
+                },
+                success: function (data) {
+                    if (data == '0') {
+                        iziToast.error({
+                            title: "Failed to add template"
+                        });
+                    } else {
+                        iziToast.success({
+                            title: "Added Successfully"
+                        });
+                    }
+                    $(".close_btn").trigger("click");
+                    list_data();
                 }
-                $(".close_btn").trigger("click");
-                list_data();
-            }
-        });
+            });
             // console.log(jsonString);
 
         }
-         
+
     });
     $('.tip').each(function () {
-	$(this).tooltip(
-	{
-		html: true,
-		title: $('#' + $(this).data('tip')).html()
-	});
+        $(this).tooltip(
+            {
+                html: true,
+                title: $('#' + $(this).data('tip')).html()
+            });
+
+        $('body').on('click', '.PlusButtonDiv', function () {
+            alert();
+        });
+
+    });
+     // =======country-code==
+     $("#mobile_code").intlTelInput({
+	initialCountry: "in",
+	separateDialCode: true,
+	// utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
 });
 </script>

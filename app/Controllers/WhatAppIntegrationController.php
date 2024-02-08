@@ -973,19 +973,101 @@ class WhatAppIntegrationController extends BaseController
             ]
           }
           ';
+
+
+          $dfghjgjg = '{"name":"gymsmartinquiryaakash","category":"MARKETING","language":"en_US","components":[{"type":"HEADER","format":"IMAGE","example":{"header_handle":["https://scontent.whatsapp.net/v/t61.29466-34/363553397_885728123129440_4429821753050397803_n.jpg?ccb=1-7&_nc_sid=8b1bef&_nc_ohc=sG8NavH4SQ8AX-LFT49&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AdT3_pnQBEB2RftsunyBeoTkW9PbUo0xKcz24_BYwqZtaA&oe=65EBF40E"]}},{"type":"BODY","text":"Hello Mr.Kanani, \nYour Inquiry is now successfully received  by us. "},{"type":"FOOTER","text":"Thank You For inquiry."},{"type":"BUTTONS","buttons":[{"type":"PHONE_NUMBER","text":"Contact No","phone_number":"+919512180355"}]}]}
+            ';
          
           $dfjbj = '{"name":"templateimage11","category":"MARKETING","language":"en","components":[{"type":"HEADER","format":"VIDEO","example":{"header_handle":["https://erp.gymsmart.in/assets/image/gym-logo1.png"]}},{"type":"BODY","text":"Hello Dishant"},{"type":"FOOTER","text":"thank you"}]}';
 
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
         $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
+
+
+        $dfghjgjg = '{"name":"realtosmart_dipawaliaayushi","category":"MARKETING","language":"en","components":[{"type":"HEADER","format":"IMAGE","example":{"header_handle":["https://scontent.whatsapp.net/v/t61.29466-34/416823717_1388979608658934_4459431388717114482_n.png?ccb=1-7&_nc_sid=8b1bef&_nc_ohc=B_VTrYI6jbMAX8hgVga&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AdQAs5Mm8vikjHb-h4oretBNmtfFDwPH2wFOZ-6Ya5-bJA&oe=65EBF1A3"]}},{"type":"BODY","text":"Hello Mr.Kanani, \nYour Inquiry is now successfully received  by us. "},{"type":"FOOTER","text":"Thank You For inquiry."},{"type":"BUTTONS","buttons":[{"type":"PHONE_NUMBER","text":"Contact No","phone_number":"+919512180355"}]}]}
+            ';
+
+            $fdhgjgfyjgfhkuh = '
+            {
+                "name": "realtosmart_dipawaliaayushiiii",
+                "category": "MARKETING",
+                "language": "en",
+                "components": [
+                  {
+                    "type": "HEADER",
+                    "format": "IMAGE",
+                    "example": {
+                      "header_handle": [
+                        "https://scontent.whatsapp.net/v/t61.29466-34/416823717_1388979608658934_4459431388717114482_n.png?ccb=1-7&_nc_sid=8b1bef&_nc_ohc=B_VTrYI6jbMAX8hgVga&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AdQAs5Mm8vikjHb-h4oretBNmtfFDwPH2wFOZ-6Ya5-bJA&oe=65EBF1A3"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "BODY",
+                    "text": "Hello Mr. Kanani,\nYour inquiry is now successfully received by us."
+                  },
+                  {
+                    "type": "FOOTER",
+                    "text": "Thank you for your inquiry."
+                  },
+                  {
+                    "type": "BUTTONS",
+                    "buttons": [
+                      {
+                        "type": "PHONE_NUMBER",
+                        "text": "Contact No",
+                        "phone_number": "+919512180355"
+                      }
+                    ]
+                  }
+                ]
+              }
+              
+            ';
+
+
+
+
+
+        $fghjfgjb = '
+        {
+           
+            "language": "en",
+            "status": "APPROVED",
+            "category": "MARKETING",
+            "id": "885728119796107"
+        },
+        {
+            "name": "hello_world",
+            "components": [
+                {
+                    "type": "HEADER",
+                    "format": "TEXT",
+                    "text": "Hello World"
+                },
+                {
+                    "type": "BODY",
+                    "text": "Welcome and congratulations!! This message demonstrates your ability to send a WhatsApp message notification from the Cloud API, hosted by Meta. Thank you for taking the time to test with us."
+                },
+                {
+                    "type": "FOOTER",
+                    "text": "WhatsApp Business Platform sample message"
+                }
+            ],
+            "language": "en_US",
+            "status": "APPROVED",
+            "category": "UTILITY",
+            "id": "271315509226381"
+        }
+        ';
         $Result = postSocialData($url, $_POST['jsonString']);
-        // $Result = postSocialData($url, $dfjbj);
+        // $Result = postSocialData($url, $fdhgjgfyjgfhkuh);
 
         $ReturnResult = 0;
         if (isset($Result['id'])) {
             $ReturnResult = 1;
         }
-        pre($Result);
-        // echo $ReturnResult;
+        // pre($Result);
+        echo $ReturnResult;
     }
 }
