@@ -60,6 +60,7 @@ class FaceBookController extends BaseController
 
                 } else {
                     //insert 
+                    $insert_data['master_id'] = $_SESSION['master'];
                     $insert_data['access_token'] = $access_token;
                     $insert_data['verification_status'] = $is_facebook_connect;
                     $insert_data['platform_status'] = 2;
@@ -1220,7 +1221,6 @@ class FaceBookController extends BaseController
                                 <i class="fa-solid fa-circle-info"></i>
                             </button>
                             <ul class="dropdown-menu p-3 set-permission">
-                                modal-2 dkjdgdgdfgd
                             </ul>
                         </div>
                         <button type="button" class="btn border-0 bg-transparent " data-bs-toggle="modal" data-bs-target="#informaion_connection">

@@ -1,6 +1,17 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
-
+<?php
+$db_connection = \Config\Database::connect('second');
+$table_username = session_username($_SESSION['username']);
+$query90 = "SELECT * FROM ".$table_username."_platform_integration ";
+$result = $db_connection->query($query90);
+$total_dataa_userr_22 = $result->getResult();
+if (isset($total_dataa_userr_22[0])) {
+    $settings_data = get_object_vars($total_dataa_userr_22[0]);
+} else {
+    $settings_data = array();
+}
+?>
 <div class="main-dashbord p-2">
     <form class="needs-validation" name="email_update_form" method="POST" novalidate>
         <div class="bg-white border rounded-2 p-3 general_settings_editsss general_email_settings_outer">
@@ -78,3 +89,73 @@
 
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
+
+<script>
+     $('body').on('click', '.email_updatees', function() {
+        $(".general_settings_editsss").show();
+    });
+    $('body').on('click', '.general_settings_main_email', function() {
+        $(".general_settings_editsss .main-control").removeAttr("disabled");
+        $(".email_updatees").show();
+        $(this).hide();
+    });
+    if(<?php echo $settings_data['email_radio']; ?> == "1")
+    {
+        $('#email_radio_1').prop('checked', true);
+        $('#email_radio_2').prop('checked', false);
+    }else if(<?php echo $settings_data['email_radio']; ?>== "2"){
+        $('#email_radio_2').prop('checked', true);
+        $('#email_radio_1').prop('checked', false);
+    }
+
+    <?php if (empty($settings_data['email_from']) || empty($settings_data['smtp_port']) && empty($settings_data['smtp_host']) && empty($settings_data['smtp_user']) && empty($settings_data['smtp_password']) && empty($settings_data['smtp_crypto']) && empty($settings_data['from_email'])) { ?>
+            // $('.checking').prop('checked', false);
+            $(".general_settings_editsss .avatar-edit-outer").hide();
+            $(".email_updatees ").show();
+    <?php } else { ?>
+            // $('.checking').prop('checked', true);
+            $(".general_settings_editsss .avatar-edit-outer").show();
+            $(".email_updatees ").hide();
+            $(".email_updatees ").text("update");
+            $(".general_settings_editsss .main-control").attr("disabled", "");
+    <?php } ?>
+    
+    $('body').on('click', '.email_updatees', function(e) {
+        e.preventDefault();
+        var email_radio = $(".email_radio:checked").val();
+        var form = $('form[name="email_update_form"]')[0];
+        InsertData(form);
+        $('.checking').prop('checked', true);
+        $(".general_settings_main_email").show();
+        $(".email_updatees").hide();
+        $(".email_updatees").text("update");
+        $(".general_settings_editsss .main-control").attr("disabled", "");
+    });
+    function InsertData(form) {
+        var formdata = new FormData(form);
+        formdata.append('table', 'platform_integration');
+        formdata.append('action', 'insert');
+        $("input[type='checkbox']").each(function() {
+            if ($(this).val() === "0") {
+                formdata.set($(this).attr('name'), '0');
+            }
+        });
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('check_email_connection'); ?>",
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function(res) {
+                var result = JSON.parse(res);
+                console.log(res);
+                // $(".email_update").hide();
+
+                iziToast.success({
+                    title: result.msg,
+                });
+
+            },
+        });
+    }
+</script>

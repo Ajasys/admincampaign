@@ -608,7 +608,7 @@ $language_name = json_decode($language_name, true);
                                                     fill="#724ebf" opacity="1" data-original="#000000" class=""></path>
                                             </g>
                                         </svg></p>
-                                    <span class="ms-3 first-container-text"> Create Templates</span>
+                                    <span class="ms-3 first-container-text">Templates</span>
                                 </div>
                             </li>
 
@@ -684,67 +684,96 @@ $language_name = json_decode($language_name, true);
                                                         <div class="modal-body-secondery">
                                                             <div class="modal-body-card">
                                                                 <div class="col-12 mb-3 mt-2">
-                                                                    <select class="form-control main-control header_div"
-                                                                        id="header" name="header"
-                                                                        ng-model="selectedHeader"
-                                                                        ng-change="handleHeaderChange()" required>
-                                                                        <option value="" selected disabled>Please select
-                                                                            template</option>
-                                                                        <option value="TEXT">TEXT</option>
-                                                                        <option value="IMAGE">IMAGE</option>
-                                                                        <option value="VIDEO">VIDEO</option>
-                                                                        <option value="DOCUMENT">DOCUMENT</option>
+                                                                <select class="form-control main-control header_div" id="header" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                                        <option value="" selected disabled>Please select template</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-12 mb-3 mt-2">
-                                                                    <input type="text"
-                                                                        class="form-control main-control phone_number_div"
-                                                                        id="phone_number"
-                                                                        placeholder="Enter your phone number" name=""
-                                                                        onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
-                                                                        required>
+                                                              
+                                                                <input type="text" id="mobile_code" class="form-control phone_number_div" placeholder="Enter your phone number" name="name">
                                                                 </div>
                                                                 <div class="col-12 mb-3 mt-2">
-                                                                    <select
-                                                                        class="form-control main-control language_div"
-                                                                        id="language" name="language" required>
-                                                                        <option class="fs-12"
-                                                                            label="Please select your language"
-                                                                            value=""></option>
-                                                                        <option class="fs-12 ng-binding ng-scope"
-                                                                            value="tr"
-                                                                            ng-repeat="lang in template_lang">Turkish
-                                                                        </option>
-                                                                        <option class="fs-12 ng-binding ng-scope"
-                                                                            value="uk"
-                                                                            ng-repeat="lang in template_lang">Ukrainian
-                                                                        </option>
-                                                                        <option class="fs-12 ng-binding ng-scope"
-                                                                            value="ur"
-                                                                            ng-repeat="lang in template_lang">Urdu
-                                                                        </option>
-                                                                        <option class="fs-12 ng-binding ng-scope"
-                                                                            value="uz"
-                                                                            ng-repeat="lang in template_lang">Uzbek
-                                                                        </option>
-                                                                        <option class="fs-12 ng-binding ng-scope"
-                                                                            value="vi"
-                                                                            ng-repeat="lang in template_lang">Vietnamese
-                                                                        </option>
-                                                                        <option class="fs-12 ng-binding ng-scope"
-                                                                            value="zu"
-                                                                            ng-repeat="lang in template_lang">Zulu
-                                                                        </option>
+                                                                <select class="form-control main-control language_div" id="language" name="language" required>
+                                                                        <option class="fs-12" label="Please select your language" value=""></option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="en_US" ng-repeat="lang in template_lang">English US (en_US)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">English (en)</option>
+
+                                                                        <option class="fs-12 ng-binding ng-scope" value="af" ng-repeat="lang in template_lang">Afrikaans</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sq" ng-repeat="lang in template_lang">Albanian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ar" ng-repeat="lang in template_lang">Arabic</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="az" ng-repeat="lang in template_lang">Azerbaijani</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="bn" ng-repeat="lang in template_lang">Bengali</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="bg" ng-repeat="lang in template_lang">Bulgarian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ca" ng-repeat="lang in template_lang">Catalan</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="zh_CN" ng-repeat="lang in template_lang">Chinese (CHN)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="zh_HK" ng-repeat="lang in template_lang">Chinese (HKG)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="zh_TW" ng-repeat="lang in template_lang">Chinese (TAI)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="hr" ng-repeat="lang in template_lang">Croatian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="cs" ng-repeat="lang in template_lang">Czech</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="da" ng-repeat="lang in template_lang">Danish</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="nl" ng-repeat="lang in template_lang">Dutch</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="en_GB" ng-repeat="lang in template_lang">English (UK)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="et" ng-repeat="lang in template_lang">Estonian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="fil" ng-repeat="lang in template_lang">Filipino</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="fi" ng-repeat="lang in template_lang">Finnish</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="fr" ng-repeat="lang in template_lang">French</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="de" ng-repeat="lang in template_lang">German</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="el" ng-repeat="lang in template_lang">Greek</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="gu" ng-repeat="lang in template_lang">Gujarati</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ha" ng-repeat="lang in template_lang">Hausa</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="he" ng-repeat="lang in template_lang">Hebrew</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="hi" ng-repeat="lang in template_lang">Hindi</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="hu" ng-repeat="lang in template_lang">Hungarian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="id" ng-repeat="lang in template_lang">Indonesian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ga" ng-repeat="lang in template_lang">Irish</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="it" ng-repeat="lang in template_lang">Italian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ja" ng-repeat="lang in template_lang">Japanese</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="kn" ng-repeat="lang in template_lang">Kannada</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="kk" ng-repeat="lang in template_lang">Kazakh</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ko" ng-repeat="lang in template_lang">Korean</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="lo" ng-repeat="lang in template_lang">Lao</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="lv" ng-repeat="lang in template_lang">Latvian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="lt" ng-repeat="lang in template_lang">Lithuanian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="mk" ng-repeat="lang in template_lang">Macedonian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ms" ng-repeat="lang in template_lang">Malay</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ml" ng-repeat="lang in template_lang">Malayalam</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="mr" ng-repeat="lang in template_lang">Marathi</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="nb" ng-repeat="lang in template_lang">Norwegian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="fa" ng-repeat="lang in template_lang">Persian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="pl" ng-repeat="lang in template_lang">Polish</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="pt_BR" ng-repeat="lang in template_lang">Portuguese (BR)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="pt_PT" ng-repeat="lang in template_lang">Portuguese (POR)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="pa" ng-repeat="lang in template_lang">Punjabi</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ro" ng-repeat="lang in template_lang">Romanian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ru" ng-repeat="lang in template_lang">Russian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sr" ng-repeat="lang in template_lang">Serbian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sk" ng-repeat="lang in template_lang">Slovak</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sl" ng-repeat="lang in template_lang">Slovenian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="es" ng-repeat="lang in template_lang">Spanish</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="es_AR" ng-repeat="lang in template_lang">Spanish (ARG)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="es_ES" ng-repeat="lang in template_lang">Spanish (SPA)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="es_MX" ng-repeat="lang in template_lang">Spanish (MEX)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sw" ng-repeat="lang in template_lang">Swahili</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sv" ng-repeat="lang in template_lang">Swedish</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ta" ng-repeat="lang in template_lang">Tamil</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="te" ng-repeat="lang in template_lang">Telugu</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="th" ng-repeat="lang in template_lang">Thai</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="tr" ng-repeat="lang in template_lang">Turkish</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="uk" ng-repeat="lang in template_lang">Ukrainian</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ur" ng-repeat="lang in template_lang">Urdu</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="uz" ng-repeat="lang in template_lang">Uzbek</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="vi" ng-repeat="lang in template_lang">Vietnamese</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="zu" ng-repeat="lang in template_lang">Zulu</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="modal-footer justify-content-center mt-2">
-                                                            <button class="btn-primary SaveBtnDiv"
+                                                            <span class="btn-primary Template_send"
                                                                 id="memberships_add_btn" data-edit_id=""
                                                                 name="memberships_update1"
-                                                                value="memberships_update1">Send</button>
+                                                                value="memberships_update1">Send</span>
                                                         </div>
 
                                                     </div>
@@ -1364,7 +1393,7 @@ $language_name = json_decode($language_name, true);
                                         <label for="" class="form-label main-label">Inq file upload <sup
                                                 class="validationn">*</sup></label>
                                         <input type="file" class="form-control main-control" id="insert_image"
-                                            name="uploade_file" placeholder="Details" DataStoreURL = "" required="">
+                                            name="uploade_file" placeholder="Details" DataStoreURL="" required="">
                                     </div>
                                     <div class="col-12 mb-3 text-comment d-none">
                                         <textarea
@@ -1439,6 +1468,31 @@ $language_name = json_decode($language_name, true);
                                     <!-- quck replay -->
 
                                     <div class="button_link1 SetButtonHTMLClass">
+                                        <div
+                                            class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass">
+                                            <div
+                                                class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                                <span class="fs-10">Url
+                                                    Button</span> <button
+                                                    class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i
+                                                        class="fa-solid fa-trash-can"></i></button> </div>
+                                            <div class="col-12 border rounded-2 p-2 "> <textarea
+                                                    class="form-control lablCnoInputField main-control  col border-0"
+                                                    placeholder="Start typing button label here..." cols="1" rows="1"
+                                                    required=""></textarea>
+                                                <div class="col-12 d-flex flex-wrap align-items-center border "> 
+                                                    <span
+                                                        class="text-primary  mx-2 text-white "><i
+                                                            class="fa-solid fa-phone"></i></span>
+                                                    <div class="col">
+                                                         <!-- <input type="text"
+                                                            class="form-control CnoCnoInputField main-control border-0"
+                                                            placeholder="Input URL..." required="">  -->
+                                                            <input type="text" id="mobile_code" class="form-control main-control border-0" placeholder="Phone Number" name="name">
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
                                             <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span>
                                             <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
@@ -1611,8 +1665,9 @@ $language_name = json_decode($language_name, true);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary previewbutton" data-bs-target="#view_modal"
+                    <button type="button" class="btn btn-primary previewbutton d-none" data-bs-target="#view_modal"
                         data-bs-toggle="modal">Preview and Submit</button>
+                    <button type="button" class="btn btn-primary Add_editModelTitle">Preview and Submit</button>
                 </div>
             </div>
     </div>
@@ -1626,35 +1681,13 @@ $language_name = json_decode($language_name, true);
                 <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body modal-body-secondery d-flex flex-wrap">
-                <div class="col-6">
-                    <div class="modal-body-card justify-content-center">
-                        <div id="dynamicInputsContainer" class="col-12 mb-3 mt-2 inputbodyfield">
-                        </div>
+            <div class="modal-body modal-body-secondery d-flex flex-wrap p-0">
 
-
-                        <div ng-if="!headerTextLength && !urlParam && !bodyTextLength"
-                            class="cwt-info-facebook ng-scope">
-                            <p class="font-size-12 text-center">You haven't used any variable in your text.</p>
-                        </div>
-
-
-
-                        <div class="cwt-info-facebook">
-                            <p class="font-size-12">The provided example values will be submitted to Facebook as part of
-                                the template submission process. If no relevant examples are provided, templates may be
-                                rejected by Facebook.</p>
-                        </div>
-
-
-
-                    </div>
-                </div>
-                <div class="col-6 hello">
-                    <div class="modal-body-card justify-content-center h-100">
+                <div class="col-12 hello">
+                    <div class=" justify-content-center h-100">
                         <!-- whatsapp   .. -->
                         <div class="wa-preview-main-div-cont">
-                            <div class="preview-chat-section">
+                            <div class="preview-chat-section rounded-0">
                                 <div class="preview-header-main-cont">
                                     <div class="header-image">
                                         <img class="profile-img ng-scope"
@@ -1729,10 +1762,9 @@ $language_name = json_decode($language_name, true);
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary btn btn-secondary" data-bs-target="#whatsapp_template_add_edit"
-                    data-bs-toggle="modal">Back to first</button>
-                <button type="button" class="btn btn-primary SaveBtnDiv" data-bs-dismiss="modal">Submit</button>
-
+                <button type="button" class="btn btn-primary SaveBtnDiv" data-bs-dismiss="modal">Delete</button>
+                <button class="btn  btn-primary   Elbtn" data-bs-target="#whatsapp_template_add_edit"
+                    data-bs-toggle="modal"><i class="bi bi-pencil"></i></button>
             </div>
 
         </div>
@@ -1993,9 +2025,41 @@ $language_name = json_decode($language_name, true);
                 'action': true,
 
             },
-            success: function (res) {
-                $('.loader').hide()
+            success: function(res) {
+                $('.loader').hide();
                 var response = JSON.parse(res);
+                var template_name = response.template_name;
+                var templatelanguage = response.templatelanguage;
+
+
+                $('.header_div').attr('DataMNo', response.templateid);
+                var selectDropdown = document.getElementById("header");
+                selectDropdown.innerHTML = "";
+                var defaultOption = document.createElement("option");
+                defaultOption.text = "Please select template";
+                defaultOption.value = "";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                selectDropdown.add(defaultOption);
+
+                for (var key in template_name) {
+                    if (template_name.hasOwnProperty(key)) {
+                        var option = document.createElement("option");
+                        option.text = template_name[key];
+                        option.value = template_name[key];
+                        selectDropdown.add(option);
+
+                    }
+                }
+           
+                $('#header').change(function() {
+                    var selectDropdown = $(this).val();
+                    var languageDropdown = templatelanguage[selectDropdown];
+                    $('.language_div').val(languageDropdown);
+
+                });
+
+
                 $('#memberships_list').html(response.html);
             }
         });
@@ -2216,7 +2280,7 @@ $language_name = json_decode($language_name, true);
             $('.SetButtonHTMLClass').html('');
         } else if (DDValue == '2') {
             var previous_hmml = $('.SetButtonHTMLClass').html();
-            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col  button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
+            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col  button1input QuickSubButtonInput" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
             var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
             if (parseInt(numberOfSubElements) < 3) {
                 $('.SetButtonHTMLClass').html(previous_hmml + StaticHtml);
@@ -2226,13 +2290,13 @@ $language_name = json_decode($language_name, true);
             var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
             var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
             if (numberOfSubElementsUrl == '0') {
-                var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col-7"> <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required=""> </div> <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
+                var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="form-control lableUrlInputField main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col"> <input type="text" class="form-control main-control UrlUrlInputField border-0" placeholder="Input URL..." required=""> </div> <button class="btn btn-primary  d-none mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
                 $('.SetButtonHTMLClass').html(SetHtml + urlbtnhtml);
 
             }
             if (numberOfSubElementsCno == '0') {
                 var SetHtml = $('.SetButtonHTMLClass').html();
-                var phonenobtn = '<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
+                var phonenobtn = '<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control lablCnoInputField main-control  col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input type="text" class="form-control CnoCnoInputField main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
                 $('.SetButtonHTMLClass').html(SetHtml + phonenobtn);
             }
         }
@@ -2304,8 +2368,40 @@ $language_name = json_decode($language_name, true);
     // });
 
     $(document).ready(function () {
-        $('#insert_image').on('change', function () {
-            var fileInput = $(this);
+        // $('#insert_image').on('change', function () {
+        //     var fileInput = $(this);
+        //     var fileName = fileInput.val();
+        //     if (fileName) {
+        //         var form = $("form[name='master_membership_update_form']")[0];
+        //         var formData = new FormData(form);
+        //         var uploade_file = $('#insert_image').prop('files')[0];
+        //         formData.append('uploade_file', uploade_file);
+        //         $.ajax({
+        //             method: "post",
+        //             url: "<?= site_url('WhatappFileUpload'); ?>",
+        //             data: formData,
+        //             processData: false,
+        //             contentType: false,
+        //             success: function (data) {
+        //                 $(this).attr('DataStoreURL', data);
+        //             }
+        //         });
+        //     } else {
+        //         $(this).attr('DataStoreURL', '');
+        //     }
+        // });
+    });
+
+    $('body').on('click', '.Add_editModelTitle', function () {
+        var name = $('.Template_name').val();
+        var category = $('select.TemplateCategorySelectionDiv option:selected').val();
+        var language = $('select.TemplateLanguageDDList option:selected').val();
+        var headertype = $('select.HeaderSelectionDD option:selected').val();
+        var headerfile = '';
+
+
+        if (headertype == 'IMAGE' || headertype == 'VIDEO' || headertype == "DOCUMENT") {
+            var fileInput = $('#insert_image');
             var fileName = fileInput.val();
             if (fileName) {
                 var form = $("form[name='master_membership_update_form']")[0];
@@ -2319,124 +2415,397 @@ $language_name = json_decode($language_name, true);
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                        $(this).attr('DataStoreURL', data);
+                        // $(this).attr('DataStoreURL', data);
+                        // console.log(data);
+                        headerfile = data;
+
+
+                        var headertext = $('.ClassHeaderTEXT').val();
+                        var body = $('.TemplateBodyClass').val();
+                        var footer = $('.FotterTextDIvClass').val();
+
+
+                        var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+                        var QuickArray = [];
+
+                        if (buttontype == '1') {
+
+
+                        } else if (buttontype == '2') {
+
+                            var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
+                            if (numberOfSubElements > 0) {
+                                var QuickArray = [];
+                                $(".QuickSubButtonInput").each(function () {
+                                    var QuickBtntext = $(this).val();
+                                    if (QuickBtntext != '') {
+                                        QuickArray.push({
+                                            'type': 'QUICK_REPLY',
+                                            'text': QuickBtntext
+                                        });
+                                    }
+                                });
+                                // console.log(QuickArray);
+                            }
+                        } else if (buttontype == '3') {
+                            var QuickArray = [];
+                            var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
+                            var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
+                            if (numberOfSubElementsUrl > 0) {
+                                var QuickArray = [];
+                                var label = $('.lableUrlInputField').val();
+                                var Url = $('.UrlUrlInputField').val();
+                                if (label != '' && Url != '') {
+                                    QuickArray.push({
+                                        'type': 'URL',
+                                        'text': label,
+                                        'url': Url
+                                    });
+                                }
+                            }
+                            if (numberOfSubElementsCno > 0) {
+                                var label = $('.lablCnoInputField').val();
+                                var Url = $('.CnoCnoInputField').val();
+                                if (label != '' && Url != '') {
+                                    QuickArray.push({
+                                        'type': 'PHONE_NUMBER',
+                                        'text': label,
+                                        'phone_number': Url
+                                    });
+                                }
+                            }
+                        }
+
+
+
+
+                        var templateArray = {
+                            'name': name,
+                            'category': category,
+                            'language': language,
+                            'components': []
+                        };
+
+
+                        if (headertype != '') {
+                            if (headertype == 'TEXT') {
+                                if (headertext) {
+                                    templateArray.components.push({
+                                        'type': 'HEADER',
+                                        'format': 'TEXT',
+                                        'text': headertext
+                                    });
+                                }
+                            }
+                            if (headertype == 'IMAGE' && headerfile != '') {
+                                var exampleData = {
+                                    "header_handle": [
+                                        headerfile
+                                    ]
+                                };
+                                templateArray.components.push({
+                                    'type': 'HEADER',
+                                    'format': 'IMAGE',
+                                    'example': exampleData
+                                });
+                            }
+                            if (headertype == 'VIDEO' && headerfile != '') {
+                                var exampleData = {
+                                    "header_handle": [
+                                        headerfile
+                                    ]
+                                };
+                                templateArray.components.push({
+                                    'type': 'HEADER',
+                                    'format': 'VIDEO',
+                                    'example': exampleData
+                                });
+                            }
+                            if (headertype == 'DOCUMENT' && headerfile != '') {
+                                var exampleData = {
+                                    "header_handle": [
+                                        headerfile
+                                    ]
+                                };
+                                templateArray.components.push({
+                                    'type': 'HEADER',
+                                    'format': 'DOCUMENT',
+                                    'example': exampleData
+                                });
+                            }
+                        }
+                        if (body) {
+                            templateArray.components.push({
+                                'type': 'BODY',
+                                'text': body
+                            });
+                        }
+                        if (footer) {
+                            templateArray.components.push({
+                                'type': 'FOOTER',
+                                'text': footer
+                            });
+                        }
+                        if (QuickArray.length > 0) {
+                            templateArray.components.push({
+                                'type': 'BUTTONS',
+                                'buttons': QuickArray
+                            });
+                        }
+                        var jsonString = JSON.stringify(templateArray);
+                        console.log(jsonString);
+                        if (headerfile != '') {
+
+                            $.ajax({
+                                method: "post",
+                                url: "<?= site_url('SendWhatsAppTemplate'); ?>",
+                                data: {
+                                    jsonString: jsonString,
+                                },
+                                success: function (data) {
+                                    if (data == '0') {
+                                        iziToast.error({
+                                            title: "Failed to add template"
+                                        });
+                                    } else {
+                                        iziToast.success({
+                                            title: "Added Successfully"
+                                        });
+                                    }
+                                    $(".close_btn").trigger("click");
+                                    list_data();
+                                }
+                            });
+                        }
+                        // console.log(jsonString);
                     }
                 });
             } else {
                 $(this).attr('DataStoreURL', '');
             }
-        });
-    });
-    
-    $('body').on('click', '.Add_editModelTitle', function () {
-    var name = $('.Template_name').val();
-    var category = $('select.TemplateCategorySelectionDiv option:selected').val();
-    var language = $('select.TemplateLanguageDDList option:selected').val();
-    var headertype = $('select.HeaderSelectionDD option:selected').val();
-    var headerfile = $('#insert_image').attr('DataStoreURL');  
-    var headertext = $('.ClassHeaderTEXT').val();
-    var body = $('.TemplateBodyClass').val();
-    var footer = $('.FotterTextDIvClass').val();
+        } else {
+            var headertext = $('.ClassHeaderTEXT').val();
+            var body = $('.TemplateBodyClass').val();
+            var footer = $('.FotterTextDIvClass').val();
 
 
-    var buttontype =  $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+            var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+            var QuickArray = [];
 
-    if(buttontype == '1'){
-               
-
-    }else if (buttontype == '2'){
-
-        var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
-        console.log(numberOfSubElements);
-        if(numberOfSubElements){
-
-        }
-
-    }else if(buttontype == '3'){
+            if (buttontype == '1') {
 
 
+            } else if (buttontype == '2') {
 
-    }
+                var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
+                if (numberOfSubElements > 0) {
+                    var QuickArray = [];
+                    $(".QuickSubButtonInput").each(function () {
+                        var QuickBtntext = $(this).val();
+                        if (QuickBtntext != '') {
+                            QuickArray.push({
+                                'type': 'QUICK_REPLY',
+                                'text': QuickBtntext
+                            });
+                        }
+                    });
+                    // console.log(QuickArray);
+                }
+            } else if (buttontype == '3') {
+                var QuickArray = [];
+                var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
+                var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
+                if (numberOfSubElementsUrl > 0) {
+                    var QuickArray = [];
+                    var label = $('.lableUrlInputField').val();
+                    var Url = $('.UrlUrlInputField').val();
+                    if (label != '' && Url != '') {
+                        QuickArray.push({
+                            'type': 'URL',
+                            'text': label,
+                            'url': Url
+                        });
+                    }
+                }
+                if (numberOfSubElementsCno > 0) {
+                    var label = $('.lablCnoInputField').val();
+                    var Url = $('.CnoCnoInputField').val();
+                    if (label != '' && Url != '') {
+                        QuickArray.push({
+                            'type': 'PHONE_NUMBER',
+                            'text': label,
+                            'phone_number': Url
+                        });
+                    }
+                }
+            }
 
-    var templateArray = {
-        'name': name,
-        'category': category,
-        'language': language,
-        'components': []
-    };
 
-    if (headertype != '') {
-        if (headertype == 'TEXT') {
-            if (headertext) {
+
+
+            var templateArray = {
+                'name': name,
+                'category': category,
+                'language': language,
+                'components': []
+            };
+
+
+            if (headertype != '') {
+                console.log(headertype);
+                if (headertype == 'TEXT') {
+                    if (headertext) {
+                        templateArray.components.push({
+                            'type': 'HEADER',
+                            'format': 'TEXT',
+                            'text': headertext
+                        });
+                    }
+                }
+                console.log(headerfile);
+                // console.log(headertype);
+                if (headertype == 'IMAGE' && headerfile != '') {
+                    var exampleData = {
+                        "header_handle": [
+                            headerfile
+                        ]
+                    };
+                    templateArray.components.push({
+                        'type': 'HEADER',
+                        'format': 'IMAGE',
+                        'example': exampleData
+                    });
+                }
+                if (headertype == 'VIDEO' && headerfile != '') {
+                    var exampleData = {
+                        "header_handle": [
+                            headerfile
+                        ]
+                    };
+                    templateArray.components.push({
+                        'type': 'HEADER',
+                        'format': 'VIDEO',
+                        'example': exampleData
+                    });
+                }
+                if (headertype == 'DOCUMENT' && headerfile != '') {
+                    var exampleData = {
+                        "header_handle": [
+                            headerfile
+                        ]
+                    };
+                    templateArray.components.push({
+                        'type': 'HEADER',
+                        'format': 'DOCUMENT',
+                        'example': exampleData
+                    });
+                }
+            }
+
+            if (body) {
                 templateArray.components.push({
-                    'type': 'HEADER',
-                    'format': 'TEXT',
-                    'text': headertext
+                    'type': 'BODY',
+                    'text': body
                 });
             }
-        }
-        if (headertype == 'IMAGE' && headerfile != '') {
-            var exampleData = {
-                "header_handle": [
-                    {'link': headerfile}
-                ]
-            };
-            templateArray.components.push({
-                'type': 'HEADER',
-                'format': 'IMAGE',
-                'example': exampleData
-            });
-        }
-        if (headertype == 'VIDEO' && headerfile != '') {
-            var exampleData = {
-                "header_handle": [
-                    {'link': headerfile}
-                ]
-            };
-            templateArray.components.push({
-                'type': 'HEADER',
-                'format': 'VIDEO',
-                'example': exampleData
-            });
-        }
-        if (headertype == 'DOCUMENT' && headerfile != '') {
-            var exampleData = {
-                "header_handle": [
-                    {'link': headerfile}
-                ]
-            };
-            templateArray.components.push({
-                'type': 'HEADER',
-                'format': 'DOCUMENT',
-                'example': exampleData
-            });
-        }
-    }
 
-    if (body) {
-        templateArray.components.push({
-            'type': 'BODY',
-            'text': body
+            if (footer) {
+                templateArray.components.push({
+                    'type': 'FOOTER',
+                    'text': footer
+                });
+            }
+
+            if (QuickArray.length > 0) {
+                templateArray.components.push({
+                    'type': 'BUTTONS',
+                    'buttons': QuickArray
+                });
+                // console.log(QuickArray);
+            }
+
+
+            var jsonString = JSON.stringify(templateArray);
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('SendWhatsAppTemplate'); ?>",
+                data: {
+                    jsonString: jsonString,
+                },
+                success: function (data) {
+                    if (data == '0') {
+                        iziToast.error({
+                            title: "Failed to add template"
+                        });
+                    } else {
+                        iziToast.success({
+                            title: "Added Successfully"
+                        });
+                    }
+                    $(".close_btn").trigger("click");
+                    list_data();
+                }
+            });
+            // console.log(jsonString);
+
+        }
+
+    });
+    $('.tip').each(function () {
+        $(this).tooltip(
+            {
+                html: true,
+                title: $('#' + $(this).data('tip')).html()
+            });
+
+        $('body').on('click', '.PlusButtonDiv', function () {
+            alert();
         });
-    }
 
-    if (footer) {
-        templateArray.components.push({
-            'type': 'FOOTER',
-            'text': footer
-        });
-    }
-
-
-
-
-    var jsonString = JSON.stringify(templateArray);
-    // console.log(jsonString);
+    });
+     // =======country-code==
+     $("#mobile_code").intlTelInput({
+	initialCountry: "in",
+	separateDialCode: true,
+	// utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
 });
 
+// --------------------------------------------------------------
 
+$('body').on('click', '.Template_send', function() {
+        var header = $('.header_div').val();
+        var phone_no = $('.phone_number_div').val();
+        var language = $('.language_div').val();
 
+        if (header !== "" && phone_no !== "" && language !== "") {
+            $.ajax({
+                dataType: 'json',
+                method: "POST",
+                url: "<?= site_url('single_whatsapp_template_sent'); ?>",
+                data: {
+                    'header': header,
+                    'phone_no': phone_no,
+                    'language': language,
+                    'action': true
+                },
+                success: function(res) {
+                    console.log(res);
+                    $('.loader').hide();
+                    if (res == '1') {
+                        iziToast.success({
+                            title: "Template sent successfully"
+                        });
+                    } else {
+                        iziToast.error({
+                            title: 'Something went wrong!'
+                        });
+                    }
+                },
 
-
+            });
+        } else {
+            $(".membershipDiv").addClass("was-validated");
+        }
+    });
 
 </script>

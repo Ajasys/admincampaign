@@ -17,6 +17,9 @@
 <script type="text/javascript" src="https://rudrram.com/assets/datetimepicker/js/materialDateTimePicker.js"></script>
 <!-- celender -->
 <script src="https://rudrram.com/assets/js/fullcalendar.min.js"></script>
+<!-- country name and code -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
 
 
 <script>
@@ -461,6 +464,7 @@
         }
 
     }
+   
 
 </script>
 

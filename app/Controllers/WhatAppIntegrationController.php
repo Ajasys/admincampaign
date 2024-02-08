@@ -119,10 +119,22 @@ class WhatAppIntegrationController extends BaseController
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
                         $ConnectionStatus = 1;
-                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components&access_token=' . $settings_data['whatapp_access_token'];
+                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['whatapp_access_token'];
                         $responselistdata = getSocialData($urllistdata);
+                        $templateNames = [];
+
+                        foreach ($responselistdata['data'] as $item) {
+                            if ($item['status'] == "APPROVED") {
+                                $templateNames[$item['id']] = $item['name'];
+                                $templatelanguage[$item['name']] = $item['language'];
+
+
+                            }
+                        }
+
                         if (isset($responselistdata)) {
                             if (isset($responselistdata['data'])) {
+                                // pre($responselistdata['data']);
                                 if (!empty($responselistdata['data'])) {
                                     foreach ($responselistdata['data'] as $key => $value) {
                                         $Name = $value['name'];
@@ -131,6 +143,18 @@ class WhatAppIntegrationController extends BaseController
                                         $id = $value['id'];
                                         $language = $value['language'];
                                         $status = $value['status'];
+
+                                        if($status == "APPROVED"){
+                                            if(isset($value['quality_score']['score'])){
+                                                if($value['quality_score']['score'] == "UNKNOWN"){
+                                                    $status = $status.' -  Quality pending';
+                                                }else{
+                                                    $status = $status.' - '.$value['quality_score']['score'];
+
+                                                }
+                                            }
+                                        }
+
                                         if (isset($value['components']) && !empty($value['components'])) {
                                             foreach ($value['components'] as $key1 => $value1) {
                                                 if ($value1['type'] == 'BODY') {
@@ -145,7 +169,7 @@ class WhatAppIntegrationController extends BaseController
                                                 <td class="py-2">' . $status . '</td>
 
                                                 <td class="py-2 ">
-                                                    <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
+                                                    <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
                                                         ' . $Body . '
                                                     </div>
                                                 </td>
@@ -183,11 +207,15 @@ class WhatAppIntegrationController extends BaseController
             }
         }
         $recordsCount = '';
-        $return_array['records_count'] = $recordsCount;
+         $return_array['records_count'] = $recordsCount;
+        $return_array['template_name'] = $templateNames;
+        $return_array['templatelanguage'] = $templatelanguage;
         $return_array['html'] = $Html;
         return json_encode($return_array, true);
         die();
     }
+
+
 
     public function duplicate_data2($data, $table)
     {
@@ -847,18 +875,267 @@ class WhatAppIntegrationController extends BaseController
         }
     }
 
+    
+
     public function SendWhatsAppTemplate()
     {
 
+        // die();
+        $njkgcnb = '{
+            "name": "inquiry2024",
+            "category": "MARKETING",
+            "language": "en_US",
+            "components": [
+                {
+                    "type": "HEADER",
+                    "format": "TEXT",
+                    "text": "GymSmart",
+                  },
+                    {
+                        "type": "BODY",
+                        "text": "Hello Aakash,\nYour Inquiry For GymSmart CRM is now successfully received by us."
+                    },
+                    {
+                        "type": "FOOTER",
+                        "text": "Thank You"
+                    },
+                    {
+                        "type": "BUTTONS",
+                        "buttons": [
+                        {
+                            "type": "QUICK_REPLY",
+                            "text": "Unsubscribe from Promos"
+                        },
+                        {
+                            "type": "QUICK_REPLY",
+                            "text": "Unsubscribe from All"
+                        }
+                        ]
+                    }
+            ]
+          }';
 
+
+          $dsnkj = '{
+            "name": "helloinquir3y1",
+            "category": "MARKETING",
+            "language": "en",
+            "components": [
+
+                {
+                    "type": "header",
+                    "parameters": [
+                      {
+                        "type": "IMAGE",
+                        "image": {
+                          "link": "https://ajasys.in/assets/Master_Social_Media_Folder/WhatApp_Media/images/threemilk.jpg"
+                        }
+                      }
+                    ]
+                  }
+             ,
+              {
+                "type": "BODY",
+                "text": "Hello Dishant"
+              },
+              {
+                "type": "FOOTER",
+                "text": "thanks"
+              },
+              {
+                "type": "BUTTONS",
+                "buttons": [
+                  {
+                    "type": "QUICK_REPLY",
+                    "text": "Ok"
+                  }
+                ]
+              }
+            ]
+          }';
+          $dsnkj = '
+          {
+            "name": "helloinquir23y1",
+            "category": "MARKETING",
+            "language": "en",
+            "components": [
+                {
+                    "type": "HEADER",
+                    "format": "IMAGE",
+                    "example": {
+                        "header_handle": [
+                        "https://scontent.whatsapp.net/v/t61.29466-34/363553397_885728123129440_4429821753050397803_n.jpg?ccb=1-7&_nc_sid=8b1bef&_nc_ohc=sG8NavH4SQ8AX-LFT49&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AdT5LU4g6kx9vRPJ7hKOBwuH6SoBtH84M-VOSqanrSb4Fg&oe=65EBBBCE"
+                        ]
+                    }
+                },
+              {
+                "type": "BODY",
+                "text": "Hello Dishant"
+              },
+              {
+                "type": "FOOTER",
+                "text": "thanks"
+              },
+              {
+                "type": "BUTTONS",
+                "buttons": [
+                  {
+                    "type": "QUICK_REPLY",
+                    "text": "Ok"
+                  }
+                ]
+              }
+            ]
+          }
+          ';
+
+
+          $dfghjgjg = '{"name":"gymsmartinquiryaakash","category":"MARKETING","language":"en_US","components":[{"type":"HEADER","format":"IMAGE","example":{"header_handle":["https://scontent.whatsapp.net/v/t61.29466-34/363553397_885728123129440_4429821753050397803_n.jpg?ccb=1-7&_nc_sid=8b1bef&_nc_ohc=sG8NavH4SQ8AX-LFT49&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AdT3_pnQBEB2RftsunyBeoTkW9PbUo0xKcz24_BYwqZtaA&oe=65EBF40E"]}},{"type":"BODY","text":"Hello Mr.Kanani, \nYour Inquiry is now successfully received  by us. "},{"type":"FOOTER","text":"Thank You For inquiry."},{"type":"BUTTONS","buttons":[{"type":"PHONE_NUMBER","text":"Contact No","phone_number":"+919512180355"}]}]}
+            ';
+         
+          $dfjbj = '{"name":"templateimage11","category":"MARKETING","language":"en","components":[{"type":"HEADER","format":"VIDEO","example":{"header_handle":["https://erp.gymsmart.in/assets/image/gym-logo1.png"]}},{"type":"BODY","text":"Hello Dishant"},{"type":"FOOTER","text":"thank you"}]}';
 
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
         $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
+
+
+        $dfghjgjg = '{"name":"realtosmart_dipawaliaayushi","category":"MARKETING","language":"en","components":[{"type":"HEADER","format":"IMAGE","example":{"header_handle":["https://scontent.whatsapp.net/v/t61.29466-34/416823717_1388979608658934_4459431388717114482_n.png?ccb=1-7&_nc_sid=8b1bef&_nc_ohc=B_VTrYI6jbMAX8hgVga&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AdQAs5Mm8vikjHb-h4oretBNmtfFDwPH2wFOZ-6Ya5-bJA&oe=65EBF1A3"]}},{"type":"BODY","text":"Hello Mr.Kanani, \nYour Inquiry is now successfully received  by us. "},{"type":"FOOTER","text":"Thank You For inquiry."},{"type":"BUTTONS","buttons":[{"type":"PHONE_NUMBER","text":"Contact No","phone_number":"+919512180355"}]}]}
+            ';
+
+            $fdhgjgfyjgfhkuh = '
+            {
+                "name": "realtosmart_dipawaliaayushiiii",
+                "category": "MARKETING",
+                "language": "en",
+                "components": [
+                  {
+                    "type": "HEADER",
+                    "format": "IMAGE",
+                    "example": {
+                      "header_handle": [
+                        "https://scontent.whatsapp.net/v/t61.29466-34/416823717_1388979608658934_4459431388717114482_n.png?ccb=1-7&_nc_sid=8b1bef&_nc_ohc=B_VTrYI6jbMAX8hgVga&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AdQAs5Mm8vikjHb-h4oretBNmtfFDwPH2wFOZ-6Ya5-bJA&oe=65EBF1A3"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "BODY",
+                    "text": "Hello Mr. Kanani,\nYour inquiry is now successfully received by us."
+                  },
+                  {
+                    "type": "FOOTER",
+                    "text": "Thank you for your inquiry."
+                  },
+                  {
+                    "type": "BUTTONS",
+                    "buttons": [
+                      {
+                        "type": "PHONE_NUMBER",
+                        "text": "Contact No",
+                        "phone_number": "+919512180355"
+                      }
+                    ]
+                  }
+                ]
+              }
+              
+            ';
+
+
+
+
+
+        $fghjfgjb = '
+        {
+           
+            "language": "en",
+            "status": "APPROVED",
+            "category": "MARKETING",
+            "id": "885728119796107"
+        },
+        {
+            "name": "hello_world",
+            "components": [
+                {
+                    "type": "HEADER",
+                    "format": "TEXT",
+                    "text": "Hello World"
+                },
+                {
+                    "type": "BODY",
+                    "text": "Welcome and congratulations!! This message demonstrates your ability to send a WhatsApp message notification from the Cloud API, hosted by Meta. Thank you for taking the time to test with us."
+                },
+                {
+                    "type": "FOOTER",
+                    "text": "WhatsApp Business Platform sample message"
+                }
+            ],
+            "language": "en_US",
+            "status": "APPROVED",
+            "category": "UTILITY",
+            "id": "271315509226381"
+        }
+        ';
         $Result = postSocialData($url, $_POST['jsonString']);
+        // $Result = postSocialData($url, $fdhgjgfyjgfhkuh);
+
         $ReturnResult = 0;
         if (isset($Result['id'])) {
             $ReturnResult = 1;
         }
+        // pre($Result);
         echo $ReturnResult;
     }
+
+    public function single_whatsapp_template_sent()
+    {
+        $post_data = $_POST;
+
+        $template_name = $post_data['header'];
+        $phone_no = $post_data['phone_no'];
+        $language = $post_data['language'];
+
+        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+
+        $url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
+
+        $postData = json_encode([
+            "messaging_product" => "whatsapp",
+            "recipient_type" => "individual",
+            "to" => $phone_no,
+            "type" => "template",
+            "template" => [
+                "name" => $template_name,
+                "language" => [
+                    "code" => $language
+                ]
+            ]
+        ]);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "Content-Length: " . strlen($postData),
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+
+        if ($response == false) {
+            $error = curl_error($ch);
+            echo "cURL Error: " . $error;
+            $msgStatus = 0;
+
+        } else {
+            $msgStatus = 1;
+            echo $response;
+        }
+
+        curl_close($ch);
+        return json_encode($msgStatus, true);
+    }
+    
 }

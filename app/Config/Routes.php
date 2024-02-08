@@ -61,6 +61,7 @@ $routes->post('exercise_view', 'MasterInformation::view_data2');
 $routes->post('ExerciseViewData', 'GymMasterController::ExerciseViewData');
 $routes->post('excercise_insert_data_master', 'GymMasterController::excercise_insert_data_master');
 $routes->post('excercise_update_data_master', 'GymMasterController::excercise_update_data_master');
+$routes->get('/bot_setup_designer', 'Home::bot_setup_designer');
 
 // all-diet
 $routes->get('/alldiet', 'Home::alldiet');
@@ -73,7 +74,7 @@ $routes->post('/workoutAvailable', 'workoutController::workoutAvailable');
 $routes->post('/AddToMasterworkout', 'workoutController::AddToMasterworkout');
 $routes->post('/MainMasterworkoutView', 'workoutController::MainMasterworkoutView');
 
-$routes->get('/template', 'Templates_Controller::template');
+$routes->get('/EmailConversions', 'Templates_Controller::template');
 $routes->post('/template_list_data', 'Templates_Controller::template_list_data');
 $routes->post('/insert_data_t', 'Templates_Controller::insert_data_t');
 $routes->post('/edit_data_t', 'Templates_Controller::edit_data_t');
@@ -86,6 +87,7 @@ $routes->get('email_history_show', 'Home::email_history_show');
 $routes->post('fetch_email_track_data', 'Templates_Controller::fetch_email_track_data');
 $routes->post('/allinqsmssend', 'Templates_Controller::allinq_sms_send');
 $routes->get('email_connection', 'Home::email_connection');
+$routes->post('check_email_connection', 'EmailController::check_email_connection');
 
 
 $routes->get('/alert_setting', 'Home::alert_setting');
@@ -250,6 +252,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('audience_insert_data', 'AudianceController::audience_insert_data');
 	$routes->post('get_data_header_by_file_audience', 'AudianceController::get_data_header_by_file_audience');
     $routes->post('import_file_data_audience', 'AudianceController::import_file_data_audience');
+	$routes->post('audience_facebook_data', 'AudianceController::audience_facebook_data');
+	
 
 
 
@@ -517,7 +521,12 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('bot_delete_data', 'Bot_Controller::bot_delete_data');
 	$routes->post('update_sequence', 'Bot_Controller::update_sequence');
 	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
+	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
+
 	
+	// massager code routes 
+	$routes->post('get_chat_data', 'Bot_Controller::get_chat_data');
+
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
 	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
@@ -554,6 +563,7 @@ $routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsA
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
 	$routes->post('/master_whatsapp_list_dataaaksh', 'WhatAppAakashController::master_whatsapp_list_dataaaksh');
+	$routes->post('/single_whatsapp_template_sent', 'WhatAppAakashController::single_whatsapp_template_sent');
 
 });
 // // occupation

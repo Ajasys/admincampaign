@@ -7,42 +7,42 @@ use Config\Database;
 
 class WhatAppAakashController extends BaseController
 {
-	public function __construct()
-	{
-		session();
-		helper('custom');
-		$db = db_connect();
-		$this->MasterInformationModel = new MasterInformationModel($db);
-		$this->username = '';
-		$this->admin = 0;
-		if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
-			$this->admin = 1;
-		}
-		$this->timezone = timezonedata();
-	}
+    public function __construct()
+    {
+        session();
+        helper('custom');
+        $db = db_connect();
+        $this->MasterInformationModel = new MasterInformationModel($db);
+        $this->username = '';
+        $this->admin = 0;
+        if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
+            $this->admin = 1;
+        }
+        $this->timezone = timezonedata();
+    }
 
-	public function  WhatAppConnectionCheck(){
+    public function  WhatAppConnectionCheck()
+    {
         $GetWhatAppData = $this->MasterInformationModel->edit_entry2('admin_generale_setting', '1');
         $ReturnStatus = 0;
 
-        if(isset($GetWhatAppData) && !empty($GetWhatAppData)){
-            if(isset($GetWhatAppData['whatapp_phone_number_id']) && isset($GetWhatAppData['whatapp_business_account_id'])  && isset($GetWhatAppData['whatapp_access_token']) && isset($GetWhatAppData['whatapp_phone_number_id']) && isset($GetWhatAppData['whatapp_business_account_id'])  && isset($GetWhatAppData['whatapp_access_token']) && isset($GetWhatAppData['whatapp_phone_number_id']) && isset($GetWhatAppData['whatapp_business_account_id'])  && isset($GetWhatAppData['whatapp_access_token'])){
-
-            }else{
-
+        if (isset($GetWhatAppData) && !empty($GetWhatAppData)) {
+            if (isset($GetWhatAppData['whatapp_phone_number_id']) && isset($GetWhatAppData['whatapp_business_account_id'])  && isset($GetWhatAppData['whatapp_access_token']) && isset($GetWhatAppData['whatapp_phone_number_id']) && isset($GetWhatAppData['whatapp_business_account_id'])  && isset($GetWhatAppData['whatapp_access_token']) && isset($GetWhatAppData['whatapp_phone_number_id']) && isset($GetWhatAppData['whatapp_business_account_id'])  && isset($GetWhatAppData['whatapp_access_token'])) {
+            } else {
             }
         }
     }
 
 
-    public function GetWhatAppIntegrationInformation(){
+    public function GetWhatAppIntegrationInformation()
+    {
         $GetData = get_editData2('admin_generale_setting', 1);
         $whatapp_phone_number_id = '';
         $whatapp_business_account_id = '';
         $whatapp_access_token = '';
         $whatapp_verification_status = '';
 
-        if(isset($GetData) && !empty($GetData)){
+        if (isset($GetData) && !empty($GetData)) {
             $whatapp_phone_number_id = $GetData['whatapp_phone_number_id'];
             $whatapp_business_account_id = $GetData['whatapp_business_account_id'];
             $whatapp_access_token = $GetData['whatapp_access_token'];
@@ -52,17 +52,18 @@ class WhatAppAakashController extends BaseController
         $ReturnSendData['whatapp_business_account_id'] = $whatapp_business_account_id;
         $ReturnSendData['whatapp_access_token'] = $whatapp_access_token;
         $ReturnSendData['whatapp_verification_status'] = $whatapp_verification_status;
-        
+
         return json_encode($ReturnSendData, true);
         die();
     }
 
-    public function SubmitWhatAppIntegrationResponse(){
+    public function SubmitWhatAppIntegrationResponse()
+    {
         $GetData = get_editData2('admin_generale_setting', 1);
-        if(isset($GetData) && !empty($GetData)){
+        if (isset($GetData) && !empty($GetData)) {
             $UpdateData = $_POST;
             $response = $this->MasterInformationModel->update_entry2('1', $UpdateData, 'admin_generale_setting');
-        }else{
+        } else {
             $InsertData = $_POST;
             // $InsertData['whatapp_created_at_account'] = date('Y-m-d H:i:s', time());
             $response = $this->MasterInformationModel->insert_entry2($InsertData, 'admin_generale_setting');
@@ -74,8 +75,8 @@ class WhatAppAakashController extends BaseController
         $Error = '';
         $WhatsAppConnectionCheckArray = WhatsAppConnectionCheck();
         $WhatsAppConnectionCheckArray = json_decode($WhatsAppConnectionCheckArray, true);
-        if(isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)){
-            if(isset($WhatsAppConnectionCheckArray['ConnectionStatus'])){
+        if (isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray)) {
+            if (isset($WhatsAppConnectionCheckArray['ConnectionStatus'])) {
                 $WhatAppRedirectStatus = $WhatsAppConnectionCheckArray['ConnectionStatus'];
                 $ConnectionName = $WhatsAppConnectionCheckArray['ConnectionName'];
                 $Error = $WhatsAppConnectionCheckArray['Error'];
@@ -87,8 +88,8 @@ class WhatAppAakashController extends BaseController
         $ReturnArray['ConnectionStatus'] = $WhatAppRedirectStatus;
         $ReturnArray['Error'] = $Error;
         $ReturnArray = json_encode($ReturnArray);
-        return $ReturnArray; 
-    }   
+        return $ReturnArray;
+    }
 
     public function master_whatsapp_list_data()
     {
@@ -103,78 +104,78 @@ class WhatAppAakashController extends BaseController
             $settings_data = get_object_vars($total_dataa_userr_22[0]);
         } else {
             $settings_data = array();
-        }   
+        }
         $WhatAppRedirectStatus = 0;
         $Error = '';
         $ConnectionName = '';
         $ConnectionStatus = 0;
 
         $Html = '';
-        if(isset($settings_data) && !empty($settings_data)){
+        if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-                $url = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
+                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
                 $DataArray =  getSocialData($url);
-                if(isset($DataArray) && !empty($DataArray)){
-                    if(isset($DataArray['id']) && !empty($DataArray['id'])){
+                if (isset($DataArray) && !empty($DataArray)) {
+                    if (isset($DataArray['id']) && !empty($DataArray['id'])) {
                         $ConnectionStatus = 1;
-                        $urllistdata = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/message_templates?fields=name,status,category,language,components&access_token='.$settings_data['whatapp_access_token'];
+                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components&access_token=' . $settings_data['whatapp_access_token'];
                         $responselistdata =  getSocialData($urllistdata);
 
-                        if(isset($responselistdata)){
-                            if(isset($responselistdata['data'])){
-                                if(!empty($responselistdata['data'])){
+                        if (isset($responselistdata)) {
+                            if (isset($responselistdata['data'])) {
+                                if (!empty($responselistdata['data'])) {
                                     // pre($responselistdata['data']);
                                     foreach ($responselistdata['data'] as $key => $value) {
                                         print_r($value);
 
                                         $Name = $value['name'];
                                         $Category = $value['category'];
-                                        $Body = ''; 
+                                        $Body = '';
                                         $id = $value['id'];
                                         $language = $value['language'];
-                                        if(isset($value['components']) && !empty($value['components'])){
+                                        if (isset($value['components']) && !empty($value['components'])) {
                                             foreach ($value['components'] as $key1 => $value1) {
-                                                if($value1['type'] == 'BODY'){
+                                                if ($value1['type'] == 'BODY') {
                                                     $Body = $value1['text'];
                                                 }
                                             }
                                         }
                                         $Html .= '
                                         <tr class="rounded-pill">
-                                                <td class="py-2 text-capitalize">'.$Name.'</td>
-                                                <td class="py-2">'.$Category.'</td>
+                                                <td class="py-2 text-capitalize">' . $Name . '</td>
+                                                <td class="py-2">' . $Category . '</td>
                                                 <td class="py-2 ">
                                                     <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
-                                                        '.$Body.'
+                                                        ' . $Body . '
                                                     </div>
                                                 </td>
-                                                <td class="py-2">'.$language.'</td>
+                                                <td class="py-2">' . $language . '</td>
                                                 <td class="template-creation-table-data text-center cwt-border-right p-l-25">
                                                     <span>
                                                         <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         <i class="fa fa-clone fs-16 Edit_template" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <i class="fa fa-trash fs-16 Delete_template_id" name="'.$Name.'" id="'.$id.'" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                        <i class="fa fa-trash fs-16 Delete_template_id" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
                                                     </span>
                                                 </td>
                                             </tr>
                                         ';
                                     }
-                                }else{
+                                } else {
                                     $Html .= '<p>No Templates Found</p>';
                                 }
-                            }else{
-                                if(isset($responselistdata['error']['message'])){
-                                    $Html .= '<p>'.$responselistdata['error']['message'].'</p>';
+                            } else {
+                                if (isset($responselistdata['error']['message'])) {
+                                    $Html .= '<p>' . $responselistdata['error']['message'] . '</p>';
                                 }
                             }
                         }
-                    }else{
-                        if(isset($DataArray['error'])){
-                            if(isset($DataArray['error']['message'])){
+                    } else {
+                        if (isset($DataArray['error'])) {
+                            if (isset($DataArray['error']['message'])) {
                                 $Error = $DataArray['error']['message'];
-                                $Html .= '<p>'.$DataArray['error']['message'].'</p>';
+                                $Html .= '<p>' . $DataArray['error']['message'] . '</p>';
                             }
                         }
                     }
@@ -216,15 +217,15 @@ class WhatAppAakashController extends BaseController
 
 
 
-        public function whatsapp_template_insert()
+    public function whatsapp_template_insert()
     {
         $imgfile = "";
         $data = array();
         $newName = '';
         $files = $_FILES;
         $fileName = '';
-        $fileNames ='';
-		if (!empty($files)) {
+        $fileNames = '';
+        if (!empty($files)) {
             $uploadDir = 'assets/images/whatsapp_template/';
 
             if (!is_dir($uploadDir)) {
@@ -274,17 +275,16 @@ class WhatAppAakashController extends BaseController
 
                 if ($fileName != '') {
                     $insert_data['uploade_file'] = $fileName;
-                }else{
+                } else {
                     $insert_data['uploade_file'] = '';
-
                 }
 
                 // $isduplicate = $this->duplicate_data2($insert_data, $table_name);
 
                 // if ($isduplicate == 0) {
-                    $response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
-                    $foodmasterdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
-                    $foodmasterdisplaydata = json_decode($foodmasterdisplaydata, true);
+                $response = $this->MasterInformationModel->insert_entry2($insert_data, $table_name);
+                $foodmasterdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
+                $foodmasterdisplaydata = json_decode($foodmasterdisplaydata, true);
                 // } else {
                 //     return "error";
                 // }
@@ -295,7 +295,7 @@ class WhatAppAakashController extends BaseController
 
 
 
-  
+
     public function whatsapp_template_delete_data()
     {
         if ($this->request->getPost("action") == "delete") {
@@ -313,77 +313,76 @@ class WhatAppAakashController extends BaseController
         $sql = 'SELECT * FROM `master_whatsapp_template` WHERE id =' . $VIEW_id . '';
         $result = $db->query($sql);
         $preview_Data = $result->getRowArray();
-    
-        return json_encode($preview_Data);
 
+        return json_encode($preview_Data);
     }
-    
-    
+
+
 
     public function whatsapptemplate_edit_data()
-	{
-		
-		if ($this->request->getPost("action") == "edit") {
-			$edit_id = $this->request->getPost('edit_id');
-			$table_name = $this->request->getPost('table');
-			$departmentEditdata = $this->MasterInformationModel->edit_entry2($table_name, $edit_id);
+    {
 
-			
-			return json_encode($departmentEditdata, true);
-		}
-
-		die();
-	} 
-  public function CheckWhataAppConnection(){
-        
+        if ($this->request->getPost("action") == "edit") {
+            $edit_id = $this->request->getPost('edit_id');
+            $table_name = $this->request->getPost('table');
+            $departmentEditdata = $this->MasterInformationModel->edit_entry2($table_name, $edit_id);
 
 
-  }
-
-
-  public function WhatsAppRTemplateDeleteRequest(){
-    if(isset($_POST['id']) && !empty($_POST['id'])){
-        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';       
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?hsm_id='.$_POST['id'].'&name='.$_POST['name'].'&access_token='.$access_token;
-        $Result = deleteSocialData($url);
-        $DeleteStatus = 0;
-        if(isset($Result)){
-            $DeleteStatus = 1;
+            return json_encode($departmentEditdata, true);
         }
-        echo $DeleteStatus;
+
+        die();
     }
-  }
+    public function CheckWhataAppConnection()
+    {
+    }
+
+
+    public function WhatsAppRTemplateDeleteRequest()
+    {
+        if (isset($_POST['id']) && !empty($_POST['id'])) {
+            $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+            $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?hsm_id=' . $_POST['id'] . '&name=' . $_POST['name'] . '&access_token=' . $access_token;
+            $Result = deleteSocialData($url);
+            $DeleteStatus = 0;
+            if (isset($Result)) {
+                $DeleteStatus = 1;
+            }
+            echo $DeleteStatus;
+        }
+    }
 
 
 
-  public function GetWhatAppTemplateList(){
+    public function GetWhatAppTemplateList()
+    {
 
-    die();
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'DELETE',  
-        CURLOPT_HTTPHEADER => array(
-            'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-        ),
-    ));
-    $response = curl_exec($curl);
-    curl_close($curl);
-    pre($response);
-    die();
-    // $RResult = CheckWhataAppConnection();
-    $RRR = WhatsAppConnectionCheck();
-    $RRR = json_decode($RRR, true);
-    // echo $RRR;
-    pre($RRR);  
-    die();
-    // function CheckWhataAppConnection(){
+        die();
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'DELETE',
+            CURLOPT_HTTPHEADER => array(
+                'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
+            ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        pre($response);
+        die();
+        // $RResult = CheckWhataAppConnection();
+        $RRR = WhatsAppConnectionCheck();
+        $RRR = json_decode($RRR, true);
+        // echo $RRR;
+        pre($RRR);
+        die();
+        // function CheckWhataAppConnection(){
 
         $table_username = getMasterUsername();
         $db_connection = \Config\Database::connect('second');
@@ -400,20 +399,20 @@ class WhatAppAakashController extends BaseController
         $ConnectionName = '';
         $ConnectionStatus = 0;
 
-        if(isset($settings_data) && !empty($settings_data)){
+        if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-                $url = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
+                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
                 $DataArray =  getSocialData($url);
-                if(isset($DataArray) && !empty($DataArray)){
-                    if(isset($DataArray['id']) && !empty($DataArray['id'])){
-                        if(isset($DataArray['name'])){
+                if (isset($DataArray) && !empty($DataArray)) {
+                    if (isset($DataArray['id']) && !empty($DataArray['id'])) {
+                        if (isset($DataArray['name'])) {
                             $ConnectionName = $DataArray['name'];
                             // pre($ConnectionName);
-                        }   
+                        }
                         $ConnectionStatus = 1;
-                    }else{
-                        if(isset($DataArray['error'])){
-                            if(isset($DataArray['error']['message'])){
+                    } else {
+                        if (isset($DataArray['error'])) {
+                            if (isset($DataArray['error']['message'])) {
                                 $Error = $DataArray['error']['message'];
                                 $ConnectionStatus = 2;
                                 // pre($Error);
@@ -436,15 +435,15 @@ class WhatAppAakashController extends BaseController
         return json_decode($ReturnArray, true);
 
 
-    // }
-    // pre($RResult);
-    die();
+        // }
+        // pre($RResult);
+        die();
 
 
-      $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';       
+        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 
-      $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token='.$access_token;
-      $DataSttring = '
+        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
+        $DataSttring = '
       {
           "name": "dishant_testing_9_52",
           "language": "en_US",
@@ -493,23 +492,23 @@ class WhatAppAakashController extends BaseController
           ]
         }';
 
-    $Result =     postSocialData($url, $DataSttring);
+        $Result =     postSocialData($url, $DataSttring);
         pre($Result);
 
         // die();
 
-     
-     //Get All template Api
-      $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token='.$access_token;
-     $response =  getSocialData($url);
-    pre($response);
+
+        //Get All template Api
+        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
+        $response =  getSocialData($url);
+        pre($response);
 
 
-      die();
-      $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';       
-      $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token='.$access_token;
+        die();
+        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
 
-      $DataSttring = '
+        $DataSttring = '
       {
           "name": "dishant_testing_6_19",
           "language": "en_US",
@@ -557,201 +556,267 @@ class WhatAppAakashController extends BaseController
             }
           ]
         }';
-      $curl = curl_init();
-      curl_setopt_array(
-          $curl,
-          array(
-              CURLOPT_URL => $url,
-              CURLOPT_RETURNTRANSFER => true,
-              CURLOPT_ENCODING => '',
-              CURLOPT_MAXREDIRS => 10,
-              CURLOPT_TIMEOUT => 0,
-              CURLOPT_FOLLOWLOCATION => true,
-              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => 'POST',
-              CURLOPT_POSTFIELDS => $DataSttring,
-              CURLOPT_HTTPHEADER => array(
-                  'Content-Type: application/json'
-              ),
-          )
-      );
-      $response = curl_exec($curl);
-      curl_close($curl);
-      pre($response);
-      die();
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => $DataSttring,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+            )
+        );
+        $response = curl_exec($curl);
+        curl_close($curl);
+        pre($response);
+        die();
         // postSocialData($url, $JsonData);
-      // function getFacebookData($url, $pageAccessToken)
-      // {
-      //     $curl = curl_init();
-      //     curl_setopt_array($curl, array(
-      //         CURLOPT_URL => $url,
-      //         CURLOPT_RETURNTRANSFER => true,
-      //         CURLOPT_ENCODING => '',
-      //         CURLOPT_MAXREDIRS => 10,
-      //         CURLOPT_TIMEOUT => 0,
-      //         CURLOPT_FOLLOWLOCATION => true,
-      //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      //         CURLOPT_CUSTOMREQUEST => 'GET',
-      //         CURLOPT_HTTPHEADER => array(
-      //             'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-      //         ),
-      //     ));
-      //     curl_setopt($curl, CURLOPT_URL, $url . '?access_token=' . $pageAccessToken);
-      //     $response = curl_exec($curl);
-      //     curl_close($curl);
-      //     return json_decode($response, true);
-      // }
+        // function getFacebookData($url, $pageAccessToken)
+        // {
+        //     $curl = curl_init();
+        //     curl_setopt_array($curl, array(
+        //         CURLOPT_URL => $url,
+        //         CURLOPT_RETURNTRANSFER => true,
+        //         CURLOPT_ENCODING => '',
+        //         CURLOPT_MAXREDIRS => 10,
+        //         CURLOPT_TIMEOUT => 0,
+        //         CURLOPT_FOLLOWLOCATION => true,
+        //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //         CURLOPT_CUSTOMREQUEST => 'GET',
+        //         CURLOPT_HTTPHEADER => array(
+        //             'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
+        //         ),
+        //     ));
+        //     curl_setopt($curl, CURLOPT_URL, $url . '?access_token=' . $pageAccessToken);
+        //     $response = curl_exec($curl);
+        //     curl_close($curl);
+        //     return json_decode($response, true);
+        // }
 
-      die();
+        die();
 
-      $errormsg = '';
-      $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';       
-      $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token='.$access_token;
-      $curl = curl_init();
-      curl_setopt_array($curl, array(
-          CURLOPT_URL => $url,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-          CURLOPT_HTTPHEADER => array(
-              'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-          ),
-      ));
-      $response = curl_exec($curl);
-      $DataTemplateListArray = '';
-      curl_close($curl);
-      if($response != '' || !empty($response)){
-          $DataArray = json_decode($response, true);
-          if(isset($DataArray) && !empty($DataArray)){
-              if(isset($DataArray['data'])){
-                  if(!empty($DataArray['data'])){
-                      $DataTemplateListArray = $DataArray['data'];
-                  }else{
+        $errormsg = '';
+        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
+            ),
+        ));
+        $response = curl_exec($curl);
+        $DataTemplateListArray = '';
+        curl_close($curl);
+        if ($response != '' || !empty($response)) {
+            $DataArray = json_decode($response, true);
+            if (isset($DataArray) && !empty($DataArray)) {
+                if (isset($DataArray['data'])) {
+                    if (!empty($DataArray['data'])) {
+                        $DataTemplateListArray = $DataArray['data'];
+                    } else {
+                    }
+                } else {
+                    if (isset($DataArray['error'])) {
+                        if (!empty($DataArray['error'])) {
+                            $errormsg = $DataArray['error']['message'];
+                        } else {
+                        }
+                    }
+                }
+            } else {
+            }
+        }
+    }
 
-                  }
-              }else{
-                  if(isset($DataArray['error'])){
-                      if(!empty($DataArray['error'])){
-                          $errormsg = $DataArray['error']['message'];
-                      }else{
-                          
-                      }
-                  }
-              }
+    //   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-          }else{
 
-          }
-      }
-  }
   
-//   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public function single_whatsapp_template_sent()
+    {
+        $post_data = $_POST;
+
+        $template_name = $post_data['header'];
+        $phone_no = $post_data['phone_no'];
+        $language = $post_data['language'];
+
+        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+
+        $url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
+
+        $postData = json_encode([
+            "messaging_product" => "whatsapp",
+            "recipient_type" => "individual",
+            "to" => $phone_no,
+            "type" => "template",
+            "template" => [
+                "name" => $template_name,
+                "language" => [
+                    "code" => $language
+                ]
+            ]
+        ]);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "Content-Length: " . strlen($postData),
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+
+        if ($response == false) {
+            $error = curl_error($ch);
+            echo "cURL Error: " . $error;
+            $msgStatus = 0;
+
+        } else {
+            $msgStatus = 1;
+            echo $response;
+        }
+
+        curl_close($ch);
+        return json_encode($msgStatus, true);
+    }
+    public function master_whatsapp_list_dataaaksh()
+    {
+        //06-02-2024
+
+        $table_username = getMasterUsername();
+        $db_connection = \Config\Database::connect('second');
+        $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+        $result = $db_connection->query($query90);
+        $total_dataa_userr_22 = $result->getResult();
+        if (isset($total_dataa_userr_22[0])) {
+            $settings_data = get_object_vars($total_dataa_userr_22[0]);
+        } else {
+            $settings_data = array();
+        }
+        $WhatAppRedirectStatus = 0;
+        $Error = '';
+        $ConnectionName = '';
+        $templatelistdata = '';
+        $ConnectionStatus = 0;
+
+        $Html = '';
+        if (isset($settings_data) && !empty($settings_data)) {
+            if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
+                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
+                $DataArray =  getSocialData($url);
+
+                if (isset($DataArray) && !empty($DataArray)) {
+                    if (isset($DataArray['id']) && !empty($DataArray['id'])) {
+                        $ConnectionStatus = 1;
+                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components&access_token=' . $settings_data['whatapp_access_token'];
+                        $responselistdata =  getSocialData($urllistdata);
+
+                        $templateNames = [];
+
+                        foreach ($responselistdata['data'] as $item) {
+                            if ($item['status'] == "APPROVED") {
+                                $templateNames[$item['id']] = $item['name'];
+                                $templatelanguage[$item['name']] = $item['language'];
 
 
-public function master_whatsapp_list_dataaaksh()
-{
-    //06-02-2024
+                            }
+                        }
 
-    $table_username = getMasterUsername();
-    $db_connection = \Config\Database::connect('second');
-    $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
-    $result = $db_connection->query($query90);
-    $total_dataa_userr_22 = $result->getResult();
-    if (isset($total_dataa_userr_22[0])) {
-        $settings_data = get_object_vars($total_dataa_userr_22[0]);
-    } else {
-        $settings_data = array();
-    }   
-    $WhatAppRedirectStatus = 0;
-    $Error = '';
-    $ConnectionName = '';
-    $templatelistdata='';
-    $ConnectionStatus = 0;
+                        // $templateid = array_column($responselistdata['data'], 'id');
 
-    $Html = '';
-    if(isset($settings_data) && !empty($settings_data)){
-        if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-            $url = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
-            $DataArray =  getSocialData($url);
+                        if (isset($responselistdata)) {
+                            if (isset($responselistdata['data'])) {
+                                if (!empty($responselistdata['data'])) {
+                                    // pre($responselistdata['data']);
+                                    foreach ($responselistdata['data'] as $key => $value) {
 
-            if(isset($DataArray) && !empty($DataArray)){
-                if(isset($DataArray['id']) && !empty($DataArray['id'])){
-                    $ConnectionStatus = 1;
-                    $urllistdata = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/message_templates?fields=name,status,category,language,components&access_token='.$settings_data['whatapp_access_token'];
-                    $responselistdata =  getSocialData($urllistdata);
-                
-                    $templateNames = array_column($responselistdata['data'], 'name');
-                    if(isset($responselistdata)){
-                        if(isset($responselistdata['data'])){
-                            if(!empty($responselistdata['data'])){
-                                // pre($responselistdata['data']);
-                                foreach ($responselistdata['data'] as $key => $value) {
-
-                                    $Name = $value['name'];
-                                    $Category = $value['category'];
-                                    $Body = ''; 
-                                    $id = $value['id'];
-                                    $language = $value['language'];
-                                    if(isset($value['components']) && !empty($value['components'])){
-                                        foreach ($value['components'] as $key1 => $value1) {
-                                            if($value1['type'] == 'BODY'){
-                                                $Body = $value1['text'];
+                                        $Name = $value['name'];
+                                        $Category = $value['category'];
+                                        $Body = '';
+                                        $id = $value['id'];
+                                        $language = $value['language'];
+                                        if (isset($value['components']) && !empty($value['components'])) {
+                                            foreach ($value['components'] as $key1 => $value1) {
+                                                if ($value1['type'] == 'BODY') {
+                                                    $Body = $value1['text'];
+                                                }
                                             }
                                         }
-                                    }
-                                    $Html .= '
+                                        $Html .= '
                                     <tr class="rounded-pill">
-                                            <td class="py-2 text-capitalize">'.$Name.'</td>
-                                            <td class="py-2">'.$Category.'</td>
+                                            <td class="py-2 text-capitalize">' . $Name . '</td>
+                                            <td class="py-2">' . $Category . '</td>
                                             <td class="py-2 ">
                                                 <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
-                                                    '.$Body.'
+                                                    ' . $Body . '
                                                 </div>
                                             </td>
-                                            <td class="py-2">'.$language.'</td>
+                                            <td class="py-2">' . $language . '</td>
                                             <td class="template-creation-table-data text-center cwt-border-right p-l-25">
                                                 <span>
                                                     <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <i class="fa fa-clone fs-16 Edit_template" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <i class="fa fa-trash fs-16 Delete_template_id" name="'.$Name.'" id="'.$id.'" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                    <i class="fa fa-trash fs-16 Delete_template_id" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
                                                 </span>
                                             </td>
                                         </tr>
                                     ';
+                                    }
+                                } else {
+                                    $Html .= '<p>No Templates Found</p>';
                                 }
-                            }else{
-                                $Html .= '<p>No Templates Found</p>';
-                            }
-                        }else{
-                            if(isset($responselistdata['error']['message'])){
-                                $Html .= '<p>'.$responselistdata['error']['message'].'</p>';
+                            } else {
+                                if (isset($responselistdata['error']['message'])) {
+                                    $Html .= '<p>' . $responselistdata['error']['message'] . '</p>';
+                                }
                             }
                         }
-                    }
-                }else{
-                    if(isset($DataArray['error'])){
-                        if(isset($DataArray['error']['message'])){
-                            $Error = $DataArray['error']['message'];
-                            $Html .= '<p>'.$DataArray['error']['message'].'</p>';
+                    } else {
+                        if (isset($DataArray['error'])) {
+                            if (isset($DataArray['error']['message'])) {
+                                $Error = $DataArray['error']['message'];
+                                $Html .= '<p>' . $DataArray['error']['message'] . '</p>';
+                            }
                         }
                     }
                 }
             }
         }
-    }
-    $recordsCount = '';
-    $return_array['records_count'] = $recordsCount;
-    $return_array['template_name'] = $templateNames;
+        $recordsCount = '';
+        
+        $return_array['records_count'] = $recordsCount;
+        $return_array['template_name'] = $templateNames;
+        $return_array['templatelanguage'] = $templatelanguage;
 
-    $return_array['html'] = $Html;
-    return json_encode($return_array, true);
-    die();
-}
+        // $return_array['templateid'] = $templateid;
+
+
+        $return_array['html'] = $Html;
+        return json_encode($return_array, true);
+        die();
+    }
 
 }

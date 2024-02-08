@@ -134,6 +134,15 @@ class Home extends BaseController
             "access_token longtext   NOT NULL",
             "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
             "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook'",
+            'from_email varchar(200)',
+            'smtp_port int(11)',
+            'smtp_host varchar(200)',
+            'smtp_user varchar(200)',
+            'smtp_password varchar(200)',
+            'smtp_crypto varchar(200)',
+            'mail_cc varchar(200)',
+            'email_radio int(11)',
+            'email_from varchar(200)',
         ];
         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
 
@@ -371,6 +380,10 @@ class Home extends BaseController
             'question longtext NOT NULL',
             'sequence int(11) NOT NULL',
             'bot_id int(11) NOT NULL',
+            'next_question_id int(11) NOT NULL',
+            'menu_message int(11) NOT NULL',
+            'skip_question int(11) NOT NULL',
+            'error_text varchar(500) NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_username . '_bot_setup', '', $columns_bot);
 
@@ -393,6 +406,7 @@ class Home extends BaseController
         }
 
         $data['master_bot_typeof_question'] = $this->MasterInformationModel->display_all_records2('master_bot_typeof_question');
+        $data['admin_bot_setup'] = $this->MasterInformationModel->display_all_records2($table_username . '_bot_setup');
         return view('bot_setup', $data);
     }
     
