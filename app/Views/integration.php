@@ -38,6 +38,9 @@ if (isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray
     .inti-card:hover {
         background-color: #E6E7EC !important;
     }
+    @media(max-width:575px) {
+
+    }
 </style>
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
@@ -50,11 +53,11 @@ if (isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray
                 <h4 class="text-gray-900 text-center">Add your social accounts</h4>
                 <p class="text-center mb-3">Connect your Facebook, Instagram, Twitter, LinkedIn, and so on</p>
                 <div class="row justify-content-center ">
-                    <div class="col-8">
-                        <div class="px-3 py-2 bg-white rounded-2 mx-2 mt-2">
+                    <div class="col-12 col-md-10 col-lg-12 col-xl-11 col-xxl-9 px-lg-0">
+                        <div class="px-3 py-2 bg-white rounded-2 mx-2 mt-2 col-12">
                             <div class="px-3 py-4 bg-white rounded-2 mx-2 mt-2 d-flex flex-wrap">
                                 <!-- facebook -->
-                                <div class=" d-flex justify-content-center col-3">
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('facebook_connection') ?>">
                                         <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center ">
@@ -93,7 +96,7 @@ if (isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray
                                         </div>
                                     </a>
                                 </div>
-                                <div class=" d-flex justify-content-center col-3">
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
                                         <div class="d-flex justify-content-end align-items-center ">
                                             <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -154,7 +157,7 @@ if (isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray
                                     </div>
                                 </div>
 
-                                <div class=" d-flex justify-content-center col-3">
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <!-- email  -->
                                     <a href="<?= base_url('email_connection') ?>">
                                         <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
