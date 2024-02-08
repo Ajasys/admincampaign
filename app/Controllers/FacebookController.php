@@ -1216,14 +1216,7 @@ class FaceBookController extends BaseController
                 }
                 $html .=  '</td>
                     <td class="p-2 text-nowrap text-center">
-                        <div class="btn-group dropend">
-                            <button type="button" class="btn border-0 bg-transparent get-permission" data-bs-toggle="dropdown" aria-expanded="false" data-access-token="'.$value['access_token'].'">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </button>
-                            <ul class="dropdown-menu p-3 set-permission">
-                            </ul>
-                        </div>
-                        <button type="button" class="btn border-0 bg-transparent " data-bs-toggle="modal" data-bs-target="#informaion_connection">
+                        <button type="button" class="btn border-0 bg-transparent get-permission" data-bs-toggle="modal" data-bs-target="#informaion_connection" data-access-token="'.$value['access_token'].'">
                             <i class="fa-solid fa-circle-info"></i>
                         </button>
                         <i class="fa-solid fa-trash-can"></i>
@@ -1249,7 +1242,7 @@ class FaceBookController extends BaseController
             $result = getSocialData('https://graph.facebook.com/v19.0/me/permissions?access_token='.$_POST['access_token']);
             if(isset($result['data']))
             {
-                $tableHtml = '<table>';
+                $tableHtml = '<table style="width: 100%;">';
                 $tableHtml .= '<tr><th>Permission</th><th>Status</th></tr>';
 
                 foreach ($result['data'] as $permission) {

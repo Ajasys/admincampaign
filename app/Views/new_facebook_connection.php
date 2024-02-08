@@ -218,134 +218,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Permission List</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body overflow-y-scroll set-permission" style="height:400px">
-                <!-- <table class="col-12">
-                    <tbody>
-                        <tr>
-                            <th>Permission</th>
-                            <th>Status</th>
-                        </tr>
-                        <tr>
-                            <td>read_insights</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>publish_video</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>catalog_management</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_manage_cta</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_manage_instant_articles</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_show_list</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>read_page_mailboxes</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>ads_management</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>ads_read</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>business_management</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_messaging</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>instagram_basic</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>instagram_manage_comments</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>instagram_manage_insights</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>instagram_content_publish</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>leads_retrieval</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>whatsapp_business_management</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>instagram_manage_messages</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>page_events</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_read_engagement</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_manage_metadata</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_read_user_content</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_manage_ads</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_manage_posts</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>pages_manage_engagement</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>whatsapp_business_messaging</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>instagram_shopping_tag_products</td>
-                            <td>granted</td>
-                        </tr>
-                        <tr>
-                            <td>public_profile</td>
-                            <td>granted</td>
-                        </tr>
-                    </tbody>
-                </table> -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                
             </div>
         </div>
     </div>
@@ -477,6 +354,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         var data = {
             'access_token': access_token,
         };
+        $('.loader').show();
         $.ajax({
             datatype: 'json',
             method: "POST",
@@ -487,6 +365,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 if (result.response == 1) {
                     $('.set-permission').html(result.tableHtml);
                 }
+                $('.loader').hide();
             }
         });
     });
