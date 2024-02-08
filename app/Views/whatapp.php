@@ -1094,7 +1094,7 @@ $language_name = json_decode($language_name, true);
                                                 <th class="template-creation-heading" style="max-width: 400px;">Preview
                                                 </th>
                                                 <th class="template-creation-heading ">Language</th>
-                                                <th class="template-creation-heading text-center text-left">Action</th>
+                                                <th class="template-creation-heading text-center text-left d-none">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="memberships_list">
@@ -1195,6 +1195,8 @@ $language_name = json_decode($language_name, true);
                             <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST"
                                 novalidate>
                                 <div class="col-12 mb-3 ">
+                                <label for="form-memberships" class="main-label">Template Name<sup
+                                                class="validationn">*</sup></label>
                                     <input type="text"
                                         class="form-control main-control Template_name_varification Template_name"
                                         id="Template_nameId" placeholder="Template name" name="Template_name" required>

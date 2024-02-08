@@ -95,8 +95,6 @@ class WhatAppIntegrationController extends BaseController
 
     public function master_whatsapp_list_data()
     {
-        //06-02-2024
-
         $table_username = getMasterUsername();
         $db_connection = \Config\Database::connect('second');
         $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
@@ -163,7 +161,7 @@ class WhatAppIntegrationController extends BaseController
                                             }
                                         }
                                         $Html .= '
-                                        <tr class="rounded-pill">
+                                        <tr class="rounded-pill WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '" >
                                                 <td class="py-2 text-capitalize">' . $Name . '</td>
                                                 <td class="py-2">' . $Category . '</td>
                                                 <td class="py-2">' . $status . '</td>
@@ -174,13 +172,11 @@ class WhatAppIntegrationController extends BaseController
                                                     </div>
                                                 </td>
                                                 <td class="py-2">' . $language . '</td>
-                                                <td class="template-creation-table-data text-center cwt-border-right p-l-25">
+                                                <td class="template-creation-table-data text-center cwt-border-right p-l-25 d-none">
                                                     <span>
                                                         <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <i class="fa fa-clone fs-16 Edit_template" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <i class="fa fa-trash fs-16 Delete_template_id" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                        <i class="fa fa-clone fs-16 Edit_template d-none" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
+                                                        <i class="fa fa-trash fs-16 Delete_template_id d-none" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
                                                     </span>
                                                 </td>
                                             </tr>
