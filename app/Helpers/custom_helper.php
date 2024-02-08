@@ -88,7 +88,7 @@ if (!function_exists('SendMail')) {
     function SendMail($toemail = '', $subject = '', $message = '', $attachment = '', $username = '')
     {
         $db_connection = \Config\Database::connect('second');
-        
+
         // $table_username = session_username($_SESSION['username']);
         // $table_name118 = $table_username . '_email_data';
         // $columns = [
@@ -131,81 +131,134 @@ if (!function_exists('SendMail')) {
             //     }
             //     $email->send();
             // } else if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 2) {
-                try {
-                    $first_db = \Config\Database::connect('second');
-                    $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
+            try {
+                $first_db = \Config\Database::connect('second');
+                $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
 
-                    // if ($generalSetting) {
+                // if ($generalSetting) {
 
-                        // $senderEmail = $generalSetting->smtp_user;
+                // $senderEmail = $generalSetting->smtp_user;
 
-                        $email = \Config\Services::email();
-                        $smtpConfigInfo = [
-                            'protocol' => 'smtp',
-                            'SMTPHost' => 'mail.ajasys.com',
-                            'SMTPPort' => '2525',
-                            'SMTPUser' => 'neel@ajasys.com',
-                            'SMTPPass' => 'Ti=clIJD8Yo5',
-                            'SMTPCrypto' => 'tls',
-                            'mailType' => 'html',
-                            'charset' => 'utf-8',
-                            'validate' => true,
-                            'CRLF' => "\r\n",
-                            'newline' => "\r\n"
-                        ];
+                $email = \Config\Services::email();
+                $smtpConfigInfo = [
+                    'protocol' => 'smtp',
+                    'SMTPHost' => 'mail.ajasys.com',
+                    'SMTPPort' => '2525',
+                    'SMTPUser' => 'neel@ajasys.com',
+                    'SMTPPass' => 'Ti=clIJD8Yo5',
+                    'SMTPCrypto' => 'tls',
+                    'mailType' => 'html',
+                    'charset' => 'utf-8',
+                    'validate' => true,
+                    'CRLF' => "\r\n",
+                    'newline' => "\r\n"
+                ];
 
-                        $email->initialize($smtpConfigInfo);
-                        $email->setTo($toemail);
-                        $email->setFrom('neel@ajasys.com', $subject);
+                $email->initialize($smtpConfigInfo);
+                $email->setTo($toemail);
+                $email->setFrom('neel@ajasys.com', $subject);
 
-                        if (isset($generalSetting->mail_cc) && !empty($generalSetting->mail_cc)) {
-                            $email->setCC($generalSetting->mail_cc);
-                        }
-
-                        $email->setSubject($subject);
-                        //$email->setMessage(html_entity_decode($message));
-                        $email->setMessage(base64_encode($message));
-                        //
-                        if (!empty($attachment)) {
-                            $email->attach($attachment);
-                        }
-                        $base_url = base_url('');
-                        $track_code = md5(rand());
-                     
-                        $message_body = $message;
-                        $message_body .= '<img src="'.$base_url.'email_track?code='.$track_code.'" width="1" height="1" />';
-                        // $email->Body = $message_body;
-                        $email->setMessage($message_body);
-                      
-                        if ($email->send()) {
-                         
-                            $data = array(
-                                'email_subject'=>$subject,
-                                'email_body'=>'hello',
-                                'email_address'=>$toemail,
-                                'email_track_code'=>$track_code
-                            );
-                            $db = \Config\Database::connect('second');
-                            $builder = $db->table('admin_email_data');
-                            $builder->insert($data);
-                         
-                            return 0;
-                            // pre($email); 
-                        } else {
-                            $error_message = $email->printDebugger(['headers']);
-
-                            error_log("Email sending failed: " . $error_message);
-                            return 1; // Failed to send email
-                        }
-                        die();
-                    // } else {
-                    //     return 1; // General settings not found
-                    // }
-                } catch (Exception $e) {
-                    $error_message = $e->getMessage();
-                    error_log("Email sending failed: " . $error_message);
-                    return 1; // Failed to send email due to exception
+                if (isset($generalSetting->mail_cc) && !empty($generalSetting->mail_cc)) {
+                    $email->setCC($generalSetting->mail_cc);
                 }
+
+                $email->setSubject($subject);
+                //$email->setMessage(html_entity_decode($message));
+                $email->setMessage(base64_encode($message));
+                //
+                if (!empty($attachment)) {
+                    $email->attach($attachment);
+                }
+                $base_url = base_url('');
+                $track_code = md5(rand());
+                $track_code_link = md5(rand());
+                $message_body = $message;
+                $message_body .= '<img src="' . $base_url . 'email_track?code=' . $track_code . ' " width="1" height="1" />';
+
+
+                $links = array();
+                // Use a regular expression to find all links in the email body
+                preg_match_all('/\b(?:https?:\/\/|http:\/\/)\S+\b/', $message, $matches);
+                $links = $matches[0];
+                $base_url_link = base_url('');
+                // foreach ($links as $link) {
+                //     $tracked_link = $link . 'email_link_track?link_track=' . $track_code_link; // Modify this line as per your requirement
+                //     $message_body = str_replace($link, $tracked_link, $message_body);
+                // }
+                // foreach ($links as $link) {
+                //     $tracked_link = $base_url . 'email_link_track?link_track=' . $track_code;
+                //     $message_body = str_replace($link, $tracked_link, $message_body);
+                // }
+                foreach ($links as $link) {
+                    // $track_code_link = md5($link); // Generate a unique tracking code for each link
+                    // pre($link);
+                    // $tracked_link = '<a href="' . $base_url . 'email_link_track?link_track='  . $track_code_link . '">' . $link . '</a>';
+                }
+                $tracked_link = '<a href="' . $base_url . 'login?link_track=' . $track_code_link . '">' . $link . '</a>'; 
+                $message_body = str_replace($link, $tracked_link, $message_body);
+            
+                // $message_body .= '<a href="' . $base_url . '/email_link_track?link_track=' . $track_code . '&link_track_main="https://ajasys.in/EmailConversions"</a>';
+                // $message_body .= '<img src="' . $base_url . 'email_link_track?link_track=&link_track_main="https://ajasys.in/EmailConversions" width="1" height="1" />';
+
+                // $message_body .= '<a href="' . $base_url . '/email_link_track?link_track=' . $track_code . '">'.$link.'</a>';
+
+                // $message_body .= '<img src="' . $base_url . 'email_link_track?link_track=' . $track_code . ' " width="1" height="1" />';
+        
+                // $email->setMessage(base64_encode($message_body));
+              
+            
+        
+               
+                // email link send 
+                // $base_url_link = base_url('');
+                // $track_code_link = md5(rand());
+
+                // // Find all links in the message
+                // preg_match_all('/\b(?:https?:\/\/|http:\/\/)\S+\b/', $message, $matches);
+                // $links = $matches[0];
+
+                // // Constructing message body with multiple links
+                // // $message_body = $message;
+                // foreach ($links as $link) {
+                //     $message_body .= '<p><a href="'.$link.'">'.$link.'?hello12'.'</a></p>';
+                // }
+                // $message_body .= '<img src="'.$base_url_link.'email_track?track_code='.$track_code_link.'" width="1" height="1" />';
+                //end 
+                $from_email_address = 'neel@ajasys.com';
+                $email->setMessage($message_body);
+                // $email->setMessage($message_body50);
+                $email->setMailType('html');
+                if ($email->send()) {
+
+                    $data = array(
+                        'email_subject' => $subject,
+                        'from_email_address' => $from_email_address,
+                        'email_body' => $message,
+                        'email_address' => $toemail,
+                        'email_track_code' => $track_code,
+                        'email_link_track_code'=>$track_code_link,
+                    );
+                    $db = \Config\Database::connect('second');
+                    $builder = $db->table('admin_email_data');
+                    $builder->insert($data);
+
+                    return 0;
+                    // pre($email); 
+                } else {
+                    $error_message = $email->printDebugger(['headers']);
+
+                    error_log("Email sending failed: " . $error_message);
+                    return 1; // Failed to send email
+                }
+                die();
+                // } else {
+                //     return 1; // General settings not found
+                // }
+            } catch (Exception $e) {
+                $error_message = $e->getMessage();
+                error_log("Email sending failed: " . $error_message);
+                return 1; // Failed to send email due to exception
+            }
             // }
 
             // echo "Email sent to $toemail<br>";

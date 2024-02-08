@@ -813,9 +813,15 @@ class Home extends BaseController
     {
         return view('competitormasters');
     }
+    public function email_link_track()
+    {
+        return view('email_link_track');
+    }
     public function email_connection()
     {
-        return view('email_connection');
+        $username = session_username($_SESSION['username']);
+        $data['platform_integration'] = $this->MasterInformationModel->display_all_records2($username.'_platform_integration');
+        return view('email_connection',$data);
     }
     public function peoplelist()
     {

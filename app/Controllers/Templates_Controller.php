@@ -400,6 +400,28 @@ class Templates_Controller extends BaseController
 		$db_connection = \Config\Database::connect('second');
 
 		$query = "SELECT admin_email_data.email_subject,admin_email_data.email_address,admin_email_data.email_body,admin_email_data.email_track_code,admin_email_track.email_status,MAX(admin_email_track.email_open_datetime) AS email_open_datetime FROM admin_email_data LEFT JOIN admin_email_track ON admin_email_track.email_track_code = admin_email_data.email_track_code GROUP BY admin_email_data.email_subject,admin_email_data.email_address,admin_email_data.email_body,admin_email_data.email_track_code,admin_email_track.email_status ORDER BY email_open_datetime DESC";
+		$query = "SELECT 
+		admin_email_data.email_subject,
+		admin_email_data.email_address,
+		admin_email_data.email_body,
+		admin_email_data.email_track_code,
+		admin_email_data.email_link_track_code,  -- Include email_link_track_code here
+		admin_email_track.email_status,
+		MAX(admin_email_track.email_open_datetime) AS email_open_datetime 
+	FROM 
+		admin_email_data 
+	LEFT JOIN 
+		admin_email_track ON admin_email_track.email_track_code = admin_email_data.email_track_code 
+	GROUP BY 
+		admin_email_data.email_subject,
+		admin_email_data.email_address,
+		admin_email_data.email_body,
+		admin_email_data.email_track_code,
+		admin_email_data.email_link_track_code,  -- Group by email_link_track_code as well
+		admin_email_track.email_status 
+	ORDER BY 
+		email_open_datetime DESC";
+		// $query = "SELECT * FROM admin_email_data";
 		$db_connection = \Config\Database::connect('second');
 		// $statement = $db_connection->prepare($query);
 		$result1 = $db_connection->query($query);
@@ -418,26 +440,28 @@ class Templates_Controller extends BaseController
 				} else {
 					$status = '<span class="label label-danger">Not Open</span>';
 				}
-				$open_date = date('d-m-Y h:i a',strtotime($row["email_open_datetime"]));
+				if (isset($row['email_track_code'])) {
+					$email_track_codee = $row['email_track_code'];
+				}
+				if (isset($row['email_link_track_code'])) {
+					$email_link_track_code = $row['email_link_track_code'];
+				}
+				$open_date = date('d-m-Y h:i a', strtotime($row["email_open_datetime"]));
 				$output .= '
-				<tr>
-					<td>' . $row["email_address"] . '</td>
-					<td>' . $row["email_subject"] . '</td>
-					<td>' . $status . '</td>
-					<td>' . $open_date . '</td>
-					<td>
-								<div class="form-group">
-									<input type="text" name="email_address"  value="' . $row["email_address"] . '" hidden="true"/>
-									<input type="text" name="email_subject"  value="' . $row["email_subject"] . '" hidden="true"/>
-									<input type="text" name="email_track_code"  value="' . $row["email_track_code"] . '" hidden="true"/>
-									<input type="text" name="email_body"  value="' . $row["email_body"] . '" hidden="true"/>
-									
-									<a href="' . base_url('email_history_show?email_track_id=' . $row['email_track_code'] . '') . '" class="btn bg-transperent rounded-2 border">See Details</a>
-								</div>
+					<tr>
+						<td>' . ($row["email_address"]) . '</td>
+						<td>' . ($row["email_subject"]) . '</td>
+						<td>' . ($status) . '</td>
+						<td>' . ($open_date) . '</td>
+						<td>
+							<div class="form-group">                                   
+								<a href="' . (base_url('email_history_show?email_track_id=' . $email_track_codee . '&email_track_link=' . $email_link_track_code)) . '" class="btn bg-transperent rounded-2 border">See Details</a>
+							</div>
 						</td>
-				</tr>';
+					</tr>';
 			}
 		}
+
 		$return_array['html'] = $output;
 		echo json_encode($return_array);
 		die();
@@ -445,8 +469,18 @@ class Templates_Controller extends BaseController
 
 	function show_data_email()
 	{
-		$track_id = $_REQUEST['email_trac_id'];
-
+	
+		if (isset($_POST['email_trac_id'])) {
+			$track_id = $_POST['email_trac_id'];
+		} else {
+			$track_id = "";
+		}
+		if (isset($_POST['email_track_link'])) {
+			$track_link = $_POST['email_track_link'];
+		} else {
+			$track_link = "";
+		}
+		
 		$db = \Config\Database::connect('second');
 		// $db->query('TRUNCATE TABLE admin_email_data');
 		// $db->query('TRUNCATE TABLE admin_email_track');
@@ -456,6 +490,7 @@ FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_tr
 		// $statement = $db_connection->prepare($query);
 		$result1 = $db_connection->query($query);
 		$result = $result1->getResultArray();
+
 		// pre($result);
 		// die();
 		$total_row = 1;
@@ -464,6 +499,7 @@ FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_tr
 		// $result = $statement->fetchAll();
 		// $total_row = $statement->rowCount();
 		$output = "";
+		$html_link = "";
 		if ($total_row > 0) {
 			foreach ($result as $row) {
 				if ($row['email_track_code'] == $track_id) {
@@ -473,7 +509,7 @@ FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_tr
 					} else {
 						$status = '<span class="label label-danger">Not Open</span>';
 					}
-					$open_date = date('d-m-Y h:i a',strtotime($row["email_open_datetime"]));
+					$open_date = date('d-m-Y h:i a', strtotime($row["email_open_datetime"]));
 
 					$output .= '
 					<tr>
@@ -482,12 +518,61 @@ FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_tr
 					</tr>';
 				}
 			}
+
+
+			$query_link = "SELECT * FROM admin_email_track WHERE email_link_track_code = '" . $track_link . "'";
+
+			$result15 = $db_connection->query($query_link);
+			$result_link = $result15->getResultArray();
+
+			foreach ($result_link as $row_link) {
+				if ($row_link['email_link_track_code'] == $track_link) {
+					$status = '';
+					if ($row_link['email_status'] == 'yes') {
+						$status = '<span class="label label-success">Open</span>';
+					} else {
+						$status = '<span class="label label-danger">Not Open</span>';
+					}
+					$open_date50 = date('d-m-Y h:i a', strtotime($row_link["email_open_datetime"]));
+
+					$html_link .= '
+					<tr>
+					<td class="text-center"> <span>' . $status . '</span></td>
+					<td class="text-center"> <span>' . $open_date50 . '</span></td>
+					</tr>';
+				}
+			}
+			
 		}
+
+
+
+
+
+
+		$query10 = "SELECT * FROM admin_email_data WHERE email_track_code = '" . $track_id . "'" ;
+			$result10 = $db_connection->query($query10);
+			$result_full_data = $result10->getResultArray();
+		
+			$full_message_show = "";
+			foreach ($result_full_data as $row_data) {
+			
+				$open_date = date('d-m-Y h:i a', strtotime($row_data["email_open_datetime"]));
+				$full_message_show .= '
+				<tr>
+					<td>' . ($row_data["from_email_address"]) . '</td>
+					<td>' . ($row_data["email_address"]) . '</td>
+					<td>' . ($row_data["email_subject"]) . '</td>
+					<td>' . ($row_data["email_body"]) . '</td>			
+				</tr>';
+			}
 		$return_array['html'] = $output;
+		$return_array['html_link'] = $html_link;
+		$return_array['full_message_show'] = $full_message_show;
+
 		echo json_encode($return_array, true);
 		die();
-	}
-	public function delete_all_t()
+	}	public function delete_all_t()
 	{
 		if ($this->request->getPost('checkbox_value')) {
 			$ids = $this->request->getPost('checkbox_value');
