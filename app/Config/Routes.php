@@ -559,8 +559,9 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 $routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
 	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
+	$routes->post('/GetWhatsAppTemplateDetails', 'WhatAppIntegrationController::GetWhatsAppTemplateDetails');
 
-
+	
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
 	$routes->post('/master_whatsapp_list_dataaaksh', 'WhatAppAakashController::master_whatsapp_list_dataaaksh');
