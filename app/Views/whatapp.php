@@ -1178,7 +1178,7 @@ $language_name = json_decode($language_name, true);
 </div>
 
 <!-- add model -->
-<div class="modal fade modal-lg " id="whatsapp_template_add_edit" tabindex="-1"
+<div class="modal fade modal-lg" id="whatsapp_template_add_edit" tabindex="-1"
     aria-labelledby="membershipseditModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-50 modal-dialog-centered">
         <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
@@ -1204,7 +1204,10 @@ $language_name = json_decode($language_name, true);
                                         can
                                         only contain lowercase alphanumeric characters and underscores ( _ )</p>
                                 </div>
+        
                                 <div class="col-12 mb-3 ">
+                                <label for="form-memberships" class="main-label">Select Category<sup
+                                                class="validationn">*</sup></label>
                                     <div class="main-selectpicker">
                                         <select id="category_types" name="category_types"
                                             class="selectpicker form-control form-main TemplateCategorySelectionDiv main-control category_div"
@@ -1227,6 +1230,8 @@ $language_name = json_decode($language_name, true);
                                     </div>
                                 </div>
                                 <div class="col-12 mb-3 ">
+                                <label for="form-memberships" class="main-label">Select Language<sup
+                                                class="validationn">*</sup></label>
                                     <div class="main-selectpicker">
                                         <!-- <select class="selectpicker form-control main-control language_div" id="language" name="language" required> -->
 
@@ -1375,8 +1380,7 @@ $language_name = json_decode($language_name, true);
                                 </div>
                                 <div class="col-12 header-jqury">
                                     <div class="col-12 mb-3">
-                                        <label for="form-memberships" class="main-label">HEADER<sup
-                                                class="validationn">*</sup></label>
+                                        <label for="form-memberships" class="main-label">HEADER</label>
                                         <div class="main-selectpicker">
                                             <select
                                                 class="selectpicker form-control main-control header_div HeaderSelectionDD Template_header1"
@@ -1404,49 +1408,25 @@ $language_name = json_decode($language_name, true);
                                             placeholder="Type your header text here..." rows="3" cols="50"
                                             spellcheck="false"></textarea>
                                     </div>
-                                    <!-- <textarea ng-if="selectedHeader === 'TEXT'"
-                                class="full-width cwt-header-textarea-box font-size-12 center-textarea header_text"
-                                ng-model="header_data"  minlength="0" maxlength="60"
-                                ng-change="header_text_media(header_data)"
-                                ></textarea> -->
-
-
-                                    <!-- <div ng-if="selectedHeader === 'IMAGE' && provider === 'meta'"
-                                class="cwt-header-open-box-c full-width p-relative " id="temLoaded">
-                                <div class="text-center profile-btn-photo2 col-6 mt-3">
-                                    <div class="upload-btn-wrapper">
-                                        <form action="" method="post" enctype="multipart/form-data">
-                                            <span class="upload-btn">
-                                                <i class="fi fi-rr-document"></i>
-                                            </span>
-                                            <input type="file" name="uploade_file[]" class="form-control main-control place"
-                                                id="insert_image" onchange="displayImageName()" />
-                                            <input type="submit" value="Upload" />
-                                        </form>
-                                    </div>
-                                </div>
-                                <div id="selectedImageName"></div>
-                            </div> -->
+                   
                                 </div>
 
                                 <div class="col-12 mb-3">
                                     <label for="form-memberships" class="main-label fw-medium">BODY<sup
                                             class="validationn">*</sup></label>
                                     <textarea class="form-control main-control TemplateBodyClass body_div" id="body_id"
-                                        placeholder="Type Your Body Text Here...{{|}}" name="" required></textarea>
+                                        placeholder="Type Your Body Text Here..." name="" required></textarea>
                                     <p class="fs-10">Body character limit is 1024 characters</p>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label for="form-memberships" class="main-label fw-medium">FOOTER<sup
-                                            class="validationn">*</sup></label>
+                                    <label for="form-memberships" class="main-label fw-medium">FOOTER</label>
                                     <textarea class="form-control main-control footer_div FotterTextDIvClass"
-                                        id="footer" placeholder="Type Your Footer Text Here...{{|}}" name=""
+                                        id="footer" placeholder="Type Your Footer Text Here..." name=""
                                         required></textarea>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <div class="col-12 ">
-                                        <label for="form-memberships" class="main-label">BUTTON<sup
-                                                class="validationn">*</sup></label>
+                                        <label for="form-memberships" class="main-label">BUTTON</label>
                                         <div class="main-selectpicker">
                                             <select
                                                 class="selectpicker form-control main-control ButtonSelctionDropDown header_div"
@@ -1470,114 +1450,12 @@ $language_name = json_decode($language_name, true);
                                     <!-- quck replay -->
 
                                     <div class="button_link1 SetButtonHTMLClass">
-                                        <div
-                                            class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass">
-                                            <div
-                                                class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
-                                                <span class="fs-10">Url
-                                                    Button</span> <button
-                                                    class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i
-                                                        class="fa-solid fa-trash-can"></i></button> </div>
-                                            <div class="col-12 border rounded-2 p-2 "> <textarea
-                                                    class="form-control lablCnoInputField main-control  col border-0"
-                                                    placeholder="Start typing button label here..." cols="1" rows="1"
-                                                    required=""></textarea>
-                                                <div class="col-12 d-flex flex-wrap align-items-center border "> 
-                                                    <span
-                                                        class="text-primary  mx-2 text-white "><i
-                                                            class="fa-solid fa-phone"></i></span>
-                                                    <div class="col">
-                                                         <!-- <input type="text"
-                                                            class="form-control CnoCnoInputField main-control border-0"
-                                                            placeholder="Input URL..." required="">  -->
-                                                            <input type="text" id="mobile_code" class="form-control main-control border-0" placeholder="Phone Number" name="name">
-                                                        </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
-                                            <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span>
-                                            <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
-                                            <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                        </div> -->
-                                        <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
-                                            <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
-                                            <textarea class="form-control main-control col button2input " data-template="2" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
-                                            <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                        </div>
-                                        <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
-                                            <button class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</button>
-                                            <textarea class="form-control main-control col button3input" data-template="3" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
-                                            <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                        </div> -->
-                                        <!-- <div class="col-12 d-flex flex-wrap remove-data">
-                                            <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
-                                                <span class="fs-10">Url Button</span>
-                                                <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                            </div>
-                                            <div class="col-12 border rounded-2 p-2">
-                                                <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
-                                                <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between">
-                                                    <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span>
-                                                    <div class="col-7">
-                                                        <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
-                                                    </div>
-                                                    <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data">
-                                            <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
-                                                <span class="fs-10">Url Button</span>
-                                                <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                            </div>
-                                            <div class="col-12 border rounded-2 p-2 ">
-                                                <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
-                                                <div class="col-12 d-flex flex-wrap align-items-center border ">
-                                                    <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span>
-                                                    <div class="col-7">
-                                                        <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                       
+                                       
                                     </div>
                                     <!--call-replay-->
                                     <div class="col-12  button_link2 d-none">
-                                        <!-- <div class="col-12 d-flex flex-wrap remove-data">
-                                            <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
-                                                <span class="fs-10">Url Button</span>
-                                                <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                            </div>
-                                            <div class="col-12 border rounded-2 p-2">
-                                                <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
-                                                <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between">
-                                                    <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span>
-                                                    <div class="col-7">
-                                                        <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
-                                                    </div>
-                                                    <button class="btn btn-primary   mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data">
-                                            <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
-                                                <span class="fs-10">Url Button</span>
-                                                <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
-                                            </div>
-                                            <div class="col-12 border rounded-2 p-2 ">
-                                                <textarea class="form-control main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
-                                                <div class="col-12 d-flex flex-wrap align-items-center border ">
-                                                    <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span>
-                                                    <div class="col-7">
-                                                        <input type="text" class="form-control main-control border-0" placeholder="Input URL..." required="">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div> -->
+                                       
                                     </div>
                                 </div>
                             </form>
@@ -1628,10 +1506,7 @@ $language_name = json_decode($language_name, true);
                                                     contenteditable="false" style=""></div>
                                                 <!-- end ngIf: media_footer_text.length > 0 -->
                                             </div>
-                                            <!-- <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
-                                                        <a href="#" ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></a>
-                                                        end ngIf: media_footer_text.length > 0
-                                                    </div> -->
+                                        
                                         </div>
                                         <div class="single-t-call-button">
                                             <button class="single-button-whatsapp-template1"></button>
@@ -1666,7 +1541,7 @@ $language_name = json_decode($language_name, true);
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary CloseBtnModelAdd" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary previewbutton d-none" data-bs-target="#view_modal"
                         data-bs-toggle="modal">Preview and Submit</button>
                     <button type="button" class="btn btn-primary Add_editModelTitle">Preview and Submit</button>
@@ -2221,7 +2096,12 @@ $language_name = json_decode($language_name, true);
 
     });
 
-
+    function setvalue(){
+            $(".CommentInoutSetValDiv").each(function () {
+                var inputval = $(this).attr('value');
+                $(this).val(inputval);
+            });
+        }
 
 
 
@@ -2282,117 +2162,41 @@ $language_name = json_decode($language_name, true);
             $('.SetButtonHTMLClass').html('');
         } else if (DDValue == '2') {
             var previous_hmml = $('.SetButtonHTMLClass').html();
-            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col  button1input QuickSubButtonInput" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
+            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col CommentInoutSetValDiv button1input QuickSubButtonInput" data-template="1" placeholder="Start typing button label here..." value="" cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
             var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
             if (parseInt(numberOfSubElements) < 3) {
                 $('.SetButtonHTMLClass').html(previous_hmml + StaticHtml);
+                setvalue();
             }
         } else if (DDValue == '3') {
             var SetHtml = $('.SetButtonHTMLClass').html();
             var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
             var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
             if (numberOfSubElementsUrl == '0') {
-                var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="form-control lableUrlInputField main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col"> <input type="text" class="form-control main-control UrlUrlInputField border-0" placeholder="Input URL..." required=""> </div> <button class="btn btn-primary  d-none mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
+                var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="CommentInoutSetValDiv form-control lableUrlInputField main-control col border-0" placeholder="Start typing button label here..." cols="1" value="" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col"> <input type="text" class="form-control main-control CommentInoutSetValDiv UrlUrlInputField border-0" placeholder="Input URL..." value="" required=""> </div> <button class="btn btn-primary  d-none mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
                 $('.SetButtonHTMLClass').html(SetHtml + urlbtnhtml);
+                setvalue();
 
             }
             if (numberOfSubElementsCno == '0') {
                 var SetHtml = $('.SetButtonHTMLClass').html();
-                var phonenobtn = '<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control lablCnoInputField main-control  col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input type="text" class="form-control CnoCnoInputField main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
+                var phonenobtn = '<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control CommentInoutSetValDiv lablCnoInputField main-control  col border-0" placeholder="Start typing button label here..." cols="1" rows="1" value="" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input value="" type="text" class="form-control CnoCnoInputField CommentInoutSetValDiv main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
                 $('.SetButtonHTMLClass').html(SetHtml + phonenobtn);
+                setvalue();
+
             }
         }
     });
 
 
-
-    // $('body').on('click', '.Add_editModelTitle', function () {
-    //     var name = $('.Template_name').val();
-    //     var category = $('select.TemplateCategorySelectionDiv option:selected').val();
-    //     var language = $('select.TemplateLanguageDDList option:selected').val();
-    //     var headertype = $('select.HeaderSelectionDD option:selected').val();
-    //     var headertext = $('.ClassHeaderTEXT').val();
-    //     var body = $('.TemplateBodyClass').val();
-    //     var footer = $('.FotterTextDIvClass').val();
-
-    //     var templateArray = {
-    //         'name': name,
-    //         'category': category,
-    //         'language': language,
-    //         'components': []
-    //     };
-
-    //     if (headertext) {
-    //         templateArray.components.push({
-    //             'type': 'HEADER',
-    //             'format': 'TEXT',
-    //             'text': headertext
-    //         });
-    //     }
-
-    //     if (body) {
-    //         templateArray.components.push({
-    //             'type': 'BODY',
-    //             'text': body
-    //         });
-    //     }
-
-    //     if (footer) {
-    //         templateArray.components.push({
-    //             'type': 'FOOTER',
-    //             'text': footer
-    //         });
-    //     }
-
-    //     var jsonString = JSON.stringify(templateArray);
+    // ButtonSelctionDropDown
 
 
-    //     // $.ajax({
-    //     //     method: "post",
-    //     //     url: "<?= site_url('SendWhatsAppTemplate'); ?>",
-    //     //     data: {
-    //     //         jsonString: jsonString,
-    //     //     },
-    //     //     success: function (data) {
-    //     //         if (data == '0') {
-    //     //             iziToast.error({
-    //     //                 title: "Failed to add template"
-    //     //             });
-    //     //         } else {
-    //     //             iziToast.success({
-    //     //                 title: "Added Successfully"
-    //     //             });
-    //     //         }
-    //     //         $(".close_btn").trigger("click");
-    //     //         list_data();
-    //     //     }
-    //     // });
-    // });
 
-    $(document).ready(function () {
-        // $('#insert_image').on('change', function () {
-        //     var fileInput = $(this);
-        //     var fileName = fileInput.val();
-        //     if (fileName) {
-        //         var form = $("form[name='master_membership_update_form']")[0];
-        //         var formData = new FormData(form);
-        //         var uploade_file = $('#insert_image').prop('files')[0];
-        //         formData.append('uploade_file', uploade_file);
-        //         $.ajax({
-        //             method: "post",
-        //             url: "<?= site_url('WhatappFileUpload'); ?>",
-        //             data: formData,
-        //             processData: false,
-        //             contentType: false,
-        //             success: function (data) {
-        //                 $(this).attr('DataStoreURL', data);
-        //             }
-        //         });
-        //     } else {
-        //         $(this).attr('DataStoreURL', '');
-        //     }
-        // });
-    });
+
+
+
+
 
     $('body').on('click', '.Add_editModelTitle', function () {
         var name = $('.Template_name').val();
@@ -2400,9 +2204,11 @@ $language_name = json_decode($language_name, true);
         var language = $('select.TemplateLanguageDDList option:selected').val();
         var headertype = $('select.HeaderSelectionDD option:selected').val();
         var headerfile = '';
+        var body = $('.TemplateBodyClass').val();
 
 
-        if (headertype == 'IMAGE' || headertype == 'VIDEO' || headertype == "DOCUMENT") {
+        if(name != '' && category != '' && language != '' && body != ''){
+            if (headertype == 'IMAGE' || headertype == 'VIDEO' || headertype == "DOCUMENT") {
             var fileInput = $('#insert_image');
             var fileName = fileInput.val();
             if (fileName) {
@@ -2423,7 +2229,6 @@ $language_name = json_decode($language_name, true);
 
 
                         var headertext = $('.ClassHeaderTEXT').val();
-                        var body = $('.TemplateBodyClass').val();
                         var footer = $('.FotterTextDIvClass').val();
 
 
@@ -2589,14 +2394,9 @@ $language_name = json_decode($language_name, true);
             var headertext = $('.ClassHeaderTEXT').val();
             var body = $('.TemplateBodyClass').val();
             var footer = $('.FotterTextDIvClass').val();
-
-
             var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
             var QuickArray = [];
-
             if (buttontype == '1') {
-
-
             } else if (buttontype == '2') {
 
                 var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
@@ -2641,20 +2441,14 @@ $language_name = json_decode($language_name, true);
                     }
                 }
             }
-
-
-
-
             var templateArray = {
                 'name': name,
                 'category': category,
                 'language': language,
                 'components': []
             };
-
-
             if (headertype != '') {
-                console.log(headertype);
+                // console.log(headertype);
                 if (headertype == 'TEXT') {
                     if (headertext) {
                         templateArray.components.push({
@@ -2664,7 +2458,7 @@ $language_name = json_decode($language_name, true);
                         });
                     }
                 }
-                console.log(headerfile);
+                // console.log(headerfile);
                 // console.log(headertype);
                 if (headertype == 'IMAGE' && headerfile != '') {
                     var exampleData = {
@@ -2751,6 +2545,7 @@ $language_name = json_decode($language_name, true);
             // console.log(jsonString);
 
         }
+        }
 
     });
     $('.tip').each(function () {
@@ -2810,4 +2605,29 @@ $('body').on('click', '.Template_send', function() {
         }
     });
 
+        $('body').on('change', '.ButtonSelctionDropDown', function () {
+                $('.SetButtonHTMLClass').html('');
+        });
+        $('body').on('input click', '.CommentInoutSetValDiv', function () {
+            var inputval = $(this).val();
+            $(this).attr('value', inputval);
+        });
+
+
+        $('body').on('click', '.PlusButtonDiv', function(){
+            $('.Template_name').val('');
+            $('.TemplateCategorySelectionDiv').val('');
+            $('.TemplateCategorySelectionDiv').selectpicker('refresh');
+            $('.TemplateLanguageDDList').val('');
+            $('.TemplateLanguageDDList').selectpicker('refresh');
+            $('.HeaderSelectionDD').val('');
+            $('.HeaderSelectionDD').selectpicker('refresh');
+            $('.ClassHeaderTEXT').val('');
+            $('.TemplateBodyClass').val('');
+            $('.FotterTextDIvClass').val('');
+            $('.SetButtonHTMLClass').html('');
+            $('.ButtonSelctionDropDown').val('');
+            $('.ButtonSelctionDropDown').selectpicker('refresh');
+        });
+       
 </script>
