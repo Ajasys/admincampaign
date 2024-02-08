@@ -1613,7 +1613,7 @@ $language_name = json_decode($language_name, true);
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary previewbutton d-none" data-bs-target="#view_modal"
                         data-bs-toggle="modal">Preview and Submit</button>
-                        <button type="button" class="btn btn-primary Add_editModelTitle" >Preview and Submit</button>
+                    <button type="button" class="btn btn-primary Add_editModelTitle">Preview and Submit</button>
                 </div>
             </div>
     </div>
@@ -2305,8 +2305,40 @@ $language_name = json_decode($language_name, true);
     // });
 
     $(document).ready(function () {
-        $('#insert_image').on('change', function () {
-            var fileInput = $(this);
+        // $('#insert_image').on('change', function () {
+        //     var fileInput = $(this);
+        //     var fileName = fileInput.val();
+        //     if (fileName) {
+        //         var form = $("form[name='master_membership_update_form']")[0];
+        //         var formData = new FormData(form);
+        //         var uploade_file = $('#insert_image').prop('files')[0];
+        //         formData.append('uploade_file', uploade_file);
+        //         $.ajax({
+        //             method: "post",
+        //             url: "<?= site_url('WhatappFileUpload'); ?>",
+        //             data: formData,
+        //             processData: false,
+        //             contentType: false,
+        //             success: function (data) {
+        //                 $(this).attr('DataStoreURL', data);
+        //             }
+        //         });
+        //     } else {
+        //         $(this).attr('DataStoreURL', '');
+        //     }
+        // });
+    });
+
+    $('body').on('click', '.Add_editModelTitle', function () {
+        var name = $('.Template_name').val();
+        var category = $('select.TemplateCategorySelectionDiv option:selected').val();
+        var language = $('select.TemplateLanguageDDList option:selected').val();
+        var headertype = $('select.HeaderSelectionDD option:selected').val();
+        var headerfile = '';
+
+
+        if (headertype == 'IMAGE' || headertype == 'VIDEO' || headertype == "DOCUMENT") {
+            var fileInput = $('#insert_image');
             var fileName = fileInput.val();
             if (fileName) {
                 var form = $("form[name='master_membership_update_form']")[0];
@@ -2320,166 +2352,318 @@ $language_name = json_decode($language_name, true);
                     processData: false,
                     contentType: false,
                     success: function (data) {
-                        $(this).attr('DataStoreURL', data);
+                        // $(this).attr('DataStoreURL', data);
+                        // console.log(data);
+                        headerfile = data;
+
+
+                        var headertext = $('.ClassHeaderTEXT').val();
+                        var body = $('.TemplateBodyClass').val();
+                        var footer = $('.FotterTextDIvClass').val();
+
+
+                        var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+                        var QuickArray = [];
+
+                        if (buttontype == '1') {
+
+
+                        } else if (buttontype == '2') {
+
+                            var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
+                            if (numberOfSubElements > 0) {
+                                var QuickArray = [];
+                                $(".QuickSubButtonInput").each(function () {
+                                    var QuickBtntext = $(this).val();
+                                    if (QuickBtntext != '') {
+                                        QuickArray.push({
+                                            'type': 'QUICK_REPLY',
+                                            'text': QuickBtntext
+                                        });
+                                    }
+                                });
+                                // console.log(QuickArray);
+                            }
+                        } else if (buttontype == '3') {
+                            var QuickArray = [];
+                            var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
+                            var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
+                            if (numberOfSubElementsUrl > 0) {
+                                var QuickArray = [];
+                                var label = $('.lableUrlInputField').val();
+                                var Url = $('.UrlUrlInputField').val();
+                                if (label != '' && Url != '') {
+                                    QuickArray.push({
+                                        'type': 'URL',
+                                        'text': label,
+                                        'url': Url
+                                    });
+                                }
+                            }
+                            if (numberOfSubElementsCno > 0) {
+                                var label = $('.lablCnoInputField').val();
+                                var Url = $('.CnoCnoInputField').val();
+                                if (label != '' && Url != '') {
+                                    QuickArray.push({
+                                        'type': 'PHONE_NUMBER',
+                                        'text': label,
+                                        'phone_number': Url
+                                    });
+                                }
+                            }
+                        }
+
+
+
+
+                        var templateArray = {
+                            'name': name,
+                            'category': category,
+                            'language': language,
+                            'components': []
+                        };
+
+
+                        if (headertype != '') {
+                            if (headertype == 'TEXT') {
+                                if (headertext) {
+                                    templateArray.components.push({
+                                        'type': 'HEADER',
+                                        'format': 'TEXT',
+                                        'text': headertext
+                                    });
+                                }
+                            }
+                            if (headertype == 'IMAGE' && headerfile != '') {
+                                var exampleData = {
+                                    "header_handle": [
+                                       headerfile 
+                                    ]
+                                };
+                                templateArray.components.push({
+                                    'type': 'HEADER',
+                                    'format': 'IMAGE',
+                                    'example': exampleData
+                                });
+                            }
+                            if (headertype == 'VIDEO' && headerfile != '') {
+                                var exampleData = {
+                                    "header_handle": [
+                                        headerfile
+                                    ]
+                                };
+                                templateArray.components.push({
+                                    'type': 'HEADER',
+                                    'format': 'VIDEO',
+                                    'example': exampleData
+                                });
+                            }
+                            if (headertype == 'DOCUMENT' && headerfile != '') {
+                                var exampleData = {
+                                    "header_handle": [
+                                        headerfile
+                                    ]
+                                };
+                                templateArray.components.push({
+                                    'type': 'HEADER',
+                                    'format': 'DOCUMENT',
+                                    'example': exampleData
+                                });
+                            }
+                        }
+                        if (body) {
+                            templateArray.components.push({
+                                'type': 'BODY',
+                                'text': body
+                            });
+                        }
+                        if (footer) {
+                            templateArray.components.push({
+                                'type': 'FOOTER',
+                                'text': footer
+                            });
+                        }
+                        if (QuickArray.length > 0) {
+                            templateArray.components.push({
+                                'type': 'BUTTONS',
+                                'buttons': QuickArray
+                            });
+                        }
+                        var jsonString = JSON.stringify(templateArray);
+                        console.log(jsonString);
+                        if(headerfile != ''){
+                            
+                            $.ajax({
+                                method: "post",
+                                url: "<?= site_url('SendWhatsAppTemplate'); ?>",
+                                data: {
+                                    jsonString: jsonString,
+                                },
+                                success: function (data) {
+                                    if (data == '0') {
+                                        iziToast.error({
+                                            title: "Failed to add template"
+                                        });
+                                    } else {
+                                        iziToast.success({
+                                            title: "Added Successfully"
+                                        });
+                                    }
+                                    $(".close_btn").trigger("click");
+                                    list_data();
+                                }
+                            });
+                        }
+                        // console.log(jsonString);
                     }
                 });
             } else {
                 $(this).attr('DataStoreURL', '');
             }
-        });
-    });
-
-    $('body').on('click', '.Add_editModelTitle', function () {
-        var name = $('.Template_name').val();
-        var category = $('select.TemplateCategorySelectionDiv option:selected').val();
-        var language = $('select.TemplateLanguageDDList option:selected').val();
-        var headertype = $('select.HeaderSelectionDD option:selected').val();
-        var headerfile = $('#insert_image').attr('DataStoreURL');
-        var headertext = $('.ClassHeaderTEXT').val();
-        var body = $('.TemplateBodyClass').val();
-        var footer = $('.FotterTextDIvClass').val();
+        } else {
+            var headertext = $('.ClassHeaderTEXT').val();
+            var body = $('.TemplateBodyClass').val();
+            var footer = $('.FotterTextDIvClass').val();
 
 
-        var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
-        var QuickArray = []; 
+            var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+            var QuickArray = [];
 
-        if (buttontype == '1') {
+            if (buttontype == '1') {
 
 
-        } else if (buttontype == '2') {
+            } else if (buttontype == '2') {
 
-            var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
-            if (numberOfSubElements > 0) {
-                var QuickArray = []; 
-
-                $(".QuickSubButtonInput").each(function () {
-                    var QuickBtntext = $(this).val();
-                    if (QuickBtntext != '') {
+                var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
+                if (numberOfSubElements > 0) {
+                    var QuickArray = [];
+                    $(".QuickSubButtonInput").each(function () {
+                        var QuickBtntext = $(this).val();
+                        if (QuickBtntext != '') {
+                            QuickArray.push({
+                                'type': 'QUICK_REPLY',
+                                'text': QuickBtntext
+                            });
+                        }
+                    });
+                    // console.log(QuickArray);
+                }
+            } else if (buttontype == '3') {
+                var QuickArray = [];
+                var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
+                var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
+                if (numberOfSubElementsUrl > 0) {
+                    var QuickArray = [];
+                    var label = $('.lableUrlInputField').val();
+                    var Url = $('.UrlUrlInputField').val();
+                    if (label != '' && Url != '') {
                         QuickArray.push({
-                            'type': 'QUICK_REPLY',
-                            'text': QuickBtntext
-                        });
-                    }
-                });
-
-                // console.log(QuickArray);
-            }
-        } else if (buttontype == '3') {
-            var QuickArray = []; 
-            var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
-            var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
-            if(numberOfSubElementsUrl > 0){
-                var QuickArray = []; 
-                var label = $('.lableUrlInputField').val();
-                var Url = $('.UrlUrlInputField').val();
-                if(label != '' && Url != ''){
-                    QuickArray.push({
                             'type': 'URL',
                             'text': label,
-                            'url':Url
+                            'url': Url
                         });
+                    }
                 }
-            }
-            if(numberOfSubElementsCno > 0){
-                var label = $('.lablCnoInputField').val();
-                var Url = $('.CnoCnoInputField').val();
-                if(label != '' && Url != ''){
-                    QuickArray.push({
+                if (numberOfSubElementsCno > 0) {
+                    var label = $('.lablCnoInputField').val();
+                    var Url = $('.CnoCnoInputField').val();
+                    if (label != '' && Url != '') {
+                        QuickArray.push({
                             'type': 'PHONE_NUMBER',
                             'text': label,
-                            'phone_number':Url
+                            'phone_number': Url
                         });
+                    }
                 }
-            }            
-        }
+            }
 
 
- 
-
-        var templateArray = {
-            'name': name,
-            'category': category,
-            'language': language,
-            'components': []
-        };
 
 
-        if (headertype != '') {
-            if (headertype == 'TEXT') {
-                if (headertext) {
+            var templateArray = {
+                'name': name,
+                'category': category,
+                'language': language,
+                'components': []
+            };
+
+
+            if (headertype != '') {
+                console.log(headertype);
+                if (headertype == 'TEXT') {
+                    if (headertext) {
+                        templateArray.components.push({
+                            'type': 'HEADER',
+                            'format': 'TEXT',
+                            'text': headertext
+                        });
+                    }
+                }
+                console.log(headerfile);
+                // console.log(headertype);
+                if (headertype == 'IMAGE' && headerfile != '') {
+                    var exampleData = {
+                        "header_handle": [
+                            headerfile
+                        ]
+                    };
                     templateArray.components.push({
                         'type': 'HEADER',
-                        'format': 'TEXT',
-                        'text': headertext
+                        'format': 'IMAGE',
+                        'example': exampleData
+                    });
+                }
+                if (headertype == 'VIDEO' && headerfile != '') {
+                    var exampleData = {
+                        "header_handle": [
+                            headerfile
+                        ]
+                    };
+                    templateArray.components.push({
+                        'type': 'HEADER',
+                        'format': 'VIDEO',
+                        'example': exampleData
+                    });
+                }
+                if (headertype == 'DOCUMENT' && headerfile != '') {
+                    var exampleData = {
+                        "header_handle": [
+                            headerfile
+                        ]
+                    };
+                    templateArray.components.push({
+                        'type': 'HEADER',
+                        'format': 'DOCUMENT',
+                        'example': exampleData
                     });
                 }
             }
-            console.log(headerfile);
-            console.log(headertype);
-            if (headertype == 'IMAGE' && headerfile != '') {
-                var exampleData = {
-                    "header_handle": [
-                        { 'link': headerfile }
-                    ]
-                };
+
+            if (body) {
                 templateArray.components.push({
-                    'type': 'HEADER',
-                    'format': 'IMAGE',
-                    'example': exampleData
+                    'type': 'BODY',
+                    'text': body
                 });
             }
-            if (headertype == 'VIDEO' && headerfile != '') {
-                var exampleData = {
-                    "header_handle": [
-                        { 'link': headerfile }
-                    ]
-                };
+
+            if (footer) {
                 templateArray.components.push({
-                    'type': 'HEADER',
-                    'format': 'VIDEO',
-                    'example': exampleData
+                    'type': 'FOOTER',
+                    'text': footer
                 });
             }
-            if (headertype == 'DOCUMENT' && headerfile != '') {
-                var exampleData = {
-                    "header_handle": [
-                        { 'link': headerfile }
-                    ]
-                };
+
+            if (QuickArray.length > 0) {
                 templateArray.components.push({
-                    'type': 'HEADER',
-                    'format': 'DOCUMENT',
-                    'example': exampleData
+                    'type': 'BUTTONS',
+                    'buttons': QuickArray
                 });
+                // console.log(QuickArray);
             }
-        }
 
-        if (body) {
-            templateArray.components.push({
-                'type': 'BODY',
-                'text': body
-            });
-        }
 
-        if (footer) {
-            templateArray.components.push({
-                'type': 'FOOTER',
-                'text': footer
-            });
-        }
-
-        if(QuickArray.length > 0){
-            templateArray.components.push({
-                'type': 'BUTTONS',
-                'buttons': QuickArray
-            });
-            // console.log(QuickArray);
-        }
-        
-
-        var jsonString = JSON.stringify(templateArray);
-        // console.log(jsonString);
-          $.ajax({
+            var jsonString = JSON.stringify(templateArray);
+            $.ajax({
             method: "post",
             url: "<?= site_url('SendWhatsAppTemplate'); ?>",
             data: {
@@ -2499,11 +2683,12 @@ $language_name = json_decode($language_name, true);
                 list_data();
             }
         });
+            // console.log(jsonString);
+
+        }
+
+
+
+         
     });
-
-
-
-
-
-
 </script>

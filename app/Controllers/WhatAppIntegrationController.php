@@ -851,6 +851,8 @@ class WhatAppIntegrationController extends BaseController
 
     public function SendWhatsAppTemplate()
     {
+
+        // die();
         $njkgcnb = '{
             "name": "inquiry2024",
             "category": "MARKETING",
@@ -896,7 +898,7 @@ class WhatAppIntegrationController extends BaseController
                     "type": "header",
                     "parameters": [
                       {
-                        "type": "image",
+                        "type": "IMAGE",
                         "image": {
                           "link": "https://ajasys.in/assets/Master_Social_Media_Folder/WhatApp_Media/images/threemilk.jpg"
                         }
@@ -923,17 +925,54 @@ class WhatAppIntegrationController extends BaseController
               }
             ]
           }';
+          $dsnkj = '
+          {
+            "name": "helloinquir23y1",
+            "category": "MARKETING",
+            "language": "en",
+            "components": [
+                {
+                    "type": "HEADER",
+                    "format": "IMAGE",
+                    "example": {
+                        "header_handle": [
+                        "https://scontent.whatsapp.net/v/t61.29466-34/363553397_885728123129440_4429821753050397803_n.jpg?ccb=1-7&_nc_sid=8b1bef&_nc_ohc=sG8NavH4SQ8AX-LFT49&_nc_ht=scontent.whatsapp.net&edm=AH51TzQEAAAA&oh=01_AdT5LU4g6kx9vRPJ7hKOBwuH6SoBtH84M-VOSqanrSb4Fg&oe=65EBBBCE"
+                        ]
+                    }
+                },
+              {
+                "type": "BODY",
+                "text": "Hello Dishant"
+              },
+              {
+                "type": "FOOTER",
+                "text": "thanks"
+              },
+              {
+                "type": "BUTTONS",
+                "buttons": [
+                  {
+                    "type": "QUICK_REPLY",
+                    "text": "Ok"
+                  }
+                ]
+              }
+            ]
+          }
+          ';
+         
+          $dfjbj = '{"name":"templateimage11","category":"MARKETING","language":"en","components":[{"type":"HEADER","format":"VIDEO","example":{"header_handle":["https://erp.gymsmart.in/assets/image/gym-logo1.png"]}},{"type":"BODY","text":"Hello Dishant"},{"type":"FOOTER","text":"thank you"}]}';
 
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
         $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
         $Result = postSocialData($url, $_POST['jsonString']);
-        // $Result = postSocialData($url, $dsnkj);
+        // $Result = postSocialData($url, $dfjbj);
 
         $ReturnResult = 0;
         if (isset($Result['id'])) {
             $ReturnResult = 1;
         }
-        // pre($Result);
-        echo $ReturnResult;
+        pre($Result);
+        // echo $ReturnResult;
     }
 }
