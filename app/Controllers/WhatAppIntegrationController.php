@@ -121,6 +121,17 @@ class WhatAppIntegrationController extends BaseController
                         $ConnectionStatus = 1;
                         $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['whatapp_access_token'];
                         $responselistdata = getSocialData($urllistdata);
+                        $templateNames = [];
+
+                        foreach ($responselistdata['data'] as $item) {
+                            if ($item['status'] == "APPROVED") {
+                                $templateNames[$item['id']] = $item['name'];
+                                $templatelanguage[$item['name']] = $item['language'];
+
+
+                            }
+                        }
+
                         if (isset($responselistdata)) {
                             if (isset($responselistdata['data'])) {
                                 // pre($responselistdata['data']);
@@ -196,11 +207,15 @@ class WhatAppIntegrationController extends BaseController
             }
         }
         $recordsCount = '';
-        $return_array['records_count'] = $recordsCount;
+         $return_array['records_count'] = $recordsCount;
+        $return_array['template_name'] = $templateNames;
+        $return_array['templatelanguage'] = $templatelanguage;
         $return_array['html'] = $Html;
         return json_encode($return_array, true);
         die();
     }
+
+
 
     public function duplicate_data2($data, $table)
     {
@@ -1070,4 +1085,57 @@ class WhatAppIntegrationController extends BaseController
         // pre($Result);
         echo $ReturnResult;
     }
+
+    public function single_whatsapp_template_sent()
+    {
+        $post_data = $_POST;
+
+        $template_name = $post_data['header'];
+        $phone_no = $post_data['phone_no'];
+        $language = $post_data['language'];
+
+        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+
+        $url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
+
+        $postData = json_encode([
+            "messaging_product" => "whatsapp",
+            "recipient_type" => "individual",
+            "to" => $phone_no,
+            "type" => "template",
+            "template" => [
+                "name" => $template_name,
+                "language" => [
+                    "code" => $language
+                ]
+            ]
+        ]);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "Content-Length: " . strlen($postData),
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+
+        if ($response == false) {
+            $error = curl_error($ch);
+            echo "cURL Error: " . $error;
+            $msgStatus = 0;
+
+        } else {
+            $msgStatus = 1;
+            echo $response;
+        }
+
+        curl_close($ch);
+        return json_encode($msgStatus, true);
+    }
+    
 }
