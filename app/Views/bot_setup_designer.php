@@ -1080,7 +1080,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
 </div>
 
 <!-- Modal -->
-<div class="modal fade show d-block active" id="add-email" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="">
+<div class="modal fade" id="add-email" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -1088,6 +1088,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
                 <div class="col-12 d-flex flex-wrap">
                     <div class="col-10 d-flex align-items-center">
                         <span>
@@ -1099,43 +1100,44 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                     </div>
                     <div class="col-12 p-2 border my-3">
                         <form class="needs-validation add_form_Email col-12" id="add_form_Email" name="add_form_Email" novalidate>
-
-
                             <div id="editor_add" class="Email_Add_Ckeditor" style="border:1px solid red">
                             </div>
-
                         </form>
                     </div>
                 </div>
 
-                <div class="col-12 d-flex flex-wrap">
+                <div class="col-12 d-flex-flex-wrap">
 
-                    <ul class="nav nav-tabs col-12" id="myTab" role="tablist">
-                        <li class="nav-item col-4 d-flex justify-content-center" role="presentation">
-                            <button class="nav-link active w-100 fw-medium" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic-edit" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic</button>
-                        </li>
-                        <li class="nav-item col-4 d-flex justify-content-center" role="presentation">
-                            <button class="nav-link w-100 fw-medium" id="media-tab" data-bs-toggle="tab" data-bs-target="#media-edit" type="button" role="tab" aria-controls="media" aria-selected="false">Media</button>
-                        </li>
-                        <li class="nav-item col-4 d-flex justify-content-center" role="presentation">
-                            <button class="nav-link w-100 fw-medium" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced-edit" type="button" role="tab" aria-controls="advanced" aria-selected="false">Advanced</button>
-                        </li>
-                    </ul>
+                    <div class="col-12 d-flex flex-wrap">
 
-                </div>
+                        <ul class="nav nav-tabs col-12" id="myTab" role="tablist">
+                            <li class="nav-item col-4 d-flex justify-content-center" role="presentation">
+                                <button class="nav-link active w-100 fw-medium" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic-edit" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic</button>
+                            </li>
+                            <li class="nav-item col-4 d-flex justify-content-center" role="presentation">
+                                <button class="nav-link w-100 fw-medium" id="media-tab" data-bs-toggle="tab" data-bs-target="#media-edit" type="button" role="tab" aria-controls="media" aria-selected="false">Media</button>
+                            </li>
+                            <li class="nav-item col-4 d-flex justify-content-center" role="presentation">
+                                <button class="nav-link w-100 fw-medium" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced-edit" type="button" role="tab" aria-controls="advanced" aria-selected="false">Advanced</button>
+                            </li>
+                        </ul>
 
-                <div class="col-12 d-flex flex-wrap p-2 my-3">
+                    </div>
 
                     <div class="tab-content col-12 edit-data-panal">
                         <div class="tab-pane active" id="basic-edit" role="tabpanel" aria-labelledby="basic-tab" tabindex="0">
-
                             <div class="col-12 d-flex flex-wrap p-1">
 
                                 <!--Whatsapp-->
                                 <!-- <div class="col-12 d-flex flex-wrap px-3">
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1" for="flexSwitchCheckDefault">Do Not Remove Menu Message (For Whatsapp)</label>
+                                        <div class="d-flex align-items-center col-12 my-2">
+                                            <label class="switch_toggle_primary">
+                                                <input class="toggle-checkbox Question-1" type="checkbox" id="Question-1">
+                                                <span class="check_input_primary round"></span>
+                                            </label>
+                                            <p class="mx-2 fw-medium Question-1">Do Not Remove Menu Message (For Whatsapp)</p>
+                                        </div>
                                     </div>
                                 </div> -->
 
@@ -1143,12 +1145,22 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 <!--Question-->
                                 <!-- <div class="col-12 d-flex flex-wrap px-2">
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-1" type="checkbox" role="switch" id="Question-1">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                                        <div class="d-flex align-items-center col-12 my-2">
+                                            <label class="switch_toggle_primary">
+                                                <input class="toggle-checkbox Question-1" type="checkbox" id="Question-1">
+                                                <span class="check_input_primary round"></span>
+                                            </label>
+                                            <p class="mx-2 fw-medium Question-1">Do Not Remove Menu Message (For Whatsapp)</p>
+                                        </div>
                                     </div>
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-2" type="checkbox" role="switch" id="Question-2">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
+                                        <div class="d-flex align-items-center col-12 my-2">
+                                            <label class="switch_toggle_primary">
+                                                <input class="toggle-checkbox Question-2" type="checkbox" id="Question-2">
+                                                <span class="check_input_primary round"></span>
+                                            </label>
+                                            <p class="mx-2 fw-medium Question-2">Do Not Give Skip Option</p>
+                                        </div>
                                     </div>
                                     <div class="col-12 my-2">
                                         <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
@@ -1227,16 +1239,31 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 <!--Email-->
                                 <!-- <div class="col-12 d-flex flex-wrap px-2">
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Email-1" type="checkbox" role="switch" id="Email-1">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-1" for="Email-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                                        <div class="d-flex align-items-center col-12 my-2">
+                                            <label class="switch_toggle_primary">
+                                                <input class="toggle-checkbox Email-1" type="checkbox" id="Email-1">
+                                                <span class="check_input_primary round"></span>
+                                            </label>
+                                            <p class="mx-2 fw-medium Email-1">Do Not Remove Menu Message (For Whatsapp)</p>
+                                        </div>
                                     </div>
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Email-2" type="checkbox" role="switch" id="Email-2">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-2" for="Email-2">Do Not Restrict to Company Emails</label>
+                                        <div class="d-flex align-items-center col-12 my-2">
+                                            <label class="switch_toggle_primary">
+                                                <input class="toggle-checkbox Email-2" type="checkbox" id="Email-2">
+                                                <span class="check_input_primary round"></span>
+                                            </label>
+                                            <p class="mx-2 fw-medium Email-2">Do Not Restrict to Company Emails</p>
+                                        </div>
                                     </div>
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Email-3" type="checkbox" role="switch" id="Email-3">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-3" for="Email-3">No Strict Validation</label>
+                                        <div class="d-flex align-items-center col-12 my-2">
+                                            <label class="switch_toggle_primary">
+                                                <input class="toggle-checkbox Email-3" type="checkbox" id="Email-3">
+                                                <span class="check_input_primary round"></span>
+                                            </label>
+                                            <p class="mx-2 fw-medium Email-3">No Strict Validation</p>
+                                        </div>
                                     </div>
                                     <div class="col-12 my-2">
                                         <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
@@ -1292,8 +1319,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 <!--Mobile Number-->
                                 <!-- <div class="col-12 d-flex flex-wrap px-2">
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Mobile-1" type="checkbox" role="switch" id="Mobile-1">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Mobile-1" for="Mobile-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                                        <div class="d-flex align-items-center col-12 my-2">
+                                            <label class="switch_toggle_primary">
+                                                <input class="toggle-checkbox Mobile-1" type="checkbox" id="Mobile-1">
+                                                <span class="check_input_primary round"></span>
+                                            </label>
+                                            <p class="mx-2 fw-medium Mobile-1">Do Not Remove Menu Message (For Whatsapp)</p>
+                                        </div>
                                     </div>
                                     <div class="col-12 my-2">
                                         <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
@@ -1309,8 +1341,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 <!--Number-->
                                 <!-- <div class="col-12 d-flex flex-wrap px-2">
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1" type="checkbox" role="switch" id="Number-1">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
+                                        <div class="d-flex align-items-center col-12 my-2">
+                                            <label class="switch_toggle_primary">
+                                                <input class="toggle-checkbox Number-1" type="checkbox" id="Number-1">
+                                                <span class="check_input_primary round"></span>
+                                            </label>
+                                            <p class="mx-2 fw-medium Number-1">Do Not Give Skip Option</p>
+                                        </div>
                                     </div>
                                     <div class="col-12 my-2">
                                         <form class="col-12 d-flex flex-wrap">
@@ -1471,12 +1508,12 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="list-Numbers" role="tabpanel" aria-labelledby="list-Numbers-list">
-                                                    <div class="col-12 text-center">
+                                                        <div class="col-12 text-center">
                                                             <img src="<?= site_url('assets/images/rating_numbers.png') ?>" alt="#" height="280px" width="350px">
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane fade" id="list-Options" role="tabpanel" aria-labelledby="list-Options-list">
-                                                    <div class="col-12 text-center">
+                                                        <div class="col-12 text-center">
                                                             <img src="<?= site_url('assets/images/rating_options.png') ?>" alt="#" height="280px" width="300px">
                                                         </div>
                                                     </div>
@@ -1574,10 +1611,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 <!--Location-->
                                 <!-- <div class="col-12 d-flex flex-wrap">
                                     <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
-                                    <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 mx-3 px-5 ">
-                                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Location-1" type="checkbox" role="switch" id="Location-1">
-                                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Location-1" for="Location-1">Do Not Give Skip Option</label>
-                                    </div>
+                                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 mx-3 px-5 ">
+                                            <div class="d-flex align-items-center col-12 my-2">
+                                                <label class="switch_toggle_primary">
+                                                    <input class="toggle-checkbox Location-1" type="checkbox" id="Location-1">
+                                                    <span class="check_input_primary round"></span>
+                                                </label>
+                                                <p class="mx-2 fw-medium Location-1">Do Not Give Skip Option</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div> -->
 
@@ -1605,8 +1647,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 <!-- <div class="col-12 d-flex flex-wrap">
                                     <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
                                         <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 mx-3 px-5 ">
-                                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Location-1" type="checkbox" role="switch" id="Location-1">
-                                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Location-1" for="Location-1">Do Not Give Skip Option</label>
+                                            <div class="d-flex align-items-center col-12 my-2">
+                                                <label class="switch_toggle_primary">
+                                                    <input class="toggle-checkbox Location-1" type="checkbox" id="Location-1">
+                                                    <span class="check_input_primary round"></span>
+                                                </label>
+                                                <p class="mx-2 fw-medium Location-1">Do Not Give Skip Option</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 my-2">
@@ -1646,8 +1693,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 <!-- <div class="col-12 d-flex flex-wrap">
                                     <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
                                         <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 mx-3 px-5 ">
-                                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Website-1" type="checkbox" role="switch" id="Website-1">
-                                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Website-1" for="Website-1">Do Not Give Skip Option</label>
+                                            <div class="d-flex align-items-center col-12 my-2">
+                                                <label class="switch_toggle_primary">
+                                                    <input class="toggle-checkbox Website-1" type="checkbox" id="Website-1">
+                                                    <span class="check_input_primary round"></span>
+                                                </label>
+                                                <p class="mx-2 fw-medium Website-1">Do Not Give Skip Option</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 my-2">
@@ -1664,8 +1716,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 <!-- <div class="col-12 d-flex flex-wrap">
                                     <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
                                         <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 mx-3 px-5 ">
-                                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Ask_Contact-1" type="checkbox" role="switch" id="Ask_Contact-1">
-                                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Ask_Contact-1" for="Ask_Contact-1">Do Not Give Skip Option</label>
+                                            <div class="d-flex align-items-center col-12 my-2">
+                                                <label class="switch_toggle_primary">
+                                                    <input class="toggle-checkbox Ask_Contact-1" type="checkbox" id="Ask_Contact-1">
+                                                    <span class="check_input_primary round"></span>
+                                                </label>
+                                                <p class="mx-2 fw-medium Ask_Contact-1">Do Not Give Skip Option</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12 my-2">
@@ -1735,8 +1792,13 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                 <!-- <div class="col-12 d-flex flex-wrap Corousel-choice">
                                     <div class="col-12 d-flex flex-wrap my-3">
                                         <div class="form-check form-switch d-flex flex-wrap align-items-center col-4 m-2">
-                                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Corousel-1" type="checkbox" role="switch" id="Corousel-1">
-                                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Corousel-1" for="Corousel-1">Do Not Auto Slide</label>
+                                            <div class="d-flex align-items-center col-12 my-2">
+                                                <label class="switch_toggle_primary">
+                                                    <input class="toggle-checkbox Corousel-1" type="checkbox" id="Corousel-1">
+                                                    <span class="check_input_primary round"></span>
+                                                </label>
+                                                <p class="mx-2 fw-medium Corousel-1">Do Not Auto Slide</p>
+                                            </div>
                                         </div>
                                         <div class="col-4 d-flex flex-wrap align-items-center corousel-sec-input d-none">
                                             <span>Delay (sec)</span>
@@ -1846,9 +1908,12 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                                 </div>
                                             </div>
                                             <div class="col-7 p-2 d-flex flex-wrap align-items-center">
-                                                <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                                                    <input class="form-check-input fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Appointment-1 col-1" type="checkbox" role="switch" id="Appointment-1">
-                                                    <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Appointment-1 col" for="Appointment-1">Enable Timezone Selection</label>
+                                                <div class="d-flex align-items-center col-12 my-2">
+                                                    <label class="switch_toggle_primary">
+                                                        <input class="toggle-checkbox Appointment-1" type="checkbox" id="Appointment-1">
+                                                        <span class="check_input_primary round"></span>
+                                                    </label>
+                                                    <p class="mx-2 fw-medium Appointment-1">Enable Timezone Selection</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1975,7 +2040,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                     </div>
                                 </div> -->
 
-                                <!--url redirect-->
+                                <!--url redirec yasht-->
                                 <!-- <div class="col-12 d-flex flex-warp">
                                     <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
                                         <div class="col-12 d-flex flex-wrap align-items-center my-1">
@@ -2004,6 +2069,90 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                     </div>
                                 </div> -->
 
+                                <!-- Follow us on facebook for more updates. yash -->
+                                <!-- <div>
+                                    <div class="updates_mandiv">
+
+                                    </div>
+                                    <div class="col-1">
+                                        <button type="button" class="btn mt-3 btn-outline-primary" onclick="updates_mandiv()">ADD</button>
+                                    </div>
+                                </div> -->
+
+                                <!-- carousel  yash -->
+                                <!-- <div class="d-flex flex-wrap col-12">
+                                    <div class="col-12 d-flex flex-wrap my-3">
+                                        <div class="d-flex flex-wrap align-items-center col-4 m-2" style="height: 69px;">
+                                            <div class="d-flex align-items-center ">
+                                                <label class="switch_toggle_primary">
+                                                    <input class="toggle-checkbox proudect-1" type="checkbox" id="proudect-1">
+                                                    <span class="check_input_primary round"></span>
+                                                </label>
+                                                <p class="mx-2 fw-medium proudect-1">Do Not Auto Slide</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 d-flex flex-wrap  align-items-center proudect-corousel-sec-input second-remove">
+                                            <span class="col">Delay (sec)</span>
+                                            <span class="col mx-2">
+                                                <input type="number" class="form-control" id="" value="1">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <!-- Pick an item of your choices. yash -->
+                                <!-- <div class="d-flex flex-wrap col-12">
+                                    <div class="col-12 d-flex flex-wrap my-3">
+                                        <div class="d-flex flex-wrap align-items-center col-4 m-2" style="height: 69px;">
+                                            <div class="d-flex align-items-center ">
+                                                <label class="switch_toggle_primary">
+                                                    <input class="toggle-checkbox proudect-1" type="checkbox" id="proudect-1">
+                                                    <span class="check_input_primary round"></span>
+                                                </label>
+                                                <p class="mx-2 fw-medium proudect-1">Do Not Auto Slide</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 d-flex flex-wrap  align-items-center proudect-corousel-sec-input second-remove">
+                                            <span class="col">Delay (sec)</span>
+                                            <span class="col mx-2">
+                                                <input type="number" class="form-control" id="" value="1">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2 mb-3">
+                                    <div class="col-3">
+                                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect">
+                                    </div>
+                                    <div class="col-2">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="file" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect">
+                                    </div>
+                                    <div class="col-1">
+                                        <div class="col">
+                                            <button type="button" class="btn btn-outline-danger">D</button>
+                                        </div>
+                                    </div>
+                                </div> -->
+
                                 <!--proudect carousel-->
                                 <!-- <div class="col-12 d-flex flex-wrap">
                                     <div class="col-12 d-flex flex-wrap my-3">
@@ -2023,93 +2172,6 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                                     </div>
                                     <div class="col-12 d-flex flex-wrap my-3">
                                         <div class="proudect-table-body">
-                                            <div class="d-flex flex-wrap col-12 w-100 proudect-table-row">
-                                                <div class="proudect-table-1 col-12 w-100 ">
-                                                    <table class="table w-100 col-12 proudect-table-upper">
-                                                        <tbody class="proudect-table-upper-body">
-                                                            <tr>
-                                                                <td class="proudect-table-1 col-2">
-                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
-                                                                        <div class="col-12">
-                                                                            <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label>
-                                                                            <select class="form-select" aria-label="Default select example">
-                                                                                <option value="1">Image</option>
-                                                                                <option value="2">Video</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="proudect-table-1 col">
-                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
-                                                                        <div class="col-12">
-                                                                            <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label>
-                                                                            <input type="text" class="form-control" id="" placeholder="your URL">
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="proudect-table-1 col">
-                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
-                                                                        <div class="col-12">
-                                                                            <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label>
-                                                                            <input type="text" class="form-control" id="" placeholder="your URL">
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="proudect-table-1 col-2">
-                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
-                                                                        <div class="col-12">
-                                                                            <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label>
-                                                                            <input class="form-control Corousel-file" type="file" id="formFile">
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="proudect-table-1 col-12 w-100">
-                                                    <table class="table w-100 col-12 proudect-table-lower">
-                                                        <tbody class="proudect-table-lower-body">
-                                                            <tr>
-                                                                <td class="proudect-table-1 col-4">
-                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
-                                                                        <div class="col-12 d-flex flex-wrap align-items-center">
-                                                                            <div class="col-12">
-                                                                                <label for="" class="form-label fw-medium">Description</label>
-                                                                                <input type="text" class="form-control" id="" placeholder="Description">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="proudect-table-1 col-2">
-                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
-                                                                        <div class="col-12">
-                                                                            <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label>
-                                                                            <input type="text" class="form-control" id="" placeholder="your URL">
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="proudect-table-1 col">
-                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
-                                                                        <div class="col-12">
-                                                                            <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label>
-                                                                            <input type="text" class="form-control" id="" placeholder="your URL">
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td class="proudect-table-1 col-2">
-                                                                    <div class="col-12 d-flex flex-wrap align-items-center">
-                                                                        <div class="col-12">
-                                                                            <label for="" class="form-label fw-medium col-12">Remove</label>
-                                                                            <button type="button" class="btn btn-danger multiple-remove-btn ">D</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -2277,14 +2339,135 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                             </div>
                         </div>
                     </div>
+
                 </div>
+
+                <div class="col-12 d-flex-flex-wrap">
+
+                    <!-- dynamic question -->
+                    <!-- <div class="model_body_two">
+
+                        <div class="row mt-2 mb-3">
+                            <div class="col-3">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Open this</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect">
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="Params-tab" data-bs-toggle="tab" data-bs-target="#Params-tab-pane" type="button" role="tab" aria-controls="Params-tab-pane" aria-selected="true">Params</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="Cookies-tab" data-bs-toggle="tab" data-bs-target="#Cookies-tab-pane" type="button" role="tab" aria-controls="Cookies-tab-pane" aria-selected="false">Cookies</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="Authorization-tab" data-bs-toggle="tab" data-bs-target="#Authorization-tab-pane" type="button" role="tab" aria-controls="Authorization-tab-pane" aria-selected="false">Authorization</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="Headeers-tab" data-bs-toggle="tab" data-bs-target="#Headeers-tab-pane" type="button" role="tab" aria-controls="Headeers-tab-pane" aria-selected="false">Headeers</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="Error-Handling-tab" data-bs-toggle="tab" data-bs-target="#Error-Handling-tab-pane" type="button" role="tab" aria-controls="Error-Handling-tab-pane" aria-selected="false">Error Handling</button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active p-3" id="Params-tab-pane" role="tabpanel" aria-labelledby="Params-tab" tabindex="0">
+
+                                <div class="params_div">
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" onclick="Params_data()" class="btn mt-3 btn-outline-primary">ADD</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade p-3" id="Cookies-tab-pane" role="tabpanel" aria-labelledby="Cookies-tab" tabindex="0">
+                                <div class="Cookies_div">
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" onclick="Cookies_data()" class="btn mt-3 btn-outline-primary">ADD</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade p-3" id="Authorization-tab-pane" role="tabpanel" aria-labelledby="Authorization-tab" tabindex="0">
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="mb-2">Select Authorization Type</label>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Open this</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade p-3" id="Headeers-tab-pane" role="tabpanel" aria-labelledby="Headeers-tab" tabindex="0">
+                                <div class="Headeers_div">
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" onclick="Headeers_data()" class="btn mt-3 btn-outline-primary">ADD</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade p-3" id="Error-Handling-tab-pane" role="tabpanel" aria-labelledby="Error-Handling-tab" tabindex="0">
+
+                                <label class="mb-2">If your API returns an error or nothing Jump to</label>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Open this</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-8">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Open this</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
             </div>
-        </div>
+        </div>    
     </div>
+</div>
 </div>
 
 
@@ -2343,6 +2526,152 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
     });
 </script>
 
+
+<!--Modal Jquery-->
+<script>
+    function updates_mandiv() {
+
+        const html = ` <div class="row mt-2 mb-2 d-flex align-items-center updates_divin">
+                                        <div class="col-3">
+                                            <label for="" class="mb-2 mt-2">Type</label>
+                                            <select class="form-select url_navigator_select" aria-label="Default select example">
+                                                <option selected>Select</option>
+                                                <option value="Facebook">Facebook</option>
+                                                <option value="Twitter">Twitter</option>
+                                                <option value="Instagram">Instagram</option>
+                                                <option value="Linkedin">Linkedin</option>
+                                                <option value="Youtube">Youtube</option>
+                                                <option value="Messenger">Messenger</option>
+                                                <option value="Google_Plus">Google Plus</option>
+                                                <option value="Call">Call</option>
+                                                <option value="Whatsapp">Whatsapp</option>
+                                                <option value="URL">URL</option>
+                                                <option value="Refresh_chat">Refresh chat</option>
+                                                <option value="close_Chat">close Chat</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="" class="mb-2 mt-2">Text</label>
+                                            <input type="text" class="form-control" aria-describedby="" value="Authenticator" placeholder="Set Button Text">
+                                        </div>
+                                        <div class="col-5">
+                                            <label for="" class="mb-2 mt-2">Link</label>
+                                            <input type="text" class="form-control" aria-describedby="" value="Authenticator" placeholder="Set Button Text">
+                                        </div>
+                                        <div class="col-1 mt-3">
+                                            <button type="button" id="updates_div_d" class="btn facebook_updates_d mt-4 btn-outline-danger">D</button>
+                                        </div>
+                                    </div>`;
+
+        $(".updates_mandiv").append(html);
+    }
+
+    updates_mandiv();
+
+    // $(".updates_divin").on("change", ".url_navigator_select", function() {
+
+    //     let url_navigator_select = $(".url_navigator_select").val();
+
+    //     console.log(url_navigator_select);
+
+    // });
+
+    function Params_data() {
+
+        const html = `<div class="row Params_data mt-2 mb-2">
+                        <div class="col-3">
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect">
+                        </div>
+                        <div class="col-3">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected >Open this</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-5">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this </option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-1">
+                        <div class="col">
+                               <button type="button" id="delete_btn_Params" class="btn btn-outline-danger">D</button>
+                        </div>
+                        </div>
+                    </div>`;
+
+
+        $(".params_div").append(html);
+    }
+
+    function Cookies_data() {
+
+        const html = ` <div class="row Cookies_div_in mt-2 mb-2 d-flex align-items-center">
+                                    <div class="col-3">
+                                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect">
+                                    </div>
+
+                                    <div class="col-8 border rounded-2">
+                                        <div class="form-check form-switch ps-0 d-flex flex-wrap align-items-center col-12 my-2 ">
+                                            <input class="form-check-input ms-0 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 send_params" type="checkbox" role="switch" id="send_params">
+                                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 send_params" for="send_params">Do not Send in Params</label>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-1">
+                                         <button type="button" id="Cookies_delete_btn" class="btn btn-outline-danger">D</button>
+                                    </div>
+                                </div>
+                                `;
+
+        $(".Cookies_div").append(html);
+    }
+
+    function Headeers_data() {
+
+        const html = `<div class="row Headeers_div_in mt-2 mb-2">
+                                <div class="col-6">
+                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect">
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect">
+                                </div>
+                                <div class="col-1">
+                                  <button type="button" id="Headeers_delete_btn" class="btn btn-outline-danger">D</button>
+                                </div>
+                               
+                            </div>
+                                `;
+
+
+        $(".Headeers_div").append(html);
+    }
+
+    Params_data();
+    Cookies_data();
+    Headeers_data();
+
+    $('body').on('click', '#delete_btn_Params', function() {
+        $(this).closest('.Params_data').remove();
+    });
+
+    $('body').on('click', '#Cookies_delete_btn', function() {
+        $(this).closest('.Cookies_div_in').remove();
+    });
+
+    $('body').on('click', '#Headeers_delete_btn', function() {
+        $(this).closest('.Headeers_div_in').remove();
+    });
+
+    $('body').on('click', '#updates_div_d', function() {
+        $(this).closest('.updates_divin').remove();
+    });
+</script>
 <script>
     $('.edit-qa-menu').click(function() {
         $('.edit-qa-menu').removeClass('active');
@@ -2471,6 +2800,15 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
                 $('.proudect-1').text('Do Not Auto Slide');
                 $('.proudect-corousel-sec-input').removeClass('second-add');
                 $('.proudect-corousel-sec-input').addClass('second-remove');
+            }
+        });
+
+
+        $('#send_params').change(function() {
+            if ($(this).prop('checked')) {
+                $('.send_params').text('Send in Params');
+            } else {
+                $('.send_params').text('Do not Send in Params');
             }
         });
 
@@ -2629,7 +2967,7 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         //proudect 
 
         function proudect_table_row() {
-            var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control Corousel-file" type="file" id="formFile"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class="btn btn-danger multiple-remove-btn ">D</button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
+            var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select proudect-select-picker" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center proudect-selecter"> <div class="col-12 proudect-image second-add"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control proudect-file" type="file" id="formFile"> </div> <div class="col-12 proudect-video second-remove"> <label for="" class="form-label fw-medium">URL<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class="btn btn-danger proudect-remove-btn ">D</button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
             $(".proudect-table-body").append(proudect_table_row);
         }
 
@@ -2640,27 +2978,75 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
         });
 
         $('body').on('click', '.proudect-remove-btn', function() {
-            $(this).closest('tr').hide();
+            $(this).closest('.proudect-table-row').remove();
         });
 
-        $('body').on('change', '.form-select-picker', function() {
-            form_value_change($(this).closest('tr'));
-        });
 
-        function form_value_change(row) {
-            var form_value = row.find(".form-select-picker").val();
-            if (form_value == "Dropdown") {
-                row.find('.form-regex').closest('td').children('input').attr('disabled', true);
+        $('body').on('change', '.proudect-select-picker', function() {
+            // proudect_value_change($(this).closest('td'));
 
-            } else if (form_value == "Question") {
-                row.find('.form-regex').closest('td').children('input').attr('disabled', false);
+            var proudect_value = $(this).closest('td').find(".proudect-select-picker").val();
+
+            if (proudect_value == "2") {
+
+                console.log($(this).closest('td').html());
+                // $(this).closest('td').hide();
+
+
+                $(this).closest('tr').find('.proudect-image').removeClass('second-add');
+                $(this).closest('tr').find('.proudect-image').addClass('second-remove');
+                $(this).closest('tr').find('.proudect-video').removeClass('second-remove');
+                $(this).closest('tr').find('.proudect-video').addClass('second-add');
+                // alert(proudect_value);
+
+
+            } else if (proudect_value == "1") {
+
+                console.log("jenish nhai");
+
+                $(this).closest('tr').find('.proudect-video').removeClass('second-add');
+                $(this).closest('tr').find('.proudect-video').addClass('second-remove');
+                $(this).closest('tr').find('.proudect-image').removeClass('second-remove');
+                $(this).closest('tr').find('.proudect-image').addClass('second-add');
+
             }
+
+        });
+
+        function proudect_value_change(row) {
+
+            var proudect_value = row.find(".proudect-select-picker").val();
+            alert(proudect_value);
+
+            if (proudect_value == "2") {
+
+                console.log("helllo");
+
+
+                $('.proudect-image').removeClass('second-add');
+                $('.proudect-image').addClass('second-remove');
+                $('.proudect-video').removeClass('second-remove');
+                $('.proudect-video').addClass('second-add');
+
+
+            } else if (proudect_value == "1") {
+
+                console.log("jenish nhai");
+
+                $('.proudect-video').removeClass('second-add');
+                $('.proudect-video').addClass('second-remove');
+                $('.proudect-image').removeClass('second-remove');
+                $('.proudect-image').addClass('second-add');
+
+            }
+
         }
 
 
 
     });
 </script>
+
 
 
 <script>
