@@ -608,7 +608,7 @@ $language_name = json_decode($language_name, true);
                                                     fill="#724ebf" opacity="1" data-original="#000000" class=""></path>
                                             </g>
                                         </svg></p>
-                                    <span class="ms-3 first-container-text"> Create Templates</span>
+                                    <span class="ms-3 first-container-text">Templates</span>
                                 </div>
                             </li>
 
@@ -2686,9 +2686,13 @@ $language_name = json_decode($language_name, true);
             // console.log(jsonString);
 
         }
-
-
-
          
     });
+    $('.tip').each(function () {
+	$(this).tooltip(
+	{
+		html: true,
+		title: $('#' + $(this).data('tip')).html()
+	});
+});
 </script>

@@ -119,10 +119,11 @@ class WhatAppIntegrationController extends BaseController
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
                         $ConnectionStatus = 1;
-                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components&access_token=' . $settings_data['whatapp_access_token'];
+                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['whatapp_access_token'];
                         $responselistdata = getSocialData($urllistdata);
                         if (isset($responselistdata)) {
                             if (isset($responselistdata['data'])) {
+                                // pre($responselistdata['data']);
                                 if (!empty($responselistdata['data'])) {
                                     foreach ($responselistdata['data'] as $key => $value) {
                                         $Name = $value['name'];
@@ -131,6 +132,18 @@ class WhatAppIntegrationController extends BaseController
                                         $id = $value['id'];
                                         $language = $value['language'];
                                         $status = $value['status'];
+
+                                        if($status == "APPROVED"){
+                                            if(isset($value['quality_score']['score'])){
+                                                if($value['quality_score']['score'] == "UNKNOWN"){
+                                                    $status = $status.' -  Quality pending';
+                                                }else{
+                                                    $status = $status.' - '.$value['quality_score']['score'];
+
+                                                }
+                                            }
+                                        }
+
                                         if (isset($value['components']) && !empty($value['components'])) {
                                             foreach ($value['components'] as $key1 => $value1) {
                                                 if ($value1['type'] == 'BODY') {
@@ -145,7 +158,7 @@ class WhatAppIntegrationController extends BaseController
                                                 <td class="py-2">' . $status . '</td>
 
                                                 <td class="py-2 ">
-                                                    <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
+                                                    <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
                                                         ' . $Body . '
                                                     </div>
                                                 </td>
