@@ -630,9 +630,11 @@
                                                                         <option value="" selected disabled>Please select template</option>
                                                                     </select>
                                                                 </div>
+
                                                                 <div class="col-12 mb-3 mt-2">
                                                                     <input type="text" class="form-control main-control phone_number_div" id="phone_number" placeholder="Enter your phone number" name="" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
                                                                 </div>
+
                                                                 <div class="col-12 mb-3 mt-2">
                                                                     <select class="form-control main-control language_div" id="language" name="language" required>
                                                                         <option class="fs-12" label="Please select your language" value=""></option>
@@ -1999,15 +2001,18 @@
 
             },
             success: function(res) {
-                $('.loader').hide()
+                $('.loader').hide();
                 var response = JSON.parse(res);
                 var template_name = response.template_name;
-                var templateid = response.templateid;
+                var templatelanguage = response.templatelanguage;
+
 
                 $('.header_div').attr('DataMNo', response.templateid);
                 var selectDropdown = document.getElementById("header");
+                // var languageDropdown = document.getElementById("language");
 
                 selectDropdown.innerHTML = "";
+                // languageDropdown.innerHTML = "";
 
                 var defaultOption = document.createElement("option");
                 defaultOption.text = "Please select template";
@@ -2022,48 +2027,72 @@
                         option.text = template_name[key];
                         option.value = template_name[key];
                         selectDropdown.add(option);
+
                     }
                 }
+                // for (var key in templatelanguage) {
+                //     if (templatelanguage.hasOwnProperty(key)) {
+                //         var option = document.createElement("option");
+                //         option.text = templatelanguage[key];
+                //         option.value = templatelanguage[key];
+                //         languageDropdown.add(option);
+                //         $('#language').val(languageDropdown);
+
+                //     }
+                // }
+                $('#header').change(function() {
+                    var selectDropdown = $(this).val();
+                    var languageDropdown = templatelanguage[selectDropdown];
+                    $('.language_div').val(languageDropdown);
+                    // $('.language_div12').selectpicker('refresh');
+
+                });
+
+
                 $('#memberships_list').html(response.html);
             }
+
         });
 
     });
 
-    $('body').on('click', '.Template_send', function() {
-    var header = $('.header_div').val();
-    var phone_no = $('.phone_number_div').val();
-    var language = $('.language_div').val();
-    
-    if (header !== "" && phone_no !== "" && language !== "") {
-        $.ajax({
-            dataType: 'json',
-            method: "POST",
-            url: "<?= site_url('single_whatsapp_template_sent'); ?>",
-            data: {
-                'header': header,
-                'phone_no': phone_no,
-                'language': language,
-                'action': true
-            },
-            success: function(res) {
-                console.log(res);
-                $('.loader').hide();
-                if (res =='1') {
-                    iziToast.success({
-                        title: "Template sent successfully"
-                    });
-                } else {
-                    iziToast.error({
-                        title: 'Something went wrong!'
-                    });
-                }
-            },
-           
-        });
-    } else {
-        $(".membershipDiv").addClass("was-validated");
-    }
-});
 
+
+
+
+    $('body').on('click', '.Template_send', function() {
+        var header = $('.header_div').val();
+        var phone_no = $('.phone_number_div').val();
+        var language = $('.language_div').val();
+
+        if (header !== "" && phone_no !== "" && language !== "") {
+            $.ajax({
+                dataType: 'json',
+                method: "POST",
+                url: "<?= site_url('single_whatsapp_template_sent'); ?>",
+                data: {
+                    'header': header,
+                    'phone_no': phone_no,
+                    'language': language,
+                    'action': true
+                },
+                success: function(res) {
+                    console.log(res);
+                    $('.loader').hide();
+                    if (res == '1') {
+                        iziToast.success({
+                            title: "Template sent successfully"
+                        });
+                    } else {
+                        iziToast.error({
+                            title: 'Something went wrong!'
+                        });
+                    }
+                },
+
+            });
+        } else {
+            $(".membershipDiv").addClass("was-validated");
+        }
+    });
 </script>
