@@ -694,7 +694,7 @@ class WhatAppAakashController extends BaseController
 
         } else {
             $msgStatus = 1;
-            // echo "Message sent successfully!";
+            echo $response;
         }
 
         curl_close($ch);

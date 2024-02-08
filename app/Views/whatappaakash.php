@@ -309,6 +309,9 @@
     .add_user_role_css {
         padding: 10px;
     }
+    .iti{
+        width: 100%;
+    }
 </style>
 <style>
     .wa-preview-main-div-cont {
@@ -632,7 +635,8 @@
                                                                 </div>
 
                                                                 <div class="col-12 mb-3 mt-2">
-                                                                    <input type="text" class="form-control main-control phone_number_div" id="phone_number" placeholder="Enter your phone number" name="" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
+                                                                    <!-- <input type="text" class="form-control main-control phone_number_div" id="phone_number" placeholder="Enter your phone number" name="" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required> -->
+                                                                    <input type="text" id="mobile_code" class="form-control phone_number_div" placeholder="Enter your phone number" name="name">
                                                                 </div>
 
                                                                 <div class="col-12 mb-3 mt-2">
@@ -2095,4 +2099,9 @@
             $(".membershipDiv").addClass("was-validated");
         }
     });
+    $("#mobile_code").intlTelInput({
+	initialCountry: "in",
+	separateDialCode: true,
+	// utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
+});
 </script>
