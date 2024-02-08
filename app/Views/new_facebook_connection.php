@@ -4,24 +4,30 @@
     .sm-btn {
         padding: 2px 4px;
     }
+
     .Success {
         background-color: #41b039;
     }
+
     .Warning {
         background-color: #dacb00;
     }
+
     .Error {
         background-color: #ff0000;
     }
+
     .Info {
         background-color: #0D6EFD;
     }
+
     .main-table.lead_list_table tbody tr:nth-child(even) {
         background-color: #edd9ff29;
     }
-    @media(min-width:990px){
-        .responsivetable{
-            overflow: visible!important;
+
+    @media(min-width:990px) {
+        .responsivetable {
+            overflow: visible !important;
         }
     }
 </style>
@@ -37,11 +43,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         <div>
             <div class="col-xl-12 d-flex justify-content-between">
                 <div class="title-1  d-flex align-items-center">
-                    <i class="fa-brands fa-facebook transition-5 icon2 rounded-circle" style="font-size: 35px;color: #3a559f;"></i>
+                    <i class="fa-brands fa-facebook transition-5 icon2 rounded-circle"
+                        style="font-size: 35px;color: #3a559f;"></i>
                     <h2>Facebook Connections</h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end  col-1">
-                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-primary-rounded mx-2">
+                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        class="btn-primary-rounded mx-2">
                         <i class="bi bi-plus"></i>
                     </button>
                 </div>
@@ -52,7 +60,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         <div class="row">
             <div class="p-2">
                 <!-- <div class="col-xl-12 d-flex p-2 px-4 d-flex flex-wrap"> -->
-                    <!-- <div class="col-3">
+                <!-- <div class="col-3">
                         <div class="d-flex input-group">
                             <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></span>
                             <input type="number" min="0" step="0.01" class="form-control main-control " id="coupon_value" name="coupon_value" placeholder="Coupon Value" required="">
@@ -78,7 +86,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     <div class="d-flex align-items-center col-1 mx-2">
 
                     </div> -->
-                    <!-- <div class="col-12 w-100  my-3">
+                <!-- <div class="col-12 w-100  my-3">
                         <table class="table table-borderless">
                             <thead>
                                 <tr class="border-bottom">
@@ -126,51 +134,53 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         </table>
                     </div> -->
 
-                    <div class="col-12 py-3 px-3 bg-white rounded-2">
-                        <div class="w-100 overflow-x-scroll scroll-small row_none responsivetable">
-                            <div class="attendence-search mb-1 d-flex align-items-center flex-wrap justify-content-between">
-                                <div class="dataTables_length" id="project_length">
-                                    <label>
-                                        Show
-                                        <select name="project_length" id="fb_length_show" aria-controls="project" class="table_length_select_check_2">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select>
-                                        Records
-                                        <span class="list_count"></span>
-                                    </label>
-                                </div>
-                                <div id="people_wrapper" class="dataTables_wrapper no-footer">
-                                    <div id="fb_filter" class="dataTables_filter justify-content-end d-flex py-1 py-sm-0">
-                                        <label>Search:<input type="search" class="" placeholder="" aria-controls="project"></label>
-                                    </div>
-                                </div>
+                <div class="col-12 py-3 px-3 bg-white rounded-2">
+                    <div class="w-100 overflow-x-scroll scroll-small row_none responsivetable">
+                        <div class="attendence-search mb-1 d-flex align-items-center flex-wrap justify-content-between">
+                            <div class="dataTables_length" id="project_length">
+                                <label>
+                                    Show
+                                    <select name="project_length" id="fb_length_show" aria-controls="project"
+                                        class="table_length_select_check_2">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    Records
+                                    <span class="list_count"></span>
+                                </label>
                             </div>
-                            <table id="leadTable" class="table main-table w-100">
-                                <thead>
-                                    <tr>
-                                        <th class="p-2 text-nowrap"><span>App Name</span></th>
-                                        <th class="p-2 text-nowrap"><span>App Id </span></th>
-                                        <th class="p-2 text-nowrap"><span>Type</span></th>
-                                        <th class="p-2 text-nowrap"><span></span></th>
-                                        <th class="p-2 text-nowrap"><span>Status</span></th>
-                                        <th class="p-2 text-nowrap text-center"><span></span></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="fb_list_data"></tbody>
-                            </table>
-                            <div class="d-flex justify-content-between align-items-center row-count-main-section flex-wrap">
-                                <div class="row_count_div col-xl-6 col-12">
-                                    <p id="row_count"></p>
-                                </div>
-                                <div class="clearfix  col-xl-6 col-12">
-                                    <ul class="fb_pagination justify-content-xl-end" id="fb_pagination"></ul>
+                            <div id="people_wrapper" class="dataTables_wrapper no-footer">
+                                <div id="fb_filter" class="dataTables_filter justify-content-end d-flex py-1 py-sm-0">
+                                    <label>Search:<input type="search" class="" placeholder=""
+                                            aria-controls="project"></label>
                                 </div>
                             </div>
                         </div>
+                        <table id="leadTable" class="table main-table w-100">
+                            <thead>
+                                <tr>
+                                    <th class="p-2 text-nowrap"><span>App Name</span></th>
+                                    <th class="p-2 text-nowrap"><span>App Id </span></th>
+                                    <th class="p-2 text-nowrap"><span>Type</span></th>
+                                    <th class="p-2 text-nowrap"><span></span></th>
+                                    <th class="p-2 text-nowrap"><span>Status</span></th>
+                                    <th class="p-2 text-nowrap text-center"><span></span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="fb_list_data"></tbody>
+                        </table>
+                        <div class="d-flex justify-content-between align-items-center row-count-main-section flex-wrap">
+                            <div class="row_count_div col-xl-6 col-12">
+                                <p id="row_count"></p>
+                            </div>
+                            <div class="clearfix  col-xl-6 col-12">
+                                <ul class="fb_pagination justify-content-xl-end" id="fb_pagination"></ul>
+                            </div>
+                        </div>
                     </div>
+                </div>
                 <!-- </div> -->
 
             </div>
@@ -191,7 +201,8 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 <form class="needs-validation row" name="fb_cnt" method="POST" novalidate="">
                     <div class="col-12">
                         <h6 class="modal-body-title">Access Token<sup class="validationn">*</sup></h6>
-                        <textarea type="text" class="form-control main-control" id="access_token" name="access_token" placeholder="Enter Access Token" required></textarea>
+                        <textarea type="text" class="form-control main-control" id="access_token" name="access_token"
+                            placeholder="Enter Access Token" required></textarea>
                     </div>
                 </form>
             </div>
@@ -202,13 +213,150 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         </div>
     </div>
 </div>
+<!-- informaion-modal -->
+<div class="modal fade" id="informaion_connection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body overflow-y-scroll set-permission" style="height:400px">
+                <!-- <table class="col-12">
+                    <tbody>
+                        <tr>
+                            <th>Permission</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td>read_insights</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>publish_video</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>catalog_management</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_manage_cta</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_manage_instant_articles</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_show_list</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>read_page_mailboxes</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>ads_management</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>ads_read</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>business_management</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_messaging</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>instagram_basic</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>instagram_manage_comments</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>instagram_manage_insights</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>instagram_content_publish</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>leads_retrieval</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>whatsapp_business_management</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>instagram_manage_messages</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>page_events</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_read_engagement</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_manage_metadata</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_read_user_content</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_manage_ads</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_manage_posts</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>pages_manage_engagement</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>whatsapp_business_messaging</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>instagram_shopping_tag_products</td>
+                            <td>granted</td>
+                        </tr>
+                        <tr>
+                            <td>public_profile</td>
+                            <td>granted</td>
+                        </tr>
+                    </tbody>
+                </table> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         list_data();
     });
-    $('body').on('click', '#facebook_cnt', function() {
+    $('body').on('click', '#facebook_cnt', function () {
         var access_token = $("#access_token").val();
         if (access_token != '') {
             $.ajax({
@@ -218,7 +366,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     action: 'insert',
                     access_token: access_token,
                 },
-                success: function(res) {
+                success: function (res) {
                     var result = JSON.parse(res);
                     if (result.response == 1) {
                         $("form[name='fb_cnt']")[0].reset();
@@ -234,14 +382,14 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         });
                     }
                 },
-                error: function(error) {
+                error: function (error) {
                     $('.loader').hide();
                 }
             });
             return false;
         } else {
             var form = $("form[name='fb_cnt']")[0];
-            $(form).find('.selectpicker').each(function() {
+            $(form).find('.selectpicker').each(function () {
                 var selectpicker_valid = 0;
                 if ($(this).attr('required') == 'undefined') {
                     var selectpicker_valid = 0;
@@ -286,7 +434,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             data: data,
             processData: processdd,
             contentType: contentType,
-            success: function(res) {
+            success: function (res) {
                 var result = JSON.parse(res);
                 if (result.response == 1) {
                     if (result.total_page == 0 || result.total_page == '') {
@@ -301,7 +449,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         visiblePages: 2,
                         next: '>>',
                         prev: '<<',
-                        onPageClick: function(event, page) {
+                        onPageClick: function (event, page) {
                             list_data(table, page, perPageCount, ajaxsearch);
                         }
                     });
@@ -309,7 +457,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             }
         });
     }
-    $('#fb_filter input[type="search"]').on('keyup', function(e) {
+    $('#fb_filter input[type="search"]').on('keyup', function (e) {
         if (e.which == 13) {
             $('.fb_pagination').twbsPagination('destroy');
             var input = $(this).val().toLowerCase();
@@ -318,14 +466,14 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             list_data('integration', '', '', input);
         }
     });
-    $('body').on('change', '#fb_length_show', function() {
+    $('body').on('change', '#fb_length_show', function () {
         $('.fb_pagination').twbsPagination('destroy');
         var perPageCount = $(this).val();
         list_data('integration', 1, perPageCount)
     });
-    $('body').on('click','.get-permission', function() {
-        
-        var access_token=$(this).attr('data-access-token');
+    $('body').on('click', '.get-permission', function () {
+
+        var access_token = $(this).attr('data-access-token');
         var data = {
             'access_token': access_token,
         };
@@ -334,7 +482,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             method: "POST",
             url: 'fb_permission_list',
             data: data,
-            success: function(res) {
+            success: function (res) {
                 var result = JSON.parse(res);
                 if (result.response == 1) {
                     $('.set-permission').html(result.tableHtml);

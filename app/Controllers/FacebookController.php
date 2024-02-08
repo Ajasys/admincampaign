@@ -1223,6 +1223,9 @@ class FaceBookController extends BaseController
                                 modal-2 dkjdgdgdfgd
                             </ul>
                         </div>
+                        <button type="button" class="btn border-0 bg-transparent " data-bs-toggle="modal" data-bs-target="#informaion_connection">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </button>
                         <i class="fa-solid fa-trash-can"></i>
                     </td>
                 </tr>';
