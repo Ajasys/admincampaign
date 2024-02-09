@@ -497,7 +497,7 @@ if ($query->getNumRows() > 0) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="fw-bold mb-2 mian fs-5">Update your customer list custom audience</h5>
-                <button type="button" class="btn-close close-mital" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p id="active" class="fs-14">Changing your customer list custom audience will also update any ad sets or
@@ -607,7 +607,6 @@ if ($query->getNumRows() > 0) {
             lengthChange: true,
         });
 
-}
     }
 
     // Call both functions when the page loads
@@ -1096,11 +1095,5 @@ if ($query->getNumRows() > 0) {
     })
     $('body').on('click', '#import_inquiry_csv_btn', function () {
 
-    })
-    $('body').on('click','.close-mital',function(){
-        // var a = ;
-        alert('vfdf'); ;
-        $('.starting-page .first-container').addClass('d-none');
-        // $('.first-container').addClass('col-12');
     })
 </script>
