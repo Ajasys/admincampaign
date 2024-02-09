@@ -3,29 +3,29 @@
 
 // $code = $this->request->getGet('code');
 // $code = $_REQUEST['code'];
-// if(isset($_REQUEST['link_track']))
-// {
-//   $link_track = $_REQUEST['link_track'];
-// }else{
-//   $link_track ="";
-// }
+if(isset($_REQUEST['link_track']))
+{
+  $link_track = $_REQUEST['link_track'];
+}else{
+  $link_track ="";
+}
 
-// $emailStatus = 'yes';
-// $emailOpenDatetime = date('Y-m-d H:i:s', strtotime(date('h:i:sa')));
+$emailStatus = 'yes';
+$emailOpenDatetime = date('Y-m-d H:i:s', strtotime(date('h:i:sa')));
 
+$data = [
+    'email_link_track_code' => $link_track,
+    'email_status' => $emailStatus,
+    'email_open_datetime' => $emailOpenDatetime
+];
 // $data = [
-//     'email_link_track_code' => $link_track,
-//     'email_status' => $emailStatus,
-//     'email_open_datetime' => $emailOpenDatetime
+//     'email_track_code' => 1,
+//     'email_status' => 'Yes',
+//     'email_open_datetime' => '2023-04-25 08:45'
 // ];
-// // $data = [
-// //     'email_track_code' => 1,
-// //     'email_status' => 'Yes',
-// //     'email_open_datetime' => '2023-04-25 08:45'
-// // ];
-// $db = \Config\Database::connect('second');
-// $builder = $db->table('admin_email_track');
-// $builder->insert($data);
+$db = \Config\Database::connect('second');
+$builder = $db->table('admin_email_track');
+$builder->insert($data);
 
 
 

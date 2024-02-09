@@ -117,6 +117,28 @@ public function whatsapp_connections(){
     public function index()
     {
         $table_username = session_username($_SESSION['username']);
+        $table_username = getMasterUsername();
+        $table_name100 = $table_username . '_email_track';
+        $columns100 = [
+            'id int primary key AUTO_INCREMENT',
+            'email_track_code varchar(400)',
+            'email_status varchar(400)',
+            'email_open_datetime varchar(400)',
+            'email_link_track_code varchar(400)',      
+        ];
+  
+        $table = tableCreateAndTableUpdate($table_name100, '', $columns100);
+
+        $table_name89 = $table_username . '_emailtemplate';
+        $columns50 = [
+            'id int primary key AUTO_INCREMENT',
+            'title varchar(400)',
+            'attachment longtext NOT NULL',
+            'template longtext NOT NULL',
+      
+        ];
+  
+        $table = tableCreateAndTableUpdate($table_name89, '', $columns50);
         $table_name3 = 'admin_generale_setting';
         $columns3 = [
             'id int primary key AUTO_INCREMENT',
@@ -1043,7 +1065,25 @@ public function whatsapp_connections(){
     }
     public function login()
     {
+        $username = session_username($_SESSION['username']);
+        $table_username = getMasterUsername();
+        $table_name = $table_username . '_email_data';
+        $columns = [
+            'id int primary key AUTO_INCREMENT',
+            'from_email_address varchar(400)',
+            'email_address varchar(400)',
+            'email_track_code varchar(400)',
+            'email_subject varchar(400)',
+            'email_body text',
+            'email_status varchar(400)',
+            'email_open_datetime varchar(400)',
+            'email_link_track_code varchar(400)',
 
+      
+        ];
+  
+        $table = tableCreateAndTableUpdate($table_name, '', $columns);
+       
         return view('auth-login/login');
     }
     public function signup()

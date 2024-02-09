@@ -238,12 +238,13 @@
                         </div>
                     </div>
 </div> -->
-                <div class="col-9 p-3  mt-2">
-                    <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
-                        
-                        <div class="demo_list_data" id="demo_list_data"></div>
-                    </div>
-                </div>
+               
+            </div>
+        </div>
+        <div class="col-9 p-3  mt-2">
+            <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
+                
+                <div class="demo_list_data" id="demo_list_data"></div>
             </div>
         </div>
     </div>

@@ -123,7 +123,6 @@ class CreateController extends BaseController
         $fb_page_list = $response;
         $html ="";
         foreach ($fb_page_list['data'] as $key => $value) {
-            pre($value);
             if (isset($value['full_picture'])) {
                 $fb_upload_img = ($value['full_picture']);
             } else {
