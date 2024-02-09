@@ -190,7 +190,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="fbCntModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -349,7 +349,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         list_data('integration', 1, perPageCount)
     });
     $('body').on('click', '.get-permission', function () {
-
         var access_token = $(this).attr('data-access-token');
         var data = {
             'access_token': access_token,
@@ -369,4 +368,5 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             }
         });
     });
+
 </script>

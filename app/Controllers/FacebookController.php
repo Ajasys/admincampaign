@@ -146,37 +146,7 @@ class FaceBookController extends BaseController
             if (isset($settings_data['facebook_access_token']) && $settings_data['is_facebook_connect'] == 1) {
                 $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $settings_data['facebook_access_token']);
                 foreach ($pageresult['data'] as $aa_key => $aa_value) {
-                    // print_R($aa_value);
-
-                    // $curl = curl_init();
-
-                    // curl_setopt_array(
-                    //     $curl,
-                    //     array(
-                    //         CURLOPT_URL => 'https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id=692703766025178&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
-                    //         CURLOPT_RETURNTRANSFER => true,
-                    //         CURLOPT_ENCODING => '',
-                    //         CURLOPT_MAXREDIRS => 10,
-                    //         CURLOPT_TIMEOUT => 0,
-                    //         CURLOPT_FOLLOWLOCATION => true,
-                    //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    //         CURLOPT_CUSTOMREQUEST => 'POST',
-                    //         CURLOPT_HTTPHEADER => array(
-                    //             'Cookie: fr=07Ds3K9rxHgvySJql..Bk0it9.VP.AAA.0.0.Bk0iu5.AWV1ZxCk_bw'
-                    //         ),
-                    //     )
-                    // );
-
-                    // $response = curl_exec($curl);
-
-                    // curl_close($curl);
-
-                    // $result = json_decode($response, true);
-
-
                     $longLivedAccessToken = $aa_value['access_token'];
-
-
                     $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
                 }
                 if (isset($result['error']['message'])) {
@@ -1204,7 +1174,7 @@ class FaceBookController extends BaseController
         // Generate HTML for data
         if ($find_Array_data->getNumRows() > 0) {
             foreach ($data as $key => $value) {
-                $html .= '<tr onclick="viewLead(' . $value['id'] . ');">
+                $html .= '<tr>
                 <td class="p-2 text-nowrap">' . $value['fb_app_name'] . '</td>
                 <td class="p-2 text-nowrap">' . $value['fb_app_id'] . '</td>
                 <td class="p-2 text-nowrap">' . $value['fb_app_type'] . '</td>
