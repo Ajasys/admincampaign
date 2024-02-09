@@ -19,6 +19,54 @@ class Templates_Controller extends BaseController
 			$this->admin = 1;
 		}
 	}
+
+	public function bulkwhatsapp_template_sent(){
+		$db_connection = \Config\Database::connect('second');
+		$customer_id = $_POST['customer_id'];
+		$customer_id_array = explode(",", $customer_id);
+		
+		$placeholders = rtrim(str_repeat('?,', count($customer_id_array)), ',');
+		$query = "SELECT mobileno FROM admin_all_inquiry WHERE id IN ($placeholders)";
+		
+		$bind_array = array_map('intval', $customer_id_array);
+		
+		$result1 = $db_connection->query($query, $bind_array);
+		$results_memberdata = $result1->getResultArray();
+		
+		$phone_nos = array_column($results_memberdata, 'mobileno');
+		
+	
+		$post_data = $_POST;
+		$template_name = $post_data['header'];
+		$language = $post_data['language'];
+	
+		$access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+	
+		$url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
+		$ReturnResult = 0; 
+	
+		foreach ($phone_nos as $phone_no) {
+			$postData = json_encode([
+				"messaging_product" => "whatsapp",
+				"recipient_type" => "individual",
+				"to" => $phone_no,
+				"type" => "template",
+				"template" => [
+					"name" => $template_name,
+					"language" => [
+						"code" => $language
+					]
+				]
+			]);
+	
+			$Result = postSocialData($url, $postData);
+			if (!isset($Result['id'])) {
+				$ReturnResult = 1; 
+			}
+		}
+		echo $ReturnResult;
+	}
+	
 	public function allinq_sms_send()
 	{
 		$db = \Config\Database::connect('second');
