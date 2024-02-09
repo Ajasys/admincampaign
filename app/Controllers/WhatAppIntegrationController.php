@@ -28,9 +28,7 @@ class WhatAppIntegrationController extends BaseController
 
         if (isset($GetWhatAppData) && !empty($GetWhatAppData)) {
             if (isset($GetWhatAppData['whatapp_phone_number_id']) && isset($GetWhatAppData['whatapp_business_account_id']) && isset($GetWhatAppData['whatapp_access_token']) && isset($GetWhatAppData['whatapp_phone_number_id']) && isset($GetWhatAppData['whatapp_business_account_id']) && isset($GetWhatAppData['whatapp_access_token']) && isset($GetWhatAppData['whatapp_phone_number_id']) && isset($GetWhatAppData['whatapp_business_account_id']) && isset($GetWhatAppData['whatapp_access_token'])) {
-
             } else {
-
             }
         }
     }
@@ -127,10 +125,76 @@ class WhatAppIntegrationController extends BaseController
                             if ($item['status'] == "APPROVED") {
                                 $templateNames[$item['id']] = $item['name'];
                                 $templatelanguage[$item['name']] = $item['language'];
+                                // $bodyvalue[$item['name']] = $item['body'];
+                                if (isset($item['components']) && !empty($item['components'])) {
+                                    foreach ($item['components'] as $key2 => $value2) {
+                                        if ($value2['type'] == 'BODY') {
+                                            $Body1 = $value2['text'];
+                                            $templatebody[$item['name']] = $Body1;
+
+                                        }
+
+                                        if ($value2['type'] == 'FOOTER') {
+                                            $footer1 = $value2['text'];
+                                            $templatefooter[$item['name']] = $footer1;
+
+                                        }
+
+                                               $buttonvalue = "";
+
+                                                if ($value2['type'] == 'BUTTONS' && isset($value2['buttons'][0])) {
+                                                    $button = $value2['buttons'][0];
+                                                    $templateBUTTON[$item['name']] = $button;
 
 
+                                                    if ($button['type'] == 'QUICK_REPLY' && isset($button['text']) && is_string($button['text'])) {
+                                                        $buttonvalue = $button['text'];
+                                                        $templateBUTTON[$item['name']] = $buttonvalue;
+
+                                                    } elseif ($button['type'] == 'URL' && isset($button['url']) && is_string($button['url'])) {
+                                                        $buttonvalue = $button['url'];
+                                                        $templateBUTTON[$item['name']] = $buttonvalue;
+
+                                                    } elseif ($button['type'] == 'PHONE_NUMBER' && isset($button['phone_number']) && is_string($button['phone_number'])) {
+                                                        $buttonvalue = $button['phone_number'];
+                                                        $templateBUTTON[$item['name']] = $buttonvalue;
+
+                                                    }
+                                                }
+
+
+                                        if ($value2['type'] == 'HEADER') {
+                                            if (isset($value2['format'])) {
+                                                if ($value2['format'] == 'IMAGE') {
+                                                    if (isset($value2['example']['header_handle']) && is_array($value2['example']['header_handle'])) {
+                                                        $header1 = $value2['example']['header_handle'][0];
+                                                        $templateheader[$item['name']] = $header1;
+
+                                                    } else {
+                                                        $templateheader = "";
+                                                    }
+                                                } elseif ($value2['format'] == 'VIDEO') {
+                                                    $templateheader = "";
+                                                } elseif ($value2['format'] == 'TEXT') {
+                                                    if (isset($value2['text'])) {
+                                                        $header1 = $value2['text'];
+                                                        $templateheader[$item['name']] = $header1;
+                                                    } else {
+                                                        $templateheader = "";
+                                                    }
+                                                } else {
+                                                    $templateheader = "";
+                                                }
+                                            } else {
+                                                $templateheader = "";
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
+                   
+
 
                         if (isset($responselistdata)) {
                             if (isset($responselistdata['data'])) {
@@ -150,86 +214,84 @@ class WhatAppIntegrationController extends BaseController
                                                     $status = $status . ' -  Quality pending';
                                                 } else {
                                                     $status = $status . ' - ' . $value['quality_score']['score'];
-
                                                 }
                                             }
                                         }
 
                                         if (isset($value['components']) && !empty($value['components'])) {
                                             foreach ($value['components'] as $key1 => $value1) {
-                                               
-                                        
-                                        // $Html .= '
-                                        // <tr class="rounded-pill "  >
-                                        //         <td class="py-2 text-capitalize WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Name . '</td>
-                                        //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Category . '</td>
-                                        //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $status . '</td>
 
-                                        //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">
-                                        //             <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
-                                        //                 ' . $Body . '
-                                        //             </div>
-                                        //         </td>
-                                        //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $language . '</td>
-                                        //         <td class="template-creation-table-data text-center cwt-border-right p-l-25 ">
-                                        //             <span>
-                                        //                 <i class="fa fa-eye fs-16 view_template d-none" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
-                                        //                 <i class="fa fa-clone fs-16  DuplicationTemplateClassDiv" name="' . $Name . '" id="' . $id . '"></i>
-                                        //                 <i class="fa fa-trash fs-16 Delete_template_id d-none" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
-                                        //             </span>
-                                        //         </td>
-                                        //     </tr>
-                                        // ';
-                                        if ($value1['type'] == 'BODY') {
-                                            $Body = $value1['text'];
-                                        }
-                                        if ($value1['type'] == 'FOOTER') {
-                                            $footer = $value1['text'];
-                                        }
 
-                                        $buttonvalue = ""; 
+                                                // $Html .= '
+                                                // <tr class="rounded-pill "  >
+                                                //         <td class="py-2 text-capitalize WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Name . '</td>
+                                                //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Category . '</td>
+                                                //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $status . '</td>
 
-                                        if ($value1['type'] == 'BUTTONS' && isset($value1['buttons'][0])) {
-                                            $button = $value1['buttons'][0];
-                                            
-                                            if ($button['type'] == 'QUICK_REPLY' && isset($button['text']) && is_string($button['text'])) {
-                                                $buttonvalue = $button['text'];
-                                            } 
-                                            elseif ($button['type'] == 'URL' && isset($button['url']) && is_string($button['url'])) {
-                                                $buttonvalue = $button['url'];
-                                            } 
-                                            elseif ($button['type'] == 'PHONE_NUMBER' && isset($button['phone_number']) && is_string($button['phone_number'])) {
-                                                $buttonvalue = $button['phone_number'];
-                                            }
-                                        }
-                                        
-                                        
-                                        
-
-                                        if ($value1['type'] == 'HEADER') {
-                                            if (isset($value1['format'])) {
-                                                if ($value1['format'] == 'IMAGE') {
-                                                    if (isset($value1['example']['header_handle']) && is_array($value1['example']['header_handle'])) {
-                                                        $header = $value1['example']['header_handle'][0];
-                                                    } else {
-                                                        $header = "";
-                                                    }
-                                                } elseif ($value1['format'] == 'VIDEO') {
-                                                    $header = "";
-                                                } elseif ($value1['format'] == 'TEXT') {
-                                                    if (isset($value1['text'])) {
-                                                        $header = $value1['text'];
-                                                    } else {
-                                                        $header = "";
-                                                    }
-                                                } else {
-                                                    $header = "";
+                                                //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">
+                                                //             <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
+                                                //                 ' . $Body . '
+                                                //             </div>
+                                                //         </td>
+                                                //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $language . '</td>
+                                                //         <td class="template-creation-table-data text-center cwt-border-right p-l-25 ">
+                                                //             <span>
+                                                //                 <i class="fa fa-eye fs-16 view_template d-none" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                //                 <i class="fa fa-clone fs-16  DuplicationTemplateClassDiv" name="' . $Name . '" id="' . $id . '"></i>
+                                                //                 <i class="fa fa-trash fs-16 Delete_template_id d-none" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                //             </span>
+                                                //         </td>
+                                                //     </tr>
+                                                // ';
+                                                if ($value1['type'] == 'BODY') {
+                                                    $Body = $value1['text'];
                                                 }
-                                            } else {
-                                                $header = "";
+                                                if ($value1['type'] == 'FOOTER') {
+                                                    $footer = $value1['text'];
+                                                }
+
+                                                $buttonvalue = "";
+
+                                                if ($value1['type'] == 'BUTTONS' && isset($value1['buttons'][0])) {
+                                                    $button = $value1['buttons'][0];
+
+                                                    if ($button['type'] == 'QUICK_REPLY' && isset($button['text']) && is_string($button['text'])) {
+                                                        $buttonvalue = $button['text'];
+                                                    } elseif ($button['type'] == 'URL' && isset($button['url']) && is_string($button['url'])) {
+                                                        $buttonvalue = $button['url'];
+                                                    } elseif ($button['type'] == 'PHONE_NUMBER' && isset($button['phone_number']) && is_string($button['phone_number'])) {
+                                                        $buttonvalue = $button['phone_number'];
+                                                    }
+                                                }
+
+
+
+
+                                                if ($value1['type'] == 'HEADER') {
+                                                    if (isset($value1['format'])) {
+                                                        if ($value1['format'] == 'IMAGE') {
+                                                            if (isset($value1['example']['header_handle']) && is_array($value1['example']['header_handle'])) {
+                                                                $header = $value1['example']['header_handle'][0];
+                                                            } else {
+                                                                $header = "";
+                                                            }
+                                                        } elseif ($value1['format'] == 'VIDEO') {
+                                                            $header = "";
+                                                        } elseif ($value1['format'] == 'TEXT') {
+                                                            if (isset($value1['text'])) {
+                                                                $header = $value1['text'];
+                                                            } else {
+                                                                $header = "";
+                                                            }
+                                                        } else {
+                                                            $header = "";
+                                                        }
+                                                    } else {
+                                                        $header = "";
+                                                    }
+                                                }
                                             }
-                                        }    }
-                                    }
+                                        }
                                         $Html .= '
                                         <tr class="rounded-pill "  >
                                                 <td class="py-2 text-capitalize WhatsAppTemplateModelViewBtn"   name="' . $Name . '"data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Name . '</td>
@@ -273,6 +335,10 @@ class WhatAppIntegrationController extends BaseController
             }
         }
         $recordsCount = '';
+        $return_array['templateBUTTON'] = $templateBUTTON;
+        $return_array['templatefooter'] = $buttonvalue;
+        $return_array['templatebody'] = $templatebody;
+        $return_array['templateheader'] = $templateheader;
         $return_array['records_count'] = $recordsCount;
         $return_array['template_name'] = $templateNames;
         $return_array['templatelanguage'] = $templatelanguage;
@@ -437,19 +503,15 @@ class WhatAppIntegrationController extends BaseController
                 if (!empty($response['photoUrl'])) {
                     $insert_data['media_url'] = $response['photoUrl'];
                     $outputURL = $response['photoUrl'];
-
                 } elseif (!empty($response['videoUrl'])) {
                     $insert_data['media_url'] = $response['videoUrl'];
                     $outputURL = $response['videoUrl'];
-
                 } elseif (!empty($response['documentsurl'])) {
                     $insert_data['media_url'] = $response['documentsurl'];
                     $outputURL = $response['documentsurl'];
-
                 } elseif (!empty($response['otherurl'])) {
                     $insert_data['media_url'] = $response['otherurl'];
                     $outputURL = $response['otherurl'];
-
                 } else {
                     $insert_data['media_url'] = '';
                 }
@@ -523,7 +585,6 @@ class WhatAppIntegrationController extends BaseController
                     $uploadStatus = 0;
                     $response['message'] = 'Sorry, there was an error uploading your file.';
                 }
-
             } elseif (in_array(strtolower($fileType), array('pdf', 'doc', 'docx', 'txt'))) {
                 $uploadSubDir = 'documents/';
                 if (!is_dir($uploadDir . $uploadSubDir)) {
@@ -587,7 +648,6 @@ class WhatAppIntegrationController extends BaseController
         $preview_Data = $result->getRowArray();
 
         return json_encode($preview_Data);
-
     }
 
 
@@ -608,9 +668,6 @@ class WhatAppIntegrationController extends BaseController
     }
     public function CheckWhataAppConnection()
     {
-
-
-
     }
 
 
@@ -923,20 +980,16 @@ class WhatAppIntegrationController extends BaseController
                     if (!empty($DataArray['data'])) {
                         $DataTemplateListArray = $DataArray['data'];
                     } else {
-
                     }
                 } else {
                     if (isset($DataArray['error'])) {
                         if (!empty($DataArray['error'])) {
                             $errormsg = $DataArray['error']['message'];
                         } else {
-
                         }
                     }
                 }
-
             } else {
-
             }
         }
     }
@@ -945,24 +998,24 @@ class WhatAppIntegrationController extends BaseController
 
     public function SendWhatsAppTemplate()
     {
-       
+
         $ReturnResult = 0;
 
-        if($_POST['action'] == "insert"){
+        if ($_POST['action'] == "insert") {
             $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
             $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
             $Result = postSocialData($url, $_POST['jsonString']);
             if (isset($Result['id'])) {
                 $ReturnResult = 1;
             }
-        }else{
+        } else {
 
-            if($_POST['templatename'] != '' && $_POST['templateid']){
+            if ($_POST['templatename'] != '' && $_POST['templateid']) {
                 $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-                 $url = 'https://graph.facebook.com/v19.0/'.$_POST['templateid'].'/?access_token=' . $access_token;
-                 $Result = postSocialData($url, $_POST['jsonString']);
+                $url = 'https://graph.facebook.com/v19.0/' . $_POST['templateid'] . '/?access_token=' . $access_token;
+                $Result = postSocialData($url, $_POST['jsonString']);
 
-                if(isset($Result['success'])){
+                if (isset($Result['success'])) {
                     $ReturnResult = 1;
                 }
             }
@@ -1013,7 +1066,6 @@ class WhatAppIntegrationController extends BaseController
             $error = curl_error($ch);
             echo "cURL Error: " . $error;
             $msgStatus = 0;
-
         } else {
             $msgStatus = 1;
             echo $response;
@@ -1027,7 +1079,7 @@ class WhatAppIntegrationController extends BaseController
     {
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
         // $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?name=' . strtolower($_POST['name']) . '&access_token=' . $access_token;
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?hsm_id='.$_POST['id'].'&name='.strtolower($_POST['name']).'&access_token=' . $access_token;
+        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?hsm_id=' . $_POST['id'] . '&name=' . strtolower($_POST['name']) . '&access_token=' . $access_token;
         $responselistdata = getSocialData($url);
         $resposearray = array();
         if (isset($responselistdata)) {
@@ -1035,7 +1087,7 @@ class WhatAppIntegrationController extends BaseController
                 if (!empty($responselistdata['data'])) {
                     foreach ($responselistdata['data'] as $key => $value) {
                         $Name = $value['name'];
-                        if($Name == strtolower($_POST['name'])){
+                        if ($Name == strtolower($_POST['name'])) {
                             $resposearray = $value;
                         }
                     }

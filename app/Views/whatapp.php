@@ -1028,12 +1028,14 @@ $language_name = json_decode($language_name, true);
     
                                                                 <div class="preview-chat-paragraph bg-white p-3 col-7">
                                                                     <p
-                                                                        class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 ">
+                                                                        class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue">
                                                                         Message Header Section</p>
+                                                                        <img class="rounded-3 preview-header-VIDEO" src="" style="width:200px;height:200px;object-fit: contain;">
+
                                                                     <p contenteditable="false"
-                                                                        class="single-t-text-chat message msg m-0 p-l-10 p-r-5">
+                                                                        class="single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue">
                                                                         Message Body Section</p>
-                                                                    <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5"
+                                                                    <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue"
                                                                         contenteditable="false">Message Footer Section
                                                                     </p>
                                                                 </div>
@@ -1041,7 +1043,7 @@ $language_name = json_decode($language_name, true);
                                                                     <button
                                                                         class="single-button-whatsapp-template ">Ok</button>
                                                                     <button
-                                                                        class="single-button-whatsapp-template ">Cancel</button>
+                                                                        class="single-button-whatsapp-template13 "hidden>Cancel</button>
                                                                 </div>
     
                                                             </div>
@@ -1218,7 +1220,7 @@ $language_name = json_decode($language_name, true);
                                                                     class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 ">
                                                                     Message Header Section</p>
                                                                 <p contenteditable="false"
-                                                                    class="single-t-text-chat message msg m-0 p-l-10 p-r-5">
+                                                                    class="single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue" id="bodytextvalue">
                                                                     Message Body Section</p>
                                                                 <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5"
                                                                     contenteditable="false">Message Footer Section
@@ -2171,9 +2173,16 @@ $language_name = json_decode($language_name, true);
             success: function (res) {
                 $('.loader').hide();
                 var response = JSON.parse(res);
+                
                 var template_name = response.template_name;
                 var templatelanguage = response.templatelanguage;
+                var bodyvalue = response.templatebody;
+                var headervalue = response.templateheader;
+                var footervalue = response.templatefooter;
+                var buttonvalue = response.templateBUTTON;
 
+
+                
 
                 $('.header_div').attr('DataMNo', response.templateid);
                 var selectDropdown = document.getElementById("header");
@@ -2194,14 +2203,41 @@ $language_name = json_decode($language_name, true);
 
                     }
                 }
+                $('.preview-header-VIDEO').addClass('d-none');
 
                 $('#header').change(function () {
                     var selectDropdown = $(this).val();
                     var languageDropdown = templatelanguage[selectDropdown];
+                    var body = bodyvalue[selectDropdown];
+                    var header =headervalue[selectDropdown];
+                    var footer =footervalue[selectDropdown];
+                    var button =buttonvalue[selectDropdown];
+
+                    
+
+                    $('.BodyValue').text(body);
+                    $('.footervalue').text(footer);
                     $('.language_div').val(languageDropdown);
+                    $('.single-button-whatsapp-template').text(button);
 
+
+                    if (isValidURL(header)) {
+                    $('.preview-header-VIDEO').removeClass('d-none');
+                    $('.headervalue').addClass('d-none')
+                    $(".preview-header-VIDEO").attr('src', header).addClass("col-12 rounded-3 border border-3");
+
+                } else {
+                    $('.headervalue').text(header).css('font-weight', 'bold');
+                    $('.preview-header-VIDEO').addClass('d-none');
+                    $('.headervalue').removeClass('d-none')
+
+
+                }
+
+                
                 });
-
+               
+                
 
                 $('#memberships_list').html(response.html);
             }
