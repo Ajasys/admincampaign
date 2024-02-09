@@ -1292,7 +1292,11 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <div class="col-12 d-flex flex-wrap px-3" id="secondquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="thirdquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="fourthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="fifthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="fifthquestion"></div> 
+                                <div class="col-12 d-flex flex-wrap px-3" id="sixthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="tenthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="twelthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="senenthquestion"></div>
                                 <!--Question-->
                                 <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                                     <div class="col-12 d-flex flex-wrap px-2">
@@ -3010,10 +3014,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         //multiple coise
 
         let option = 1;
-
-        function multiple_table_html() {
-            var row_numbers = $('.main-plan').length;
-            var multiple_table_row = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control multiple-row-option-value multiple_choice_options_' + row_numbers + '" id="" placeholder="" value="option' + option + '"></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
+        function multiple_table_html(index) {
+            var row_numbers = $('.multiple_main-plan').length;
+            var multiple_table_row = '<tr class="col-12 multiple_main-plan"><td class="col-3"><input type="text" class="form-control multiple-row-option-value multiple_choice_options_' + row_numbers + '" id="" placeholder="Enter the option" value=""></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
             $(".multiple-table-body").append(multiple_table_row);
         }
         multiple_table_html();
@@ -3189,6 +3192,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     $("body").on('click', '.question_edit', function(e) {
         e.preventDefault();
         var edit_value = $(this).attr("data-id");
+        var type_of_question = $(this).attr("data-type_of_question");
+
         var className = '.Email_Add_Ckeditor';
         if (editors[className]) {
             var editor = editors[className];
@@ -3220,9 +3225,12 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     $("#Question_error_message").val(response[0].error_text);
                     
                     var default_options = response[0].default_options;
+                    
                     if(default_options != ''){
                         var default_options = JSON.parse(response[0].default_options);
-                    
+                        $(".minimum_value").val(default_options.min);
+                        $(".maximum_value").val(default_options.max);
+
                         if (default_options.remove_menu === "true") {
                             $(".menu_message").prop("checked", true);
                             $(".remove_menu").prop("checked", true);
@@ -3241,45 +3249,72 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             $(".is_strict_validation").prop("checked", false);
                         }
 
-                        if (default_options.options != "") {
-                            var optionsArray = default_options.options.split(';'); 
-                            console.log(optionsArray);
 
-                            $(".main-plan").remove();
+                        if(type_of_question == 2){
+                            if (default_options.options != "") {
+                                var optionsArray = default_options.options.split(';'); 
+                                $(".main-plan").remove();
+                                optionsArray.forEach(function(option, index) {
+                                    var row_numbers = index === 0 ? '' : $('.main-plan').length;
+                                    // if (type_of_question == "2") {
+                                        var main_table_html = 
+                                        '<tr class="col-12 main-plan">' +
+                                            '<td class="col-3">' +
+                                            '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                                            '</td>' +
+                                            '<td class="col-3">' +
+                                            '<select class="form-select" aria-label="Default select example">' +
+                                            '<option value="1">Main-flow</option>' +
+                                            '</select>' +
+                                            '</td>' +
+                                            '<td class="col-4">' +
+                                            '<select class="form-select question_select" aria-label="Default select example">' +
+                                            '<option selected="">No Jump</option>' +
+                                            '<option value="1">What is Your Name?</option>' +
+                                            '<option value="2">What is Your Gender?</option>' +
+                                            '<option value="5">Enter Your Email.</option>' +
+                                            '<option value="6">What type of food do you eat?</option>' +
+                                            '</select>' +
+                                            '</td>' +
+                                            '<td class="col-2">' +
+                                            '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                            '<i class="fa fa-trash cursor-pointer"></i>' +
+                                            '</button>' +
+                                            '</td>' +
+                                        '</tr>';
+                                    $(".tbody").append(main_table_html);
+                                });
+                            }else {
+                                $(".is_strict_validation").prop("checked", false);
+                            }
+                        } 
 
-                            optionsArray.forEach(function(option, index) {
-                                var row_numbers = index === 0 ? '' : $('.main-plan').length;
-                                var main_table_html = 
-                                '<tr class="col-12 main-plan">' +
-                                    '<td class="col-3">' +
-                                    '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
-                                    '</td>' +
-                                    '<td class="col-3">' +
-                                    '<select class="form-select" aria-label="Default select example">' +
-                                    '<option value="1">Main-flow</option>' +
-                                    '</select>' +
-                                    '</td>' +
-                                    '<td class="col-4">' +
-                                    '<select class="form-select question_select" aria-label="Default select example">' +
-                                    '<option selected="">No Jump</option>' +
-                                    '<option value="1">What is Your Name?</option>' +
-                                    '<option value="2">What is Your Gender?</option>' +
-                                    '<option value="5">Enter Your Email.</option>' +
-                                    '<option value="6">What type of food do you eat?</option>' +
-                                    '</select>' +
-                                    '</td>' +
-                                    '<td class="col-2">' +
-                                    '<button type="button" class="btn btn-danger multiple-remove-btn">' +
-                                    '<i class="fa fa-trash cursor-pointer"></i>' +
-                                    '</button>' +
-                                    '</td>' +
-                                '</tr>';
 
-                                $(".tbody").append(main_table_html);
-                            });
-                        } else {
-                            $(".is_strict_validation").prop("checked", false);
+                        if(type_of_question == 4){
+                            if (default_options.options != "") {
+                                var optionsArray = default_options.options.split(';'); 
+                                $(".multiple_main-plan").remove(); 
+                                optionsArray.forEach(function(option, index) {
+                                    var row_numbers = index === 0 ? '' : $('.multiple_main-plan').length;
+                                    var main_table_html = 
+                                        '<tr class="col-12 multiple_main-plan">' +
+                                            '<td class="col-3">' +
+                                            '<input type="text" class="form-control multiple_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                                            '</td>' +
+                                            '<td class="col-2">' +
+                                            '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                            '<i class="fa fa-trash cursor-pointer"></i>' +
+                                            '</button>' +
+                                            '</td>' +
+                                        '</tr>';
+                                    $(".tbody_multiple").append(main_table_html);
+                                });
+                            } else {
+                                $(".is_strict_validation").prop("checked", false);
+                            }
+
                         }
+                        
                     }
 
                     var skip_question = response[0].skip_question;
@@ -3317,16 +3352,19 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         }
         
         var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
-       
         var next_question_id = $('.question_select').val(); 
-       
-        if (type_of_question == "1" || type_of_question == "5") {
+        var error_text = $('#Question_error_message').val();
+
+        if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
             var remove_menuArray = [];
             var remove_menu = $(".menu_message").is(":checked") ? "true" : "false";
             var remove_menuArray = {
                 remove_menu: remove_menu,
             };
             var valuesJson = JSON.stringify(remove_menuArray);
+            if (valuesJson === 'undefined') {
+                valuesJson = ''; 
+            }
             var error_text = $('#Question_error_message').val();
         }
         
@@ -3344,6 +3382,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 }
             }
             var valuesJson = JSON.stringify(comined);
+            if (valuesJson === 'undefined') {
+                valuesJson = ''; 
+            }
         }
 
         if (type_of_question == "3") {
@@ -3357,6 +3398,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 is_strict_validation: is_strict_validation,               
             };
             var valuesJson = JSON.stringify(valuesArray);
+            if (valuesJson === 'undefined') {
+                valuesJson = ''; 
+            }
             var error_text = $('#Question_error_message').val();
         }
 
@@ -3374,7 +3418,43 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 }
             }
             var valuesJson = JSON.stringify(comined);
+            if (valuesJson === 'undefined') {
+                valuesJson = ''; 
+            }
         }
+
+        if (type_of_question == "6" || type_of_question == "11") {
+            var minimum_value = $('.minimum_value').val();
+            var maximum_value = $('.maximum_value').val();
+            var valuesArray = {
+                min: minimum_value,
+                max: maximum_value,      
+            };
+            var valuesJson = JSON.stringify(valuesArray);
+            if (valuesJson === 'undefined') {
+                valuesJson = ''; 
+            }
+        }
+
+        if (type_of_question == "7") {
+            var Terrible = $('.terrible').val();
+            var Bad = $('.bad').val();
+            var Okay = $('.okay').val();
+            var Good = $('.good').val();
+            var Great = $('.great').val();
+
+            var reactionArray = [Terrible, Bad, Okay, Good, Great];
+            var valuesArray = {
+                reaction: reactionArray
+            };
+
+            var valuesJson = JSON.stringify(valuesArray);
+            if (valuesJson === 'undefined') {
+                valuesJson = ''; 
+            }
+        }
+
+
 
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
@@ -3383,7 +3463,12 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             formdata.append('edit_id', update_id);
             formdata.append('table', table);
             formdata.append('question', htmlContent);
-            formdata.append('default_options', valuesJson);
+
+            if (typeof valuesJson === 'undefined') {
+                formdata.append('default_options', '');
+            } else {
+                formdata.append('default_options', valuesJson);
+            }
             formdata.append('skip_question', skip_question);
             formdata.append('error_text', error_text);
             formdata.append('next_question_id', next_question_id);
@@ -3582,47 +3667,80 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     });
 
 
+    // $('body').on('click', '.user_reply', function(e) {
+    //     var question = $(this).attr('data-question');
+    //     var skip_question = $(this).attr('data-skip_question');
+    //     var menu_message = $(this).attr('data-menu_message');
+    //     // console.log(skip_question);
+    //     $.ajax({
+    //         method: "post",
+    //         url: "<?= site_url('send_chat'); ?>",
+    //         data: {
+    //             action: 'send_chat',
+    //             question: question,
+    //             skip_question: skip_question,
+    //             menu_message: menu_message,
+    //         },
+    //         success: function(data) {
+    //             var obj = JSON.parse(data);
+    //             // $('.chat_list').html(obj.chat_list_html);
+    //         }
+    //     });
+    // });
 
     $("body").on('click', '.question_edit', function(e) {
+        e.preventDefault();
+        var type_of_question = $(this).attr("data-type_of_question");
+        clearQuestions(); 
+        var questionContainers = {
+            1: "#firstquestion",
+            2: "#secondquestion",
+            3: "#thirdquestion",
+            4: "#fourthquestion",
+            5: "#fifthquestion",
+            6: "#sixthquestion",
+            11: "#sixthquestion",
+            7: "#senenthquestion",
+            10: "#tenthquestion",
+            14: "#tenthquestion",
+            12: "#twelthquestion"
+        };
+        var htmlContent = getQuestionHTML(type_of_question);
+        $(questionContainers[type_of_question]).html(htmlContent);
+    });
 
-    e.preventDefault();
-    var type_of_question = $(this).attr("data-type_of_question");
-    // console.log(type_of_question);
-        if (type_of_question == 1) {
-            $("#secondquestion").html("");
-            $("#thirdquestion").html("");
-            $("#fourthquestion").html("");
-            $("#fifthquestion").html("");
-            $("#firstquestion").html(`
-            <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
-                <div class="col-12 d-flex flex-wrap px-2">
-                
-                    <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 menu_message" value="1" type="checkbox" role="switch" id="Question-1">
-                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
-                    </div>
-                    <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
-                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-2 skip_question" type="checkbox" role="switch" id="Question-2">
-                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
-                    </div>
-                    <div class="col-12 my-2">
-                        <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal" >Enter the error message here.</label>
-                    </div>
-                    <div class="col-12">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid answer" placeholder="Enter Error Message">
+    function clearQuestions() {
+        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #twelthquestion, #tenthquestion").html("");
+    }
+
+    function getQuestionHTML(type_of_question) {
+        switch (type_of_question) {
+            case "1":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap px-2">
+                    
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 menu_message" value="1" type="checkbox" role="switch" id="Question-1">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                        </div>
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-2 skip_question" type="checkbox" role="switch" id="Question-2">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal" >Enter the error message here.</label>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid answer" placeholder="Enter Error Message">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-            `);
-
-        } else if (type_of_question == 2) {
-            $("#firstquestion").html("");
-            $("#thirdquestion").html("");
-            $("#fourthquestion").html("");
-            $("#fifthquestion").html("");
-            $("#secondquestion").html(`
+                </form>
+                `;
+            case "2":
+                return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap single-choice">
                         <div class="col-12 d-flex flex-wrap">
@@ -3700,13 +3818,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                     </div>
                 </form>
-            `);
-        }else if (type_of_question == 3) {
-            $("#firstquestion").html("");
-            $("#secondquestion").html("");
-            $("#fourthquestion").html("");
-            $("#fifthquestion").html("");
-            $("#thirdquestion").html(`
+                `;
+            case "3":
+                return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap px-2">
                         <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
@@ -3731,13 +3845,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                     </div>
                 </form>
-            `);
-        }else if (type_of_question == 4) {
-            $("#firstquestion").html("");
-            $("#secondquestion").html("");
-            $("#thirdquestion").html("");
-            $("#fifthquestion").html("");
-            $("#fourthquestion").html(`
+                `;
+            case "4":
+                return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap single-choice">
                         <div class="col-12 d-flex flex-wrap">
@@ -3759,11 +3869,11 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
-                                <tbody class="multiple-table-body">
+                                <tbody class="multiple-table-body tbody_multiple">
 
-                                    <tr class="col-12 main-plan">
+                                    <tr class="col-12 multiple_main-plan">
                                         <td class="col-3">
-                                            <input type="text" class="form-control multiple_choice_options" placeholder="" value="option1">
+                                            <input type="text" class="form-control multiple_choice_options" placeholder="Enter the option" value="">
                                         </td>
                                         <td class="col-2">
                                             <button type="button" class="btn btn-danger">
@@ -3788,13 +3898,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                     </div>
                 </form>
-            `);
-        }else if (type_of_question == 5) {
-            $("#firstquestion").html("");
-            $("#secondquestion").html("");
-            $("#thirdquestion").html("");
-            $("#fourthquestion").html("");
-            $("#fifthquestion").html(`
+                `;
+            case "5":
+                return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap px-2">
                         <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
@@ -3811,30 +3917,308 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                     </div> 
                 </form>
-            `);
-        }
+                `;
+            case "6":
+            case "11":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap px-2">
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question" type="checkbox" role="switch" id="Number-1">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
+                        </div>
+                        <div class="col-12 my-2">
+                            <form class="col-12 d-flex flex-wrap">
+                                <div class="col-6 px-2">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Minimum Value</label>
+                                        <input type="number" class="form-control minimum_value" id="" aria-describedby="" placeholder="Enter Minimum Value">
+                                    </div>
+                                </div>
+                                <div class="col-6 px-2">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Maximum Value</label>
+                                        <input type="number" class="form-control maximum_value" id="" placeholder="Enter Maximum Value">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+                `;
+            case "7":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap">
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <table class="table w-100 col-12">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Options</th>
+                                        <th scope="col">Sub-Flow</th>
+                                        <th scope="col">Jump To</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="">
 
-    });
-    
-    // $('body').on('click', '.user_reply', function(e) {
-    //     var question = $(this).attr('data-question');
-    //     var skip_question = $(this).attr('data-skip_question');
-    //     var menu_message = $(this).attr('data-menu_message');
-    //     // console.log(skip_question);
-    //     $.ajax({
-    //         method: "post",
-    //         url: "<?= site_url('send_chat'); ?>",
-    //         data: {
-    //             action: 'send_chat',
-    //             question: question,
-    //             skip_question: skip_question,
-    //             menu_message: menu_message,
-    //         },
-    //         success: function(data) {
-    //             var obj = JSON.parse(data);
-    //             // $('.chat_list').html(obj.chat_list_html);
-    //         }
-    //     });
-    // });
+                                    <tr class="col-12">
+                                        <td class="col-4">
+                                            <input type="text" class="form-control terrible" id="" placeholder="" value="Terrible">
+                                        </td>
+                                        <td class="col-3">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option value="1">Main-flow</option>
+                                            </select>
+                                        </td>
+                                        <td class="col-4">
+                                            <select class="form-select question_select" aria-label="Default select example">
+                                                <option selected>No Jump</option>
+                    
+                                                <?php
+                                                    if (isset($admin_bot_setup)) {
+                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                            // pre($type_value);
+                                                        
+                                                            if ($type_value['bot_id'] == $botId ) {
+                                                            
+                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                ?>
+
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="col-12">
+                                        <td class="col-4">
+                                            <input type="text" class="form-control bad" id="" placeholder="" value="Bad">
+                                        </td>
+                                        <td class="col-3">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option value="1">Main-flow</option>
+                                            </select>
+                                        </td>
+                                        <td class="col-4">
+                                            <select class="form-select question_select" aria-label="Default select example">
+                                                <option selected>No Jump</option>
+                    
+                                                <?php
+                                                    if (isset($admin_bot_setup)) {
+                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                            // pre($type_value);
+                                                        
+                                                            if ($type_value['bot_id'] == $botId ) {
+                                                            
+                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                ?>
+
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="col-12">
+                                        <td class="col-4">
+                                            <input type="text" class="form-control okay" id="" placeholder="" value="Okay">
+                                        </td>
+                                        <td class="col-3">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option value="1">Main-flow</option>
+                                            </select>
+                                        </td>
+                                        <td class="col-4">
+                                            <select class="form-select question_select" aria-label="Default select example">
+                                                <option selected>No Jump</option>
+                    
+                                                <?php
+                                                    if (isset($admin_bot_setup)) {
+                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                            // pre($type_value);
+                                                        
+                                                            if ($type_value['bot_id'] == $botId ) {
+                                                            
+                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                ?>
+
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="col-12">
+                                        <td class="col-4">
+                                            <input type="text" class="form-control good" id="" placeholder="" value="Good">
+                                        </td>
+                                        <td class="col-3">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option value="1">Main-flow</option>
+                                            </select>
+                                        </td>
+                                        <td class="col-4">
+                                            <select class="form-select question_select" aria-label="Default select example">
+                                                <option selected>No Jump</option>
+                    
+                                                <?php
+                                                    if (isset($admin_bot_setup)) {
+                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                            // pre($type_value);
+                                                        
+                                                            if ($type_value['bot_id'] == $botId ) {
+                                                            
+                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                ?>
+
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="col-12">
+                                        <td class="col-4">
+                                            <input type="text" class="form-control great" id="" placeholder="" value="Great">
+                                        </td>
+                                        <td class="col-3">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option value="1">Main-flow</option>
+                                            </select>
+                                        </td>
+                                        <td class="col-4">
+                                            <select class="form-select question_select" aria-label="Default select example">
+                                                <option selected>No Jump</option>
+                    
+                                                <?php
+                                                    if (isset($admin_bot_setup)) {
+                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                            // pre($type_value);
+                                                        
+                                                            if ($type_value['bot_id'] == $botId ) {
+                                                            
+                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                ?>
+
+                                            </select>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12 my-2 d-flex">
+                            <div class="col-4 d-flex flex-wrap align-items-center justify-content-center">
+                                <span>Rating Type</span>
+                            </div>
+                        </div>
+                        <div class="col-12 my-2">
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="list-group" id="list-tab" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="list-Smilies-list" data-bs-toggle="list" href="#list-Smilies" role="tab" aria-controls="list-Smilies">Smilies</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Stars-list" data-bs-toggle="list" href="#list-Stars" role="tab" aria-controls="list-Stars">Stars</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Numbers-list" data-bs-toggle="list" href="#list-Numbers" role="tab" aria-controls="list-Numbers">Numbers</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Options-list" data-bs-toggle="list" href="#list-Options" role="tab" aria-controls="list-Options">Options</a>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="list-Smilies" role="tabpanel" aria-labelledby="list-Smilies-list">
+                                            <div class="col-12 text-center">
+                                                <img src="<?= site_url('assets/images/rating_smilies.png') ?>" alt="#" height="280px" width="350px">
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="list-Stars" role="tabpanel" aria-labelledby="list-Stars-list">
+                                            <div class="col-12 text-center">
+                                                <img src="<?= site_url('assets/images/rating_stars.png') ?>" alt="#" height="280px" width="330px">
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="list-Numbers" role="tabpanel" aria-labelledby="list-Numbers-list">
+                                        <div class="col-12 text-center">
+                                                <img src="<?= site_url('assets/images/rating_numbers.png') ?>" alt="#" height="280px" width="350px">
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="list-Options" role="tabpanel" aria-labelledby="list-Options-list">
+                                        <div class="col-12 text-center">
+                                                <img src="<?= site_url('assets/images/rating_options.png') ?>" alt="#" height="280px" width="300px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                `;
+
+            case "10":
+            case "14":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap px-2">
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question" type="checkbox" role="switch" id="Number-1">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
+                        </div>
+                    </div>
+                </form>
+                `;
+            case "12":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap">
+                        <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
+                            <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 mx-3 px-5 ">
+                                <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Location-1 skip_question" type="checkbox" role="switch" id="Location-1">
+                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Location-1" for="Location-1">Do Not Give Skip Option</label>
+                            </div>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid Image" placeholder="Enter Error Message">
+                            </div>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Upload File</label>
+                        </div>
+                        <div class="col-12 my-2">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <button class="nav-link active" id="image-database" data-bs-toggle="tab" data-bs-target="#image_database" type="button" role="tab" aria-controls="image_database" aria-selected="true">S3</button>
+                                    <button class="nav-link" id="image-email" data-bs-toggle="tab" data-bs-target="#image_email" type="button" role="tab" aria-controls="image-email" aria-selected="false">Google Drive</button>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="image_database" role="tabpanel" aria-labelledby="image-database" tabindex="0"></div>
+                                <div class="tab-pane fade" id="image_email" role="tabpanel" aria-labelledby="image-email" tabindex="0">
+                                    <div class="col-12 p-2">
+                                        <div class="input-group col-6">
+                                            <input type="email" class="form-control" placeholder="Enter Email Address" aria-label="Enter Email Address" aria-describedby="button-email">
+                                            <button class="btn btn-outline-secondary" type="button" id="button-email">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                `;
+            default:
+            return ""; 
+        }
+    }
 
 </script>
