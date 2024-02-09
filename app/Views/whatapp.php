@@ -1711,28 +1711,27 @@ $language_name = json_decode($language_name, true);
 
                                     <div class="preview-chat-section-chat overflow-y-scroll">
                                         <div class="preview-chat-paragraph bg-white p-3 col-10">
-                                            <div class="preview-header-paragraph refreshit" ng-if="submitParamDetails"
-                                                class="ng-scope" style="">
+                                            <!-- <div class="preview-header-paragraph refreshit" ng-if="submitParamDetails"  class="ng-scope" style=""> -->
                                                 <div ng-if="media_footer_text.length > 0 "
-                                                    class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope"
-                                                    contenteditable="false" style=""></div>
+                                                    class="user-name-chat-header preview-header-paragraph  message msg  m-0 p-l-10 p-r-5 ng-binding fw-bold ng-scope"
+                                                    style=""></div>
                                                 <!-- end ngIf: media_footer_text.length > 0 -->
-                                            </div>
+                                            <!-- </div> -->
                                             <div ng-if="final_bodyPreviewValue.length > 0"
                                                 class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope"
                                                 id="bodychange11">
                                             </div>
-                                            <div class="preview-footer-paragraph refreshit p-1" ng-if="submitParamDetails"
-                                                class="ng-scope" style="">
+                                            <!-- <div class="preview-footer-paragraph refreshit p-1" ng-if="submitParamDetails"
+                                                class="ng-scope" style=""> -->
                                                 <div ng-if="media_footer_text.length > 0 "
-                                                    class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope"
+                                                    class="user-name-chat-footer message msg preview-footer-paragraph font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope"
                                                     contenteditable="false" style=""></div>
                                                 <!-- end ngIf: media_footer_text.length > 0 -->
-                                            </div>
+                                            <!-- </div> -->
 
                                         </div>
-                                        <div class="single-t-call-button refreshit">
-                                            <button class="single-button-whatsapp-template1 "></button>
+                                        <div class="single-t-call-button">
+                                            <button class="single-button-whatsapp-template1 refreshit"></button>
                                             <button class="single-button-whatsapp-template2" data-template="2"></button>
                                             <button class="single-button-whatsapp-template3" data-template="3"></button>
 
@@ -2039,16 +2038,17 @@ $language_name = json_decode($language_name, true);
         $('.single-t-call-button .single-button-whatsapp-template3').html(button3input);
     });
 
+    
 
 
-
+  
 
     $('.body_div').on('input', function () {
         var bodyText = $(this).val();
         // console.log(bodyText);
 
         if (bodyText === "") {
-            $('.c').hide();
+            $('.preview-chat-paragraph').hide();
 
         } else {
             $('.preview-chat-paragraph').show();
@@ -2067,7 +2067,7 @@ $language_name = json_decode($language_name, true);
         }
 
 
-        $('.preview-footer-paragraph .user-name-chat-footer').html(footerText);
+        $('.preview-chat-paragraph .user-name-chat-footer').html(footerText);
     });
 
     $('.MemberAddressClass').on('input', function () {
@@ -2079,7 +2079,7 @@ $language_name = json_decode($language_name, true);
         }
 
 
-        $('.preview-header-paragraph .user-name-chat-header').html(headerText);
+        $('.preview-chat-paragraph .user-name-chat-header').html(headerText);
     });
 
     // =======button-link======
@@ -2428,7 +2428,7 @@ $language_name = json_decode($language_name, true);
             $('.SetButtonHTMLClass').html('');
         } else if (DDValue == '2') {
             var previous_hmml = $('.SetButtonHTMLClass').html();
-            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col CommentInoutSetValDiv button1input QuickSubButtonInput" data-template="1" placeholder="Start typing button label here..." value="" cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
+            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col CommentInoutSetValDiv button1input QuickSubButtonInput" id="buttoninvalue" data-template="1" placeholder="Start typing button label here..." value="" cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
             var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
             if (parseInt(numberOfSubElements) < 3) {
                 $('.SetButtonHTMLClass').html(previous_hmml + StaticHtml);
@@ -3154,4 +3154,56 @@ $language_name = json_decode($language_name, true);
 
         });
     });
+
+    // $('.SetButtonHTMLClass').on('input', function () {
+    //     var buttonText = $('#buttoninvalue').val();
+
+    //     $('.single-button-whatsapp-template1').removeClass('d-none');
+
+    //     $('.single-t-call-button .single-button-whatsapp-template1').html(buttonText);
+    // });
+
+    $('.SetButtonHTMLClass').on('input', function () {
+        var button1input = $('.QuickSubButtonInput').val();
+        $('.single-button-whatsapp-template1').removeClass('d-none');
+
+        if (button1input === "") {
+            $('.single-t-call-button').hide();
+
+        } else {
+            $('.single-t-call-button').show();
+        }
+
+        $('.single-t-call-button .single-button-whatsapp-template1').html(button1input);
+    });
+
+    $('.SetButtonHTMLClass').on('input', function () {
+        var button1input = $('.CnoCnoInputField').val();
+        var button2input = $('.UrlUrlInputField').val();
+
+
+
+        if (button1input === "") {
+            $('.single-t-call-button').hide();
+
+        } else {
+            $('.single-t-call-button').show();
+            $('.single-button-whatsapp-template2').removeClass('d-none');
+
+        }
+        if (button2input === "") {
+            $('.single-t-call-button').hide();
+
+        } else {
+            $('.single-t-call-button').show();
+            $('.single-button-whatsapp-template1').removeClass('d-none');
+
+        }
+
+        $('.single-t-call-button .single-button-whatsapp-template2').html(button1input);
+        $('.single-t-call-button .single-button-whatsapp-template1').html(button2input);
+
+    });
+
+    
 </script>
