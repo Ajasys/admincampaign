@@ -336,7 +336,7 @@ class WhatAppIntegrationController extends BaseController
         }
         $recordsCount = '';
         $return_array['templateBUTTON'] = $templateBUTTON;
-        $return_array['templatefooter'] = $buttonvalue;
+        $return_array['templatefooter'] = $templatefooter;
         $return_array['templatebody'] = $templatebody;
         $return_array['templateheader'] = $templateheader;
         $return_array['records_count'] = $recordsCount;
