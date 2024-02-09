@@ -86,6 +86,7 @@ $routes->post('show_data_email', 'Templates_Controller::show_data_email');
 $routes->get('email_history_show', 'Home::email_history_show');
 $routes->post('fetch_email_track_data', 'Templates_Controller::fetch_email_track_data');
 $routes->post('/allinqsmssend', 'Templates_Controller::allinq_sms_send');
+$routes->post('/bulkwhatsapp_template_sent', 'Templates_Controller::bulkwhatsapp_template_sent');
 $routes->get('email_connection', 'Home::email_connection');
 $routes->post('check_email_connection', 'EmailController::check_email_connection');
 $routes->get('/EmailConversions', 'Templates_Controller::template');	

@@ -705,7 +705,7 @@ $language_name = json_decode($language_name, true);
                                                                 <div class="col-12 mb-3 mt-2">
                                                                     <select
                                                                         class="form-control main-control language_div"
-                                                                        id="language" name="language" required>
+                                                                        id="language" name="language" disabled required>
                                                                         <option class="fs-12"
                                                                             label="Please select your language"
                                                                             value=""></option>

@@ -416,10 +416,10 @@ $username = session_username($_SESSION['username']);
 								<span class="btn-primary-rounded">
 									<i class="bi bi-trash3 fs-14"></i>
 								</span>
-								
+
 							</div>
 							<div class="deleted-all2">
-							<button class="btn-primary-rounded" data-bs-toggle="modal" data-bs-target="#sms_send">
+								<button class="btn-primary-rounded" data-bs-toggle="modal" data-bs-target="#sms_send">
 									<i class="bi bi-chat-right-dots d-flex fs-14"></i>
 								</button>
 							</div>
@@ -2073,21 +2073,35 @@ $username = session_username($_SESSION['username']);
 	</div>
 </div>
 
-<div class="modal fade" id="sms_send" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade hidemodal " id="sms_send" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form action="post" class="w-100" name="sms_send_form">
+		<form action="post" class="w-100 hidemodal" name="sms_send_form">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title">Templates</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<ul class="nav nav-pills navtab_primary_sm mb-2" id="pills-tab" role="tablist">
-						<li class="nav-item" role="presentation">
-							<button class="nav-link btn nav_btn" data-sms_check_id="3" id="customer_alert_tab" data-bs-toggle="pill" data-bs-target="#customer_alert" data-table="emailtemplate" type="button" role="tab" aria-controls="customer_alert" aria-selected="false" tabindex="-1">Email </button>
-						</li>
-					</ul>
-					<div class="tab-content p-0" id="pills-tabContentS">
+					<div class="d-flex">
+						<div>
+							<ul class="nav nav-pills navtab_primary_sm mb-2" id="pills-tab" role="tablist">
+								<li class="nav-item " role="presentation">
+									<button class="nav-link btn nav_btn active" data-sms_check_id="3" id="customer_alert_tab" data-bs-toggle="pill" data-bs-target="#customer_alert" data-table="emailtemplate" type="button" role="tab" aria-controls="customer_alert" aria-selected="false" tabindex="-1">Email </button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link btn nav_btn" data-sms_check_id="3" id="whatsapp_template_tab" data-bs-toggle="pill" data-bs-target="#whatsapp_template" data-table="emailtemplate" type="button" role="tab" aria-controls="customer_alert" aria-selected="false" tabindex="-1">Whatsapp </button>
+								</li>
+							</ul>
+						</div>
+
+						<!-- <div>
+							<ul class="nav nav-pills navtab_primary_sm mb-2" id="pills-tab" role="tablist">
+								
+							</ul>
+						</div> -->
+					</div>
+
+					<div class="tab-content p-0 active show" id="pills-tabContentS">
 						<!-- <div class="tab-pane fade show active -whatapp" id="user_alert" role="tabpanel" aria-labelledby="user_alert_tab" tabindex="0">
 							<h6 class="mt-3 mb-2 fs-6">Whatsapp Template</h6>
 							<div class="main-selectpicker">
@@ -2132,11 +2146,100 @@ $username = session_username($_SESSION['username']);
 									?>
 								</select>
 							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary message_send_customer">Send</button>
+							</div>
 						</div>
+
+						<div class="tab-pane fade show" id="whatsapp_template" role="tabpanel" aria-labelledby="whatsapp_template_tab" tabindex="0">
+							<h6 class="mt-3 mb-2 fs-6">Whatsapp Template</h6>
+							<div class="main-selectpicker">
+
+								<select class="form-control main-control header_div" id="header" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+									<option value="" selected disabled>Please select template</option>
+								</select>
+
+							</div>
+							<div class="col-12 mb-3 mt-2">
+								<select class="form-control form-main main-controll language_div" disabled id="language" name="language" required>
+									<option class="fs-12" label="Please select your language" value="" ></option>
+									<option class="fs-12 ng-binding ng-scope" value="en_US" ng-repeat="lang in template_lang">English US (en_US)</option>
+									<option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">English (en)</option>
+
+									<option class="fs-12 ng-binding ng-scope" value="af" ng-repeat="lang in template_lang">Afrikaans</option>
+									<option class="fs-12 ng-binding ng-scope" value="sq" ng-repeat="lang in template_lang">Albanian</option>
+									<option class="fs-12 ng-binding ng-scope" value="ar" ng-repeat="lang in template_lang">Arabic</option>
+									<option class="fs-12 ng-binding ng-scope" value="az" ng-repeat="lang in template_lang">Azerbaijani</option>
+									<option class="fs-12 ng-binding ng-scope" value="bn" ng-repeat="lang in template_lang">Bengali</option>
+									<option class="fs-12 ng-binding ng-scope" value="bg" ng-repeat="lang in template_lang">Bulgarian</option>
+									<option class="fs-12 ng-binding ng-scope" value="ca" ng-repeat="lang in template_lang">Catalan</option>
+									<option class="fs-12 ng-binding ng-scope" value="zh_CN" ng-repeat="lang in template_lang">Chinese (CHN)</option>
+									<option class="fs-12 ng-binding ng-scope" value="zh_HK" ng-repeat="lang in template_lang">Chinese (HKG)</option>
+									<option class="fs-12 ng-binding ng-scope" value="zh_TW" ng-repeat="lang in template_lang">Chinese (TAI)</option>
+									<option class="fs-12 ng-binding ng-scope" value="hr" ng-repeat="lang in template_lang">Croatian</option>
+									<option class="fs-12 ng-binding ng-scope" value="cs" ng-repeat="lang in template_lang">Czech</option>
+									<option class="fs-12 ng-binding ng-scope" value="da" ng-repeat="lang in template_lang">Danish</option>
+									<option class="fs-12 ng-binding ng-scope" value="nl" ng-repeat="lang in template_lang">Dutch</option>
+									<option class="fs-12 ng-binding ng-scope" value="en_GB" ng-repeat="lang in template_lang">English (UK)</option>
+									<option class="fs-12 ng-binding ng-scope" value="et" ng-repeat="lang in template_lang">Estonian</option>
+									<option class="fs-12 ng-binding ng-scope" value="fil" ng-repeat="lang in template_lang">Filipino</option>
+									<option class="fs-12 ng-binding ng-scope" value="fi" ng-repeat="lang in template_lang">Finnish</option>
+									<option class="fs-12 ng-binding ng-scope" value="fr" ng-repeat="lang in template_lang">French</option>
+									<option class="fs-12 ng-binding ng-scope" value="de" ng-repeat="lang in template_lang">German</option>
+									<option class="fs-12 ng-binding ng-scope" value="el" ng-repeat="lang in template_lang">Greek</option>
+									<option class="fs-12 ng-binding ng-scope" value="gu" ng-repeat="lang in template_lang">Gujarati</option>
+									<option class="fs-12 ng-binding ng-scope" value="ha" ng-repeat="lang in template_lang">Hausa</option>
+									<option class="fs-12 ng-binding ng-scope" value="he" ng-repeat="lang in template_lang">Hebrew</option>
+									<option class="fs-12 ng-binding ng-scope" value="hi" ng-repeat="lang in template_lang">Hindi</option>
+									<option class="fs-12 ng-binding ng-scope" value="hu" ng-repeat="lang in template_lang">Hungarian</option>
+									<option class="fs-12 ng-binding ng-scope" value="id" ng-repeat="lang in template_lang">Indonesian</option>
+									<option class="fs-12 ng-binding ng-scope" value="ga" ng-repeat="lang in template_lang">Irish</option>
+									<option class="fs-12 ng-binding ng-scope" value="it" ng-repeat="lang in template_lang">Italian</option>
+									<option class="fs-12 ng-binding ng-scope" value="ja" ng-repeat="lang in template_lang">Japanese</option>
+									<option class="fs-12 ng-binding ng-scope" value="kn" ng-repeat="lang in template_lang">Kannada</option>
+									<option class="fs-12 ng-binding ng-scope" value="kk" ng-repeat="lang in template_lang">Kazakh</option>
+									<option class="fs-12 ng-binding ng-scope" value="ko" ng-repeat="lang in template_lang">Korean</option>
+									<option class="fs-12 ng-binding ng-scope" value="lo" ng-repeat="lang in template_lang">Lao</option>
+									<option class="fs-12 ng-binding ng-scope" value="lv" ng-repeat="lang in template_lang">Latvian</option>
+									<option class="fs-12 ng-binding ng-scope" value="lt" ng-repeat="lang in template_lang">Lithuanian</option>
+									<option class="fs-12 ng-binding ng-scope" value="mk" ng-repeat="lang in template_lang">Macedonian</option>
+									<option class="fs-12 ng-binding ng-scope" value="ms" ng-repeat="lang in template_lang">Malay</option>
+									<option class="fs-12 ng-binding ng-scope" value="ml" ng-repeat="lang in template_lang">Malayalam</option>
+									<option class="fs-12 ng-binding ng-scope" value="mr" ng-repeat="lang in template_lang">Marathi</option>
+									<option class="fs-12 ng-binding ng-scope" value="nb" ng-repeat="lang in template_lang">Norwegian</option>
+									<option class="fs-12 ng-binding ng-scope" value="fa" ng-repeat="lang in template_lang">Persian</option>
+									<option class="fs-12 ng-binding ng-scope" value="pl" ng-repeat="lang in template_lang">Polish</option>
+									<option class="fs-12 ng-binding ng-scope" value="pt_BR" ng-repeat="lang in template_lang">Portuguese (BR)</option>
+									<option class="fs-12 ng-binding ng-scope" value="pt_PT" ng-repeat="lang in template_lang">Portuguese (POR)</option>
+									<option class="fs-12 ng-binding ng-scope" value="pa" ng-repeat="lang in template_lang">Punjabi</option>
+									<option class="fs-12 ng-binding ng-scope" value="ro" ng-repeat="lang in template_lang">Romanian</option>
+									<option class="fs-12 ng-binding ng-scope" value="ru" ng-repeat="lang in template_lang">Russian</option>
+									<option class="fs-12 ng-binding ng-scope" value="sr" ng-repeat="lang in template_lang">Serbian</option>
+									<option class="fs-12 ng-binding ng-scope" value="sk" ng-repeat="lang in template_lang">Slovak</option>
+									<option class="fs-12 ng-binding ng-scope" value="sl" ng-repeat="lang in template_lang">Slovenian</option>
+									<option class="fs-12 ng-binding ng-scope" value="es" ng-repeat="lang in template_lang">Spanish</option>
+									<option class="fs-12 ng-binding ng-scope" value="es_AR" ng-repeat="lang in template_lang">Spanish (ARG)</option>
+									<option class="fs-12 ng-binding ng-scope" value="es_ES" ng-repeat="lang in template_lang">Spanish (SPA)</option>
+									<option class="fs-12 ng-binding ng-scope" value="es_MX" ng-repeat="lang in template_lang">Spanish (MEX)</option>
+									<option class="fs-12 ng-binding ng-scope" value="sw" ng-repeat="lang in template_lang">Swahili</option>
+									<option class="fs-12 ng-binding ng-scope" value="sv" ng-repeat="lang in template_lang">Swedish</option>
+									<option class="fs-12 ng-binding ng-scope" value="ta" ng-repeat="lang in template_lang">Tamil</option>
+									<option class="fs-12 ng-binding ng-scope" value="te" ng-repeat="lang in template_lang">Telugu</option>
+									<option class="fs-12 ng-binding ng-scope" value="th" ng-repeat="lang in template_lang">Thai</option>
+									<option class="fs-12 ng-binding ng-scope" value="tr" ng-repeat="lang in template_lang">Turkish</option>
+									<option class="fs-12 ng-binding ng-scope" value="uk" ng-repeat="lang in template_lang">Ukrainian</option>
+									<option class="fs-12 ng-binding ng-scope" value="ur" ng-repeat="lang in template_lang">Urdu</option>
+									<option class="fs-12 ng-binding ng-scope" value="uz" ng-repeat="lang in template_lang">Uzbek</option>
+									<option class="fs-12 ng-binding ng-scope" value="vi" ng-repeat="lang in template_lang">Vietnamese</option>
+									<option class="fs-12 ng-binding ng-scope" value="zu" ng-repeat="lang in template_lang">Zulu</option>
+								</select>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-primary template_send">Send</button>
+							</div>
+						</div>
+
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary message_send_customer">Send</button>
 				</div>
 			</div>
 		</form>
@@ -2262,6 +2365,61 @@ $username = session_username($_SESSION['username']);
 			clearText: 'clear',
 		});
 	}
+	$("body").on('click', '.template_send', function(e) {
+		event.preventDefault();
+		var checkbox = $('.table_list_check:checked');
+		var checkbox_value = [];
+		$(checkbox).each(function() {
+			checkbox_value.push($(this).attr("value"));
+		});
+
+		console.log(checkbox_value);
+		var header = $('.header_div').val();
+        var language = $('.language_div').val();
+		var form = $("form[name='sms_send_form']")[0];
+
+		var formdata = new FormData(form);
+		formdata.append('customer_id', checkbox_value);
+		formdata.append('language', language);
+		formdata.append('header', header);
+
+		
+		if(header != "" && language !=""){
+		$.ajax({
+			method: "post",
+			url: "<?= site_url('bulkwhatsapp_template_sent'); ?>",
+			data: formdata,
+			processData: false,
+			contentType: false,
+			success: function(res) {
+				var response = JSON.parse(res);
+				$('.loader').hide();
+				if (res == '1') {
+				iziToast.success({
+					title: "Message sent successfully"
+				});
+				$('.hidemodal').modal('hide');
+
+			} else {
+				iziToast.error({
+					title: 'Something went wrong!'
+				});
+				$('.hidemodal').modal('hide');
+
+			}
+
+				
+			},
+		});
+	}else{
+		$("#sms_send").addClass("was-validated");
+
+		
+	}
+
+	});
+
+
 	$("body").on('click', '.message_send_customer', function(e) {
 		event.preventDefault();
 		var checkbox = $('.table_list_check:checked');
@@ -3122,6 +3280,36 @@ $username = session_username($_SESSION['username']);
 				contentType: contentType,
 				success: function(res) {
 					var result = JSON.parse(res);
+					var template_name = result.Template_name;
+					var templatelanguage = result.templatelanguage;
+
+
+					var selectDropdown = document.getElementById("header");
+					selectDropdown.innerHTML = "";
+					var defaultOption = document.createElement("option");
+					defaultOption.text = "Please select template";
+					defaultOption.value = "";
+					defaultOption.disabled = true;
+					defaultOption.selected = true;
+					selectDropdown.add(defaultOption);
+
+					for (var key in template_name) {
+						if (template_name.hasOwnProperty(key)) {
+							var option = document.createElement("option");
+							option.text = template_name[key];
+							option.value = template_name[key];
+							selectDropdown.add(option);
+
+						}
+					}
+
+					$('#header').change(function() {
+						var selectDropdown = $(this).val();
+						var languageDropdown = templatelanguage[selectDropdown];
+						$('.language_div').val(languageDropdown);
+
+					});
+
 					if (result.export_data) {
 						totalData = totalData.concat(result.export_data);
 						generateCSV(totalData);

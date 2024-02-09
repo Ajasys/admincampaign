@@ -132,7 +132,7 @@ class Inquiryinformation extends BaseController
 							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_data, $this->username . "_notification_center");
 							$notification_data = any_id_to_full_data($this->username . "_notification_center", $response_alert);
 							$inquiry_dataa = any_id_to_full_data($this->username . "_all_inquiry", $notification_data['inquiry_id']);
-							
+
 							$sse_id = any_id_to_full_data($this->username . "_user", $inquiry_dataa['assign_id']);
 
 							// $dataaaa = notification_center('', $response_alert, $inquiry_dataa['mobileno'], $inquiry_dataa['email'], $sse_id['firstname'], $sse_id['phone']);
@@ -144,14 +144,14 @@ class Inquiryinformation extends BaseController
 								$attachment = $subject_get['attachment'];
 								$var_message = $subject_get['template'];
 							}
-							
-							
+
+
 							$var_message = str_replace("{{Enquirer Full Name}}", $full_name, $var_message);
 							$var_message = str_replace("{{Enquirer Mobile Number}}", $mobileno, $var_message);
 							$var_message = str_replace("{{Enquirer Date of Birth}}", $dob, $var_message);
 							$var_message = str_replace("{{Enquirer Anniversary Date}}", $anni_date, $var_message);
 							$var_message = str_replace("{{Enquirer Email}}", $email, $var_message);
-							
+
 							$test =  html_entity_decode($var_message);
 
 							// $first_db = \Config\Database::connect();
@@ -163,7 +163,7 @@ class Inquiryinformation extends BaseController
 							if ($notification_data['is_email'] != 0 && $notification_data['email_template_id'] != 0) {
 								$mail_send = SendMail($email, $subject, $var_message, $attachment, '');
 							}
-					
+
 
 
 
@@ -215,10 +215,6 @@ class Inquiryinformation extends BaseController
 							$response_log = $this->MasterInformationModel->insert_entry2($inquiry_log_data, $this->username . "_inquiry_log");
 							$result['response'] = 1;
 							$result['message'] = 'inquiry added succesfully !';
-
-						
-						
-							
 						} else {
 							$result['response'] = 0;
 							$result['message'] = 'Something Went Wrong !';
@@ -667,24 +663,24 @@ class Inquiryinformation extends BaseController
 			}
 			$getStatusWiseData = getStatusWiseData($which_result, $_f_asss_id, $ajaxsearch_query_tab);
 		}
-		
+
 		$newDate = date("Y-m-d");
 		if (isset($_POST['datastatus']) && !empty($_POST['datastatus'])) {
 			$sql = "SELECT * FROM  `admin_all_inquiry` WHERE inquiry_status = " . $_POST['datastatus'] . " " . $ajaxsearch_query;
 		} else {
 			$sql = "SELECT * FROM `admin_all_inquiry` WHERE inquiry_status IN ($datastatus) $ajaxsearch_query";
 		}
-		
+
 		if (!empty($ajaxsearch_query)) {
 			$cnr_querys = "  inquiry_cnr = 1 ";
 		} else {
 			$cnr_querys = "  inquiry_cnr = 1";
 		}
 		$filter_data = '';
-		if(isset($_POST['user_id'])) {
-			$filter_data = ' AND assign_id = '.$_POST['user_id'].' ';
+		if (isset($_POST['user_id'])) {
+			$filter_data = ' AND assign_id = ' . $_POST['user_id'] . ' ';
 		}
-		
+
 		if (isset($global_search_value)) {
 			$sql = 'SELECT * FROM ' . $this->username . "_" . $table_name . ' WHERE `mobileno` LIKE ' . $global_search_value . ' OR `altmobileno` LIKE ' . $global_search_value;
 		} else if (isset($filter_search_value)) {
@@ -712,11 +708,11 @@ class Inquiryinformation extends BaseController
 					// 	$newTime1 = $dateObject->format('H:i:s');
 					// 	$ajaxsearch_query .= ' AND DATE_FORMAT(nxt_follow_up,"%H:%i:%s") BETWEEN "' . $newTime . '" AND "' . $newTime1 . '"';
 					// }
-					
-					$sql = 'SELECT *,TIME(DATE_FORMAT(nxt_follow_up,"%H:%i:%s")) as inq_hour FROM ' . $this->username . "_" . $table_name . ' where (inquiry_status IN (' . $datastatuss . ')) AND inquiry_cnr = 0 AND  DATE_FORMAT(nxt_follow_up,"%Y-%m-%d")=DATE_FORMAT("' . $newDate . '","%Y-%m-%d") ' .$filter_data . ' ' . $ajaxsearch_query . ' ' . $cnr_query;
+
+					$sql = 'SELECT *,TIME(DATE_FORMAT(nxt_follow_up,"%H:%i:%s")) as inq_hour FROM ' . $this->username . "_" . $table_name . ' where (inquiry_status IN (' . $datastatuss . ')) AND inquiry_cnr = 0 AND  DATE_FORMAT(nxt_follow_up,"%Y-%m-%d")=DATE_FORMAT("' . $newDate . '","%Y-%m-%d") ' . $filter_data . ' ' . $ajaxsearch_query . ' ' . $cnr_query;
 				} elseif ($which_result == "pending") {
 					$getStatusWiseData = getStatusWiseData($which_result, $_f_asss_id, $ajaxsearch_query_tab);
-					$sql = 'SELECT * FROM ' . $this->username . "_" . $table_name . ' where (inquiry_status IN (' . $datastatuss . ')) AND inquiry_cnr = 0 AND  DATE_FORMAT(nxt_follow_up, "%Y-%m-%d") < DATE_FORMAT("' . $newDate . '", "%Y-%m-%d") ' .$filter_data . ' ' . $ajaxsearch_query . ' ' . $cnr_query;
+					$sql = 'SELECT * FROM ' . $this->username . "_" . $table_name . ' where (inquiry_status IN (' . $datastatuss . ')) AND inquiry_cnr = 0 AND  DATE_FORMAT(nxt_follow_up, "%Y-%m-%d") < DATE_FORMAT("' . $newDate . '", "%Y-%m-%d") ' . $filter_data . ' ' . $ajaxsearch_query . ' ' . $cnr_query;
 					// echo $sql;
 				} elseif ($which_result == "appointment") {
 					$getStatusWiseData = getStatusWiseData($which_result, $_f_asss_id, $ajaxsearch_query_tab);
@@ -731,7 +727,6 @@ class Inquiryinformation extends BaseController
 					$getStatusWiseData = getStatusWiseData($which_result, $_f_asss_id, $ajaxsearch_query_tab);
 
 					$sql = 'SELECT * FROM ' . $this->username . "_" . $table_name . ' where inquiry_status IN (' . $datastatus . ') AND ' . $cnr_querys . ' ' . $ajaxsearch_query;
-
 				} else {
 					$getStatusWiseData = getStatusWiseData($which_result, $_f_asss_id, $ajaxsearch_query_tab);
 					$sql = 'SELECT * FROM ' . $this->username . "_" . $table_name . ' where (inquiry_status IN (' . $datastatus . ')) ' . $ajaxsearch_query . ' ' . $cnr_query;
@@ -748,7 +743,7 @@ class Inquiryinformation extends BaseController
 					// echo $sql;
 				} elseif ($which_result == "pending") {
 					$getStatusWiseData = getStatusWiseData($which_result, $_f_asss_id, $ajaxsearch_query_tab);
-					$sql = 'SELECT * FROM ' . $this->username . "_" . $table_name . ' WHERE  (assign_id="' . $_SESSION['id'] . '" ) AND inquiry_cnr = 0 AND inquiry_status IN (' . $datastatuss . ') AND DATE_FORMAT(nxt_follow_up, "%Y-%m-%d") < DATE_FORMAT("' . $newDate . '", "%Y-%m-%d") ' .$filter_data . ' ' . $ajaxsearch_query . ' ' . $cnr_query;
+					$sql = 'SELECT * FROM ' . $this->username . "_" . $table_name . ' WHERE  (assign_id="' . $_SESSION['id'] . '" ) AND inquiry_cnr = 0 AND inquiry_status IN (' . $datastatuss . ') AND DATE_FORMAT(nxt_follow_up, "%Y-%m-%d") < DATE_FORMAT("' . $newDate . '", "%Y-%m-%d") ' . $filter_data . ' ' . $ajaxsearch_query . ' ' . $cnr_query;
 					// echo $sql;
 				} elseif ($which_result == "appointment") {
 					$getStatusWiseData = getStatusWiseData($which_result, $_f_asss_id, $ajaxsearch_query_tab);
@@ -771,10 +766,10 @@ class Inquiryinformation extends BaseController
 				}
 			}
 		}
-		
+
 		$main_sql = $sql;
 		// $db_connection = \Config\Database::connect();
-		
+
 		if (!empty($getStatusWiseData)) {
 			//  $active =0 ;
 			//  $i=1;
@@ -802,12 +797,12 @@ class Inquiryinformation extends BaseController
 			}
 			$stutus_data_html .= '</li>';
 		}
-		
+
 		$secondDb = \Config\Database::connect('second');
 		$result = $secondDb->query($main_sql);
 		if ($result->getNumRows() > 0) {
 			$return_array['stutus_data_allow'] = 1;
-	
+
 			$rowCount = $result->getNumRows();
 			$total_no_of_pages = $rowCount;
 			$second_last = $total_no_of_pages - 1;
@@ -1435,12 +1430,33 @@ class Inquiryinformation extends BaseController
 					// exit;
 				}
 			}
+
+			
+		
+					$ConnectionStatus = 1;
+					$access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+					$urllistdata = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status,language&access_token=' . $access_token;
+					$responselistdata = getSocialData($urllistdata);
+					$templateNames = [];
+
+					foreach ($responselistdata['data'] as $item) {
+						if ($item['status'] == "APPROVED") {
+							$templateNames[$item['id']] = $item['name'];
+							$templatelanguage[$item['name']] = $item['language'];
+						}
+					}
+				
+			
 			$return_array['stutus_data_html'] = $stutus_data_html;
 			$return_array['row_count_html'] = $row_count_html;
 			$return_array['html'] = $html;
 			$return_array['total_page'] = $pagesCount;
 			$return_array['response'] = 1;
+			$return_array['Template_name'] = $templateNames;
+			$return_array['templatelanguage'] = $templatelanguage;
+
 		} else {
+
 			$return_array['stutus_data_html'] = $stutus_data_html;
 			$return_array['row_count_html'] = "Page 0 of 0";
 			$return_array['total_page'] = 0;
