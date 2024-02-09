@@ -48,7 +48,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     <h2>Facebook Connections</h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end  col-1">
-                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#fbCntModal"
                         class="btn-primary-rounded mx-2">
                         <i class="bi bi-plus"></i>
                     </button>
