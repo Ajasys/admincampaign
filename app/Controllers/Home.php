@@ -449,9 +449,9 @@ class Home extends BaseController
         $columns_audience = [
             'id int primary key AUTO_INCREMENT',
             'inquiry_id int(11) NOT NULL',
-            'inquiry_status` int(11) NOT NULL',
+            'inquiry_status int(11) NOT NULL',
             'full_name varchar(500) NOT NULL',
-            'intrested_product` int(11) NOT NULL',
+            'intrested_product int(11) NOT NULL',
             'name varchar(255) NOT NULL',
             'retansion int(11) NOT NULL',
             'created_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()',
@@ -461,7 +461,7 @@ class Home extends BaseController
             'address varchar(255) NOT NULL',
             'source varchar(255) NOT NULL',
         ];
-        tableCreateAndTableUpdate2($table_username .'_audiences',$columns_audience);
+        tableCreateAndTableUpdate2($table_username .'_audiences', '', $columns_audience);
         $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_type');
             $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_source');
             // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
