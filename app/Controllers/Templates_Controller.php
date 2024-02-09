@@ -1,72 +1,24 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Models\MasterInformationModel;
 use Config\Database;
+
 class Templates_Controller extends BaseController
 {
 	public function __construct()
-    {
-        helper("custom");
-        $db = db_connect();
+	{
+		helper("custom");
+		$db = db_connect();
 		session();
-        $this->MasterInformationModel = new MasterInformationModel($db);
-        $this->username = session_username($_SESSION["username"]);
-        $this->admin = 0;
-        if(isset($_SESSION['admin']) && !empty($_SESSION['admin'])){
-            $this->admin = 1;
-        }
-    }
-	
-	public function bulkwhatsapp_template_sent(){
-		$db_connection = \Config\Database::connect('second');
-		$customer_id = $_POST['customer_id'];
-		$customer_id_array = explode(",", $customer_id);
-		
-		$placeholders = rtrim(str_repeat('?,', count($customer_id_array)), ',');
-		$query = "SELECT mobileno FROM admin_all_inquiry WHERE id IN ($placeholders)";
-		
-		$bind_array = array_map('intval', $customer_id_array);
-		
-		$result1 = $db_connection->query($query, $bind_array);
-		$results_memberdata = $result1->getResultArray();
-		
-		$phone_nos = array_column($results_memberdata, 'mobileno');
-		
-	
-		$post_data = $_POST;
-		$template_name = $post_data['header'];
-		$language = $post_data['language'];
-	
-		$access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-	
-		$url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
-		$ReturnResult = 0; 
-	
-		foreach ($phone_nos as $phone_no) {
-			$postData = json_encode([
-				"messaging_product" => "whatsapp",
-				"recipient_type" => "individual",
-				"to" => $phone_no,
-				"type" => "template",
-				"template" => [
-					"name" => $template_name,
-					"language" => [
-						"code" => $language
-					]
-				]
-			]);
-	
-			$Result = postSocialData($url, $postData);
-			if (!isset($Result['id'])) {
-				$ReturnResult = 1; 
-			}
+		$this->MasterInformationModel = new MasterInformationModel($db);
+		$this->username = session_username($_SESSION["username"]);
+		$this->admin = 0;
+		if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
+			$this->admin = 1;
 		}
-		echo $ReturnResult;
 	}
-	
-	
-
-
 	public function allinq_sms_send()
 	{
 		$db = \Config\Database::connect('second');
@@ -115,33 +67,31 @@ class Templates_Controller extends BaseController
 			$var_message = str_replace("{{Enquirer Email}}", $email, $var_message);
 
 			$mail_send = SendMail($email, $subject, $var_message, $attachment, '');
-	
 		}
 	}
 	public function template()
 	{
-		$table_name = $this->username.'_all_inquiry';
-		$sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$table_name."';";
+		$table_name = $this->username . '_all_inquiry';
+		$sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $table_name . "';";
 		$thirdDb = \Config\Database::connect('default');
 		$result = $thirdDb->query($sql);
 		$conversation_chat_user = $result->getResultArray();
 		$column_names_array = array();
 		foreach ($conversation_chat_user as $column) {
 			$column_names_array[] = $column['COLUMN_NAME'];
-		}	
-		$data['data'] = json_encode($column_names_array); 
+		}
+		$data['data'] = json_encode($column_names_array);
 		return view('template', $data);
 	}
 
 	public function template_list_data()
 	{
-		$return_array = array(
-
-		);
+		$return_array = array();
 		$table_username = getMasterUsername();
 		$DataBase = \Config\Database::connect();
 		$username = session_username($_SESSION['username']);
-		function createOrUpdateTable($tableName, $columns, $DataBase) {
+		function createOrUpdateTable($tableName, $columns, $DataBase)
+		{
 			if (!$DataBase->tableExists($tableName)) {
 				$columns_str = implode(', ', $columns);
 				$sql = "CREATE TABLE $tableName ($columns_str)";
@@ -188,16 +138,16 @@ class Templates_Controller extends BaseController
 		];
 		createOrUpdateTable($whatsapp_table, $columns_whatsapp, $DataBase);
 		$table = $_POST['table'];
-		$table_name = $this->username.'_'.$table;
+		$table_name = $this->username . '_' . $table;
 		$allow_data = json_decode($_POST['show_array']);
 		$action = $_POST['action'];
 		$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
-		
+
 		$data = $departmentdisplaydata = json_decode($departmentdisplaydata, true);
-		
+
 		$i = 1;
 		$html = "";
-		if($table == "smstemplate"){
+		if ($table == "smstemplate") {
 			foreach ($departmentdisplaydata as $key => $value) {
 				$ts = '<tr style="width:0%">
 							<td style="width:0% !important">
@@ -206,7 +156,7 @@ class Templates_Controller extends BaseController
 				';
 				$ts .= "";
 				$ts .= '
-					<td class="edt edit_sms_div" data_edit_id="'.$value['id'].'">
+					<td class="edt edit_sms_div" data_edit_id="' . $value['id'] . '">
 						<div class="px-0 py-0 w-100 sms_template_view" data-bs-target="#sms_template_view" data-view_id="' . $value['id'] . '" data-bs-toggle="modal">
 						<div class="row row-cols-1">
 							<div class="col">
@@ -221,9 +171,8 @@ class Templates_Controller extends BaseController
 				$html .= '</tr>';
 				$i++;
 			}
-		}else{
-			foreach ($departmentdisplaydata as $key => $value) 
-			{			
+		} else {
+			foreach ($departmentdisplaydata as $key => $value) {
 				$ts = '<tr style="width:0%">
 							<td style="width:0% !important">
 								<input class="checkbox table_list_check" type="checkbox" id="select-all" data-delete_id="' . $value['id'] . '"
@@ -233,7 +182,7 @@ class Templates_Controller extends BaseController
 				$ts .= "";
 				$ts .= '
 					<td>
-						<div class="edit_email edit_email_t_changes edit_email_t_changes_email edit_email_t px-0 py-0 w-100" data-bs-toggle="modal" data_table="'.$table.'" data-bs-target="#add-email" data-edit_id="' . $value['id'] . '">
+						<div class="edit_email edit_email_t_changes edit_email_t_changes_email edit_email_t px-0 py-0 w-100" data-bs-toggle="modal" data_table="' . $table . '" data-bs-target="#add-email" data-edit_id="' . $value['id'] . '">
 							<div class="row row-cols-1">
 								<div class="col">
 									<b>' . $value['id'] . ' Title :</b>
@@ -253,40 +202,40 @@ class Templates_Controller extends BaseController
 		} else {
 			// echo '<p style="text-align:center;">Data Not Found </p>';
 		}
-		$return_array['html']=$html;
+		$return_array['html'] = $html;
 		echo json_encode($return_array, true);
 		die();
 	}
 	// All Template List Data Code End  ================================================================>
-	  
-	
+
+
 	// Insert Data Code Start  =========================================================================>
 	public function insert_data_t()
 	{
-		$files= $_FILES;
-		if(!empty($files)){
+		$files = $_FILES;
+		if (!empty($files)) {
 			$uploadDir = 'assets/whatapp_email_store/';
 			if (!is_dir($uploadDir)) {
 				mkdir($uploadDir, 0755, true);
 			}
 			$filesArr = $_FILES["attachment"];
-				$fileNames = array_filter($filesArr['name']);
-				$uploadedFile = '';
-					foreach ($filesArr['name'] as $key => $val) {
-						$fileName = basename($filesArr['name'][$key]);
-						$targetFilePath = $uploadDir . $fileName;
-						$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-						if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
-							$uploadedFile .= $fileName . ',';
-						} else {
-							$uploadStatus = 0;
-							$response['message'] = 'Sorry, there was an error uploading your file.';
-						}
-					}
+			$fileNames = array_filter($filesArr['name']);
+			$uploadedFile = '';
+			foreach ($filesArr['name'] as $key => $val) {
+				$fileName = basename($filesArr['name'][$key]);
+				$targetFilePath = $uploadDir . $fileName;
+				$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+				if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
+					$uploadedFile .= $fileName . ',';
+				} else {
+					$uploadStatus = 0;
+					$response['message'] = 'Sorry, there was an error uploading your file.';
+				}
+			}
 		}
 		$post_data = $this->request->getPost();
 		$table = $_POST['table'];
-		$table_name = $this->username.'_'.$table;
+		$table_name = $this->username . '_' . $table;
 		$action_name = $this->request->getPost("action");
 		if ($this->request->getPost("action") == "insert") {
 			unset($_POST['action']);
@@ -295,20 +244,20 @@ class Templates_Controller extends BaseController
 
 			// $inputCode = $_POST["template"];
 
-    		// Create an HTML file and write the input code to it
-				// $htmlFileName = "output.html";
-				// $htmlFile = fopen($htmlFileName, "w");
+			// Create an HTML file and write the input code to it
+			// $htmlFileName = "output.html";
+			// $htmlFile = fopen($htmlFileName, "w");
 
-				// if ($htmlFile) {
-				// 	fwrite($inputCode);
-				// 	fclose($htmlFile);
+			// if ($htmlFile) {
+			// 	fwrite($inputCode);
+			// 	fclose($htmlFile);
 
-					// $test =  html_entity_decode($inputCode);
-				// } else {
-				// 	$test =  "Error creating HTML file.";
-				// }
+			// $test =  html_entity_decode($inputCode);
+			// } else {
+			// 	$test =  "Error creating HTML file.";
+			// }
 
-				if (!empty($_POST)) {
+			if (!empty($_POST)) {
 				$insert_data = $_POST;
 				$isduplicate = $this->duplicate_data($insert_data, $table_name);
 				if ($isduplicate == 0) {
@@ -328,27 +277,27 @@ class Templates_Controller extends BaseController
 	// Update Data Code Start  =========================================================================>
 	public function update_data_t()
 	{
-		$files= $_FILES;
-		if(!empty($files)){
+		$files = $_FILES;
+		if (!empty($files)) {
 			$uploadDir = 'assets/whatapp_email_store/';
 			$filesArr = $_FILES["attachment"];
-				$fileNames = array_filter($filesArr['name']);
-				$uploadedFile = '';
-					foreach ($filesArr['name'] as $key => $val) {
-						$fileName = basename($filesArr['name'][$key]);
-						$targetFilePath = $uploadDir . $fileName;
-						$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-						if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
-							$uploadedFile .= $fileName . ',';
-						} else {
-							$uploadStatus = 0;
-							$response['message'] = 'Sorry, there was an error uploading your file.';
-						}
-					}
+			$fileNames = array_filter($filesArr['name']);
+			$uploadedFile = '';
+			foreach ($filesArr['name'] as $key => $val) {
+				$fileName = basename($filesArr['name'][$key]);
+				$targetFilePath = $uploadDir . $fileName;
+				$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+				if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
+					$uploadedFile .= $fileName . ',';
+				} else {
+					$uploadStatus = 0;
+					$response['message'] = 'Sorry, there was an error uploading your file.';
+				}
+			}
 		}
 		$post_data = $this->request->getPost();
 		$table = $_POST['table'];
-		$table_name = $this->username.'_'.$table;
+		$table_name = $this->username . '_' . $table;
 		$action_name = $this->request->getPost("action");
 		$update_id = $this->request->getPost("edit_id");
 		$response = 0;
@@ -373,13 +322,13 @@ class Templates_Controller extends BaseController
 	{
 		$edit_id = $_POST['edit_id'];
 		$table = $_POST['table'];
-		$table_name = $this->username.'_'.$table;
+		$table_name = $this->username . '_' . $table;
 		$departmentEditdata = $this->MasterInformationModel->edit_entry2($table_name, $edit_id);
 
 		foreach ($departmentEditdata as $d_key => $d_value) {
 		}
 		if (isset($d_value->attachment)) {
-			if($d_value->attachment !== ""){
+			if ($d_value->attachment !== "") {
 				$html = '';
 				$file_array = explode(',', $d_value->attachment);
 				foreach ($file_array as $key => $value) {
@@ -395,11 +344,11 @@ class Templates_Controller extends BaseController
 	// Delete Data Code Start  =========================================================================>
 	public function template_delete_data()
 	{
-		$table_username = getMasterUsername(); 
+		$table_username = getMasterUsername();
 		if ($this->request->getPost("action") == "delete") {
-			$delete_id = $this->request->getPost('id');	
+			$delete_id = $this->request->getPost('id');
 			$table = $_POST['table'];
-			$table_name =  $this->username.'_'.$table;
+			$table_name =  $this->username . '_' . $table;
 			// $table_name = $this->request->getPost('table');
 			$departmentdisplaydata = $this->MasterInformationModel->delete_entry2($table_name, $delete_id);
 		}
@@ -435,16 +384,16 @@ class Templates_Controller extends BaseController
 
 	// View Data Code Start  ===========================================================================>
 	public function view_data()
-    {
-        if ($this->request->getPost("action") == "view") {
-            $view_id = $this->request->getPost('view_id');
+	{
+		if ($this->request->getPost("action") == "view") {
+			$view_id = $this->request->getPost('view_id');
 			$table = $_POST['table'];
-			$table_name = $this->username.'_'.$table;
-            $userEditdata = $this->MasterInformationModel->edit_entry($table_name, $view_id);
-            return json_encode($userEditdata, true);
-        }
-        die();
-    }
+			$table_name = $this->username . '_' . $table;
+			$userEditdata = $this->MasterInformationModel->edit_entry($table_name, $view_id);
+			return json_encode($userEditdata, true);
+		}
+		die();
+	}
 	// View Data Code End  =============================================================================>
 	function fetch_email_track_data()
 	{
@@ -506,7 +455,7 @@ class Templates_Controller extends BaseController
 						<td>' . ($open_date) . '</td>
 						<td>
 							<div class="form-group">                                   
-								<a href="' . (base_url('email_history_show?email_track_id=' . $email_track_codee . '&email_track_link=' . $email_link_track_code)) . '" class="btn bg-transperent rounded-2 border">See Details</a>
+								<a href="' . (base_url('email_history_show?email_track_id=' . $email_track_codee . '&email_track_link=' . $email_link_track_code)) . '" class="btn bg-transperent rounded-2 btn_purple">See Details</a>
 							</div>
 						</td>
 					</tr>';
@@ -520,7 +469,7 @@ class Templates_Controller extends BaseController
 
 	function show_data_email()
 	{
-	
+
 		if (isset($_POST['email_trac_id'])) {
 			$track_id = $_POST['email_trac_id'];
 		} else {
@@ -531,7 +480,7 @@ class Templates_Controller extends BaseController
 		} else {
 			$track_link = "";
 		}
-		
+
 		$db = \Config\Database::connect('second');
 		// $db->query('TRUNCATE TABLE admin_email_data');
 		// $db->query('TRUNCATE TABLE admin_email_track');
@@ -564,8 +513,8 @@ FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_tr
 
 					$output .= '
 					<tr>
-					<td class="text-center"> <span>' . $status . '</span></td>
-					<td class="text-center"> <span>' . $open_date . '</span></td>
+					<td class="border-bottom-1"> <span>' . $status . '</span></td>
+					<td class="border-bottom-1"> <span>' . $open_date . '</span></td>
 					</tr>';
 				}
 			}
@@ -588,53 +537,48 @@ FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_tr
 
 					$html_link .= '
 					<tr>
-					<td class="text-center"> <span>' . $status . '</span></td>
-					<td class="text-center"> <span>' . $open_date50 . '</span></td>
+					<td class="border-bottom-1"> <span>' . $status . '</span></td>
+					<td class="border-bottom-1"> <span>' . $open_date50 . '</span></td>
 					</tr>';
 				}
 			}
-			
 		}
 
+		$query10 = "SELECT * FROM admin_email_data WHERE email_track_code = '" . $track_id . "'";
+		$result10 = $db_connection->query($query10);
+		$result_full_data = $result10->getResultArray();
 
+		$full_message_show = "";
+		foreach ($result_full_data as $row_data) {
 
-
-
-
-		$query10 = "SELECT * FROM admin_email_data WHERE email_track_code = '" . $track_id . "'" ;
-			$result10 = $db_connection->query($query10);
-			$result_full_data = $result10->getResultArray();
-		
-			$full_message_show = "";
-			foreach ($result_full_data as $row_data) {
-			
-				$open_date = date('d-m-Y h:i a', strtotime($row_data["email_open_datetime"]));
-				$full_message_show .= '
+			$open_date = date('d-m-Y h:i a', strtotime($row_data["email_open_datetime"]));
+			$full_message_show .= '
 				<tr>
 					<td>' . ($row_data["from_email_address"]) . '</td>
 					<td>' . ($row_data["email_address"]) . '</td>
 					<td>' . ($row_data["email_subject"]) . '</td>
 					<td>' . ($row_data["email_body"]) . '</td>			
 				</tr>';
-			}
+		}
+
 		$return_array['html'] = $output;
 		$return_array['html_link'] = $html_link;
 		$return_array['full_message_show'] = $full_message_show;
 
 		echo json_encode($return_array, true);
 		die();
-	}	public function delete_all_t()
+	}
+	public function delete_all_t()
 	{
 		if ($this->request->getPost('checkbox_value')) {
 			$ids = $this->request->getPost('checkbox_value');
 			$table = $this->request->getPost('table');
-			$table_name = $this->username.'_'.$table;
+			$table_name = $this->username . '_' . $table;
 			//print_r($table_name);
 			// die();
 			if (!empty($ids)) {
 				$this->db = \Config\Database::connect();
 				if (!empty($ids)) {
-
 				}
 				$all = implode(",", $ids);
 				print_r($all);
@@ -646,6 +590,4 @@ FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_tr
 			}
 		}
 	}
-
-
 }

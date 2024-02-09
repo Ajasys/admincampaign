@@ -44,15 +44,24 @@
         background-color: #724ebf21;
         color: #724ebf;
     }
-</style>
 
+    .btn_purple {
+        border: 2px solid #724ebf;
+        color: #724ebf;
+    }
+
+    .btn_purple:hover {
+        background-color: #724ebf;
+        color: white;
+    }
+</style>
 
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2">
             <div class="d-flex align-items-center title-1">
                 <i class="bi bi-gear-fill"></i>
-                <h2>Templates</h2>
+                <h2>Email Conversions</h2>
             </div>
         </div>
         <!-- WHATAPP EMAIL AND SMS BUTTTON NAV-BAR START ============================================================= -->
@@ -94,7 +103,7 @@
 
 
 
-        <div class="bg-white rounded-2 p-2 mb-2">
+        <div class="bg-white rounded-2 p-2 mb-2 border">
             <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link  active " id="inquiry_alert_tab" data-bs-toggle="pill" data-bs-target="#inquiry_alert_main" type="button" role="tab" aria-controls="inquiry_alert_main" aria-selected="false">Email Conversions</button>
@@ -102,19 +111,21 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link    " id="user_alert_tab" data-bs-toggle="pill" data-bs-target="#user_alert_main" type="button" role="tab" aria-controls="user_alert_main" aria-selected="true">Email Templates</button>
                 </li>
-                
             </ul>
         </div>
         <div class="tab-content p-0 " id="pills-tabContent">
             <div class="tab-pane fade show active" id="inquiry_alert_main" role="tabpanel" aria-labelledby="inquiry_alert_tab" tabindex="0">
                 <div class="">
-                    <div class="bg-white p-2 rounded-2">
-                        <div class="title-2 mb-2">
-                            <h2>Email Send List</h2>
-                        </div>
-                        <div class="overflow-x-scroll">
-                            <table id="myTable" class="table table-bordered table-striped">
+                    <div class="bg-white rounded-2">
+
+                        <div class="overflow-x-scroll border p-2">
+
+                            <div class="title-2 mb-2">
+                                <h2 style="background-color: #D8D7FF; font-size: 14px;" class="p-2 rounded-1"><b>Email Send List</b></h2>
+                            </div>
+                            <table id="myTable" class="table ">
                                 <thead>
+
                                     <tr>
                                         <th width="25%">Email</th>
                                         <th width="40%">Subject</th>
@@ -134,7 +145,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade " id="user_alert_main" role="tabpanel" aria-labelledby="user_alert_tab"        tabindex="0">
+            <div class="tab-pane fade " id="user_alert_main" role="tabpanel" aria-labelledby="user_alert_tab" tabindex="0">
                 <div class="tab-content p-0" id="pills-tabContentS">
                     <div class="tab-pane fade show active -whatapp" id="user_alert" role="tabpanel" aria-labelledby="user_alert_tab" tabindex="0">
                         <div class="container-fluid p-0 main-check-class">
@@ -216,9 +227,7 @@
                         <div class="container-fluid p-0 main-check-class">
                             <div class="p-2">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <div class="title-1">
-                                        <h2>Email Template</h2>
-                                    </div>
+
                                     <div class="d-flex justify-content-end">
                                         <div data-delete_id="" class="deleted-all emailDbtn" style="display: none;">
                                             <span class="btn-primary-rounded">
