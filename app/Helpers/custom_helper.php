@@ -110,7 +110,7 @@ if (!function_exists('SendMail')) {
         // ];
         // $table50 = tableCreateAndTableUpdate2($table_name1189, '', $columns50);
         try {
-            $first_db = \Config\Database::connect('second');
+            $first_db = \Config\Database::connect();
             // $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
             $master = $_SESSION['master'];
             $SendMailUsing = $first_db->table('admin_generale_setting')

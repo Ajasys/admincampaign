@@ -127,7 +127,7 @@ public function whatsapp_connections(){
             'email_link_track_code varchar(400)',      
         ];
   
-        $table = tableCreateAndTableUpdate($table_name100, '', $columns100);
+        $table = tableCreateAndTableUpdate2($table_name100, '', $columns100);
 
         $table_name89 = $table_username . '_emailtemplate';
         $columns50 = [
@@ -138,7 +138,7 @@ public function whatsapp_connections(){
       
         ];
   
-        $table = tableCreateAndTableUpdate($table_name89, '', $columns50);
+        $table = tableCreateAndTableUpdate2($table_name89, '', $columns50);
         $table_name3 = 'admin_generale_setting';
         $columns3 = [
             'id int primary key AUTO_INCREMENT',
@@ -1083,7 +1083,7 @@ public function whatsapp_connections(){
       
         ];
   
-        $table = tableCreateAndTableUpdate($table_name, '', $columns);
+        $table = tableCreateAndTableUpdate2($table_name, '', $columns);
        
         return view('auth-login/login');
     }
