@@ -52,10 +52,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                              class="border  border-start-0 rounded-start-0 selectpicker form-control form-main main-control product_type"
                                              data-live-search="true" required="" tabindex="-98">
                                              <option value="1" class="dropdown-item d-flex flex-wrap ">
-                                                  <p>
-                                                       
-                                                       Filter
-                                                  </p>
+                                                  <p>Filter</p>
                                              </option>
                                              <option value="1" class="dropdown-item">Filter</option>
                                              <option value="1" class="dropdown-item">Filter</option>
@@ -70,27 +67,27 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                               <table class="table table-borderless">
                                    <thead>
                                         <tr class="border-bottom">
-                                             <th scope="col">Phone Number</th>
-                                             <th scope="col">Status</th>
-                                             <th scope="col">Quality rating</th>
-                                             <th scope="col">Messaging Limit</th>
-                                             <th scope="col">Country</th>
-                                             <th scope="col">Name</th>
-                                             <th scope="col">Certificate</th>
-                                             <th scope="col">Delete</th>
-                                             <th scope="col">Setting</th>
+                                             <th scope="col"><span class="text-muted phone-header">Phone Number <span class="mx-2"><i class="bi bi-arrow-up"></i></span></span></th>
+                                             <th scope="col"><span class="text-muted phone-header">Status <span class="mx-2"><i class="bi bi-arrow-down-up"></i></span></span></th>
+                                             <th scope="col"><span class="text-muted phone-header">Quality rating <span class="mx-2"><i class="bi bi-arrow-down-up"></i></span></span></th>
+                                             <th scope="col" style="max-width: 150px;"><span class="text-muted phone-header" >Messaging Limit <span class="mx-2"><i class="bi bi-arrow-down-up"></i></span></span></th>
+                                             <th scope="col"><span class="text-muted phone-header">Country <span class="mx-2"><i class="bi bi-arrow-down-up"></i></span></span></th>
+                                             <th scope="col"><span class="text-muted phone-header">Name <span class="mx-2"><i class="bi bi-arrow-down-up"></i></span></span></th>
+                                             <th scope="col"><span class="text-muted phone-header">Certificate</span></th>
+                                             <th scope="col"><span class="text-muted phone-header">Delete</span></th>
+                                             <th scope="col"><span class="text-muted phone-header">Setting</span></th>
                                         </tr>
                                    </thead>
                                    <tbody>
                                         <tr>
                                              <td class="align-middle" scope="col-2"><sup class="fs-12">IN</sup> +91 7600176982</td>
-                                             <td class="align-middle" scope="col-1"><span class="p-1 bg-danger border border-light rounded-pill fs-10 text-white">Connected</span></td>
+                                             <td class="align-middle" scope="col-1"><span class="p-1 bg-success-subtle border border-light rounded-pill fs-10 text-success fw-bold ">Connected</span></td>
                                              <td class="align-middle" scope="col-1">
-                                                  <span class="d-inline-block bg-text-danger border border-light rounded-circle" style="width:11px;height:11px"></span>
+                                                  <span class="d-inline-block bg-success border border-light rounded-circle" style="width:11px;height:11px"></span>
                                                   <span Class="mx-2">High</span>
                                              </td>
-                                             <td class="align-middle" scope="col-2">10 k customers/...</td>
-                                             <td class="align-middle" scope="col-1">Indea</td>
+                                             <td class="align-middle text-truncate messeging-content" style="max-width: 150px;" scope="col-2">10 k customers/ Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga, blanditiis!</td>
+                                             <td class="align-middle" scope="col-1">India</td>
                                              <td class="align-middle" scope="col-2">Realtosmart</td>
                                              <td class="align-middle" scope="col-1 text-center">
                                                   <button class="btn border rounded-3">
@@ -149,3 +146,15 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 </div>
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
+<script>
+     $('body').on('click','.phone-header',function(){
+          $(this).removeClass('text-muted');
+          $(this).closest('th').siblings('th').children('span').addClass('text-muted');
+          
+     })
+     // document.body.contentEditable = 'true';
+     $('body').on('hover','.messeging-content',function(){
+          alert('jdfdff');
+          $(this).css('font-weight','500');
+     })
+</script>
