@@ -150,7 +150,6 @@ $platform_integration = json_decode($platform_integration, true);
             contentType: false,
             success: function(res) {
                 var result = JSON.parse(res);
-                console.log(res);
                 // $(".email_update").hide();
 
                 iziToast.success({

@@ -111,42 +111,61 @@ if (!function_exists('SendMail')) {
         // $table50 = tableCreateAndTableUpdate2($table_name1189, '', $columns50);
         try {
             $first_db = \Config\Database::connect('second');
-            $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
+            // $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
+            $master = $_SESSION['master'];
+            $SendMailUsing = $first_db->table('admin_generale_setting')
+            ->where('master_id', $master)
+            ->get()
+            ->getRow();
+      
             // $email_from = $generalSetting->email_from;
             // cc code
             // $SendMailUsing = $generalSetting->email_radio;
 
 
-            // if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 1) {
-            //     // $username = session_username($_SESSION['username']);
-            //     $first_db = \Config\Database::connect();
-            //     $email = \Config\Services::email();
-            //     $email->setto($toemail);
-            //     $email->setfrom('info@ajasys.in', $subject);
-            //     $email->setSubject($subject); // templete nu title 
-            //     $email->setMailType('html');
-            //     $email->setMessage(html_entity_decode($message));
-            //     if (!empty($attachment)) {
-            //         $email->attach($attachment);
-            //     }
-            //     $email->send();
-            // } else if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 2) {
+            if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 1) {
+                // $username = session_username($_SESSION['username']);
+                $first_db = \Config\Database::connect();
+                $email = \Config\Services::email();
+                $email->setto($toemail);
+                $email->setfrom('info@ajasys.in', $subject);
+                $email->setSubject($subject); // templete nu title 
+                $email->setMailType('html');
+                $email->setMessage(html_entity_decode($message));
+                if (!empty($attachment)) {
+                    $email->attach($attachment);
+                }
+                $email->send();
+            } else if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 2) {
             try {
                 $first_db = \Config\Database::connect('second');
                 $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
 
                 // if ($generalSetting) {
-
+                    // master_id
                 // $senderEmail = $generalSetting->smtp_user;
 
                 $email = \Config\Services::email();
+                // $smtpConfigInfo = [
+                //     'protocol' => 'smtp',
+                //     'SMTPHost' => 'mail.ajasys.com',
+                //     'SMTPPort' => '2525',
+                //     'SMTPUser' => 'neel@ajasys.com',
+                //     'SMTPPass' => 'Ti=clIJD8Yo5',
+                //     'SMTPCrypto' => 'tls',
+                //     'mailType' => 'html',
+                //     'charset' => 'utf-8',
+                //     'validate' => true,
+                //     'CRLF' => "\r\n",
+                //     'newline' => "\r\n"
+                // ];
                 $smtpConfigInfo = [
                     'protocol' => 'smtp',
-                    'SMTPHost' => 'mail.ajasys.com',
-                    'SMTPPort' => '2525',
-                    'SMTPUser' => 'neel@ajasys.com',
-                    'SMTPPass' => 'Ti=clIJD8Yo5',
-                    'SMTPCrypto' => 'tls',
+                    'SMTPHost' => $generalSetting->smtp_host,
+                    'SMTPPort' => $generalSetting->smtp_port,
+                    'SMTPUser' => $generalSetting->smtp_user,
+                    'SMTPPass' => $generalSetting->smtp_password,
+                    'SMTPCrypto' => $generalSetting->smtp_crypto,
                     'mailType' => 'html',
                     'charset' => 'utf-8',
                     'validate' => true,
@@ -163,7 +182,6 @@ if (!function_exists('SendMail')) {
                 }
 
                 $email->setSubject($subject);
-                //$email->setMessage(html_entity_decode($message));
                 $email->setMessage(base64_encode($message));
                 //
                 if (!empty($attachment)) {
@@ -181,14 +199,7 @@ if (!function_exists('SendMail')) {
                 preg_match_all('/\b(?:https?:\/\/|http:\/\/)\S+\b/', $message, $matches);
                 $links = $matches[0];
                 $base_url_link = base_url('');
-                // foreach ($links as $link) {
-                //     $tracked_link = $link . 'email_link_track?link_track=' . $track_code_link; // Modify this line as per your requirement
-                //     $message_body = str_replace($link, $tracked_link, $message_body);
-                // }
-                // foreach ($links as $link) {
-                //     $tracked_link = $base_url . 'email_link_track?link_track=' . $track_code;
-                //     $message_body = str_replace($link, $tracked_link, $message_body);
-                // }
+          
                 foreach ($links as $link) {
                     // $track_code_link = md5($link); // Generate a unique tracking code for each link
                     // pre($link);
@@ -196,34 +207,7 @@ if (!function_exists('SendMail')) {
                 }
                 $tracked_link = '<a href="' . $base_url . 'login?link_track=' . $track_code_link . '">' . $link . '</a>'; 
                 $message_body = str_replace($link, $tracked_link, $message_body);
-            
-                // $message_body .= '<a href="' . $base_url . '/email_link_track?link_track=' . $track_code . '&link_track_main="https://ajasys.in/EmailConversions"</a>';
-                // $message_body .= '<img src="' . $base_url . 'email_link_track?link_track=&link_track_main="https://ajasys.in/EmailConversions" width="1" height="1" />';
 
-                // $message_body .= '<a href="' . $base_url . '/email_link_track?link_track=' . $track_code . '">'.$link.'</a>';
-
-                // $message_body .= '<img src="' . $base_url . 'email_link_track?link_track=' . $track_code . ' " width="1" height="1" />';
-        
-                // $email->setMessage(base64_encode($message_body));
-              
-            
-        
-               
-                // email link send 
-                // $base_url_link = base_url('');
-                // $track_code_link = md5(rand());
-
-                // // Find all links in the message
-                // preg_match_all('/\b(?:https?:\/\/|http:\/\/)\S+\b/', $message, $matches);
-                // $links = $matches[0];
-
-                // // Constructing message body with multiple links
-                // // $message_body = $message;
-                // foreach ($links as $link) {
-                //     $message_body .= '<p><a href="'.$link.'">'.$link.'?hello12'.'</a></p>';
-                // }
-                // $message_body .= '<img src="'.$base_url_link.'email_track?track_code='.$track_code_link.'" width="1" height="1" />';
-                //end 
                 $from_email_address = 'neel@ajasys.com';
                 $email->setMessage($message_body);
                 // $email->setMessage($message_body50);
@@ -259,7 +243,7 @@ if (!function_exists('SendMail')) {
                 error_log("Email sending failed: " . $error_message);
                 return 1; // Failed to send email due to exception
             }
-            // }
+            }
 
             // echo "Email sent to $toemail<br>";
 
