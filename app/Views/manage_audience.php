@@ -16,12 +16,50 @@ if ($query->getNumRows() > 0) {
 // pre($columnNames);
 ?>
 <style>
-    table th,td{
-        border:1px solid #ebebeb;
-        text-align: center!important;
+    table th,
+    td {
+        border: 1px solid #ebebeb;
+        text-align: center !important;
     }
-    #DataTables_Table_0 thead th:first-child{
+
+    #DataTables_Table_0 thead th:first-child {
         padding-right: 0px !important;
+    }
+
+    .icon-div {
+        background: lightgray;
+        width: 70px;
+        height: 70px;
+    }
+
+    .write-div {
+        margin-left: 15px;
+    }
+
+    .gray {
+        background: lightgray;
+        margin-left: 15px;
+    }
+
+    .mian {
+        font-size: 25px;
+    }
+
+
+    @media screen and (max-width: 400px) {
+        #active {
+            font-size: 12px;
+        }
+
+        .icon-div {
+            width: 50px;
+            height: 50px;
+            margin-top: 10px;
+        }
+
+        .mian {
+            font-size: 15px;
+        }
     }
 </style>
 <div class="main-dashbord p-2">
@@ -147,6 +185,8 @@ if ($query->getNumRows() > 0) {
                             <div class="col-12">
                                 <button type="button"
                                     class="btn-primary me-2 Cancle_Btn close_container">Cancel</button>
+                                <button type="button" class="btn-primary me-2 Cancle_Btn close_container edt" data-edit_id=""
+                                    data-bs-toggle="modal" data-bs-target="#Edit_custom">Edit</button>
                             </div>
                         </div>
                     </div>
@@ -257,7 +297,7 @@ if ($query->getNumRows() > 0) {
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                <button type="button" class="btn btn-secondary next_btn" data-bs-toggle="modal"
                     data-bs-target="#customart_data2">Next</button>
                 <!-- <button type="button" class="btn btn-primary">Save</button> -->
             </div>
@@ -324,10 +364,10 @@ if ($query->getNumRows() > 0) {
                     </div>
                     <div class="col-12 mt-3">
                         <div class="main-selectpicker">
-                            <label for="#">Name</label>
+                            <label for="#">Name <sup class="validationn">*</sup></label>
                             <div class="col-12 d-flex align-items-center">
                                 <input type="text" placeholder="Enter name"
-                                    class="form-control form-main main-control name" id="name">
+                                    class="form-control form-main main-control name" id="name" required="">
                             </div>
                         </div>
                     </div>
@@ -337,7 +377,7 @@ if ($query->getNumRows() > 0) {
             <!--============= second============  -->
             <div class="modal-body d-none" id="second_modalbody">
                 <div class=" bg-white rounded-2  col-12">
-                <form class="needs-validation" name="import_inquiry_csv" method="POST" novalidate="">
+                    <form class="needs-validation" name="import_inquiry_csv" method="POST" novalidate="">
                         <div class="col-12">
                             <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
                                 <div class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
@@ -346,8 +386,8 @@ if ($query->getNumRows() > 0) {
                             <div class="col-12 d-flex flex-wrap">
                                 <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
                                 <div class="col">
-                                <input type="text" placeholder="Enter name"
-                                    class="form-control form-main main-control names" id="names">
+                                    <input type="text" placeholder="Enter name"
+                                        class="form-control form-main main-control names" id="names" required="">
                                 </div>
                             </div>
                         </div>
@@ -361,7 +401,6 @@ if ($query->getNumRows() > 0) {
                                 <div class="col">
                                     <span class="py-1 px-2 border fs-10 me-2 fw-medium">Email</span>
                                     <span class="py-1 px-2 border fs-10 mx-2 fw-medium">Phone Number</span>
-                                    <span class="py-1 px-2 border fs-10 mx-2 fw-medium">Full Name</span>
                                 </div>
                             </div>
                         </div>
@@ -374,10 +413,11 @@ if ($query->getNumRows() > 0) {
                             <div class="col-12 d-flex flex-wrap">
                                 <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
                                 <div class="col">
-                                    <input type="file" class="form-control main-control get_exel_file" name="import_file"
-                                        placeholder="Details" required="" accept=".xls,.xlsx">
+                                    <input type="file" class="form-control main-control get_exel_file"
+                                        name="import_file" placeholder="Details" required="" accept=".xls,.xlsx">
                                 </div>
-                                <button class=" btn-primary import_btn mx-2" type="submit" id="import_inquiry_csv_btn" name="import_btn" disabled>Import</button>
+                                <button class=" btn-primary import_btn mx-2" type="submit" id="import_inquiry_csv_btn"
+                                    name="import_btn" disabled>Import</button>
                             </div>
                         </div>
                     </form>
@@ -395,7 +435,8 @@ if ($query->getNumRows() > 0) {
                             </button> -->
                                 </div>
                             </div>
-                            <form name="column_data_form" id="column_data_form" class="needs-validation" method="POST" novalidate="">
+                            <form name="column_data_form" id="column_data_form" class="needs-validation" method="POST"
+                                novalidate="">
                                 <div class="mt-3 file_columns">
                                     <div class="text-center">
                                         <span class="fs-6">File Not Imported</span>
@@ -439,74 +480,126 @@ if ($query->getNumRows() > 0) {
             <div class="modal-footer">
                 <button class="btn btn-primary" data-bs-target="#create_audience_list" data-bs-toggle="modal">Back to
                     first</button>
-                <button class="btn btn-primary create_audiences" name="create_audiences" data-bs-dismiss="modal">Create
+                <button class="btn btn-primary create_audiences" id="create_audiences" name="create_audiences">Create
                     Audiance</button>
-                <button class=" btn-primary imported_btn" type="submit" id="imported_btn" name="imported_btn" disabled>Create
-                Audiance</button>
+                <button class=" btn-primary imported_btn" type="submit" id="imported_btn" name="imported_btn"
+                    disabled>Create
+                    Audiance</button>
             </div>
         </div>
     </div>
 </div>
+<!-- edit-modal -->
+
+<div class="modal  modal-lg" id="Edit_custom" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="fw-bold mb-2 mian fs-5">Update your customer list custom audience</h5>
+                <button type="button" class="btn-close close-mital" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="active" class="fs-14">Changing your customer list custom audience will also update any ad sets or
+                    lookalike audiences that use it. This won't reset your campaign learning phase.</p>
+                    <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+                        <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
+                                class="fa-regular fa-circle-user fs-1"></i></div>
+                        <div class="mt-2 write-div">
+                            <div class="fw-bold" id="active">Replace customers</div>
+                            <div id="active" class="fs-14">Upload a new list that will replace the users in your existing audience.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-----------------add customer--------------->
+                    <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+                        <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
+                                class="fa-solid fa-circle-plus fs-1"></i></div>
+                        <div class="mt-2 write-div">
+                            <div class="fw-bold" id="active">Add Customer</div>
+                            <div id="active" class="fs-14">Upload a new list that will replace the users in your existing audience.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-------------------remove customer----------------------------->
+                    <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+                        <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
+                                class="fa-solid fa-circle-minus fs-1"></i></div>
+                        <div class="mt-2 write-div">
+                            <div class="fw-bold" id="active">Remove Customer</div>
+                            <div id="active" class="fs-14">Upload a new list that will replace the users in your existing audience.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!---------------------- edit audience name----------------------------->
+                    <form class="needs-validation" name="audience_edit" method="POST" novalidate="">
+                    <div class="fw-bold mt-4">Edit audience name</div>
+                        <div class="d-flex m-0 mt-2 m-lg-3">
+
+                            <div class="input-group">
+                                <input type="text" class="form-control w-50 w-lg-75 p-2 name_audience" id="new_name" placeholder="ANB visit.sv">
+                                <span class="input-group-text bg-transparent">13/50</span>
+                            </div>
+
+
+                        </div>
+
+                  </div>
+                  </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary update_btn" data-edit_id>Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-    // $(".lead_list_table").DataTable({
 
-    //     "ordering": false
-
-    // });
-    // function datatable_view(html) {
-    //     $('.lead_list_table').DataTable().destroy();
-    //     $('.audiance_list').html(html);
-    //     var table1 = $('.lead_list_table').DataTable({
-    //         "columnDefs": [{
-    //             "visible": false,
-    //             "ordering": false,
-    //         }],
-    //         lengthChange: true,
+    // function list_data() {
+    //     $.ajax({
+    //         method: "post",
+    //         url: "<?= site_url('audience_facebook_data'); ?>",
+    //         data: {
+    //             action: 'facebook_list',
+    //         },
+    //         success: function (res) {
+    //             $('.loader').hide();
+    //             datatable_view(res);
+    //         }
     //     });
-
     // }
-   
-    function list_data() {
-    $.ajax({
-        method: "post",
-        url: "<?= site_url('audience_facebook_data'); ?>",
-        data: {
-            action: 'facebook_list',
-        },
-        success: function(res) {
-            $('.loader').hide();
-            datatable_view(res);
-            // Assuming your function datatable_view is handling the display of data
-        }
-    });
-}
 
-function list_dataa() {
-    show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';
+    function list_dataa() {
+        show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';
 
-    $.ajax({
-        datatype: 'json',
-        method: "post",
-        url: "<?= site_url('audience_list_data'); ?>",
-        data: {
-            'table': 'audiences',
-            'show_array': show_val,
-            'action': true
-        },
-        success: function (res) {
-            $('.loader').hide();
-            datatable_view(res);
-            list_data();
-        }
-    });
-}
+        $.ajax({
+            datatype: 'json',
+            method: "post",
+            url: "<?= site_url('audience_list_data'); ?>",
+            data: {
+                'table': 'audiences',
+                'show_array': show_val,
+                'action': true
+            },
+            success: function (res) {
+                $('.loader').hide();
+                datatable_view(res);
+                list_data();
+            }
+        });
+    }
 
-function datatable_view(html) {
-    $('.lead_list_table').DataTable().destroy();
-    $('.audiance_list').append(html);
-    var table1 = $('.lead_list_table').DataTable({
+    function datatable_view(html) {
+        $('.lead_list_table').DataTable().destroy();
+        $('.audiance_list').append(html);
+        var table1 = $('.lead_list_table').DataTable({
             "columnDefs": [{
                 "visible": false,
                 "ordering": false,
@@ -515,11 +608,12 @@ function datatable_view(html) {
         });
 
 }
+    }
 
-// Call both functions when the page loads
-list_dataa();
+    // Call both functions when the page loads
+    list_dataa();
 
-   
+
 
     // view data 
     $('body').on('click', '.audiance_view', function (e) {
@@ -544,7 +638,10 @@ list_dataa();
                     $('.lead_list_modal .created_at').text(response[0].created_at);
                     $('.lead_list_modal .last_updated').text(response[0].updated_at);
                     $('.lead_list_modal .source').text(response[0].intrested_product);
+                    $('.edt').attr('data-edit_id', response[0].id);
+                    // console.log(response[0].name);
                     $('.selectpicker').selectpicker('refresh');
+                    $('.edt').attr('disabled',false)
                 },
             });
         } else {
@@ -562,49 +659,145 @@ list_dataa();
             console.log("Selected Value: " + selectedValue);
         });
     });
-    $("button[name='create_audiences']").click(function (e) {
+    $("button[id='create_audiences']").click(function (e) {
         e.preventDefault();
+
+        // Get form and selected values
         var form = $("form[name='project_type_form']")[0];
-        // Get selected product, status, and retention value
         var intrested_product = $("#intrested_product").val();
         var inquiry_status = $("#inquiry_status").val();
         var retansion = $("#retansion").val();
         var name = $("#name").val();
         var source = $("input[name='flexRadioDefault']:checked").val();
 
-        // Create data to be sent to the server
-        var formData = new FormData();
-        formData.append('action', 'insert');
-        formData.append('table', 'audiences');
-        formData.append('intrested_product', intrested_product);
-        formData.append('inquiry_status', inquiry_status);
-        formData.append('retansion', retansion);
-        formData.append('name', name);
-        formData.append('source', source); // Add the selected radio button value
+        // Validate form fields
+        if (intrested_product != "" && inquiry_status != "" && name != "") {
+            var formData = new FormData();
+            formData.append('action', 'insert');
+            formData.append('table', 'audiences');
+            formData.append('intrested_product', intrested_product);
+            formData.append('inquiry_status', inquiry_status);
+            formData.append('retansion', retansion);
+            formData.append('name', name);
+            formData.append('source', source);
 
-        $('.loader').show();
+            // Show loader
+            $('.loader').show();
 
-        // Perform AJAX request
-        $.ajax({
-            method: "post",
-            url: "<?= site_url('audience_insert_data'); ?>",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                if (data != "error") {
-                    $("form[name='project_type_form']")[0].reset();
-                    $('.btn-close').trigger('click');
-                    $("form[name='project_type_form']").removeClass("was-validated");
-                    $('.loader').hide();
-                    iziToast.success({
-                        title: 'Added Successfully'
-                    });
+            // Perform AJAX request
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('audience_insert_data'); ?>",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    // Check response and handle accordingly
+                    if (data != "error") {
+                        $("form[name='project_type_form']")[0].reset();
+                        $('.btn-close').trigger('click');
+                        $("form[name='project_type_form']").removeClass("was-validated");
+                        $('.loader').hide();
+                        iziToast.success({
+                            title: 'Added Successfully'
+                        });
+                        list_data();
+                    }
+                    else {
+                        $('.loader').hide();
+                        iziToast.error({
+                            title: 'Data not available'
+                        });
+                    }
                     list_data();
+                },
+            });
+        } else {
+            // If form fields are not valid, add validation classes
+            $("form[name='project_type_form']").addClass("was-validated");
+            $(form).find('.selectpicker').each(function () {
+                // Check if the selectpicker has the required attribute
+                var selectpicker_valid = $(this).prop('required') ? 1 : 0;
+                if (selectpicker_valid) {
+                    if ($(this).val() == 0 || $(this).val() == '') {
+                        $(this).closest("div").addClass('selectpicker-validation');
+                    } else {
+                        $(this).closest("div").removeClass('selectpicker-validation');
+                    }
+                } else {
+                    $(this).closest("div").removeClass('selectpicker-validation');
                 }
+            });
+        }
+    });
+    $('body').on('click', '.edt', function(e) {
+        e.preventDefault();
+        var edit_value = $(this).attr("data-edit_id");
+        $('.loader').show();
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('edit_data_audience'); ?>",
+            data: {
+                action: 'edit',
+                edit_id: edit_value,
+                table: 'audiences'
             },
+            success: function(res) {
+                $('.loader').hide();
+                $('.selectpicker').selectpicker('refresh');
+                var response = JSON.parse(res);
+                console.log(response);
+                $('.update_btn').attr('data-edit_id', response[0].name);
+                $('.edt').attr('data-name', response.name); // Update data-name attribute
+                // Optionally, you can update other attributes as needed
+
+                // Update other elements with the received data
+                $('.name_audience').val(response[0].name);
+                // Update other elements as needed
+            },
+            error: function(error) {
+                $('.loader').hide();
+            }
         });
     });
+    $('body').on('click', '.update_btn', function(e) {
+        e.preventDefault();
+        var update_id = $(this).attr("data-edit_id");
+        var new_name = $("#new_name").val(); // Get the new name from the input field
+        var formdata = new FormData();
+        formdata.append('action', 'update');
+        formdata.append('edit_id', update_id);
+        formdata.append('table', 'audiences');
+        formdata.append('name', new_name); // Append the new name to the form data
+        $('.loader').show();
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('update_data_audience'); ?>",
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function(res) {
+                if (res != "error") {
+                    $('.loader').hide();
+                    $('.btn-close').trigger('click');
+                    iziToast.success({
+                        title: 'Update Successfully'
+                    });
+                    list_data();
+                } else {
+                    $('.loader').hide();
+                    iziToast.error({
+                        title: 'Duplicate data'
+                    });
+                }
+            },
+            error: function(error) {
+                $('.loader').hide();
+            }
+        });
+    });
+
+
 </script>
 <script>
     $('#imported_btn').hide();
@@ -649,37 +842,34 @@ list_dataa();
     })
     $('body').on('change', '.get_exel_file', function () {
         // alert('LKJC');
-            $('.import_btn').attr('disabled',false);
+        $('.import_btn').attr('disabled', false);
         // alert('mital');
-        
-        });
-        $('body').on('change', '.get_exel_file', function () {
-            
-        })
-        $('body').on('click', '#import_inquiry_csv_btn', function (e) {
-            e.preventDefault();
-            var form = $('form[name="import_inquiry_csv"]')[0];
-            var formdata = new FormData(form);
-            var file = $('#import_file').val();
-            if (file != '') {
-                $.ajax({
-                    method: "post",
-                    url: "<?= site_url('get_data_header_by_file_audience'); ?>",
-                    data: formdata,
-                    processData: false,
-                    contentType: false,
-                    success: function (res) {
-                        var responce = JSON.parse(res);
-                        $('.loader').hide();
-                        $('.file_columns').html(responce.html);
-                        $('.selectpicker').selectpicker('refresh');
-                        $('#imported_btn').attr('disabled',false);
-                        $('.import_btn').prop('disabled', false);
-                        $('.custome_col').prop('disabled', false);
-                    },
-                });
-            }
-        });
+
+    });
+    $('body').on('click', '#import_inquiry_csv_btn', function (e) {
+        e.preventDefault();
+        var form = $('form[name="import_inquiry_csv"]')[0];
+        var formdata = new FormData(form);
+        var file = $('#import_file').val();
+        if (file != '') {
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('get_data_header_by_file_audience'); ?>",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    var responce = JSON.parse(res);
+                    $('.loader').hide();
+                    $('.file_columns').html(responce.html);
+                    $('.selectpicker').selectpicker('refresh');
+                    $('#imported_btn').attr('disabled', false);
+                    $('.import_btn').prop('disabled', false);
+                    $('.custome_col').prop('disabled', false);
+                },
+            });
+        }
+    });
     $('body').on('change', '#flexRadioDefault2', function () {
         // if($(this).is('::checked')){
         //     alert('jksdfgh');
@@ -696,9 +886,7 @@ list_dataa();
         }
     })
     $('body').on('change', '#flexRadioDefault', function () {
-        // if($(this).is('::checked')){
-        //     alert('jksdfgh');
-        // }
+
         if ($(this).is(":checked")) {
             // alert("first Is checked!");
             $('#second_modalbody').addClass('d-none');
@@ -707,128 +895,128 @@ list_dataa();
             $('#first_modalheader').removeClass('d-none');
             $('.create_audiences').show();
             $('#imported_btn').hide();
-            
+
         }
-        // else{
-        //     $('#second_modalbody').removeClass('d-none');
-        //     $('#second_modalheader').removeClass('d-none');
-        //     $('#first_modalbody').addClass('d-none');
-        //     $('#first_modalheader').addClass('d-none');
-        // }
+
     })
-    $('body').on('click', '.button-add', function() {
-          $('form[name="project_type_form"]')[0].reset();
-          $('.selectpicker').selectpicker('refresh');
-          $('form[name="import_inquiry_csv"]')[0].reset();
-          $('.selectpicker').selectpicker('refresh');
-          $('#flexRadioDefault').prop('checked');
+    $('body').on('click', '.button-add', function () {
+        $('form[name="project_type_form"]')[0].reset();
+        $('.selectpicker').selectpicker('refresh');
+        $('form[name="import_inquiry_csv"]')[0].reset();
+        $('.selectpicker').selectpicker('refresh');
+        $('#flexRadioDefault').prop('checked');
 
-     });
+    });
+    $('body').on('click', '.next_btn', function () {
+        $("form[name='project_type_form']").removeClass("was-validated");
+        $("form[name='import_inquiry_csv']").removeClass("was-validated");
+        $('.selectpicker').closest('div').removeClass('selectpicker-validation');
+    });
     $('body').on('click', '.list_item', function (e) {
-            e.preventDefault();
-            var text = $(this).text();
-            console.log(text);
-            text = text.replace('+ add', '');
-            $(this).closest('.main-selectpicker').find('input').val(text);
-        });
+        e.preventDefault();
+        var text = $(this).text();
+        console.log(text);
+        text = text.replace('+ add', '');
+        $(this).closest('.main-selectpicker').find('input').val(text);
+    });
 
-        $('body').on('keyup', '#list', function (event) {
-            var input, filter, ul, li, i, txtValue;
-            input = $(this);
-            input_val = input.val().trim();
-            filter = input_val.toUpperCase();
-            ul = input.closest('.main-selectpicker').find("ul");
-            li = ul.find("li");
+    $('body').on('keyup', '#list', function (event) {
+        var input, filter, ul, li, i, txtValue;
+        input = $(this);
+        input_val = input.val().trim();
+        filter = input_val.toUpperCase();
+        ul = input.closest('.main-selectpicker').find("ul");
+        li = ul.find("li");
 
-            if (event.key === ' ') {
-                input_val = input_val.replace(/ /g, '_');
-                input.val(input_val);
-            }
+        if (event.key === ' ') {
+            input_val = input_val.replace(/ /g, '_');
+            input.val(input_val);
+        }
 
-            var found = false;
+        var found = false;
 
-            for (i = 0; i < li.length; i++) {
-                txtValue = li.eq(i).text();
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    li.eq(i).css("display", "block");
-                    found = true;
-                } else {
-                    li.eq(i).css("display", "none");
-                }
-            }
-
-            if (!found) {
-                ul.append('<li><button class="dropdown-item list_item d-flex" type="button"><span>' + input_val + '</span>');
-            }
-        });
-        $('.custome_column').hide();
-    $('body').on('click', '#custome_col', function (e) {
-            e.preventDefault();
-            var col_incriment_val = $('.custome_column').find('.custome_column_input');
-            if (col_incriment_val.length == 0) {
-                var i = 0;
+        for (i = 0; i < li.length; i++) {
+            txtValue = li.eq(i).text();
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li.eq(i).css("display", "block");
+                found = true;
             } else {
-                var i = parseInt($('.custome_column').find('.custome_column_input:last').attr('data-check_id')) + 1;
+                li.eq(i).css("display", "none");
             }
-            $('.custome_column').show();
-            var inputs = $('.file_columns').find('.file_columns_input');
-            var html = '';
-            var input_fileds = '';
-            input_fileds += '<div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">'
-                                + '<div class="main-selectpicker col-12 dropdown">'
-                                    + '<input type="text" id="list" class="form-control list main-control dropdown-toggle custome_column_input" data-bs-toggle="dropdown" aria-expanded="false" data-check_id="' + i + '" name="' + i + '_col" id="' + i + '_col" placeholder="Custome Column">'
-                                    + '<ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">';
+        }
+
+        if (!found) {
+            ul.append('<li><button class="dropdown-item list_item d-flex" type="button"><span>' + input_val + '</span>');
+        }
+    });
+    $('.custome_column').hide();
+    $('body').on('click', '#custome_col', function (e) {
+        e.preventDefault();
+        var col_incriment_val = $('.custome_column').find('.custome_column_input');
+        if (col_incriment_val.length == 0) {
+            var i = 0;
+        } else {
+            var i = parseInt($('.custome_column').find('.custome_column_input:last').attr('data-check_id')) + 1;
+        }
+        $('.custome_column').show();
+        var inputs = $('.file_columns').find('.file_columns_input');
+        var html = '';
+        var input_fileds = '';
+        input_fileds += '<div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">'
+            + '<div class="main-selectpicker col-12 dropdown">'
+            + '<input type="text" id="list" class="form-control list main-control dropdown-toggle custome_column_input" data-bs-toggle="dropdown" aria-expanded="false" data-check_id="' + i + '" name="' + i + '_col" id="' + i + '_col" placeholder="Custome Column">'
+            + '<ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">';
                                     <?php foreach ($columnNames as $columnName) {
                                         if (!preg_match("/id/", $columnName) && !preg_match("/date/", $columnName) && !preg_match("/status/", $columnName) && !preg_match("/type/", $columnName) && !preg_match("/amount/", $columnName) && !preg_match("/inquiry/", $columnName) && !preg_match("/buy/", $columnName) && !preg_match("/pay/", $columnName) && !preg_match("/created/", $columnName) && !preg_match("/head/", $columnName) && !preg_match("/unit/", $columnName) && !preg_match("/follow/", $columnName) && !preg_match("/is/", $columnName) && !preg_match("/tooltip/", $columnName) && !preg_match("/site_/", $columnName) && !preg_match("/area_/", $columnName)) { ?>
                                         var allValuesAreSame = 0;
-                                        inputs.each(function() {
-                                            console.log($(this).val());
-                                            console.log('<?php echo $columnName; ?>');
-                                            if ($(this).val() == '<?php echo $columnName; ?>') {
-                                                allValuesAreSame = 1;
-                                                // return false; // Break out of the loop
-                                            } 
-                                        });
-                                        if(allValuesAreSame != 1) {
-                                            input_fileds += '<li><button class="dropdown-item list_item" type="button"><span><?php echo $columnName; ?></span></button></li>';
-                                        }
+                inputs.each(function () {
+                    console.log($(this).val());
+                    console.log('<?php echo $columnName; ?>');
+                    if ($(this).val() == '<?php echo $columnName; ?>') {
+                        allValuesAreSame = 1;
+                        // return false; // Break out of the loop
+                    }
+                });
+                if (allValuesAreSame != 1) {
+                    input_fileds += '<li><button class="dropdown-item list_item" type="button"><span><?php echo $columnName; ?></span></button></li>';
+                }
                                         <?php }
                                     } ?>
             input_fileds += '</ul>'
-                                + '</div>'
-                            + '</div>'
-                            + '<div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">'
-                                + '<div class="main-selectpicker col-12 dropdown">'
-                                    + '<div class="bulk-action select col-12 px-1 mt-lg-0 mb-1">'
-                                        + '<input type="text" class="form-control main-control" id="' + i + '_value" name="' + i + '_value" placeholder="to Column Value" value="" required>'
-                                    + '</div>'
-                                + '</div>'  
-                            + '</div>';
-            html += '<div class="col-12 d-flex flex-wrap mb-2">' + input_fileds + '</div>';
+                + '</div>'
+                + '</div>'
+                + '<div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">'
+                + '<div class="main-selectpicker col-12 dropdown">'
+                + '<div class="bulk-action select col-12 px-1 mt-lg-0 mb-1">'
+                + '<input type="text" class="form-control main-control" id="' + i + '_value" name="' + i + '_value" placeholder="to Column Value" value="" required>'
+                + '</div>'
+                + '</div>'
+                + '</div>';
+        html += '<div class="col-12 d-flex flex-wrap mb-2">' + input_fileds + '</div>';
 
-            $('.custome_column').append(html);
+        $('.custome_column').append(html);
+    });
+
+    $('body').on('click', '#imported_btn', function (e) {
+        e.preventDefault();
+        var import_form = $('form[name="import_inquiry_csv"]')[0];
+        var col_data_form = $('form[name="column_data_form"]')[0];
+        var import_formdata = new FormData(import_form);
+        var col_data_formdata = new FormData(col_data_form);
+
+        // Iterate over the FormData object and append its data to import_formdata
+        col_data_formdata.forEach(function (value, key) {
+            import_formdata.append(key, value);
         });
-   
-        $('body').on('click', '#imported_btn', function (e) {
-            e.preventDefault();
-            var import_form = $('form[name="import_inquiry_csv"]')[0];
-            var col_data_form = $('form[name="column_data_form"]')[0];
-            var import_formdata = new FormData(import_form);
-            var col_data_formdata = new FormData(col_data_form);
 
-            // Iterate over the FormData object and append its data to import_formdata
-            col_data_formdata.forEach(function (value, key) {
-                import_formdata.append(key, value);
-            });
+        // Get the product_name from the form
+        var name = $("#names").val();
+        import_formdata.append('name', name);
 
-            // Get the product_name from the form
-            var name = $("#names").val();
-            import_formdata.append('name', name);
-
-            // Get the value of the checked radio button
-            var source = $("input[id='flexRadioDefault2']:checked").val();
-            import_formdata.append('source', source);
-
+        // Get the value of the checked radio button
+        var source = $("input[id='flexRadioDefault2']:checked").val();
+        import_formdata.append('source', source);
+        if (name != "") {
             // Send the AJAX request
             $.ajax({
                 method: "post",
@@ -849,45 +1037,51 @@ list_dataa();
                     data_module_list_data();
                 },
             });
-        });
-        
-        function ViewFbAudiances(id, name, subtype,count_range, time_updated, time_created) {
-    $.ajax({
-        method: "post",
-        url: "<?= site_url('view_integrate_lead_audience'); ?>",
-        data: {
-            'id': id,
-            'name': name,
-            'subtype': subtype,
-            'count_range': count_range,
-            'time_updated': time_updated,
-            'time_created': time_created,
-        },
-        success: function(res) {
-            var leadData = {
-                id: res.id,
-                name: res.name,
-                subtype: res.subtype,
-                count_range: res.count_range,
-                time_updated: res.time_updated,
-                time_created: res.time_created
-            };
-
-            // Update DOM elements with the received data
-            $('#lead_list_modal .name').text(leadData.name);
-            $('#lead_list_modal .type').text(leadData.subtype);
-            $('#lead_list_modal .size').text(leadData.count_range);
-            $('#lead_list_modal .created_at').text(leadData.time_created);
-            $('#lead_list_modal .last_updated').text(leadData.time_updated);
-            $('#lead_list_modal .source').text(leadData.name);
-           
-        },
-        error: function(error) {
+        } else {
             $('.loader').hide();
-            console.error("Error occurred: ", error);
+            $("form[name='import_inquiry_csv']").addClass("was-validated");
         }
     });
-}
+
+    function ViewFbAudiances(id, name, subtype, count_range, time_updated, time_created) {
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('view_integrate_lead_audience'); ?>",
+            data: {
+                'id': id,
+                'name': name,
+                'subtype': subtype,
+                'count_range': count_range,
+                'time_updated': time_updated,
+                'time_created': time_created,
+            },
+            success: function (res) {
+                var leadData = {
+                    id: res.id,
+                    name: res.name,
+                    subtype: res.subtype,
+                    count_range: res.count_range,
+                    time_updated: res.time_updated,
+                    time_created: res.time_created
+                };
+
+                // Update DOM elements with the received data
+                $('#lead_list_modal .name').text(leadData.name);
+                $('#lead_list_modal .type').text(leadData.subtype);
+                $('#lead_list_modal .size').text(leadData.count_range);
+                $('#lead_list_modal .created_at').text(leadData.time_created);
+                $('#lead_list_modal .last_updated').text(leadData.time_updated);
+                $('#lead_list_modal .source').text(leadData.name);
+                $('.edt').attr('disabled',true)
+
+            },
+            error: function (error) {
+                $('.loader').hide();
+                console.error("Error occurred: ", error);
+            }
+        });
+    }
+   
 </script>
 <script>
     $('body').on('change', '#inquiry_status', function () {
@@ -900,7 +1094,13 @@ list_dataa();
             $('#audiunse_btn').attr('disabled', true);
         }
     })
-    $('body').on('click','#import_inquiry_csv_btn',function(){
-        
+    $('body').on('click', '#import_inquiry_csv_btn', function () {
+
+    })
+    $('body').on('click','.close-mital',function(){
+        // var a = ;
+        alert('vfdf'); ;
+        $('.starting-page .first-container').addClass('d-none');
+        // $('.first-container').addClass('col-12');
     })
 </script>
