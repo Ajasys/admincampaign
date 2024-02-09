@@ -110,7 +110,7 @@ if (!function_exists('SendMail')) {
         // ];
         // $table50 = tableCreateAndTableUpdate2($table_name1189, '', $columns50);
         try {
-            $first_db = \Config\Database::connect();
+            $first_db = \Config\Database::connect('second');
             // $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
             $master = $_SESSION['master'];
             $SendMailUsing = $first_db->table('admin_generale_setting')
@@ -306,7 +306,7 @@ if (!function_exists('getMasterUsername2')) {
 if (!function_exists('tableCreateAndTableUpdate')) {
     function tableCreateAndTableUpdate($table_name = "", $duplicate_table = '', $columns = array(), $foreign_keys = array())
     {
-        $first_db = \Config\Database::connect('second');
+        $first_db = \Config\Database::connect();
         if ($first_db->tableExists($table_name) && $table_name != '') {
             foreach ($columns as $value) {
                 $value_col_name = explode(' ', $value);
@@ -3146,6 +3146,21 @@ function getGeneraleData()
 {
     $db_connection = \Config\Database::connect('second');
     $query = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+    $rows = $db_connection->query($query);
+    $result = $rows->getResult();
+    if (isset($result[0])) {
+        $settings_data = get_object_vars($result[0]);
+    } else {
+        $settings_data = array();
+    }
+    return $settings_data;
+}
+
+function getConnectionData($id)
+{ 
+    $table_username = session_username($_SESSION['username']);
+    $db_connection = \Config\Database::connect('second');
+    $query = "SELECT * FROM ".$table_username."_platform_integration WHERE id=".$id;
     $rows = $db_connection->query($query);
     $result = $rows->getResult();
     if (isset($result[0])) {

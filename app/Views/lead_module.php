@@ -140,13 +140,14 @@
 </style>
 
 <?php
+$table_username = session_username($_SESSION['username']);
 $product = json_decode($product, true);
 $this->db = \Config\Database::connect('second');
-$find_Array_all = "SELECT * FROM admin_fb_account  Where master_id=" . $_SESSION['master'];
-$find_Array_all = $this->db->query($find_Array_all);
-$data = $find_Array_all->getResultArray();
+$conn_query = "SELECT * FROM ".$table_username."_platform_integration Where master_id=" . $_SESSION['master']." AND platform_status=2";
+$conn_result = $this->db->query($conn_query);
+$conn_rows = $conn_result->getResultArray();
 
-$user_get = "SELECT * FROM admin_user WHERE switcher_active = 'active' ORDER BY id ASC";
+$user_get = "SELECT * FROM ".$table_username."_user WHERE switcher_active = 'active' ORDER BY id ASC";
 $user_result = $this->db->query($user_get);
 $user_data = $user_result->getResultArray();
 ?>
@@ -173,8 +174,6 @@ $user_data = $user_result->getResultArray();
                                     <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
                                         <div class="mx-1">
                                             <?php
-                                            //pre($data);
-                                            //echo $data['user_profile']; 
                                             ?>
                                             <?php if (isset($data[0]['user_profile']) && !empty($data[0]['user_profile'])) { ?>
                                                 <img src="<?php echo $data[0]['user_profile'] ?>">
@@ -213,11 +212,6 @@ $user_data = $user_result->getResultArray();
                             <div class="lead_add_main_box px-3 py-5 bg-white rounded-2 mx-2 mb-2 position-relative" style="display: none;">
 
                                 <i class="fa-solid fa-angle-left position-absolute top-0 start-0 translate-middle m-4 fs-4 text-secondary-emphasis cursor-pointer discard-tag" data-bs-toggle="modal" data-bs-target="#discard_main_box"></i>
-
-
-
-
-
 
                                 <!--updated ka code  -->
                                 <div class="d-flex justify-content-center align-items-center gap-3 py-4">
@@ -323,6 +317,18 @@ $user_data = $user_result->getResultArray();
                                             </div>
                                             <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
                                                 <form>
+                                                    <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
+                                                        Name</label>
+                                                    <div class="main-selectpicker">
+                                                        <select id="fb_conn_id" class="selectpicker form-control form-main fb_conn_id">
+                                                        <option value="">select Connection</option>
+                                                            <?php foreach ($conn_rows as $key => $value) {
+                                                                echo "<option value=" . $value['id'] . "  data-access-token=".$value['access_token']." data-connection-check=".$value['verification_status'].">" . $value['fb_app_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
                                                     <label class="form-label main-label fs-14 text-nowrap">Page</label><sup class="validationn">*</sup>
                                                     <div class="main-selectpicker">
                                                         <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
@@ -513,45 +519,50 @@ $user_data = $user_result->getResultArray();
             $(this).closest(".big_circle_plus_outer").hide();
             $(".big_list_add_outer_main_2").show();
             $(".big_list_add_outer_main_2 .big_circle_fb_outer").show();
-            $.ajax({
-                type: "post",
-                url: "<?= site_url('facebook_user'); ?>",
-                data: {
-                    action: 'user'
-                },
-                success: function(res) {
-                    $('.loader').hide();
-                    var result = JSON.parse(res);
-                    if(result.response==1)
-                    {
-                        $('#facebookpages').html(result.html);
-                        $('#facebookpages').selectpicker('refresh');
+        });
+
+        $('body').on('change', '#fb_conn_id', function() {
+            var fb_access_token = $(this).find(':selected').data('access-token'); 
+            var fb_check_conn = $(this).find(':selected').data('connection-check');
+            if(fb_access_token!='')
+            {
+                $.ajax({
+                    type: "post",
+                    url: "<?= site_url('facebook_user'); ?>",
+                    data: {
+                        fb_access_token:fb_access_token,
+                        fb_check_conn:fb_check_conn,
+                        action: 'user'
+                    },
+                    success: function(res) {
+                        $('.loader').hide();
+                        var result = JSON.parse(res);
+                        if(result.response==1)
+                        {
+                            $('#facebookpages').html(result.html);
+                            $('#facebookpages').selectpicker('refresh');
+                        }
+                        else
+                        {
+                            $(this).closest(".big_circle_plus_outer").show();
+                            $(".big_list_add_outer_main_2").hide();
+                            $(".big_list_add_outer_main_2 .big_circle_fb_outer").hide();
+                            iziToast.error({
+                                title: result.message
+                            });
+                        }
+                    },
+                    error: function(error) {
+                        $('.loader').hide();
                     }
-                    else
-                    {
-                        $(this).closest(".big_circle_plus_outer").show();
-                        $(".big_list_add_outer_main_2").hide();
-                        $(".big_list_add_outer_main_2 .big_circle_fb_outer").hide();
-                        iziToast.error({
-                            title: result.message
-                        });
-                    }
-                    // $('.big_list_add_outer_main_1 .add_next_big_plus_outer').show();
-                    // $('.big_list_add_outer_main_1').closest(".add_next_big_plus_outer").show();
-                    // $('.big_list_add_outer_main_2,.big_list_add_outer_main_3,.lead_module_devider_1,.lead_module_devider_2').hide();
-                    // $('.logo-1 .all_circle_plus_list').hide();
-                    // if (result.profile_pic) {
-                    //     $('.fb_div_hide').hide();
-                    //     $('.profile_div').html('<img src="' + result.profile_pic + '" class="w-100 h-100 object-fit-contain rounded-circle">');
-
-                    // }
-
-                },
-                error: function(error) {
-                    $('.loader').hide();
-                }
-            });
-
+                });
+            }
+            else
+            {
+                iziToast.error({
+                    title: 'Please select your connection..!'
+                });
+            }
         });
 
         $('body').on('click', '.fb_user_next .btn-primary', function() {
@@ -704,91 +715,14 @@ $user_data = $user_result->getResultArray();
     updated_pages_list_data();
     draft_pages_list_data();
 
-    // function myFacebookLogin() {
-    //     FB.login(function(response) {
-    //         $('.loader').show();
-    //         if (response.authResponse) {
-    //             // Exchange short-lived token for a long-lived token
-    //             FB.api('/oauth/access_token', 'GET', {
-    //                 "grant_type": "fb_exchange_token",
-    //                 "client_id": "692703766025178",
-    //                 "client_secret": "67e1dc6e799ae0ea2af3b38a0fa6face",
-    //                 "fb_exchange_token": response.authResponse.accessToken
-    //             }, function(tokenResponse) {
-    //                 var longLivedToken = tokenResponse.access_token;
-    //                 FB.api('/me', function(userResponse) {
-    //                     $.ajax({
-    //                         type: "post",
-    //                         url: "<?= site_url('facebook_user'); ?>",
-    //                         data: {
-    //                             action: 'user',
-    //                             response: response.authResponse,
-    //                             userinformation: userResponse,
-    //                             longLivedToken: longLivedToken // Include the long-lived token
-    //                         },
-    //                         success: function(res) {
-    //                             $('.loader').hide();
-    //                             var result = JSON.parse(res);
-    //                             $('.big_list_add_outer_main_1 .add_next_big_plus_outer').show();
-    //                             $('.big_list_add_outer_main_1').closest(".add_next_big_plus_outer").show();
-    //                             $('.big_list_add_outer_main_2,.big_list_add_outer_main_3,.lead_module_devider_1,.lead_module_devider_2').hide();
-    //                             $('.logo-1 .all_circle_plus_list').hide();
-    //                             if(result.profile_pic)
-    //                             {
-    //                                 $('.fb_div_hide').hide();
-    //                                 $('.profile_div').html('<img src="'+result.profile_pic+'" class="w-100 h-100 object-fit-contain rounded-circle">');   
-
-    //                             }
-    //                             // $("#big_falcebook_circle_1 .big_list_add_drop").hide();
-    //                             $('#facebookpages').html(result.html);
-    //                             $('#facebookpages').selectpicker('refresh');
-    //                         },
-    //                         error: function(error) {
-    //                             $('.loader').hide();
-    //                         }
-    //                     });
-    //                 });
-    //             });
-    //         }
-    //     }, {
-    //         scope: 'public_profile,pages_show_list,leads_retrieval,pages_manage_ads, pages_manage_engagement, pages_read_engagement, pages_manage_metadata'
-    //     });
-    // }
-
+    
     $('body').on('click', '.big_falcebook_circle_sbt,.new_module_add_btn1', function() {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
         var master_id = $(this).attr("data-master_id");
         var access_token = $(".user_agent option:selected").val();
         var username = $(".user_agent option:selected").attr("data-username");
         var user_id = $(".user_agent option:selected").attr("data-user_id");
-        //   $("#big_falcebook_circle_1 .big_list_add_drop").hide();
-        $.ajax({
-            type: "post",
-            url: "<?= site_url('facebook_user'); ?>",
-            data: {
-                action: 'user_already',
-                access_token: access_token,
-                username: username,
-                user_id: user_id,
-                master_id: master_id,
-            },
-            success: function(res) {
-                var result = JSON.parse(res);
-                if ($("#facebookpages").val() == "0" || $("#facebookpages").val() == "") {
-                    if ('<?php echo isset($data[0]['user_profile']) ?>') {
-                        $('.fb_div_hide').hide();
-                        $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');
-
-                    }
-                    $('#facebookpages').html(result.html);
-                    $('#facebookpages').selectpicker('refresh');
-                }
-                $('.loader').hide();
-            },
-            error: function(error) {
-                $('.loader').hide();
-            }
-        });
+        getPagesList(master_id,access_token,username,user_id);
         return false;
     });
 
@@ -912,6 +846,7 @@ $user_data = $user_result->getResultArray();
 
     //for save connection and all functionality...
     $('body').on('click', '.big_falcebook_circle_4_sbt', function() {
+        var connection_id = $("#fb_conn_id option:selected").val();
         var int_product = $(".product option:selected").val();
         var sub_type = $(".sub_type option:selected").val();
         var assign_to = $(".assign_to option:selected").val();
@@ -930,6 +865,7 @@ $user_data = $user_result->getResultArray();
                 url: "<?= site_url('facebook_page'); ?>",
                 data: {
                     action: 'page',
+                    connection_id:connection_id,
                     page_id: page_id,
                     access_token: access_token,
                     page_name: page_name,
@@ -987,6 +923,7 @@ $user_data = $user_result->getResultArray();
     //save as draft and all save also
     $('body').on('click', '.big_falcebook_circle_2_sbt', function() {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
+        var connection_id = $("#fb_conn_id option:selected").val();
         var int_product = $(".product option:selected").val();
         var sub_type = $(".sub_type option:selected").val();
         var assign_to = $(".assign_to option:selected").val();
@@ -1001,13 +938,14 @@ $user_data = $user_result->getResultArray();
         } else {
             var draft_status = 3;
         }
-        if (page_id > 0 && form_id > 0) {
+        if (connection_id>0 && page_id > 0 && form_id > 0) {
             $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_page'); ?>",
                 data: {
                     action: 'page',
+                    connection_id:connection_id,
                     page_id: page_id,
                     access_token: access_token,
                     page_name: page_name,
@@ -1221,11 +1159,26 @@ $user_data = $user_result->getResultArray();
         }
         $('.page-profile').html('<img src="' + page_img + '" class="w-100 h-100 object-fit-contain rounded-circle">');
 
+        // var access_token ='<?php 
+        //                     $data = getConnectionData($id); 
+        //                     echo $data['access_token'];
+        //                 ?>';
+        // var verification_status = '<?php 
+        //                     $data = getConnectionData($id); 
+        //                     echo $data['verification_status'];
+        //                 ?>';
+
+        getPagesList(master_id,access_token,username,user_id)
+        $('#facebookpages').val(page_id);
+        $('#facebookpages').selectpicker('refresh');
+
         $.ajax({
             type: "post",
             url: "<?= site_url('facebook_user'); ?>",
             data: {
-                action: 'user'
+                action: 'user',
+                access_token:access_token,
+                verification_status:verification_status,
             },
             success: function(res) {
                 var result = JSON.parse(res);
@@ -1283,5 +1236,36 @@ $user_data = $user_result->getResultArray();
             $('.big_falcebook_circle_4_sbt').html('Update');
         }
 
+    }
+
+    function  getPagesList(master_id,access_token,username,user_id)
+    {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('facebook_user'); ?>",
+            data: {
+                action: 'user_already',
+                access_token: access_token,
+                username: username,
+                user_id: user_id,
+                master_id: master_id,
+            },
+            success: function(res) {
+                var result = JSON.parse(res);
+                if ($("#facebookpages").val() == "0" || $("#facebookpages").val() == "") {
+                    if ('<?php echo isset($data[0]['user_profile']) ?>') {
+                        $('.fb_div_hide').hide();
+                        $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');
+
+                    }
+                    $('#facebookpages').html(result.html);
+                    $('#facebookpages').selectpicker('refresh');
+                }
+                $('.loader').hide();
+            },
+            error: function(error) {
+                $('.loader').hide();
+            }
+        });
     }
 </script>

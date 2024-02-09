@@ -117,28 +117,6 @@ public function whatsapp_connections(){
     public function index()
     {
         $table_username = session_username($_SESSION['username']);
-        // $table_username = getMasterUsername();
-        $table_name100 = $table_username . '_email_track';
-        $columns100 = [
-            'id int primary key AUTO_INCREMENT',
-            'email_track_code varchar(400)',
-            'email_status varchar(400)',
-            'email_open_datetime varchar(400)',
-            'email_link_track_code varchar(400)',      
-        ];
-  
-        $table = tableCreateAndTableUpdate2($table_name100, '', $columns100);
-
-        $table_name89 = $table_username . '_emailtemplate';
-        $columns50 = [
-            'id int primary key AUTO_INCREMENT',
-            'title varchar(400)',
-            'attachment longtext NOT NULL',
-            'template longtext NOT NULL',
-      
-        ];
-  
-        $table = tableCreateAndTableUpdate2($table_name89, '', $columns50);
         $table_name3 = 'admin_generale_setting';
         $columns3 = [
             'id int primary key AUTO_INCREMENT',
@@ -261,6 +239,7 @@ public function whatsapp_connections(){
         $fb_table = $table_username . '_fb_pages';
         $fb_column = [
             'id int(11) primary key AUTO_INCREMENT NOT NULL',
+            'connection_id int(11) NOT NULL',
             'page_id varchar(250)  NOT NULL',
             'page_name varchar(250)  NOT NULL',
             'page_access_token longtext  NOT NULL',
@@ -478,7 +457,6 @@ public function whatsapp_connections(){
     public function manage_audience()
     {
         $table_username = getMasterUsername2();
-        $table_username = getMasterUsername2();
         $columns_audience = [
             'id int primary key AUTO_INCREMENT',
             'inquiry_id int(11) NOT NULL',
@@ -487,14 +465,14 @@ public function whatsapp_connections(){
             'intrested_product int(11) NOT NULL',
             'name varchar(255) NOT NULL',
             'retansion int(11) NOT NULL',
-            'updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()',
-            'created_at datetime NOT NULL DEFAULT current_timestamp()',
+            'created_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()',
+            'updated_at timestamp NULL DEFAULT NULL',
             'mobileno varchar(11) NOT NULL',
             'email varchar(255) NOT NULL',
             'address varchar(255) NOT NULL',
             'source varchar(255) NOT NULL',
         ];
-        tableCreateAndTableUpdate2($table_username .'_audience', '', $columns_audience);
+        tableCreateAndTableUpdate2($table_username .'_audiences', '', $columns_audience);
         $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_type');
             $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_source');
             // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
@@ -1066,25 +1044,7 @@ public function whatsapp_connections(){
     }
     public function login()
     {
-        $username = session_username($_SESSION['username']);
-        $table_username = getMasterUsername();
-        $table_name = $table_username . '_email_data';
-        $columns = [
-            'id int primary key AUTO_INCREMENT',
-            'from_email_address varchar(400)',
-            'email_address varchar(400)',
-            'email_track_code varchar(400)',
-            'email_subject varchar(400)',
-            'email_body text',
-            'email_status varchar(400)',
-            'email_open_datetime varchar(400)',
-            'email_link_track_code varchar(400)',
 
-      
-        ];
-  
-        $table = tableCreateAndTableUpdate2($table_name, '', $columns);
-       
         return view('auth-login/login');
     }
     public function signup()

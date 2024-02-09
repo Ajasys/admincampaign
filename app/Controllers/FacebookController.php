@@ -130,21 +130,20 @@ class FaceBookController extends BaseController
     function facebook_user()
     {
         $action = $this->request->getPost("action");
-        $name = $this->request->getPost("name");
-        $settings_data = getGeneraleData();
+        $fb_access_token = $this->request->getPost("fb_access_token");
+        $fb_check_conn = $this->request->getPost("fb_check_conn");
 
         $errorMsg = 'Something Went wrong..!';
-
         $resultff = array();
         $resultff['response'] = 0;
         $resultff['message'] = $errorMsg;
 
         $html = "";
-
-        if ($action == "user") {
+        if ($action == "user" && $fb_access_token) {
             $html .= '<option value="0">Select Page</option>';
-            if (isset($settings_data['facebook_access_token']) && $settings_data['is_facebook_connect'] == 1) {
-                $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $settings_data['facebook_access_token']);
+            if (isset($fb_access_token) && $fb_check_conn == 1) {
+                $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token='.$fb_access_token);
+            
                 foreach ($pageresult['data'] as $aa_key => $aa_value) {
                     $longLivedAccessToken = $aa_value['access_token'];
                     $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
@@ -158,7 +157,7 @@ class FaceBookController extends BaseController
                 $resultff['message'] = $Msg;
             } else {
                 $resultff['response'] = 0;
-                $resultff['message'] = 'Please Connect with Facebook..!';
+                $resultff['message'] = 'Please check your access token..!';
             }
         } 
 
@@ -198,6 +197,7 @@ class FaceBookController extends BaseController
     {
         $this->db = \Config\Database::connect('second');
         $action = $this->request->getPost("action");
+        $connection_id = $this->request->getPost("connection_id");
         $page_id = $this->request->getPost("page_id");
         $access_token = $this->request->getPost("access_token");
         $page_name = $this->request->getPost("page_name");
@@ -220,6 +220,7 @@ class FaceBookController extends BaseController
             if ($count_num == 0) {
                 $insert_data['master_id'] = $_SESSION['master'];
                 $insert_data['page_access_token'] = $access_token;
+                $insert_data['connection_id'] = $connection_id;
                 $insert_data['page_id'] = $page_id;
                 $insert_data['page_name'] = $page_name;
                 $insert_data['property_sub_type'] = $sub_type;
@@ -259,9 +260,9 @@ class FaceBookController extends BaseController
                 } else if ($this->request->getPost("edit_id") == $result_facebook_data[0]['id'] && ($form_id != $result_facebook_data[0]['form_id'] || $is_status == 3)) {
                     //is_status == 2//old to new
                     $this->db->query('UPDATE `admin_fb_pages` SET `is_status`=2 WHERE form_id=' . $form_id . '');
-
                     $insert_data['master_id'] = $_SESSION['master'];
                     $insert_data['page_access_token'] = $access_token;
+                    $insert_data['connection_id'] = $connection_id;
                     $insert_data['page_id'] = $page_id;
                     $insert_data['page_name'] = $page_name;
                     $insert_data['property_sub_type'] = $sub_type;
