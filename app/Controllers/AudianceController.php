@@ -43,6 +43,129 @@ class AudianceController extends BaseController
 		}
 		return $array;
 	}
+    public function edit_data_audience()
+	{
+		if ($this->request->getPost("action") == "edit") {
+			$edit_id = $this->request->getPost('edit_id');
+			$table_name = $this->request->getPost('table');
+			$username = session_username($_SESSION['username']);
+			$departmentEditdata = $this->MasterInformationModel->edit_entry2($username . "_" . $table_name, $edit_id);
+			return json_encode($departmentEditdata, true);
+		}
+		die();
+	}
+    public function update_data_audience()
+    {
+        $post_data = $this->request->getPost();
+        $edit_id = $_POST['edit_id'];
+        $table_name = $this->request->getPost("table");
+        $username = session_username($_SESSION['username']);
+        $action_name = $this->request->getPost("action");
+        $new_name = $_POST['name'];
+
+        $response = 0;
+        if ($action_name == "update") {
+            if (!empty($post_data)) {
+                // pre($post_data);
+                // Update all rows with the same name
+                $update_data = ['name' => $new_name];
+                $result = $this->MasterInformationModel->update_entry_by_name($edit_id, $update_data, $username . "_" . $table_name);
+                $response = 1;
+            }
+        }
+        echo $response;
+        die();
+    }
+    public function view_integrate_lead_audience()
+    {
+        // Retrieve POST data
+        $request = $this->request;
+        $id = $request->getPost("id");
+        $name = $request->getPost("name");
+        $subtype = $request->getPost("subtype");
+        $count_range = $request->getPost("count_range");
+        $time_updated = $request->getPost("time_updated");
+        $time_created = $request->getPost("time_created");
+        $access_token = $request->getPost("access_token");
+        
+        // Validate and process the data as needed
+        // For example, you might want to perform database operations, call other functions, etc.
+    
+        // Prepare response data
+        $responseData = array(
+            'id' => $id,
+            'name' => $name,
+            'subtype' => $subtype,
+            'count_range' => $count_range,
+            'time_updated' => $time_updated,
+            'time_created' => $time_created,
+            // Add other data as needed
+        );
+    
+        // Encode response data to JSON format
+        $jsonResponse = json_encode($responseData);
+    
+        // Send JSON response
+        return $this->response->setJSON($jsonResponse);
+    }
+   
+    public function audience_facebook_data() {
+        $html = "";
+        if ($_POST['action'] == 'facebook_list') {
+            $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+            
+            // Fetch user data including ad accounts
+            $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
+            $response = file_get_contents($url);
+            $data = json_decode($response, true);
+            
+            // Check if 'adaccounts' data exists and iterate over each ad account
+            if (isset($data['adaccounts']['data'])) {
+                $chat_list_html = '';
+                foreach ($data['adaccounts']['data'] as $ad_account) {
+                    $account_id = $ad_account['id'];
+
+                    // Fetch custom audiences for each ad account
+                    $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+                    $response = file_get_contents($url);
+                    $audience_data = json_decode($response, true);
+                    
+                    // Iterate over custom audiences data and build HTML
+                    foreach ($audience_data['data'] as $conversion_value) {
+                        $chat_list_html = "";
+                        $lower_bound = $conversion_value['approximate_count_lower_bound'];
+                        $upper_bound = $conversion_value['approximate_count_upper_bound'];
+                        $count_range = ($lower_bound == -1 && $upper_bound == -1) ? "Not available" : "$lower_bound-$upper_bound";
+                       
+                        $chat_list_html .= '<tr class="audiance_view audiance_show_data" onclick="ViewFbAudiances(\'' . $conversion_value['id'] . '\',\'' . $conversion_value['name'] . '\',\'' . $conversion_value['subtype'] . '\',\'' . $count_range . '\',\'' . date('d-m-Y H:i', $conversion_value['time_updated']) . '\',\'' . date('d-m-Y H:i', $conversion_value['time_created']) . '\');">';
+                        $chat_list_html .= '     <td><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 408.788 408.788" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M353.701 0H55.087C24.665 0 .002 24.662.002 55.085v298.616c0 30.423 24.662 55.085 55.085 55.085h147.275l.251-146.078h-37.951a8.954 8.954 0 0 1-8.954-8.92l-.182-47.087a8.955 8.955 0 0 1 8.955-8.989h37.882v-45.498c0-52.8 32.247-81.55 79.348-81.55h38.65a8.955 8.955 0 0 1 8.955 8.955v39.704a8.955 8.955 0 0 1-8.95 8.955l-23.719.011c-25.615 0-30.575 12.172-30.575 30.035v39.389h56.285c5.363 0 9.524 4.683 8.892 10.009l-5.581 47.087a8.955 8.955 0 0 1-8.892 7.901h-50.453l-.251 146.078h87.631c30.422 0 55.084-24.662 55.084-55.084V55.085C408.786 24.662 384.124 0 353.701 0z" style="" fill="#475993" data-original="#475993" class=""></path></g></svg></td>
+                                <td class="p-2 text-nowrap">' . $conversion_value['name'] . '</td>
+                                <td class="p-2 text-nowrap">' . $conversion_value['subtype'] . '</td>
+                                <td class="p-2 text-nowrap">' . $count_range . '</td>
+                                <td class="p-2 text-nowrap fs-12"><span class="text-muted d-block">Last Edited</span>'.date('d-m-Y H:i', $conversion_value['time_updated']).'</td>
+                                <td class="p-2 text-nowrap">'.date('d-m-Y H:i', $conversion_value['time_created']).'</td>
+                                
+                                <td class="p-2 text-nowrap">' . $conversion_value['id'] . '</td>';
+                                $chat_list_html .= '</tr>';
+                                $html .= $chat_list_html;
+                    }
+                }
+                // $return_result['chat_list_html'] = $chat_list_html;
+                if (!empty($html)) {
+                    echo $html;
+                } else {
+                    echo '<p style="text-align:center;">Data Not Found </p>';
+                }
+            } else {
+                // No ad account data found
+                return json_encode(['error' => 'No ad account data found']);
+            }
+        } else {
+            // Invalid action
+            return json_encode(['error' => 'Invalid action']);
+        }
+    }
+    
     public function audience_list_data()
     {
         $table_name = $_POST['table'];
@@ -53,12 +176,17 @@ class AudianceController extends BaseController
         $departmentdisplaydata = $this->MasterInformationModel->display_all_records2($username . "_" . $table_name);
         $departmentdisplaydata = json_decode($departmentdisplaydata, true);
 
+        $sql2 = "SELECT COUNT(*) as sub_count, name FROM admin_audiences GROUP BY name";
+        $user_db_connection = \Config\Database::connect('second');
+        $sql_run = $user_db_connection->query($sql2);
+        $paydone_data_get = $sql_run->getResultArray();
+        
         $previousValues = array();
         foreach ($departmentdisplaydata as $key => $value) {
             // pre($value);
             if (
-                isset($previousValues['product_name']) &&
-                $previousValues['product_name'] == $value['product_name'] &&
+                isset($previousValues['name']) &&
+                $previousValues['name'] == $value['name'] &&
                 isset($previousValues['inquiry_status']) &&
                 $previousValues['inquiry_status'] == $value['inquiry_status'] &&
                 isset($previousValues['retansion']) &&
@@ -70,18 +198,27 @@ class AudianceController extends BaseController
             }
 
             $ts = "";
-            $ts .= '<tr class="audiance_view audiance_show_data" data-view_id="' . $value['id'] . '">
-                        <td><input class="check_box table_list_check" type="checkbox" value="' . $value['id'] . '"/></td>
-                        <td class="p-2 text-nowrap"> ' . $value['product_name'] . '</td>
-                        <td class="p-2 text-nowrap">' . $value['source'] . '</td>
-                        <td class="p-2 text-nowrap"></td>
-                        <td class="p-2 text-nowrap"></td>
-                        <td class="p-2 text-nowrap"> ' . $value['created_at'] . '</td>
-                    ';
+            $ts .= '<tr class="audiance_view audiance_show_data" data-view_id="' . $value['id'] . '"data-edit_id="' . $value['id'] . '">
+                        <td><img src="https://ajasys.com/img/favicon.png" style="width:15px;height:15px;"></td>
+                        <td class="p-2 text-nowrap"> ' . $value['name'] . '</td>
+                        <td class="p-2 text-nowrap">' . $value['source'] . '</td>';
+        
+            // Iterate through the results of the SQL query to match the inquiry_status
+            foreach ($paydone_data_get as $status) {
+                if ($value['name'] == $status['name']) {
+                    $ts .= '<td>' . $status['sub_count'] . '</td>';
+                    break; // Once the match is found, break out of the loop
+                }
+            }
+        
+            $ts .= '<td class="p-2 text-nowrap fs-12"><span class=" text-muted d-block">Last Edited</span>'.date('d-m-Y H:i', strtotime($value['updated_at'])).'</td>
+                    <td class="p-2 text-nowrap"> '.date('d-m-Y H:i', strtotime($value['created_at'])).'</td>
+                    <td class="p-2 text-nowrap"> </td>
+                ';
             $ts .= '</tr>';
             $html .= $ts;
             $previousValues = array(
-                'product_name' => $value['product_name'],
+                'name' => $value['name'],
                 'inquiry_status' => $value['inquiry_status'],
                 'retansion' => $value['retansion'],
                 'source' => $value['source']
@@ -158,6 +295,7 @@ class AudianceController extends BaseController
             $username = session_username($_SESSION['username']);
             $action_name = $this->request->getPost("action");
 
+            $currentDateTime = date('Y-m-d H:i:s');
             if ($action_name == "insert") {
                 unset($_POST['action']);
                 unset($_POST['table']);
@@ -166,7 +304,7 @@ class AudianceController extends BaseController
                     $insert_data = $_POST;
                     $intrested_product = $_POST['intrested_product'];
                     $inquiry_status = $_POST['inquiry_status'];
-                    $product_name = $_POST['product_name'];
+                    $name = $_POST['name'];
                     $source = $_POST['source'];
                     
                     // Set a default retention value if not provided
@@ -192,7 +330,7 @@ class AudianceController extends BaseController
 
                         // Merge $insert_data with each row in $departmentdisplaydata
                         foreach ($departmentdisplaydata as &$row) {
-                            $row = array_merge($row, $insert_data, ['retansion' => $retention_days, 'source' => $source, 'product_name' => $product_name]);
+                            $row = array_merge($row, $insert_data, ['retansion' => $retention_days, 'source' => $source, 'name' => $name,'created_at' => $currentDateTime,'updated_at' => $currentDateTime]);
                         }
 
                         // Insert merged data into the audience table
@@ -201,6 +339,9 @@ class AudianceController extends BaseController
                         // Retrieve and display all records from the original table
                         $departmentdisplaydata = $this->MasterInformationModel->display_all_records2($username . "_" . $table_name);
                         $departmentdisplaydata = json_decode($departmentdisplaydata, true);
+                    } else {
+                        // Data not available, return error
+                        return "error";
                     }
                 }
             }
@@ -214,9 +355,28 @@ class AudianceController extends BaseController
     {
         if ($this->request->getPost("action") == "view") {
             $view_id = $this->request->getPost('view_id');
+            $username = session_username($_SESSION['username']);
             $table = $_POST['table'];
             $table_name = $this->username.'_'.$table;
+            $secondDb = \Config\Database::connect('second');
             $userEditdata = $this->MasterInformationModel->edit_entry2($table_name, $view_id);
+            $userEditdata = get_object_vars($userEditdata[0]);
+            // Get product name and add it to the userEditdata array
+            $inquiry_details = "Csv File";
+            if (isset($userEditdata['intrested_product']) && !empty($userEditdata['intrested_product'])) {
+                $inquiry_type_name = IdToFieldGetData('product_name', "id=" . $userEditdata['intrested_product'] . "", 'admin_product');
+                $inquiry_details = isset($inquiry_type_name['product_name']) && !empty($inquiry_type_name['product_name']) ? $inquiry_type_name['product_name'] : '';
+            }
+            $userEditdata['inquiry_type_name'] = $inquiry_details;
+            // Count the number of rows with the same name
+            $count_sql = "SELECT COUNT(*) as sub_count FROM $table_name WHERE name = ?";
+            $query = $secondDb->query($count_sql, [$userEditdata['name']]);
+            $count_result = $query->getRowArray();
+            $sub_count = isset($count_result['sub_count']) ? $count_result['sub_count'] : 0;
+            
+            // Add the sub_count to the userEditdata array
+            $userEditdata['sub_count'] = $sub_count;
+            // Return the JSON-encoded data
             return json_encode($userEditdata, true);
         }
         die();
@@ -236,12 +396,13 @@ class AudianceController extends BaseController
                 $worksheet = $spreadsheet->getActiveSheet();
                 $highestColumn = $worksheet->getHighestColumn();
                 $headerRow = $worksheet->rangeToArray('A1:' . $highestColumn . '1', null, true, false);
+                // pre($headerRow);
                 $query = $db_connection->table($this->username . '_audiences')->get();
-                if ($query->getNumRows() > 0) {
+                // if ($query->getNumRows() > 0) {
                     $columnNames = $query->getFieldNames();
-                } else {
-                    $columnNames = array();
-                }
+                // } else {
+                //     $columnNames = array();
+                // }
                 $btn_html .= '<button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add_form" aria-controls="column_add_form">
                                 + Add Column
                             </button>';
@@ -292,8 +453,9 @@ class AudianceController extends BaseController
     public function import_file_data_audience()
     {
         // pre($_POST);
-        $product_name = $_POST['product_name'];
+        $name = $_POST['name'];
         $source = $_POST['source'];
+        $currentDateTime = date('Y-m-d H:i:s');
         if (isset($_FILES['import_file'])) {
             if ($_FILES['import_file']['error'] === UPLOAD_ERR_OK) {
                 $db_connection = \Config\Database::connect('second');
@@ -303,7 +465,7 @@ class AudianceController extends BaseController
                 $rows = $worksheet->toArray();
                 // foreach ($rows as $row) {
                 $new_column = array();
-                unset($_POST['product_name']);
+                unset($_POST['name']);
                 unset($_POST['source']);
                 $post_data = $_POST;
                 $num_col = 1;
@@ -380,8 +542,9 @@ class AudianceController extends BaseController
                                             } else {
                                                 $insert_data[$value] = $value_value;
                                             }
-                                            $insert_data['product_name'] = $product_name;
+                                            $insert_data['name'] = $name;
                                             $insert_data['source'] = $source;
+                                            $insert_data['updated_at'] = $currentDateTime;
                                             $num_col++;
                                             $duplicate_check = 1;
                                             // }

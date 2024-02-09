@@ -157,22 +157,16 @@ class MasterInformationModel extends Model
 
     }
 
-    public function update_entry2($id,$data,$tablename){
-
+    public function update_entry_by_name($name, $data, $tablename)
+    {
         $secondDb = \Config\Database::connect('second');
-
-        $result = $secondDb 
-
-                        ->table($tablename)
-
-                        ->where(["id" => $id])
-
-                        ->set($data)
-
-                        ->update();
+        $result = $secondDb
+            ->table($tablename)
+            ->where('name', $name) // Match the name column
+            ->set($data)
+            ->update();
 
         return $result;
-
     }
 
     public function delete_entry($tablename,$delete_id){

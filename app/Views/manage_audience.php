@@ -94,18 +94,15 @@ if ($query->getNumRows() > 0) {
                                 </button>
                             </div>
                         </div> -->
-                        <div class="col-sm-12 col-md-2 my-1 my-md-1 d-none d-md-block">
+                        <!-- <div class="col-sm-12 col-md-2 my-1 my-md-1 d-none d-md-block">
                             <div class="d-flex justify-content-end align-items-center">
                                 <button class="btn-primary-rounded" data-bs-toggle="offcanvas"
                                     data-bs-target="#audience_filter" aria-controls="offcanvasRight">
                                     <i class="bi bi-funnel fs-14"></i>
                                 </button>
-                                <!-- <button class="btn-primary-rounded plus_btn" data-bs-toggle="modal" id="plus_btn"
-                                    data-bs-target="#task-add">
-                                    <i class="fi fi-rr-plus-small d-flex"></i>
-                                </button> -->
+                               
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="w-100 overflow-x-auto scroll-small row_none">
@@ -185,7 +182,7 @@ if ($query->getNumRows() > 0) {
                             <div class="col-12">
                                 <button type="button"
                                     class="btn-primary me-2 Cancle_Btn close_container">Cancel</button>
-                                <button type="button" class="btn-primary me-2 Cancle_Btn close_container edt" data-edit_id=""
+                                <button type="button" class="btn-primary me-2 Cancle_Btn  edt" data-edit_id=""
                                     data-bs-toggle="modal" data-bs-target="#Edit_custom">Edit</button>
                             </div>
                         </div>
@@ -497,7 +494,7 @@ if ($query->getNumRows() > 0) {
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="fw-bold mb-2 mian fs-5">Update your customer list custom audience</h5>
-                <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close close_container" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p id="active" class="fs-14">Changing your customer list custom audience will also update any ad sets or
@@ -511,7 +508,6 @@ if ($query->getNumRows() > 0) {
                             </div>
                         </div>
                     </div>
-
                     <!-----------------add customer--------------->
                     <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
                         <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
@@ -522,7 +518,6 @@ if ($query->getNumRows() > 0) {
                             </div>
                         </div>
                     </div>
-
                     <!-------------------remove customer----------------------------->
                     <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
                         <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
@@ -533,25 +528,20 @@ if ($query->getNumRows() > 0) {
                             </div>
                         </div>
                     </div>
-
                     <!---------------------- edit audience name----------------------------->
                     <form class="needs-validation" name="audience_edit" method="POST" novalidate="">
                     <div class="fw-bold mt-4">Edit audience name</div>
                         <div class="d-flex m-0 mt-2 m-lg-3">
-
                             <div class="input-group">
                                 <input type="text" class="form-control w-50 w-lg-75 p-2 name_audience" id="new_name" placeholder="ANB visit.sv">
                                 <span class="input-group-text bg-transparent">13/50</span>
                             </div>
-
-
                         </div>
-
                   </div>
                   </form>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary update_btn" data-edit_id>Update</button>
+                <button type="button" class="btn btn-secondary close_container" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary update_btn page_reload" data-edit_id>Update</button>
             </div>
         </div>
     </div>
@@ -562,19 +552,19 @@ if ($query->getNumRows() > 0) {
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
 
-    // function list_data() {
-    //     $.ajax({
-    //         method: "post",
-    //         url: "<?= site_url('audience_facebook_data'); ?>",
-    //         data: {
-    //             action: 'facebook_list',
-    //         },
-    //         success: function (res) {
-    //             $('.loader').hide();
-    //             datatable_view(res);
-    //         }
-    //     });
-    // }
+    function list_data() {
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('audience_facebook_data'); ?>",
+            data: {
+                action: 'facebook_list',
+            },
+            success: function (res) {
+                $('.loader').hide();
+                datatable_view(res);
+            }
+        });
+    }
 
     function list_dataa() {
         show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';
@@ -630,15 +620,36 @@ if ($query->getNumRows() > 0) {
                 success: function (res) {
                     $('.loader').hide();
                     var response = JSON.parse(res);
-                    console.log();
-                    $('.lead_list_modal .name').text(response[0].name);
-                    // $('#lead_list_modal .size').text(response[0].full_name);
-                    $('.lead_list_modal .type').text(response[0].source);
-                    $('.lead_list_modal .created_at').text(response[0].created_at);
-                    $('.lead_list_modal .last_updated').text(response[0].updated_at);
-                    $('.lead_list_modal .source').text(response[0].intrested_product);
-                    $('.edt').attr('data-edit_id', response[0].id);
-                    // console.log(response[0].name);
+                    $('.lead_list_modal .name').text(response.name);
+                    
+                   
+                    $('.lead_list_modal .type').text(response.source);
+                    $('.lead_list_modal .size').text(response.sub_count);
+                   
+                    // $('.lead_list_modal .created_at').text(response.created_at);
+                    dateString = response.created_at;
+                    var parts = dateString.split(' ');
+                    var datePart = parts[0];
+                    var timePart = parts[1];
+                    var dateComponents = datePart.split('-');
+                    var year = dateComponents[0];
+                    var month = dateComponents[1];
+                    var day = dateComponents[2];
+                    var newDateFormat = day + '-' + month + '-' + year + ' ' + timePart;
+                    $('.lead_list_modal .created_at').text(newDateFormat);
+                    dateStrings = response.updated_at;
+                    var parts = dateStrings.split(' ');
+                    var datePart = parts[0];
+                    var timePart = parts[1];
+                    var dateComponents = datePart.split('-');
+                    var year = dateComponents[0];
+                    var month = dateComponents[1];
+                    var day = dateComponents[2];
+                    var newDateFormatupdate = day + '-' + month + '-' + year + ' ' + timePart;
+                    $('.lead_list_modal .last_updated').text(newDateFormatupdate);
+                    $('.lead_list_modal .source').text(response.inquiry_type_name); // Update the element with class 'source' with the inquiry_type_name value
+                   
+                    $('.edt').attr('data-edit_id', response.id);
                     $('.selectpicker').selectpicker('refresh');
                     $('.edt').attr('disabled',false)
                 },
@@ -697,10 +708,12 @@ if ($query->getNumRows() > 0) {
                         $('.btn-close').trigger('click');
                         $("form[name='project_type_form']").removeClass("was-validated");
                         $('.loader').hide();
+
                         iziToast.success({
                             title: 'Added Successfully'
                         });
                         list_data();
+                        location.reload(true);
                     }
                     else {
                         $('.loader').hide();
@@ -783,6 +796,7 @@ if ($query->getNumRows() > 0) {
                         title: 'Update Successfully'
                     });
                     list_data();
+                    location.reload(true);
                 } else {
                     $('.loader').hide();
                     iziToast.error({
@@ -1096,4 +1110,7 @@ if ($query->getNumRows() > 0) {
     $('body').on('click', '#import_inquiry_csv_btn', function () {
 
     })
+    // $('body').on('click','.page_reload',function(){
+    //     $(window).re
+    // })
 </script>
