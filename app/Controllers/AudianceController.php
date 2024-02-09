@@ -176,7 +176,7 @@ class AudianceController extends BaseController
         $departmentdisplaydata = $this->MasterInformationModel->display_all_records2($username . "_" . $table_name);
         $departmentdisplaydata = json_decode($departmentdisplaydata, true);
 
-        $sql2 = "SELECT COUNT(*) as sub_count, name FROM admin_audiences GROUP BY name";
+        $sql2 = "SELECT COUNT(*) as sub_count, name FROM admin_audience GROUP BY name";
         $user_db_connection = \Config\Database::connect('second');
         $sql_run = $user_db_connection->query($sql2);
         $paydone_data_get = $sql_run->getResultArray();
@@ -326,7 +326,7 @@ class AudianceController extends BaseController
                         $departmentdisplaydata = $result->getResultArray();
 
                         // Insert the retrieved data along with the insert_data into the audience table
-                        $audience_table_name = $username . "_audiences";
+                        $audience_table_name = $username . "_audience";
 
                         // Merge $insert_data with each row in $departmentdisplaydata
                         foreach ($departmentdisplaydata as &$row) {
@@ -397,7 +397,7 @@ class AudianceController extends BaseController
                 $highestColumn = $worksheet->getHighestColumn();
                 $headerRow = $worksheet->rangeToArray('A1:' . $highestColumn . '1', null, true, false);
                 // pre($headerRow);
-                $query = $db_connection->table($this->username . '_audiences')->get();
+                $query = $db_connection->table($this->username . '_audience')->get();
                 // if ($query->getNumRows() > 0) {
                     $columnNames = $query->getFieldNames();
                 // } else {
@@ -496,7 +496,7 @@ class AudianceController extends BaseController
                 $duplicate_data_count = 0;
                 $none_duplicate_data_count = 0;
                 $duplicate_data = 0;
-                $table_names = $this->username . '_audiences';
+                $table_names = $this->username . '_audience';
                 $table_check = tableCreateAndTableUpdate2($table_names, '', $new_column);
                 // pre($table_check);
 
@@ -525,7 +525,7 @@ class AudianceController extends BaseController
                                                 $mobile_nffo = substr($mobile_nffo_remove, -10);
 
                                                 $duplicate_data_cols[$value] = $mobile_nffo;
-                                                $checkduplicate = $this->duplicate_data_check_mobile_and_extra_data($this->username . '_audiences', $duplicate_data_cols);
+                                                $checkduplicate = $this->duplicate_data_check_mobile_and_extra_data($this->username . '_audience', $duplicate_data_cols);
                                                 if($checkduplicate['response'] == 1){
                                                     $duplicate_data = 1;
                                                     $duplicate_data_count++;

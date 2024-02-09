@@ -7,7 +7,7 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
 <?php
 $username = session_username($_SESSION['username']);
 $db_connection = \Config\Database::connect('second');
-$query = $db_connection->table($username . '_audiences')->get();
+$query = $db_connection->table($username . '_audience')->get();
 if ($query->getNumRows() > 0) {
     $columnNames = $query->getFieldNames();
 } else {
@@ -574,7 +574,7 @@ if ($query->getNumRows() > 0) {
             method: "post",
             url: "<?= site_url('audience_list_data'); ?>",
             data: {
-                'table': 'audiences',
+                'table': 'audience',
                 'show_array': show_val,
                 'action': true
             },
@@ -615,7 +615,7 @@ if ($query->getNumRows() > 0) {
                 data: {
                     action: 'view',
                     view_id: edit_value,
-                    table: 'audiences',
+                    table: 'audience',
                 },
                 success: function (res) {
                     $('.loader').hide();
@@ -684,7 +684,7 @@ if ($query->getNumRows() > 0) {
         if (intrested_product != "" && inquiry_status != "" && name != "") {
             var formData = new FormData();
             formData.append('action', 'insert');
-            formData.append('table', 'audiences');
+            formData.append('table', 'audience');
             formData.append('intrested_product', intrested_product);
             formData.append('inquiry_status', inquiry_status);
             formData.append('retansion', retansion);
@@ -752,7 +752,7 @@ if ($query->getNumRows() > 0) {
             data: {
                 action: 'edit',
                 edit_id: edit_value,
-                table: 'audiences'
+                table: 'audience'
             },
             success: function(res) {
                 $('.loader').hide();
@@ -779,7 +779,7 @@ if ($query->getNumRows() > 0) {
         var formdata = new FormData();
         formdata.append('action', 'update');
         formdata.append('edit_id', update_id);
-        formdata.append('table', 'audiences');
+        formdata.append('table', 'audience');
         formdata.append('name', new_name); // Append the new name to the form data
         $('.loader').show();
         $.ajax({

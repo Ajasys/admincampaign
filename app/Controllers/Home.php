@@ -478,6 +478,7 @@ public function whatsapp_connections(){
     public function manage_audience()
     {
         $table_username = getMasterUsername2();
+        $table_username = getMasterUsername2();
         $columns_audience = [
             'id int primary key AUTO_INCREMENT',
             'inquiry_id int(11) NOT NULL',
@@ -486,14 +487,14 @@ public function whatsapp_connections(){
             'intrested_product int(11) NOT NULL',
             'name varchar(255) NOT NULL',
             'retansion int(11) NOT NULL',
-            'created_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()',
-            'updated_at timestamp NULL DEFAULT NULL',
+            'updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()',
+            'created_at datetime NOT NULL DEFAULT current_timestamp()',
             'mobileno varchar(11) NOT NULL',
             'email varchar(255) NOT NULL',
             'address varchar(255) NOT NULL',
             'source varchar(255) NOT NULL',
         ];
-        tableCreateAndTableUpdate2($table_username .'_audiences', '', $columns_audience);
+        tableCreateAndTableUpdate2($table_username .'_audience', '', $columns_audience);
         $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_type');
             $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_source');
             // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
