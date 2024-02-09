@@ -76,9 +76,9 @@ Explain
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu">
+                            <!-- <ul class="dropdown-menu">
                                 ...
-                            </ul>
+                            </ul> -->
                         </div>
                         <div class="btn-group mx-2">
                             <button class="btn btn-secondary btn-lg" type="button">

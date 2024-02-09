@@ -3,19 +3,19 @@
 
 
 <style>
-     /* textarea:focus {
+     textarea:focus {
         outline: none;
     }
 
-    li {
+    .nav-item {
         cursor: pointer;
         padding: 10px;
         border-bottom: 2px solid transparent;
     }
 
-    li.active {
+    .nav-item.active {
         border-color: #724ebf;
-    } */
+    }
 </style>
 
 <div class="main-dashbord p-2">
@@ -33,7 +33,7 @@
                                 aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <span class="input-group-text" id="basic-addon2"><i class="bi bi-search"></i></span>
                         </div>
-                        <div class="col-12 my-2 text-center">
+                        <div class="col-12 my-2 text-center d-flex align-items-center">
                             <div class="d-flex flex-wrap justify-content-center">
                                 <img src="https://cdn.publer.io/on-board-social-accounts.png" alt="#">
                                 <p class="px-3 text-center col-8 fs-5 my-3">Start by adding your social accounts</p>
@@ -83,7 +83,7 @@
                                 </nav>
                                 <div class="col-12">
                                     <div class="tab-content active show" id="pills-tabContent">
-                                        <div class="tab-pane fade" id="pills-master-diet-tab" role="tabpanel"
+                                        <div class="tab-pane fade active show" id="pills-master-diet-tab" role="tabpanel"
                                             aria-labelledby="update-all-tab-modal" tabindex="0">
                                             <div class="col-12  tab-compo">
                                                 <div class="card-body p-2">
@@ -193,7 +193,7 @@
                                             <div class="col-8 d-flex  flex-wrap justify-content-end ">
                                                 <button class="btn btn-outline-secondary mx-1 draft_create"
                                                     id="draft_create">Draft</button>
-                                                <button class="btn btn-primary mx-1">Publish</button>
+                                                <button class="btn btn-primary mx-1 create_comment">Publish</button>
                                                 <button
                                                     class="btn btn-secondery mx-1 Scedual_start_date">Scedual</button>
                                                 <div class="btn-group dropup btn-outline-dark mx-1">
@@ -242,7 +242,7 @@
 
                             </div>
                             <input class="form-control main-control #coupon_event attachment" id="attachment"
-                                name="attachment[]" multiple="" type="file" placeholder="">
+                                name="attachment[]" multiple="" type="file" placeholder="" data-bs-dismiss="modal">
                         </div>
                     </div>
                 </div>
@@ -406,6 +406,37 @@
 
 
     });
+
+    $('body').on('click', '.create_comment', function(){
+    var form = $("form[name='create_form']")[0];
+    var attachment = $('.attachment').prop('files')[0];
+    var event_address = $('.event_address').val();
+    var formData = new FormData(form);
+
+    // Append additional data to the formData object
+    formData.append('action', 'post');
+    formData.append('attachment', attachment);
+    formData.append('event_address', event_address);
+
+    $.ajax({
+        method: "post",
+        url: "<?= site_url('SendPostDataFB'); ?>",
+        data: formData,
+        contentType: false,
+        processData: false, 
+        success: function (res) {
+            // Handle success
+            console.log(res);
+        },
+        error: function (xhr, status, error) {
+            // Handle errors
+            console.error(xhr.responseText);
+        }
+    });
+});
+
+
+
 
 
     //---------------------------- modal input ----------------------------
