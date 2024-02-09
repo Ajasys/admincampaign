@@ -567,7 +567,7 @@ $routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsA
 	
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
-	$routes->post('/master_whatsapp_list_dataaaksh', 'WhatAppAakashController::master_whatsapp_list_dataaaksh');
+	$routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
 	$routes->post('/single_whatsapp_template_sent', 'WhatAppAakashController::single_whatsapp_template_sent');
 
 });

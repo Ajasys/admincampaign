@@ -91,7 +91,7 @@ class WhatAppAakashController extends BaseController
         return $ReturnArray;
     }
 
-    public function master_whatsapp_list_data()
+    public function master_whatsapp_list_data1()
     {
         //06-02-2024
 
@@ -152,7 +152,7 @@ class WhatAppAakashController extends BaseController
                                                 <td class="py-2">' . $language . '</td>
                                                 <td class="template-creation-table-data text-center cwt-border-right p-l-25">
                                                     <span>
-                                                        <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                        <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_modal" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         <i class="fa fa-clone fs-16 Edit_template" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -647,7 +647,7 @@ class WhatAppAakashController extends BaseController
     //   -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-  
+
 
     public function single_whatsapp_template_sent()
     {
@@ -660,7 +660,6 @@ class WhatAppAakashController extends BaseController
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 
         $url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
-
         $postData = json_encode([
             "messaging_product" => "whatsapp",
             "recipient_type" => "individual",
@@ -673,37 +672,40 @@ class WhatAppAakashController extends BaseController
                 ]
             ]
         ]);
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
-            "Content-Length: " . strlen($postData),
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($ch);
-
-        if ($response == false) {
-            $error = curl_error($ch);
-            echo "cURL Error: " . $error;
-            $msgStatus = 0;
-
-        } else {
-            $msgStatus = 1;
-            echo $response;
+        $Result = postSocialData($url, $postData);
+        $ReturnResult = 1;
+        if (isset($Result['id'])) {
+            $ReturnResult = 0;
         }
-
-        curl_close($ch);
-        return json_encode($msgStatus, true);
+        echo $ReturnResult;
     }
-    public function master_whatsapp_list_dataaaksh()
-    {
-        //06-02-2024
+    //     $ch = curl_init();
 
+    //     curl_setopt($ch, CURLOPT_URL, $url);
+    //     curl_setopt($ch, CURLOPT_POST, true);
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    //     curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    //         "Content-Type: application/json",
+    //         "Content-Length: " . strlen($postData),
+    //     ]);
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    //     $response = curl_exec($ch);
+
+    //     if ($response == false) {
+    //         $error = curl_error($ch);
+    //         echo "cURL Error: " . $error;
+    //         $msgStatus = 0;
+    //     } else {
+    //         $msgStatus = 1;
+    //         echo $response;
+    //     }
+
+    //     curl_close($ch);
+    //     return json_encode($msgStatus, true);
+    // }
+    public function master_whatsapp_list_data()
+    {
         $table_username = getMasterUsername();
         $db_connection = \Config\Database::connect('second');
         $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
@@ -717,73 +719,156 @@ class WhatAppAakashController extends BaseController
         $WhatAppRedirectStatus = 0;
         $Error = '';
         $ConnectionName = '';
-        $templatelistdata = '';
         $ConnectionStatus = 0;
-
         $Html = '';
         if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
                 $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
-                $DataArray =  getSocialData($url);
-
+                $DataArray = getSocialData($url);
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
                         $ConnectionStatus = 1;
-                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components&access_token=' . $settings_data['whatapp_access_token'];
-                        $responselistdata =  getSocialData($urllistdata);
-
+                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['whatapp_access_token'];
+                        $responselistdata = getSocialData($urllistdata);
                         $templateNames = [];
 
                         foreach ($responselistdata['data'] as $item) {
                             if ($item['status'] == "APPROVED") {
                                 $templateNames[$item['id']] = $item['name'];
                                 $templatelanguage[$item['name']] = $item['language'];
-
-
                             }
                         }
 
-                        // $templateid = array_column($responselistdata['data'], 'id');
-
                         if (isset($responselistdata)) {
                             if (isset($responselistdata['data'])) {
+                                // pre($responselistdata['data']);
                                 if (!empty($responselistdata['data'])) {
-                                    // pre($responselistdata['data']);
                                     foreach ($responselistdata['data'] as $key => $value) {
-
+                                        // pre($value);
                                         $Name = $value['name'];
                                         $Category = $value['category'];
                                         $Body = '';
                                         $id = $value['id'];
                                         $language = $value['language'];
-                                        if (isset($value['components']) && !empty($value['components'])) {
-                                            foreach ($value['components'] as $key1 => $value1) {
-                                                if ($value1['type'] == 'BODY') {
-                                                    $Body = $value1['text'];
+                                        $status = $value['status'];
+
+                                        if ($status == "APPROVED") {
+                                            if (isset($value['quality_score']['score'])) {
+                                                if ($value['quality_score']['score'] == "UNKNOWN") {
+                                                    $status = $status . ' -  Quality pending';
+                                                } else {
+                                                    $status = $status . ' - ' . $value['quality_score']['score'];
                                                 }
                                             }
                                         }
+
+                                        if (isset($value['components']) && !empty($value['components'])) {
+                                            foreach ($value['components'] as $key1 => $value1) {
+                                                // pre($value1);
+                                            
+                                                if ($value1['type'] == 'BODY') {
+                                                    $Body = $value1['text'];
+                                                }
+                                                if ($value1['type'] == 'FOOTER') {
+                                                    $footer = $value1['text'];
+                                                }
+
+                                                $buttonvalue = ""; 
+
+                                                if ($value1['type'] == 'BUTTONS' && isset($value1['buttons'][0])) {
+                                                    $button = $value1['buttons'][0];
+                                                    
+                                                    if ($button['type'] == 'QUICK_REPLY' && isset($button['text']) && is_string($button['text'])) {
+                                                        $buttonvalue = $button['text'];
+                                                    } 
+                                                    elseif ($button['type'] == 'URL' && isset($button['url']) && is_string($button['url'])) {
+                                                        $buttonvalue = $button['url'];
+                                                    } 
+                                                    elseif ($button['type'] == 'PHONE_NUMBER' && isset($button['phone_number']) && is_string($button['phone_number'])) {
+                                                        $buttonvalue = $button['phone_number'];
+                                                    }
+                                                }
+                                                
+                                                
+                                                
+
+                                                if ($value1['type'] == 'HEADER') {
+                                                    if (isset($value1['format'])) {
+                                                        if ($value1['format'] == 'IMAGE') {
+                                                            if (isset($value1['example']['header_handle']) && is_array($value1['example']['header_handle'])) {
+                                                                $header = $value1['example']['header_handle'][0];
+                                                            } else {
+                                                                $header = "";
+                                                            }
+                                                        } elseif ($value1['format'] == 'VIDEO') {
+                                                            $header = "";
+                                                        } elseif ($value1['format'] == 'TEXT') {
+                                                            if (isset($value1['text'])) {
+                                                                $header = $value1['text'];
+                                                            } else {
+                                                                $header = "";
+                                                            }
+                                                        } else {
+                                                            $header = "";
+                                                        }
+                                                    } else {
+                                                        $header = "";
+                                                    }
+                                                }
+
+                                                // if ($value1['type'] == 'BUTTONS') {
+                                                //     if (isset($value1['type'])) {
+                                                //         if ($value1['type'] == 'QUICK_REPLY') {
+                                                //             if (isset($value1['text']) && is_array($value1['text'])) {
+                                                //                 $button = $value1['text'][0];
+                                                //             } else {
+                                                //                 $button = "";
+                                                //             }
+                                                //         } elseif ($value1['type'] == 'URL') {
+                                                //             if (isset($value1['url']) && is_array($value1['url'])) {
+                                                //                 $button = $value1['url'][0];
+                                                //             } else {
+                                                //                 $button = "";
+                                                //             }
+                                                //         } elseif ($value1['type'] == 'PHONE_NUMBER') {
+                                                //             if (isset($value1['phone_number']) && is_array($value1['phone_number'])) {
+                                                //                 $button = $value1['phone_number'][0];
+                                                //             } else {
+                                                //                 $button = "";
+                                                //             }
+                                                //         } else {
+                                                //             $button = "";
+                                                //         }
+                                                //     } else {
+                                                //         $button = "";
+                                                //     }
+                                                // }
+                                             
+                                                
+                                                
+                                            }
+                                        }
                                         $Html .= '
-                                    <tr class="rounded-pill">
-                                            <td class="py-2 text-capitalize">' . $Name . '</td>
-                                            <td class="py-2">' . $Category . '</td>
-                                            <td class="py-2 ">
-                                                <div class="overflow-hidden" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis ">
-                                                    ' . $Body . '
-                                                </div>
-                                            </td>
-                                            <td class="py-2">' . $language . '</td>
-                                            <td class="template-creation-table-data text-center cwt-border-right p-l-25">
-                                                <span>
-                                                    <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <i class="fa fa-clone fs-16 Edit_template" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <i class="fa fa-trash fs-16 Delete_template_id" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ';
+                                        <tr class="rounded-pill WhatsAppTemplateModelViewBtn" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >
+                                                <td class="py-2 text-capitalize">' . $Name . '</td>
+                                                <td class="py-2">' . $Category . '</td>
+                                                <td class="py-2">' . $status . '</td>
+
+                                                <td class="py-2 ">
+                                                    <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
+                                                        ' . $Body . '
+                                                    </div>
+                                                </td>
+                                                <td class="py-2">' . $language . '</td>
+                                                <td class="template-creation-table-data text-center cwt-border-right p-l-25 d-none">
+                                                    <span>
+                                                        <i class="fa fa-eye fs-16 view_template" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                        <i class="fa fa-clone fs-16 Edit_template d-none" data-edit_id="2" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit" aria-hidden="true" ng-click="editTemplate(tem)" aria-label="Duplicate Template" md-labeled-by-tooltip="md-tooltip-11" role="button" tabindex="0"></i>
+                                                        <i class="fa fa-trash fs-16 Delete_template_id d-none" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ';
                                     }
                                 } else {
                                     $Html .= '<p>No Templates Found</p>';
@@ -806,17 +891,11 @@ class WhatAppAakashController extends BaseController
             }
         }
         $recordsCount = '';
-        
         $return_array['records_count'] = $recordsCount;
         $return_array['template_name'] = $templateNames;
         $return_array['templatelanguage'] = $templatelanguage;
-
-        // $return_array['templateid'] = $templateid;
-
-
         $return_array['html'] = $Html;
         return json_encode($return_array, true);
         die();
     }
-
 }

@@ -1,7 +1,9 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
 <?php $table_username = getMasterUsername(); ?>
-
+<?php
+$language_name = json_decode($language_name, true);
+?>
 <style>
     .wa-preview-main-div-cont {
         max-width: 500px;
@@ -309,9 +311,6 @@
     .add_user_role_css {
         padding: 10px;
     }
-    .iti{
-        width: 100%;
-    }
 </style>
 <style>
     .wa-preview-main-div-cont {
@@ -511,6 +510,10 @@
         background-color: #FFF8EB;
         font-size: 12px;
     }
+
+    .iti {
+        width: 100%;
+    }
 </style>
 
 <div class="main-dashbord p-2 ">
@@ -562,7 +565,7 @@
                                                 <path d="M221.317 247.584H47.91v161.203h173.407zm-46.736 67.683h-24.968v58.838h-30v-58.838H94.646v-30h79.936v30z" fill="#724ebf" opacity="1" data-original="#000000" class=""></path>
                                             </g>
                                         </svg></p>
-                                    <span class="ms-3 first-container-text"> Create Templates</span>
+                                    <span class="ms-3 first-container-text">Templates</span>
                                 </div>
                             </li>
 
@@ -582,7 +585,8 @@
                             <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
 
                                 <li class="nav-item  " role="presentation">
-                                    <button class="nav-link active" id="single" data-table="single" DataStatus='3' data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" data-bs-toggle="modal" type="button" role="tab" aria-controls="pills-ex-single-tab" aria-selected="true">Single Template</button>
+                                    <button class="nav-link active" id="single" data-table="single" DataStatus='3' data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" data-bs-toggle="modal" type="button" role="tab" aria-controls="pills-ex-single-tab" aria-selected="true">Single
+                                        Template</button>
                                 </li>
 
 
@@ -633,12 +637,10 @@
                                                                         <option value="" selected disabled>Please select template</option>
                                                                     </select>
                                                                 </div>
-
                                                                 <div class="col-12 mb-3 mt-2">
-                                                                    <!-- <input type="text" class="form-control main-control phone_number_div" id="phone_number" placeholder="Enter your phone number" name="" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required> -->
+
                                                                     <input type="text" id="mobile_code" class="form-control phone_number_div" placeholder="Enter your phone number" name="name">
                                                                 </div>
-
                                                                 <div class="col-12 mb-3 mt-2">
                                                                     <select class="form-control main-control language_div" id="language" name="language" required>
                                                                         <option class="fs-12" label="Please select your language" value=""></option>
@@ -813,7 +815,8 @@
                                                         <div class="modal-body-secondery justify-content-center">
                                                             <div class="modal-body-card justify-content-center">
                                                                 <label class=" pull-left full-width text-left m-b-15"><b>Note:
-                                                                    </b> follow <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' target="_blank">csv</a> format for
+                                                                    </b> follow <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' target="_blank">csv</a>
+                                                                    format for
                                                                     reference</label>
 
 
@@ -823,7 +826,8 @@
                                                                             <g>
                                                                                 <path d="M496 432.011H272c-8.832 0-16-7.168-16-16v-320c0-8.832 7.168-16 16-16h224c8.832 0 16 7.168 16 16v320c0 8.832-7.168 16-16 16z" style="" fill="#eceff1" data-original="#eceff1"></path>
                                                                                 <path d="M336 176.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM336 240.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM336 304.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM336 368.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 176.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 240.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 304.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 368.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16z" style="" fill="#388e3c" data-original="#388e3c"></path>
-                                                                                <path d="M282.208 19.691c-3.648-3.04-8.544-4.352-13.152-3.392l-256 48A15.955 15.955 0 0 0 0 80.011v352c0 7.68 5.472 14.304 13.056 15.712l256 48c.96.192 1.952.288 2.944.288 3.712 0 7.328-1.28 10.208-3.68a16.006 16.006 0 0 0 5.792-12.32v-448c0-4.768-2.112-9.28-5.792-12.32z" style="" fill="#2e7d32" data-original="#2e7d32" class=""></path>
+                                                                                <path d="M282.208 19.691c-3.648-3.04-8.544-4.352-13.152-3.392l-256 48A15.955 15.955 0 0 0 0 80.011v352c0 7.68 5.472 14.304 13.056 15.712l256 48c.96.192 1.952.288 2.944.288 3.712 0 7.328-1.28 10.208-3.68a16.006 16.006 0 0 0 5.792-12.32v-448c0-4.768-2.112-9.28-5.792-12.32z" style="" fill="#2e7d32" data-original="#2e7d32" class="">
+                                                                                </path>
                                                                                 <path d="m220.032 309.483-50.592-57.824 51.168-65.792c5.44-6.976 4.16-17.024-2.784-22.464-6.944-5.44-16.992-4.16-22.464 2.784l-47.392 60.928-39.936-45.632c-5.856-6.72-15.968-7.328-22.56-1.504-6.656 5.824-7.328 15.936-1.504 22.56l44 50.304-44.608 57.344c-5.44 6.976-4.16 17.024 2.784 22.464a16.104 16.104 0 0 0 9.856 3.36c4.768 0 9.472-2.112 12.64-6.176l40.8-52.48 46.528 53.152A15.874 15.874 0 0 0 208 336.011c3.744 0 7.488-1.312 10.528-3.968 6.656-5.824 7.328-15.936 1.504-22.56z" style="" fill="#fafafa" data-original="#fafafa"></path>
                                                                             </g>
                                                                         </svg>
@@ -925,7 +929,8 @@
                                 </div>
                                 <div class="col-5 d-flex flex-wrap align-items-center justify-content-end float-end ">
                                     <div class="col-5 px-2">
-                                        <button type="button" class="btn-primary CancleBtn me-2  w-100" data-bs-dismiss="modal" data-bs-toggle="modal" id="cancel" data-delete_id=""><i class="bi bi-arrow-repeat"></i> Sync with Facebook</button>
+                                        <button type="button" class="btn-primary CancleBtn me-2  w-100" data-bs-dismiss="modal" data-bs-toggle="modal" id="cancel" data-delete_id=""><i class="bi bi-arrow-repeat"></i> Sync with
+                                            Facebook</button>
                                     </div>
 
                                     <div class="col-1 px-2">
@@ -942,9 +947,12 @@
                                     <table id="memberships_table" class="w-100 m-memberships table table-striped dt-responsive nowrap master_memberships_insert main-table">
                                         <thead>
                                             <tr class="th-header-noborder">
-                                                <th class="template-creation-heading">Name <i class="fa fa-sort p-l-10" ng-class="{'lblue' : temOrderBy == 'name' || temOrderBy == '-name'}" ng-click="setTemorder('name')" role="button" tabindex="0"></i></th>
+                                                <th class="template-creation-heading">Name <i class="fa fa-sort p-l-10" ng-class="{'lblue' : temOrderBy == 'name' || temOrderBy == '-name'}" ng-click="setTemorder('name')" role="button" tabindex="0"></i>
+                                                </th>
                                                 <th class="template-creation-heading">Category</th>
-                                                <th class="template-creation-heading" style="max-width: 400px;">Preview</th>
+                                                <th class="template-creation-heading">Status</th>
+                                                <th class="template-creation-heading" style="max-width: 400px;">Preview
+                                                </th>
                                                 <th class="template-creation-heading ">Language</th>
                                                 <th class="template-creation-heading text-center text-left">Action</th>
                                             </tr>
@@ -995,7 +1003,8 @@
                                     <td class="whatsapp-col">917016045</td>
                                     <td>offer1</td>
                                     <td>
-                                        <div id="whatsapp-meassage">dsfddddddddddddddddddddddddddddddddddddddddddddddddjfdfgeigg</div>
+                                        <div id="whatsapp-meassage">
+                                            dsfddddddddddddddddddddddddddddddddddddddddddddddddjfdfgeigg</div>
                                     </td>
                                     <td>read</td>
                                     <td>success</td>
@@ -1027,7 +1036,7 @@
 </div>
 
 <!-- add model -->
-<div class="modal fade modal-lg" id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg " id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-50 modal-dialog-centered">
         <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
             <div class="modal-content">
@@ -1041,18 +1050,19 @@
                             <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
                                 <div class="col-12 mb-3 ">
                                     <input type="text" class="form-control main-control Template_name_varification Template_name" id="Template_nameId" placeholder="Template name" name="Template_name" required>
-                                    <p class="CheckTemplateNameAlertPTag text-danger fs-12" style="display:none;">Name can
+                                    <p class="CheckTemplateNameAlertPTag text-danger fs-12" style="display:none;">Name
+                                        can
                                         only contain lowercase alphanumeric characters and underscores ( _ )</p>
                                 </div>
                                 <div class="col-12 mb-3 ">
                                     <div class="main-selectpicker">
-                                        <select id="category_types" name="category_types" class="selectpicker form-control form-main main-control category_div" required>
+                                        <select id="category_types" name="category_types" class="selectpicker form-control form-main TemplateCategorySelectionDiv main-control category_div" required>
                                             <option class=" dropdown-item" value="">Please select your category</option>
 
-                                            <option value="Utility" ng-repeat="category in category_types" class="  dropdown-item">
+                                            <option value="UTILITY" ng-repeat="category in category_types" class="  dropdown-item">
                                                 Utility</option>
                                             </option>
-                                            <option value="Authentication" ng-repeat="category in category_types" class="  dropdown-item">
+                                            <option value="AUTHENTICATION" ng-repeat="category in category_types" class="  dropdown-item">
                                                 Authentication</option>
                                             </option>
                                             <option value="MARKETING" ng-repeat="category in category_types" class="  dropdown-item">
@@ -1065,7 +1075,7 @@
                                     <div class="main-selectpicker">
                                         <!-- <select class="selectpicker form-control main-control language_div" id="language" name="language" required> -->
 
-                                        <select class="form-control main-control language_div" id="languageid" name="language" required>
+                                        <select class="form-control main-control TemplateLanguageDDList language_div" id="languageid" name="language" required>
                                             <option class="fs-12" label="Please select your language" value=""></option>
                                             <option class="fs-12 ng-binding ng-scope" value="en_US" ng-repeat="lang in template_lang">English US (en_US)</option>
                                             <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">English (en)</option>
@@ -1143,8 +1153,9 @@
                                     <div class="col-12 mb-3">
                                         <label for="form-memberships" class="main-label">HEADER<sup class="validationn">*</sup></label>
                                         <div class="main-selectpicker">
-                                            <select class="selectpicker form-control main-control header_div  Template_header1" id="Template_header" name="header" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
-                                                <option class="dropdown-item" value="">Please select your header type</option>
+                                            <select class="selectpicker form-control main-control header_div HeaderSelectionDD Template_header1" id="Template_header" name="header" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                <option class="dropdown-item" value="">Please select your header type
+                                                </option>
                                                 <option class="dropdown-item" value="TEXT">TEXT</option>
                                                 <option class="dropdown-item" value="IMAGE">IMAGE</option>
                                                 <option class="dropdown-item" value="VIDEO">VIDEO</option>
@@ -1154,10 +1165,10 @@
                                     </div>
                                     <div class="col-12 mb-3 file_upload d-none">
                                         <label for="" class="form-label main-label">Inq file upload <sup class="validationn">*</sup></label>
-                                        <input type="file" class="form-control main-control" id="insert_image" name="uploade_file" placeholder="Details" required="">
+                                        <input type="file" class="form-control main-control" id="insert_image" name="uploade_file" placeholder="Details" DataStoreURL="" required="">
                                     </div>
                                     <div class="col-12 mb-3 text-comment d-none">
-                                        <textarea class="form-control main-control place MemberAddressClass" id="address" name="address" required="" placeholder="Type your header text here..." rows="3" cols="50" spellcheck="false"></textarea>
+                                        <textarea class="form-control main-control ClassHeaderTEXT place MemberAddressClass" id="address" name="address" required="" placeholder="Type your header text here..." rows="3" cols="50" spellcheck="false"></textarea>
                                     </div>
                                     <!-- <textarea ng-if="selectedHeader === 'TEXT'"
                                 class="full-width cwt-header-textarea-box font-size-12 center-textarea header_text"
@@ -1186,21 +1197,24 @@
 
                                 <div class="col-12 mb-3">
                                     <label for="form-memberships" class="main-label fw-medium">BODY<sup class="validationn">*</sup></label>
-                                    <textarea class="form-control main-control body_div" id="body_id" placeholder="Type Your Body Text Here...{{|}}" name="" required></textarea>
+                                    <textarea class="form-control main-control TemplateBodyClass body_div" id="body_id" placeholder="Type Your Body Text Here...{{|}}" name="" required></textarea>
                                     <p class="fs-10">Body character limit is 1024 characters</p>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label for="form-memberships" class="main-label fw-medium">FOOTER<sup class="validationn">*</sup></label>
-                                    <textarea class="form-control main-control footer_div" id="footer" placeholder="Type Your Footer Text Here...{{|}}" name="" required></textarea>
+                                    <textarea class="form-control main-control footer_div FotterTextDIvClass" id="footer" placeholder="Type Your Footer Text Here...{{|}}" name="" required></textarea>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <div class="col-12 ">
                                         <label for="form-memberships" class="main-label">BUTTON<sup class="validationn">*</sup></label>
                                         <div class="main-selectpicker">
                                             <select class="selectpicker form-control main-control ButtonSelctionDropDown header_div" id="Button_make_picker" name="Button" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
-                                                <option class="dropdown-item" DataStaticId="1" value="">Please select button type</option>
-                                                <option class="dropdown-item" DataStaticId="2" value="Quick">Quick reply</option>
-                                                <option class="dropdown-item" DataStaticId="3" value="Call">Call to action</option>
+                                                <option class="dropdown-item" DataStaticId="1" value="">Please select
+                                                    button type</option>
+                                                <option class="dropdown-item" DataStaticId="2" value="Quick">Quick reply
+                                                </option>
+                                                <option class="dropdown-item" DataStaticId="3" value="Call">Call to
+                                                    action</option>
                                             </select>
                                         </div>
                                     </div>
@@ -1212,6 +1226,23 @@
                                     <!-- quck replay -->
 
                                     <div class="button_link1 SetButtonHTMLClass">
+                                        <div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass">
+                                            <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center">
+                                                <span class="fs-10">Url
+                                                    Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button>
+                                            </div>
+                                            <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control lablCnoInputField main-control  col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea>
+                                                <div class="col-12 d-flex flex-wrap align-items-center border ">
+                                                    <span class="text-primary  mx-2 text-white "><i class="fa-solid fa-phone"></i></span>
+                                                    <div class="col">
+                                                        <!-- <input type="text"
+                                                            class="form-control CnoCnoInputField main-control border-0"
+                                                            placeholder="Input URL..." required="">  -->
+                                                        <input type="text" id="mobile_code" class="form-control main-control border-0" placeholder="Phone Number" name="name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- <div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data">
                                             <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span>
                                             <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea>
@@ -1365,45 +1396,27 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary previewbutton" data-bs-target="#view_modal" data-bs-toggle="modal">Preview and Submit</button>
+                    <button type="button" class="btn btn-primary previewbutton d-none" data-bs-target="#view_modal" data-bs-toggle="modal">Preview and Submit</button>
+                    <button type="button" class="btn btn-primary Add_editModelTitle">Preview and Submit</button>
                 </div>
             </div>
     </div>
 </div>
 <!-- last-modal -->
-<div class="modal fade modal-lg " id="view_modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div class="modal fade  " id="view_modal" aria-hidden="true" aria-labelledby="view_modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+                <h1 class="modal-title fs-5" id="view_modal" name="view_modal">Template</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body modal-body-secondery d-flex flex-wrap">
-                <div class="col-6">
-                    <div class="modal-body-card justify-content-center">
-                        <div id="dynamicInputsContainer" class="col-12 mb-3 mt-2 inputbodyfield">
-                        </div>
+            <div class="modal-body modal-body-secondery d-flex flex-wrap p-0">
 
-
-                        <div ng-if="!headerTextLength && !urlParam && !bodyTextLength" class="cwt-info-facebook ng-scope">
-                            <p class="font-size-12 text-center">You haven't used any variable in your text.</p>
-                        </div>
-
-
-
-                        <div class="cwt-info-facebook">
-                            <p class="font-size-12">The provided example values will be submitted to Facebook as part of the template submission process. If no relevant examples are provided, templates may be rejected by Facebook.</p>
-                        </div>
-
-
-
-                    </div>
-                </div>
-                <div class="col-6 hello">
-                    <div class="modal-body-card justify-content-center h-100">
+                <div class="col-12 hello">
+                    <div class=" justify-content-center h-100">
                         <!-- whatsapp   .. -->
                         <div class="wa-preview-main-div-cont">
-                            <div class="preview-chat-section">
+                            <div class="preview-chat-section rounded-0">
                                 <div class="preview-header-main-cont">
                                     <div class="header-image">
                                         <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
@@ -1422,8 +1435,16 @@
                                     <div class="preview-chat-paragraph bg-white p-3 col-10">
                                         <div class="preview-header-paragraph" ng-if="submitParamDetails" class="ng-scope" style="">
                                             <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
-                                            <!-- end ngIf: media_footer_text.length > 0 -->
                                         </div>
+
+                                        <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:200px;height:200px;object-fit: contain;">
+                                        <!-- <div class="preview-header-paragraph" ng-if="submitParamDetails"
+                                            class="ng-scope" style="">
+                                            <div ng-if="media_footer_text.length > 0 "
+                                                class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope"
+                                                contenteditable="false" style=""></div>
+                                            end ngIf: media_footer_text.length > 0
+                                        </div> -->
                                         <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
                                         </div>
                                         <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
@@ -1463,9 +1484,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary btn btn-secondary" data-bs-target="#whatsapp_template_add_edit" data-bs-toggle="modal">Back to first</button>
-                <button type="button" class="btn btn-primary SaveBtnDiv" data-bs-dismiss="modal">Submit</button>
-
+                <button type="button" class="btn btn-primary SaveBtnDiv" data-bs-dismiss="modal">Delete</button>
+                <button class="btn  btn-primary   Elbtn" data-bs-target="#whatsapp_template_add_edit" data-bs-toggle="modal"><i class="bi bi-pencil"></i></button>
             </div>
 
         </div>
@@ -1552,14 +1572,14 @@
         }
     });
 
-    $('.single-button-whatsapp-template1').hide();
-    $('.single-button-whatsapp-template2').hide();
-    $('.single-button-whatsapp-template3').hide();
+    $('.single-button-whatsapp-template1').addClass('d-none');
+    $('.single-button-whatsapp-template2').addClass('d-none');
+    $('.single-button-whatsapp-template3').addClass('d-none');
 
 
     $('.button1input').on('input', function() {
         var button1input = $(this).val();
-        $('.single-button-whatsapp-template1').show();
+        $('.single-button-whatsapp-template1').removeClass('d-none');
 
         if (button1input === "") {
             $('.single-t-call-button').hide();
@@ -1572,7 +1592,7 @@
     });
     $('.button2input').on('input', function() {
         var button2input = $(this).val();
-        $('.single-button-whatsapp-template2').show();
+        $('.single-button-whatsapp-template2').removeClass('d-none');
 
         if (button2input === "") {
             $('.single-t-call-button').hide();
@@ -1585,7 +1605,7 @@
     });
     $('.button3input').on('input', function() {
         var button3input = $(this).val();
-        $('.single-button-whatsapp-template3').show();
+        $('.single-button-whatsapp-template3').removeClass('d-none');
 
         if (button3input === "") {
             $('.single-t-call-button').hide();
@@ -1603,7 +1623,7 @@
 
     $('.body_div').on('input', function() {
         var bodyText = $(this).val();
-        console.log(bodyText);
+        // console.log(bodyText);
 
         if (bodyText === "") {
             $('.c').hide();
@@ -1727,16 +1747,15 @@
 
             },
             success: function(res) {
-                $('.loader').hide()
+                $('.loader').hide();
                 var response = JSON.parse(res);
                 var template_name = response.template_name;
-                var templateid = response.templateid;
+                var templatelanguage = response.templatelanguage;
+
 
                 $('.header_div').attr('DataMNo', response.templateid);
                 var selectDropdown = document.getElementById("header");
-
                 selectDropdown.innerHTML = "";
-
                 var defaultOption = document.createElement("option");
                 defaultOption.text = "Please select template";
                 defaultOption.value = "";
@@ -1750,8 +1769,18 @@
                         option.text = template_name[key];
                         option.value = template_name[key];
                         selectDropdown.add(option);
+
                     }
                 }
+
+                $('#header').change(function() {
+                    var selectDropdown = $(this).val();
+                    var languageDropdown = templatelanguage[selectDropdown];
+                    $('.language_div').val(languageDropdown);
+
+                });
+
+
                 $('#memberships_list').html(response.html);
             }
         });
@@ -1774,7 +1803,7 @@
         var uploade_file = $('#insert_image').prop('files')[0];
         var body = $('.body_div').val();
 
-
+        // 07-02-2024
 
         var form = $("form[name='master_membership_update_form']")[0];
         var formData = new FormData(form);
@@ -1845,38 +1874,53 @@
 
     });
 
+    function isValidURL(str) {
+        var pattern = new RegExp('^(https?:\\/\\/)?' +
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+            '((\\d{1,3}\\.){3}\\d{1,3}))' +
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+            '(\\?[;&a-z\\d%_.~+=-]*)?' +
+            '(\\#[-a-z\\d_]*)?$', 'i');
+        return pattern.test(str);
+    }
+
+    $('body').on('click', '.WhatsAppTemplateModelViewBtn', function() {
+        // $('#view_modal').modal('show');
+        var Body = $(this).attr('Bodytext');
+        var footer = $(this).attr('footertext');
+        var header = $(this).attr('headertext');
+        var button = $(this).attr('buttontext');
+
+        
+
+        if (isValidURL(header)) {
+            $('.preview-header-paragraphVIDEO').removeClass('d-none');
+            $('.preview-header-paragraph').addClass('d-none')
+            $(".preview-header-paragraphVIDEO").attr('src', header).addClass("col-12 rounded-3 border border-3");
+
+        } else {
+            $('.preview-header-paragraph').text(header).css('font-weight', 'bold');
+            $('.preview-header-paragraphVIDEO').addClass('d-none');
+            $('.preview-header-paragraph').removeClass('d-none')
 
 
+        }
+        if(button == ""){
+            $('.single-button-whatsapp-template1').addClass('d-none');
 
-    $('body').on('click', '.view_template', function(e) {
-        var EditId = $(this).attr('data-preview_id');
+        }else{
+            $('.single-button-whatsapp-template1').text(button);
+            $('.single-button-whatsapp-template1').removeClass('d-none');
 
-        $.ajax({
-            method: "post",
-            url: "whatsappView",
-            data: {
-                EditID: EditId,
-            },
-            success: function(res) {
-                var response = JSON.parse(res);
-
-                var img_name = response.uploade_file;
-                var img_path = 'assets/images/whatsapp_template/';
-                var img_url = img_path + img_name;
-                var img = new Image();
-                img.src = img_url;
-                img.onload = function() {
-                    $("form[name='hello'] .user-name-chat-header").html('<img src="' + img_url + '" class="col-12 rounded-3 border border-3 ">');
-                };
-                $('.user-name-chat-footer').text(response.body)
+        }
+        
+        $('.msg-text-chat').text(Body);
+        $('.preview-footer-paragraph').text(footer);
 
 
-            },
-            error: function(err) {
-                console.error("Error:", err);
-            }
-        });
     });
+
+
 
 
     $('body').on('click', '.Edit_template', function(e) {
@@ -1972,97 +2016,496 @@
             $('.SetButtonHTMLClass').html('');
         } else if (DDValue == '2') {
             var previous_hmml = $('.SetButtonHTMLClass').html();
-            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col button1input" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
+            var StaticHtml = '<div class="col-12 d-flex flex-wrap align-items-center position-relative my-2 remove-data QuickSetButtonHTMLClass"> <span class="fs-10 btn bg-primary  position-absolute ms-2 text-white ">Button</span> <textarea class="form-control main-control col  button1input QuickSubButtonInput" data-template="1" placeholder="Start typing button label here..." cols="1" rows="1" required="" style="padding-left:74px;"></textarea> <button class="bg-transparent border-0 mx-2 position-absolute end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div>';
             var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
             if (parseInt(numberOfSubElements) < 3) {
                 $('.SetButtonHTMLClass').html(previous_hmml + StaticHtml);
             }
-            // console.log(numberOfSubElements);
         } else if (DDValue == '3') {
+            var SetHtml = $('.SetButtonHTMLClass').html();
+            var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
+            var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
+            if (numberOfSubElementsUrl == '0') {
+                var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="form-control lableUrlInputField main-control col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col"> <input type="text" class="form-control main-control UrlUrlInputField border-0" placeholder="Input URL..." required=""> </div> <button class="btn btn-primary  d-none mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
+                $('.SetButtonHTMLClass').html(SetHtml + urlbtnhtml);
 
+            }
+            if (numberOfSubElementsCno == '0') {
+                var SetHtml = $('.SetButtonHTMLClass').html();
+                var phonenobtn = '<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control lablCnoInputField main-control  col border-0" placeholder="Start typing button label here..." cols="1" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input type="text" class="form-control CnoCnoInputField main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
+                $('.SetButtonHTMLClass').html(SetHtml + phonenobtn);
+            }
+        }
+    });
+
+
+
+    // $('body').on('click', '.Add_editModelTitle', function () {
+    //     var name = $('.Template_name').val();
+    //     var category = $('select.TemplateCategorySelectionDiv option:selected').val();
+    //     var language = $('select.TemplateLanguageDDList option:selected').val();
+    //     var headertype = $('select.HeaderSelectionDD option:selected').val();
+    //     var headertext = $('.ClassHeaderTEXT').val();
+    //     var body = $('.TemplateBodyClass').val();
+    //     var footer = $('.FotterTextDIvClass').val();
+
+    //     var templateArray = {
+    //         'name': name,
+    //         'category': category,
+    //         'language': language,
+    //         'components': []
+    //     };
+
+    //     if (headertext) {
+    //         templateArray.components.push({
+    //             'type': 'HEADER',
+    //             'format': 'TEXT',
+    //             'text': headertext
+    //         });
+    //     }
+
+    //     if (body) {
+    //         templateArray.components.push({
+    //             'type': 'BODY',
+    //             'text': body
+    //         });
+    //     }
+
+    //     if (footer) {
+    //         templateArray.components.push({
+    //             'type': 'FOOTER',
+    //             'text': footer
+    //         });
+    //     }
+
+    //     var jsonString = JSON.stringify(templateArray);
+
+
+    //     // $.ajax({
+    //     //     method: "post",
+    //     //     url: "<?= site_url('SendWhatsAppTemplate'); ?>",
+    //     //     data: {
+    //     //         jsonString: jsonString,
+    //     //     },
+    //     //     success: function (data) {
+    //     //         if (data == '0') {
+    //     //             iziToast.error({
+    //     //                 title: "Failed to add template"
+    //     //             });
+    //     //         } else {
+    //     //             iziToast.success({
+    //     //                 title: "Added Successfully"
+    //     //             });
+    //     //         }
+    //     //         $(".close_btn").trigger("click");
+    //     //         list_data();
+    //     //     }
+    //     // });
+    // });
+
+    $(document).ready(function() {
+        // $('#insert_image').on('change', function () {
+        //     var fileInput = $(this);
+        //     var fileName = fileInput.val();
+        //     if (fileName) {
+        //         var form = $("form[name='master_membership_update_form']")[0];
+        //         var formData = new FormData(form);
+        //         var uploade_file = $('#insert_image').prop('files')[0];
+        //         formData.append('uploade_file', uploade_file);
+        //         $.ajax({
+        //             method: "post",
+        //             url: "<?= site_url('WhatappFileUpload'); ?>",
+        //             data: formData,
+        //             processData: false,
+        //             contentType: false,
+        //             success: function (data) {
+        //                 $(this).attr('DataStoreURL', data);
+        //             }
+        //         });
+        //     } else {
+        //         $(this).attr('DataStoreURL', '');
+        //     }
+        // });
+    });
+
+    $('body').on('click', '.Add_editModelTitle', function() {
+        var name = $('.Template_name').val();
+        var category = $('select.TemplateCategorySelectionDiv option:selected').val();
+        var language = $('select.TemplateLanguageDDList option:selected').val();
+        var headertype = $('select.HeaderSelectionDD option:selected').val();
+        var headerfile = '';
+
+
+        if (headertype == 'IMAGE' || headertype == 'VIDEO' || headertype == "DOCUMENT") {
+            var fileInput = $('#insert_image');
+            var fileName = fileInput.val();
+            if (fileName) {
+                var form = $("form[name='master_membership_update_form']")[0];
+                var formData = new FormData(form);
+                var uploade_file = $('#insert_image').prop('files')[0];
+                formData.append('uploade_file', uploade_file);
+                $.ajax({
+                    method: "post",
+                    url: "<?= site_url('WhatappFileUpload'); ?>",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        // $(this).attr('DataStoreURL', data);
+                        // console.log(data);
+                        headerfile = data;
+
+
+                        var headertext = $('.ClassHeaderTEXT').val();
+                        var body = $('.TemplateBodyClass').val();
+                        var footer = $('.FotterTextDIvClass').val();
+
+
+                        var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+                        var QuickArray = [];
+
+                        if (buttontype == '1') {
+
+
+                        } else if (buttontype == '2') {
+
+                            var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
+                            if (numberOfSubElements > 0) {
+                                var QuickArray = [];
+                                $(".QuickSubButtonInput").each(function() {
+                                    var QuickBtntext = $(this).val();
+                                    if (QuickBtntext != '') {
+                                        QuickArray.push({
+                                            'type': 'QUICK_REPLY',
+                                            'text': QuickBtntext
+                                        });
+                                    }
+                                });
+                                // console.log(QuickArray);
+                            }
+                        } else if (buttontype == '3') {
+                            var QuickArray = [];
+                            var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
+                            var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
+                            if (numberOfSubElementsUrl > 0) {
+                                var QuickArray = [];
+                                var label = $('.lableUrlInputField').val();
+                                var Url = $('.UrlUrlInputField').val();
+                                if (label != '' && Url != '') {
+                                    QuickArray.push({
+                                        'type': 'URL',
+                                        'text': label,
+                                        'url': Url
+                                    });
+                                }
+                            }
+                            if (numberOfSubElementsCno > 0) {
+                                var label = $('.lablCnoInputField').val();
+                                var Url = $('.CnoCnoInputField').val();
+                                if (label != '' && Url != '') {
+                                    QuickArray.push({
+                                        'type': 'PHONE_NUMBER',
+                                        'text': label,
+                                        'phone_number': Url
+                                    });
+                                }
+                            }
+                        }
+
+
+
+
+                        var templateArray = {
+                            'name': name,
+                            'category': category,
+                            'language': language,
+                            'components': []
+                        };
+
+
+                        if (headertype != '') {
+                            if (headertype == 'TEXT') {
+                                if (headertext) {
+                                    templateArray.components.push({
+                                        'type': 'HEADER',
+                                        'format': 'TEXT',
+                                        'text': headertext
+                                    });
+                                }
+                            }
+                            if (headertype == 'IMAGE' && headerfile != '') {
+                                var exampleData = {
+                                    "header_handle": [
+                                        headerfile
+                                    ]
+                                };
+                                templateArray.components.push({
+                                    'type': 'HEADER',
+                                    'format': 'IMAGE',
+                                    'example': exampleData
+                                });
+                            }
+                            if (headertype == 'VIDEO' && headerfile != '') {
+                                var exampleData = {
+                                    "header_handle": [
+                                        headerfile
+                                    ]
+                                };
+                                templateArray.components.push({
+                                    'type': 'HEADER',
+                                    'format': 'VIDEO',
+                                    'example': exampleData
+                                });
+                            }
+                            if (headertype == 'DOCUMENT' && headerfile != '') {
+                                var exampleData = {
+                                    "header_handle": [
+                                        headerfile
+                                    ]
+                                };
+                                templateArray.components.push({
+                                    'type': 'HEADER',
+                                    'format': 'DOCUMENT',
+                                    'example': exampleData
+                                });
+                            }
+                        }
+                        if (body) {
+                            templateArray.components.push({
+                                'type': 'BODY',
+                                'text': body
+                            });
+                        }
+                        if (footer) {
+                            templateArray.components.push({
+                                'type': 'FOOTER',
+                                'text': footer
+                            });
+                        }
+                        if (QuickArray.length > 0) {
+                            templateArray.components.push({
+                                'type': 'BUTTONS',
+                                'buttons': QuickArray
+                            });
+                        }
+                        var jsonString = JSON.stringify(templateArray);
+                        console.log(jsonString);
+                        if (headerfile != '') {
+
+                            $.ajax({
+                                method: "post",
+                                url: "<?= site_url('SendWhatsAppTemplate'); ?>",
+                                data: {
+                                    jsonString: jsonString,
+                                },
+                                success: function(data) {
+                                    if (data == '0') {
+                                        iziToast.error({
+                                            title: "Failed to add template"
+                                        });
+                                    } else {
+                                        iziToast.success({
+                                            title: "Added Successfully"
+                                        });
+                                    }
+                                    $(".close_btn").trigger("click");
+                                    list_data();
+                                }
+                            });
+                        }
+                        // console.log(jsonString);
+                    }
+                });
+            } else {
+                $(this).attr('DataStoreURL', '');
+            }
+        } else {
+            var headertext = $('.ClassHeaderTEXT').val();
+            var body = $('.TemplateBodyClass').val();
+            var footer = $('.FotterTextDIvClass').val();
+
+
+            var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
+            var QuickArray = [];
+
+            if (buttontype == '1') {
+
+
+            } else if (buttontype == '2') {
+
+                var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
+                if (numberOfSubElements > 0) {
+                    var QuickArray = [];
+                    $(".QuickSubButtonInput").each(function() {
+                        var QuickBtntext = $(this).val();
+                        if (QuickBtntext != '') {
+                            QuickArray.push({
+                                'type': 'QUICK_REPLY',
+                                'text': QuickBtntext
+                            });
+                        }
+                    });
+                    // console.log(QuickArray);
+                }
+            } else if (buttontype == '3') {
+                var QuickArray = [];
+                var numberOfSubElementsUrl = $(".SetButtonHTMLClass .urlbtnhtmlClass").length;
+                var numberOfSubElementsCno = $(".SetButtonHTMLClass .phonenobtnClass").length;
+                if (numberOfSubElementsUrl > 0) {
+                    var QuickArray = [];
+                    var label = $('.lableUrlInputField').val();
+                    var Url = $('.UrlUrlInputField').val();
+                    if (label != '' && Url != '') {
+                        QuickArray.push({
+                            'type': 'URL',
+                            'text': label,
+                            'url': Url
+                        });
+                    }
+                }
+                if (numberOfSubElementsCno > 0) {
+                    var label = $('.lablCnoInputField').val();
+                    var Url = $('.CnoCnoInputField').val();
+                    if (label != '' && Url != '') {
+                        QuickArray.push({
+                            'type': 'PHONE_NUMBER',
+                            'text': label,
+                            'phone_number': Url
+                        });
+                    }
+                }
+            }
+
+
+
+
+            var templateArray = {
+                'name': name,
+                'category': category,
+                'language': language,
+                'components': []
+            };
+
+
+            if (headertype != '') {
+                console.log(headertype);
+                if (headertype == 'TEXT') {
+                    if (headertext) {
+                        templateArray.components.push({
+                            'type': 'HEADER',
+                            'format': 'TEXT',
+                            'text': headertext
+                        });
+                    }
+                }
+                console.log(headerfile);
+                // console.log(headertype);
+                if (headertype == 'IMAGE' && headerfile != '') {
+                    var exampleData = {
+                        "header_handle": [
+                            headerfile
+                        ]
+                    };
+                    templateArray.components.push({
+                        'type': 'HEADER',
+                        'format': 'IMAGE',
+                        'example': exampleData
+                    });
+                }
+                if (headertype == 'VIDEO' && headerfile != '') {
+                    var exampleData = {
+                        "header_handle": [
+                            headerfile
+                        ]
+                    };
+                    templateArray.components.push({
+                        'type': 'HEADER',
+                        'format': 'VIDEO',
+                        'example': exampleData
+                    });
+                }
+                if (headertype == 'DOCUMENT' && headerfile != '') {
+                    var exampleData = {
+                        "header_handle": [
+                            headerfile
+                        ]
+                    };
+                    templateArray.components.push({
+                        'type': 'HEADER',
+                        'format': 'DOCUMENT',
+                        'example': exampleData
+                    });
+                }
+            }
+
+            if (body) {
+                templateArray.components.push({
+                    'type': 'BODY',
+                    'text': body
+                });
+            }
+
+            if (footer) {
+                templateArray.components.push({
+                    'type': 'FOOTER',
+                    'text': footer
+                });
+            }
+
+            if (QuickArray.length > 0) {
+                templateArray.components.push({
+                    'type': 'BUTTONS',
+                    'buttons': QuickArray
+                });
+                // console.log(QuickArray);
+            }
+
+
+            var jsonString = JSON.stringify(templateArray);
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('SendWhatsAppTemplate'); ?>",
+                data: {
+                    jsonString: jsonString,
+                },
+                success: function(data) {
+                    if (data == '0') {
+                        iziToast.error({
+                            title: "Failed to add template"
+                        });
+                    } else {
+                        iziToast.success({
+                            title: "Added Successfully"
+                        });
+                    }
+                    $(".close_btn").trigger("click");
+                    list_data();
+                }
+            });
+            // console.log(jsonString);
 
         }
 
-        // SetButtonHTMLClass
-        // console.log(DDValue);
     });
+    $('.tip').each(function() {
+        $(this).tooltip({
+            html: true,
+            title: $('#' + $(this).data('tip')).html()
+        });
 
-
-    $("body").on('change', '.ButtonSelctionDropDown', function() {
-        $('.SetButtonHTMLClass').html('');
-    });
-
-    $('body').on('click', '.title-1', function() {
-
-        $.ajax({
-            datatype: 'json',
-            method: "post",
-            url: "<?= site_url('master_whatsapp_list_dataaaksh'); ?>",
-            data: {
-                // 'table': table,
-                // 'show_array': show_val,
-                'action': true,
-
-            },
-            success: function(res) {
-                $('.loader').hide();
-                var response = JSON.parse(res);
-                var template_name = response.template_name;
-                var templatelanguage = response.templatelanguage;
-
-
-                $('.header_div').attr('DataMNo', response.templateid);
-                var selectDropdown = document.getElementById("header");
-                // var languageDropdown = document.getElementById("language");
-
-                selectDropdown.innerHTML = "";
-                // languageDropdown.innerHTML = "";
-
-                var defaultOption = document.createElement("option");
-                defaultOption.text = "Please select template";
-                defaultOption.value = "";
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                selectDropdown.add(defaultOption);
-
-                for (var key in template_name) {
-                    if (template_name.hasOwnProperty(key)) {
-                        var option = document.createElement("option");
-                        option.text = template_name[key];
-                        option.value = template_name[key];
-                        selectDropdown.add(option);
-
-                    }
-                }
-                // for (var key in templatelanguage) {
-                //     if (templatelanguage.hasOwnProperty(key)) {
-                //         var option = document.createElement("option");
-                //         option.text = templatelanguage[key];
-                //         option.value = templatelanguage[key];
-                //         languageDropdown.add(option);
-                //         $('#language').val(languageDropdown);
-
-                //     }
-                // }
-                $('#header').change(function() {
-                    var selectDropdown = $(this).val();
-                    var languageDropdown = templatelanguage[selectDropdown];
-                    $('.language_div').val(languageDropdown);
-                    // $('.language_div12').selectpicker('refresh');
-
-                });
-
-
-                $('#memberships_list').html(response.html);
-            }
-
+        $('body').on('click', '.PlusButtonDiv', function() {
+            alert();
         });
 
     });
+    // =======country-code==
+    $("#mobile_code").intlTelInput({
+        initialCountry: "in",
+        separateDialCode: true,
+        // utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
+    });
 
-
-
-
+    // --------------------------------------------------------------
 
     $('body').on('click', '.Template_send', function() {
         var header = $('.header_div').val();
@@ -2085,7 +2528,7 @@
                     $('.loader').hide();
                     if (res == '1') {
                         iziToast.success({
-                            title: "Template sent successfully"
+                            title: "Message sent successfully"
                         });
                     } else {
                         iziToast.error({
@@ -2099,9 +2542,4 @@
             $(".membershipDiv").addClass("was-validated");
         }
     });
-    $("#mobile_code").intlTelInput({
-	initialCountry: "in",
-	separateDialCode: true,
-	// utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
-});
 </script>
