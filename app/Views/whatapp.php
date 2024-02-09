@@ -1711,7 +1711,7 @@ $language_name = json_decode($language_name, true);
 
                                     <div class="preview-chat-section-chat overflow-y-scroll">
                                         <div class="preview-chat-paragraph bg-white p-3 col-10">
-                                            <div class="preview-header-paragraph" ng-if="submitParamDetails"
+                                            <div class="preview-header-paragraph refreshit" ng-if="submitParamDetails"
                                                 class="ng-scope" style="">
                                                 <div ng-if="media_footer_text.length > 0 "
                                                     class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope"
@@ -1722,7 +1722,7 @@ $language_name = json_decode($language_name, true);
                                                 class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope"
                                                 id="bodychange11">
                                             </div>
-                                            <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails"
+                                            <div class="preview-footer-paragraph refreshit p-1" ng-if="submitParamDetails"
                                                 class="ng-scope" style="">
                                                 <div ng-if="media_footer_text.length > 0 "
                                                     class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope"
@@ -1731,8 +1731,8 @@ $language_name = json_decode($language_name, true);
                                             </div>
 
                                         </div>
-                                        <div class="single-t-call-button">
-                                            <button class="single-button-whatsapp-template1"></button>
+                                        <div class="single-t-call-button refreshit">
+                                            <button class="single-button-whatsapp-template1 "></button>
                                             <button class="single-button-whatsapp-template2" data-template="2"></button>
                                             <button class="single-button-whatsapp-template3" data-template="3"></button>
 
@@ -2908,6 +2908,9 @@ $language_name = json_decode($language_name, true);
         $('.SetButtonHTMLClass').html('');
         $('.ButtonSelctionDropDown').val('');
         $('.ButtonSelctionDropDown').selectpicker('refresh');
+        $('.message').html('');
+        $('.refreshit').html('');
+        
     });
 
 
