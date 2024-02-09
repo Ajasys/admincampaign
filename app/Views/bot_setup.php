@@ -3228,8 +3228,17 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     
                     if(default_options != ''){
                         var default_options = JSON.parse(response[0].default_options);
-                        $(".minimum_value").val(default_options.min);
-                        $(".maximum_value").val(default_options.max);
+
+                        // $(".minimum_value").val(default_options.min);
+                        // $(".maximum_value").val(default_options.max);
+
+                        // var reactions = default_options.reaction;
+
+                        // $(".terrible").val(reactions[0]); 
+                        // $(".bad").val(reactions[1]);     
+                        // $(".okay").val(reactions[2]);    
+                        // $(".good").val(reactions[3]);    
+                        // $(".great").val(reactions[4]);   
 
                         if (default_options.remove_menu === "true") {
                             $(".menu_message").prop("checked", true);
@@ -3325,7 +3334,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     }
                     $(".update_question").attr('data-id',response[0].id);
                     $(".update_question").attr('data-type_of_question',response[0].type_of_question);
-                   
+
                 },
                 error: function(error) {
                     $('.loader').hide();
@@ -3437,13 +3446,29 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         }
 
         if (type_of_question == "7") {
-            var Terrible = $('.terrible').val();
-            var Bad = $('.bad').val();
-            var Okay = $('.okay').val();
-            var Good = $('.good').val();
-            var Great = $('.great').val();
+            var Terrible = {
+                reaction: $('.terrible').val(),
+                question_select: $('.question_select_1').val()
+            };
+            var Bad = {
+                reaction: $('.bad').val(),
+                question_select: $('.question_select_2').val()
+            };
+            var Okay = {
+                reaction: $('.okay').val(),
+                question_select: $('.question_select_3').val()
+            };
+            var Good = {
+                reaction: $('.good').val(),
+                question_select: $('.question_select_4').val()
+            };
+            var Great = {
+                reaction: $('.great').val(),
+                question_select: $('.question_select_5').val()
+            };
 
             var reactionArray = [Terrible, Bad, Okay, Good, Great];
+
             var valuesArray = {
                 reaction: reactionArray
             };
@@ -3453,7 +3478,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 valuesJson = ''; 
             }
         }
-
 
 
         if (update_id != "") {
@@ -3928,8 +3952,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question" type="checkbox" role="switch" id="Number-1">
                             <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
                         </div>
-                        <div class="col-12 my-2">
-                            <form class="col-12 d-flex flex-wrap">
+                        <div class="col-12 my-2 d-flex flex-wrap">
+                            <form class="col-12">
                                 <div class="col-6 px-2">
                                     <div class="col-12">
                                         <label for="" class="form-label">Minimum Value</label>
@@ -3972,7 +3996,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </select>
                                         </td>
                                         <td class="col-4">
-                                            <select class="form-select question_select" aria-label="Default select example">
+                                            <select class="form-select question_select_1" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
                                                 <?php
@@ -4002,7 +4026,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </select>
                                         </td>
                                         <td class="col-4">
-                                            <select class="form-select question_select" aria-label="Default select example">
+                                            <select class="form-select question_select_2" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
                                                 <?php
@@ -4032,7 +4056,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </select>
                                         </td>
                                         <td class="col-4">
-                                            <select class="form-select question_select" aria-label="Default select example">
+                                            <select class="form-select question_select_3" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
                                                 <?php
@@ -4062,7 +4086,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </select>
                                         </td>
                                         <td class="col-4">
-                                            <select class="form-select question_select" aria-label="Default select example">
+                                            <select class="form-select question_select_4" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
                                                 <?php
@@ -4092,7 +4116,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </select>
                                         </td>
                                         <td class="col-4">
-                                            <select class="form-select question_select" aria-label="Default select example">
+                                            <select class="form-select question_select_5" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
                                                 <?php
