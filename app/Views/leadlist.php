@@ -36,7 +36,11 @@ if (isset($_GET['id'])) {
             <div class="title-1">
                 <?php if (isset($page[0]['page_name'])) { ?>
                     <h2><?php echo $page[0]['page_name']; ?></h2>
-                <?php } ?>
+                <?php }
+                else
+                {
+                    echo '<h2>Lead List</h2>';
+                } ?>
             </div>
         </div>
         <div class="px-3 py-2 mx-2 bg-white rounded-2">
