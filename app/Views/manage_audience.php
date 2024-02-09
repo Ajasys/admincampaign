@@ -1047,6 +1047,8 @@ if ($query->getNumRows() > 0) {
                     iziToast.success({
                         title: 'data imported successfully'
                     });
+                    list_data();
+                    location.reload(true);
                     data_module_list_data();
                 },
             });
