@@ -61,16 +61,38 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     .media-upload-box {
         border: 2px dotted black;
     }
+
+    .modal-card-body-main{
+        background: #f0e4f6;
+    }
+    .form-control:focus {
+        box-shadow: 0px 0px 0px black;
+    }
+    .input-group>.form-control:focus{
+        z-index: 0;
+    }
+    .messege-sub{
+        background-color: #724EBF;
+    }
+    .messege-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
 </style>
 
 
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2">
-            <div class="d-flex align-items-center title-1">
-                <i class="bi bi-gear-fill"></i>
-                <h2>Bot Chats</h2>
+            <div class="d-flex align-items-center title-1 flex-wrap justify-content-between">
+                <div class="col d-flex flex-wrap align-items-center">
+                    <i class="bi bi-gear-fill mx-2"></i>
+                    <h2>Bot Chats</h2>
+                </div>
+                <button type="button" class="btn btn-primary bot_preview" data-bs-toggle="modal" data-bs-target="#chat_withbot">Preview</button>
             </div>
+
+
             <div class="col-12 d-flex flex-wrap ">
                 <div class="col-4 p-1 ">
                     <div class="col-12 border rounded-3 bg-white p-3 overflow-y-scroll d-flex flex-wrap" style="height:80vh">
@@ -1265,10 +1287,14 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1" for="flexSwitchCheckDefault">Do Not Remove Menu Message (For Whatsapp)</label>
                                     </div>
                                 </div> -->
-
-
+                                
+                                <div class="col-12 d-flex flex-wrap px-3" id="firstquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="secondquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="thirdquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="fourthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="fifthquestion"></div>
                                 <!--Question-->
-                                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                                <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                                     <div class="col-12 d-flex flex-wrap px-2">
                                     
                                         <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
@@ -1280,7 +1306,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
                                         </div>
                                         <div class="col-12 my-2">
-                                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
+                                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal" >Enter the error message here.</label>
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-3">
@@ -1288,72 +1314,75 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </form> -->
 
                                 <!--Single Choice-->
-                                <!-- <div class="col-12 d-flex flex-wrap single-choice">
-                                    <div class="col-12 d-flex flex-wrap">
-                                        <div class="col p-1">
-                                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 single-choice-show-options">Show Options</label>
+                                <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                                    <div class="col-12 d-flex flex-wrap single-choice">
+                                        <div class="col-12 d-flex flex-wrap">
+                                            <div class="col p-1">
+                                                <label class="form-check-label fw-semibold d-flex align-items-center py-2 single-choice-show-options">Show Options</label>
+                                            </div>
+                                            <div class="col p-1">
+                                                <button type="button" class="btn btn-outline-primary w-100">Vertically</button>
+                                            </div>
+                                            <div class="col p-1">
+                                                <button type="button" class="btn btn-outline-primary w-100">Horizontally</button>
+                                            </div>
+                                            <div class="col p-1">
+                                                <button type="button" class="btn btn-outline-primary w-100">Dropdown</button>
+                                            </div>
+                                            <div class="col p-1">
+                                                <button type="button" class="btn btn-outline-primary w-100">Do not show</button>
+                                            </div>
                                         </div>
-                                        <div class="col p-1">
-                                            <button type="button" class="btn btn-outline-primary w-100">Vertically</button>
+                                        <div class="col-12 d-flex flex-wrap my-3">
+                                            <table class="table w-100 col-12">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Options</th>
+                                                        <th scope="col">Sub-Flow</th>
+                                                        <th scope="col">Jump To</th>
+                                                        <th scope="col"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="tbody">
+
+                                                    <tr class="col-12">
+                                                        <td class="col-3">
+                                                            <input type="text" class="form-control" id="" placeholder="" value="option1">
+                                                        </td>
+                                                        <td class="col-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option value="1">Main-flow</option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="col-4">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>No Jump</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td class="col-2">
+                                                            <button type="button" class="btn btn-danger">
+                                                                <i class="fa fa-trash  cursor-pointer"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="col p-1">
-                                            <button type="button" class="btn btn-outline-primary w-100">Horizontally</button>
-                                        </div>
-                                        <div class="col p-1">
-                                            <button type="button" class="btn btn-outline-primary w-100">Dropdown</button>
-                                        </div>
-                                        <div class="col p-1">
-                                            <button type="button" class="btn btn-outline-primary w-100">Do not show</button>
+                                        <div class="col-12">
+                                            <div class="col-2">
+                                                <button type="button" class="btn btn-outline-dark single-choice-add-tabal">add</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 d-flex flex-wrap my-3">
-                                        <table class="table w-100 col-12">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Options</th>
-                                                    <th scope="col">Sub-Flow</th>
-                                                    <th scope="col">Jump To</th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="tbody">
-
-                                                <tr class="col-12">
-                                                    <td class="col-3">
-                                                        <input type="text" class="form-control" id="" placeholder="" value="option1">
-                                                    </td>
-                                                    <td class="col-3">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option value="1">Main-flow</option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="col-4">
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option selected>No Jump</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="col-2">
-                                                        <button type="button" class="btn btn-danger">D</button>
-                                                    </td>
-                                                </tr>
-
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="col-2">
-                                            <button type="button" class="btn btn-outline-dark single-choice-add-tabal">add</button>
-                                        </div>
-                                    </div>
-                                </div> -->
-
+                                </form> -->
                                 <!--Email-->
                                 <!-- <div class="col-12 d-flex flex-wrap px-2">
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
@@ -2188,9 +2217,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     if (isset($admin_bot_setup)) {
                                         foreach ($admin_bot_setup as $type_key => $type_value) {
                                             // pre($type_value);
-                                            if($type_value['sequence'] == '1'){
-                                                echo '<option value="End of Conversion">End of Conversion</option>';
-                                            }
+                                           
                                             if ($type_value['bot_id'] == $botId ) {
                                                
                                                 echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
@@ -2588,9 +2615,143 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 </div>
 
 
+
+<!-- chat-bot modal -->
+<div class="modal fade modal-lg" id="chat_withbot" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Bot Preview</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+        <div class="col-12 border rounded-3">
+            <div class="moda-card-header d-flex flex-wrap justify-content-center py-3 border-bottom bg-primary">
+                <div class="col-8 d-flex flex-wrap align-items-center justify-content-between ">
+                    <div class="d-flex flex-wrap align-items-center">
+                        <div class="border  rounded-circle overflow-hidden" style="width:40px;height:40px">
+                            <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+                        </div>
+                        <h6 class="mx-2 text-white">Oppo</h6>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <button class="btn bg-primary mx-2 text-white">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <button class="btn bg-primary text-white">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
+                    <div class="overflow-y-scroll col-8 py-3 messege-scroll"  style="min-height:400px; max-height:400px">
+
+                        <div class="bot_preview_html"></div>
+                        <!-- <div class="messege1 d-flex flex-wrap  ">
+                            <div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+                                <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+                            </div>
+                            <div class="col px-2">
+                                <div class="col-12 mb-2">
+                                    <span class="p-2 rounded-pill  d-inline-block   bg-white  px-3">
+                                        Hello May i Help you
+                                    </span>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <button class="btn bg-primary rounded-pill text-white">
+                                            Skip
+                                    </button>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="col-12 text-start">
+                                        <span class="rounded-pill text-white d-inline-block  bg-secondary-subtle " style="padding:1px 19px;">
+                                            <i class="fa-solid fa-ellipsis fa-beat-fade text-dark"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="messege2 d-flex flex-wrap  ">
+                            <div class="col px-2">
+                                <div class="col-12 mb-2 text-end ">
+                                    <span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
+                                        Hello
+                                    </span>
+                                </div>
+                                
+                            </div>
+                            <div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+                                <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-12 d-flex flex-wrap justify-content-center ">
+                        <div class="d-flex flex-wrap col-8  bg-white mb-3 rounded-pill py-1">
+                            <div class="input-group  position-relative ">
+                                <input type="text" class="form-control rounded-pill px-4 py-2 border-0" placeholder="Type Your Answer" >
+                                <button class="btn btn-primary rounded-circle me-1 px-3 chatting_data"><i class="fa-solid fa-caret-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <?= $this->include('partials/footer') ?>
 
 <script>
+    $('body').on('click', '.bot_preview', function(e) {
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('bot_preview'); ?>",
+            data: {
+                action: 'init_chat',
+                table: table,
+            },
+            success: function(data) {
+                var response = JSON.parse(data);
+                $('.loader').hide();
+                $(".bot_preview_html").html(response.html);
+            }
+        });
+    });
+
+
+    var insertedData;
+    var chatArray = [];
+    $('body').on('click', '.chatting_data', function (e) {
+        e.preventDefault();
+        var insertedData = $(this).data('insertedData');
+        var chatting = $('#standalone_chat_popup').val();
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+        if (chatting !== "") {
+            chatArray.push(chatting);
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('update_data'); ?>",
+                data: {
+                    edit_id: insertedData,
+                    table: table,
+                    action: "update",
+                    // chat: chatting,
+                },
+                success: function (res) {
+                
+                    // $('.store_conversiton_div').val(res);
+                    // $('#standalone_chat_popup').val("");
+                    list_data_s();
+                    // setTimeout(() => {
+                    //     scrollToBottom();
+                    // }, 400);
+                }
+            });
+        }
+    });
     //draggable jquery
     // $(".bot-box").on("dragstart",function(){
     //     $('.droppable').css("outline","2px dotted black");
@@ -2660,9 +2821,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     $('body').on('dragover', '.drag_question', function(e) {
         e.preventDefault();
     });
-
-
-  
 
 </script>
 
@@ -2777,23 +2935,44 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
 
 
-        //Single Choile Table Row Add
+      
+
+        <?php
+            $options = [];
+            if (isset($admin_bot_setup)) {
+                foreach ($admin_bot_setup as $type_key => $type_value) {
+                    if ($type_value['bot_id'] == $botId) {
+                        $options[] = [
+                            'id' => $type_value["id"],
+                            'question' => $type_value["question"]
+                        ];
+                    }
+                }
+            }
+            $encoded_options = json_encode($options);
+        ?>
+
+
 
         function table_html() {
-            var main_table_html = '<tr class="col-12"><td class="col-3"><input type="text" class="form-control row-option-value" id="" placeholder="" value="option1"></td><td class="col-3">    <select class="form-select" aria-label="Default select example">        <option value="1">Main-flow</option>    </select></td><td class="col-4">    <select class="form-select" aria-label="Default select example">        <option selected>No Jump</option>        <option value="1">One</option>        <option value="2">Two</option>        <option value="3">Three</option>    </select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn">D</button></td></tr>';
+            var row_numbers = $('.main-plan').length;
+            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select question_select" aria-label="Default select example"><option selected>No Jump</option>';
+            
+            var options = <?php echo $encoded_options; ?>;
+
+            options.forEach(function(option) {
+                main_table_html += '<option value="' + option.id + '">' + option.question + '</option>';
+            });
+            main_table_html += '<td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td></select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".tbody").append(main_table_html);
         }
-
         table_html();
 
         $('body').on('click', '.single-choice-add-tabal', function() {
-
-            var row_numbers = $('.single-choice-add-tabal').length++;
-
-            table_html(row_numbers);
-
+            table_html(); 
             update_row_numbers();
         });
+
 
         $('body').on('click', '.remove-btn', function() {
 
@@ -2833,23 +3012,19 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         let option = 1;
 
         function multiple_table_html() {
-            var multiple_table_row = '<tr class="col-12"><td class="col-3"><input type="text" class="form-control multiple-row-option-value" id="" placeholder="" value="option' + option + '"></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn">D</button></td></tr>';
+            var row_numbers = $('.main-plan').length;
+            var multiple_table_row = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control multiple-row-option-value multiple_choice_options_' + row_numbers + '" id="" placeholder="" value="option' + option + '"></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
             $(".multiple-table-body").append(multiple_table_row);
         }
-
         multiple_table_html();
 
         $('body').on('click', '.multiple-choice-add-tabal', function() {
-
             option++;
-
             multiple_table_html();
         });
 
         $('body').on('click', '.multiple-remove-btn', function() {
-
             $(this).closest('tr').remove();
-
         });
 
 
@@ -2978,6 +3153,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     });
 
 
+   
     // drag question sequence changed
     $('body').on('drop', '.drag_question', function(e) {
         e.preventDefault();
@@ -2987,7 +3163,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
         $(this).find('.sequence').data('sequence', targetSequence);
         targetContainer.find('.sequence').data('sequence', droppedSequence);
-
         $.ajax({
             method: "post",
             url: "update_sequence",
@@ -3012,7 +3187,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
     // question edit
     $("body").on('click', '.question_edit', function(e) {
-
         e.preventDefault();
         var edit_value = $(this).attr("data-id");
         var className = '.Email_Add_Ckeditor';
@@ -3045,11 +3219,67 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
                     $("#Question_error_message").val(response[0].error_text);
                     
-                    var menu_message = response[0].menu_message;
-                    if (menu_message == 1) {
-                        $(".menu_message").prop("checked", true);
-                    } else {
-                        $(".menu_message").prop("checked", false);
+                    var default_options = response[0].default_options;
+                    if(default_options != ''){
+                        var default_options = JSON.parse(response[0].default_options);
+                    
+                        if (default_options.remove_menu === "true") {
+                            $(".menu_message").prop("checked", true);
+                            $(".remove_menu").prop("checked", true);
+                        } else {
+                            $(".menu_message").prop("checked", false);
+                            $(".remove_menu").prop("checked", false);
+                        }
+                        if (default_options.company_emails_only === "true") {
+                            $(".company_emails_only").prop("checked", true);
+                        } else {
+                            $(".company_emails_only").prop("checked", false);
+                        }
+                        if (default_options.is_strict_validation === "true") {
+                            $(".is_strict_validation").prop("checked", true);
+                        } else {
+                            $(".is_strict_validation").prop("checked", false);
+                        }
+
+                        if (default_options.options != "") {
+                            var optionsArray = default_options.options.split(';'); 
+                            console.log(optionsArray);
+
+                            $(".main-plan").remove();
+
+                            optionsArray.forEach(function(option, index) {
+                                var row_numbers = index === 0 ? '' : $('.main-plan').length;
+                                var main_table_html = 
+                                '<tr class="col-12 main-plan">' +
+                                    '<td class="col-3">' +
+                                    '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                                    '</td>' +
+                                    '<td class="col-3">' +
+                                    '<select class="form-select" aria-label="Default select example">' +
+                                    '<option value="1">Main-flow</option>' +
+                                    '</select>' +
+                                    '</td>' +
+                                    '<td class="col-4">' +
+                                    '<select class="form-select question_select" aria-label="Default select example">' +
+                                    '<option selected="">No Jump</option>' +
+                                    '<option value="1">What is Your Name?</option>' +
+                                    '<option value="2">What is Your Gender?</option>' +
+                                    '<option value="5">Enter Your Email.</option>' +
+                                    '<option value="6">What type of food do you eat?</option>' +
+                                    '</select>' +
+                                    '</td>' +
+                                    '<td class="col-2">' +
+                                    '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                    '<i class="fa fa-trash cursor-pointer"></i>' +
+                                    '</button>' +
+                                    '</td>' +
+                                '</tr>';
+
+                                $(".tbody").append(main_table_html);
+                            });
+                        } else {
+                            $(".is_strict_validation").prop("checked", false);
+                        }
                     }
 
                     var skip_question = response[0].skip_question;
@@ -3059,7 +3289,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         $(".skip_question").prop("checked", false);
                     }
                     $(".update_question").attr('data-id',response[0].id);
-
+                    $(".update_question").attr('data-type_of_question',response[0].type_of_question);
+                   
                 },
                 error: function(error) {
                     $('.loader').hide();
@@ -3077,15 +3308,73 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     $("body").on('click', '.update_question', function(e) {
         e.preventDefault();
         var update_id = $(this).attr("data-id");
+        var type_of_question = $(this).attr("data-type_of_question");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
-       
+
         var editor = editors['.Email_Add_Ckeditor'];
         if (editor) {
             var htmlContent = editor.getData();
         }
-        var menu_message = $(".menu_message").is(":checked") ? "1" : "0";
+        
         var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
-        var error_text = $('#Question_error_message').val();
+       
+        var next_question_id = $('.question_select').val(); 
+       
+        if (type_of_question == "1" || type_of_question == "5") {
+            var remove_menuArray = [];
+            var remove_menu = $(".menu_message").is(":checked") ? "true" : "false";
+            var remove_menuArray = {
+                remove_menu: remove_menu,
+            };
+            var valuesJson = JSON.stringify(remove_menuArray);
+            var error_text = $('#Question_error_message').val();
+        }
+        
+        if (type_of_question == "2") {
+            var comined = {}; 
+            var options = $('.single_choice_options').val();
+            comined.options = options; 
+            for (var i = 1; i <= 3; i++) { 
+                var options_i = $('.single_choice_options_' + i).val();
+                if (options_i) {
+                    if (comined.options !== "") {
+                        comined.options += ";"; 
+                    }
+                    comined.options += options_i;
+                }
+            }
+            var valuesJson = JSON.stringify(comined);
+        }
+
+        if (type_of_question == "3") {
+            var remove_menu = $(".remove_menu").is(":checked") ? "true" : "false";
+            var company_emails_only = $(".company_emails_only").is(":checked") ? "true" : "false";
+            var is_strict_validation = $(".is_strict_validation").is(":checked") ? "true" : "false";
+
+            var valuesArray = {
+                remove_menu: remove_menu,
+                company_emails_only: company_emails_only,
+                is_strict_validation: is_strict_validation,               
+            };
+            var valuesJson = JSON.stringify(valuesArray);
+            var error_text = $('#Question_error_message').val();
+        }
+
+        if (type_of_question == "4") {
+            var comined = {}; 
+            var options = $('.multiple_choice_options').val();
+            comined.options = options; 
+            for (var i = 1; i <= 3; i++) { 
+                var options_i = $('.multiple_choice_options_' + i).val();
+                if (options_i) {
+                    if (comined.options !== "") {
+                        comined.options += ";"; 
+                    }
+                    comined.options += options_i;
+                }
+            }
+            var valuesJson = JSON.stringify(comined);
+        }
 
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
@@ -3094,9 +3383,10 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             formdata.append('edit_id', update_id);
             formdata.append('table', table);
             formdata.append('question', htmlContent);
-            formdata.append('menu_message', menu_message);
+            formdata.append('default_options', valuesJson);
             formdata.append('skip_question', skip_question);
             formdata.append('error_text', error_text);
+            formdata.append('next_question_id', next_question_id);
 
             $('.loader').show();
             $.ajax({
@@ -3184,9 +3474,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
        
-     
         var next_question_id = $('.question_select').val(); 
-        console.log(next_question_id);
 
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
@@ -3292,4 +3580,261 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         });
 
     });
+
+
+
+    $("body").on('click', '.question_edit', function(e) {
+
+    e.preventDefault();
+    var type_of_question = $(this).attr("data-type_of_question");
+    // console.log(type_of_question);
+        if (type_of_question == 1) {
+            $("#secondquestion").html("");
+            $("#thirdquestion").html("");
+            $("#fourthquestion").html("");
+            $("#fifthquestion").html("");
+            $("#firstquestion").html(`
+            <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                <div class="col-12 d-flex flex-wrap px-2">
+                
+                    <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 menu_message" value="1" type="checkbox" role="switch" id="Question-1">
+                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                    </div>
+                    <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
+                        <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-2 skip_question" type="checkbox" role="switch" id="Question-2">
+                        <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal" >Enter the error message here.</label>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid answer" placeholder="Enter Error Message">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            `);
+
+        } else if (type_of_question == 2) {
+            $("#firstquestion").html("");
+            $("#thirdquestion").html("");
+            $("#fourthquestion").html("");
+            $("#fifthquestion").html("");
+            $("#secondquestion").html(`
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap single-choice">
+                        <div class="col-12 d-flex flex-wrap">
+                            <div class="col p-1">
+                                <label class="form-check-label fw-semibold d-flex align-items-center py-2 single-choice-show-options">Show Options</label>
+                            </div>
+                            <div class="col p-1">
+                                <button type="button" class="btn btn-outline-primary w-100">Vertically</button>
+                            </div>
+                            <div class="col p-1">
+                                <button type="button" class="btn btn-outline-primary w-100">Horizontally</button>
+                            </div>
+                            <div class="col p-1">
+                                <button type="button" class="btn btn-outline-primary w-100">Dropdown</button>
+                            </div>
+                            <div class="col p-1">
+                                <button type="button" class="btn btn-outline-primary w-100">Do not show</button>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <table class="table w-100 col-12">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Options</th>
+                                        <th scope="col">Sub-Flow</th>
+                                        <th scope="col">Jump To</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+
+                                    <tr class="col-12 main-plan">
+                                        <td class="col-3">
+                                            <input type="text" class="form-control single_choice_options" placeholder="Enter the option" value="">
+                                        </td>
+                                        <td class="col-3">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option value="1">Main-flow</option>
+                                            </select>
+                                        </td>
+                                        <td class="col-4">
+                                            <select class="form-select question_select" aria-label="Default select example">
+                                                <option selected>No Jump</option>
+                    
+                                                <?php
+                                                    if (isset($admin_bot_setup)) {
+                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                            // pre($type_value);
+                                                        
+                                                            if ($type_value['bot_id'] == $botId ) {
+                                                            
+                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                ?>
+
+                                            </select>
+                                        </td>
+                                        <td class="col-2">
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="fa fa-trash  cursor-pointer"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary single-choice-add-tabal">add</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            `);
+        }else if (type_of_question == 3) {
+            $("#firstquestion").html("");
+            $("#secondquestion").html("");
+            $("#fourthquestion").html("");
+            $("#fifthquestion").html("");
+            $("#thirdquestion").html(`
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap px-2">
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Email-1 remove_menu" type="checkbox" role="switch" id="Email-1">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-1" for="Email-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                        </div>
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Email-2 company_emails_only" type="checkbox" role="switch" id="Email-2">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-2" for="Email-2">Do Not Restrict to Company Emails</label>
+                        </div>
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Email-3 is_strict_validation" type="checkbox" role="switch" id="Email-3">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-3" for="Email-3">No Strict Validation</label>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid Email Address" placeholder="Enter Error Message">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            `);
+        }else if (type_of_question == 4) {
+            $("#firstquestion").html("");
+            $("#secondquestion").html("");
+            $("#thirdquestion").html("");
+            $("#fifthquestion").html("");
+            $("#fourthquestion").html(`
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap single-choice">
+                        <div class="col-12 d-flex flex-wrap">
+                            <div class="col-3 p-1">
+                                <label class="form-check-label fw-semibold d-flex align-items-center py-2 single-choice-show-options">Show Options</label>
+                            </div>
+                            <div class="col-3 p-1">
+                                <button type="button" class="btn btn-outline-primary w-100">Vertically</button>
+                            </div>
+                            <div class="col-3 p-1">
+                                <button type="button" class="btn btn-outline-primary w-100">Dropdown</button>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <table class="table w-100 col-12">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Options</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="multiple-table-body">
+
+                                    <tr class="col-12 main-plan">
+                                        <td class="col-3">
+                                            <input type="text" class="form-control multiple_choice_options" placeholder="" value="option1">
+                                        </td>
+                                        <td class="col-2">
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="fa fa-trash  cursor-pointer"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary multiple-choice-add-tabal">add</button>
+                            </div>
+                        </div>
+                        <div class="col-12 my-3">
+                            <div class="col-8 d-flex flex-wrap align-items-center">
+                                <span>Maximum number of options user can select</span>
+                                <span class="col-1 mx-2"><input type="number" class="form-control" id="" value="1"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            `);
+        }else if (type_of_question == 5) {
+            $("#firstquestion").html("");
+            $("#secondquestion").html("");
+            $("#thirdquestion").html("");
+            $("#fourthquestion").html("");
+            $("#fifthquestion").html(`
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap px-2">
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Mobile-1 menu_message" type="checkbox" role="switch" id="Mobile-1">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Mobile-1" for="Mobile-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid Phone Number" placeholder="Enter valid Phone Number">
+                            </div>
+                        </div>
+                    </div> 
+                </form>
+            `);
+        }
+
+    });
+    
+    // $('body').on('click', '.user_reply', function(e) {
+    //     var question = $(this).attr('data-question');
+    //     var skip_question = $(this).attr('data-skip_question');
+    //     var menu_message = $(this).attr('data-menu_message');
+    //     // console.log(skip_question);
+    //     $.ajax({
+    //         method: "post",
+    //         url: "<?= site_url('send_chat'); ?>",
+    //         data: {
+    //             action: 'send_chat',
+    //             question: question,
+    //             skip_question: skip_question,
+    //             menu_message: menu_message,
+    //         },
+    //         success: function(data) {
+    //             var obj = JSON.parse(data);
+    //             // $('.chat_list').html(obj.chat_list_html);
+    //         }
+    //     });
+    // });
+
 </script>

@@ -371,6 +371,10 @@ class Home extends BaseController
         return view('messenger');
     }
 
+    public function installer() {
+        return view('installer');
+    }
+
     public function bot_setup()
     {
         $table_username = getMasterUsername2();
@@ -381,7 +385,7 @@ class Home extends BaseController
             'sequence int(11) NOT NULL',
             'bot_id int(11) NOT NULL',
             'next_question_id int(11) NOT NULL',
-            'menu_message int(11) NOT NULL',
+            'default_options longtext',
             'skip_question int(11) NOT NULL',
             'error_text varchar(500) NOT NULL',
         ];

@@ -527,9 +527,13 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
 
-	
+	$routes->get('/installer', 'Home::installer');
+    $routes->post('bot_preview', 'Bot_Controller::bot_preview');
+    $routes->post('', 'Bot_Controller::get_chat_data');
+
 	// massager code routes 
 	$routes->post('get_chat_data', 'Bot_Controller::get_chat_data');
+	$routes->post('send_chat', 'Bot_Controller::send_chat');
 
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');

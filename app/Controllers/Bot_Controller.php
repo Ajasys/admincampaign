@@ -756,7 +756,7 @@ class Bot_Controller extends BaseController
 						</div>
 						<div class="col-2 d-flex flex-wrap align-items-center">
 							<div class="col-3 p-1">
-								<i class="fa fa-pencil cursor-pointer question_edit" data-id='.$value['id'].' data-bs-toggle="modal" data-bs-target="#add-email"></i>
+								<i class="fa fa-pencil cursor-pointer question_edit" data-id='.$value['id'].' data-type_of_question='.$value['type_of_question'].' data-bs-toggle="modal" data-bs-target="#add-email"></i>
 							</div>
 							<div class="col-3 p-1">
 								<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id='.$value['id'].' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
@@ -771,7 +771,7 @@ class Bot_Controller extends BaseController
 					</div>
 
 					<div class="col-12 d-flex justify-content-end">
-						<button type="button" class="btn btn-primary">Users Replay</button>
+						<button type="button" class="btn btn-primary user_reply" data-question="'.$value['question'].'" data-skip_question="'.$value['skip_question'].'" data-menu_message="'.$value['menu_message'].'">Users Replay</button>
 					</div>
 				</div>';
 		
@@ -889,6 +889,7 @@ class Bot_Controller extends BaseController
 		}
 	}
 
+
 	public function get_chat_data() {
 
 		if($_POST['action'] == 'chat_list') {
@@ -999,5 +1000,86 @@ class Bot_Controller extends BaseController
 			$return_result['html'] = $html;
 			return json_encode($return_result);
 		}
+	}
+
+	
+	public function send_chat() 
+	{
+		if ($_POST['action'] == 'send_chat') {
+			
+			$question = $_POST['question'];
+			$menu_message = $_POST['menu_message'];
+			// pre($menu_message);
+
+			$messageData = array(
+				'messaging_product' => 'whatsapp',
+				'recipient_type' => 'individual',
+				'to' => '918347977000', 
+				'type' => 'text',
+				'text' => array(
+					'body' => $question
+				)
+			);
+	
+			// Convert the message data to JSON
+			$jsonData = json_encode($messageData);
+	
+			// Initialize cURL
+			$ch = curl_init();
+	
+			// Set cURL options
+			curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/v19.0/156839030844055/messages');
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Content-Type: application/json',
+				'Content-Length: ' . strlen($jsonData),
+				'Authorization: Bearer EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L'
+			));
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	
+			$response = curl_exec($ch);
+	
+			curl_close($ch);
+			echo $response;
+		}
+	}
+
+	public function bot_preview() 
+	{
+		$table = $this->request->getpost('table');
+		$action = $this->request->getpost('action');
+		$db_connection = \Config\Database::connect('second');
+		$sqlQuery = "SELECT * FROM $table";
+		$result = $db_connection->query($sqlQuery);
+		$bot_setup_all_data = $result->getResultArray();
+		$html = '';
+
+		if($action == "init_chat"){
+			foreach($bot_setup_all_data as $key => $value) {
+				$html .= '<div class="messege1 d-flex flex-wrap  ">
+							<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+								<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+							</div>
+							<div class="col px-2">
+								<div class="col-12 mb-2">
+									<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3">
+										'.$value['question'].'
+									</span>
+								</div>
+
+							</div>
+						</div>
+	
+	
+						';
+			
+			}
+		}
+		
+
+		$response['html'] = $html;
+		echo json_encode($response);
+		die();
 	}
 }
