@@ -3305,6 +3305,7 @@ function fb_page_list($access_token)
             $result_array['response'] = 0;
             $result_array['message'] = $errorMsg;
         }
+
         $result_array['page_list'] = $result['data'];
     } else {
         $is_facebook_connect = 0;
@@ -3313,6 +3314,21 @@ function fb_page_list($access_token)
         $result_array['page_list'] = '';
     }
     
+
+    return json_encode($result_array, true);
+}
+
+function fb_page_img($page_id,$access_token)
+{
+    if($page_id && $access_token)
+    {
+        $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
+        $result_array['page_img'] = $response_pictures['data']['url'];
+    }
+    else
+    {
+        $result_array['page_img'] = '';
+    }
 
     return json_encode($result_array, true);
 }
