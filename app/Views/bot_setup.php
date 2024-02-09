@@ -3665,8 +3665,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         });
 
     });
-
-
+    
     // $('body').on('click', '.user_reply', function(e) {
     //     var question = $(this).attr('data-question');
     //     var skip_question = $(this).attr('data-skip_question');
@@ -3694,6 +3693,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         clearQuestions(); 
         var questionContainers = {
             1: "#firstquestion",
+            13: "#firstquestion",
             2: "#secondquestion",
             3: "#thirdquestion",
             4: "#fourthquestion",
@@ -3716,6 +3716,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     function getQuestionHTML(type_of_question) {
         switch (type_of_question) {
             case "1":
+            case "13":
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap px-2">
