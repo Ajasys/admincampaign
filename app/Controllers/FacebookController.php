@@ -35,10 +35,17 @@ class FaceBookController extends BaseController
         }
         $result_array['response'] = 0;
         $result_array['message'] = $errorMsg;
-
+        $fbdata = '';
         if (isset($result['data']) && is_array($result['data']) && $result['data'] != '') {
             $numberOfPages = count($result['data']);
             if ($numberOfPages > 0) {
+
+                $appresult = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' .$access_token.'&access_token='.$access_token);
+                if(isset($appresult['data']))
+                {
+                    $fbdata = $appresult['data'];
+                }
+
                 $is_facebook_connect = 1;
                 $query = "SELECT * FROM ".$table_username."_platform_integration WHERE access_token='".$access_token."' AND platform_status=2";
                 $int_rows = $this->db->query($query);
@@ -52,6 +59,9 @@ class FaceBookController extends BaseController
                     }
                     else
                     {
+                        $update_data['fb_app_id'] = $fbdata['app_id'];
+                        $update_data['fb_app_name'] = $fbdata['application'];
+                        $update_data['fb_app_type'] = $fbdata['type'];
                         $update_data['verification_status'] = $is_facebook_connect;
                         $departmentUpdatedata = $this->MasterInformationModel->update_entry2($int_data['id'], $update_data, $table_username.'_platform_integration');
                         $result_array['response'] = 1;
@@ -62,6 +72,9 @@ class FaceBookController extends BaseController
                     //insert 
                     $insert_data['master_id'] = $_SESSION['master'];
                     $insert_data['access_token'] = $access_token;
+                    $insert_data['fb_app_id'] = $fbdata['app_id'];
+                    $insert_data['fb_app_name'] = $fbdata['application'];
+                    $insert_data['fb_app_type'] = $fbdata['type'];
                     $insert_data['verification_status'] = $is_facebook_connect;
                     $insert_data['platform_status'] = 2;
                     $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $table_username.'_platform_integration');
@@ -1149,10 +1162,9 @@ class FaceBookController extends BaseController
         // Add search condition if ajaxsearch is provided
         if (!empty($ajaxsearch)) {
             $find_Array_data .= " AND (
-                lead_id LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
-                full_name LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
-                phone_number LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
-                inquiry_id LIKE '%" . $_POST['ajaxsearch'] . "%'
+                fb_app_name LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                fb_app_id LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                fb_app_type LIKE '%" . $_POST['ajaxsearch'] . "%'
             ) ";
         }
 
@@ -1172,10 +1184,9 @@ class FaceBookController extends BaseController
         // Add search condition if ajaxsearch is provided
         if (!empty($ajaxsearch)) {
             $find_Array_count .= " AND (
-                lead_id LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
-                full_name LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
-                phone_number LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
-                inquiry_id LIKE '%" . $_POST['ajaxsearch'] . "%'
+                fb_app_name LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                fb_app_id LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                fb_app_type LIKE '%" . $_POST['ajaxsearch'] . "%'
             ) ";
         }
 
@@ -1193,20 +1204,10 @@ class FaceBookController extends BaseController
         // Generate HTML for data
         if ($find_Array_data->getNumRows() > 0) {
             foreach ($data as $key => $value) {
-                $result = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' .$value['access_token'].'&access_token='.$value['access_token']);
-                if(isset($result['data']))
-                {
-                    $fbdata = $result['data'];
-                }
-                else
-                {
-                    $fbdata = '';
-                }
-               
                 $html .= '<tr onclick="viewLead(' . $value['id'] . ');">
-                <td class="p-2 text-nowrap">' . $fbdata['application'] . '</td>
-                <td class="p-2 text-nowrap">' . $fbdata['app_id'] . '</td>
-                <td class="p-2 text-nowrap">' . $fbdata['type'] . '</td>
+                <td class="p-2 text-nowrap">' . $value['fb_app_name'] . '</td>
+                <td class="p-2 text-nowrap">' . $value['fb_app_id'] . '</td>
+                <td class="p-2 text-nowrap">' . $value['fb_app_type'] . '</td>
                 <td class="p-2 text-nowrap"></td>
                 <td class="p-2 text-nowrap">';
                 if ($value['verification_status']==1) {
