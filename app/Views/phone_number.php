@@ -19,7 +19,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     <div class="d-flex align-items-center col-1    ">
                          <div class="main-selectpicker col">
                               <select id="product_type" name="product_type"
-                                   class="selectpicker form-control form-main main-control product_type"
+                                   class="selectpicker form-control form-main main-control d-none product_type"
                                    data-live-search="true" required="" tabindex="-98">
                                    <option value="1" class="dropdown-item">Realtoart</option>
                               </select>
@@ -36,14 +36,14 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                <div class="p-2">
                     <div class="col-xl-12 d-flex p-2 px-4 d-flex flex-wrap">
                          <div class="col-3">
-                              <div class="d-flex input-group">
+                              <div class="d-flex input-group d-none">
                                    <span class="input-group-text" id="basic-addon2"><i
                                              class="fa-solid fa-magnifying-glass"></i></span>
                                    <input type="number" min="0" step="0.01" class="form-control main-control "
                                         id="coupon_value" name="coupon_value" placeholder="Coupon Value" required="">
                               </div>
                          </div>
-                         <div class="col-2 mx-2">
+                         <div class="col-2 mx-2 d-none">
                               <div class="d-flex input-group">
                                    <span class="input-group-text border-end-0" id="basic-addon2"><i
                                              class="fa-solid fa-magnifying-glass"></i></span>

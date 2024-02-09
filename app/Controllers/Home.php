@@ -93,6 +93,9 @@ class Home extends BaseController
         return view('whatapp_connection');
     }
     
+public function whatsapp_connections(){
+        return view('whatsapp_connections');
+    }
 
     public function redirect_link()
     {

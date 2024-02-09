@@ -37,8 +37,10 @@ class App extends BaseConfig
      */
 
 
-
+    
     public string $baseURL = 'https://admin.ajasys.com/';
+    public string $metaurl = 'https://graph.facebook.com/v19.0/';
+
 
 
 
@@ -851,7 +853,6 @@ class App extends BaseConfig
      */
 
     public string $CSRFSameSite = 'Lax';
-
 
 
     /**
