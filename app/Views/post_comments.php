@@ -27,13 +27,36 @@
             </div>
             <div class="col-12 d-flex flex-wrap ">
                 <div class="col-3 p-2">
-                    <div class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between h-100">
+                    <div class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
                         <div class="input-group mb-3 col-6">
                             <input type="text" class="form-control" placeholder="Recipient's username"
                                 aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <span class="input-group-text" id="basic-addon2"><i class="bi bi-search"></i></span>
                         </div>
-                        <div class="col-12 my-2 text-center d-flex align-items-center">
+                        <!--  facebook page get start -->
+                            <?php
+                              $token ='EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+                              $fb_page_list = fb_page_list($token);
+                              $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                              foreach($fb_page_list['page_list'] as $key => $value){
+                                // pre($value);
+                                $pageprofile = fb_page_img($value->id,$value->access_token);
+                                $img_decode = json_decode($pageprofile,true);
+                                ?>
+                                    <div class="col-12 d-flex flex-wrap align-items-start">
+                                        <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
+                                            <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container"/>
+                                            <div class="col">
+                                                <?php echo $value->name ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                            <?php } ?>
+                        <!-- facebook page get end  -->
+
+
+
+                        <!-- <div class="col-12 my-2 text-center">
                             <div class="d-flex flex-wrap justify-content-center">
                                 <img src="https://cdn.publer.io/on-board-social-accounts.png" alt="#">
                                 <p class="px-3 text-center col-8 fs-5 my-3">Start by adding your social accounts</p>
@@ -214,6 +237,12 @@
                             </div>
                         </div>
                     </div>
+</div> -->
+                <div class="col-9 p-3  mt-2">
+                    <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
+                        
+                        <div class="demo_list_data" id="demo_list_data"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -287,6 +316,28 @@
         $(this).addClass('active');
     });
 
+$('body').on('click','.app_card_post',function(){
+        var access_tocken = $(this).attr('data-acess_token');
+        var pagee_id = $(this).attr('data-pagee_id');
+        var page_name = $(this).attr('data-page_name');
+        var data_img = $(this).attr('data-img');
+        $.ajax({
+            type: 'post',
+            url: '<?= base_url('list_post_pagewise') ?>',
+            data: {
+                access_tocken:access_tocken,
+                pagee_id:pagee_id,
+                page_name:page_name,
+                data_img:data_img,
+            },
+            success: function(res) {
+                var result = JSON.parse(res);
+                $('.loader').hide();
+                $('#demo_list_data').html(result.html);
+
+            }
+        });
+    });
 
     $(".draft_create").click(function (e) {
         //  alert("dfe");
