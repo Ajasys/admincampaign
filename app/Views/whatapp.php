@@ -502,13 +502,16 @@ $language_name = json_decode($language_name, true);
     }
 
     .slide-toggle {
-        width: 443px;
+        width: 330px;
     }
 
     .msssege-box {
         border: 1px solid #FFC759;
         background-color: #FFF8EB;
         font-size: 12px;
+    }
+    .iti{
+        width: 100%;
     }
 </style>
 
@@ -545,7 +548,7 @@ $language_name = json_decode($language_name, true);
                                     <span class="ms-3 first-container-text">Send Template Messages</span>
                                 </div>
                             </li>
-                            <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle nav-item Tab2Class"
+                            <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle nav-item Tab2Class d-none"
                                 role="presentation">
                                 <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type"
                                     data-bs-toggle="pill" data-bs-target="#pills-ex-view-tab" type="button" role="tab"
@@ -622,7 +625,7 @@ $language_name = json_decode($language_name, true);
             </div>
             <div class="col p-1">
 
-                <div class="main-dashbord Activeclass p-2 ">
+                <!-- <div class="Activeclass p-2  d-none">
                     <div class="container p-0 ms-0">
                         <div class="px-3 py-2 bg-white rounded-2 m-2">
                             <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
@@ -647,15 +650,15 @@ $language_name = json_decode($language_name, true);
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-ex-single-tab" role="tabpanel"
                         aria-labelledby="pills-ex-single" tabindex="0">
-                        <div class="main-dashbord p-2 main-check-class">
+                        <div class=" p-2 main-check-class bg-white p-2 rounded-3 border">
 
-                            <div class="container p-0 ms-0">
+                            <div class="col-12 p-0 ms-0">
                                 <div class="px-3 py-2 bg-white rounded-2 mx-2">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <div class="title-1">
@@ -672,10 +675,10 @@ $language_name = json_decode($language_name, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 justify-content-center container ms-0" style="width: 100%;">
+                                <div class="col-12 justify-content-center col-12 ms-0" style="width: 100%;">
                                     <div class="col-12 hello">
                                         <div
-                                            class="d-flex flex-wrap align-items-start border p-3 justify-content-center ">
+                                            class="d-flex flex-wrap align-items-start  p-3 justify-content-center ">
                                             <div class="col-6">
                                                 <form class="needs-validation membershipDiv"
                                                     name="master_membership_update_form" method="POST" novalidate>
@@ -981,86 +984,89 @@ $language_name = json_decode($language_name, true);
                                                                         </option>
                                                                     </select>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="modal-footer justify-content-center mt-2">
+                                                                <div class="modal-footer justify-content-center mt-2 col-12 text-center">
                                                             <span class="btn-primary Template_send"
                                                                 id="memberships_add_btn" data-edit_id=""
                                                                 name="memberships_update1"
                                                                 value="memberships_update1">Send</span>
+                                                            </div>
+                                                            </div>
                                                         </div>
+
+                                                      
 
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-6 d-flex justify-content-center">
                                                 <!-- whatsapp   .. -->
-                                                <div class="wa-preview-main-div-cont">
-                                                    <div class="preview-chat-section">
-                                                        <div class="preview-header-main-cont">
-                                                            <div class="header-image">
-                                                                <img class="profile-img ng-scope"
-                                                                    ng-if="!company_photo || company_photo.length == 0"
-                                                                    ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"
-                                                                    alt="logo"
-                                                                    src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png">
-                                                            </div>
-                                                            <div class="preview-header-text">
-                                                                <span class="company-name user ng-binding">appo</span>
-                                                            </div>
-                                                            <div class="wa-phone-header">
-                                                                <i class="fa fa-video-camera wa-phone-header-video-icon"
-                                                                    aria-hidden="true"></i>
-                                                                <i class="fa fa-phone wa-phone-header-call-icon"
-                                                                    aria-hidden="true"></i>
-                                                                <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon"
-                                                                    aria-hidden="true"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="preview-chat-section-chat overflow-y-scroll">
-
-                                                            <div class="preview-chat-paragraph bg-white p-3 col-7">
-                                                                <p
-                                                                    class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 ">
-                                                                    Message Header Section</p>
-                                                                <p contenteditable="false"
-                                                                    class="single-t-text-chat message msg m-0 p-l-10 p-r-5">
-                                                                    Message Body Section</p>
-                                                                <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5"
-                                                                    contenteditable="false">Message Footer Section
-                                                                </p>
-                                                            </div>
-                                                            <div class="single-t-call-button">
-                                                                <button
-                                                                    class="single-button-whatsapp-template ">Ok</button>
-                                                                <button
-                                                                    class="single-button-whatsapp-template ">Cancel</button>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="preview-call-button ng-scope"
-                                                            ng-if="!edit_template &amp;&amp; !preview_open">
-                                                            <div class="preview-whatsapp-footer">
-                                                                <div class="whatsapp-footer">
-
-                                                                    <i class="fa fa-smile-o whatsapp-footer-relative"
+                                                <div class="col-7">
+                                                    <div class="wa-preview-main-div-cont">
+                                                        <div class="preview-chat-section">
+                                                            <div class="preview-header-main-cont">
+                                                                <div class="header-image">
+                                                                    <img class="profile-img ng-scope"
+                                                                        ng-if="!company_photo || company_photo.length == 0"
+                                                                        ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"
+                                                                        alt="logo"
+                                                                        src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png">
+                                                                </div>
+                                                                <div class="preview-header-text">
+                                                                    <span class="company-name user ng-binding">appo</span>
+                                                                </div>
+                                                                <div class="wa-phone-header">
+                                                                    <i class="fa fa-video-camera wa-phone-header-video-icon"
                                                                         aria-hidden="true"></i>
-                                                                    <input class="chat-btn-chat whatsapp-footer-1"
-                                                                        placeholder="Type a message" ng-disabled="true"
-                                                                        aria-disabled="true" disabled="disabled">
-                                                                    <i class="fa fa-paperclip whatsapp-footer-2"
+                                                                    <i class="fa fa-phone wa-phone-header-call-icon"
                                                                         aria-hidden="true"></i>
-                                                                    <i class="fa fa-camera whatsapp-footer-3"
+                                                                    <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon"
                                                                         aria-hidden="true"></i>
-                                                                    <p class="audio-icon-tem"><i
-                                                                            class="fa fa-microphone icon-tem-micro"
-                                                                            aria-hidden="true"></i></p>
                                                                 </div>
                                                             </div>
+    
+                                                            <div class="preview-chat-section-chat overflow-y-scroll">
+    
+                                                                <div class="preview-chat-paragraph bg-white p-3 col-7">
+                                                                    <p
+                                                                        class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 ">
+                                                                        Message Header Section</p>
+                                                                    <p contenteditable="false"
+                                                                        class="single-t-text-chat message msg m-0 p-l-10 p-r-5">
+                                                                        Message Body Section</p>
+                                                                    <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5"
+                                                                        contenteditable="false">Message Footer Section
+                                                                    </p>
+                                                                </div>
+                                                                <div class="single-t-call-button">
+                                                                    <button
+                                                                        class="single-button-whatsapp-template ">Ok</button>
+                                                                    <button
+                                                                        class="single-button-whatsapp-template ">Cancel</button>
+                                                                </div>
+    
+                                                            </div>
+                                                            <div class="preview-call-button ng-scope"
+                                                                ng-if="!edit_template &amp;&amp; !preview_open">
+                                                                <div class="preview-whatsapp-footer">
+                                                                    <div class="whatsapp-footer">
+    
+                                                                        <i class="fa fa-smile-o whatsapp-footer-relative"
+                                                                            aria-hidden="true"></i>
+                                                                        <input class="chat-btn-chat whatsapp-footer-1"
+                                                                            placeholder="Type a message" ng-disabled="true"
+                                                                            aria-disabled="true" disabled="disabled">
+                                                                        <i class="fa fa-paperclip whatsapp-footer-2"
+                                                                            aria-hidden="true"></i>
+                                                                        <i class="fa fa-camera whatsapp-footer-3"
+                                                                            aria-hidden="true"></i>
+                                                                        <p class="audio-icon-tem"><i
+                                                                                class="fa fa-microphone icon-tem-micro"
+                                                                                aria-hidden="true"></i></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+    
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -1296,12 +1302,12 @@ $language_name = json_decode($language_name, true);
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="px-3 py-2 bg-white rounded-2 mx-2">
+                                <div class="px-3 py-2 bg-white rounded-2 ps-0">
                                     <table id="memberships_table"
                                         class="w-100 m-memberships table table-striped dt-responsive nowrap master_memberships_insert main-table">
                                         <thead>
                                             <tr class="th-header-noborder">
-                                                <th class="template-creation-heading">Name <i class="fa fa-sort p-l-10"
+                                                <th class="template-creation-heading">Name <i class="fa fa-sort p-l-10 d-none"
                                                         ng-class="{'lblue' : temOrderBy == 'name' || temOrderBy == '-name'}"
                                                         ng-click="setTemorder('name')" role="button" tabindex="0"></i>
                                                 </th>
@@ -1768,12 +1774,11 @@ $language_name = json_decode($language_name, true);
     </div>
 </div>
 <!-- last-modal -->
-<div class="modal fade modal-lg " id="view_modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
-    tabindex="-1">
+<div class="modal fade  " id="view_modal" aria-hidden="true" aria-labelledby="view_modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+                <h1 class="modal-title fs-5" id="view_modal" name="view_modal">Template</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body modal-body-secondery d-flex flex-wrap p-0">
@@ -1785,11 +1790,7 @@ $language_name = json_decode($language_name, true);
                             <div class="preview-chat-section rounded-0">
                                 <div class="preview-header-main-cont">
                                     <div class="header-image">
-                                        <img class="profile-img ng-scope"
-                                            ng-if="!company_photo || company_photo.length == 0"
-                                            ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"
-                                            alt="logo"
-                                            src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
+                                        <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
                                     </div>
                                     <div class="preview-header-text">
                                         <span class="company-name user ng-binding">appo</span>
@@ -1803,22 +1804,22 @@ $language_name = json_decode($language_name, true);
 
                                 <div class="preview-chat-section-chat overflow-y-scroll">
                                     <div class="preview-chat-paragraph bg-white p-3 col-10">
-                                        <div class="preview-header-paragraph" ng-if="submitParamDetails"
+                                        <div class="preview-header-paragraph" ng-if="submitParamDetails" class="ng-scope" style="">
+                                            <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
+                                        </div>
+
+                                        <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:200px;height:200px;object-fit: contain;">
+                                        <!-- <div class="preview-header-paragraph" ng-if="submitParamDetails"
                                             class="ng-scope" style="">
                                             <div ng-if="media_footer_text.length > 0 "
                                                 class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope"
                                                 contenteditable="false" style=""></div>
-                                            <!-- end ngIf: media_footer_text.length > 0 -->
+                                            end ngIf: media_footer_text.length > 0
+                                        </div> -->
+                                        <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
                                         </div>
-                                        <div ng-if="final_bodyPreviewValue.length > 0"
-                                            class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope"
-                                            id="bodychange11">
-                                        </div>
-                                        <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails"
-                                            class="ng-scope" style="">
-                                            <div ng-if="media_footer_text.length > 0 "
-                                                class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope"
-                                                contenteditable="false" style=""></div>
+                                        <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
+                                            <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                             <!-- end ngIf: media_footer_text.length > 0 -->
                                         </div>
                                         <!-- <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
@@ -1833,18 +1834,15 @@ $language_name = json_decode($language_name, true);
 
                                     </div>
                                 </div>
-                                <div class="preview-call-button ng-scope"
-                                    ng-if="!edit_template &amp;&amp; !preview_open">
+                                <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
                                     <div class="preview-whatsapp-footer">
                                         <div class="whatsapp-footer">
 
                                             <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
-                                            <input class="chat-btn-chat whatsapp-footer-1" placeholder="Type a message"
-                                                ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                            <input class="chat-btn-chat whatsapp-footer-1" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
                                             <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
                                             <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
-                                            <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro"
-                                                    aria-hidden="true"></i></p>
+                                            <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
                                         </div>
                                     </div>
                                 </div>
@@ -1857,9 +1855,8 @@ $language_name = json_decode($language_name, true);
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary SaveBtnDiv" data-bs-dismiss="modal">Delete</button>
-                <button class="btn  btn-primary   Elbtn" data-bs-target="#whatsapp_template_add_edit"
-                    data-bs-toggle="modal"><i class="bi bi-pencil"></i></button>
+                <button type="button" class="btn btn-primary TemplateDeleteBtnDiv" id="" name="">Delete</button>
+                <button class="btn  btn-primary   Elbtn EditTemplateButtonClass" name="" id=""><i class="bi bi-pencil"></i></button>
             </div>
 
         </div>
@@ -1917,6 +1914,55 @@ $language_name = json_decode($language_name, true);
 
 
 
+    function isValidURL(str) {
+        var pattern = new RegExp('^(https?:\\/\\/)?' +
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+            '((\\d{1,3}\\.){3}\\d{1,3}))' +
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+            '(\\?[;&a-z\\d%_.~+=-]*)?' +
+            '(\\#[-a-z\\d_]*)?$', 'i');
+        return pattern.test(str);
+    }
+
+    $('body').on('click', '.WhatsAppTemplateModelViewBtn', function() {
+        // $('#view_modal').modal('show');
+        var Body = $(this).attr('Bodytext');
+        var footer = $(this).attr('footertext');
+        var header = $(this).attr('headertext');
+        var button = $(this).attr('buttontext');
+        var id = $(this).attr('id')
+        var name = $(this).attr('name');
+        $('.EditTemplateButtonClass').attr('id', id);
+        $('.EditTemplateButtonClass').attr('name', name);
+        $('.TemplateDeleteBtnDiv').attr('id', id);
+        $('.TemplateDeleteBtnDiv').attr('name', name);
+        
+        if (isValidURL(header)) {
+            $('.preview-header-paragraphVIDEO').removeClass('d-none');
+            $('.preview-header-paragraph').addClass('d-none')
+            $(".preview-header-paragraphVIDEO").attr('src', header).addClass("col-12 rounded-3 border border-3");
+
+        } else {
+            $('.preview-header-paragraph').text(header).css('font-weight', 'bold');
+            $('.preview-header-paragraphVIDEO').addClass('d-none');
+            $('.preview-header-paragraph').removeClass('d-none')
+
+
+        }
+        if(button == ""){
+            $('.single-button-whatsapp-template1').addClass('d-none');
+
+        }else{
+            $('.single-button-whatsapp-template1').text(button);
+            $('.single-button-whatsapp-template1').removeClass('d-none');
+
+        }
+        
+        $('.msg-text-chat').text(Body);
+        $('.preview-footer-paragraph').text(footer);
+
+
+    });
 
 
 
@@ -1947,14 +1993,15 @@ $language_name = json_decode($language_name, true);
     });
 
 
-    $('.single-button-whatsapp-template1').hide();
-    $('.single-button-whatsapp-template2').hide();
-    $('.single-button-whatsapp-template3').hide();
+    $('.single-button-whatsapp-template1').addClass('d-none');
+    $('.single-button-whatsapp-template2').addClass('d-none');
+    $('.single-button-whatsapp-template3').addClass('d-none');
+
 
 
     $('.button1input').on('input', function () {
         var button1input = $(this).val();
-        $('.single-button-whatsapp-template1').show();
+        $('.single-button-whatsapp-template1').removeClass('d-none');
 
         if (button1input === "") {
             $('.single-t-call-button').hide();
@@ -1967,7 +2014,7 @@ $language_name = json_decode($language_name, true);
     });
     $('.button2input').on('input', function () {
         var button2input = $(this).val();
-        $('.single-button-whatsapp-template2').show();
+        $('.single-button-whatsapp-template2').removeClass('d-none');
 
         if (button2input === "") {
             $('.single-t-call-button').hide();
@@ -1980,7 +2027,7 @@ $language_name = json_decode($language_name, true);
     });
     $('.button3input').on('input', function () {
         var button3input = $(this).val();
-        $('.single-button-whatsapp-template3').show();
+        $('.single-button-whatsapp-template3').removeClass('d-none');
 
         if (button3input === "") {
             $('.single-t-call-button').hide();
@@ -2324,7 +2371,7 @@ $language_name = json_decode($language_name, true);
 
 
 
-    $('body').on('click', '.Delete_template_id', function (e) {
+    $('body').on('click', '.TemplateDeleteBtnDiv', function (e) {
         e.preventDefault();
         var record_text = "Are you sure you want to Delete this?";
         var id = $(this).attr("id");
@@ -2361,7 +2408,7 @@ $language_name = json_decode($language_name, true);
                                     title: 'Deleted Successfully'
                                 });
                             }
-                            $(".close_btn").trigger("click");
+                            $(".btn-close").trigger("click");
                             list_data();
                         }
                     });
@@ -2590,9 +2637,16 @@ $language_name = json_decode($language_name, true);
                                                 title: "Failed to add template"
                                             });
                                         } else {
-                                            iziToast.success({
-                                                title: "Added Successfully"
-                                            });
+                                            if(action = "update"){
+                                                iziToast.success({
+                                                    title: "Updated Successfully"
+                                                });
+                                            }else{
+                                                iziToast.success({
+                                                    title: "Added Successfully"
+                                                });
+                                            }
+                                          
                                         }
                                         $(".close_btn").trigger("click");
                                         list_data();
@@ -2754,9 +2808,15 @@ $language_name = json_decode($language_name, true);
                                 title: "Failed to add template"
                             });
                         } else {
-                            iziToast.success({
-                                title: "Added Successfully"
-                            });
+                            if(action = "update"){
+                                                iziToast.success({
+                                                    title: "Updated Successfully"
+                                                });
+                                            }else{
+                                                iziToast.success({
+                                                    title: "Added Successfully"
+                                                });
+                                            }
                         }
                         $(".close_btn").trigger("click");
                         list_data();
@@ -2852,7 +2912,7 @@ $language_name = json_decode($language_name, true);
 
 
 
-    $('body').on('click', '.WhatsAppTemplateModelViewBtn', function () {
+    $('body').on('click', '.EditTemplateButtonClass', function () {
         $('.loader').show();
         
         var name = $(this).attr('name');

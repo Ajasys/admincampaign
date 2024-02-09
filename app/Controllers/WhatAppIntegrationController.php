@@ -109,6 +109,8 @@ class WhatAppIntegrationController extends BaseController
         $Error = '';
         $ConnectionName = '';
         $ConnectionStatus = 0;
+        $header = '';
+        $footer = '';
         $Html = '';
         if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
@@ -155,23 +157,91 @@ class WhatAppIntegrationController extends BaseController
 
                                         if (isset($value['components']) && !empty($value['components'])) {
                                             foreach ($value['components'] as $key1 => $value1) {
-                                                if ($value1['type'] == 'BODY') {
-                                                    $Body = $value1['text'];
-                                                }
+                                               
+                                        
+                                        // $Html .= '
+                                        // <tr class="rounded-pill "  >
+                                        //         <td class="py-2 text-capitalize WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Name . '</td>
+                                        //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Category . '</td>
+                                        //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $status . '</td>
+
+                                        //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">
+                                        //             <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
+                                        //                 ' . $Body . '
+                                        //             </div>
+                                        //         </td>
+                                        //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $language . '</td>
+                                        //         <td class="template-creation-table-data text-center cwt-border-right p-l-25 ">
+                                        //             <span>
+                                        //                 <i class="fa fa-eye fs-16 view_template d-none" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                        //                 <i class="fa fa-clone fs-16  DuplicationTemplateClassDiv" name="' . $Name . '" id="' . $id . '"></i>
+                                        //                 <i class="fa fa-trash fs-16 Delete_template_id d-none" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
+                                        //             </span>
+                                        //         </td>
+                                        //     </tr>
+                                        // ';
+                                        if ($value1['type'] == 'BODY') {
+                                            $Body = $value1['text'];
+                                        }
+                                        if ($value1['type'] == 'FOOTER') {
+                                            $footer = $value1['text'];
+                                        }
+
+                                        $buttonvalue = ""; 
+
+                                        if ($value1['type'] == 'BUTTONS' && isset($value1['buttons'][0])) {
+                                            $button = $value1['buttons'][0];
+                                            
+                                            if ($button['type'] == 'QUICK_REPLY' && isset($button['text']) && is_string($button['text'])) {
+                                                $buttonvalue = $button['text'];
+                                            } 
+                                            elseif ($button['type'] == 'URL' && isset($button['url']) && is_string($button['url'])) {
+                                                $buttonvalue = $button['url'];
+                                            } 
+                                            elseif ($button['type'] == 'PHONE_NUMBER' && isset($button['phone_number']) && is_string($button['phone_number'])) {
+                                                $buttonvalue = $button['phone_number'];
                                             }
                                         }
+                                        
+                                        
+                                        
+
+                                        if ($value1['type'] == 'HEADER') {
+                                            if (isset($value1['format'])) {
+                                                if ($value1['format'] == 'IMAGE') {
+                                                    if (isset($value1['example']['header_handle']) && is_array($value1['example']['header_handle'])) {
+                                                        $header = $value1['example']['header_handle'][0];
+                                                    } else {
+                                                        $header = "";
+                                                    }
+                                                } elseif ($value1['format'] == 'VIDEO') {
+                                                    $header = "";
+                                                } elseif ($value1['format'] == 'TEXT') {
+                                                    if (isset($value1['text'])) {
+                                                        $header = $value1['text'];
+                                                    } else {
+                                                        $header = "";
+                                                    }
+                                                } else {
+                                                    $header = "";
+                                                }
+                                            } else {
+                                                $header = "";
+                                            }
+                                        }    }
+                                    }
                                         $Html .= '
                                         <tr class="rounded-pill "  >
-                                                <td class="py-2 text-capitalize WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Name . '</td>
-                                                <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Category . '</td>
-                                                <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $status . '</td>
+                                                <td class="py-2 text-capitalize WhatsAppTemplateModelViewBtn"   name="' . $Name . '"data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Name . '</td>
+                                                <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Category . '</td>
+                                                <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $status . '</td>
 
-                                                <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">
+                                                <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >
                                                     <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
                                                         ' . $Body . '
                                                     </div>
                                                 </td>
-                                                <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $language . '</td>
+                                                <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $language . '</td>
                                                 <td class="template-creation-table-data text-center cwt-border-right p-l-25 ">
                                                     <span>
                                                         <i class="fa fa-eye fs-16 view_template d-none" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
