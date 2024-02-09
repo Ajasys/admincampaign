@@ -117,7 +117,7 @@ public function whatsapp_connections(){
     public function index()
     {
         $table_username = session_username($_SESSION['username']);
-        $table_username = getMasterUsername();
+        // $table_username = getMasterUsername();
         $table_name100 = $table_username . '_email_track';
         $columns100 = [
             'id int primary key AUTO_INCREMENT',

@@ -306,7 +306,7 @@ if (!function_exists('getMasterUsername2')) {
 if (!function_exists('tableCreateAndTableUpdate')) {
     function tableCreateAndTableUpdate($table_name = "", $duplicate_table = '', $columns = array(), $foreign_keys = array())
     {
-        $first_db = \Config\Database::connect();
+        $first_db = \Config\Database::connect('second');
         if ($first_db->tableExists($table_name) && $table_name != '') {
             foreach ($columns as $value) {
                 $value_col_name = explode(' ', $value);
