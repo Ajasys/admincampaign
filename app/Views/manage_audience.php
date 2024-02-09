@@ -15,6 +15,15 @@ if ($query->getNumRows() > 0) {
 }
 // pre($columnNames);
 ?>
+<style>
+    table th,td{
+        border:1px solid #ebebeb;
+        text-align: center!important;
+    }
+    #DataTables_Table_0 thead th:first-child{
+        padding-right: 0px !important;
+    }
+</style>
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2 position-relative">
@@ -71,6 +80,7 @@ if ($query->getNumRows() > 0) {
                                 <th class="p-2 text-nowrap"><span>Estimated Audience </span></th>
                                 <th class="p-2 text-nowrap"><span>Availability</span></th>
                                 <th class="p-2 text-nowrap"><span>Date Created</span></th>
+                                <th class="p-2 text-nowrap"><span>Audience Id</span></th>
                             </tr>
                         </thead>
                         <tbody class="audiance_list">
@@ -86,7 +96,7 @@ if ($query->getNumRows() > 0) {
                             <div class="text-end">
                                 <div class="modal-content">
                                     <div class="modal-header broder-bottom">
-                                        <h5 class="modal-title">Custom Audience -Leadmgt CRM Demo data .csv</h5>
+                                        <h5 class="modal-title">Audience View</h5>
                                         <button class="close_container  border-0 bg-transparent"><i
                                                 class="bi bi-x-circle"></i></button>
                                     </div>
@@ -94,11 +104,11 @@ if ($query->getNumRows() > 0) {
                             </div>
                         </div>
                     </div>
-                    <div class="p-3 py-1">
+                    <div class="p-3 py-1 h-75 d-flex justify-content-between flex-column">
                         <div class="card-header my-2">
                             <div class="col-12">
                                 <label for="#" class="fw-bolder">Audience Name</label>
-                                <P class="product_name"></P>
+                                <P class="name"></P>
                             </div>
                         </div>
                         <div class="card-header my-2">
@@ -281,7 +291,7 @@ if ($query->getNumRows() > 0) {
 
                             if (isset($admin_product)) {
                                 foreach ($admin_product as $type_key => $type_value) {
-                                    echo '<option class="dropdown-item" Data_TypeId="' . $type_value["id"] . '" value="' . $type_value["product_name"] . '">' . $type_value["product_name"] . '</option>';
+                                    echo '<option class="dropdown-item" Data_TypeId="' . $type_value["id"] . '" value="' . $type_value["id"] . '">' . $type_value["product_name"] . '</option>';
                                 }
                             }
                             ?>
@@ -317,7 +327,7 @@ if ($query->getNumRows() > 0) {
                             <label for="#">Name</label>
                             <div class="col-12 d-flex align-items-center">
                                 <input type="text" placeholder="Enter name"
-                                    class="form-control form-main main-control product_name" id="product_name">
+                                    class="form-control form-main main-control name" id="name">
                             </div>
                         </div>
                     </div>
@@ -337,7 +347,7 @@ if ($query->getNumRows() > 0) {
                                 <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
                                 <div class="col">
                                 <input type="text" placeholder="Enter name"
-                                    class="form-control form-main main-control product_names" id="product_names">
+                                    class="form-control form-main main-control names" id="names">
                                 </div>
                             </div>
                         </div>
@@ -440,55 +450,74 @@ if ($query->getNumRows() > 0) {
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-    $(".lead_list_table").DataTable({
+    // $(".lead_list_table").DataTable({
 
-        "ordering": false
+    //     "ordering": false
 
-    });
-    function datatable_view(html) {
-        $('.lead_list_table').DataTable().destroy();
-        $('.audiance_list').html(html);
-        var table1 = $('.lead_list_table').DataTable({
-            "columnDefs": [{
-                "visible": false,
-                "ordering": false,
-            }],
-            lengthChange: true,
-        });
+    // });
+    // function datatable_view(html) {
+    //     $('.lead_list_table').DataTable().destroy();
+    //     $('.audiance_list').html(html);
+    //     var table1 = $('.lead_list_table').DataTable({
+    //         "columnDefs": [{
+    //             "visible": false,
+    //             "ordering": false,
+    //         }],
+    //         lengthChange: true,
+    //     });
 
-    }
-    function datatables_view(html) {
-        $('.audience_list_table').DataTable().destroy();
-        $('.audiance_product_wise').html(html);
-        var table1 = $('.audience_list_table').DataTable({
-            "columnDefs": [{
-                "visible": false,
-                "ordering": false,
-            }],
-            lengthChange: true,
-        });
-
-    }
+    // }
+   
     function list_data() {
-        show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';
+    $.ajax({
+        method: "post",
+        url: "<?= site_url('audience_facebook_data'); ?>",
+        data: {
+            action: 'facebook_list',
+        },
+        success: function(res) {
+            $('.loader').hide();
+            datatable_view(res);
+            // Assuming your function datatable_view is handling the display of data
+        }
+    });
+}
 
-        $.ajax({
-            datatype: 'json',
-            method: "post",
-            url: "<?= site_url('audience_list_data'); ?>",
-            data: {
-                'table': 'audiences',
-                'show_array': show_val,
-                'action': true
-            },
-            success: function (res) {
-                $('.loader').hide();
-                datatable_view(res);
-                //alert("hello");
-            }
+function list_dataa() {
+    show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';
+
+    $.ajax({
+        datatype: 'json',
+        method: "post",
+        url: "<?= site_url('audience_list_data'); ?>",
+        data: {
+            'table': 'audiences',
+            'show_array': show_val,
+            'action': true
+        },
+        success: function (res) {
+            $('.loader').hide();
+            datatable_view(res);
+            list_data();
+        }
+    });
+}
+
+function datatable_view(html) {
+    $('.lead_list_table').DataTable().destroy();
+    $('.audiance_list').append(html);
+    var table1 = $('.lead_list_table').DataTable({
+            "columnDefs": [{
+                "visible": false,
+                "ordering": false,
+            }],
+            lengthChange: true,
         });
-    }
-    list_data();
+
+}
+
+// Call both functions when the page loads
+list_dataa();
 
    
 
@@ -509,7 +538,7 @@ if ($query->getNumRows() > 0) {
                     $('.loader').hide();
                     var response = JSON.parse(res);
                     console.log();
-                    $('.lead_list_modal .product_name').text(response[0].product_name);
+                    $('.lead_list_modal .name').text(response[0].name);
                     // $('#lead_list_modal .size').text(response[0].full_name);
                     $('.lead_list_modal .type').text(response[0].source);
                     $('.lead_list_modal .created_at').text(response[0].created_at);
@@ -540,7 +569,7 @@ if ($query->getNumRows() > 0) {
         var intrested_product = $("#intrested_product").val();
         var inquiry_status = $("#inquiry_status").val();
         var retansion = $("#retansion").val();
-        var product_name = $("#product_name").val();
+        var name = $("#name").val();
         var source = $("input[name='flexRadioDefault']:checked").val();
 
         // Create data to be sent to the server
@@ -550,7 +579,7 @@ if ($query->getNumRows() > 0) {
         formData.append('intrested_product', intrested_product);
         formData.append('inquiry_status', inquiry_status);
         formData.append('retansion', retansion);
-        formData.append('product_name', product_name);
+        formData.append('name', name);
         formData.append('source', source); // Add the selected radio button value
 
         $('.loader').show();
@@ -729,7 +758,7 @@ if ($query->getNumRows() > 0) {
             }
 
             if (!found) {
-                ul.append('<li><button class="dropdown-item list_item d-flex" type="button"><span>' + input_val + '</span><span class="text-success ms-auto">+ add</span></button></li>');
+                ul.append('<li><button class="dropdown-item list_item d-flex" type="button"><span>' + input_val + '</span>');
             }
         });
         $('.custome_column').hide();
@@ -793,8 +822,8 @@ if ($query->getNumRows() > 0) {
             });
 
             // Get the product_name from the form
-            var product_name = $("#product_names").val();
-            import_formdata.append('product_name', product_name);
+            var name = $("#names").val();
+            import_formdata.append('name', name);
 
             // Get the value of the checked radio button
             var source = $("input[id='flexRadioDefault2']:checked").val();
@@ -821,7 +850,44 @@ if ($query->getNumRows() > 0) {
                 },
             });
         });
+        
+        function ViewFbAudiances(id, name, subtype,count_range, time_updated, time_created) {
+    $.ajax({
+        method: "post",
+        url: "<?= site_url('view_integrate_lead_audience'); ?>",
+        data: {
+            'id': id,
+            'name': name,
+            'subtype': subtype,
+            'count_range': count_range,
+            'time_updated': time_updated,
+            'time_created': time_created,
+        },
+        success: function(res) {
+            var leadData = {
+                id: res.id,
+                name: res.name,
+                subtype: res.subtype,
+                count_range: res.count_range,
+                time_updated: res.time_updated,
+                time_created: res.time_created
+            };
 
+            // Update DOM elements with the received data
+            $('#lead_list_modal .name').text(leadData.name);
+            $('#lead_list_modal .type').text(leadData.subtype);
+            $('#lead_list_modal .size').text(leadData.count_range);
+            $('#lead_list_modal .created_at').text(leadData.time_created);
+            $('#lead_list_modal .last_updated').text(leadData.time_updated);
+            $('#lead_list_modal .source').text(leadData.name);
+           
+        },
+        error: function(error) {
+            $('.loader').hide();
+            console.error("Error occurred: ", error);
+        }
+    });
+}
 </script>
 <script>
     $('body').on('change', '#inquiry_status', function () {
