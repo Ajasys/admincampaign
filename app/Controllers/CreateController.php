@@ -106,8 +106,8 @@ class CreateController extends BaseController
         }
         // pre('https://graph.facebook.com/v19.0/'.$pagee_idd.'/feed?access_token='.$accesss_tocken.'&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
         // die;
-        pre('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
-        die;
+        // pre('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
+        // die;
         
         $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
         // pre($response);
@@ -176,18 +176,16 @@ class CreateController extends BaseController
             }
 
 
-            $html .= '<div class="card-header mb-2 col-3 border rounded-4 bg-white p-3 shadow mx-2">
-            <div class="col-12 d-flex flex-wrap border-bottom ">
+            $html.='<div class="card-header mb-2 col-12 col-sm-5 col-md-12 col-xl-5 col-xxl-3 border rounded-4 bg-white p-3 shadow mx-2" id="post_card">
+            <div class="col-12 d-flex flex-wrap border-bottom">
                 <div class="me-2">
-                    <img class="rounded-circle"
-                        src="' . $data_img . '"
-                        alt="#" style="width:40px;height:40px;object-fit-container">
+                    <img class="rounded-circle" src="'.$data_img.'" alt="#" style="width:40px;height:40px;">
                 </div>
                 <div class="col">
-                    <h5>' . $page_namee . '</h5>
+                    <h5>'.$page_namee.'</h5>
                     <div class="col-12">
                         <span class="text-muted">
-                            <span class="fs-14">' . $facebook_upload_time . '</span>
+                            <span class="fs-14">'.$facebook_upload_time.'</span>
                         </span>
                         <span>
                             <i class="fa-solid fa-earth-asia fs-14 fw-muted"></i>
@@ -196,20 +194,20 @@ class CreateController extends BaseController
                 </div>
             </div>
             <div class="col-12 my-2">
-                <p class="fs-14">' . $fb_titile . '</p>
+                <p class="fs-14">'.$fb_titile.'</p>
             </div>
             <div class="col-12">
-                <div style="width:100%;">
-                    <img src="' . $fb_upload_img . '" alt="#" class="w-100 h-100 rounded-3">
+                <div style="width:100%; max-height: 300px; min-height: 250px; overflow: hidden;">
+                    <img src="'.$fb_upload_img.'" alt="#" class="w-100 rounded-3 object-fit-content">
                 </div>
             </div>
             <hr>
-            <div class="col-12 d-flex p-1 mt-2">
-                <div class="col-6 d-flex flex-wrap rounded-3 text-muted ">
-                    <button class="btn w-100"><i class="fa-regular fa-thumbs-up mx-2"></i>Like</button>
+            <div class="col-12 p-1 mt-2 d-flex">
+                <div class="col-6 d-flex flex-wrap rounded-3 text-muted" >
+                    <button class="btn w-100 like_button"><i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i>Like</button>
                 </div>
                 <div class="col-6 d-flex flex-wrap rounded-3">
-                    <button class="btn w-100 text-muted d-flex p-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto"></i><div class="my-auto"> Comment</div></button>
+                    <div class="btn w-100 text-muted d-flex p-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto"></i><div class="my-auto"> Comment</div></div>
                 </div>
             </div>
         </div>';
