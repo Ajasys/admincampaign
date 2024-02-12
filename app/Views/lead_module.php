@@ -320,7 +320,7 @@ $user_data = $user_result->getResultArray();
                                                     <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
                                                         Name</label>
                                                     <div class="main-selectpicker">
-                                                        <select id="fb_conn_id" class="selectpicker form-control form-main fb_conn_id">
+                                                        <select id="fb_conn_id" class="selectpicker form-control form-main fb_conn_id" required>
                                                             <option value="">select Connection</option>
                                                             <?php foreach ($conn_rows as $key => $value) {
                                                                 echo "<option value=" . $value['id'] . "  data-access-token=" . $value['access_token'] . " data-connection-check=" . $value['verification_status'] . ">" . $value['fb_app_name'] . "</option>";
@@ -335,7 +335,8 @@ $user_data = $user_result->getResultArray();
                                                             <option value="">select Page</option>
                                                         </select>
                                                     </div>
-                                                    <label class="form-label main-label fs-14 text-nowrap mt-3">Form</label><sup class="validationn">*</sup>
+
+                                                    <label class="form-label main-label fs-14 text-nowrap">Form</label><sup class="validationn">*</sup>
                                                     <div class="main-selectpicker">
                                                         <select id="facebookform" class="selectpicker form-control form-main" data-live-search="true" required>
                                                             <option value="">select Form</option>
@@ -395,7 +396,7 @@ $user_data = $user_result->getResultArray();
 
                             <label class="form-label main-label fs-14 text-nowrap mt-2 staff">Staff<sup class="validationn">*</sup></label>
                             <div class="main-selectpicker multiple-select staff">
-                                <select class="selectpicker form-control form-main staff_to" multiple id="staff_to" name="staff_to" data-live-search="true" required="">
+                                <select class="selectpicker form-control form-main staff_to" multiple id="staff_to" name="staff_to" data-live-search="true" required>
                                     <?php
                                     if (isset($user_data)) {
                                         foreach ($user_data as $type_key => $user_value) {
@@ -525,33 +526,7 @@ $user_data = $user_result->getResultArray();
             var fb_access_token = $(this).find(':selected').data('access-token');
             var fb_check_conn = $(this).find(':selected').data('connection-check');
             if (fb_access_token != '') {
-                $.ajax({
-                    type: "post",
-                    url: "<?= site_url('facebook_user'); ?>",
-                    data: {
-                        fb_access_token: fb_access_token,
-                        fb_check_conn: fb_check_conn,
-                        action: 'user'
-                    },
-                    success: function(res) {
-                        $('.loader').hide();
-                        var result = JSON.parse(res);
-                        if (result.response == 1) {
-                            $('#facebookpages').html(result.html);
-                            $('#facebookpages').selectpicker('refresh');
-                        } else {
-                            $(this).closest(".big_circle_plus_outer").show();
-                            $(".big_list_add_outer_main_2").hide();
-                            $(".big_list_add_outer_main_2 .big_circle_fb_outer").hide();
-                            iziToast.error({
-                                title: result.message
-                            });
-                        }
-                    },
-                    error: function(error) {
-                        $('.loader').hide();
-                    }
-                });
+                getPagesList(fb_access_token, fb_check_conn);
             } else {
                 iziToast.error({
                     title: 'Please select your connection..!'
@@ -771,7 +746,6 @@ $user_data = $user_result->getResultArray();
                         });
                         $(this).closest(".lead_list").find(".load-icon").hide();
                     }
-
                 },
                 error: function(error) {
                     $('.loader').hide();
@@ -803,26 +777,7 @@ $user_data = $user_result->getResultArray();
         var access_token = $(this).find("option:selected").attr("data-access_token");
         var form_name = $(this).find("option:selected").text();
         var page_name = $(this).attr("data-page_name");
-        $.ajax({
-            type: "post",
-            url: "<?= site_url('facebook_form'); ?>",
-            data: {
-                action: 'page_to_form',
-                access_token: access_token,
-                page_id: page_id,
-                form_name: form_name,
-            },
-            success: function(res) {
-                var result = JSON.parse(res);
-                // $('.fb_div_hide1').hide();
-                // $('.page-profile').html('<img src="" class="w-100 h-100 object-fit-contain rounded-circle">');
-                $('#facebookform').html(result.html);
-                $('#facebookform').selectpicker('refresh');
-            },
-            error: function(error) {
-                $('.loader').hide();
-            }
-        });
+        getFormsList(access_token, page_id);
     });
 
     $('body').on('change', '#assign_to', function() {
@@ -840,6 +795,15 @@ $user_data = $user_result->getResultArray();
         var assign_to = $(".assign_to option:selected").val();
         var staff_to = $("#staff_to").val();
         var staff_to = staff_to.join(',');
+        if(assign_to==1)
+        {
+            var chk = staff_to;
+        }
+        else
+        {
+            var chk = assign_to;
+        }
+        
         var page_id = $("#facebookpages option:selected").val();
         var access_token = $("#facebookpages").find("option:selected").attr("data-access_token");
         var page_name = $("#facebookpages").find("option:selected").attr("data-page_name");
@@ -847,7 +811,7 @@ $user_data = $user_result->getResultArray();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
 
-        if (assign_to != "" && int_product > 0) {
+        if (assign_to != "" && int_product > 0 && chk!='') {
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_page'); ?>",
@@ -951,11 +915,9 @@ $user_data = $user_result->getResultArray();
                     $('.fb_div_hide1').hide();
                     if (result.page_profile) {
                         $('.page-profile').html('<img src="' + result.page_profile + '" class="w-100 h-100 object-fit-contain rounded-circle">');
-
                     }
                     $(".big_list_add_outer_main_2 .all_circle_plus_list").hide();
                     if (result.respoance == 1) {
-
                         // iziToast.success({
                         //     title: result.msg,
                         // });
@@ -971,7 +933,6 @@ $user_data = $user_result->getResultArray();
             });
             return false;
         } else {
-
             var form = $("form[name='pagelist']")[0];
             $(form).find('.selectpicker').each(function() {
                 var selectpicker_valid = 0;
@@ -1134,117 +1095,114 @@ $user_data = $user_result->getResultArray();
     //     location.reload();
     // });
 
-    function EditScenarios(edit_id, page_id, form_id, intrested_area, intrested_product, property_sub_type, setassign_id, staff_to, page_img, status_id) {
+    function EditScenarios(edit_id) {
         $('.big_list_add_outer_main_2,.lead_module_devider_1,.big_list_add_outer_main_3,.lead_module_devider_2').show();
         $('.big_list_add_outer_main_1,.big_circle_plus_outer,.add_next_big_plus_outer,.all_circle_plus_list,.lead_main_box_add,.discard-tag').hide();
         $('.big_circle_fb_outer,.lead_add_main_box').show();
 
         $('.fb_div_hide1,.fb_div_hide').hide();
-        if ('<?php echo isset($data[0]['user_profile']) ?>') {
-            $('.fb_div_hide').hide();
-            $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');
+        // if ('<?php echo isset($data[0]['user_profile']) ?>') {
+        //     $('.fb_div_hide').hide();
+        //     $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');
 
-        }
-        $('.page-profile').html('<img src="' + page_img + '" class="w-100 h-100 object-fit-contain rounded-circle">');
-
-        // var access_token ='<?php
-                                //                     $data = getConnectionData($id); 
-                                //                     echo $data['access_token'];
-                                //                 
-                                ?>';
-        // var verification_status = '<?php
-                                        //                     $data = getConnectionData($id); 
-                                        //                     echo $data['verification_status'];
-                                        //                 
-                                        ?>';
-
+        // }
 
         $.ajax({
             type: "post",
             url: "<?= site_url('edit_facebook_scenarious'); ?>",
             data: {
-                id:id,
+                id: edit_id,
             },
             success: function(res) {
-                var result = JSON.parse(res);
-                // $('#facebookform').html(result.html);
-                // $('#facebookform').val(form_id);
-                // $('#facebookform').selectpicker('refresh');
-            },
-            error: function(error) {
-                $('.loader').hide();
-            }
-        });
+                var editresult = JSON.parse(res);
+                if (editresult.response == 1) {
+                    $('#fb_conn_id').val(editresult.result['connection_id']);
+                    $('.page-profile').html('<img src="' + editresult.result['page_img'] + '" class="w-100 h-100 object-fit-contain rounded-circle">');
 
-        getPagesList(master_id, access_token, username, user_id)
-        $('#facebookpages').val(page_id);
-        $('#facebookpages').selectpicker('refresh');
+                    $.ajax({
+                        type: "post",
+                        url: "<?= site_url('facebook_user'); ?>",
+                        data: {
+                            fb_access_token: editresult.result['access_token'],
+                            fb_check_conn: editresult.result['verification_status'],
+                            action: 'user'
+                        },
+                        success: function(res) {
+                            $('.loader').hide();
+                            var result = JSON.parse(res);
+                            if (result.response == 1) {
+                                $('#facebookpages').html(result.html);
+                                $('#facebookpages').val(editresult.result['page_id']);
+                                $('#facebookpages').selectpicker('refresh');
 
-        $.ajax({
-            type: "post",
-            url: "<?= site_url('facebook_user'); ?>",
-            data: {
-                action: 'user',
-                access_token: access_token,
-                verification_status: verification_status,
-            },
-            success: function(res) {
-                var result = JSON.parse(res);
-                if ($("#facebookpages").val() == "0" || $("#facebookpages").val() == "") {
-                    $('#facebookpages').html(result.html);
-                    $('#facebookpages').val(page_id);
-                    $('#facebookpages').selectpicker('refresh');
-                }
-                var access_token = $('#facebookpages').find("option:selected").attr("data-access_token");
-                var form_name = $('#facebookpages').find("option:selected").text();
-                var page_name = $('#facebookpages').attr("data-page_name");
-                $.ajax({
-                    type: "post",
-                    url: "<?= site_url('facebook_form'); ?>",
-                    data: {
-                        action: 'page_to_form',
-                        access_token: access_token,
-                        page_id: page_id,
-                        form_name: form_name,
-                    },
-                    success: function(res) {
-                        var result = JSON.parse(res);
-                        $('#facebookform').html(result.html);
-                        $('#facebookform').val(form_id);
-                        $('#facebookform').selectpicker('refresh');
-                    },
-                    error: function(error) {
-                        $('.loader').hide();
+                                var page_access_token = $('#facebookpages').find("option:selected").attr("data-access_token");
+                                $.ajax({
+                                    type: "post",
+                                    url: "<?= site_url('facebook_form'); ?>",
+                                    data: {
+                                        action: 'page_to_form',
+                                        access_token: page_access_token,
+                                        page_id: editresult.result['page_id'],
+                                    },
+                                    success: function(res) {
+                                        var result = JSON.parse(res);
+                                        $('#facebookform').html(result.html);
+                                        $('#facebookform').val(editresult.result['form_id']);
+                                        $('#facebookform').selectpicker('refresh');
+                                    },
+                                    error: function(error) {
+                                        $('.loader').hide();
+                                    }
+                                });
+                            } else {
+                                $(this).closest(".big_circle_plus_outer").show();
+                                $(".big_list_add_outer_main_2").hide();
+                                $(".big_list_add_outer_main_2 .big_circle_fb_outer").hide();
+                                iziToast.error({
+                                    title: result.message
+                                });
+                            }
+                        },
+                        error: function(error) {
+                            $('.loader').hide();
+                        }
+                    });
+
+                    // getPagesList(result.result['access_token'], result.result['verification_status']);
+                    // $('#facebookpages').val(result.result['page_id']);
+                    // $('#facebookpages').selectpicker('refresh');
+
+                    // getFormsList(page_access_token, result.result['page_id']);
+                    // $('#facebookform').val(result.result['form_id']);
+                    // $('#facebookform').selectpicker('refresh');
+
+                    $('#product').val(editresult.result['intrested_product']);
+                    if (editresult.result['user_id'] == 0) {
+                        $('#assign_to').val(0);
+                        $('.staff').hide();
+                    } else {
+                        $('#assign_to').val(1);
+                        $('.staff').show();
+                        var assignIdsArray = editresult.result['user_id'].split(',');
+                        $('#staff_to').val(assignIdsArray);
+                        $('#staff_to').selectpicker('refresh');
                     }
-                });
-                $('.loader').hide();
+                    $('.selectpicker').selectpicker('refresh');
+                    $('.big_falcebook_circle_4_sbt').attr('edit_id', edit_id);
+                    if (editresult.result['is_status'] == 3) {
+                        $('.big_list_add_outer_main_3 .all_circle_plus_list').show();
+                        $('.big_falcebook_circle_4_sbt').html('Save As');
+                    } else {
+                        $('.big_falcebook_circle_4_sbt').html('Update');
+                    }
+                }
             },
             error: function(error) {
                 $('.loader').hide();
             }
         });
-
-        $('#product').val(intrested_product);
-        $('#sub_type').val(property_sub_type);
-        $('#assign_to').val(setassign_id);
-        if (setassign_id == 0) {
-            $('.staff').hide();
-        } else {
-            $('.staff').show();
-            var assignIdsArray = staff_to.split(',');
-            $('#staff_to').val(assignIdsArray);
-            $('#staff_to').selectpicker('refresh');
-        }
-        $('.selectpicker').selectpicker('refresh');
-        $('.big_falcebook_circle_4_sbt').attr('edit_id', edit_id);
-        if (status_id == 3) {
-            $('.big_list_add_outer_main_3 .all_circle_plus_list').show();
-            $('.big_falcebook_circle_4_sbt').html('Save As');
-        } else {
-            $('.big_falcebook_circle_4_sbt').html('Update');
-        }
-
     }
+
 
     function getPagesList(fb_access_token, fb_check_conn) {
         $.ajax({
@@ -1269,6 +1227,26 @@ $user_data = $user_result->getResultArray();
                         title: result.message
                     });
                 }
+            },
+            error: function(error) {
+                $('.loader').hide();
+            }
+        });
+    }
+
+    function getFormsList(access_token, page_id) {
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('facebook_form'); ?>",
+            data: {
+                action: 'page_to_form',
+                access_token: access_token,
+                page_id: page_id,
+            },
+            success: function(res) {
+                var result = JSON.parse(res);
+                $('#facebookform').html(result.html);
+                $('#facebookform').selectpicker('refresh');
             },
             error: function(error) {
                 $('.loader').hide();

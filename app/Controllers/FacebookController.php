@@ -389,7 +389,7 @@ class FaceBookController extends BaseController
                                         <i class="bi bi-caret-down-fill fs-12 text-secondary-emphasis"></i>
                                     </button>
                                     <ul class="dropdown-menu py-2">
-                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $value['page_id'] . '\',\'' . $value['form_id'] . '\',\'' . $value['intrested_area'] . '\',\'' . $value['intrested_product'] . '\',\'' . $value['property_sub_type'] . '\',\'' . $assign_id . '\',\'' . $staff_id . '\',\'' . $value['page_img'] . '\',\'' . $value['is_status'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
+                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
                                         <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . '><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
                                     </ul>
                                 </div>
@@ -665,7 +665,7 @@ class FaceBookController extends BaseController
                                         <i class="bi bi-caret-down-fill fs-12 text-secondary-emphasis"></i>
                                     </button>
                                     <ul class="dropdown-menu py-2">
-                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $value['page_id'] . '\',\'' . $value['form_id'] . '\',\'' . $value['intrested_area'] . '\',\'' . $value['intrested_product'] . '\',\'' . $value['property_sub_type'] . '\',\'' . $assign_id . '\',\'' . $staff_id . '\',\'' . $value['page_img'] . '\',\'' . $value['is_status'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
+                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
                                         <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . '><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
                                     </ul>
                                 </div>
@@ -1237,6 +1237,28 @@ class FaceBookController extends BaseController
         }
         echo json_encode($return_array);
     }
+
+    public function edit_facebook_scenarious()
+    {
+        $return_array['response'] = 1;
+        $return_array['result'] = '';
+        if(isset($_POST['id']))
+        {
+            $query = $this->db->query("SELECT p.*,i.id as connection_id,i.access_token,i.verification_status 
+            FROM " . $this->username . "_fb_pages p  
+            JOIN " . $this->username . "_platform_integration as i ON i.id=p.connection_id
+            WHERE p.id=".$_POST['id']);
+            $rows = $query->getResultArray();
+            if($rows)
+            {
+                $return_array['response'] = 1;
+                $return_array['result'] = $rows[0];
+            }
+
+        }
+        echo json_encode($return_array);
+    }
+
 }
 
 
