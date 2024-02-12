@@ -509,6 +509,7 @@ public function whatsapp_connections(){
             'email varchar(255) NOT NULL',
             'address varchar(255) NOT NULL',
             'source varchar(255) NOT NULL',
+            'is_status_active int(11) NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_username .'_audience', '', $columns_audience);
         $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_type');
