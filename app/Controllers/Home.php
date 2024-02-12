@@ -1081,7 +1081,17 @@ public function whatsapp_connections(){
             'email_link_track_code varchar(400)',
         ];
            
-         $table = tableCreateAndTableUpdate($table_name, '', $columns);
+         $table = tableCreateAndTableUpdate2($table_name, '', $columns);
+         $table_name100 = $table_username . '_email_track';
+         $columns100 = [
+             'id int primary key AUTO_INCREMENT',
+             'email_track_code varchar(400)',
+             'email_status varchar(400)',
+             'email_open_datetime varchar(400)',
+             'email_link_track_code varchar(400)',      
+         ];
+   
+         $table = tableCreateAndTableUpdate2($table_name100, '', $columns100);
         return view('auth-login/login');
     }
     public function signup()
