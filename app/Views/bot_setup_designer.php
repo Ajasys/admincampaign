@@ -2459,21 +2459,72 @@ $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
 
                 </div>
 
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
             </div>
-        </div>    
+        </div>
     </div>
 </div>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade active show d-block" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add order Items</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12 order-items-body">
+                </div>
+                <div class="col-12 order-items-button my-3">
+                    <button type="button" class="btn btn-primary add-order-items d-flex align-items-center">
+                        <i class="fa-solid fa-plus px-2 "></i>
+                        <p class="px-2">ADD</p>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </div>
 
 
 
 <?= $this->include('partials/footer') ?>
 
+
+<script>
+    function order_items_box() {
+        var order_items_box = '<div class="col-12 border rounded-3 border p-2 order-item-box d-flex flex-wrap my-2"> <div class="col-3 p-1"> <label for="" class="form-label fs-12 fw-semibold ">Display Name <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="Display Name"> </div> <div class="col-2 p-1"> <label for="" class="form-label fs-12 fw-semibold ">Available Quantity</label> <input type="number" class="form-control" id="" placeholder="" value="0"> </div> <div class="col-3 p-1"> <label for="" class="form-label fs-12 fw-semibold ">Client Item Id</label> <input type="text" class="form-control" id="" placeholder="Item Id"> </div> <div class="col-4 p-1"> <div class="col-12 d-flex flex-wrap"> <label for="" class="form-label fs-12 fw-semibold col-10">Search Keywords</label> <div class="col-2 text-end"> <i class="fa-regular fa-trash-can delete-order-items"></i> </div> </div> <textarea class="form-control text-wrap" id="" rows="1" placeholder="Enter Keywords separated by comma"></textarea> </div> <div class="col-3 p-1"> <label for="" class="form-label fs-12 fw-semibold ">Currency <span class="text-danger">*</span></label> <select class="form-select" aria-label="Default select example"> <option selected>Open this select menu</option> <option value="1">One</option> <option value="2">Two</option> <option value="3">Three</option> </select> </div> <div class="col-2 p-1"> <label for="" class="form-label fs-12 fw-semibold ">Price <span class="text-danger">*</span></label> <input type="number" class="form-control" id="" placeholder="" value="0"> </div> <div class="col-3 p-1"> <label for="" class="form-label fs-12 fw-semibold ">Image</label> <input class="form-control" type="file" id="formFile"> </div> <div class="col-4 p-1"> <label for="" class="form-label fs-12 fw-semibold ">Redirect URL</label> <input type="text" class="form-control" id="" placeholder="Redirect URL"> </div> </div>';
+        $(".order-items-body").append(order_items_box);
+    }
+
+    order_items_box();
+
+    $('body').on('click', '.add-order-items', function() {
+        order_items_box();
+    });
+
+    $('body').on('click', '.delete-order-items', function() {
+        $(this).closest('.order-item-box').remove();
+    });
+</script>
 <script>
     //draggable jquery
     // $(".bot-box").on("dragstart",function(){
