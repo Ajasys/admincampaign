@@ -117,7 +117,7 @@ class WhatAppIntegrationController extends BaseController
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
                         $ConnectionStatus = 1;
-                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['whatapp_access_token'];
+                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?limit=500&fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['whatapp_access_token'];
                         $responselistdata = getSocialData($urllistdata);
                         $templateNames = [];
 
