@@ -77,6 +77,13 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     .messege-scroll::-webkit-scrollbar {
         display: none;
     }
+    .second-add {
+        display: block !important;
+    }
+
+    .second-remove {
+        display: none !important;
+    }
 
 </style>
 
@@ -1298,7 +1305,11 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <div class="col-12 d-flex flex-wrap px-3" id="tenthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="twelthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="senenthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="fifteenquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="sixteenquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="seventeenquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="eighteenquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="twentyonequestion"></div>
                                 <!--Question-->
                                 <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                                     <div class="col-12 d-flex flex-wrap px-2">
@@ -2747,42 +2758,12 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     // chat: chatting,
                 },
                 success: function (res) {
-                
-                    // $('.store_conversiton_div').val(res);
-                    // $('#standalone_chat_popup').val("");
                     list_data_s();
-                    // setTimeout(() => {
-                    //     scrollToBottom();
-                    // }, 400);
                 }
             });
         }
     });
-    //draggable jquery
-    // $(".bot-box").on("dragstart",function(){
-    //     $('.droppable').css("outline","2px dotted black");
-    //     $('.droppable').css("background-color","#d5d5d5");
-    // });
-
-    // $(".bot-box").on("dragend", function() {
-    //     $('.droppable').css("outline","3px dotted transparent");
-    //     $('.droppable').css("background-color","#f4f4f6");
-    // });
-
-    // $('.bot-box').on('dragover', function(event) {
-    //     event.preventDefault();
-    // });
-
-    // $('.droppable').on('drop', function(event) {
-    //     event.preventDefault();
-    //     var draggedElement = $('.dragging');
-    //     $(this).append(draggedElement);
-    //     draggedElement.removeClass('dragging');
-
-    //     // Alert when dropped
-    //     alert('Item dropped!');
-    // });
-
+   
     //page js for drag and drop
     $(".question_add").on("dragstart", function(e) {
         $(this).addClass('dragging');
@@ -2860,7 +2841,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         //Question-2
         $('#Question-2').change(function() {
             if ($(this).prop('checked')) {
-                $('.Question-2').text('Give Skip Option');
+                $('.Question-2').text('Give Skip OptionEnter');
             } else {
                 $('.Question-2').text('Do Not Give Skip Option');
             }
@@ -2939,46 +2920,56 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             }
         });
 
-
-
-      
-
-        <?php
-            $options = [];
-            if (isset($admin_bot_setup)) {
-                foreach ($admin_bot_setup as $type_key => $type_value) {
-                    if ($type_value['bot_id'] == $botId) {
-                        $options[] = [
-                            'id' => $type_value["id"],
-                            'question' => $type_value["question"]
-                        ];
-                    }
-                }
+        //Appointment
+        $('#Appointment-1').change(function() {
+            if ($(this).prop('checked')) {
+                $('.Appointment-1').text('Enable Timezone Selection');
+            } else {
+                $('.Appointment-1').text('Enable Timezone Selection');
             }
-            $encoded_options = json_encode($options);
-        ?>
+        });
+
+        //proudect
+        $('#proudect-1').change(function() {
+            if ($(this).prop('checked')) {
+                $('.proudect-1').text('Auto Slide');
+                $('.proudect-corousel-sec-input').removeClass('second-remove');
+                $('.proudect-corousel-sec-input').addClass('second-add');
+            } else {
+                $('.proudect-1').text('Do Not Auto Slide');
+                $('.proudect-corousel-sec-input').removeClass('second-add');
+                $('.proudect-corousel-sec-input').addClass('second-remove');
+            }
+        });
 
 
+        $('#send_params').change(function() {
+            if ($(this).prop('checked')) {
+                $('.send_params').text('Send in Params');
+            } else {
+                $('.send_params').text('Do not Send in Params');
+            }
+        });
+
+
+
+        //Single Choile Table Row Add
 
         function table_html() {
-            var row_numbers = $('.main-plan').length;
-            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select question_select" aria-label="Default select example"><option selected>No Jump</option>';
-            
-            var options = <?php echo $encoded_options; ?>;
-
-            options.forEach(function(option) {
-                main_table_html += '<option value="' + option.id + '">' + option.question + '</option>';
-            });
-            main_table_html += '<td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td></select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
+            var main_table_html = '<tr class="d-flex flex-wrap col-12 w-100><td class="col-3"><input type="text" class="form-control row-option-value" id="" placeholder="" value="option1"></td><td class="col-3">    <select class="form-select" aria-label="Default select example">        <option value="1">Main-flow</option>    </select></td><td class="col-4">    <select class="form-select" aria-label="Default select example">        <option selected>No Jump</option>        <option value="1">One</option>        <option value="2">Two</option>        <option value="3">Three</option>    </select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn">D</button></td></tr>';
             $(".tbody").append(main_table_html);
         }
+
         table_html();
 
         $('body').on('click', '.single-choice-add-tabal', function() {
-            table_html(); 
+
+            var row_numbers = $('.single-choice-add-tabal').length++;
+
+            table_html(row_numbers);
+
             update_row_numbers();
         });
-
 
         $('body').on('click', '.remove-btn', function() {
 
@@ -3016,25 +3007,289 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         //multiple coise
 
         let option = 1;
-        function multiple_table_html(index) {
-            var row_numbers = $('.multiple_main-plan').length;
-            var multiple_table_row = '<tr class="col-12 multiple_main-plan"><td class="col-3"><input type="text" class="form-control multiple-row-option-value multiple_choice_options_' + row_numbers + '" id="" placeholder="Enter the option" value=""></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
+
+        function multiple_table_html() {
+            var multiple_table_row = '<tr class="col-12"><td class="col-3"><input type="text" class="form-control multiple-row-option-value" id="" placeholder="" value="option' + option + '"></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn">D</button></td></tr>';
             $(".multiple-table-body").append(multiple_table_row);
         }
+
         multiple_table_html();
 
         $('body').on('click', '.multiple-choice-add-tabal', function() {
+
             option++;
+
             multiple_table_html();
         });
 
         $('body').on('click', '.multiple-remove-btn', function() {
+
             $(this).closest('tr').remove();
+
         });
 
 
+
+        //forms
+        function form_table_row() {
+            var form_table_row = '<tr class="col-12"> '  
+            '<td class="col">   '    
+                '<select class="form-select form-select-sm form-select-picker" aria-label="Default select example">  '         
+                    '<option value="Question" selected>Question</option>  '         
+                    '<option value="Dropdown">Dropdown</option>  '     
+                '</select>   '
+            '</td>   '
+            '<td class="col">'       
+                '<input type="text" class="form-control form-control-sm fw-medium form-qa-text" id="" placeholder="Question Text" value=""> '
+            '</td>  '
+            '<td class="col">   '
+                ' <div class="form-check form-switch mx-2 form-required"> '      
+                    '<input class="form-check-input " type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>'    
+                '</div> '
+            '</td> ' 
+            '<td class="col"> '     
+                '<input type="text" class="form-control form-control-sm fw-medium form-regex" id="" placeholder="Regex" value=""> ' 
+            ' </td>'  
+            '<td class="col">   '    
+                '<div class="form-floating">  '        
+                    '<textarea class="form-control fs-12 fw-medium form-detail" placeholder="Description form-detail" id=""></textarea>  '    
+                '</div>'   
+            '</td>'   
+            '<td class="col">  '     
+                '<button type="button" class="btn btn-danger form-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button>'   
+                '</td>'
+            '</tr>';
+            $(".form-table-body").append(form_table_row);
+        }
+
+        form_table_row();
+
+        $('body').on('click', '.form-add-tabal', function() {
+            form_table_row();
+        });
+
+        $('body').on('click', '.form-remove-btn', function() {
+            $(this).closest('tr').hide();
+        });
+
+        $('body').on('change', '.form-select-picker', function() {
+            form_value_change($(this).closest('tr'));
+        });
+
+        function form_value_change(row) {
+            var form_value = row.find(".form-select-picker").val();
+            if (form_value == "Dropdown") {
+                row.find('.form-regex').closest('td').children('input').attr('disabled', true);
+
+            } else if (form_value == "Question") {
+                row.find('.form-regex').closest('td').children('input').attr('disabled', false);
+            }
+        }
+
+        //Corousel
+        function Corousel_table_row() {
+            var Corousel_table_row = '<tr class="col-12 corousel_table"><td class="col"><input type="text" class="form-control form-control-sm fw-medium Corousel-qa-text carousel_question_text" id="" placeholder="Question Text" value=""></td><td class="col"><select class="form-select form-select-sm Corousel-select-picker" aria-label="Default select example"></select></td><td class="col"><select class="form-select form-select-sm Corousel-select-picker carousel_jump" aria-label="Default select example"><?php
+                                                    if (isset($admin_bot_setup)) {
+                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                            // pre($type_value);
+                                                        
+                                                            if ($type_value['bot_id'] == $botId ) {
+                                                            
+                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                ?></select></td><td class="col-2"><div class="col"> <input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image"></div></td><td class="col"><button type="button" class="btn btn-danger btn-sm Corousel-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
+            $(".Corousel-table-body").append(Corousel_table_row);
+        }
+
+        Corousel_table_row();
+
+        $('body').on('click', '.Corousel-add-tabal', function() {
+            Corousel_table_row();
+        });
+
+        $('body').on('click', '.Corousel-remove-btn', function() {
+            $(this).closest('tr').hide();
+        });
+
+        // $('body').on('change', '.Corousel-select-picker', function() {
+        //     Corousel_value_change($(this).closest('tr'));
+        // });
+
+        // function Corousel_value_change(row) {
+
+        //     var Corousel_value = row.find(".Corousel-select-picker").val();
+        //     if (form_value == "Dropdown") {
+        //         row.find('.form-regex').closest('td').children('input').attr('disabled', true);
+
+        //     } else if (form_value == "Question") {
+        //         row.find('.form-regex').closest('td').children('input').attr('disabled', false);
+        //     }
+        // }
+
+
+        //Corousel-1
+        $('#Corousel-1').change(function() {
+            if ($(this).prop('checked')) {
+                $('.Corousel-1').text('Auto Slide');
+                $('.corousel-sec-input').attr('class', 'd-block');
+            } else {
+                $('.Corousel-1').text('Do Not Auto Slide');
+            }
+        });
+
+
+        //proudect 
+
+        function proudect_table_row() {
+            var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select proudect-select-picker" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center proudect-selecter"> <div class="col-12 proudect-image second-add"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control proudect-file" type="file" id="formFile"> </div> <div class="col-12 proudect-video second-remove"> <label for="" class="form-label fw-medium">URL<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class="btn btn-danger proudect-remove-btn ">D</button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
+            $(".proudect-table-body").append(proudect_table_row);
+        }
+
+        proudect_table_row();
+
+        $('body').on('click', '.proudect-add-tabal', function() {
+            proudect_table_row();
+        });
+
+        $('body').on('click', '.proudect-remove-btn', function() {
+            $(this).closest('.proudect-table-row').remove();
+        });
+
+
+        $('body').on('change', '.proudect-select-picker', function() {
+            // proudect_value_change($(this).closest('td'));
+
+            var proudect_value = $(this).closest('td').find(".proudect-select-picker").val();
+
+            if (proudect_value == "2") {
+
+                console.log($(this).closest('td').html());
+                // $(this).closest('td').hide();
+
+
+                $(this).closest('tr').find('.proudect-image').removeClass('second-add');
+                $(this).closest('tr').find('.proudect-image').addClass('second-remove');
+                $(this).closest('tr').find('.proudect-video').removeClass('second-remove');
+                $(this).closest('tr').find('.proudect-video').addClass('second-add');
+                // alert(proudect_value);
+
+
+            } else if (proudect_value == "1") {
+
+                console.log("jenish nhai");
+
+                $(this).closest('tr').find('.proudect-video').removeClass('second-add');
+                $(this).closest('tr').find('.proudect-video').addClass('second-remove');
+                $(this).closest('tr').find('.proudect-image').removeClass('second-remove');
+                $(this).closest('tr').find('.proudect-image').addClass('second-add');
+
+            }
+
+        });
+
+        function proudect_value_change(row) {
+
+            var proudect_value = row.find(".proudect-select-picker").val();
+            alert(proudect_value);
+
+            if (proudect_value == "2") {
+
+
+                $('.proudect-image').removeClass('second-add');
+                $('.proudect-image').addClass('second-remove');
+                $('.proudect-video').removeClass('second-remove');
+                $('.proudect-video').addClass('second-add');
+
+
+            } else if (proudect_value == "1") {
+
+                $('.proudect-video').removeClass('second-add');
+                $('.proudect-video').addClass('second-remove');
+                $('.proudect-image').removeClass('second-remove');
+                $('.proudect-image').addClass('second-add');
+
+            }
+
+        }
+
+
+        function forms_div_fun() {
+        var forms_div = `<div class="Forms_in_div">
+                            <div class="d-flex flex-wrap p-2 row_add">
+                                <div class="ms-2 me-2">
+                                    <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Select Type</label>
+                                    <select class="form-select form-select-picker question_type" aria-label="Default select example">
+                                        <option value="Question" selected>Question</option>
+                                        <option value="Dropdown">Dropdown</option>
+                                    </select>
+                                </div>
+
+                                <div class="ms-2 me-2">
+                                    <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Questions</label>
+                                    <input type="text" class="form-control fw-medium form-qa-text form_question_text" id="" placeholder="Question Text" value="">
+                                </div>
+
+                                <div class="ms-2 me-2">
+                                    <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Required</label>
+                                    <div class="form-check form-switch mx-2 m-2 form-required">
+                                        <input class="form-check-input is_required" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                    </div>
+                                </div>
+
+                                <div class="ms-2 me-2 Regex_div">
+                                    <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Regex</label>
+                                    <input type="text" class="form-control fw-medium form-qa-text form_regex" id="" placeholder="Regex" value="">
+                                </div>
+                            </div>
+                            <div class="d-flex flex-wrap p-2 row_add">
+                                <div class="ms-2 me-2 form_description second-add">
+                                    <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Description</label>
+                                    <input type="text" class="main-input1 form-control fw-medium form-qa-text form_description" id="" placeholder="Enter Description" value="">
+                                    <textarea class="text-area form-control fs-12 fw-medium form-detail form_dropdown" placeholder="Options(comma seperated)" id=""></textarea>
+                                </div>
+                                <div class="ms-2 me-2">
+                                    <button type="button" id="updates_div_d" class="btn form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                `;
+
+            $(".forms_div").append(forms_div);
+            $('.text-area').hide();
+        }
+
+        forms_div_fun();
+
+        $('body').on('click', '.form_question', function() {
+            forms_div_fun();
+        });
+        $('body').on('click', '.form_delete_b', function() {
+            $(this).closest('.Forms_in_div').remove();
+        });
+        
+        $('body').on('change', '.form-select-picker', function() {
+            // let data = $(".form-select-picker").val();
+            let data = $(this).val();
+
+            if (data == "Dropdown") {
+                // $(".Regex_div").hide();
+                $(this).closest('.row_add').find('.Regex_div').hide();
+                $(this).closest('.Forms_in_div').find('.text-area').show();
+                $(this).closest('.Forms_in_div').find('.main-input1').hide();
+            }
+            if (data == "Question") {
+                // $(".Regex_div").show();
+                $(this).closest('.row_add').find('.Regex_div').show();
+                $(this).closest('.Forms_in_div').find('.text-area').hide();
+                $(this).closest('.Forms_in_div').find('.main-input1').show();
+            }
+            
+        });
     });
 </script>
+
 <script>
     var classNames = ['.Email_Add_Ckeditor'];
     var editors = {};
@@ -3231,18 +3486,36 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     if(menu_message != ''){
                         var menu_message = JSON.parse(response[0].menu_message);
 
+                        var reactions = menu_message.reaction;
+                        if (reactions && reactions.length >= 5) {
+                            var firstReaction = reactions[0];
+                            var secondReaction = reactions[1];
+                            var thirdReaction = reactions[2];
+                            var fourthReaction = reactions[3];
+                            var fifthReaction = reactions[4];
+
+                            $(".terrible").val(firstReaction.reaction);
+                            $(".bad").val(secondReaction.reaction);
+                            $(".okay").val(thirdReaction.reaction);
+                            $(".good").val(fourthReaction.reaction);
+                            $(".great").val(fifthReaction.reaction);
+                        } else {
+                           
+                        } 
+
                         $(".button_text").val(menu_message.button_text);
                         $(".button_url").val(menu_message.button_url);
 
                         $(".minimum_value").val(menu_message.min);
                         $(".maximum_value").val(menu_message.max);
 
-                        // var reactions = menu_message.reaction;
-                        // $(".terrible").val(reactions[0]); 
-                        // $(".bad").val(reactions[1]);     
-                        // $(".okay").val(reactions[2]);    
-                        // $(".good").val(reactions[3]);    
-                        // $(".great").val(reactions[4]);   
+                        $(".min_order_amount").val(menu_message.min_order_amount);
+                        $(".discount_percentage").val(menu_message.discount_percentage);
+                        $(".tax_percentage").val(menu_message.tax_percentage);
+                        $(".delivery_charges").val(menu_message.delivery_charges);
+                        $(".currency").val(menu_message.currency);
+                        $(".size").val(menu_message.size);
+
 
                         if (menu_message.remove_menu === "true") {
                             $(".menu_message").prop("checked", true);
@@ -3261,46 +3534,44 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         } else {
                             $(".is_strict_validation").prop("checked", false);
                         }
-                      
+                    
                         if(type_of_question == 2){
-                            if (menu_message.options != "") {
-                                var optionsArray = menu_message.options.split(';'); 
+                            if (menu_message && menu_message.options != "") {
+                                var optionsArray = menu_message.options.split(';');
                                 $(".main-plan").remove();
                                 optionsArray.forEach(function(option, index) {
                                     var row_numbers = index === 0 ? '' : $('.main-plan').length;
-                                    // if (type_of_question == "2") {
-                                        var main_table_html = 
+                                    var main_table_html =
                                         '<tr class="col-12 main-plan">' +
-                                            '<td class="col-3">' +
-                                            '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
-                                            '</td>' +
-                                            '<td class="col-3">' +
-                                            '<select class="form-select" aria-label="Default select example">' +
-                                            '<option value="1">Main-flow</option>' +
-                                            '</select>' +
-                                            '</td>' +
-                                            '<td class="col-4">' +
-                                            '<select class="form-select question_select" aria-label="Default select example">' +
-                                            '<option selected="">No Jump</option>' +
-                                            '<option value="1">What is Your Name?</option>' +
-                                            '<option value="2">What is Your Gender?</option>' +
-                                            '<option value="5">Enter Your Email.</option>' +
-                                            '<option value="6">What type of food do you eat?</option>' +
-                                            '</select>' +
-                                            '</td>' +
-                                            '<td class="col-2">' +
-                                            '<button type="button" class="btn btn-danger multiple-remove-btn">' +
-                                            '<i class="fa fa-trash cursor-pointer"></i>' +
-                                            '</button>' +
-                                            '</td>' +
+                                        '<td class="col-3">' +
+                                        '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                                        '</td>' +
+                                        '<td class="col-3">' +
+                                        '<select class="form-select" aria-label="Default select example">' +
+                                        '<option value="1">Main-flow</option>' +
+                                        '</select>' +
+                                        '</td>' +
+                                        '<td class="col-4">' +
+                                        '<select class="form-select question_select" aria-label="Default select example">' +
+                                        '<option selected="">No Jump</option>' +
+                                        '<option value="1">What is Your Name?</option>' +
+                                        '<option value="2">What is Your Gender?</option>' +
+                                        '<option value="5">Enter Your Email.</option>' +
+                                        '<option value="6">What type of food do you eat?</option>' +
+                                        '</select>' +
+                                        '</td>' +
+                                        '<td class="col-2">' +
+                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                        '<i class="fa fa-trash cursor-pointer"></i>' +
+                                        '</button>' +
+                                        '</td>' +
                                         '</tr>';
                                     $(".tbody").append(main_table_html);
                                 });
                             }else {
                                 $(".is_strict_validation").prop("checked", false);
                             }
-                        } 
-
+                        }
 
                         if(type_of_question == 4){
                             if (menu_message.options != "") {
@@ -3326,7 +3597,41 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             }
 
                         }
-                        
+
+
+                        if (type_of_question == 18 && menu_message && menu_message.length > 0) {
+                            $(".corousel_table").remove(); 
+
+                            menu_message.forEach(function(item) {
+                                var corousel_table_html = 
+                                    '<tr class="col-12 corousel_table">' +
+                                        '<td class="col">' +
+                                            '<input type="text" class="form-control form-control-sm fw-medium Corousel-qa-text carousel_question_text" placeholder="Enter the option" value="' + item.questionText + '">' +
+                                        '</td>' +
+                                        '<td class="col">' +
+                                            '<select class="form-select form-select-sm Corousel-select-picker" aria-label="Default select example"></select>' +
+                                        '</td>' +
+                                        '<td class="col">' +
+                                            '<select class="form-select form-select-sm Corousel-select-picker carousel_jump" aria-label="Default select example">' +
+                                                '<?php if (isset($admin_bot_setup)) { foreach ($admin_bot_setup as $type_key => $type_value) { if ($type_value['bot_id'] == $botId ) { echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>'; } } } ?>' +
+                                            '</select>' +
+                                        '</td>' +
+                                        '<td class="col-2">' +
+                                            '<div class="col">' +
+                                                '<input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image">' +
+                                            '</div>' +
+                                        '</td>' +
+                                        '<td class="col">' +
+                                            '<button type="button" class="btn btn-danger btn-sm Corousel-remove-btn">' +
+                                                '<i class="fa fa-trash cursor-pointer"></i>' +
+                                            '</button>' +
+                                        '</td>' +
+                                    '</tr>';
+                                $(".Corousel-table-body").append(corousel_table_html); 
+                            });
+                        } else {
+                            $(".is_strict_validation").prop("checked", false);
+                        }
                     }
 
                     var skip_question = response[0].skip_question;
@@ -3349,6 +3654,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             alert("Data Not Edit.");
         }
     });
+
+
+ 
 
 
     //question update
@@ -3524,6 +3832,26 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             var options_value = JSON.stringify(dateRangeObject);
         }
 
+        if (type_of_question == "15") {
+            var minOrderAmount = $('.min_order_amount').val() || 0;
+            var discountPercentage = $('.discount_percentage').val() || 0;
+            var taxPercentage = $('.tax_percentage').val() || 0;
+            var deliveryCharges = $('.delivery_charges').val() || 0;
+            var currency = $('.currency').val() || "";
+            var size = $('.size').val() || "";
+
+            var defaultOptions = {
+                min_order_amount: parseFloat(minOrderAmount),
+                discount_percentage: parseFloat(discountPercentage),
+                tax_percentage: parseFloat(taxPercentage),
+                delivery_charges: parseFloat(deliveryCharges),
+                currency: currency,
+                size: size
+            };
+
+            var options_value = JSON.stringify(defaultOptions);
+        }   
+
         if (type_of_question == "16") {
             var buttonText = $('.button_text').val();
             var buttonUrl = $('.button_url').val();
@@ -3532,10 +3860,86 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 button_text: buttonText,
                 button_url: buttonUrl
             };
-
             var options_value = JSON.stringify(buttonObject);
-            console.log(options_value);
+            // console.log(options_value);
         }
+
+        if (type_of_question == "17") {
+            function createFormDataArray() {
+                var formDataArray = []; 
+                var formContainers = document.querySelectorAll('.Forms_in_div');
+                formContainers.forEach(function(container) {
+                    var formData = {};
+
+
+                    var questionType = $('.question_type').val();
+                    var questionText = $('.form_question_text').val();
+                    var isRequired = $('.is_required').val();
+                    var regex = $('.form_regex').val();
+                    var options = $('.text-area').val();
+                    var description = $('.main-input1').val();
+
+                    formData.type = questionType;
+                    formData.text = questionText;
+                    formData.is_req = isRequired;
+                    formData.regex = regex;
+                    formData.options = options;
+                    formData.desc = description;
+
+                    formDataArray.push(formData);
+                });
+
+                return JSON.stringify({ questions: formDataArray });
+            }
+            var options_value = createFormDataArray();
+        }
+
+        if (type_of_question == "18") {
+            var carouselData = [];
+            $('.Corousel-table-body').find('tr').each(function() {
+                var $row = $(this);
+
+                var questionTextInput = $row.find('.carousel_question_text').val();
+                var carousel_jump = $row.find('.carousel_jump').val();
+                var fileInput = $row.find('#insert_image').prop('files')[0];
+                var fileName = fileInput ? fileInput.name : ''; 
+
+                var rowData = {
+                    questionText: questionTextInput,
+                    carousel_jump: carousel_jump,
+                    fileInput: fileName 
+                };
+
+                carouselData.push(rowData);
+            });
+
+            var options_value = JSON.stringify(carouselData);
+        }
+
+
+        var date_range = $(".appointment_date_range").val(); 
+        var appointment_period = $(".appointment_period").val();
+        var weekdays =  $(".weekdays input[type='checkbox']").each(function(index) {
+                            $(this).prop("checked", weekdays.includes(index + 1));
+                        });
+        var from_timing = $(".from_timing").val();
+        var to_timing = $(".to_timing").val();
+        var timezone = $(".timezone").val();
+        var interval = $(".interval").val();
+        var bookings_per_slot = $(".bookings_per_slot").val();
+        var title = $(".title").val();
+        var description = $(".description").val();
+        var meeting_url = $(".meeting_url").val();
+        var already_booked_message = $(".already_booked_message").val();
+        var no_slots_message =  $(".no_slots_message").val();
+        var next_days = $(".next_days input").val(); 
+        var channel = $(".channel").val();
+        console.log(date_range);
+        console.log(appointment_period);
+        console.log(already_booked_message);
+        console.log(no_slots_message);
+
+
 
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
@@ -3641,7 +4045,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
        
         var next_question_id = $('.question_select').val(); 
-
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
             var formdata = new FormData(form);
@@ -3660,7 +4063,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 success: function (res) {
                     if (res == true) {
                         $('.loader').hide();
-                        $("form[name='question_update_form']")[0].reset();
+                        // $("form[name='question_update_form']")[0].reset();
                         $("form[name='question_update_form']").removeClass("was-validated");
                         $(".btn-close").trigger("click");
                         iziToast.success({
@@ -3786,14 +4189,18 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             10: "#tenthquestion",
             14: "#tenthquestion",
             12: "#twelthquestion",
+            15: "#fifteenquestion",
             16: "#sixteenquestion",
+            17: "#seventeenquestion",
+            18: "#eighteenquestion",
+            21: "#twentyonequestion",
         };
         var htmlContent = getQuestionHTML(type_of_question);
         $(questionContainers[type_of_question]).html(htmlContent);
     });
 
     function clearQuestions() {
-        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion").html("");
+        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion").html("");
     }
 
     function getQuestionHTML(type_of_question) {
@@ -4396,10 +4803,68 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             case "15":
             return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
-                    <div class="col-12 d-flex flex-wrap px-2">
-                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question" type="checkbox" role="switch" id="Number-1">
-                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
+                    <div class="col-12 my-2">
+                        <div class="col-12 d-flex flex-wrap">
+                            <div class="col-6 px-2">
+                                <div class="col-12">
+                                    <label for="" class="form-label">Currency </label>
+                                    <select class="form-select w-100 currency" aria-label="Default select example">
+                                        <option value="">Select</option>
+                                        <option value="USD">USD(Dollars)</option> 
+                                        <option value="INR">INR(Rupees)</option>
+                                        <option value="AED">AED(United Arab Emirates)</option>
+                                        <option value="ALL">ALL(Albanian lek)</option>
+                                        <option value="AMD">AMD(Armenian dram)</option>
+                                        <option value="ARS">ARS(Argentine peso)</option>
+                                        <option value="AUD">AUD(Australian dollar)</option>
+                                        <option value="AWG">AWG(Aruban florin)</option><option ng-repeat="currency in actualCurrencies" value="BBD" class="ng-binding ng-scope">BBD(Barbadian dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="BDT" class="ng-binding ng-scope">BDT(Bangladeshi taka)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="BMD" class="ng-binding ng-scope">BMD(Bermudian dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="BND" class="ng-binding ng-scope">BND(Brunei dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="BOB" class="ng-binding ng-scope">BOB(Bolivian boliviano)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="BSD" class="ng-binding ng-scope">BSD(Bahamian dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="BWP" class="ng-binding ng-scope">BWP(Botswana pula)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="BZD" class="ng-binding ng-scope">BZD(Belize dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="CAD" class="ng-binding ng-scope">CAD(Canadian dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="CHF" class="ng-binding ng-scope">CHF(Swiss franc)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="CNY" class="ng-binding ng-scope">CNY(Chinese Yuan Renminbi)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="COP" class="ng-binding ng-scope">COP(Colombian peso)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="CRC" class="ng-binding ng-scope">CRC(Costa Rican colon)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="CUP" class="ng-binding ng-scope">CUP(Cuban peso)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="CZK" class="ng-binding ng-scope">CZK(Czech koruna)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="DKK" class="ng-binding ng-scope">DKK(Danish krone)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="DOP" class="ng-binding ng-scope">DOP(Dominican peso)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="DZD" class="ng-binding ng-scope">DZD(Algerian dinar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="EGP" class="ng-binding ng-scope">EGP(Egyptian pound)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="ETB" class="ng-binding ng-scope">ETB(Ethiopian birr)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="EUR" class="ng-binding ng-scope">EUR(European euro)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="FJD" class="ng-binding ng-scope">FJD(Fijian dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="GBP" class="ng-binding ng-scope">GBP(Pound sterling)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="GIP" class="ng-binding ng-scope">GIP(Gibraltar pound)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="GMD" class="ng-binding ng-scope">GMD(Gambian dalasi)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="GTQ" class="ng-binding ng-scope">GTQ(Guatemalan quetzal)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="GYD" class="ng-binding ng-scope">GYD(Guyanese dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="HKD" class="ng-binding ng-scope">HKD(Hong Kong dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="HNL" class="ng-binding ng-scope">HNL(Honduran lempira)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="HRK" class="ng-binding ng-scope">HRK(Croatian kuna)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="HTG" class="ng-binding ng-scope">HTG(Haitian gourde)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="HUF" class="ng-binding ng-scope">HUF(Hungarian forint)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="IDR" class="ng-binding ng-scope">IDR(Indonesian rupiah)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="ILS" class="ng-binding ng-scope">ILS(Israeli new shekel)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="JMD" class="ng-binding ng-scope">JMD(Jamaican dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="KES" class="ng-binding ng-scope">KES(Kenyan shilling)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="KGS" class="ng-binding ng-scope">KGS(Kyrgyzstani som)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="KHR" class="ng-binding ng-scope">KHR(Cambodian riel)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="KYD" class="ng-binding ng-scope">KYD(Cayman Islands dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="KZT" class="ng-binding ng-scope">KZT(Kazakhstani tenge)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="LAK" class="ng-binding ng-scope">LAK(Lao kip)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="LBP" class="ng-binding ng-scope">LBP(Lebanese pound)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="LKR" class="ng-binding ng-scope">LKR(Sri Lankan rupee)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="LRD" class="ng-binding ng-scope">LRD(Liberian dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="LSL" class="ng-binding ng-scope">LSL(Lesotho loti)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MAD" class="ng-binding ng-scope">MAD(Moroccan dirham)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MDL" class="ng-binding ng-scope">MDL(Moldovan leu)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MKD" class="ng-binding ng-scope">MKD(Macedonian denar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MMK" class="ng-binding ng-scope">MMK(Myanmar kyat)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MNT" class="ng-binding ng-scope">MNT(Mongolian tugrik)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MOP" class="ng-binding ng-scope">MOP(Macanese pataca)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MUR" class="ng-binding ng-scope">MUR(Mauritian rupee)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MVR" class="ng-binding ng-scope">MVR(Maldivian rufiyaa)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MWK" class="ng-binding ng-scope">MWK(Malawian kwacha)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MXN" class="ng-binding ng-scope">MXN(Mexican peso)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="MYR" class="ng-binding ng-scope">MYR(Malaysian ringgit)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="NAD" class="ng-binding ng-scope">NAD(Namibian dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="NGN" class="ng-binding ng-scope">NGN(Nigerian naira)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="NIO" class="ng-binding ng-scope">NIO(Nicaraguan cordoba)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="NOK" class="ng-binding ng-scope">NOK(Norwegian krone)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="NPR" class="ng-binding ng-scope">NPR(Nepalese rupee)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="NZD" class="ng-binding ng-scope">NZD(New Zealand dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="PEN" class="ng-binding ng-scope">PEN(Peruvian sol)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="PGK" class="ng-binding ng-scope">PGK(Papua New Guinean kina)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="PHP" class="ng-binding ng-scope">PHP(Philippine peso)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="PKR" class="ng-binding ng-scope">PKR(Pakistani rupee)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="QAR" class="ng-binding ng-scope">QAR(Qatari riyal)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="RUB" class="ng-binding ng-scope">RUB(Russian ruble)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="SAR" class="ng-binding ng-scope">SAR(Saudi Arabian riyal)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="SCR" class="ng-binding ng-scope">SCR(Seychellois rupee)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="SEK" class="ng-binding ng-scope">SEK(Swedish krona)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="SGD" class="ng-binding ng-scope">SGD(Singapore dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="SLL" class="ng-binding ng-scope">SLL(Sierra Leonean leone)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="SOS" class="ng-binding ng-scope">SOS(Somali shilling)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="SSP" class="ng-binding ng-scope">SSP(South Sudanese pound)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="SVC" class="ng-binding ng-scope">SVC(Salvadoran colón)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="SZL" class="ng-binding ng-scope">SZL(Swazi lilangeni)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="THB" class="ng-binding ng-scope">THB(Thai baht)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="TTD" class="ng-binding ng-scope">TTD(Trinidad and Tobago dollar)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="TZS" class="ng-binding ng-scope">TZS(Tanzanian shilling)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="UYU" class="ng-binding ng-scope">UYU(Uruguayan peso)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="UZS" class="ng-binding ng-scope">UZS(Uzbekistani som)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="YER" class="ng-binding ng-scope">YER(Yemeni rial)</option><!-- end ngRepeat: currency in actualCurrencies --><option ng-repeat="currency in actualCurrencies" value="ZAR" class="ng-binding ng-scope">ZAR(South African rand)</option><!-- end ngRepeat: currency in actualCurrencies -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6 px-2">
+                                <div class="col-12">
+                                    <label for="" class="form-label">Minimum Order Amount</label>
+                                    <input type="number" class="form-control min_order_amount" id="" placeholder="" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-2 d-flex flex-wrap">
+                            <div class="col-6 px-2">
+                                <div class="col-12">
+                                    <label for="" class="form-label">Discount Percentage</label>
+                                    <input type="number" class="form-control discount_percentage" id="" placeholder="" value="">
+                                </div>
+                            </div>
+                            <div class="col-6 px-2">
+                                <div class="col-12">
+                                    <label for="" class="form-label">Tax Percentage</label>
+                                    <input type="number" class="form-control tax_percentage" id="" placeholder="" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-2 d-flex flex-wrap">
+                            <div class="col-6 px-2">
+                                <div class="col-12">
+                                    <label for="" class="form-label">Delivery Charges</label>
+                                    <input type="number" class="form-control delivery_charges" id="" placeholder="" value="">
+                                </div>
+                            </div>
+                            <div class="col-6 px-2">
+                                <div class="col-12">
+                                    <label for="" class="form-label">Size</label>
+                                    <input type="text" class="form-control size" id="" placeholder="" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-2 d-flex flex-wrap">
+                            <div class="col-6 px-2">
+
+                            </div>
+                            <div class="col-6 px-2">
+                                <div class="col-12">
+                                    <label for="" class="form-label">Note: Separate different string by comma(,). E.g. M,S,L Note: Size is Only for Instagram</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -4423,6 +4888,286 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "17":
+            return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="forms_div">
+
+                    </div>
+
+                    <div class="col-12 p-3">
+                        <div class="col-2">
+                            <button type="button" class="btn btn-primary form_question">Add</button>
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "18":
+            return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap Corousel-choice">
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <div class="form-check form-switch d-flex flex-wrap align-items-center col-4 m-2">
+                                <div class="d-flex align-items-center col-12 my-2">
+                                    <label class="switch_toggle_primary">
+                                        <input class="toggle-checkbox Corousel-1" type="checkbox" id="Corousel-1">
+                                        <span class="check_input_primary round"></span>
+                                    </label>
+                                    <p class="mx-2 fw-medium Corousel-1">Do Not Auto Slide</p>
+                                </div>
+                            </div>
+                            <div class="col-4 d-flex flex-wrap align-items-center corousel-sec-input d-none">
+                                <span>Delay (sec)</span>
+                                <span class="col-3 mx-2"><input type="number" class="form-control" id="" value="1"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <table class="table w-100 col-12">
+                                <thead>
+                                    <tr class="Corousel-table-head">
+                                        <th scope="col" class="fs-12 fw-medium">Options</th>
+                                        <th scope="col" class="fs-12 fw-medium">Sub-flow</th>
+                                        <th scope="col" class="fs-12 fw-medium">Jump To</th>
+                                        <th scope="col" class="fs-12 fw-medium">File</th>
+                                        <th scope="col" class="fs-12 fw-medium"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="Corousel-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary Corousel-add-tabal">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "21":
+            return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap">
+                        <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
+                            <div class="col-1">
+                                <span><b>NOTE:</b></span>
+                            </div>
+                            <div class="col-11">
+                                <span>Please note that the below conditions are an intersection of each other.</span>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap border justify-content-center rounded-3 my-2 p-2">
+                            <div class="col-12 text-center my-1">
+                                <span><b>Google Calendar</b></span>
+                            </div>
+                            <div class="col-6 d-flex flex-wrap justify-content-center">
+                                <div class="input-group col-4">
+                                    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap p-3 px-5 my-2 border rounded-3">
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input fw-bold appointment_weekdays" type="checkbox" id="" value="MON" checked>
+                                <label class="form-check-label fw-semibold" for="">MON</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input fw-bold appointment_weekdays" type="checkbox" id="" value="TUE" checked>
+                                <label class="form-check-label fw-semibold" for="">TUE</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input fw-bold appointment_weekdays" type="checkbox" id="" value="WED" checked>
+                                <label class="form-check-label fw-semibold" for="">WED</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input fw-bold appointment_weekdays" type="checkbox" id="" value="THU" checked>
+                                <label class="form-check-label fw-semibold" for="">THU</label>
+                            </div>
+                            <div class="form-check form-check-inline col appointment_weekdays">
+                                <input class="form-check-input fw-bold appointment_weekdays" type="checkbox" id="" value="FRI" checked>
+                                <label class="form-check-label fw-semibold" for="">FRI</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input fw-bold appointment_weekdays" type="checkbox" id="" value="SAT" checked>
+                                <label class="form-check-label fw-semibold" for="">SAT</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input fw-bold appointment_weekdays" type="checkbox" id="" value="SUN" checked>
+                                <label class="form-check-label fw-semibold" for="">SUN</label>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                            <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label next_days">Disable Next (Days)</label>
+                                        <input type="number" class="form-control" id="" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">End Date :</label>
+                                        <input type="text" class="form-control appointment_date_range" id="" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Enable Future (Days)</label>
+                                        <input type="number" class="form-control appointment_period" id="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex flex-wrap align-items-center justify-content-between my-1">
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Enable Next (Days)</label>
+                                        <input type="number" class="form-control appointment_period" id="" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-7 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="d-flex align-items-center col-12 my-2">
+                                        <label class="switch_toggle_primary">
+                                            <input class="toggle-checkbox Appointment-1 enable_timezone_selection" type="checkbox" id="Appointment-1">
+                                            <span class="check_input_primary round"></span>
+                                        </label>
+                                        <p class="mx-2 fw-medium Appointment-1">Enable Timezone Selection</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                            <div class="col-12 d-flex flex-wrap align-items-center">
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Slot Timings :</label>
+                                        <select class="form-select from_timing" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label"></label>
+                                        <select class="form-select to_timing" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Timezone</label>
+                                        <select class="form-select timezone" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex flex-wrap align-items-center">
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Slot Interval <span class="text-denger">*</span>(Mins) :</label>
+                                        <input type="number" class="form-control interval" id="" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Format</label>
+                                        <select class="form-select format" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Meetings per slot </label>
+                                        <input type="number" class="form-control bookings_per_slot" id="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                            <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                <div class="col-12">
+                                    <label for="" class="form-label">Data Referencing (You can use it only for Title) </label>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Main Flow</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-8 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <select class="form-select appointment_jump_question" aria-label="Default select example">
+                                            <?php
+                                                if (isset($admin_bot_setup)) {
+                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                        // pre($type_value);
+                                                    
+                                                        if ($type_value['bot_id'] == $botId ) {
+                                                        
+                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                            <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label fw-medium">Title <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control title" id="" placeholder="Title">
+                                    </div>
+                                </div>
+                                <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label fw-medium">Description </label>
+                                        <input type="text" class="form-control description" id="" placeholder="Description">
+                                    </div>
+                                </div>
+                                <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label fw-medium">Meeting Location<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control meeting_url" id="" placeholder="Meeting Location">
+                                    </div>
+                                </div>
+                                <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label fw-medium">Message to show when selected slot is already booked </label>
+                                        <input type="text" class="form-control already_booked_message" id="" placeholder="Text to show when selected slot is already booked">
+                                    </div>
+                                </div>
+                                <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label fw-medium">Message to show when slots are unavailable </label>
+                                        <input type="text" class="form-control no_slots_message" id="" placeholder="Text to show when slots are unavailable">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>

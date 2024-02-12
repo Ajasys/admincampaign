@@ -415,7 +415,7 @@ public function whatsapp_connections(){
             'sequence int(11) NOT NULL',
             'bot_id int(11) NOT NULL',
             'next_question_id int(11) NOT NULL',
-            'default_options longtext',
+            'menu_message longtext',
             'skip_question int(11) NOT NULL',
             'error_text varchar(500) NOT NULL',
         ];
