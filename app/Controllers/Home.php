@@ -117,6 +117,21 @@ public function whatsapp_connections(){
     public function index()
     {
         $table_username = session_username($_SESSION['username']);
+        
+        $admin_sent_message_detail = [
+            'id int primary key AUTO_INCREMENT',
+            'receiver_number int(255) NOT NULL',
+            'Template_name varchar(400)',
+            'template_id varchar(400)',
+            'Whatsapp_Message_id varchar(400)',
+            'Status varchar(400)',
+            'WhatsApp_Response varchar(400)',
+            'Createdat datetime',
+            'delivertimedate datetime',
+            'readtimedate datetime',
+        ];
+
+        $table = tableCreateAndTableUpdate2($table_username.'_sent_message_detail', '', $admin_sent_message_detail);
         // $table_username = getMasterUsername();
         $table_name100 = $table_username . '_email_track';
         $columns100 = [

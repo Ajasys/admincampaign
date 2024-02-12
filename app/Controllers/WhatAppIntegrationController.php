@@ -341,6 +341,26 @@ class WhatAppIntegrationController extends BaseController
         $html1='';
         $i='';
 		foreach ($sentmsgdisplaydata as $key => $value) {
+            // pre($value['Status']);
+            $statusname = '';
+            $formattedDate  = '';
+            if($value['Createdat'] != '0000-00-00 00:00:00'){
+
+                $formattedDate = (new \DateTime($value['Createdat']))->format('d-m-Y h:i A');
+            }
+
+            if($value['Status'] == '0'){
+                $statusname = 'Sent';
+            }
+            if($value['Status'] == '1'){
+                $statusname = 'Delivered';
+            }
+            if($value['Status'] == '3'){
+                $statusname = 'Read';
+            }
+            if($value['Status'] == '4'){
+                $statusname = 'Failed';
+            }
             $html1 .= '<tr>
 		
             <td class="whatsapp-col">'.$value['receiver_number'].'</td>
@@ -349,9 +369,9 @@ class WhatAppIntegrationController extends BaseController
                 <div id="whatsapp-meassage">
                 '.$value['Whatsapp_Message_id'].'</div>
             </td>
-            <td>read</td>
+            <td>'.$statusname.'</td>
             <td>'.$value['WhatsApp_Response'].'</td>
-            <td>'.$value['Createdat'].'</td>
+            <td>'.$formattedDate.'</td>
 					
 			
 		</td>';
