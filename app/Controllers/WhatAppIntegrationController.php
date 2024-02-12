@@ -1081,6 +1081,7 @@ class WhatAppIntegrationController extends BaseController
         $phone_no = $post_data['phone_no'];
         $language = $post_data['language'];
         $template_id = $post_data['template_id'];
+        $cuurrenttime = gmdate('Y-m-d H:i:s');
 
 
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
@@ -1113,8 +1114,8 @@ class WhatAppIntegrationController extends BaseController
                 foreach ($Result['messages'] as $message) {
                     $WhatsApp_Message_id = $message['id'];
                     $WhatsApp_Response = $message['message_status'];
-        
-                    $sql = "INSERT INTO admin_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response')";
+                    
+                    $sql = "INSERT INTO admin_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime')";
                     $db_connection->query($sql);
                 }
             }
