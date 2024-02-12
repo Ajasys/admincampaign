@@ -1715,7 +1715,7 @@ $language_name = json_decode($language_name, true);
                                         <div class="preview-chat-paragraph bg-white p-3 col-10">
                                             <!-- <div class="preview-header-paragraph refreshit" ng-if="submitParamDetails"  class="ng-scope" style=""> -->
                                                 <div ng-if="media_footer_text.length > 0 "
-                                                    class="user-name-chat-header preview-header-paragraph  message msg  m-0 p-l-10 p-r-5 ng-binding fw-bold ng-scope"
+                                                    class="user-name-chat-header preview-header-paragraph message msg  m-0 p-l-10 p-r-5 ng-binding fw-bold ng-scope"
                                                     style=""></div>
                                                 <!-- end ngIf: media_footer_text.length > 0 -->
                                             <!-- </div> -->
@@ -3208,11 +3208,14 @@ $language_name = json_decode($language_name, true);
 
         } else {
             $('.single-t-call-button').show();
+            $('.single-button-whatsapp-template2').addClass('d-none');
+
         }
 
         $('.single-t-call-button .single-button-whatsapp-template1').html(button1input);
     });
 
+    
     $('.SetButtonHTMLClass').on('input', function () {
         var button1input = $('.CnoCnoInputField').val();
         var button2input = $('.UrlUrlInputField').val();
@@ -3224,7 +3227,7 @@ $language_name = json_decode($language_name, true);
 
         } else {
             $('.single-t-call-button').show();
-            $('.single-button-whatsapp-template2').removeClass('d-none');
+            $('.single-button-whatsapp-template2').addClass('d-none');
 
         }
         if (button2input === "") {
