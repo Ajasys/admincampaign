@@ -494,10 +494,16 @@ $user_data = $user_result->getResultArray();
             draft_pages_list_data();
         });
 
+        // $('body').on('click', '.lead_main_box_add', function() {
+        //     $(".lead_add_main_box").show();
+        //     $(".add_next_big_plus_outer").hide();
+        // });
+
         $('body').on('click', '.lead_main_box_add', function() {
-            $(".lead_add_main_box").show();
-            $(".add_next_big_plus_outer").hide();
-            // alert('outer');
+            $(".lead_module_devider , .big_circle_plus_outer , .all_circle_plus_list , .big_circle_fb_outer , .add_next_big_plus_outer").hide();
+            $(".lead_add_main_box,.big_list_add_outer_main_2 .all_circle_plus_list , .big_list_add_outer_main_3 .all_circle_plus_list , .big_list_add_outer_main_1 , .big_list_add_outer_main_1 .big_circle_plus_outer").show();
+            $('.discard-tag').show();
+
         });
 
         $(".big_list_add_outer_main").hide();
@@ -1097,17 +1103,13 @@ $user_data = $user_result->getResultArray();
     // });
 
     function EditScenarios(edit_id) {
+
         $('.big_list_add_outer_main_2,.lead_module_devider_1,.big_list_add_outer_main_3,.lead_module_devider_2').show();
         $('.big_list_add_outer_main_1,.big_circle_plus_outer,.add_next_big_plus_outer,.all_circle_plus_list,.discard-tag').hide();
         $('.big_circle_fb_outer,.lead_add_main_box,.lead_main_box_add').show();
-        $('.discard-tag').show();
-        $('body').on('click', '.lead_main_box_add', function() {
-            $(".lead_module_devider , .big_circle_plus_outer , .all_circle_plus_list , .big_circle_fb_outer , .add_next_big_plus_outer").hide();
-            $(".big_list_add_outer_main_2 .all_circle_plus_list , .big_list_add_outer_main_3 .all_circle_plus_list , .big_list_add_outer_main_1 , .big_list_add_outer_main_1 .big_circle_plus_outer").show();
-            // alert('inner');
+        // $('.discard-tag').show();
 
-        });
-
+      
         // $(".big_list_add_outer_main").hide();
         // $(".big_list_add_outer_main_1").show();
 
