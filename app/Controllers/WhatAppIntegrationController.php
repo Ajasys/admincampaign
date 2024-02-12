@@ -334,6 +334,32 @@ class WhatAppIntegrationController extends BaseController
                 }
             }
         }
+
+        $Sent_messagae_data = $this->MasterInformationModel->display_all_records2('admin_sent_message_detail');
+        $sentmsgdisplaydata = json_decode($Sent_messagae_data, true);
+
+        $html1='';
+        $i='';
+		foreach ($sentmsgdisplaydata as $key => $value) {
+            $html1 .= '<tr>
+		
+            <td class="whatsapp-col">'.$value['receiver_number'].'</td>
+            <td>'.$value['Template_name'].'</td>
+            <td>
+                <div id="whatsapp-meassage">
+                '.$value['Whatsapp_Message_id'].'</div>
+            </td>
+            <td>read</td>
+            <td>'.$value['WhatsApp_Response'].'</td>
+            <td>'.$value['Createdat'].'</td>
+					
+			
+		</td>';
+        $html1 .= '</tr>';
+        $i++;
+        }
+
+
         $recordsCount = '';
         $return_array['templateBUTTON'] = $templateBUTTON;
         $return_array['templatefooter'] = $templatefooter;
@@ -343,6 +369,9 @@ class WhatAppIntegrationController extends BaseController
         $return_array['template_name'] = $templateNames;
         $return_array['templatelanguage'] = $templatelanguage;
         $return_array['html'] = $Html;
+        $return_array['html1'] = $html1;
+
+        
         return json_encode($return_array, true);
         die();
     }
@@ -1028,9 +1057,11 @@ class WhatAppIntegrationController extends BaseController
     {
         $post_data = $_POST;
 
-        $template_name = $post_data['header'];
+        $template_name = $post_data['template_name'];
         $phone_no = $post_data['phone_no'];
         $language = $post_data['language'];
+        $template_id = $post_data['template_id'];
+
 
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 
@@ -1048,11 +1079,31 @@ class WhatAppIntegrationController extends BaseController
             ]
         ]);
         $Result = postSocialData($url, $postData);
-        $ReturnResult = 1;
-        if (isset($Result['id'])) {
-            $ReturnResult = 0;
+        $ReturnResult = 0;
+        
+        if (isset($Result['error_data'])) {
+        } elseif (isset($Result['contacts'])) {
+            $ReturnResult = 1;
+
+            $db_connection = \Config\Database::connect('second');
+        
+            foreach ($Result['contacts'] as $contact) {
+                $receiver_number = $contact['wa_id'];
+        
+                foreach ($Result['messages'] as $message) {
+                    $WhatsApp_Message_id = $message['id'];
+                    $WhatsApp_Response = $message['message_status'];
+        
+                    $sql = "INSERT INTO admin_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response')";
+                    $db_connection->query($sql);
+                }
+            }
         }
+        
         echo $ReturnResult;
+        
+        
+
     }
 
     public function GetWhatsAppTemplateDetails()
