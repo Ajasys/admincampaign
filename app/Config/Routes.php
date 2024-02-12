@@ -567,6 +567,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/GetWhatAppTemplateList', 'WhatAppIntegrationController::GetWhatAppTemplateList');
 	$routes->post('/CheckWhataAppConnection', 'WhatAppIntegrationController::CheckWhataAppConnection');
 	$routes->post('/WhatsAppRTemplateDeleteRequest', 'WhatAppIntegrationController::WhatsAppRTemplateDeleteRequest');
+	$routes->post('/single_whatsapp_template_sent', 'WhatAppIntegrationController::single_whatsapp_template_sent');
 
 $routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
 	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
@@ -579,7 +580,6 @@ $routes->get('/whatsapp_connections', 'Home::whatsapp_connections');
 
 	
 	// $routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
-	$routes->post('/single_whatsapp_template_sent', 'WhatAppAakashController::single_whatsapp_template_sent');
 $routes->post('/WhatsAppConnectionEntry', 'WhatAppAakashController::WhatsAppConnectionEntry');
 	$routes->post('/WhatsAppConnectionsList', 'WhatAppAakashController::WhatsAppConnectionsList');
 

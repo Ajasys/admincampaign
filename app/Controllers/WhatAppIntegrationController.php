@@ -1035,7 +1035,6 @@ class WhatAppIntegrationController extends BaseController
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 
         $url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
-
         $postData = json_encode([
             "messaging_product" => "whatsapp",
             "recipient_type" => "individual",
@@ -1048,31 +1047,12 @@ class WhatAppIntegrationController extends BaseController
                 ]
             ]
         ]);
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
-            "Content-Length: " . strlen($postData),
-        ]);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($ch);
-
-        if ($response == false) {
-            $error = curl_error($ch);
-            echo "cURL Error: " . $error;
-            $msgStatus = 0;
-        } else {
-            $msgStatus = 1;
-            echo $response;
+        $Result = postSocialData($url, $postData);
+        $ReturnResult = 1;
+        if (isset($Result['id'])) {
+            $ReturnResult = 0;
         }
-
-        curl_close($ch);
-        return json_encode($msgStatus, true);
+        echo $ReturnResult;
     }
 
     public function GetWhatsAppTemplateDetails()
