@@ -3,7 +3,7 @@
 
 
 <style>
-     textarea:focus {
+    textarea:focus {
         outline: none;
     }
 
@@ -34,32 +34,31 @@
             </div>
             <div class="col-12 d-flex flex-wrap ">
                 <div class="col-3 p-2">
-                    <div
-                        class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
+                    <div class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
                         <div class="input-group mb-3 col-6">
-                            <input type="text" class="form-control" placeholder="Recipient's username"
-                                aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <span class="input-group-text" id="basic-addon2"><i class="bi bi-search"></i></span>
                         </div>
                         <!--  facebook page get start -->
-                            <?php
-                              $token ='EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-                              $fb_page_list = fb_page_list($token);
-                              $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                              $i = 0;
-                              foreach($fb_page_list['page_list'] as $key => $value){
-                                $pageprofile = fb_page_img($value->id,$value->access_token);
-                                $img_decode = json_decode($pageprofile,true);
-                                ?>
-                                    <div class="col-12 d-flex flex-wrap align-items-start">
-                                        <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
-                                            <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container"/>
-                                            <div class="col">
-                                                <?php echo $value->name ?>
-                                            </div>
-                                        </div>
+                        <?php
+                        $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+                        $fb_page_list = fb_page_list($token);
+                        $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                        $i = 0;
+                        foreach ($fb_page_list['page_list'] as $key => $value) {
+                            $pageprofile = fb_page_img($value->id, $value->access_token);
+                            $img_decode = json_decode($pageprofile, true);
+                        ?>
+                            <div class="col-12 d-flex flex-wrap align-items-start">
+                                <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
+                                    <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
+                                    <div class="col">
+                                        <?php echo $value->name ?>
                                     </div>
-                            <?php $i++;} ?>
+                                </div>
+                            </div>
+                        <?php $i++;
+                        } ?>
                         <!-- facebook page get end  -->
 
 
@@ -248,128 +247,58 @@
                     </div>
 </div> -->
 
-            </div>
-        </div>
-        <div class="col-9 p-3  mt-2">
-            <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
-                
-                <div class="demo_list_data  d-flex flex-wrap" id="demo_list_data"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog"
-    data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Create Post</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-0 ">
-                <div class="col-12 p-3">
-                    <div class="col-12 border rounded-2 p-2 my-2">
-                        <div class="upload-btn-wrapper col-12">
-                            <div class="file-btn col-12  p-3">
-                                <div class="col-12 justify-content-center d-flex">
-                                    <i class="bi bi-images"></i>
-                                </div>
-                                <div class="col-12 justify-content-center d-flex">
-                                    <h5>Drag &amp; drop or select a file<p></p>
-                                    </h5>
-                                </div>
+                    </div>
+                </div>
+                <div class="col-9 p-3  mt-2">
+                    <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
 
-                            </div>
-                            <input class="form-control main-control #coupon_event attachment" id="attachment"
-                                name="attachment[]" multiple="" type="file" placeholder="" data-bs-dismiss="modal">
-                        </div>
+                        <div class="demo_list_data  d-flex flex-wrap" id="demo_list_data"></div>
                     </div>
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
+        <div class="modal fade" id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" data-bs-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create Post</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0 ">
+                        <div class="col-12 p-3">
+                            <div class="col-12 border rounded-2 p-2 my-2">
+                                <div class="upload-btn-wrapper col-12">
+                                    <div class="file-btn col-12  p-3">
+                                        <div class="col-12 justify-content-center d-flex">
+                                            <i class="bi bi-images"></i>
+                                        </div>
+                                        <div class="col-12 justify-content-center d-flex">
+                                            <h5>Drag &amp; drop or select a file<p></p>
+                                            </h5>
+                                        </div>
+
+                                    </div>
+                                    <input class="form-control main-control #coupon_event attachment" id="attachment" name="attachment[]" multiple="" type="file" placeholder="" data-bs-dismiss="modal">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 
         <!-- post comment modal -->
-        <div class="modal fade" id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header ">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Comments</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body overflow-y-scroll" style="max-height:400px;">
-                        <div class="d-flex">
-                            <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex app_card_post">
-                                <div>
-                                    <img class="rounded-circle me-2"
-                                        src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
-                                        alt="#" style="width:30px;height:30px;object-fit-container">
-                                </div>
-                                <div class="col">
-                                    <h6> Realtosmart</h6>
-                                    <p class="fs-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ipsa in dolores doloremque. Velit in dolorum quibusdam porro, fuga, mollitia sint eligendi error facere autem voluptates quis repudiandae iure itaque.</p>
-                                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
-                                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><i class="fa-solid fa-heart"></i><span class="mx-2 text-muted">Like</span></div>
-                                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 " style="cursor:pointer;">Replay</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex app_card_post">
-                                <div>
-                                    <img class="rounded-circle me-2"
-                                        src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
-                                        alt="#" style="width:30px;height:30px;object-fit-container">
-                                </div>
-                                <div class="col">
-                                    <h6> Realtosmart</h6>
-                                    <p class="fs-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ipsa in dolores doloremque. Velit in dolorum quibusdam porro, fuga, mollitia sint eligendi error facere autem voluptates quis repudiandae iure itaque.</p>
-                                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
-                                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><i class="fa-solid fa-heart"></i><span class="mx-2 text-muted">Like</span></div>
-                                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 " style="cursor:pointer;">Replay</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex app_card_post">
-                                <div>
-                                    <img class="rounded-circle me-2"
-                                        src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
-                                        alt="#" style="width:30px;height:30px;object-fit-container">
-                                </div>
-                                <div class="col">
-                                    <h6> Realtosmart</h6>
-                                    <p class="fs-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ipsa in dolores doloremque. Velit in dolorum quibusdam porro, fuga, mollitia sint eligendi error facere autem voluptates quis repudiandae iure itaque.</p>
-                                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
-                                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><i class="fa-solid fa-heart"></i><span class="mx-2 text-muted">Like</span></div>
-                                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 " style="cursor:pointer;">Replay</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex app_card_post">
-                                <div>
-                                    <img class="rounded-circle me-2"
-                                        src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
-                                        alt="#" style="width:30px;height:30px;object-fit-container">
-                                </div>
-                                <div class="col">
-                                    <h6> Realtosmart</h6>
-                                    <p class="fs-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ipsa in dolores doloremque. Velit in dolorum quibusdam porro, fuga, mollitia sint eligendi error facere autem voluptates quis repudiandae iure itaque.</p>
-                                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
-                                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><i class="fa-solid fa-heart"></i><span class="mx-2 text-muted">Like</span></div>
-                                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 " style="cursor:pointer;">Replay</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="modal-body overflow-y-scroll" id="comments_list" style="max-height:400px;">
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -383,249 +312,270 @@
 
 
 
-<!-- Modal -->
+        <!-- Modal -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
-    <script>
-
-
-    $('#event_end').bootstrapMaterialDatePicker({
-        format: 'DD-MM-YYYY h:m A',
-        cancelText: 'cancel',
-        okText: 'ok',
-        clearText: 'clear',
-        time: true,
-        date: true,
-    });
-    $('#event_start_date').bootstrapMaterialDatePicker({
-        format: 'DD-MM-YYYY h:m A',
-        cancelText: 'cancel',
-        okText: 'ok',
-        clearText: 'clear',
-        time: true,
-        date: true,
-    }).on('change', function (e, date) {
-        var startDate = moment(date, 'DD-MM-YYYY ');
-        var endDate = startDate.clone().add(7, 'days');
-        $('#event_end').val(endDate.format('DD-MM-YYYY h:m A'));
-    });
-
-
-    $('.nav-item').click(function () {
-        $('.nav-item').removeClass('active');
-        $(this).addClass('active');
-    });
-
-$('body').on('click','.app_card_post',function(){
-        var access_tocken = $(this).attr('data-acess_token');
-        var pagee_id = $(this).attr('data-pagee_id');
-        var page_name = $(this).attr('data-page_name');
-        var data_img = $(this).attr('data-img');
-        $.ajax({
-            type: 'post',
-            url: '<?= base_url('list_post_pagewise') ?>',
-            data: {
-                access_tocken:access_tocken,
-                pagee_id:pagee_id,
-                page_name:page_name,
-                data_img:data_img,
-            },
-            success: function(res) {
-                var result = JSON.parse(res);
-                $('.loader').hide();
-                $('#demo_list_data').html(result.html);
-
-            }
-        });
-    });
-
-    setTimeout(function() {
-        $('.first').trigger('click');
-    },300);
-    
-    $(".draft_create").click(function (e) {
-        //  alert("dfe");
-        e.preventDefault();
-        var form = $("form[name='create_form']")[0];
-        var event_title = $('#event_title').val();
-        var event_start_date = $('#event_start_date').val();
-        var event_end = $('#event_end').val();
-        var event_address = $('.event_address').val();
-        var attachment = $('.attachment').prop('files')[0];
-        var coupon_event = $('#coupon_event').val();
-        var link_event = $('#link_event').val();
-        var terms_event = $('#terms_event').val();
-
-        // var email = $('#email').val();
-
-        var formdata = new FormData(form);
-        // var edit_id = $('#reminder_btn_add').attr("data-edit_id");
-        // console.log(event_address);
-        // die();
-        if (event_title != "" || event_address != "") {
-            var form = $('form[name="create_form"]')[0];
-            // console.log(form);
-            var formdata = new FormData(form);
-            formdata.append('event_title', event_title);
-            formdata.append('event_start_date', event_start_date);
-            formdata.append('event_end', event_end);
-            formdata.append('event_address', event_address);
-            formdata.append('attachment', attachment);
-            formdata.append('coupon_event', coupon_event);
-            formdata.append('link_event', link_event);
-            formdata.append('terms_event', terms_event);
-            formdata.append('table', 'create_post');
-            formdata.append('action', 'create_insert_data');
-            // console.log(event_address);
-            // die();
-            // if (edit_id == '') {
-            // console.log(edit_id);
-            // die();
-            $.ajax({
-                method: "post",
-                url: "<?= site_url('create_insert_data'); ?>",
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function (res) {
-                    if (res != "error") {
-                        list_data();
-                        $("form[name='create_form']")[0].reset();
-                        $(".modal-close-btn").trigger("click");
-                        $("form[name='create_form']").removeClass("was-validated");
-                        iziToast.success({
-                            title: 'Draft Successfully'
-                        });
-                        $('.selectpicker').selectpicker('refresh');
-                    } else {
-                        //alert("this");
-                        $("form[name='create_form']")[0].reset();
-                        iziToast.error1({
-                            title: 'Duplicate data'
-                        });
-                        $("form[name='create_form']").addClass("was-validated");
-                    }
-                    // list_data();
-                },
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
+        <script>
+            $('#event_end').bootstrapMaterialDatePicker({
+                format: 'DD-MM-YYYY h:m A',
+                cancelText: 'cancel',
+                okText: 'ok',
+                clearText: 'clear',
+                time: true,
+                date: true,
             });
-        }
-        //     } else {
-        //         var formdata = new FormData(form);
-        //         // console.log(formdata);
-        //         formdata.append('action', 'update');
-        //         formdata.append('table', 'reminders_details');
-        //         formdata.append('date', date);
-        //         formdata.append('time', time);
-        //         formdata.append('week', week);
-        //         formdata.append('user', user);
-        //         formdata.append('message', message);
-        //         formdata.append('email', email);
-        //         formdata.append('whatsapp', whatsapp);
-        //         formdata.append('type', type);
-        //         formdata.append('edit_id', edit_id);
+            $('#event_start_date').bootstrapMaterialDatePicker({
+                format: 'DD-MM-YYYY h:m A',
+                cancelText: 'cancel',
+                okText: 'ok',
+                clearText: 'clear',
+                time: true,
+                date: true,
+            }).on('change', function(e, date) {
+                var startDate = moment(date, 'DD-MM-YYYY ');
+                var endDate = startDate.clone().add(7, 'days');
+                $('#event_end').val(endDate.format('DD-MM-YYYY h:m A'));
+            });
+            $('.comment_box').hide();
 
-        //         // console.log(edit_id);
-        //         // die();
-        //         $('.loader').hide();
-        //         $.ajax({
-        //             method: "post",
-        //             url: "<?= site_url('dataupdate_data'); ?>",
-        //             data: formdata,
-        //             processData: false,
-        //             contentType: false,
-        //             success: function (res) {
-        //                 if (res != "error") {
-        //                     $("form[name='create_form']")[0].reset();
-        //                     $("form[name='create_form']").removeClass("was-validated");
-        //                     $(".btn-cancel").trigger("click");
-        //                     iziToast.success({
-        //                         title: 'update Successfully'
-        //                     });
+            $(".Replay_btn").on("click", function() {
+                $(this).closest('.app_card_post').find('.comment_box').show();
+            });
 
-        //                     list_data();
-        //                     $('.selectpicker').selectpicker('refresh');
-        //                 }
-        //                 else {
-        //                     // alert("hello");
-        //                     $("form[name='create_form']")[0].reset();
-        //                     iziToast.error1({
-        //                         title: 'Duplicate data'
-        //                     });
-        //                 }
-        //             },
-        //         });
-        //     }
-        // } else {
-        //     $("form[name='create_form']").addClass("was-validated");
-        // }
+            $('.comment_input').on('keyup', function() {
+                $('.comment-send-btn').attr("disabled", false);
+            });
+            $('.comment_input').on('focusout', function() {
+                var comment_input = $('.comment_input').val();
+
+                if (comment_input == "") {
+                    $('.comment-send-btn').attr("disabled", true);
+                }
+            });
+
+            $('body').on('click', '.comment_btn_close', function() {
+                $(this).closest('.comment_box').hide();
+            });
 
 
-    });
+            $('.nav-item').click(function() {
+                $('.nav-item').removeClass('active');
+                $(this).addClass('active');
+            });
 
-    $('body').on('click', '.create_comment', function(){
-    var form = $("form[name='create_form']")[0];
-    var attachment = $('.attachment').prop('files')[0];
-    var event_address = $('.event_address').val();
-    var formData = new FormData(form);
+            $('body').on('click', '.app_card_post', function() {
+                var access_tocken = $(this).attr('data-acess_token');
+                var pagee_id = $(this).attr('data-pagee_id');
+                var page_name = $(this).attr('data-page_name');
+                var data_img = $(this).attr('data-img');
+                $.ajax({
+                    type: 'post',
+                    url: '<?= base_url('list_post_pagewise') ?>',
+                    data: {
+                        access_tocken: access_tocken,
+                        pagee_id: pagee_id,
+                        page_name: page_name,
+                        data_img: data_img,
+                    },
+                    success: function(res) {
+                        var result = JSON.parse(res);
+                        $('.loader').hide();
+                        $('#demo_list_data').html(result.html);
+                        $('#comments_list').html(result.comments_html);
 
-    // Append additional data to the formData object
-    formData.append('action', 'post');
-    formData.append('attachment', attachment);
-    formData.append('event_address', event_address);
-
-    $.ajax({
-        method: "post",
-        url: "<?= site_url('SendPostDataFB'); ?>",
-        data: formData,
-        contentType: false,
-        processData: false, 
-        success: function (res) {
-            // Handle success
-            console.log(res);
-        },
-        error: function (xhr, status, error) {
-            // Handle errors
-            console.error(xhr.responseText);
-        }
-    });
-});
+                    }
+                });
+            });
 
 
 
+            setTimeout(function() {
+                $('.first').trigger('click');
+            }, 300);
+
+            $(".draft_create").click(function(e) {
+                //  alert("dfe");
+                e.preventDefault();
+                var form = $("form[name='create_form']")[0];
+                var event_title = $('#event_title').val();
+                var event_start_date = $('#event_start_date').val();
+                var event_end = $('#event_end').val();
+                var event_address = $('.event_address').val();
+                var attachment = $('.attachment').prop('files')[0];
+                var coupon_event = $('#coupon_event').val();
+                var link_event = $('#link_event').val();
+                var terms_event = $('#terms_event').val();
+
+                // var email = $('#email').val();
+
+                var formdata = new FormData(form);
+                // var edit_id = $('#reminder_btn_add').attr("data-edit_id");
+                // console.log(event_address);
+                // die();
+                if (event_title != "" || event_address != "") {
+                    var form = $('form[name="create_form"]')[0];
+                    // console.log(form);
+                    var formdata = new FormData(form);
+                    formdata.append('event_title', event_title);
+                    formdata.append('event_start_date', event_start_date);
+                    formdata.append('event_end', event_end);
+                    formdata.append('event_address', event_address);
+                    formdata.append('attachment', attachment);
+                    formdata.append('coupon_event', coupon_event);
+                    formdata.append('link_event', link_event);
+                    formdata.append('terms_event', terms_event);
+                    formdata.append('table', 'create_post');
+                    formdata.append('action', 'create_insert_data');
+                    // console.log(event_address);
+                    // die();
+                    // if (edit_id == '') {
+                    // console.log(edit_id);
+                    // die();
+                    $.ajax({
+                        method: "post",
+                        url: "<?= site_url('create_insert_data'); ?>",
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: function(res) {
+                            if (res != "error") {
+                                list_data();
+                                $("form[name='create_form']")[0].reset();
+                                $(".modal-close-btn").trigger("click");
+                                $("form[name='create_form']").removeClass("was-validated");
+                                iziToast.success({
+                                    title: 'Draft Successfully'
+                                });
+                                $('.selectpicker').selectpicker('refresh');
+                            } else {
+                                //alert("this");
+                                $("form[name='create_form']")[0].reset();
+                                iziToast.error1({
+                                    title: 'Duplicate data'
+                                });
+                                $("form[name='create_form']").addClass("was-validated");
+                            }
+                            // list_data();
+                        },
+                    });
+                }
+                //     } else {
+                //         var formdata = new FormData(form);
+                //         // console.log(formdata);
+                //         formdata.append('action', 'update');
+                //         formdata.append('table', 'reminders_details');
+                //         formdata.append('date', date);
+                //         formdata.append('time', time);
+                //         formdata.append('week', week);
+                //         formdata.append('user', user);
+                //         formdata.append('message', message);
+                //         formdata.append('email', email);
+                //         formdata.append('whatsapp', whatsapp);
+                //         formdata.append('type', type);
+                //         formdata.append('edit_id', edit_id);
+
+                //         // console.log(edit_id);
+                //         // die();
+                //         $('.loader').hide();
+                //         $.ajax({
+                //             method: "post",
+                //             url: "<?= site_url('dataupdate_data'); ?>",
+                //             data: formdata,
+                //             processData: false,
+                //             contentType: false,
+                //             success: function (res) {
+                //                 if (res != "error") {
+                //                     $("form[name='create_form']")[0].reset();
+                //                     $("form[name='create_form']").removeClass("was-validated");
+                //                     $(".btn-cancel").trigger("click");
+                //                     iziToast.success({
+                //                         title: 'update Successfully'
+                //                     });
+
+                //                     list_data();
+                //                     $('.selectpicker').selectpicker('refresh');
+                //                 }
+                //                 else {
+                //                     // alert("hello");
+                //                     $("form[name='create_form']")[0].reset();
+                //                     iziToast.error1({
+                //                         title: 'Duplicate data'
+                //                     });
+                //                 }
+                //             },
+                //         });
+                //     }
+                // } else {
+                //     $("form[name='create_form']").addClass("was-validated");
+                // }
 
 
-    //---------------------------- modal input ----------------------------
+            });
 
-    $("#pills-master-diet").click(function () {
-        $(".card-body").show();
-        $("#select-box").hide();
-        $("#event-input").hide();
-        $("#offer-input").hide();
+            $('body').on('click', '.create_comment', function() {
+                var form = $("form[name='create_form']")[0];
+                var attachment = $('.attachment').prop('files')[0];
+                var event_address = $('.event_address').val();
+                var formData = new FormData(form);
 
-    });
-    $("#pills-master-diet").trigger("click");
+                // Append additional data to the formData object
+                formData.append('action', 'post');
+                formData.append('attachment', attachment);
+                formData.append('event_address', event_address);
 
-    //photo
-    $("#pills-all-diet").click(function () {
-        $("#select-box").show();
-        $("#event-input").hide();
-        $("#offer-input").hide();
+                $.ajax({
+                    method: "post",
+                    url: "<?= site_url('SendPostDataFB'); ?>",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(res) {
+                        // Handle success
+                        console.log(res);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
 
-    });
 
-    //event
-    $("#pills-all-event").click(function () {
-        $("#event-input").show();
-        $("#offer-input").hide();
-        $("#select-box").show();
-    });
-    //offer
-    $("#pills-all-offer").click(function () {
-        $("#offer-input").show();
-        $("#select-box").hide();
-    });
-</script>
-    
-    <?= $this->include('partials/footer') ?>
-    <?= $this->include('partials/vendor-scripts') ?>
+
+
+
+            //---------------------------- modal input ----------------------------
+
+            $("#pills-master-diet").click(function() {
+                $(".card-body").show();
+                $("#select-box").hide();
+                $("#event-input").hide();
+                $("#offer-input").hide();
+
+            });
+            $("#pills-master-diet").trigger("click");
+
+            //photo
+            $("#pills-all-diet").click(function() {
+                $("#select-box").show();
+                $("#event-input").hide();
+                $("#offer-input").hide();
+
+            });
+
+            //event
+            $("#pills-all-event").click(function() {
+                $("#event-input").show();
+                $("#offer-input").hide();
+                $("#select-box").show();
+            });
+            //offer
+            $("#pills-all-offer").click(function() {
+                $("#offer-input").show();
+                $("#select-box").hide();
+            });
+        </script>
+
+        <?= $this->include('partials/footer') ?>
+        <?= $this->include('partials/vendor-scripts') ?>

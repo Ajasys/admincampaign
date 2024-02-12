@@ -83,18 +83,26 @@ class CreateController extends BaseController
         if(isset($_POST['access_tocken']))
         {
             $accesss_tocken = $_POST['access_tocken'];
+        }else{
+            $accesss_tocken = "";
         }
         if(isset($_POST['pagee_id']))
         {
             $pagee_idd = $_POST['pagee_id'];
+        }else{
+            $pagee_idd = "";
         }
         if(isset($_POST['page_name']))
         {
             $page_namee = $_POST['page_name'];
+        }else{
+            $page_namee = "";
         }
         if(isset($_POST['data_img']))
         {
             $data_img = $_POST['data_img'];
+        }else{
+            $data_img = "";
         }
         // pre('https://graph.facebook.com/v19.0/'.$pagee_idd.'/feed?access_token='.$accesss_tocken.'&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
         // die;
@@ -122,7 +130,11 @@ class CreateController extends BaseController
         // curl_close($curl);
         $fb_page_list = $response;
         $html ="";
+        $comments_html = "";
+        // $comments_responce = getSocialData('https://graph.facebook.com/196821650189891_122116834772192565/comments?fields=from,message&access_token='.$accesss_tocken);
+
         foreach ($fb_page_list['data'] as $key => $value) {
+            $comments_responce = getSocialData('https://graph.facebook.com/'.$value['id'].'/comments??fields=from,message&access_token='.$accesss_tocken);
             if (isset($value['full_picture'])) {
                 $fb_upload_img = ($value['full_picture']);
             } else {
@@ -197,8 +209,127 @@ class CreateController extends BaseController
                 </div>
             </div>
         </div>';
+        foreach ($comments_responce['data'] as $key => $comment_value) {
+            $timestamp_comment = $comment_value['created_time'];
+            $date_comment = new DateTime($timestamp_comment, new DateTimeZone('UTC'));
+            $date_comment->setTimezone(new DateTimeZone('Asia/Kolkata'));
+            $facebook_comment_time = $date_comment->format('Y-m-d h:i:s A');
+            $timestamp_comment = strtotime($comment_value['created_time']);
+            $current_time = time();
+            $time_diff_comment = $current_time - $timestamp_comment;
+            
+            if ($time_diff_comment < 60) {
+                $facebook_comment_time = "Just now";
+            } elseif ($time_diff_comment < 3600) {
+                $minutes = floor($time_diff_comment / 60);
+                $facebook_comment_time = "$minutes minute" . ($minutes == 1 ? '' : 's') . " ago";
+            } elseif ($time_diff_comment < 86400) {
+                $hours = floor($time_diff_comment / 3600);
+                $facebook_comment_time = "$hours hour" . ($hours == 1 ? '' : 's') . " ago";
+            } elseif ($time_diff_comment < 604800) {
+                $days = floor($time_diff_comment / 86400);
+                $facebook_comment_time = "$days day" . ($days == 1 ? '' : 's') . " ago";
+            } else {
+                $date_comment = new DateTime('@' . $timestamp_comment, new DateTimeZone('UTC'));
+                $date_comment->setTimezone(new DateTimeZone('Asia/Kolkata'));
+                $facebook_comment_time = $date_comment->format('F d \a\t h:i A');
+            }
+            // pre($comment_value);
+                $access_token='EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
+                // replay to comment 
+                    // $comment_id = '122116834772192565_359791573621931';
+                    // $reply_message = 'how are you.';
+                    // $url = "https://graph.facebook.com/v13.0/{$comment_id}/comments";
+                    // $data = array(
+                    //     'message' => $reply_message,
+                    //     'access_token' => $access_token
+                    // );
+                    // $ch = curl_init($url);
+                    // curl_setopt($ch, CURLOPT_POST, 1);
+                    // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+                    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    // $response = curl_exec($ch);
+                    // curl_close($ch);
+                    // if ($response !== false) {
+                    //     $response_data = json_decode($response, true);
+                    //     if (isset($response_data['id'])) {
+                    //         $answer =  "Reply posted successfully.";
+                    //     } else {
+                    //         $answer =  "Failed to post reply: " . $response;
+                    //     }
+                    // } else {
+                    //     echo "Failed to make request.";
+                    // }
+                // end replay comment 
+                // $post_id = '196821650189891_122116834772192565';
+  
+                // // $url = "https://graph.facebook.com/v12.0/{$post_id}/comments?fields=from,message&access_token={$access_token}";
+
+
+                // $url = "https://graph.facebook.com/v12.0/$post_id/comments?fields=from{name}&access_token=$access_token";
+                // // Send a GET request to the Graph API
+                // $response = file_get_contents($url);
+                
+                // $data = json_decode($response, true);
+                // // Check if the request was successful
+                // if (isset($data['data'])) {
+                //     $comments = $data['data'];
+                //     foreach ($comments as $comment) {
+                //         // Check if the 'from' key exists
+                //         if (isset($comment['from'])) {
+                //             // Extract user name and comment message
+                //             $user_name = $comment['from']['name'];
+                //             $message = $comment['message'];
+                //             echo "User: $user_name, Comment: $message" . PHP_EOL;
+                //         }
+                //     }
+                // } else {
+                //     echo "Error fetching comments: " . $data['error']['message'] . PHP_EOL;
+                // }
+     
+                $comments_html.='<div class="d-flex">
+                <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex">
+                    <div>
+                        <img class="rounded-circle me-2"
+                            src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
+                            alt="#" style="width:30px;height:30px;object-fit-container">
+                    </div>
+                    <div class="col">
+                        <h6> Realtosmart</h6>
+                        <p class="fs-12">'.$comment_value['message'].'</p>
+                        <div class="col-12 d-flex align-content-center flex-wrap my-2">
+                            <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><span class="mx-1 text-muted">'.$facebook_comment_time.'</span><span class="mx-2 text-muted">Like</span></div>
+                            <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 Replay_btn " style="cursor:pointer;">Replay</span></div>
+                        </div>
+                        <div class="border p-2 bg-dark-subtle rounded-3 comment_box">
+                        <div class="d-flex justify-content-between">
+                            <div class="col">
+                                <input type="text" value="" class="bg-dark-subtle comment_input p-2 w-100 border-0" placeholder="Example input placeholder">
+                            </div>
+                            <div>
+                                <button type="button" class="comment_btn_close btn-close justify-content-end "></button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <div>
+
+                            </div>
+                            <div>
+                                <button class="btn btn-link comment-send-btn" disabled><i class="bi bi-send" style="color: blue;"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+           ';
+        }
         }
         $return_array['html'] = $html;
+        $return_array['comments_html'] = $comments_html;
+
         echo json_encode($return_array, true);
         die();
     }
