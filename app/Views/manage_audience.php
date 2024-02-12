@@ -530,15 +530,23 @@ if ($query->getNumRows() > 0) {
                     </div>
                     <!---------------------- edit audience name----------------------------->
                     <form class="needs-validation" name="audience_edit" method="POST" novalidate="">
-                    <div class="fw-bold mt-4">Edit audience name</div>
+                        <div class="fw-bold mt-4">Edit audience name</div>
                         <div class="d-flex m-0 mt-2 m-lg-3">
                             <div class="input-group">
                                 <input type="text" class="form-control w-50 w-lg-75 p-2 name_audience" id="new_name" placeholder="ANB visit.sv">
                                 <span class="input-group-text bg-transparent">13/50</span>
                             </div>
                         </div>
-                  </div>
+                        <div class="col-12 d-flex flex-wrap">
+                            <!-- <p></p> -->
+                            <label class="switch_toggle mb-1">
+                                <input id="alert" name="alert_title" type="checkbox" value="" >
+                                <span class="check_input round"></span> 
+                            </label>
+                            <p class="fw-bold mx-2">inquiry Auto update</p>
+                        </div>
                   </form>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close_container" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary update_btn page_reload" data-edit_id>Update</button>
@@ -552,19 +560,19 @@ if ($query->getNumRows() > 0) {
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
 
-    function list_data() {
-        $.ajax({
-            method: "post",
-            url: "<?= site_url('audience_facebook_data'); ?>",
-            data: {
-                action: 'facebook_list',
-            },
-            success: function (res) {
-                $('.loader').hide();
-                datatable_view(res);
-            }
-        });
-    }
+    // function list_data() {
+    //     $.ajax({
+    //         method: "post",
+    //         url: "<?= site_url('audience_facebook_data'); ?>",
+    //         data: {
+    //             action: 'facebook_list',
+    //         },
+    //         success: function (res) {
+    //             $('.loader').hide();
+    //             datatable_view(res);
+    //         }
+    //     });
+    // }
 
     function list_dataa() {
         show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';
@@ -712,8 +720,9 @@ if ($query->getNumRows() > 0) {
                         iziToast.success({
                             title: 'Added Successfully'
                         });
-                        list_data();
+                        
                         location.reload(true);
+                        list_data();
                     }
                     else {
                         $('.loader').hide();
@@ -766,6 +775,11 @@ if ($query->getNumRows() > 0) {
                 // Update other elements with the received data
                 $('.name_audience').val(response[0].name);
                 // Update other elements as needed
+                if (response[0].is_status_active == 1) {
+                $('#alert').prop('checked', true); // Toggle on
+                } else {
+                    $('#alert').prop('checked', false); // Toggle off
+                }
             },
             error: function(error) {
                 $('.loader').hide();
@@ -776,11 +790,13 @@ if ($query->getNumRows() > 0) {
         e.preventDefault();
         var update_id = $(this).attr("data-edit_id");
         var new_name = $("#new_name").val(); // Get the new name from the input field
+        var isActive = $("#alert").is(":checked") ? 1 : 0; // Check if toggle button is checke
         var formdata = new FormData();
         formdata.append('action', 'update');
         formdata.append('edit_id', update_id);
         formdata.append('table', 'audience');
         formdata.append('name', new_name); // Append the new name to the form data
+        formdata.append('is_status_active', isActive); 
         $('.loader').show();
         $.ajax({
             method: "post",
@@ -1047,9 +1063,11 @@ if ($query->getNumRows() > 0) {
                     iziToast.success({
                         title: 'data imported successfully'
                     });
-                    list_data();
+                    
                     location.reload(true);
+                    list_data();
                     data_module_list_data();
+                    
                 },
             });
         } else {
