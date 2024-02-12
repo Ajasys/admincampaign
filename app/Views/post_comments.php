@@ -38,20 +38,20 @@
                               $token ='EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
                               $fb_page_list = fb_page_list($token);
                               $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                              $i = 0;
                               foreach($fb_page_list['page_list'] as $key => $value){
-                                // pre($value);
                                 $pageprofile = fb_page_img($value->id,$value->access_token);
                                 $img_decode = json_decode($pageprofile,true);
                                 ?>
                                     <div class="col-12 d-flex flex-wrap align-items-start">
-                                        <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
+                                        <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
                                             <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container"/>
                                             <div class="col">
                                                 <?php echo $value->name ?>
                                             </div>
                                         </div>
                                     </div>
-                            <?php } ?>
+                            <?php $i++;} ?>
                         <!-- facebook page get end  -->
 
 
@@ -340,6 +340,10 @@ $('body').on('click','.app_card_post',function(){
         });
     });
 
+    setTimeout(function() {
+        $('.first').trigger('click');
+    },300);
+    
     $(".draft_create").click(function (e) {
         //  alert("dfe");
         e.preventDefault();
