@@ -710,6 +710,7 @@ class Followup extends BaseController
         if(isset( $_POST['remark']) && !empty($_POST['remark'])){
             $remark = $_POST['remark'];
         }
+        // pre($_POST);
         $inquiry_id =  $_POST['inquiry_id'];
         $update_data = array();
         $status_array_log = array();
@@ -829,6 +830,30 @@ class Followup extends BaseController
                     $response_status_log = $this->MasterInformationModel->insert_entry2($inquiry_log,$this->username.'_inquiry_log');
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Status Dismissed Request Successfully';
+                    $inquiry_dataa = array();
+                    $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
+                    // pre($inquiry_data);
+                    $intrested_product = $inquiry_data['intrested_product'];
+					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 8 AND intrested_product = $intrested_product";
+					$db_connection = \Config\Database::connect('second');
+					$find_audience = $db_connection->query($find_audience);
+					$all_data = $find_audience->getResultArray();
+
+					// Check if there are rows returned and if is_status_active is 1
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+						if ($result['response'] == 1) {
+							$inquiry_dataa['inquiry_id'] = $inquiry_id;
+							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
+							$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+							$inquiry_dataa['email'] = $inquiry_data['email'];
+							$inquiry_dataa['inquiry_status'] = 8;
+							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
+							$inquiry_dataa['name'] = $all_data[0]['name'];
+							$inquiry_dataa['source'] = $all_data[0]['source'];
+							$inquiry_dataa['is_status_active'] = 1;
+							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
+						}
+					}
                 }else{
                     $result['result'] = 0;
                     $result['msg'] = 'Inquiry Dismissed Status Not Updated';
@@ -864,6 +889,30 @@ class Followup extends BaseController
                     $response_status_log = $this->MasterInformationModel->insert_entry2($inquiry_log,$this->username.'_inquiry_log');
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Status Dismissed Successfully';
+                    $inquiry_dataa = array();
+                    $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
+                    // pre($inquiry_data);
+                    $intrested_product = $inquiry_data['intrested_product'];
+					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 7 AND intrested_product = $intrested_product";
+					$db_connection = \Config\Database::connect('second');
+					$find_audience = $db_connection->query($find_audience);
+					$all_data = $find_audience->getResultArray();
+
+					// Check if there are rows returned and if is_status_active is 1
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+						if ($result['result'] == 1) {
+							$inquiry_dataa['inquiry_id'] = $inquiry_id;
+							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
+							$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+							$inquiry_dataa['email'] = $inquiry_data['email'];
+							$inquiry_dataa['inquiry_status'] = 7;
+							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
+							$inquiry_dataa['name'] = $all_data[0]['name'];
+							$inquiry_dataa['source'] = $all_data[0]['source'];
+							$inquiry_dataa['is_status_active'] = 1;
+							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
+						}
+					}
                 }else{
                     $result['result'] = 0;
                     $result['msg'] = 'Inquiry Status Not Dismissed';
@@ -934,6 +983,30 @@ class Followup extends BaseController
                     // $response = 1;
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Status Negotiation changed Successfully';
+                    $inquiry_dataa = array();
+                    $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
+                    // pre($inquiry_data);
+                    $intrested_product = $inquiry_data['intrested_product'];
+					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 6 AND intrested_product = $intrested_product";
+					$db_connection = \Config\Database::connect('second');
+					$find_audience = $db_connection->query($find_audience);
+					$all_data = $find_audience->getResultArray();
+
+					// Check if there are rows returned and if is_status_active is 1
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+						if ($result['response'] == 1) {
+							$inquiry_dataa['inquiry_id'] = $inquiry_id;
+							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
+							$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+							$inquiry_dataa['email'] = $inquiry_data['email'];
+							$inquiry_dataa['inquiry_status'] = 6;
+							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
+							$inquiry_dataa['name'] = $all_data[0]['name'];
+							$inquiry_dataa['source'] = $all_data[0]['source'];
+							$inquiry_dataa['is_status_active'] = 1;
+							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
+						}
+					}
                 }else{
                     $result['result'] = 0;
                     $result['msg'] = 'Inquiry Negotiation Status not changed';
@@ -1005,6 +1078,30 @@ class Followup extends BaseController
                     // $response = 1;
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Status Feedback changed Successfully';
+                    $inquiry_dataa = array();
+                    $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
+                    // pre($inquiry_data);
+                    $intrested_product = $inquiry_data['intrested_product'];
+					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 9 AND intrested_product = $intrested_product";
+					$db_connection = \Config\Database::connect('second');
+					$find_audience = $db_connection->query($find_audience);
+					$all_data = $find_audience->getResultArray();
+
+					// Check if there are rows returned and if is_status_active is 1
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+						if ($result['response'] == 1) {
+							$inquiry_dataa['inquiry_id'] = $inquiry_id;
+							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
+							$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+							$inquiry_dataa['email'] = $inquiry_data['email'];
+							$inquiry_dataa['inquiry_status'] = 9;
+							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
+							$inquiry_dataa['name'] = $all_data[0]['name'];
+							$inquiry_dataa['source'] = $all_data[0]['source'];
+							$inquiry_dataa['is_status_active'] = 1;
+							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
+						}
+					}
                 }else{
                     $result['result'] = 0;
                     $result['msg'] = 'Inquiry Feedback Status not changed';
@@ -1135,7 +1232,49 @@ class Followup extends BaseController
                     
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Appointment Successfully';
-
+                    $inquiry_dataa = array();
+                    $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
+                    // pre($inquiry_data);
+                    $intrested_product = $inquiry_data['intrested_product'];
+    
+                    $db_connection = \Config\Database::connect('second');
+                    
+                    // Fetching data for inquiry_status = 2
+                    $find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 3 AND intrested_product = $intrested_product";
+                    $find_audience = $db_connection->query($find_audience);
+                    $all_data_audience = $find_audience->getResultArray();
+                    $inquiry_dataas = array();
+                    // Fetching data for inquiry_status = 13
+                    $find_audiences = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 10 AND intrested_product = $intrested_product";
+                    $find_audiences = $db_connection->query($find_audiences);
+                    $all_dataas = $find_audiences->getResultArray();
+                    if ($result['result'] == 1 && $inquiry_data['inquiry_status']==3 ) {
+                        if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['is_status_active']) && $all_data_audience[0]['is_status_active'] == 1) {
+                            $inquiry_dataa['inquiry_id'] = $inquiry_id;
+                            $inquiry_dataa['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_dataa['email'] = $inquiry_data['email'];
+                            $inquiry_dataa['inquiry_status'] =3;
+                            $inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_dataa['name'] = $all_data_audience[0]['name'];
+                            $inquiry_dataa['source'] = $all_data_audience[0]['source'];
+                            $inquiry_dataa['is_status_active'] = 1;
+                            $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
+                        }
+                    } elseif ($result['result'] == 1) {
+                        if (!empty($all_dataas)&& isset($all_dataas[0]['intrested_product']) && $all_dataas[0]['intrested_product'] == $intrested_product && isset($all_dataas[0]['is_status_active']) && $all_dataas[0]['is_status_active'] == 1) {
+                            $inquiry_dataas['inquiry_id'] = $inquiry_id;
+                            $inquiry_dataas['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_dataas['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_dataas['email'] = $inquiry_data['email'];
+                            $inquiry_dataas['inquiry_status'] = 10;
+                            $inquiry_dataas['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_dataas['name'] = $all_dataas[0]['name'];
+                            $inquiry_dataas['source'] = $all_dataas[0]['source'];
+                            $inquiry_dataas['is_status_active'] = 1;
+                            $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataas, $this->username . "_audience");
+                        }
+                    }
 
                 }else{
                     $result['result'] = 0;
@@ -1266,6 +1405,30 @@ class Followup extends BaseController
                     $response_status_log = $this->MasterInformationModel->insert_entry2($inquiry_log,$this->username.'_inquiry_log');
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry CNR Successfully';
+                    $inquiry_dataa = array();
+                    $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
+                    // pre($inquiry_data);
+                    $intrested_product = $inquiry_data['intrested_product'];
+					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 17 AND intrested_product = $intrested_product";
+					$db_connection = \Config\Database::connect('second');
+					$find_audience = $db_connection->query($find_audience);
+					$all_data = $find_audience->getResultArray();
+
+					// Check if there are rows returned and if is_status_active is 1
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+						if ($result['response'] == 1) {
+							$inquiry_dataa['inquiry_id'] = $inquiry_id;
+							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
+							$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+							$inquiry_dataa['email'] = $inquiry_data['email'];
+							$inquiry_dataa['inquiry_status'] = 17;
+							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
+							$inquiry_dataa['name'] = $all_data[0]['name'];
+							$inquiry_dataa['source'] = $all_data[0]['source'];
+							$inquiry_dataa['is_status_active'] = 1;
+							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
+						}
+					}
                 }
                 else{
                     $result['result'] = 0;
@@ -1336,10 +1499,54 @@ class Followup extends BaseController
                 }
                 $update_data['inquiry_cnr'] = 0;
                 $inquiry_update = $this->MasterInformationModel->update_entry2($inquiry_id,$update_data,$this->username.'_all_inquiry');
+                // pre($update_data);
                 $response_status_log = $this->MasterInformationModel->insert_entry2($inquiry_log,$this->username.'_inquiry_log');
                 //$response_status_log = $this->MasterInformationModel->insert_entry($inquiry_status_log,'inquiry_status_log');
                 $result['result'] = 1;
                 $result['msg'] = 'Inquiry Status Updated Successfully';
+                $inquiry_dataa = array();
+                $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
+                // pre($inquiry_data);
+                $intrested_product = $inquiry_data['intrested_product'];
+
+                $db_connection = \Config\Database::connect('second');
+                
+                // Fetching data for inquiry_status = 2
+                $find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 2 AND intrested_product = $intrested_product";
+                $find_audience = $db_connection->query($find_audience);
+                $all_data_audience = $find_audience->getResultArray();
+                
+                // Fetching data for inquiry_status = 13
+                $find_audiences = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 13 AND intrested_product = $intrested_product";
+                $find_audiences = $db_connection->query($find_audiences);
+                $all_dataas = $find_audiences->getResultArray();
+                if ($result['result'] == 1 && $inquiry_data['inquiry_status'] == 2) {
+                    if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['is_status_active']) && $all_data_audience[0]['is_status_active'] == 1) {
+                        $inquiry_dataa['inquiry_id'] = $inquiry_id;
+                        $inquiry_dataa['full_name'] = $inquiry_data['full_name'];
+                        $inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+                        $inquiry_dataa['email'] = $inquiry_data['email'];
+                        $inquiry_dataa['inquiry_status'] = 2;
+                        $inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
+                        $inquiry_dataa['name'] = $all_data_audience[0]['name'];
+                        $inquiry_dataa['source'] = $all_data_audience[0]['source'];
+                        $inquiry_dataa['is_status_active'] = 1;
+                        $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
+                    }
+                } elseif ($result['result'] == 1) {
+                    if (!empty($all_dataas)&& isset($all_dataas[0]['intrested_product']) && $all_dataas[0]['intrested_product'] == $intrested_product && isset($all_dataas[0]['is_status_active']) && $all_dataas[0]['is_status_active'] == 1) {
+                        $inquiry_dataas['inquiry_id'] = $inquiry_id;
+                        $inquiry_dataas['full_name'] = $inquiry_data['full_name'];
+                        $inquiry_dataas['mobileno'] = $inquiry_data['mobileno'];
+                        $inquiry_dataas['email'] = $inquiry_data['email'];
+                        $inquiry_dataas['inquiry_status'] = 13;
+                        $inquiry_dataas['intrested_product'] = $inquiry_data['intrested_product'];
+                        $inquiry_dataas['name'] = $all_dataas[0]['name'];
+                        $inquiry_dataas['source'] = $all_dataas[0]['source'];
+                        $inquiry_dataas['is_status_active'] = 1;
+                        $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataas, $this->username . "_audience");
+                    }
+                }
             }else{
                 $result['result'] = 0;
                 $result['msg'] = 'Inquiry Status Updated Failed';

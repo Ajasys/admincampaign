@@ -857,6 +857,30 @@ class Booking extends BaseController
 
 						$return_result['result'] = 1;
 						$return_result['msg'] = "Booking successfully";
+						$inquiry_dataa = array();
+						$inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
+						// pre($inquiry_data);
+						$intrested_product = $inquiry_data['intrested_product'];
+						$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 12 AND intrested_product = $intrested_product";
+						$db_connection = \Config\Database::connect('second');
+						$find_audience = $db_connection->query($find_audience);
+						$all_data = $find_audience->getResultArray();
+
+						// Check if there are rows returned and if is_status_active is 1
+						if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+							if ($result['response'] == 1) {
+								$inquiry_dataa['inquiry_id'] = $inquiry_id;
+								$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
+								$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+								$inquiry_dataa['email'] = $inquiry_data['email'];
+								$inquiry_dataa['inquiry_status'] =12;
+								$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
+								$inquiry_dataa['name'] = $all_data[0]['name'];
+								$inquiry_dataa['source'] = $all_data[0]['source'];
+								$inquiry_dataa['is_status_active'] = 1;
+								$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
+							}
+						}
 					// } else {
 					// 	// return "error";
 					// 	$return_result['result'] = 0;

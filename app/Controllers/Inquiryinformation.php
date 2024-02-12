@@ -111,6 +111,28 @@ class Inquiryinformation extends BaseController
 					$result['message'] = 'Added Successfully !';
 
 					$inquiry_data = array();
+					$intrested_product = $insert_data['intrested_product']; // Storing the value in a variable
+
+					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 1 AND intrested_product = $intrested_product";
+					$db_connection = \Config\Database::connect('second');
+					$find_audience = $db_connection->query($find_audience);
+					$all_data = $find_audience->getResultArray();
+
+					// Check if there are rows returned and if is_status_active is 1
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+						if ($result['response'] == 1) {
+							$inquiry_data['inquiry_id'] = $response;
+							$inquiry_data['full_name'] = $insert_data['full_name'];
+							$inquiry_data['mobileno'] = $insert_data['mobileno'];
+							$inquiry_data['email'] = $insert_data['email'];
+							$inquiry_data['inquiry_status'] = 1;
+							$inquiry_data['intrested_product'] = $insert_data['intrested_product'];
+							$inquiry_data['name'] = $all_data[0]['name'];
+							$inquiry_data['source'] = $all_data[0]['source'];
+							$inquiry_data['is_status_active'] = 1;
+							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_data, $this->username . "_audience");
+						}
+					}
 					$find_alert = "SELECT * FROM " . $this->username . "_alert_setting WHERE alert_title=14";
 					$db_connection = \Config\Database::connect('second');
 					$find_alert = $db_connection->query($find_alert);
@@ -1813,15 +1835,16 @@ class Inquiryinformation extends BaseController
 			$nxt_follow['nxt_follow_up'] = $today_date;
 		}
 		$isSiteVisit = isset($_POST['isSiteVisit']) && !empty($_POST['isSiteVisit']) ? $_POST['isSiteVisit'] : '';
+		
 		// // $revisit_date =  $_POST['revisit_date'];
-		if ($isSiteVisit == 0) {
+		if ($isSiteVisit == 0 || $isSiteVisit =='' ) {
 			$isSiteVisit_new_value = 4;
 		} else if ($isSiteVisit >= 1) {
 			$isSiteVisit_new_value = 11;
 		} else {
 			$isSiteVisit_new_value = $_POST['inquiry_status'];
 		}
-		// $nxt_follow_up = $this->request->getPost("nxt_follow_up");	
+			
 		if (isset($nxt_follow_up) && !empty($nxt_follow_up)) {
 			// $str = "-" . implode("', '", $nxt_follow_up) . "'";
 			$nxt_follow['nxt_follow_up'] = date('Y-m-d h:i:sa', strtotime($nxt_follow_up));
@@ -1887,9 +1910,53 @@ class Inquiryinformation extends BaseController
 			'inquiry_status' => $isSiteVisit_new_value,
 			// 'inquiry_log' => 'Inquiry visited By '.$userfullname
 		);
+		$result['result'] = 1;
 		$departmentUpdatedata = $this->MasterInformationModel->update_entry2($inquiry_id, $visit_array, 'admin_all_inquiry');
-		// pre($visit_date);
-		// die();
+		$inquiry_dataa = array();
+			$inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
+			// pre($inquiry_data);
+			$intrested_product = $inquiry_data['intrested_product'];
+
+			$db_connection = \Config\Database::connect('second');
+			
+			// Fetching data for inquiry_status = 2
+			$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 11 AND intrested_product = $intrested_product";
+			$find_audience = $db_connection->query($find_audience);
+			$all_data_audience = $find_audience->getResultArray();
+			$inquiry_dataas = array();
+			// Fetching data for inquiry_status = 13
+			$find_audiences = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 4 AND intrested_product = $intrested_product";
+			$find_audiences = $db_connection->query($find_audiences);
+			$all_dataas = $find_audiences->getResultArray();
+			// pre($all_dataas);
+			// die();
+			if ($result['result'] == 1 && $isSiteVisit_new_value == 11) {
+				if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['is_status_active']) && $all_data_audience[0]['is_status_active'] == 1) {
+					$inquiry_dataa['inquiry_id'] = $inquiry_id;
+					$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
+					$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+					$inquiry_dataa['email'] = $inquiry_data['email'];
+					$inquiry_dataa['inquiry_status'] = 11;
+					$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
+					$inquiry_dataa['name'] = $all_data_audience[0]['name'];
+					$inquiry_dataa['source'] = $all_data_audience[0]['source'];
+					$inquiry_dataa['is_status_active'] = 1;
+					$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
+				}
+			} elseif ($result['result'] == 1 && $isSiteVisit_new_value == 4) {
+				if (!empty($all_dataas)&& isset($all_dataas[0]['intrested_product']) && $all_dataas[0]['intrested_product'] == $intrested_product && isset($all_dataas[0]['is_status_active']) && $all_dataas[0]['is_status_active'] == 1) {
+					$inquiry_dataas['inquiry_id'] = $inquiry_id;
+					$inquiry_dataas['full_name'] = $inquiry_data['full_name'];
+					$inquiry_dataas['mobileno'] = $inquiry_data['mobileno'];
+					$inquiry_dataas['email'] = $inquiry_data['email'];
+					$inquiry_dataas['inquiry_status'] = 4;
+					$inquiry_dataas['intrested_product'] = $inquiry_data['intrested_product'];
+					$inquiry_dataas['name'] = $all_dataas[0]['name'];
+					$inquiry_dataas['source'] = $all_dataas[0]['source'];
+					$inquiry_dataas['is_status_active'] = 1;
+					$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataas, $this->username . "_audience");
+				}
+			}
 		echo $response;
 		die();
 	}
@@ -1918,4 +1985,29 @@ class Inquiryinformation extends BaseController
 		$query = "UPDATE " . $username . "_all_inquiry SET iscountvisit = $new_value, isSiteVisit = $isSiteVisit_new_value WHERE id = $edit_value";
 		$result = $secondDb->query($query);
 	}
+	// public function change_value()
+	// {
+	// 	$this->db = \Config\Database::connect();
+	// 	$secondDb = \Config\Database::connect('second');
+	// 	// Sanitize and validate the input before using it
+	// 	$iscountvisit = isset($_POST['iscountvisit']) ? intval($_POST['iscountvisit']) : 0;
+	// 	$new_value = $iscountvisit + 1;
+	// 	$isSiteVisit = isset($_POST['isSiteVisit']) ? intval($_POST['isSiteVisit']) : 0;
+	// 	// Determine the new value for $isSiteVisit
+	// 	if ($isSiteVisit == 0) {
+	// 		$isSiteVisit_new_value = 1;
+	// 	} else if ($isSiteVisit == 1) {
+	// 		$isSiteVisit_new_value = 2;
+	// 	} else {
+	// 		$isSiteVisit_new_value = 2;
+	// 	}
+	// 	$edit_value = isset($_POST["edit_value"]) ? intval($_POST["edit_value"]) : 0;
+	// 	$table_name = isset($_POST['table']) ? $_POST['table'] : '';
+	// 	$username = session_username($_SESSION['username']);
+	// 	// Sanitize the table_name to avoid SQL injection (you may use other validation methods as well)
+	// 	$table_name = $secondDb->escapeString($table_name);
+	// 	// Update the iscountvisit and isSiteVisit values in the database
+	// 	$query = "UPDATE " . $username . "_all_inquiry SET iscountvisit = $new_value, isSiteVisit = $isSiteVisit_new_value WHERE id = $edit_value";
+	// 	$result = $secondDb->query($query);
+	// }
 }
