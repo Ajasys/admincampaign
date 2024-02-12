@@ -965,7 +965,7 @@ class Bot_Controller extends BaseController
 
 			$return_result['chat_list_html'] = $chat_list_html;
 			return json_encode($return_result);
-		}
+		// }
 
 		if($_POST['action'] == 'chat_massage_list') {
 			$conversion_id = $_POST['conversion_id'];

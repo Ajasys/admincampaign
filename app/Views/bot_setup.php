@@ -2953,21 +2953,38 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
 
 
-        //Single Choile Table Row Add
+        <?php
+            $options = [];
+            if (isset($admin_bot_setup)) {
+                foreach ($admin_bot_setup as $type_key => $type_value) {
+                    if ($type_value['bot_id'] == $botId) {
+                        $options[] = [
+                            'id' => $type_value["id"],
+                            'question' => $type_value["question"]
+                        ];
+                    }
+                }
+            }
+            $encoded_options = json_encode($options);
+        ?>
 
+        //Single Choile Table Row Add
         function table_html() {
-            var main_table_html = '<tr class="d-flex flex-wrap col-12 w-100><td class="col-3"><input type="text" class="form-control row-option-value" id="" placeholder="" value="option1"></td><td class="col-3">    <select class="form-select" aria-label="Default select example">        <option value="1">Main-flow</option>    </select></td><td class="col-4">    <select class="form-select" aria-label="Default select example">        <option selected>No Jump</option>        <option value="1">One</option>        <option value="2">Two</option>        <option value="3">Three</option>    </select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn">D</button></td></tr>';
+            var row_numbers = $('.main-plan').length;
+            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select question_select" aria-label="Default select example"><option selected>No Jump</option>';
+            
+            var options = <?php echo $encoded_options; ?>;
+
+            options.forEach(function(option) {
+                main_table_html += '<option value="' + option.id + '">' + option.question + '</option>';
+            });
+            main_table_html += '<td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td></select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".tbody").append(main_table_html);
         }
-
         table_html();
 
         $('body').on('click', '.single-choice-add-tabal', function() {
-
-            var row_numbers = $('.single-choice-add-tabal').length++;
-
-            table_html(row_numbers);
-
+            table_html(); 
             update_row_numbers();
         });
 
@@ -3008,24 +3025,20 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
         let option = 1;
 
-        function multiple_table_html() {
-            var multiple_table_row = '<tr class="col-12"><td class="col-3"><input type="text" class="form-control multiple-row-option-value" id="" placeholder="" value="option' + option + '"></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn">D</button></td></tr>';
+        function multiple_table_html(index) {
+            var row_numbers = $('.multiple_main-plan').length;
+            var multiple_table_row = '<tr class="col-12 multiple_main-plan"><td class="col-3"><input type="text" class="form-control multiple-row-option-value multiple_choice_options_' + row_numbers + '" id="" placeholder="Enter the option" value=""></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
             $(".multiple-table-body").append(multiple_table_row);
         }
-
         multiple_table_html();
 
         $('body').on('click', '.multiple-choice-add-tabal', function() {
-
             option++;
-
             multiple_table_html();
         });
 
         $('body').on('click', '.multiple-remove-btn', function() {
-
             $(this).closest('tr').remove();
-
         });
 
 
@@ -3216,7 +3229,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
 
         function forms_div_fun() {
-        var forms_div = `<div class="Forms_in_div">
+            var forms_div = `<div class="Forms_in_div">
                             <div class="d-flex flex-wrap p-2 row_add">
                                 <div class="ms-2 me-2">
                                     <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Select Type</label>
@@ -3516,6 +3529,39 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         $(".currency").val(menu_message.currency);
                         $(".size").val(menu_message.size);
 
+                        if (menu_message.date_range && typeof menu_message.date_range === 'string') {
+                            var parts = menu_message.date_range.split('-');
+                            var formattedDate = '' + parts[0] + '-' + parts[1] + '-' + parts[2];
+                            $(".appointment_date_range").val(formattedDate);
+                        }
+
+                        
+                        $(".appointment_next_days").val(menu_message.next_days);
+                        $(".from_timing").val(menu_message.from_timing);
+                        $(".to_timing").val(menu_message.to_timing);
+                        $(".timezone").val(menu_message.timezone);
+                        $(".interval").val(menu_message.next_days);
+                        $(".format").val(menu_message.format);
+                        $(".bookings_per_slot").val(menu_message.bookings_per_slot);
+                        $(".title").val(menu_message.title);
+                        $(".description").val(menu_message.description);
+                        $(".meeting_url").val(menu_message.meeting_url);
+                        $(".already_booked_message").val(menu_message.already_booked_message);
+                        $(".no_slots_message").val(menu_message.no_slots_message);
+                        
+
+                        if (menu_message.appointment_period && menu_message.appointment_period.length === 2) {
+                            var appointment_period = menu_message.appointment_period;
+                            $(".appointment_period:first").val(appointment_period[0]);
+                            $(".appointment_period:last").val(appointment_period[1]);
+                        }
+
+                        
+                        if (menu_message.enable_timezone_selection === "1") {
+                            $(".enable_timezone_selection").prop("checked", true);
+                        } else {
+                            $(".enable_timezone_selection").prop("checked", false);
+                        }                   
 
                         if (menu_message.remove_menu === "true") {
                             $(".menu_message").prop("checked", true);
@@ -3596,6 +3642,54 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 $(".is_strict_validation").prop("checked", false);
                             }
 
+                        }
+
+                        // console.log(menu_message.questions);
+                        if (type_of_question == 17) {
+                            menu_message.questions.forEach(function(question) {
+                                var customHtml = `
+                                    <div class="Forms_in_div">
+                                        <div class="d-flex flex-wrap p-2 row_add">
+                                            <div class="ms-2 me-2">
+                                                <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Select Type</label>
+                                                <select class="form-select form-select-picker question_type" aria-label="Default select example">
+                                                    <option value="Question" ${question.type === 'Question' ? 'selected' : ''}>Question</option>
+                                                    <option value="Dropdown" ${question.type === 'Dropdown' ? 'selected' : ''}>Dropdown</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="ms-2 me-2">
+                                                <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Questions</label>
+                                                <input type="text" class="form-control fw-medium form-qa-text form_question_text" id="" placeholder="Question Text" value="${question.text}">
+                                            </div>
+
+                                            <div class="ms-2 me-2">
+                                                <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Required</label>
+                                                <div class="form-check form-switch mx-2 m-2 form-required">
+                                                    <input class="form-check-input is_required" type="checkbox" role="switch" id="flexSwitchCheckChecked" ${question.is_req === 'on' ? 'checked' : ''}>
+                                                </div>
+                                            </div>
+
+                                            <div class="ms-2 me-2 Regex_div">
+                                                <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Regex</label>
+                                                <input type="text" class="form-control fw-medium form-qa-text form_regex" id="" placeholder="Regex" value="${question.regex}">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-wrap p-2 row_add">
+                                            <div class="ms-2 me-2 form_description second-add">
+                                                <label class="form-check-label mb-1 d-flex single-choice-show-options fw-semibold" style="font-size: 14px;">Description</label>
+                                                <input type="text" class="main-input1 form-control fw-medium form-qa-text form_description" id="" placeholder="Enter Description" value="${question.desc}">
+                                                <textarea class="text-area form-control fs-12 fw-medium form-detail form_dropdown" placeholder="Options(comma seperated)" id="">${question.options}</textarea>
+                                            </div>
+                                            <div class="ms-2 me-2">
+                                                <button type="button" id="updates_div_d" class="btn form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                $(".forms_div").append(customHtml);
+                                $('.text-area').hide();
+                            });
                         }
 
 
@@ -3912,33 +4006,56 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
                 carouselData.push(rowData);
             });
-
             var options_value = JSON.stringify(carouselData);
         }
 
 
-        var date_range = $(".appointment_date_range").val(); 
-        var appointment_period = $(".appointment_period").val();
-        var weekdays =  $(".weekdays input[type='checkbox']").each(function(index) {
-                            $(this).prop("checked", weekdays.includes(index + 1));
-                        });
-        var from_timing = $(".from_timing").val();
-        var to_timing = $(".to_timing").val();
-        var timezone = $(".timezone").val();
-        var interval = $(".interval").val();
-        var bookings_per_slot = $(".bookings_per_slot").val();
-        var title = $(".title").val();
-        var description = $(".description").val();
-        var meeting_url = $(".meeting_url").val();
-        var already_booked_message = $(".already_booked_message").val();
-        var no_slots_message =  $(".no_slots_message").val();
-        var next_days = $(".next_days input").val(); 
-        var channel = $(".channel").val();
-        console.log(date_range);
-        console.log(appointment_period);
-        console.log(already_booked_message);
-        console.log(no_slots_message);
+        if (type_of_question == "21") {
+            var date_range = $(".appointment_date_range").val();
+            var futureDays = $(".appointment_period:eq(0)").val();
+            var nextDays = $(".appointment_period:eq(1)").val();
 
+            var appointment_period = [futureDays, nextDays];
+            var weekdays = $('.appointment_weekdays:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+            var from_timing = $(".from_timing").val();
+            var to_timing = $(".to_timing").val();
+            var timezone = $(".timezone").val();
+            var interval = $(".interval").val();
+            var format = $(".format").val();
+            var bookings_per_slot = $(".bookings_per_slot").val();
+            var title = $(".title").val();
+            var description = $(".description").val();
+            var meeting_url = $(".meeting_url").val();
+            var already_booked_message = $(".already_booked_message").val();
+            var no_slots_message = $(".no_slots_message").val();
+            var next_days = $(".appointment_next_days").val(); 
+            var channel = $(".channel").val();
+            var enable_timezone_selection = $(".enable_timezone_selection").is(":checked") ? "1" : "0";
+
+            var data = {
+                date_range: date_range,
+                appointment_period: appointment_period,
+                weekdays: weekdays,
+                from_timing: from_timing,
+                to_timing: to_timing,
+                timezone: timezone,
+                interval: interval,
+                format: format,
+                bookings_per_slot: bookings_per_slot,
+                title: title,
+                description: description,
+                meeting_url: meeting_url,
+                already_booked_message: already_booked_message,
+                no_slots_message: no_slots_message,
+                next_days: next_days,
+                channel: channel,
+                enable_timezone_selection: enable_timezone_selection
+            };
+            var options_value = JSON.stringify(data);
+        }
 
 
         if (update_id != "") {
@@ -4989,7 +5106,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <input class="form-check-input fw-bold appointment_weekdays" type="checkbox" id="" value="THU" checked>
                                 <label class="form-check-label fw-semibold" for="">THU</label>
                             </div>
-                            <div class="form-check form-check-inline col appointment_weekdays">
+                            <div class="form-check form-check-inline col">
                                 <input class="form-check-input fw-bold appointment_weekdays" type="checkbox" id="" value="FRI" checked>
                                 <label class="form-check-label fw-semibold" for="">FRI</label>
                             </div>
@@ -5006,8 +5123,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             <div class="col-12 d-flex flex-wrap align-items-center my-1">
                                 <div class="col-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
-                                        <label for="" class="form-label next_days">Disable Next (Days)</label>
-                                        <input type="number" class="form-control" id="" placeholder="">
+                                        <label for="" class="form-label ">Disable Next (Days)</label>
+                                        <input type="number" class="form-control appointment_next_days" id="" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-4 p-2 d-flex flex-wrap align-items-center">
@@ -5047,21 +5164,26 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     <div class="col-12">
                                         <label for="" class="form-label">Slot Timings :</label>
                                         <select class="form-select from_timing" aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                           <option value="12:00 AM">12:00 AM</option>
+                                           <option value="12:30 AM">12:30 AM</option>
+                                           <option value="01:00 AM">01:00 AM</option>
+                                           <option value="01:30 AM">01:30 AM</option>
+                                           <option value="02:00 AM">02:00 AM</option><option ng-repeat="timing in available_timings" value="02:30 AM" class="ng-binding ng-scope">02:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="03:00 AM" class="ng-binding ng-scope">03:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="03:30 AM" class="ng-binding ng-scope">03:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="04:00 AM" class="ng-binding ng-scope">04:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="04:30 AM" class="ng-binding ng-scope">04:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="05:00 AM" class="ng-binding ng-scope">05:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="05:30 AM" class="ng-binding ng-scope">05:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="06:00 AM" class="ng-binding ng-scope">06:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="06:30 AM" class="ng-binding ng-scope">06:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="07:00 AM" class="ng-binding ng-scope">07:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="07:30 AM" class="ng-binding ng-scope">07:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="08:00 AM" class="ng-binding ng-scope">08:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="08:30 AM" class="ng-binding ng-scope">08:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="09:00 AM" class="ng-binding ng-scope">09:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="09:30 AM" class="ng-binding ng-scope">09:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="10:00 AM" class="ng-binding ng-scope">10:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="10:30 AM" class="ng-binding ng-scope">10:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="11:00 AM" class="ng-binding ng-scope">11:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="11:30 AM" class="ng-binding ng-scope">11:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="12:00 PM" class="ng-binding ng-scope">12:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="12:30 PM" class="ng-binding ng-scope">12:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="01:00 PM" class="ng-binding ng-scope">01:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="01:30 PM" class="ng-binding ng-scope">01:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="02:00 PM" class="ng-binding ng-scope">02:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="02:30 PM" class="ng-binding ng-scope">02:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="03:00 PM" class="ng-binding ng-scope">03:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="03:30 PM" class="ng-binding ng-scope">03:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="04:00 PM" class="ng-binding ng-scope">04:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="04:30 PM" class="ng-binding ng-scope">04:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="05:00 PM" class="ng-binding ng-scope">05:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="05:30 PM" class="ng-binding ng-scope">05:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="06:00 PM" class="ng-binding ng-scope">06:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="06:30 PM" class="ng-binding ng-scope">06:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="07:00 PM" class="ng-binding ng-scope">07:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="07:30 PM" class="ng-binding ng-scope">07:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="08:00 PM" class="ng-binding ng-scope">08:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="08:30 PM" class="ng-binding ng-scope">08:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="09:00 PM" class="ng-binding ng-scope">09:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="09:30 PM" class="ng-binding ng-scope">09:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="10:00 PM" class="ng-binding ng-scope">10:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="10:30 PM" class="ng-binding ng-scope">10:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="11:00 PM" class="ng-binding ng-scope">11:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="11:30 PM" class="ng-binding ng-scope">11:30 PM</option><!-- end ngRepeat: timing in available_timings -->
                                         </select>
+
                                     </div>
                                 </div>
                                 <div class="col-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label"></label>
                                         <select class="form-select to_timing" aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="12:00 AM">12:00 AM</option>
+                                            <option value="12:30 AM">12:30 AM</option>
+                                            <option value="01:00 AM">01:00 AM</option>
+                                            <option value="01:30 AM">01:30 AM</option>
+                                            <option value="02:00 AM">02:00 AM</option>
+                                            <option value="02:30 AM">02:30 AM</option>
+                                            <option value="03:00 AM">03:00 AM</option><option ng-repeat="timing in available_timings" value="03:30 AM" class="ng-binding ng-scope">03:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="04:00 AM" class="ng-binding ng-scope">04:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="04:30 AM" class="ng-binding ng-scope">04:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="05:00 AM" class="ng-binding ng-scope">05:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="05:30 AM" class="ng-binding ng-scope">05:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="06:00 AM" class="ng-binding ng-scope">06:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="06:30 AM" class="ng-binding ng-scope">06:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="07:00 AM" class="ng-binding ng-scope">07:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="07:30 AM" class="ng-binding ng-scope">07:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="08:00 AM" class="ng-binding ng-scope">08:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="08:30 AM" class="ng-binding ng-scope">08:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="09:00 AM" class="ng-binding ng-scope">09:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="09:30 AM" class="ng-binding ng-scope">09:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="10:00 AM" class="ng-binding ng-scope">10:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="10:30 AM" class="ng-binding ng-scope">10:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="11:00 AM" class="ng-binding ng-scope">11:00 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="11:30 AM" class="ng-binding ng-scope">11:30 AM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="12:00 PM" class="ng-binding ng-scope">12:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="12:30 PM" class="ng-binding ng-scope">12:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="01:00 PM" class="ng-binding ng-scope">01:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="01:30 PM" class="ng-binding ng-scope">01:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="02:00 PM" class="ng-binding ng-scope">02:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="02:30 PM" class="ng-binding ng-scope">02:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="03:00 PM" class="ng-binding ng-scope">03:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="03:30 PM" class="ng-binding ng-scope">03:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="04:00 PM" class="ng-binding ng-scope">04:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="04:30 PM" class="ng-binding ng-scope">04:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="05:00 PM" class="ng-binding ng-scope">05:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="05:30 PM" class="ng-binding ng-scope">05:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="06:00 PM" class="ng-binding ng-scope">06:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="06:30 PM" class="ng-binding ng-scope">06:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="07:00 PM" class="ng-binding ng-scope">07:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="07:30 PM" class="ng-binding ng-scope">07:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="08:00 PM" class="ng-binding ng-scope">08:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="08:30 PM" class="ng-binding ng-scope">08:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="09:00 PM" class="ng-binding ng-scope">09:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="09:30 PM" class="ng-binding ng-scope">09:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="10:00 PM" class="ng-binding ng-scope">10:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="10:30 PM" class="ng-binding ng-scope">10:30 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="11:00 PM" class="ng-binding ng-scope">11:00 PM</option><!-- end ngRepeat: timing in available_timings --><option ng-repeat="timing in available_timings" value="11:30 PM" class="ng-binding ng-scope">11:30 PM</option><!-- end ngRepeat: timing in available_timings -->
                                         </select>
                                     </div>
                                 </div>
@@ -5069,10 +5191,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     <div class="col-12">
                                         <label for="" class="form-label">Timezone</label>
                                         <select class="form-select timezone" aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="+14:00">GMT+14:00(Samoa and Christmas Island / Kiribati, LINT, Kiritimati)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+13:45" class="ng-binding ng-scope">GMT+13:45(Chatham Islands / New Zealand, CHADT, Chatham Islands)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+13:00" class="ng-binding ng-scope">GMT+13:00(New Zealand with exceptions and 4 more, NZDT, Auckland)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+12:00" class="ng-binding ng-scope">GMT+12:00(Fiji, small region of Russia, ANAT, Anadyr)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+11:00" class="ng-binding ng-scope">GMT+11:00(much of Australia and 7 more, AEDT, Melbourne)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+10:30" class="ng-binding ng-scope">GMT+10:30(small region of Australia, ACDT, Adelaide)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+10:00" class="ng-binding ng-scope">GMT+10:00(Queensland / Australia and 6 more, AEST, Brisbane)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+09:30" class="ng-binding ng-scope">GMT+09:30(Northern Territory / Australia, ACST, Darwin)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+9" class="ng-binding ng-scope">GMT+9(Japan, South Korea and , JST, Tokyo)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+08:45" class="ng-binding ng-scope">GMT+08:45(Western Australia / Australia, ACWST, Eucla)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+08:00" class="ng-binding ng-scope">GMT+08:00(China, Philippines, CST, Beijing)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+07:00" class="ng-binding ng-scope">GMT+07:00(much of Indonesia, Thailand, WIB, Jakarta)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+06:30" class="ng-binding ng-scope">GMT+06:30(Myanmar and Cocos Islands, MMT, Yangon)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+06:00" class="ng-binding ng-scope">GMT+06:00(Bangladesh and 6 more, BST, Dhaka)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+05:45" class="ng-binding ng-scope">GMT+05:45(Nepal, NPT, Kathmandu)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+05:30" class="ng-binding ng-scope">GMT+05:30(India and Sri Lanka, IST, New Delhi)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+05:00" class="ng-binding ng-scope">GMT+05:00(Pakistan and 8 more, UZT, Tashkent)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+04:30" class="ng-binding ng-scope">GMT+04:30(Afghanistan, AFT, Kabul)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+04:00" class="ng-binding ng-scope">GMT+04:00(Azerbaijan and 8 more, GST, Dubai)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+03:30" class="ng-binding ng-scope">GMT+03:30(Iran, IRST, Tehran)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+03:00" class="ng-binding ng-scope">GMT+03:00(Moscow / Russia and 22 more, MSK, Moscow)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+02:00" class="ng-binding ng-scope">GMT+02:00(Greece and 31 more, EET, Cairo)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+01:00" class="ng-binding ng-scope">GMT+01:00(Germany and 45 more, CET, Brussels)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="+00:00" class="ng-binding ng-scope">GMT+00:00(United Kingdom and 24 more, GMT, London)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-01:00" class="ng-binding ng-scope">GMT-01:00(Cabo Verde and 2 more, CVT, Praia)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-02:00" class="ng-binding ng-scope">GMT-02:00(Pernambuco / Brazil and South Georgia / Sandwich Is., GST, King Edward Point)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-03:00" class="ng-binding ng-scope">GMT-03:00(most of Brazil, Argentina and 9 more, ART, Buenos Aires)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-03:30" class="ng-binding ng-scope">GMT-03:30(Newfoundland and Labrador / Canada, NST, St.John 's)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-04:00" class="ng-binding ng-scope">GMT-04:00(some regions of Canada and 28 more, VET, Caracas)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-05:00" class="ng-binding ng-scope">GMT-05:00(regions of USA and 14 more, EST, New York)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-06:00" class="ng-binding ng-scope">GMT-06:00(regions of USA and 9 more, CST, Mexico City)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-07:00" class="ng-binding ng-scope">GMT-07:00(some regions of USA and 2 more, MST, Calgary)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-08:00" class="ng-binding ng-scope">GMT-08:00(regions of USA and 4 more, PST, Los Angeles)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-09:00" class="ng-binding ng-scope">GMT-09:00(Alaska / USA and regions of French Polynesia, AKST, Anchorage)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-09:30" class="ng-binding ng-scope">GMT-09:30(Marquesas Islands / French Polynesia, MART, Taiohae)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-10:00" class="ng-binding ng-scope">GMT-10:00(small region of USA and 2 more, HST, Honolulu)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-11:00" class="ng-binding ng-scope">GMT-11:00(American Samoa and 2 more, NUT, Alofi)</option><!-- end ngRepeat: timezone in available_timezones --><option ng-repeat="timezone in available_timezones" value="-12:00" class="ng-binding ng-scope">GMT-12:00(much of US Minor Outlying Islands, AoE, Baker Island)</option><!-- end ngRepeat: timezone in available_timezones -->
                                         </select>
                                     </div>
                                 </div>
@@ -5089,9 +5208,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         <label for="" class="form-label">Format</label>
                                         <select class="form-select format" aria-label="Default select example">
                                             <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="12">12 Hours</option>
+                                            <option value="24">24 Hours</option>
                                         </select>
                                     </div>
                                 </div>
