@@ -143,11 +143,11 @@
 $table_username = session_username($_SESSION['username']);
 $product = json_decode($product, true);
 $this->db = \Config\Database::connect('second');
-$conn_query = "SELECT * FROM ".$table_username."_platform_integration Where master_id=" . $_SESSION['master']." AND platform_status=2";
+$conn_query = "SELECT * FROM " . $table_username . "_platform_integration Where master_id=" . $_SESSION['master'] . " AND platform_status=2";
 $conn_result = $this->db->query($conn_query);
 $conn_rows = $conn_result->getResultArray();
 
-$user_get = "SELECT * FROM ".$table_username."_user WHERE switcher_active = 'active' ORDER BY id ASC";
+$user_get = "SELECT * FROM " . $table_username . "_user WHERE switcher_active = 'active' ORDER BY id ASC";
 $user_result = $this->db->query($user_get);
 $user_data = $user_result->getResultArray();
 ?>
@@ -321,9 +321,9 @@ $user_data = $user_result->getResultArray();
                                                         Name</label>
                                                     <div class="main-selectpicker">
                                                         <select id="fb_conn_id" class="selectpicker form-control form-main fb_conn_id">
-                                                        <option value="">select Connection</option>
+                                                            <option value="">select Connection</option>
                                                             <?php foreach ($conn_rows as $key => $value) {
-                                                                echo "<option value=" . $value['id'] . "  data-access-token=".$value['access_token']." data-connection-check=".$value['verification_status'].">" . $value['fb_app_name'] . "</option>";
+                                                                echo "<option value=" . $value['id'] . "  data-access-token=" . $value['access_token'] . " data-connection-check=" . $value['verification_status'] . ">" . $value['fb_app_name'] . "</option>";
                                                             }
                                                             ?>
                                                         </select>
@@ -369,7 +369,7 @@ $user_data = $user_result->getResultArray();
                             </div>
                         </div>
                         <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
-                        
+
                             <label class="form-label main-label fs-14 text-nowrap mt-2">Int Product</label> <sup class="validationn">*</sup>
                             <div class="main-selectpicker">
                                 <select id="product" class="selectpicker form-control form-main product" data-live-search="true" required>
@@ -383,7 +383,7 @@ $user_data = $user_result->getResultArray();
                                     ?>
                                 </select>
                             </div>
-                            
+
                             <label class="form-label main-label fs-14 text-nowrap mt-2">Assign
                                 to <sup class="validationn">*</sup></label>
                             <div class="main-selectpicker">
@@ -522,28 +522,24 @@ $user_data = $user_result->getResultArray();
         });
 
         $('body').on('change', '#fb_conn_id', function() {
-            var fb_access_token = $(this).find(':selected').data('access-token'); 
+            var fb_access_token = $(this).find(':selected').data('access-token');
             var fb_check_conn = $(this).find(':selected').data('connection-check');
-            if(fb_access_token!='')
-            {
+            if (fb_access_token != '') {
                 $.ajax({
                     type: "post",
                     url: "<?= site_url('facebook_user'); ?>",
                     data: {
-                        fb_access_token:fb_access_token,
-                        fb_check_conn:fb_check_conn,
+                        fb_access_token: fb_access_token,
+                        fb_check_conn: fb_check_conn,
                         action: 'user'
                     },
                     success: function(res) {
                         $('.loader').hide();
                         var result = JSON.parse(res);
-                        if(result.response==1)
-                        {
+                        if (result.response == 1) {
                             $('#facebookpages').html(result.html);
                             $('#facebookpages').selectpicker('refresh');
-                        }
-                        else
-                        {
+                        } else {
                             $(this).closest(".big_circle_plus_outer").show();
                             $(".big_list_add_outer_main_2").hide();
                             $(".big_list_add_outer_main_2 .big_circle_fb_outer").hide();
@@ -556,9 +552,7 @@ $user_data = $user_result->getResultArray();
                         $('.loader').hide();
                     }
                 });
-            }
-            else
-            {
+            } else {
                 iziToast.error({
                     title: 'Please select your connection..!'
                 });
@@ -624,7 +618,6 @@ $user_data = $user_result->getResultArray();
 </script>
 
 <script>
-
     function pages_list_data() {
         $.ajax({
             type: "post",
@@ -715,14 +708,9 @@ $user_data = $user_result->getResultArray();
     updated_pages_list_data();
     draft_pages_list_data();
 
-    
+
     $('body').on('click', '.big_falcebook_circle_sbt,.new_module_add_btn1', function() {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
-        var master_id = $(this).attr("data-master_id");
-        var access_token = $(".user_agent option:selected").val();
-        var username = $(".user_agent option:selected").attr("data-username");
-        var user_id = $(".user_agent option:selected").attr("data-user_id");
-        getPagesList(master_id,access_token,username,user_id);
         return false;
     });
 
@@ -859,17 +847,17 @@ $user_data = $user_result->getResultArray();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
 
-        if (assign_to != "" && int_product>0) {
+        if (assign_to != "" && int_product > 0) {
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_page'); ?>",
                 data: {
                     action: 'page',
-                    connection_id:connection_id,
+                    connection_id: connection_id,
                     page_id: page_id,
                     access_token: access_token,
                     page_name: page_name,
-                    int_product:int_product,
+                    int_product: int_product,
                     sub_type: sub_type,
                     assign_to: assign_to,
                     staff_to: staff_to,
@@ -938,14 +926,14 @@ $user_data = $user_result->getResultArray();
         } else {
             var draft_status = 3;
         }
-        if (connection_id>0 && page_id > 0 && form_id > 0) {
+        if (connection_id > 0 && page_id > 0 && form_id > 0) {
             $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_page'); ?>",
                 data: {
                     action: 'page',
-                    connection_id:connection_id,
+                    connection_id: connection_id,
                     page_id: page_id,
                     access_token: access_token,
                     page_name: page_name,
@@ -1159,16 +1147,36 @@ $user_data = $user_result->getResultArray();
         }
         $('.page-profile').html('<img src="' + page_img + '" class="w-100 h-100 object-fit-contain rounded-circle">');
 
-        // var access_token ='<?php 
-        //                     $data = getConnectionData($id); 
-        //                     echo $data['access_token'];
-        //                 ?>';
-        // var verification_status = '<?php 
-        //                     $data = getConnectionData($id); 
-        //                     echo $data['verification_status'];
-        //                 ?>';
+        // var access_token ='<?php
+                                //                     $data = getConnectionData($id); 
+                                //                     echo $data['access_token'];
+                                //                 
+                                ?>';
+        // var verification_status = '<?php
+                                        //                     $data = getConnectionData($id); 
+                                        //                     echo $data['verification_status'];
+                                        //                 
+                                        ?>';
 
-        getPagesList(master_id,access_token,username,user_id)
+
+        $.ajax({
+            type: "post",
+            url: "<?= site_url('edit_facebook_scenarious'); ?>",
+            data: {
+                id:id,
+            },
+            success: function(res) {
+                var result = JSON.parse(res);
+                // $('#facebookform').html(result.html);
+                // $('#facebookform').val(form_id);
+                // $('#facebookform').selectpicker('refresh');
+            },
+            error: function(error) {
+                $('.loader').hide();
+            }
+        });
+
+        getPagesList(master_id, access_token, username, user_id)
         $('#facebookpages').val(page_id);
         $('#facebookpages').selectpicker('refresh');
 
@@ -1177,8 +1185,8 @@ $user_data = $user_result->getResultArray();
             url: "<?= site_url('facebook_user'); ?>",
             data: {
                 action: 'user',
-                access_token:access_token,
-                verification_status:verification_status,
+                access_token: access_token,
+                verification_status: verification_status,
             },
             success: function(res) {
                 var result = JSON.parse(res);
@@ -1238,30 +1246,29 @@ $user_data = $user_result->getResultArray();
 
     }
 
-    function  getPagesList(master_id,access_token,username,user_id)
-    {
+    function getPagesList(fb_access_token, fb_check_conn) {
         $.ajax({
             type: "post",
             url: "<?= site_url('facebook_user'); ?>",
             data: {
-                action: 'user_already',
-                access_token: access_token,
-                username: username,
-                user_id: user_id,
-                master_id: master_id,
+                fb_access_token: fb_access_token,
+                fb_check_conn: fb_check_conn,
+                action: 'user'
             },
             success: function(res) {
+                $('.loader').hide();
                 var result = JSON.parse(res);
-                if ($("#facebookpages").val() == "0" || $("#facebookpages").val() == "") {
-                    if ('<?php echo isset($data[0]['user_profile']) ?>') {
-                        $('.fb_div_hide').hide();
-                        $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');
-
-                    }
+                if (result.response == 1) {
                     $('#facebookpages').html(result.html);
                     $('#facebookpages').selectpicker('refresh');
+                } else {
+                    $(this).closest(".big_circle_plus_outer").show();
+                    $(".big_list_add_outer_main_2").hide();
+                    $(".big_list_add_outer_main_2 .big_circle_fb_outer").hide();
+                    iziToast.error({
+                        title: result.message
+                    });
                 }
-                $('.loader').hide();
             },
             error: function(error) {
                 $('.loader').hide();

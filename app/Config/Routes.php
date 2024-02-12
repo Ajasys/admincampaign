@@ -89,7 +89,7 @@ $routes->post('/allinqsmssend', 'Templates_Controller::allinq_sms_send');
 $routes->post('/bulkwhatsapp_template_sent', 'Templates_Controller::bulkwhatsapp_template_sent');
 $routes->get('email_connection', 'Home::email_connection');
 $routes->post('check_email_connection', 'EmailController::check_email_connection');
-$routes->get('/EmailConversions', 'Templates_Controller::template');	
+$routes->get('/EmailConversions', 'Templates_Controller::template');
 $routes->post('email_link_track', 'Home::email_link_track');
 
 $routes->get('/alert_setting', 'Home::alert_setting');
@@ -104,9 +104,9 @@ $routes->get('/phone_number', 'Home::phone_number');
 
 // post and comment
 $routes->get('/post_comments', 'Home::post_comments');
-$routes->post('/create_insert_data', 'CreateController::create_insert_data');	
+$routes->post('/create_insert_data', 'CreateController::create_insert_data');
 $routes->post('/SendPostDataFB', 'CreateController::SendPostDataFB');
-$routes->post('/list_post_pagewise', 'CreateController::list_post_pagewise');	
+$routes->post('/list_post_pagewise', 'CreateController::list_post_pagewise');
 
 
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');
@@ -255,13 +255,13 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('audience_inquiry_data_view', 'AudianceController::view_data_audience');
 	$routes->post('audience_insert_data', 'AudianceController::audience_insert_data');
 	$routes->post('get_data_header_by_file_audience', 'AudianceController::get_data_header_by_file_audience');
-    $routes->post('import_file_data_audience', 'AudianceController::import_file_data_audience');
+	$routes->post('import_file_data_audience', 'AudianceController::import_file_data_audience');
 	$routes->post('audience_facebook_data', 'AudianceController::audience_facebook_data');
 	$routes->post('audience_view_data_facebook', 'AudianceController::audience_view_data_facebook');
 	$routes->post('view_integrate_lead_audience', 'AudianceController::view_integrate_lead_audience');
-	
+
 	$routes->post('edit_data_audience', 'AudianceController::edit_data_audience');
-	$routes->post('update_data_audience', 'AudianceController::update_data_audience');	
+	$routes->post('update_data_audience', 'AudianceController::update_data_audience');
 
 
 
@@ -516,7 +516,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/messenger', 'Home::messenger');
 	$routes->get('/bot_setup', 'Home::bot_setup');
 	$routes->get('/bot_setup_designer', 'Home::bot_setup_designer');
-	$routes->post('/bot_update','Bot_Controller::bot_update');
+	$routes->post('/bot_update', 'Bot_Controller::bot_update');
 	$routes->post('/main_bot_list_data', 'Bot_Controller::main_bot_list_data');
 	$routes->post('/messenging_bot_insert_data', 'Bot_Controller::messenging_bot_insert_data');
 	$routes->post('/messeging_bot_list', 'Bot_Controller::messeging_bot_list');
@@ -532,8 +532,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
 
 	$routes->get('/installer', 'Home::installer');
-    $routes->post('bot_preview', 'Bot_Controller::bot_preview');
-    $routes->post('', 'Bot_Controller::get_chat_data');
+	$routes->post('bot_preview', 'Bot_Controller::bot_preview');
+	$routes->post('', 'Bot_Controller::get_chat_data');
 
 	// massager code routes 
 	$routes->post('get_chat_data', 'Bot_Controller::get_chat_data');
@@ -555,10 +555,11 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/leadlist', 'Home::leadlist');
 	$routes->post('/lead_list', 'FacebookController::lead_list');
 	$routes->post('/fb_connection_list', 'FacebookController::fb_connection_list');
-	$routes->post('/fb_permission_list', 'FacebookController::fb_permission_list');	
+	$routes->post('/fb_permission_list', 'FacebookController::fb_permission_list');
+	$routes->post('/edit_facebook_scenarious', 'FacebookController::edit_facebook_scenarious');
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
-    $routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
+	$routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
 	$routes->post('/whatsapp_template_delete_data', 'WhatAppIntegrationController::whatsapp_template_delete_data');
 	$routes->post('/whatsappView', 'WhatAppIntegrationController::whatsappView');
 	$routes->post('/whatsapptemplate_edit_data', 'WhatAppIntegrationController::whatsapptemplate_edit_data');
@@ -570,21 +571,19 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/WhatsAppRTemplateDeleteRequest', 'WhatAppIntegrationController::WhatsAppRTemplateDeleteRequest');
 	$routes->post('/single_whatsapp_template_sent', 'WhatAppIntegrationController::single_whatsapp_template_sent');
 
-$routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
+	$routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
 	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
 	$routes->post('/GetWhatsAppTemplateDetails', 'WhatAppIntegrationController::GetWhatsAppTemplateDetails');
 
-	
+
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
-$routes->get('/whatsapp_connections', 'Home::whatsapp_connections');
+	$routes->get('/whatsapp_connections', 'Home::whatsapp_connections');
 
-	
+
 	// $routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
-$routes->post('/WhatsAppConnectionEntry', 'WhatAppAakashController::WhatsAppConnectionEntry');
+	$routes->post('/WhatsAppConnectionEntry', 'WhatAppAakashController::WhatsAppConnectionEntry');
 	$routes->post('/WhatsAppConnectionsList', 'WhatAppAakashController::WhatsAppConnectionsList');
-
-
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');
