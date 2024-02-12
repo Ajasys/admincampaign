@@ -19,12 +19,50 @@
     .account-nav {
         cursor: pointer;
         background-color: white;
+        overflow: hidden;
     }
 
     .account_icon {
         background-color: #f3f3f3;
         height: 40px;
         width: 40px;
+        overflow: hidden;
+        background-position: center;
+        align-self: center;
+    }
+    .chat_loader {
+        display: block;
+        --height-of-loader: 4px;
+        --loader-color: #0071e2;
+        width: 130px;
+        height: var(--height-of-loader);
+        border-radius: 30px;
+        background-color: rgba(0,0,0,0.2);
+        position: relative;
+    }
+
+    .chat_loader::before {
+        content: "";
+        position: absolute;
+        background: var(--loader-color);
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        border-radius: 30px;
+        animation: moving 1s ease-in-out infinite;
+    }
+
+    @keyframes moving {
+        50% {
+            width: 100%;
+        }
+
+        100% {
+            width: 0;
+            right: 0;
+            /* left: unset; */
+        }
     }
 </style>
 
@@ -48,7 +86,7 @@
                             </div>
                         </div>
                         <div class="col-12 overflow-y-scroll account_list p-1" style="max-height: 100%;">
-                            <div class="col-12 account-nav p-2 border my-2 rounded-3">
+                            <!-- <div class="col-12 account-nav p-2 border my-2 rounded-3">
                                 <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
                                     <a href="" class="col-4 account_icon border border-1 rounded-circle me-2">
 
@@ -74,7 +112,11 @@
                                     <p class="fs-5 fw-medium col">Gymsmart
                                     </p>
                                 </div>
-                            </div>
+                            </div> -->
+                        </div>
+                        <div class="m-auto acc_loader text-center">
+                            <span>Loading...</span>
+                            <div class="mx-auto chat_loader"></div>
                         </div>
                         <div class="col-12 text-center d-none">
                             <p class="fw-semibold fs-5">No Any Record Found</p>
@@ -89,6 +131,9 @@
                                 <div class="dropdown d-flex align-items-center">
                                     <i class="fas fa-comment fs-5  me-2"></i>
                                     <h5 class="fs-5 ">Chats</h5>
+                                </div>
+                                <div class="">
+                                    <p class="page_name"></p>
                                 </div>
                             </div>
                         </div>
@@ -195,6 +240,10 @@
                             </div>
 
                         </div>
+                        <div class="m-auto chat_list_loader text-center">
+                            <span>Loading...</span>
+                            <div class="mx-auto chat_loader"></div>
+                        </div>
                         <div class="col-12 overflow-y-scroll chat_list p-2" style="max-height: 100%;">
                             <div class="col-12 text-center">
                                 <p class="fs-5 fw-medium mt-5">No Record Found</p>
@@ -222,8 +271,8 @@
                             </div>
                         </div>
 
-                        <div class="main-task left-main-task mt-2 p-2 overflow-y-scroll chat_bord col-12 d-none" style="max-height:80%;">
-                            <div class="d-flex  mb-1 col-3">
+                        <div class="main-task left-main-task mt-2 p-2 overflow-y-scroll chat_bord col-12" style="max-height:80%;">
+                            <!-- <div class="d-flex  mb-1 col-3">
                                 <i class="me-2 bi bi-people-fill"></i>
                                 <a href="" class="ms-3">https://www.facebook.com/</a>
                             </div>
@@ -256,10 +305,13 @@
                                     </div>
                                 </div>
 
-                            </div>
-
+                            </div> -->
                         </div>
-                        <div class="col-12 overflow-y-scroll chat_list p-2" style="max-height: 100%;">
+                        <div class="m-auto massage_list_loader text-center">
+                            <span>Loading...</span>
+                            <div class="mx-auto chat_loader"></div>
+                        </div>
+                        <div class="col-12 overflow-y-scroll p-2 noRecourdFound" style="max-height: 100%;">
                             <div class="col-12 text-center">
                                 <p class="fs-5 fw-medium mt-5 d-block">No Record Found</p>
                             </div>
@@ -286,21 +338,46 @@
 <script>
     $(document).ready(function() {
         // massage list data
-        function list_data(api = false) {
+        function list_data(api = false, action = 'account_list',page_id = '',page_access_token = '') {
             $.ajax({
                 method: "post",
                 url: "<?= site_url('get_chat_data'); ?>",
                 data: {
-                    action: 'chat_list',
+                    action: action,
                     api: api,
+                    page_id: page_id,
+                    page_access_token: page_access_token,
+                },
+                beforeSend: function() {
+                    if(action == 'account_list') {
+                        $('.acc_loader').show();
+                    } else if(action == 'chat_list'){
+                        $('.chat_list').html('');
+                        $('.chat_list_loader').show();
+                    }
                 },
                 success: function(data) {
+                    $('.acc_loader').hide();
                     var obj = JSON.parse(data);
-                    $('.chat_list').html(obj.chat_list_html);
+                    if(action == 'account_list') {
+                        $('.account_list').html(obj.chat_list_html);
+                    } else if(action == 'chat_list'){
+                        $('.chat_list').html(obj.chat_list_html);
+                        $('.chat_list_loader').hide();
+                    }
                 }
             });
         }
         list_data();
+        
+        $('.chat_list_loader').hide();
+
+        $('body').on('click','.account-nav',function() {
+            var page_id = $(this).attr("data-page_id");
+            var page_access_token = $(this).attr("data-page_access_token");
+            $('.page_name').text($(this).attr('data-page_name'));
+            list_data(false,'chat_list',page_id,page_access_token);
+        });
 
         $('body').on('click', '.chat_list', function() {
             var conversion_id = $(this).data('conversion_id');
@@ -318,19 +395,27 @@
                     page_id: page_id,
                     // id: massage_id,
                 },
+                beforeSend: function() {
+                    $('.massage_list_loader').show();
+                    $('.noRecourdFound').hide();
+                },
                 success: function(data) {
                     var obj = JSON.parse(data);
+                    $('.massage_list_loader').hide();
+                    $('.chat_bord').show();
                     $('.chat_bord').html(obj.html);
+                    $('.noRecourdFound').hide();
                     $('.send_massage').attr("data-conversion_id", conversion_id);
                     $('.send_massage').attr("data-page_token", page_access_token);
                     $('.send_massage').attr("data-page_id", page_id);
                     $('.send_massage').attr("data-massage_id", massage_id);
                 }
             });
-
+            
             return false;
         });
-
+        
+        $('.massage_list_loader').hide();
 
         $('body').on('click', '.send_massage', function() {
             var massage_input = $('.massage_input').val();

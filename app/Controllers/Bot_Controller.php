@@ -891,31 +891,42 @@ class Bot_Controller extends BaseController
 
 	public function get_chat_data()
 	{
-
-		if ($_POST['action'] == 'chat_list') {
-
+		if($_POST['action'] == 'account_list') {
 			$token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 			$fb_page_list = fb_page_list($token);
 			$fb_page_list = get_object_vars(json_decode($fb_page_list));
-			// pre($fb_page_list);
 
 			$chat_list_html = '';
 			$return_result = array();
 			foreach($fb_page_list['page_list'] as $key => $value){
-				// if($key == 0) {
+				$page_data = fb_page_img($value->id,$value->access_token);
+				$page_data = json_decode($page_data);
 
-					$page_access_token = $value->access_token;
-					$page_id = $value->id;
+				$chat_list_html .= '<div class="col-12 account-nav p-2 border my-2 rounded-3" data-page_id="'.$value->id.'" data-page_access_token="'.$value->access_token.'" data-page_name="'.$value->name.'">
+										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
+												<img src="'.$page_data->page_img.'" alt="">
+											</a>
+											<p class="fs-6 fw-medium col">'.$value->name.'
+											</p>
+										</div>
+									</div>';
+			}
+
+			$return_result['chat_list_html'] = $chat_list_html;
+			return json_encode($return_result);
+		}
+
+		if ($_POST['action'] == 'chat_list') {
+
+			$page_access_token = $_POST['page_access_token'];
+			$page_id = $_POST['page_id'];
 					
 					// if ($_POST['api'] === true) {
 					$url = 'https://graph.facebook.com/' . $page_id . '/conversations?fields=id,participants,messages.limit(1)&pretty=0&access_token=' . $page_access_token;
-					// pre($url);
+			
 					$data = getSocialData($url);
-					
-					// $data = json_decode($response, true);
-
-					// pre($data);
-					// die();
+			$chat_list_html = '';
 
 					foreach($data['data'] as $conversion_value) {
 						$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
@@ -949,7 +960,7 @@ class Bot_Controller extends BaseController
 										</svg>
 									</div>
 									<div class="col-10">
-											<p style="font-size:14px;">' . $conversion_value['participants']['data'][0]['name'] . '(' . $value->name . ')</p>
+									<p style="font-size:14px;">' . $conversion_value['participants']['data'][0]['name'] . '</p>
 										<p class="fs-12 "></p>
 										<div class="text-end">
 											<span class="fs-12">'.$time_count_text.'</span>
@@ -959,13 +970,11 @@ class Bot_Controller extends BaseController
 							</div>
 						</div>
 						';
-					}
-				}
 			}
 
 			$return_result['chat_list_html'] = $chat_list_html;
 			return json_encode($return_result);
-		// }
+		}
 
 		if($_POST['action'] == 'chat_massage_list') {
 			$conversion_id = $_POST['conversion_id'];
