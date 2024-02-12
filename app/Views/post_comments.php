@@ -16,6 +16,13 @@
     .nav-item.active {
         border-color: #724ebf;
     }
+
+    .commnet_user {
+        outline: 1px solid black;
+        outline-offset: 5px;
+        width: 50px;
+        height: 50px;
+    }
 </style>
 
 <div class="main-dashbord p-2">
@@ -27,7 +34,8 @@
             </div>
             <div class="col-12 d-flex flex-wrap ">
                 <div class="col-3 p-2">
-                    <div class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
+                    <div
+                        class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
                         <div class="input-group mb-3 col-6">
                             <input type="text" class="form-control" placeholder="Recipient's username"
                                 aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -214,6 +222,7 @@
                                                     <i class="fa-regular fa-clone me-2 "></i>Bulk Option</button>
                                             </div>
                                             <div class="col-8 d-flex  flex-wrap justify-content-end ">
+                                                
                                                 <button class="btn btn-outline-secondary mx-1 draft_create"
                                                     id="draft_create">Draft</button>
                                                 <button class="btn btn-primary mx-1 create_comment">Publish</button>
@@ -238,13 +247,13 @@
                         </div>
                     </div>
 </div> -->
-               
+
             </div>
         </div>
         <div class="col-9 p-3  mt-2">
             <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
                 
-                <div class="demo_list_data" id="demo_list_data"></div>
+                <div class="demo_list_data  d-flex flex-wrap" id="demo_list_data"></div>
             </div>
         </div>
     </div>
@@ -281,6 +290,97 @@
         </div>
     </div>
 </div>
+
+
+        <!-- post comment modal -->
+        <div class="modal fade" id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header ">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Comments</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body overflow-y-scroll" style="max-height:400px;">
+                        <div class="d-flex">
+                            <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex app_card_post">
+                                <div>
+                                    <img class="rounded-circle me-2"
+                                        src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
+                                        alt="#" style="width:30px;height:30px;object-fit-container">
+                                </div>
+                                <div class="col">
+                                    <h6> Realtosmart</h6>
+                                    <p class="fs-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ipsa in dolores doloremque. Velit in dolorum quibusdam porro, fuga, mollitia sint eligendi error facere autem voluptates quis repudiandae iure itaque.</p>
+                                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
+                                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><i class="fa-solid fa-heart"></i><span class="mx-2 text-muted">Like</span></div>
+                                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 " style="cursor:pointer;">Replay</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex app_card_post">
+                                <div>
+                                    <img class="rounded-circle me-2"
+                                        src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
+                                        alt="#" style="width:30px;height:30px;object-fit-container">
+                                </div>
+                                <div class="col">
+                                    <h6> Realtosmart</h6>
+                                    <p class="fs-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ipsa in dolores doloremque. Velit in dolorum quibusdam porro, fuga, mollitia sint eligendi error facere autem voluptates quis repudiandae iure itaque.</p>
+                                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
+                                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><i class="fa-solid fa-heart"></i><span class="mx-2 text-muted">Like</span></div>
+                                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 " style="cursor:pointer;">Replay</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex app_card_post">
+                                <div>
+                                    <img class="rounded-circle me-2"
+                                        src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
+                                        alt="#" style="width:30px;height:30px;object-fit-container">
+                                </div>
+                                <div class="col">
+                                    <h6> Realtosmart</h6>
+                                    <p class="fs-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ipsa in dolores doloremque. Velit in dolorum quibusdam porro, fuga, mollitia sint eligendi error facere autem voluptates quis repudiandae iure itaque.</p>
+                                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
+                                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><i class="fa-solid fa-heart"></i><span class="mx-2 text-muted">Like</span></div>
+                                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 " style="cursor:pointer;">Replay</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex app_card_post">
+                                <div>
+                                    <img class="rounded-circle me-2"
+                                        src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
+                                        alt="#" style="width:30px;height:30px;object-fit-container">
+                                </div>
+                                <div class="col">
+                                    <h6> Realtosmart</h6>
+                                    <p class="fs-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero ipsa in dolores doloremque. Velit in dolorum quibusdam porro, fuga, mollitia sint eligendi error facere autem voluptates quis repudiandae iure itaque.</p>
+                                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
+                                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><i class="fa-solid fa-heart"></i><span class="mx-2 text-muted">Like</span></div>
+                                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 " style="cursor:pointer;">Replay</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
 
 <!-- Modal -->

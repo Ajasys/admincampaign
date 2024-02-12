@@ -160,7 +160,7 @@ class CreateController extends BaseController
             }
             
     
-            $html.='<div class="card-header col-6 border rounded-4 bg-white p-3 shadow mx-auto">
+            $html.='<div class="card-header mb-2 col-3 border rounded-4 bg-white p-3 shadow mx-2">
             <div class="col-12 d-flex flex-wrap border-bottom ">
                 <div class="me-2">
                     <img class="rounded-circle"
@@ -193,7 +193,7 @@ class CreateController extends BaseController
                     <button class="btn w-100"><i class="fa-regular fa-thumbs-up mx-2"></i>Like</button>
                 </div>
                 <div class="col-6 d-flex flex-wrap rounded-3">
-                    <button class="btn w-100 text-muted"><i class="fa-regular fa-comment mx-2"></i> Comment</button>
+                    <button class="btn w-100 text-muted d-flex p-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto"></i><div class="my-auto"> Comment</div></button>
                 </div>
             </div>
         </div>';
