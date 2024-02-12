@@ -170,8 +170,8 @@ public function whatsapp_connections(){
         $columns3 = [
             'id int primary key AUTO_INCREMENT',
             'master_id int(11) NOT NULL',
-            "phone_number_id int(255) NOT NULL",
-            "business_account_id int(255) NOT NULL",
+            "phone_number_id varchar(400) NOT NULL",
+            "business_account_id varchar(400) NOT NULL",
             "access_token longtext NOT NULL",
             "fb_app_id text NOT NULL",
             'fb_app_name varchar(200)',

@@ -199,6 +199,24 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         
     });
 
+
+
+
+    function ListData(){
+        $.ajax({
+            method: "post",
+            url: "WhatsAppConnectionsList",
+            data: {
+                'action':'list',
+            },
+            success: function (res) {
+                $('.SetHtmlListData').html(res);
+            },
+        });
+    }
+    ListData();
+
+
     $('body').on('click', '#SubmitWhatAppIntegrationData', function(){
         var PhoneNumberID = $('.PhoneNumberID').val();
         var WhatAppBAID = $('.WhatAppBAID').val();
@@ -221,31 +239,19 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         iziToast.success({
                             title: 'Added Successfully',
                         });
+                        ListData();
+
                     }else{
                         iziToast.error({
                             title: 'Duplicate Data',
                         });
                     }
                     $('.btn-close').trigger('click');
+                    
                 },
             });
         }else{
             $('.ConnectionAddFormList').addClass('was-validated');
         }
     });
-
-
-    function ListData(){
-        $.ajax({
-            method: "post",
-            url: "WhatsAppConnectionsList",
-            data: {
-                'action':'list',
-            },
-            success: function (res) {
-                $('.SetHtmlListData').html(res);
-            },
-        });
-    }
-    ListData();
 </script>

@@ -1010,7 +1010,7 @@ class WhatAppAakashController extends BaseController
                             <td class="align-middle text-truncate messeging-content" style="max-width: 150px;"
                                 scope="col-2">10 k customers</td>
                             <td class="align-middle" scope="col-1">'.$countryName.'</td>
-                            <td class="align-middle" scope="col-2">'.$display_phone_number.'</td>
+                            <td class="align-middle" scope="col-2">'.$verified_name.'</td>
                             <td class="align-middle" scope="col-1 text-center">
                                 <button class="btn border rounded-3">
                                     View
