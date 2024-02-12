@@ -1294,9 +1294,11 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <div class="col-12 d-flex flex-wrap px-3" id="fourthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="fifthquestion"></div> 
                                 <div class="col-12 d-flex flex-wrap px-3" id="sixthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="eighthquestion"></div> 
                                 <div class="col-12 d-flex flex-wrap px-3" id="tenthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="twelthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="senenthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="sixteenquestion"></div>
                                 <!--Question-->
                                 <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                                     <div class="col-12 d-flex flex-wrap px-2">
@@ -3224,44 +3226,45 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
                     $("#Question_error_message").val(response[0].error_text);
                     
-                    var default_options = response[0].default_options;
+                    var menu_message = response[0].menu_message;
                     
-                    if(default_options != ''){
-                        var default_options = JSON.parse(response[0].default_options);
+                    if(menu_message != ''){
+                        var menu_message = JSON.parse(response[0].menu_message);
 
-                        // $(".minimum_value").val(default_options.min);
-                        // $(".maximum_value").val(default_options.max);
+                        $(".button_text").val(menu_message.button_text);
+                        $(".button_url").val(menu_message.button_url);
 
-                        // var reactions = default_options.reaction;
+                        $(".minimum_value").val(menu_message.min);
+                        $(".maximum_value").val(menu_message.max);
 
+                        // var reactions = menu_message.reaction;
                         // $(".terrible").val(reactions[0]); 
                         // $(".bad").val(reactions[1]);     
                         // $(".okay").val(reactions[2]);    
                         // $(".good").val(reactions[3]);    
                         // $(".great").val(reactions[4]);   
 
-                        if (default_options.remove_menu === "true") {
+                        if (menu_message.remove_menu === "true") {
                             $(".menu_message").prop("checked", true);
                             $(".remove_menu").prop("checked", true);
                         } else {
                             $(".menu_message").prop("checked", false);
                             $(".remove_menu").prop("checked", false);
                         }
-                        if (default_options.company_emails_only === "true") {
+                        if (menu_message.company_emails_only === "true") {
                             $(".company_emails_only").prop("checked", true);
                         } else {
                             $(".company_emails_only").prop("checked", false);
                         }
-                        if (default_options.is_strict_validation === "true") {
+                        if (menu_message.is_strict_validation === "true") {
                             $(".is_strict_validation").prop("checked", true);
                         } else {
                             $(".is_strict_validation").prop("checked", false);
                         }
-
-
+                      
                         if(type_of_question == 2){
-                            if (default_options.options != "") {
-                                var optionsArray = default_options.options.split(';'); 
+                            if (menu_message.options != "") {
+                                var optionsArray = menu_message.options.split(';'); 
                                 $(".main-plan").remove();
                                 optionsArray.forEach(function(option, index) {
                                     var row_numbers = index === 0 ? '' : $('.main-plan').length;
@@ -3300,8 +3303,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
 
                         if(type_of_question == 4){
-                            if (default_options.options != "") {
-                                var optionsArray = default_options.options.split(';'); 
+                            if (menu_message.options != "") {
+                                var optionsArray = menu_message.options.split(';'); 
                                 $(".multiple_main-plan").remove(); 
                                 optionsArray.forEach(function(option, index) {
                                     var row_numbers = index === 0 ? '' : $('.multiple_main-plan').length;
@@ -3359,7 +3362,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         if (editor) {
             var htmlContent = editor.getData();
         }
-        
+  
         var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
         var next_question_id = $('.question_select').val(); 
         var error_text = $('#Question_error_message').val();
@@ -3370,9 +3373,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             var remove_menuArray = {
                 remove_menu: remove_menu,
             };
-            var valuesJson = JSON.stringify(remove_menuArray);
-            if (valuesJson === 'undefined') {
-                valuesJson = ''; 
+            var options_value = JSON.stringify(remove_menuArray);
+            if (options_value === 'undefined') {
+                options_value = ''; 
             }
             var error_text = $('#Question_error_message').val();
         }
@@ -3390,9 +3393,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     comined.options += options_i;
                 }
             }
-            var valuesJson = JSON.stringify(comined);
-            if (valuesJson === 'undefined') {
-                valuesJson = ''; 
+            var options_value = JSON.stringify(comined);
+            if (options_value === 'undefined') {
+                options_value = ''; 
             }
         }
 
@@ -3406,9 +3409,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 company_emails_only: company_emails_only,
                 is_strict_validation: is_strict_validation,               
             };
-            var valuesJson = JSON.stringify(valuesArray);
-            if (valuesJson === 'undefined') {
-                valuesJson = ''; 
+            var options_value = JSON.stringify(valuesArray);
+            if (options_value === 'undefined') {
+                options_value = ''; 
             }
             var error_text = $('#Question_error_message').val();
         }
@@ -3426,9 +3429,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     comined.options += options_i;
                 }
             }
-            var valuesJson = JSON.stringify(comined);
-            if (valuesJson === 'undefined') {
-                valuesJson = ''; 
+            var options_value = JSON.stringify(comined);
+            if (options_value === 'undefined') {
+                options_value = ''; 
             }
         }
 
@@ -3439,9 +3442,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 min: minimum_value,
                 max: maximum_value,      
             };
-            var valuesJson = JSON.stringify(valuesArray);
-            if (valuesJson === 'undefined') {
-                valuesJson = ''; 
+            var options_value = JSON.stringify(valuesArray);
+            if (options_value === 'undefined') {
+                options_value = ''; 
             }
         }
 
@@ -3473,12 +3476,66 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 reaction: reactionArray
             };
 
-            var valuesJson = JSON.stringify(valuesArray);
-            if (valuesJson === 'undefined') {
-                valuesJson = ''; 
+            var options_value = JSON.stringify(valuesArray);
+            if (options_value === 'undefined') {
+                options_value = ''; 
             }
         }
 
+        if (type_of_question == "8") {
+            var checkedDays = $('.days_val:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+            var formattedDate = function(dateString) {
+                var parts = dateString.split("-");
+                return parts[2] + "-" + parts[1] + "-" + parts[0];
+            };
+
+            var dateRangeArray = [];
+            var dateRange1 = $('.date_range1').val();
+            var dateRange2 = $('.date_range2').val();
+            if (dateRange1 && dateRange2) {
+                dateRangeArray = [
+                    formattedDate(dateRange1),
+                    formattedDate(dateRange2)
+                ];
+            }
+
+            var periodArray = [];
+            var enableFutureDays = $('.enableFutureDays').val();
+            var enablePasteDays = $('.enablePasteDays').val();
+            if (enableFutureDays !== "" && enablePasteDays !== "") {
+                periodArray = [
+                    parseInt(enableFutureDays),
+                    parseInt(enablePasteDays)
+                ];
+            }
+
+            var date_output_format = $('.date_output_format').val();
+
+            var dateRangeObject = {
+                date_range: dateRangeArray,
+                period: periodArray,
+                weekdays: checkedDays,
+                date_output_format: date_output_format
+            };
+
+            var options_value = JSON.stringify(dateRangeObject);
+        }
+
+        if (type_of_question == "16") {
+            var buttonText = $('.button_text').val();
+            var buttonUrl = $('.button_url').val();
+
+            var buttonObject = {
+                button_text: buttonText,
+                button_url: buttonUrl
+            };
+
+            var options_value = JSON.stringify(buttonObject);
+            console.log(options_value);
+        }
 
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
@@ -3488,10 +3545,10 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             formdata.append('table', table);
             formdata.append('question', htmlContent);
 
-            if (typeof valuesJson === 'undefined') {
-                formdata.append('default_options', '');
+            if (typeof options_value === 'undefined') {
+                formdata.append('menu_message', '');
             } else {
-                formdata.append('default_options', valuesJson);
+                formdata.append('menu_message', options_value);
             }
             formdata.append('skip_question', skip_question);
             formdata.append('error_text', error_text);
@@ -3725,16 +3782,18 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             6: "#sixthquestion",
             11: "#sixthquestion",
             7: "#senenthquestion",
+            8: "#eighthquestion",
             10: "#tenthquestion",
             14: "#tenthquestion",
-            12: "#twelthquestion"
+            12: "#twelthquestion",
+            16: "#sixteenquestion",
         };
         var htmlContent = getQuestionHTML(type_of_question);
         $(questionContainers[type_of_question]).html(htmlContent);
     });
 
     function clearQuestions() {
-        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #twelthquestion, #tenthquestion").html("");
+        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion").html("");
     }
 
     function getQuestionHTML(type_of_question) {
@@ -4185,7 +4244,100 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     </div>
                 </form>
                 `;
-
+            case "8":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap">
+                        <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
+                            <div class="col-1">
+                                <span><b>NOTE:</b></span>
+                            </div>
+                            <div class="col-11">
+                                <span>Please note that the below conditions are an intersection of each other.</span>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap p-3 px-5 my-2 border rounded-3">
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input days_val fw-bold mon_val" type="checkbox" id="" value="MON" checked>
+                                <label class="form-check-label fw-semibold" for="">MON</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input days_val fw-bold tue_val" type="checkbox" id="" value="TUE" checked>
+                                <label class="form-check-label fw-semibold" for="">TUE</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input days_val fw-bold wed_val" type="checkbox" id="" value="WED" checked>
+                                <label class="form-check-label fw-semibold" for="">WED</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input days_val fw-bold thu_val" type="checkbox" id="" value="THU" checked>
+                                <label class="form-check-label fw-semibold" for="">THU</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input days_val fw-bold fri_val" type="checkbox" id="" value="FRI" checked>
+                                <label class="form-check-label fw-semibold" for="">FRI</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input days_val fw-bold sat_val" type="checkbox" id="" value="SAT" checked>
+                                <label class="form-check-label fw-semibold" for="">SAT</label>
+                            </div>
+                            <div class="form-check form-check-inline col">
+                                <input class="form-check-input days_val fw-bold sun_val" type="checkbox" id="" value="SUN" checked>
+                                <label class="form-check-label fw-semibold" for="">SUN</label>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap p-3 px-5 my-2 border rounded-3">
+                            <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <span class="fw-medium">Select Date Range</span>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <input type="text" class="form-control date_range1" id="" value="" placeholder="DD-MM-YYYY">
+                                    </div>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <input type="text" class="form-control date_range2" id="" value="" placeholder="DD-MM-YYYY">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <span class="fw-medium">Enable Future Days</span>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <input type="number" class="form-control enableFutureDays" id="" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <span class="fw-medium">Enable Past (Days)</span>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <input type="number" class="form-control enablePasteDays" id="" value="" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap p-3 px-5 my-2 border rounded-3">
+                            <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <span class="fw-medium">Output Format</span>
+                                </div>
+                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <input type="text" class="form-control date_output_format" id="" value="dd-mm-yyyy" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                `;
             case "10":
             case "14":
                 return `
@@ -4241,9 +4393,56 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     </div>
                 </form>
                 `;
+            case "15":
+            return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap px-2">
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question" type="checkbox" role="switch" id="Number-1">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
+                        </div>
+                    </div>
+                </form>
+                `;
+            case "16":
+            return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap">
+                        <div class="col-12 my-2">
+                            <form class="col-12 d-flex flex-wrap">
+                                <div class="col-6 px-2">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Button Text :</label>
+                                        <input type="text" class="form-control button_text" id="" aria-describedby="" value="Authenticator" placeholder="Set Button Text">
+                                    </div>
+                                </div>
+                                <div class="col-6 px-2">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Button URL :</label>
+                                        <input type="text" class="form-control button_url" id="" placeholder="">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            `;
             default:
             return ""; 
         }
     }
 
+</script>
+
+<script>
+    // $('#date_range1').bootstrapMaterialDatePicker({
+    //     format: 'DD-MM-YYYY',
+    //     time: false,
+    //     clearButton: true
+    // });
+    // $('.date_range2').bootstrapMaterialDatePicker({
+    //     format: 'DD-MM-YYYY',
+    //     time: false,
+    //     clearButton: true
+    // });
 </script>
