@@ -107,6 +107,7 @@ $routes->get('/post_comments', 'Home::post_comments');
 $routes->post('/create_insert_data', 'CreateController::create_insert_data');
 $routes->post('/SendPostDataFB', 'CreateController::SendPostDataFB');
 $routes->post('/list_post_pagewise', 'CreateController::list_post_pagewise');
+$routes->post('/comment_replay_send', 'CreateController::comment_replay_send');
 
 
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');

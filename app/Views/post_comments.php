@@ -337,31 +337,58 @@
                 var endDate = startDate.clone().add(7, 'days');
                 $('#event_end').val(endDate.format('DD-MM-YYYY h:m A'));
             });
-            $('.comment_box').hide();
+            $("body").on("click", ".Replay_btn", function() {
+               $(this).closest('.replay-parent').find('.comment_box ').removeClass('d-none');
+            })
 
-            $(".Replay_btn").on("click", function() {
-                $(this).closest('.app_card_post').find('.comment_box').show();
-            });
+            // $("body").on("keyup", ".comment_input", function() {
+            //     $('.comment-send-btn').attr("disabled", false);
+            // })
+            
+            // $("body").on("focusout", ".comment_input", function() {
+            //     var comment_input = $('.comment_input').val();
 
-            $('.comment_input').on('keyup', function() {
-                $('.comment-send-btn').attr("disabled", false);
-            });
-            $('.comment_input').on('focusout', function() {
-                var comment_input = $('.comment_input').val();
-
-                if (comment_input == "") {
-                    $('.comment-send-btn').attr("disabled", true);
-                }
-            });
+            //     if (comment_input == "") {
+            //         $('.comment-send-btn').attr("disabled", true);
+            //     }
+            // })
 
             $('body').on('click', '.comment_btn_close', function() {
-                $(this).closest('.comment_box').hide();
+                $(this).closest('.comment_box').addClass('d-none');
             });
 
 
             $('.nav-item').click(function() {
                 $('.nav-item').removeClass('active');
                 $(this).addClass('active');
+            });
+            // 196821650189891_122116834772192565
+
+            // https://graph.facebook.com/v12.0/196821650189891_122116834772192565/comments?access_token=EAADNF4vVgk0BO8Hsijloc6ZB9b2iN7jZCIHD9EijVZCqRZCVM14DoHdnNyAvXZArVQzNMTEDJ8Btn443esuXvihekEZBQhJ02dbZChuHPhc4lQ6YBtu8CZAXh1DBnyZACFtD6Qvlai20igEycsl1dPXcvEDbzxqjUPUiS7ZC0VtmZAZCKWS03qVG5eZCOGyjWZBZBmh2YnxFvZA201kZD";
+
+            $api_endpoint = "https://graph.facebook.com/v12.0/$page_id/feed?fields=comments{from,message}&access_token=$access_token";
+            $('body').on('click', '.comment_send', function() {
+                var data_post_id = $(this).attr('data-post_id');
+                var input_comment = $("#comment-modal #input_comment").val();
+                $.ajax({
+                    type: 'post',
+                    url: '<?= base_url('comment_replay_send') ?>',
+                    data: {
+                        data_post_id: data_post_id,
+                        'input_comment': input_comment,
+                    },
+                    success: function(res) {
+                        var result = JSON.parse(res);
+                        $('.loader').hide();
+                        if (result.response == "1") {
+                            $("#comment-modal .comment_btn_close").trigger("click");
+                            iziToast.success({
+                                    title: 'Comment Successfully'
+                            });
+                        }
+
+                    }
+                });
             });
 
             $('body').on('click', '.app_card_post', function() {
