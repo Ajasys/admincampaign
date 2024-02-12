@@ -535,7 +535,7 @@ $language_name = json_decode($language_name, true);
                                             </g>
                                         </svg>
                                     </p>
-                                    <span class="ms-3 first-container-text">Send Template Messages</span>
+                                    <span class="ms-3 first-container-text Template_message">Send Template Messages</span>
                                 </div>
                             </li>
                             <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle nav-item Tab2Class" role="presentation">
@@ -649,7 +649,8 @@ $language_name = json_decode($language_name, true);
                                                                 </div>
                                                                 <div class="col-12 mb-3 mt-2">
                                                                     <select class="form-control main-control language_div" id="language" name="language" disabled required>
-                                                                        <option class="fs-12" label="Please select your language" value=""></option>
+                                                                        <option class="fs-12" label="Please select your language" value="">Please select
+                                                                            template</option>
                                                                         <option class="fs-12 ng-binding ng-scope" value="en_US" ng-repeat="lang in template_lang">English US
                                                                             (en_US)</option>
                                                                         <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">English
@@ -1003,8 +1004,8 @@ $language_name = json_decode($language_name, true);
                                 </div>
                                 <div class="col-3 d-flex align-items-center">
                                     <div class="input-group">
-                                        <input type="text" class="form-control d-none" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <button class="btn btn-outline-secondary border d-none" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+                                        <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <button class="btn btn-outline-secondary border" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
                                     </div>
                                 </div>
                                 <div class="col-5 d-flex flex-wrap align-items-center justify-content-end float-end ">
@@ -1068,7 +1069,7 @@ $language_name = json_decode($language_name, true);
 
                             <button class="btn btn-primary col-2">View Data</button>
                         </div>
-                        <table class="table whatsapp-table">
+                        <table class="table whatsapp-table  my-2 w-100  table table-striped dt-responsive nowrap main-table">
 
                             <thead>
                                 <th>Receiver Number</th>
@@ -1139,7 +1140,7 @@ $language_name = json_decode($language_name, true);
                                         <!-- <select class="selectpicker form-control main-control language_div" id="language" name="language" required> -->
 
                                         <select class="form-control main-control TemplateLanguageDDList language_div" id="languageid" name="language" required>
-                                            <option class="fs-12" label="Please select your language" value=""></option>
+                                            <option class="fs-12" label="Please select your language" value="">Please select your language</option>
                                             <option class="fs-12 ng-binding ng-scope" value="en_US" ng-repeat="lang in template_lang">English US (en_US)</option>
                                             <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">English (en)</option>
 
@@ -2461,11 +2462,15 @@ $language_name = json_decode($language_name, true);
 
     $('body').on('click', '.Template_send', function() {
         // alert();
+
         var header = $('.header_div').val();
         var template_id = $('.header_div option:selected').attr('DataMNo');
-
         var phone_no = $('.phone_number_div').val();
         var language = $('.language_div').val();
+    
+
+        
+
 
         if (header !== "" && phone_no !== "" && language !== "") {
             $.ajax({
@@ -2480,16 +2485,28 @@ $language_name = json_decode($language_name, true);
                     'action': true
                 },
                 success: function(res) {
-                    console.log(res);
+                 $('#mobile_code').val('');
+                $('.header_div').html('');
+                $('.language_div').val('refresh');
+                list_data();
+
                     $('.loader').hide();
                     if (res == '1') {
                         iziToast.success({
                             title: "Template sent successfully"
                         });
+                        // $('.viewdata').trigger('click');
+
+                            var viewdataElement = document.querySelector('.viewdata');
+                            if (viewdataElement) {
+                                viewdataElement.click();
+                            }
+                        list_data();
                     } else {
                         iziToast.error({
                             title: 'Something went wrong!'
                         });
+                       
                     }
                 },
 
@@ -2824,5 +2841,10 @@ $language_name = json_decode($language_name, true);
         $('.single-t-call-button .single-button-whatsapp-template2').html(button1input);
         $('.single-t-call-button .single-button-whatsapp-template1').html(button2input);
 
+    });
+
+    
+    $('body').on('click','.Template_message',function(){
+   
     });
 </script>
