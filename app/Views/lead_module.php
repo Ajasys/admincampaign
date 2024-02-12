@@ -155,18 +155,18 @@ $user_data = $user_result->getResultArray();
     <div class="container-fluid">
         <div class="p-3 bg-white rounded-2 m-2 border border-1">
             <div class="title-2">
-                <h2>Integration</h2>
+                <h2>Integration Scenarios</h2>
             </div>
-            <ul class="nav nav-pills mt-3 navtab_primary_sm" id="pills-tab" role="tablist">
+            <!-- <ul class="nav nav-pills mt-3 navtab_primary_sm" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-General-tab" data-bs-toggle="pill" data-bs-target="#Connection-name" type="button" role="tab" aria-controls="pills-General" aria-selected="false" tabindex="-1">Connection Name</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-Email-tab" data-bs-toggle="pill" data-bs-target="#Scenarious" type="button" role="tab" aria-controls="pills-Email" aria-selected="true">Scenarios</button>
                 </li>
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade" id="Connection-name" role="tabpanel" aria-labelledby="pills-General-tab" tabindex="0">
+            </ul> -->
+            <!-- <div class="col-12"> -->
+                <!-- <div class="tab-pane fade" id="Connection-name" role="tabpanel" aria-labelledby="pills-General-tab" tabindex="0">
                     <?php if (isset($data[0])) { ?>
                         <div class="p-2 bg-white rounded-2 mx-2 ">
                             <div class="lead_list p-2 rounded-2">
@@ -198,12 +198,12 @@ $user_data = $user_result->getResultArray();
                             </div>
                         </div>
                     <?php } ?>
-                </div>
-                <div class="tab-pane fade active show" id="Scenarious" role="tabpanel" aria-labelledby="pills-Email-tab" tabindex="0">
+                </div> -->
+                <div class="col-12" >
                     <div class="p-3">
                         <div class="p-2">
                             <div class="d-flex justify-content-between">
-                                <button class="btn-primary-rounded lead_main_box_add">
+                                <button class="btn-primary-rounded lead_main_box_add ">
                                     <i class="bi bi-plus"></i>
                                 </button>
                             </div>
@@ -497,6 +497,7 @@ $user_data = $user_result->getResultArray();
         $('body').on('click', '.lead_main_box_add', function() {
             $(".lead_add_main_box").show();
             $(".add_next_big_plus_outer").hide();
+            // alert('outer');
         });
 
         $(".big_list_add_outer_main").hide();
@@ -1097,8 +1098,18 @@ $user_data = $user_result->getResultArray();
 
     function EditScenarios(edit_id) {
         $('.big_list_add_outer_main_2,.lead_module_devider_1,.big_list_add_outer_main_3,.lead_module_devider_2').show();
-        $('.big_list_add_outer_main_1,.big_circle_plus_outer,.add_next_big_plus_outer,.all_circle_plus_list,.lead_main_box_add,.discard-tag').hide();
-        $('.big_circle_fb_outer,.lead_add_main_box').show();
+        $('.big_list_add_outer_main_1,.big_circle_plus_outer,.add_next_big_plus_outer,.all_circle_plus_list,.discard-tag').hide();
+        $('.big_circle_fb_outer,.lead_add_main_box,.lead_main_box_add').show();
+        $('.discard-tag').show();
+        $('body').on('click', '.lead_main_box_add', function() {
+            $(".lead_module_devider , .big_circle_plus_outer , .all_circle_plus_list , .big_circle_fb_outer , .add_next_big_plus_outer").hide();
+            $(".big_list_add_outer_main_2 .all_circle_plus_list , .big_list_add_outer_main_3 .all_circle_plus_list , .big_list_add_outer_main_1 , .big_list_add_outer_main_1 .big_circle_plus_outer").show();
+            // alert('inner');
+
+        });
+
+        // $(".big_list_add_outer_main").hide();
+        // $(".big_list_add_outer_main_1").show();
 
         $('.fb_div_hide1,.fb_div_hide').hide();
         // if ('<?php echo isset($data[0]['user_profile']) ?>') {
