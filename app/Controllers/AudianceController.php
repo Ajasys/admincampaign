@@ -190,7 +190,7 @@ class AudianceController extends BaseController
         );
         $departmentdisplaydata = json_decode($departmentdisplaydata, true);
         $sql2 =
-            "SELECT COUNT(*) as sub_count, name FROM admin_audience GROUP BY name";
+            "SELECT COUNT(*) as sub_count, name FROM " . $this->username . "_audience GROUP BY name";
         $user_db_connection = \Config\Database::connect("second");
         $sql_run = $user_db_connection->query($sql2);
         $paydone_data_get = $sql_run->getResultArray();
@@ -271,7 +271,7 @@ class AudianceController extends BaseController
         $html = "";
 
         $secondDb = \Config\Database::connect("second");
-        $builder = $secondDb->table("admin_all_inquiry");
+        $builder = $secondDb->table($this->username . '_all_inquiry');
 
         $FilterStockArray = explode(",", $FilterStock);
         $builder->whereIn("intrested_product", $FilterStockArray);
@@ -360,8 +360,7 @@ class AudianceController extends BaseController
 
                 // Query to retrieve data from admin_all_inquiry with a retention period
                 $qry =
-                    "SELECT id, full_name, inquiry_status, intrested_product, mobileno, email, address FROM `admin_all_inquiry` WHERE intrested_product = ? AND inquiry_status = ? AND created_at >= ?";
-
+                $qry = "SELECT id, full_name, inquiry_status, intrested_product, mobileno, email, address FROM " . $this->username . "_all_inquiry WHERE intrested_product = ? AND inquiry_status = ? AND created_at >= ?";
                 // Pass placeholders as an associative array
                 $result = $secondDb->query($qry, [
                     $intrested_product,
