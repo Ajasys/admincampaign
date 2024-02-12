@@ -889,10 +889,11 @@ class Bot_Controller extends BaseController
 		}
 	}
 
+	public function get_chat_data()
+	{
 
-	public function get_chat_data() {
+		if ($_POST['action'] == 'chat_list') {
 
-		if($_POST['action'] == 'chat_list') {
 			$token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 			$fb_page_list = fb_page_list($token);
 			$fb_page_list = get_object_vars(json_decode($fb_page_list));
@@ -906,17 +907,19 @@ class Bot_Controller extends BaseController
 					$page_access_token = $value->access_token;
 					$page_id = $value->id;
 					
-					$url = "https://graph.facebook.com/$page_id/conversations?fields=id,participants,messages.limit(1)&pretty=0&access_token=$page_access_token";
-					$response = file_get_contents($url);
+					// if ($_POST['api'] === true) {
+					$url = 'https://graph.facebook.com/' . $page_id . '/conversations?fields=id,participants,messages.limit(1)&pretty=0&access_token=' . $page_access_token;
 					// pre($url);
-					$data = json_decode($response, true);
+					$data = getSocialData($url);
 					
-					// pre($data['data']);
+					// $data = json_decode($response, true);
+
+					// pre($data);
 					// die();
+
 					foreach($data['data'] as $conversion_value) {
 						$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
-						// pre($times);
-						// continue;
+
 						if($times['days'] >= 1) {
 							$time_count_text = ($times['days'] > 1 ? $times['days'] : 'a').' Day ago';
 						} else if($times['hours'] > 0){
@@ -925,10 +928,10 @@ class Bot_Controller extends BaseController
 							$time_count_text = $times['minutes'].' min ago';
 						}
 						$chat_list_html .= '
-						<div class="chat-nav-search-bar p-2  border my-2 col-12  rounded-3 chat_list" data-conversion_id="'.$conversion_value['id'].'" data-page_token="'.$page_access_token.'" data-page_id="'.$page_id.'">
+							<div class=" fw-semibold fs-12 border-muted chat-nav-search-bar p-2  border my-2 col-12  rounded-3 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '">
 							<div class="d-flex justify-content-between align-items-center col-12">
-									<div class="col-2">
-										<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+										<div class="col-2 p-1">
+											<svg class="w-100" xmlns="http://www.w3.org/2000/svg" version="1.1"
 											xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" x="0" y="0"
 											viewBox="0 0 176 176" style="enable-background:new 0 0 512 512"
 											xml:space="preserve" class="">
@@ -946,7 +949,7 @@ class Bot_Controller extends BaseController
 										</svg>
 									</div>
 									<div class="col-10">
-										<p class="fs-5">'.$conversion_value['participants']['data'][0]['name'].'('.$value->name.')</p>
+											<p style="font-size:14px;">' . $conversion_value['participants']['data'][0]['name'] . '(' . $value->name . ')</p>
 										<p class="fs-12 "></p>
 										<div class="text-end">
 											<span class="fs-12">'.$time_count_text.'</span>
@@ -957,7 +960,7 @@ class Bot_Controller extends BaseController
 						</div>
 						';
 					}
-				// }
+				}
 			}
 
 			$return_result['chat_list_html'] = $chat_list_html;
@@ -967,32 +970,40 @@ class Bot_Controller extends BaseController
 		if($_POST['action'] == 'chat_massage_list') {
 			$conversion_id = $_POST['conversion_id'];
 			$page_access_token = $_POST['page_access_token'];
+			// $massage_id = $_POST['id'];
 
-			$url = "https://graph.facebook.com/$conversion_id/messages?access_token=$page_access_token&fields=id,message,created_time,from,to";
-			$response = file_get_contents($url);
-
-			$massage_data = json_decode($response);
+			$url = "https://graph.facebook.com/$conversion_id/messages?access_token=$page_access_token&fields=id,message,created_time,from,full_picture";
+			// $response = file_get_contents($url);
+			$massage_data = getSocialData($url);
+			// pre($massage_data);
+			// $massage_data = json_decode($response);
 			$html = '';
-			$massage_array = array_reverse($massage_data->data);
+			$massage_array = array_reverse($massage_data['data']);
+			// $update_data = array();
+			// $update_data['massages'] = json_encode($massage_array);
+			$massage_table_name = getMasterUsername2() . '_messenge';
+			// $delete_displaydata = $this->MasterInformationModel->update_entry2($massage_id, $update_data, $massage_table_name);
+			$count = count($massage_array);
+			$i = 0;
 			foreach($massage_array as $massage_key => $massage_value) {
-				// pre($massage_value);
-				$massage_value = get_object_vars($massage_value);
 				$message = $massage_value['message'];
-				// $time = date('');
-				if($_POST['page_id'] == $massage_value['from']->id) {
+				if (!empty($message)) {
+					if ($_POST['page_id'] == $massage_value['from']['id']) {
 					$html .= '
-							<div class="d-flex mb-4 justify-content-end">
+								<div class="d-flex mb-4 justify-content-end" ' . ($i == $count ? 'id="hellow"' : '') . ' >
                                 <div class="col-6 text-end">
                                     <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">'.$message.'</span>
                                 </div>
                             </div>';
 				} else {
 					$html .= '
-						<div class="d-flex mb-4">
+							<div class="d-flex mb-4 " ' . ($i == $count ? 'id="hellow"' : '') . '>
 								<div class="col-6 text-start">
 									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">'.$message.'</span>
 								</div>
 							</div>';
+					}
+					$i++;
 				}
 			}
 
@@ -1003,83 +1014,66 @@ class Bot_Controller extends BaseController
 	}
 
 	
-	public function send_chat() 
+	public function send_massage()
 	{
-		if ($_POST['action'] == 'send_chat') {
+		// send massage to whatsapp,facebook and insta
 			
-			$question = $_POST['question'];
-			$menu_message = $_POST['menu_message'];
-			// pre($menu_message);
+		// $curl = curl_init();
 
-			$messageData = array(
-				'messaging_product' => 'whatsapp',
-				'recipient_type' => 'individual',
-				'to' => '918347977000', 
-				'type' => 'text',
-				'text' => array(
-					'body' => $question
-				)
-			);
+		// $page_id = "196821650189891";
+		// $massage = "hello";
+		// $psid = "24658518140462514";
 	
-			// Convert the message data to JSON
-			$jsonData = json_encode($messageData);
+		// curl_setopt_array(
+		// 	$curl,
+		// 	array(
+		// 		CURLOPT_URL => 'https://graph.facebook.com/v19.0/'.$page_id.'/messages',
+		// 		CURLOPT_RETURNTRANSFER => true,
+		// 		CURLOPT_ENCODING => '',
+		// 		CURLOPT_MAXREDIRS => 10,
+		// 		CURLOPT_TIMEOUT => 0,
+		// 		CURLOPT_FOLLOWLOCATION => true,
+		// 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		// 		CURLOPT_CUSTOMREQUEST => 'POST',
+		// 		CURLOPT_POSTFIELDS => '{
+		// 			"messaging_type": "MESSAGE_TAG",
+		// 			"recipient": {
+		// 				"id": "'.$psid.'"
+		// 			},
+		// 			"message": {
+		// 				"text": "'.$massage.'"
+		// 			}
+		// 		}',
+		// 		CURLOPT_HTTPHEADER => array(
+		// 			'Content-Type: application/json',
+		// 			'Authorization: Bearer EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L',
+		// 			'Cookie: ps_l=0; ps_n=0'
+		// 		),
+		// 	)
+		// );
 	
-			// Initialize cURL
-			$ch = curl_init();
+		// $response = curl_exec($curl);
 	
-			// Set cURL options
-			curl_setopt($ch, CURLOPT_URL, 'https://graph.facebook.com/v19.0/156839030844055/messages');
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-				'Content-Type: application/json',
-				'Content-Length: ' . strlen($jsonData),
-				'Authorization: Bearer EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L'
-			));
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// curl_close($curl);
+		// echo $response;
 	
-			$response = curl_exec($ch);
+		// Facebook page access token
+		$access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 	
-			curl_close($ch);
-			echo $response;
-		}
-	}
+		// Recipient ID (Facebook User ID or Page ID)
+		$recipient_id = '24658518140462514';
 
-	public function bot_preview() 
-	{
-		$table = $this->request->getpost('table');
-		$action = $this->request->getpost('action');
-		$db_connection = \Config\Database::connect('second');
-		$sqlQuery = "SELECT * FROM $table";
-		$result = $db_connection->query($sqlQuery);
-		$bot_setup_all_data = $result->getResultArray();
-		$html = '';
+		// Message you want to send
+		$message_text = 'Hello, this is a test message!';
 
-		if($action == "init_chat"){
-			foreach($bot_setup_all_data as $key => $value) {
-				$html .= '<div class="messege1 d-flex flex-wrap  ">
-							<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
-								<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-							</div>
-							<div class="col px-2">
-								<div class="col-12 mb-2">
-									<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3">
-										'.$value['question'].'
-									</span>
-								</div>
+		// Facebook Graph API endpoint for sending messages
+		$endpoint = "https://graph.facebook.com/v19.0/196821650189891/messages";
 
-							</div>
-						</div>
+		// Parameters for the POST request
+		$params = '{"messaging_type" : "UPDATE","recipient" : {"id" : "' . $recipient_id . '"},"message" : {"text" : "' . $message_text . '"},"access_token" : "' . $access_token . '"}';
+		$reponce = postSocialData($endpoint, $params);
+		echo 'Response: ';
+		print_r($reponce);
 	
-	
-						';
-			
-			}
-		}
-		
-
-		$response['html'] = $html;
-		echo json_encode($response);
-		die();
 	}
 }

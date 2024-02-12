@@ -10,6 +10,17 @@ if ($query->getNumRows() > 0) {
 } else {
     $columnNames = array();
 }
+
+if($db_connection->tableExists($this->username . '_Data')) {
+    $query_data = $db_connection->table($this->username . '_Data')->get();
+    if ($query_data->getNumRows() > 0) {
+        $columnNames_data = $query->getFieldNames();
+    } else {
+        $columnNames_data = array();
+    }
+
+    $columnNames = array_merge($columnNames, $columnNames_data);
+}
 // pre($columnNames);
 ?>
 
