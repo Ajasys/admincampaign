@@ -510,9 +510,37 @@ $language_name = json_decode($language_name, true);
         background-color: #FFF8EB;
         font-size: 12px;
     }
-
-    .iti {
+.iti{
         width: 100%;
+    }
+@media (max-width:575px){
+        .preview-header-VIDEO{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    @media (min-width:992px){
+        .preview-header-VIDEO{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .mobile-footer{
+
+    }
+    .preview-chat-section{
+        border-radius: 40px;
+        background: #e0e0e0;
+        box-shadow: 20px 20px 60px #e1daf882, -20px -20px 60px #e7e7e7;
+        border: 10px solid #CED5DD;
+    }  
+    .rotate-arrow{
+        transition: all 0.5s;
+        transform: rotateY(181deg);
+    } 
+    .rounded-btn{
+        transition: all 0.5s;
+        transform: rotate(360deg);
     }
 </style>
 
@@ -535,7 +563,7 @@ $language_name = json_decode($language_name, true);
                                             </g>
                                         </svg>
                                     </p>
-                                    <span class="ms-3 first-container-text Template_message">Send Template Messages</span>
+                                    <span class="ms-3 first-container-text">Send Template Messages</span>
                                 </div>
                             </li>
                             <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle nav-item Tab2Class" role="presentation">
@@ -573,7 +601,7 @@ $language_name = json_decode($language_name, true);
 
                     </div>
                     <div class="col-12 mt-2 d-flex justify-content-end">
-                        <div class="col-1 p-3 Arro-pro"><i class="bi bi-arrow-left Arrowmovement"></i></div>
+                        <div class="col-1 p-3 Arro-pro " style="cursor:pointer"><i class="bi bi-arrow-left Arrowmovement text-primary fw-bold fs-5"></i></div>
                     </div>
                 </div>
             </div>
@@ -612,7 +640,7 @@ $language_name = json_decode($language_name, true);
                         <div class=" p-2 main-check-class bg-white p-2 rounded-3 border">
 
                             <div class="col-12 p-0 ms-0">
-                                <div class="px-3 py-2 bg-white rounded-2 mx-2">
+                                <!-- <div class="px-3 py-2 bg-white rounded-2 mx-2">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <div class="title-1">
                                             <h2>Template</h2>
@@ -627,16 +655,17 @@ $language_name = json_decode($language_name, true);
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-12 justify-content-center col-12 ms-0" style="width: 100%;">
                                     <div class="col-12 hello">
-                                        <div class="d-flex flex-wrap align-items-start  p-3 justify-content-center ">
-                                            <div class="col-6">
+                                        <div class="d-flex flex-wrap align-items-start  p-3  justify-content-between">
+                                            <div class="col-4">
                                                 <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
                                                     <div class="modal-content">
-
                                                         <div class="modal-body-secondery">
-                                                            <div class="modal-body-card">
+                                                            <div class="modal-body-card pb-1">
+                                                                <h5 class="mb-3 pb-2 border-bottom col-12">Template</h5>
+                                                                <div class="col-12">
                                                                 <div class="col-12 mb-3 mt-2">
                                                                     <select class="form-control main-control header_div"  id="header" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
                                                                         <option value="" selected disabled>Please select
@@ -792,17 +821,17 @@ $language_name = json_decode($language_name, true);
                                                                 </div>
                                                                 <div class="modal-footer justify-content-center mt-2 col-12 text-center">
                                                                     <!-- <span class="btn-primary Template_send" data-edit_id="">Send</span>     -->
-                                                                <span class="btn-primary Template_send" id="memberships_add_btn" data-edit_id="" name="memberships_update1" value="memberships_update1">Send</span>
-                                                                </div>
+                                                                                                                                </div>
+<div class="col-12 pt-3 border-top mb-2">
+                                                                        <button class="btn-primary Template_send" id="memberships_add_btn" data-edit_id="" name="memberships_update1" value="memberships_update1">Send</button>
                                                             </div>
                                                         </div>
-
-
-
+</div>
+                                                        </div>
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="col-6 d-flex justify-content-center">
+                                            <div class="col-6 d-flex px-4">
                                                 <!-- whatsapp   .. -->
                                                 <div class="col-7">
                                                     <div class="wa-preview-main-div-cont">
@@ -826,7 +855,7 @@ $language_name = json_decode($language_name, true);
                                                                 <div class="preview-chat-paragraph bg-white p-3 col-7">
                                                                     <p class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue">
                                                                         Message Header Section</p>
-                                                                    <img class="rounded-3 preview-header-VIDEO" src="" style="width:200px;height:200px;object-fit: contain;">
+                                                                    <img class="rounded-3 preview-header-VIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
 
                                                                     <p contenteditable="false" class="single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue">
                                                                         Message Body Section</p>
@@ -850,6 +879,11 @@ $language_name = json_decode($language_name, true);
                                                                         <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+<div class="col-12 d-flex  flex-wrap mobile-footer py-2">
+                                                                <div class="col-4 text-center"><i class="fa-solid fa-bars"></i></div>
+                                                                <div class="col-4 text-center"><i class="fa-regular fa-square"></i></div>
+                                                                <div class="col-4 text-center"><i class="fa-solid fa-chevron-right"></i></div>
                                                             </div>
 
                                                         </div>
@@ -1004,8 +1038,8 @@ $language_name = json_decode($language_name, true);
                                 </div>
                                 <div class="col-3 d-flex align-items-center">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <button class="btn btn-outline-secondary border" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+                                        <input type="text" class="form-control d-none" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <button class="btn btn-outline-secondary border d-none" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
                                     </div>
                                 </div>
                                 <div class="col-5 d-flex flex-wrap align-items-center justify-content-end float-end ">
@@ -1016,7 +1050,7 @@ $language_name = json_decode($language_name, true);
 
                                     <div class="col-1 px-2">
                                         <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
-                                            <i class="bi bi-plus PlusButtonDiv" id="plus_btn"></i>
+                                            <i class="bi bi-plus PlusButtonDiv " ></i>
                                         </button>
                                         <p class="d-none EditBtnTemplate" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit"></p>
                                     </div>
@@ -1066,9 +1100,13 @@ $language_name = json_decode($language_name, true);
                             <select name="Status" class="form-select me-5">
                                 <option value="">Status</option>
                             </select>
-
-                            <button class="btn btn-primary col-2">View Data</button>
-                        </div>
+                            <div>
+                                <button class="btn-primary-rounded refresh-btn"><i class="fa-solid fa-rotate-right PlusButtonDiv fs-14 "></i></button>
+                                    <!-- <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
+                                                <i class="bi bi-plus PlusButtonDiv" id="plus_btn"></i>
+                                            </button> -->
+                            </div>
+                            </div>
                         <table class="table whatsapp-table  my-2 w-100  table table-striped dt-responsive nowrap main-table">
 
                             <thead>
@@ -1087,7 +1125,7 @@ $language_name = json_decode($language_name, true);
                             </tbody>
                         </table>
 
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -1383,7 +1421,7 @@ $language_name = json_decode($language_name, true);
                                             <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                         </div>
 
-                                        <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:200px;height:200px;object-fit: contain;">
+                                        <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
                                         <!-- <div class="preview-header-paragraph" ng-if="submitParamDetails"
                                             class="ng-scope" style="">
                                             <div ng-if="media_footer_text.length > 0 "
@@ -1551,6 +1589,7 @@ $language_name = json_decode($language_name, true);
         $(this).closest('.first-container').toggleClass('slide-toggle');
         $('.first-container-text').toggle();
         $('.Arrowmovement').toggleClass("arrow-down");
+$(this).toggleClass('rotate-arrow');
     });
     // ==========modal-header-jqury=============
     $('body').on('change', 'select#Template_header', function() {
@@ -2842,9 +2881,7 @@ $language_name = json_decode($language_name, true);
         $('.single-t-call-button .single-button-whatsapp-template1').html(button2input);
 
     });
-
-    
-    $('body').on('click','.Template_message',function(){
-   
-    });
+$('body').on( 'click','.refresh-btn',function(){
+   $(this).toggleClass('rounded-btn');
+    })
 </script>
