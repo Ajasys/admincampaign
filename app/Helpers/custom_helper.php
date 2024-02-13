@@ -113,17 +113,20 @@ if (!function_exists('SendMail')) {
             $first_db = \Config\Database::connect('second');
             // $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
             $master = $_SESSION['master'];
-            $SendMailUsing = $first_db->table('admin_generale_setting')
+            $settings = $first_db->table('admin_generale_setting')
             ->where('master_id', $master)
+            ->where('platform_status', 3)
             ->get()
             ->getRow();
+
       
             // $email_from = $generalSetting->email_from;
             // cc code
-            // $SendMailUsing = $generalSetting->email_radio;
+            $SendMailUsing = $settings->email_radio;
+            $platform_status = $settings->platform_status;
 
 
-            if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 1) {
+            if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 1 && $platform_status == 3) {
                 // $username = session_username($_SESSION['username']);
                 $first_db = \Config\Database::connect();
                 $email = \Config\Services::email();
@@ -136,7 +139,7 @@ if (!function_exists('SendMail')) {
                     $email->attach($attachment);
                 }
                 $email->send();
-            } else if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 2) {
+            } else if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 2 && $platform_status == 3) {
             try {
                 $first_db = \Config\Database::connect('second');
                 $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
