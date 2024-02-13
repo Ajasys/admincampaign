@@ -1422,8 +1422,8 @@ class WhatAppIntegrationController extends BaseController
                     $countryName = $countryMapping[$countryCode] ?? 'Unknown';
                     $count ++;
                     $html .= '
-                        <tr>
-                            <td class="align-middle" scope="col-2"><sup class="fs-12"></sup> '.$display_phone_number.'
+                        <tr class="HideandShow'.$count.' HideandShowAllTr ">
+                            <td class="align-middle" scope="col-2"><sup class="fs-12"></sup><span class = "ContactNumberClassSearch" count = "'.$count.'"> '.$display_phone_number.'</span>
                             </td>
                             <td class="align-middle" scope="col-1"><span
                                     class="p-1 bg-success-subtle border border-light rounded-pill fs-10 text-success fw-bold ">Connected</span>
@@ -1449,7 +1449,7 @@ class WhatAppIntegrationController extends BaseController
                 }
             }
         }
-        $html .= '<script>$(".CountedNumberT").text('.$count.');</script>';
+        $html .= '<script>$(".CountedNumberT").text('.$count.'); $(".CountedNumberT").attr("total","'.$count.'");  </script>';
         echo $html;
     }
 }

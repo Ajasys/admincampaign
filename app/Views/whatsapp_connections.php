@@ -122,7 +122,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                             </tbody>
                             <tfoot>
                                 <tr class="border-top">
-                                    <td colspan="8" class="p-1"><span class="fs-12    "><span class="CountedNumberT">0</span> Phone Number</span></td>
+                                    <td colspan="8" class="p-1"><span class="fs-12    "><span class="CountedNumberT" total="0">0</span> Phone Number</span></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -202,7 +202,9 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
 
 
+
     function ListData(){
+
         $.ajax({
             method: "post",
             url: "WhatsAppConnectionsList",
@@ -211,10 +213,47 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             },
             success: function (res) {
                 $('.SetHtmlListData').html(res);
+                filter();
             },
+
         });
     }
     ListData();
+
+    function filter() {
+    var masterListDataSearchBar = $('.MasterListDataSearchBar').val();
+        var totalcount = $('.CountedNumberT').attr('total');
+    if (masterListDataSearchBar !== '') {
+        // var countscript = 
+        var subtotalcount = totalcount;
+        $('.ContactNumberClassSearch').each(function(index) {
+            var currentElementText = $(this).text();
+            var count = $(this).attr('count');
+            // console.log(masterListDataSearchBar + "    " + currentElementText);
+            var hideAndShowElement = $('.HideandShow' + count);
+            // console.log(hideAndShowElement);
+
+            if (currentElementText.includes(masterListDataSearchBar)) {
+                hideAndShowElement.removeClass('d-none');
+
+            } else {
+                hideAndShowElement.addClass('d-none');
+                subtotalcount = parseInt(subtotalcount) - 1;
+            }
+            
+        });
+        $('.CountedNumberT').text(subtotalcount);
+    } else {
+        $('.CountedNumberT').text(totalcount);
+        $('.HideandShowAllTr').removeClass('d-none');
+    }
+}
+
+
+
+    $('body').on('input', '.MasterListDataSearchBar', function(){
+        filter();
+    });
 
     $('body').on('click', '.DelectConnection', function(){
         var id = $(this).attr('id');
