@@ -510,6 +510,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('update_ticket_status', 'clint_support_controller::update_ticket_status');
 	$routes->get('/whatsapp', 'Home::whatapp');
 
+	$routes->post('bot_preview_data', 'Bot_Controller::bot_preview_data');
+	$routes->post('insert_chat_answer', 'Bot_Controller::insert_chat_answer');
 
 	//bot setup
 	$routes->get('/messenger_bot', 'Home::messenger_bot');

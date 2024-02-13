@@ -588,6 +588,30 @@ class Bot_Controller extends BaseController
 			$integration_type2 = $_POST['integration_type'];
 			$integrations_type = implode(',', $integration_type2);
 		}
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			if (isset($_FILES['menu_message'])) {
+				$targetDir = "C:/xampp/htdocs/GymSmart/assets/image/"; 
+				$file_name = $_FILES['menu_message']['name'];
+				$targetFile = $targetDir . basename($file_name);
+		
+				if (!file_exists($targetDir)) {
+					mkdir($targetDir, 0777, true);
+				}
+		
+				if (move_uploaded_file($_FILES['menu_message']['tmp_name'], $targetFile)) {
+					$image_name = basename($file_name);
+					$update_data['menu_message'] = $image_name;
+					// pre($update_data['menu_message']);
+					$departmentUpdatedata = $this->MasterInformationModel->update_entry2($update_id, $update_data, $table_name);
+					echo "Image uploaded successfully.";
+				}
+			} else {
+				echo "No image uploaded.";
+			}
+		} else {
+			echo "Invalid request method.";
+		}
 		$response = 0;
 		if ($this->request->getPost("action") == "update") {
 			//print_r($_POST);
@@ -768,12 +792,17 @@ class Bot_Controller extends BaseController
 								<i class="fa fa-trash question_delete cursor-pointer" data-question='.$value['id'].'></i>
 							</div>
 						</div>
-					</div>
+					</div>';
 
+if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $value['type_of_question'] <= 21) {
+						$html .= '
 					<div class="col-12 d-flex justify-content-end">
-						<button type="button" class="btn btn-primary user_reply" data-question="'.$value['question'].'" data-skip_question="'.$value['skip_question'].'" data-menu_message="'.$value['menu_message'].'">Users Replay</button>
-					</div>
-				</div>';
+						<button type="button" class="btn btn-primary user_reply" data-question="'.$value['question'].'" data-skip_question="'.$value['skip_question'].'" data-menu_message="'.$value['menu_message'].'">Users Reply</button>
+									</div>';
+}
+					
+					
+				$html .= '</div>';
 		
 			}
 		}
@@ -781,6 +810,81 @@ class Bot_Controller extends BaseController
 		echo json_encode($result);
 		die();
 	}
+
+	//bot preview
+	public function bot_preview_data()
+	{
+		$table = $_POST['table'];
+		$bot_id = $_POST['bot_id'];
+		$db_connection = \Config\Database::connect('second');
+		$sql = 'SELECT * FROM '.$table.' WHERE bot_id = '.$bot_id.'';
+		$resultss = $db_connection->query($sql);
+		$bot_chat_data = $resultss->getResultArray();
+		$html = '';
+
+		// Check if there are any records
+		if (!empty($bot_chat_data)) {
+			$value = $bot_chat_data[0]; // Get the first record
+			$html .= '<div class="messege1 d-flex flex-wrap" data-conversation-id="'.$value['id'].'">
+						<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+							<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+						</div>
+						<div class="col px-2">
+							<div class="col-12 mb-2">
+								<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3">
+									'.$value['question'].'
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="messege2 d-flex flex-wrap  ">
+						<div class="col px-2">
+							<div class="col-12 mb-2 text-end ">
+								<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
+									Hello
+								</span>
+							</div>
+						</div>
+						<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+							<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+						</div>
+					</div>';
+		}
+
+		$dateresult['html'] = $html;
+		return json_encode($dateresult, true);
+		die();
+	}
+
+	//chat answer
+	public function insert_chat_answer()
+{
+    $table = $_POST['table'];
+    $bot_id = $_POST['bot_id'];
+    $answer = $_POST['answer'];
+    $questionId = $_POST['question_id']; // Retrieve question id
+    $sequence = $_POST['sequence']; // Retrieve sequence number
+
+    $db_connection = \Config\Database::connect('second');
+    $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence; // Retrieve the question with the specified sequence
+    $result = $db_connection->query($sql);
+    $question = $result->getRowArray();
+
+    if (!empty($question) && $question['id'] == $questionId) { // Check if the retrieved question matches the sent question id
+        // Update the answer for the question with the specified sequence
+        $updateData = [
+            'answer' => $answer
+        ];
+
+        $db_connection->table($table)->update($updateData, ['id' => $question['id']]);
+
+        echo "Answer inserted successfully for question: " . $question['question'];
+    } else {
+        echo "Question with sequence " . $sequence . " not found or does not match the specified question id.";
+    }
+}
+
+
 
 	public function main_bot_list_data() {
 		// bot main page list data
@@ -809,7 +913,7 @@ class Bot_Controller extends BaseController
 									<div class="card-body d-flex flex-wrap py-1 px-2 justify-content-between">
 										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted"
 											data-toggle="tooltip" data-placement="top" title="Setup">
-											<a href="'. base_url('') .'/bot_setup?bot_id='.$value['id'].'" class="text-muted">
+											<a href="'. base_url('') .'bot_setup?bot_id='.$value['id'].'" class="text-muted">
 												<i class="fa-solid fa-screwdriver-wrench"></i>
 											</a>
 										</div>

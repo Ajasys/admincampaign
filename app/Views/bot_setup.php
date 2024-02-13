@@ -62,21 +62,26 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         border: 2px dotted black;
     }
 
-    .modal-card-body-main{
+    .modal-card-body-main {
         background: #f0e4f6;
     }
+
     .form-control:focus {
         box-shadow: 0px 0px 0px black;
     }
-    .input-group>.form-control:focus{
+
+    .input-group>.form-control:focus {
         z-index: 0;
     }
-    .messege-sub{
+
+    .messege-sub {
         background-color: #724EBF;
     }
+
     .messege-scroll::-webkit-scrollbar {
         display: none;
     }
+
     .second-add {
         display: block !important;
     }
@@ -84,7 +89,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     .second-remove {
         display: none !important;
     }
-
 </style>
 
 
@@ -632,7 +636,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             <?php
                                             if (isset($master_bot_typeof_question)) {
                                                 foreach ($master_bot_typeof_question as $type_key => $type_value) {
-                                                    if ($type_value['question_type'] == 'Audio') {
+                                                    if ($type_value['question_type'] == 'Show Contacts') {
                                                         echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
@@ -1294,14 +1298,14 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1" for="flexSwitchCheckDefault">Do Not Remove Menu Message (For Whatsapp)</label>
                                     </div>
                                 </div> -->
-                                
+
                                 <div class="col-12 d-flex flex-wrap px-3" id="firstquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="secondquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="thirdquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="fourthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="fifthquestion"></div> 
+                                <div class="col-12 d-flex flex-wrap px-3" id="fifthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="sixthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="eighthquestion"></div> 
+                                <div class="col-12 d-flex flex-wrap px-3" id="eighthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="tenthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="twelthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="senenthquestion"></div>
@@ -1310,6 +1314,15 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <div class="col-12 d-flex flex-wrap px-3" id="seventeenquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="eighteenquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="twentyonequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="twentythreequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="twentyfourquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="twentysevenquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="twentyeightquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="thirtyethquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="fourythreequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="fouryfourquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="twentyfivequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-3" id="fourtyonequestion"></div>
                                 <!--Question-->
                                 <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                                     <div class="col-12 d-flex flex-wrap px-2">
@@ -2203,52 +2216,51 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Conditional Flow</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Conditional Flow</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="modal-body1 p-3">
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Question</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect" disabled>
                 </div>
-
-
-                <div class="modal-body1 p-3">
-                    <div class="mb-3">
-                        <label for="formGroupExampleInput" class="form-label">Question</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput"
-                            placeholder="URL Auto Redirect" disabled>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="formGroupExampleInput" class="form-label">Subflows</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Main Flow</option>
+                        </select>
                     </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <label for="formGroupExampleInput" class="form-label">Subflows</label>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Main Flow</option>
-                            </select>
-                        </div>
-                        <div class="col-8">
-                            <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
-                            <select class="form-select question_select" aria-label="Default select example">
+                    <div class="col-8">
+                        <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
+                        <select class="form-select question_select" aria-label="Default select example">
 
-                                <option value="No Jump">No Jump</option>
-                                
-                                <?php
-                                    if (isset($admin_bot_setup)) {
-                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                            // pre($type_value);
-                                           
-                                            if ($type_value['bot_id'] == $botId ) {
-                                               
-                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                            }
-                                        }
+                            <option value="No Jump">No Jump</option>
+
+                            <?php
+                            if (isset($admin_bot_setup)) {
+                                foreach ($admin_bot_setup as $type_key => $type_value) {
+                                    // pre($type_value);
+
+                                    if ($type_value['bot_id'] == $botId) {
+
+                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                     }
-                                ?>
-                            </select>
-                        </div>
+                                }
+                            }
+                            ?>
+                        </select>
                     </div>
-                </div> 
+                </div>
+            </div>
 
-                <!-- Conditional Flow -->
-                <!-- <div class="model-body2 p-3">
+            <!-- Conditional Flow -->
+            <!-- <div class="model-body2 p-3">
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Question</label>
                         <input type="text" class="form-control" id="formGroupExampleInput"
@@ -2281,8 +2293,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     </div>
                 </div>   -->
 
-                <!-- How would you rate our company? -->
-                <!-- <div class="model-body3 p-3">
+            <!-- How would you rate our company? -->
+            <!-- <div class="model-body3 p-3">
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Question</label>
                         <input type="text" class="form-control" id="formGroupExampleInput"
@@ -2403,7 +2415,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     </div>
                 </div> -->
 
-                <!-- <div class="model-body4 p-3">
+            <!-- <div class="model-body4 p-3">
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Question</label>
                         <input type="text" class="form-control" id="formGroupExampleInput"
@@ -2578,8 +2590,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     </div>
                 </div> -->
 
-                <!-- This will call your api and show the response to the user -->
-                <!-- <div class="modal-body4 p-3">
+            <!-- This will call your api and show the response to the user -->
+            <!-- <div class="modal-body4 p-3">
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Question</label>
                         <input type="text" class="form-control" id="formGroupExampleInput"
@@ -2623,49 +2635,49 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     </div>
                 </div> -->
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary conditional_flow_update">Save</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary conditional_flow_update">Save</button>
             </div>
         </div>
+    </div>
 </div>
 
 
 
 <!-- chat-bot modal -->
 <div class="modal fade modal-lg" id="chat_withbot" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header border-bottom-0">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Bot Preview</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body ">
-        <div class="col-12 border rounded-3">
-            <div class="moda-card-header d-flex flex-wrap justify-content-center py-3 border-bottom bg-primary">
-                <div class="col-8 d-flex flex-wrap align-items-center justify-content-between ">
-                    <div class="d-flex flex-wrap align-items-center">
-                        <div class="border  rounded-circle overflow-hidden" style="width:40px;height:40px">
-                            <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-                        </div>
-                        <h6 class="mx-2 text-white">Oppo</h6>
-                    </div>
-                    <div class="d-flex flex-wrap">
-                        <button class="btn bg-primary mx-2 text-white">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
-                        </button>
-                        <button class="btn bg-primary text-white">
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </button>
-                    </div>
-                </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Bot Preview</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
-                    <div class="overflow-y-scroll col-8 py-3 messege-scroll"  style="min-height:400px; max-height:400px">
+            <div class="modal-body ">
+                <div class="col-12 border rounded-3">
+                    <div class="moda-card-header d-flex flex-wrap justify-content-center py-3 border-bottom bg-primary">
+                        <div class="col-8 d-flex flex-wrap align-items-center justify-content-between ">
+                            <div class="d-flex flex-wrap align-items-center">
+                                <div class="border  rounded-circle overflow-hidden" style="width:40px;height:40px">
+                                    <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+                                </div>
+                                <h6 class="mx-2 text-white">Oppo</h6>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <button class="btn bg-primary mx-2 text-white">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <button class="btn bg-primary text-white">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
+                        <div class="overflow-y-scroll col-8 py-3 messege-scroll" style="min-height:400px; max-height:400px">
 
-                        <div class="bot_preview_html"></div>
-                        <!-- <div class="messege1 d-flex flex-wrap  ">
+                            <div class="bot_preview_html"></div>
+                            <!-- <div class="messege1 d-flex flex-wrap  ">
                             <div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
                                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
                             </div>
@@ -2702,20 +2714,20 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
                             </div>
                         </div> -->
-                    </div>
-                    <div class="col-12 d-flex flex-wrap justify-content-center ">
-                        <div class="d-flex flex-wrap col-8  bg-white mb-3 rounded-pill py-1">
-                            <div class="input-group  position-relative ">
-                                <input type="text" class="form-control rounded-pill px-4 py-2 border-0" placeholder="Type Your Answer" >
-                                <button class="btn btn-primary rounded-circle me-1 px-3 chatting_data"><i class="fa-solid fa-caret-right"></i></button>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap justify-content-center ">
+                            <div class="d-flex flex-wrap col-8  bg-white mb-3 rounded-pill py-1">
+                                <div class="input-group  position-relative ">
+                                    <input type="text" class="form-control rounded-pill px-4 py-2 border-0 answer_chat" placeholder="Type Your Answer">
+                                    <button class="btn btn-primary rounded-circle me-1 px-3 chatting_data" questionId=""><i class="fa-solid fa-caret-right"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <?= $this->include('partials/footer') ?>
@@ -2723,12 +2735,17 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 <script>
     $('body').on('click', '.bot_preview', function(e) {
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+        var bot_id = '<?php echo $botId; ?>';
+        
+        var conversation_id = $(this).attr('data-conversation-id');
+        console.log(conversation_id);
         $.ajax({
             method: "post",
-            url: "<?= site_url('bot_preview'); ?>",
+            url: "<?= site_url('bot_preview_data'); ?>",
             data: {
                 action: 'init_chat',
                 table: table,
+                bot_id: bot_id
             },
             success: function(data) {
                 var response = JSON.parse(data);
@@ -2738,32 +2755,42 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         });
     });
 
-
-    var insertedData;
-    var chatArray = [];
+    // var insertedData;
     $('body').on('click', '.chatting_data', function (e) {
-        e.preventDefault();
-        var insertedData = $(this).data('insertedData');
-        var chatting = $('#standalone_chat_popup').val();
-        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
-        if (chatting !== "") {
-            chatArray.push(chatting);
+    e.preventDefault();
+
+    var chatting = $('.answer_chat').val();
+    var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+    var bot_id = '<?php echo $botId; ?>';
+
+    if (chatting !== "") {
+        var sequence = 1; 
+
+        $(".chatting_data").each(function(index) {
+            var questionId = $(this).data('question-id'); 
+            var conversationId = $(this).closest('.messege1').data('conversation-id'); // Retrieve the conversation ID
             $.ajax({
                 method: "post",
-                url: "<?= site_url('update_data'); ?>",
+                url: "<?= site_url('insert_chat_answer'); ?>",
                 data: {
-                    edit_id: insertedData,
                     table: table,
-                    action: "update",
-                    // chat: chatting,
+                    action: "chat_answer",
+                    answer: chatting,
+                    bot_id: bot_id,
+                    conversation_id: conversationId // Pass the conversation ID to the server
+                  
                 },
                 success: function (res) {
-                    list_data_s();
+                    console.log(res);
                 }
             });
-        }
-    });
-   
+            // Other code
+        });
+    }
+});
+
+
+
     //page js for drag and drop
     $(".question_add").on("dragstart", function(e) {
         $(this).addClass('dragging');
@@ -2808,7 +2835,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     $('body').on('dragover', '.drag_question', function(e) {
         e.preventDefault();
     });
-
 </script>
 
 <script>
@@ -2954,25 +2980,25 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
 
         <?php
-            $options = [];
-            if (isset($admin_bot_setup)) {
-                foreach ($admin_bot_setup as $type_key => $type_value) {
-                    if ($type_value['bot_id'] == $botId) {
-                        $options[] = [
-                            'id' => $type_value["id"],
-                            'question' => $type_value["question"]
-                        ];
-                    }
+        $options = [];
+        if (isset($admin_bot_setup)) {
+            foreach ($admin_bot_setup as $type_key => $type_value) {
+                if ($type_value['bot_id'] == $botId) {
+                    $options[] = [
+                        'id' => $type_value["id"],
+                        'question' => $type_value["question"]
+                    ];
                 }
             }
-            $encoded_options = json_encode($options);
+        }
+        $encoded_options = json_encode($options);
         ?>
 
         //Single Choile Table Row Add
         function table_html() {
             var row_numbers = $('.main-plan').length;
             var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select question_select" aria-label="Default select example"><option selected>No Jump</option>';
-            
+
             var options = <?php echo $encoded_options; ?>;
 
             options.forEach(function(option) {
@@ -2984,7 +3010,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         table_html();
 
         $('body').on('click', '.single-choice-add-tabal', function() {
-            table_html(); 
+            table_html();
             update_row_numbers();
         });
 
@@ -3045,32 +3071,32 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
         //forms
         function form_table_row() {
-            var form_table_row = '<tr class="col-12"> '  
-            '<td class="col">   '    
-                '<select class="form-select form-select-sm form-select-picker" aria-label="Default select example">  '         
-                    '<option value="Question" selected>Question</option>  '         
-                    '<option value="Dropdown">Dropdown</option>  '     
-                '</select>   '
+            var form_table_row = '<tr class="col-12"> '
+            '<td class="col">   '
+            '<select class="form-select form-select-sm form-select-picker" aria-label="Default select example">  '
+            '<option value="Question" selected>Question</option>  '
+            '<option value="Dropdown">Dropdown</option>  '
+            '</select>   '
             '</td>   '
-            '<td class="col">'       
-                '<input type="text" class="form-control form-control-sm fw-medium form-qa-text" id="" placeholder="Question Text" value=""> '
+            '<td class="col">'
+            '<input type="text" class="form-control form-control-sm fw-medium form-qa-text" id="" placeholder="Question Text" value=""> '
             '</td>  '
             '<td class="col">   '
-                ' <div class="form-check form-switch mx-2 form-required"> '      
-                    '<input class="form-check-input " type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>'    
-                '</div> '
-            '</td> ' 
-            '<td class="col"> '     
-                '<input type="text" class="form-control form-control-sm fw-medium form-regex" id="" placeholder="Regex" value=""> ' 
-            ' </td>'  
-            '<td class="col">   '    
-                '<div class="form-floating">  '        
-                    '<textarea class="form-control fs-12 fw-medium form-detail" placeholder="Description form-detail" id=""></textarea>  '    
-                '</div>'   
-            '</td>'   
-            '<td class="col">  '     
-                '<button type="button" class="btn btn-danger form-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button>'   
-                '</td>'
+            ' <div class="form-check form-switch mx-2 form-required"> '
+            '<input class="form-check-input " type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>'
+            '</div> '
+            '</td> '
+            '<td class="col"> '
+            '<input type="text" class="form-control form-control-sm fw-medium form-regex" id="" placeholder="Regex" value=""> '
+            ' </td>'
+            '<td class="col">   '
+            '<div class="form-floating">  '
+            '<textarea class="form-control fs-12 fw-medium form-detail" placeholder="Description form-detail" id=""></textarea>  '
+            '</div>'
+            '</td>'
+            '<td class="col">  '
+            '<button type="button" class="btn btn-danger form-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button>'
+            '</td>'
             '</tr>';
             $(".form-table-body").append(form_table_row);
         }
@@ -3102,17 +3128,17 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         //Corousel
         function Corousel_table_row() {
             var Corousel_table_row = '<tr class="col-12 corousel_table"><td class="col"><input type="text" class="form-control form-control-sm fw-medium Corousel-qa-text carousel_question_text" id="" placeholder="Question Text" value=""></td><td class="col"><select class="form-select form-select-sm Corousel-select-picker" aria-label="Default select example"></select></td><td class="col"><select class="form-select form-select-sm Corousel-select-picker carousel_jump" aria-label="Default select example"><?php
-                                                    if (isset($admin_bot_setup)) {
-                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                            // pre($type_value);
-                                                        
-                                                            if ($type_value['bot_id'] == $botId ) {
-                                                            
-                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                            }
-                                                        }
-                                                    }
-                                                ?></select></td><td class="col-2"><div class="col"> <input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image"></div></td><td class="col"><button type="button" class="btn btn-danger btn-sm Corousel-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            if (isset($admin_bot_setup)) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    // pre($type_value);
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    if ($type_value['bot_id'] == $botId) {
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ?></select></td><td class="col-2"><div class="col"> <input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image"></div></td><td class="col"><button type="button" class="btn btn-danger btn-sm Corousel-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".Corousel-table-body").append(Corousel_table_row);
         }
 
@@ -3151,82 +3177,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 $('.Corousel-1').text('Do Not Auto Slide');
             }
         });
-
-
-        //proudect 
-
-        function proudect_table_row() {
-            var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select proudect-select-picker" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center proudect-selecter"> <div class="col-12 proudect-image second-add"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control proudect-file" type="file" id="formFile"> </div> <div class="col-12 proudect-video second-remove"> <label for="" class="form-label fw-medium">URL<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class="btn btn-danger proudect-remove-btn ">D</button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
-            $(".proudect-table-body").append(proudect_table_row);
-        }
-
-        proudect_table_row();
-
-        $('body').on('click', '.proudect-add-tabal', function() {
-            proudect_table_row();
-        });
-
-        $('body').on('click', '.proudect-remove-btn', function() {
-            $(this).closest('.proudect-table-row').remove();
-        });
-
-
-        $('body').on('change', '.proudect-select-picker', function() {
-            // proudect_value_change($(this).closest('td'));
-
-            var proudect_value = $(this).closest('td').find(".proudect-select-picker").val();
-
-            if (proudect_value == "2") {
-
-                console.log($(this).closest('td').html());
-                // $(this).closest('td').hide();
-
-
-                $(this).closest('tr').find('.proudect-image').removeClass('second-add');
-                $(this).closest('tr').find('.proudect-image').addClass('second-remove');
-                $(this).closest('tr').find('.proudect-video').removeClass('second-remove');
-                $(this).closest('tr').find('.proudect-video').addClass('second-add');
-                // alert(proudect_value);
-
-
-            } else if (proudect_value == "1") {
-
-                console.log("jenish nhai");
-
-                $(this).closest('tr').find('.proudect-video').removeClass('second-add');
-                $(this).closest('tr').find('.proudect-video').addClass('second-remove');
-                $(this).closest('tr').find('.proudect-image').removeClass('second-remove');
-                $(this).closest('tr').find('.proudect-image').addClass('second-add');
-
-            }
-
-        });
-
-        function proudect_value_change(row) {
-
-            var proudect_value = row.find(".proudect-select-picker").val();
-            alert(proudect_value);
-
-            if (proudect_value == "2") {
-
-
-                $('.proudect-image').removeClass('second-add');
-                $('.proudect-image').addClass('second-remove');
-                $('.proudect-video').removeClass('second-remove');
-                $('.proudect-video').addClass('second-add');
-
-
-            } else if (proudect_value == "1") {
-
-                $('.proudect-video').removeClass('second-add');
-                $('.proudect-video').addClass('second-remove');
-                $('.proudect-image').removeClass('second-remove');
-                $('.proudect-image').addClass('second-add');
-
-            }
-
-        }
-
 
         function forms_div_fun() {
             var forms_div = `<div class="Forms_in_div">
@@ -3281,7 +3231,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         $('body').on('click', '.form_delete_b', function() {
             $(this).closest('.Forms_in_div').remove();
         });
-        
+
         $('body').on('change', '.form-select-picker', function() {
             // let data = $(".form-select-picker").val();
             let data = $(this).val();
@@ -3298,9 +3248,155 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 $(this).closest('.Forms_in_div').find('.text-area').hide();
                 $(this).closest('.Forms_in_div').find('.main-input1').show();
             }
-            
+
         });
     });
+
+
+    function updates_mandiv() {
+        const html = ` <div class="row mt-2 mb-2 d-flex align-items-center updates_divin">
+                            <div class="col-3">
+                                <label for="" class="mb-2 mt-2">Type</label>
+                                <select class="form-select url_navigator_select" aria-label="Default select example">
+                                    <option selected>Select</option>
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Twitter">Twitter</option>
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="Linkedin">Linkedin</option>
+                                    <option value="Youtube">Youtube</option>
+                                    <option value="Messenger">Messenger</option>
+                                    <option value="Google_Plus">Google Plus</option>
+                                    <option value="Call">Call</option>
+                                    <option value="Whatsapp">Whatsapp</option>
+                                    <option value="URL">URL</option>
+                                    <option value="Refresh_chat">Refresh chat</option>
+                                    <option value="close_Chat">close Chat</option>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <label for="" class="mb-2 mt-2">Text</label>
+                                <input type="text" class="form-control url_text" aria-describedby="" value="" placeholder="Set Button Text">
+                            </div>
+                            <div class="col-5">
+                                <label for="" class="mb-2 mt-2">Link</label>
+                                <input type="text" class="form-control url_link" aria-describedby="" value="" placeholder="Set Button Text">
+                            </div>
+                            <div class="col-1 mt-3">
+                                <button type="button" id="updates_div_d" class="btn facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                            </div>
+                        </div>`;
+
+        $(".updates_mandiv").append(html);
+    }
+    updates_mandiv();
+    $('body').on('click', '.updates_mandivc', function() {
+        updates_mandiv();
+    });
+
+
+    function proudect_table_row() {
+        var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row product_table"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select proudect-select-picker product_type" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control product_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control product_title" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center proudect-selecter"> <div class="col-12 proudect-image second-add"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control proudect-file" type="file" id="formFile"> </div> <div class="col-12 proudect-video second-remove"> <label for="" class="form-label fw-medium">URL<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control product_description" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control product_button_text" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control product_button_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class="btn btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
+        $(".proudect-table-body").append(proudect_table_row);
+    }
+    proudect_table_row();
+
+    $('body').on('click', '.proudect-add-tabal', function() {
+        proudect_table_row();
+    });
+
+    $('body').on('click', '.proudect-remove-btn', function() {
+        $(this).closest('.proudect-table-row').remove();
+    });
+
+
+    $('body').on('change', '.proudect-select-picker', function() {
+        var proudect_value = $(this).closest('td').find(".proudect-select-picker").val();
+        if (proudect_value == "2") {
+            console.log($(this).closest('td').html());
+            $(this).closest('tr').find('.proudect-image').removeClass('second-add');
+            $(this).closest('tr').find('.proudect-image').addClass('second-remove');
+            $(this).closest('tr').find('.proudect-video').removeClass('second-remove');
+            $(this).closest('tr').find('.proudect-video').addClass('second-add');
+
+        } else if (proudect_value == "1") {
+            $(this).closest('tr').find('.proudect-video').removeClass('second-add');
+            $(this).closest('tr').find('.proudect-video').addClass('second-remove');
+            $(this).closest('tr').find('.proudect-image').removeClass('second-remove');
+            $(this).closest('tr').find('.proudect-image').addClass('second-add');
+        }
+
+    });
+
+    function proudect_value_change(row) {
+        var proudect_value = row.find(".proudect-select-picker").val();
+        if (proudect_value == "2") {
+            $('.proudect-image').removeClass('second-add');
+            $('.proudect-image').addClass('second-remove');
+            $('.proudect-video').removeClass('second-remove');
+            $('.proudect-video').addClass('second-add');
+
+
+        } else if (proudect_value == "1") {
+            $('.proudect-video').removeClass('second-add');
+            $('.proudect-video').addClass('second-remove');
+            $('.proudect-image').removeClass('second-remove');
+            $('.proudect-image').addClass('second-add');
+
+        }
+    }
+
+
+    function contact_fun_add() {
+        let html = `
+                <div class="row col-12 mt-1 contact_div_in">
+                    <div class="col-5">
+                        <label for="" class="form-label">name</label>
+                        <input type="text" class="form-control contact_name" id="" placeholder="Enter Contact Name">
+                    </div>
+                    <div class="col-5">
+                        <label for="" class="form-label">contact</label>
+                        <input type="text" class="form-control contact_number" id="" placeholder="Enter contact">
+                    </div>
+                    <div class="col-2 mt-1">
+                    <button type="button" class="btn contact_div_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                    </div>
+                </div>`;
+
+        $(".contact_div").append(html)
+    }
+    contact_fun_add();
+
+    $("body").on("click", ".contact_div_add", function() {
+        contact_fun_add();
+    })
+
+    $('body').on('click', '.contact_div_d', function() {
+        $(this).closest('.contact_div_in').remove();
+    });
+
+
+    $("body").on("change", ".carousel_img_input", function() {
+        let carousel_img_input = this.files[0];
+        
+        if (carousel_img_input) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                $('.img_carousel img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(carousel_img_input);
+
+            $(this).closest('.input-change').siblings('.img_carousel').removeClass('d-none');
+            $(this).closest('.input-change').addClass('d-none');
+        } else {
+            $(this).closest('.input-change').siblings('.img_carousel').addClass('d-none');
+        }
+    });
+
+    $("body").on("click", ".img_carousel_clo_btn", function() {
+        $(".img_carousel").addClass("d-none");
+    });
+
+
 </script>
 
 <script>
@@ -3426,7 +3522,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     });
 
 
-   
+
     // drag question sequence changed
     $('body').on('drop', '.drag_question', function(e) {
         e.preventDefault();
@@ -3493,10 +3589,10 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     }
 
                     $("#Question_error_message").val(response[0].error_text);
-                    
+
                     var menu_message = response[0].menu_message;
-                    
-                    if(menu_message != ''){
+
+                    if (menu_message != '') {
                         var menu_message = JSON.parse(response[0].menu_message);
 
                         var reactions = menu_message.reaction;
@@ -3513,8 +3609,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             $(".good").val(fourthReaction.reaction);
                             $(".great").val(fifthReaction.reaction);
                         } else {
-                           
-                        } 
+
+                        }
 
                         $(".button_text").val(menu_message.button_text);
                         $(".button_url").val(menu_message.button_url);
@@ -3535,7 +3631,25 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             $(".appointment_date_range").val(formattedDate);
                         }
 
-                        
+                        var date_range = menu_message.date_range;
+                        if (date_range) {
+                            $(".date_range1").val(menu_message.date_range[0]);
+                            $(".date_range2").val(menu_message.date_range[1]);
+                        }
+
+                        var period = menu_message.period;
+                        if (period) {
+                            $(".enableFutureDays").val(menu_message.period[0]);
+                            $(".enablePasteDays").val(menu_message.period[1]);
+                        }
+                        $(".date_output_format").val(menu_message.date_output_format);
+
+
+                        $(".appointment_next_days").val(menu_message.next_days);
+                        $(".appointment_next_days").val(menu_message.next_days);
+                        $(".appointment_next_days").val(menu_message.next_days);
+
+
                         $(".appointment_next_days").val(menu_message.next_days);
                         $(".from_timing").val(menu_message.from_timing);
                         $(".to_timing").val(menu_message.to_timing);
@@ -3548,20 +3662,50 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         $(".meeting_url").val(menu_message.meeting_url);
                         $(".already_booked_message").val(menu_message.already_booked_message);
                         $(".no_slots_message").val(menu_message.no_slots_message);
-                        
+
+                        $(".location_place").val(menu_message.location_place);
+
+                        $(".redirect_url").val(menu_message.redirect_url);
+                        $(".open_tab").val(menu_message.open_tab);
+                        $(".delay_url").val(menu_message.delay_url);
+
+                        $(".header_text").val(menu_message.header_text);
+                        $(".footer_text").val(menu_message.footer_text);
+
+                        $(".add_more_button_jump").val(menu_message.add_more_button_jump);
+                        $(".quantity_button_jump").val(menu_message.quantity_button_jump);
 
                         if (menu_message.appointment_period && menu_message.appointment_period.length === 2) {
                             var appointment_period = menu_message.appointment_period;
-                            $(".appointment_period:first").val(appointment_period[0]);
-                            $(".appointment_period:last").val(appointment_period[1]);
+                            $(".appointment_period:eq(0)").val(appointment_period[0]);
+                            $(".appointment_period:eq(1)").val(appointment_period[1]);
                         }
 
-                        
+                        if(type_of_question == "18" || type_of_question == "24"){
+                            if (menu_message[0].auto_slide_carousel === "1") {
+                                $(".auto_slide_carousel").prop("checked", true);
+                            } else {
+                                $(".auto_slide_carousel").prop("checked", false);
+                            }
+                        }
+                    
+
+                        if (menu_message.remove_question === "true") {
+                            $(".remove_question").prop("checked", true);
+                        } else {
+                            $(".remove_question").prop("checked", false);
+                        }
+                        if (menu_message.previous_address === "true") {
+                            $(".previous_address").prop("checked", true);
+                        } else {
+                            $(".previous_address").prop("checked", false);
+                        }
+
                         if (menu_message.enable_timezone_selection === "1") {
                             $(".enable_timezone_selection").prop("checked", true);
                         } else {
                             $(".enable_timezone_selection").prop("checked", false);
-                        }                   
+                        }
 
                         if (menu_message.remove_menu === "true") {
                             $(".menu_message").prop("checked", true);
@@ -3580,8 +3724,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         } else {
                             $(".is_strict_validation").prop("checked", false);
                         }
-                    
-                        if(type_of_question == 2){
+
+                        if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                             if (menu_message && menu_message.options != "") {
                                 var optionsArray = menu_message.options.split(';');
                                 $(".main-plan").remove();
@@ -3614,27 +3758,27 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         '</tr>';
                                     $(".tbody").append(main_table_html);
                                 });
-                            }else {
+                            } else {
                                 $(".is_strict_validation").prop("checked", false);
                             }
                         }
 
-                        if(type_of_question == 4){
+                        if (type_of_question == 4) {
                             if (menu_message.options != "") {
-                                var optionsArray = menu_message.options.split(';'); 
-                                $(".multiple_main-plan").remove(); 
+                                var optionsArray = menu_message.options.split(';');
+                                $(".multiple_main-plan").remove();
                                 optionsArray.forEach(function(option, index) {
                                     var row_numbers = index === 0 ? '' : $('.multiple_main-plan').length;
-                                    var main_table_html = 
+                                    var main_table_html =
                                         '<tr class="col-12 multiple_main-plan">' +
-                                            '<td class="col-3">' +
-                                            '<input type="text" class="form-control multiple_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
-                                            '</td>' +
-                                            '<td class="col-2">' +
-                                            '<button type="button" class="btn btn-danger multiple-remove-btn">' +
-                                            '<i class="fa fa-trash cursor-pointer"></i>' +
-                                            '</button>' +
-                                            '</td>' +
+                                        '<td class="col-3">' +
+                                        '<input type="text" class="form-control multiple_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                                        '</td>' +
+                                        '<td class="col-2">' +
+                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                        '<i class="fa fa-trash cursor-pointer"></i>' +
+                                        '</button>' +
+                                        '</td>' +
                                         '</tr>';
                                     $(".tbody_multiple").append(main_table_html);
                                 });
@@ -3694,37 +3838,225 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
 
                         if (type_of_question == 18 && menu_message && menu_message.length > 0) {
-                            $(".corousel_table").remove(); 
+                            $(".corousel_table").remove();
 
                             menu_message.forEach(function(item) {
-                                var corousel_table_html = 
+                                var corousel_table_html =
                                     '<tr class="col-12 corousel_table">' +
-                                        '<td class="col">' +
-                                            '<input type="text" class="form-control form-control-sm fw-medium Corousel-qa-text carousel_question_text" placeholder="Enter the option" value="' + item.questionText + '">' +
-                                        '</td>' +
-                                        '<td class="col">' +
-                                            '<select class="form-select form-select-sm Corousel-select-picker" aria-label="Default select example"></select>' +
-                                        '</td>' +
-                                        '<td class="col">' +
-                                            '<select class="form-select form-select-sm Corousel-select-picker carousel_jump" aria-label="Default select example">' +
-                                                '<?php if (isset($admin_bot_setup)) { foreach ($admin_bot_setup as $type_key => $type_value) { if ($type_value['bot_id'] == $botId ) { echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>'; } } } ?>' +
-                                            '</select>' +
-                                        '</td>' +
-                                        '<td class="col-2">' +
-                                            '<div class="col">' +
-                                                '<input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image">' +
-                                            '</div>' +
-                                        '</td>' +
-                                        '<td class="col">' +
-                                            '<button type="button" class="btn btn-danger btn-sm Corousel-remove-btn">' +
-                                                '<i class="fa fa-trash cursor-pointer"></i>' +
-                                            '</button>' +
-                                        '</td>' +
+                                    '<td class="col">' +
+                                    '<input type="text" class="form-control form-control-sm fw-medium Corousel-qa-text carousel_question_text" placeholder="Enter the option" value="' + item.questionText + '">' +
+                                    '</td>' +
+                                    '<td class="col">' +
+                                    '<select class="form-select form-select-sm Corousel-select-picker" aria-label="Default select example"></select>' +
+                                    '</td>' +
+                                    '<td class="col">' +
+                                    '<select class="form-select form-select-sm Corousel-select-picker carousel_jump" aria-label="Default select example">' +
+                                    '<?php if (isset($admin_bot_setup)) {
+                                            foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                if ($type_value['bot_id'] == $botId) {
+                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                }
+                                            }
+                                        } ?>' +
+                                    '</select>' +
+                                    '</td>' +
+                                    '<td class="col-2">' +
+                                    '<div class="col">' +
+                                    '<input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image">' +
+                                    '</div>' +
+                                    '</td>' +
+                                    '<td class="col">' +
+                                    '<button type="button" class="btn btn-danger btn-sm Corousel-remove-btn">' +
+                                    '<i class="fa fa-trash cursor-pointer"></i>' +
+                                    '</button>' +
+                                    '</td>' +
                                     '</tr>';
-                                $(".Corousel-table-body").append(corousel_table_html); 
+                                $(".Corousel-table-body").append(corousel_table_html);
                             });
                         } else {
                             $(".is_strict_validation").prop("checked", false);
+                        }
+
+                        if (type_of_question == 23) {
+                            var corousel_table_html = '';
+                            // Iterate over the array elements
+                            menu_message.forEach(function(rowData, index) {
+                                // Build the HTML for each row
+                                corousel_table_html += `<div class="row mt-2 mb-2 d-flex align-items-center updates_divin">
+                                        <div class="col-3">
+                                            <label for="" class="mb-2 mt-2">Type</label>
+                                            <select class="form-select url_navigator_select" aria-label="Default select example">
+                                                <option ${rowData.url_navigator_select === 'Select' ? 'selected' : ''}>Select</option>
+                                                <option ${rowData.url_navigator_select === 'Facebook' ? 'selected' : ''}>Facebook</option>
+                                                <option ${rowData.url_navigator_select === 'Twitter' ? 'selected' : ''}>Twitter</option>
+                                                <option ${rowData.url_navigator_select === 'Instagram' ? 'selected' : ''}>Instagram</option>
+                                                <option ${rowData.url_navigator_select === 'Linkedin' ? 'selected' : ''}>Linkedin</option>
+                                                <option ${rowData.url_navigator_select === 'Youtube' ? 'selected' : ''}>Youtube</option>
+                                                <option ${rowData.url_navigator_select === 'Messenger' ? 'selected' : ''}>Messenger</option>
+                                                <option ${rowData.url_navigator_select === 'Google_Plus' ? 'selected' : ''}>Google Plus</option>
+                                                <option ${rowData.url_navigator_select === 'Call' ? 'selected' : ''}>Call</option>
+                                                <option ${rowData.url_navigator_select === 'Whatsapp' ? 'selected' : ''}>Whatsapp</option>
+                                                <option ${rowData.url_navigator_select === 'URL' ? 'selected' : ''}>URL</option>
+                                                <option ${rowData.url_navigator_select === 'Refresh_chat' ? 'selected' : ''}>Refresh chat</option>
+                                                <option ${rowData.url_navigator_select === 'close_Chat' ? 'selected' : ''}>close Chat</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="" class="mb-2 mt-2">Text</label>
+                                            <input type="text" class="form-control url_text" aria-describedby="" value="${rowData.url_text}" placeholder="Set Button Text">
+                                        </div>
+                                        <div class="col-5">
+                                            <label for="" class="mb-2 mt-2">Link</label>
+                                            <input type="text" class="form-control url_link" aria-describedby="" value="${rowData.url_link}" placeholder="Set Button Text">
+                                        </div>
+                                        <div class="col-1 mt-3">
+                                            <button type="button" id="updates_div_d" class="btn facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                        </div>
+                                    </div>`;
+                            });
+                            // Insert the generated HTML into the DOM
+                            $(".updates_mandiv").html(corousel_table_html);
+                        }
+
+                        // console.log(menu_message);
+                      
+                        if (type_of_question == 24) {
+                            let corousel_table_html = '';
+
+                            for (let i = 0; i < menu_message.length; i++) {
+                                const data = menu_message[i];
+
+                                corousel_table_html += `<div class="col-12 d-flex flex-wrap">
+                                <div class="col-12 d-flex flex-wrap my-3">
+                                    <div class="d-flex flex-wrap align-items-center col-4 m-2">
+                                       
+                                    </div>
+                                    <div class="col-4 d-flex flex-wrap  align-items-center proudect-corousel-sec-input second-remove">
+                                        <span class="col">Delay (sec)</span>
+                                        <span class="col mx-2"><input type="number" class="form-control" id="" value="1"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex flex-wrap my-3">
+                                    <div class="proudect-table-body">
+                                        <div class="d-flex flex-wrap col-12 w-100 proudect-table-row product_table"> 
+                                            <div class="proudect-table-1 col-12 w-100 "> 
+                                                <table class="table w-100 col-12 proudect-table-upper table-borderless"> 
+                                                    <tbody class="proudect-table-upper-body"> 
+                                                        <tr> 
+                                                            <td class="proudect-table-1 col-2"> 
+                                                                <div class="col-12 d-flex flex-wrap align-items-center"> 
+                                                                    <div class="col-12"> 
+                                                                        <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> 
+                                                                        <select class="form-select proudect-select-picker product_type" aria-label="Default select example"> 
+                                                                            <option value="1" ${data.product_type === '1' ? 'selected' : ''}>Image</option> 
+                                                                            <option value="2" ${data.product_type === '2' ? 'selected' : ''}>Video</option> 
+                                                                        </select> 
+                                                                    </div> 
+                                                                </div> 
+                                                            </td> 
+                                                            <td class="proudect-table-1 col"> 
+                                                                <div class="col-12 d-flex flex-wrap align-items-center"> 
+                                                                    <div class="col-12"> 
+                                                                        <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> 
+                                                                        <input type="text" class="form-control product_url" id="" placeholder="your URL" value="${data.product_url}"> 
+                                                                    </div> 
+                                                                </div> 
+                                                            </td> 
+                                                            <td class="proudect-table-1 col"> 
+                                                                <div class="col-12 d-flex flex-wrap align-items-center"> 
+                                                                    <div class="col-12"> 
+                                                                        <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> 
+                                                                        <input type="text" class="form-control product_title" id="" placeholder="your URL" value="${data.product_title}"> 
+                                                                    </div> 
+                                                                </div> 
+                                                            </td> 
+                                                            <td class="proudect-table-1 col-2"> 
+                                                                <div class="col-12 d-flex flex-wrap align-items-center proudect-selecter"> 
+                                                                    <div class="col-12 proudect-image second-add"> 
+                                                                        <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> 
+                                                                        <input class="form-control proudect-file" type="file" id="formFile"> 
+                                                                    </div> 
+                                                                    <div class="col-12 proudect-video second-remove"> 
+                                                                        <label for="" class="form-label fw-medium">URL<span class="text-danger">*</span></label> 
+                                                                        <input type="text" class="form-control" id="" placeholder="your URL" value="${data.product_button_url}"> 
+                                                                    </div> 
+                                                                </div> 
+                                                            </td> 
+                                                        </tr> 
+                                                    </tbody> 
+                                                </table> 
+                                            </div> 
+                                            <div class="proudect-table-1 col-12 w-100"> 
+                                                <table class="table w-100 col-12 table-borderless proudect-table-lower"> 
+                                                    <tbody class="proudect-table-lower-body"> 
+                                                        <tr> 
+                                                            <td class="proudect-table-1 col-4"> 
+                                                                <div class="col-12 d-flex flex-wrap align-items-center"> 
+                                                                    <div class="col-12 d-flex flex-wrap align-items-center"> 
+                                                                        <div class="col-12"> 
+                                                                            <label for="" class="form-label fw-medium">Description</label> 
+                                                                            <input type="text" class="form-control product_description" id="" placeholder="Description" value="${data.product_description}"> 
+                                                                        </div> 
+                                                                    </div> 
+                                                                </div> 
+                                                            </td> 
+                                                            <td class="proudect-table-1 col-2"> 
+                                                                <div class="col-12 d-flex flex-wrap align-items-center"> 
+                                                                    <div class="col-12"> 
+                                                                        <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> 
+                                                                        <input type="text" class="form-control product_button_text" id="" placeholder="your URL" value="${data.product_button_text}"> 
+                                                                    </div> 
+                                                                </div> 
+                                                            </td> 
+                                                            <td class="proudect-table-1 col"> 
+                                                                <div class="col-12 d-flex flex-wrap align-items-center"> 
+                                                                    <div class="col-12"> 
+                                                                        <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> 
+                                                                        <input type="text" class="form-control product_button_url" id="" placeholder="your URL" value="${data.product_button_url}"> 
+                                                                    </div> 
+                                                                </div> 
+                                                            </td> 
+                                                            <td class="proudect-table-1 col-2"> 
+                                                                <div class="col-12 d-flex flex-wrap align-items-center"> 
+                                                                    <div class="col-12"> 
+                                                                        <label for="" class="form-label fw-medium col-12">Remove</label> 
+                                                                        <button type="button" class="btn btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> 
+                                                                    </div> 
+                                                                </div> 
+                                                            </td> 
+                                                        </tr> 
+                                                    </tbody> 
+                                                </table> 
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>`;
+                            }
+                            $(".proudect-table-body").append(corousel_table_html);
+                        }
+                       
+
+                        if (type_of_question == 27) {
+                            var contact_table_html = '';
+                            menu_message.forEach(function(rowData, index) {
+                                // console.log(menu_message);
+                                contact_table_html += `<div class="row col-12 mt-1 contact_div_in">
+                                    <div class="col-5">
+                                        <label for="" class="form-label">name</label>
+                                        <input type="text" class="form-control" id="" placeholder="Enter Contact Name" value="${rowData.contact_name}">
+                                    </div>
+                                    <div class="col-5">
+                                        <label for="" class="form-label">contact</label>
+                                        <input type="text" class="form-control" id="" placeholder="Enter contact" value="${rowData.contact_number}">
+                                    </div>
+                                    <div class="col-2 mt-1">
+                                        <button type="button" class="btn contact_div_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                    </div>
+                                </div>`;
+                            });
+                            $(".contact_div").append(contact_table_html);
                         }
                     }
 
@@ -3734,8 +4066,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     } else {
                         $(".skip_question").prop("checked", false);
                     }
-                    $(".update_question").attr('data-id',response[0].id);
-                    $(".update_question").attr('data-type_of_question',response[0].type_of_question);
+                    $(".update_question").attr('data-id', response[0].id);
+                    $(".update_question").attr('data-type_of_question', response[0].type_of_question);
 
                 },
                 error: function(error) {
@@ -3750,9 +4082,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     });
 
 
- 
-
-
     //question update
     $("body").on('click', '.update_question', function(e) {
         e.preventDefault();
@@ -3764,9 +4093,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         if (editor) {
             var htmlContent = editor.getData();
         }
-  
+
         var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
-        var next_question_id = $('.question_select').val(); 
+        var next_question_id = $('.question_select').val();
         var error_text = $('#Question_error_message').val();
 
         if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
@@ -3777,27 +4106,28 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             };
             var options_value = JSON.stringify(remove_menuArray);
             if (options_value === 'undefined') {
-                options_value = ''; 
+                options_value = '';
             }
             var error_text = $('#Question_error_message').val();
         }
-        
-        if (type_of_question == "2") {
-            var comined = {}; 
+
+        if (type_of_question == "2" || type_of_question == "40" || type_of_question == "42") {
+            var comined = {};
             var options = $('.single_choice_options').val();
-            comined.options = options; 
-            for (var i = 1; i <= 3; i++) { 
+            comined.options = options;
+            for (var i = 1; i <= 3; i++) {
                 var options_i = $('.single_choice_options_' + i).val();
+                var question_select = $('.question_select').val();
                 if (options_i) {
                     if (comined.options !== "") {
-                        comined.options += ";"; 
+                        comined.options += ";";
                     }
                     comined.options += options_i;
                 }
             }
             var options_value = JSON.stringify(comined);
             if (options_value === 'undefined') {
-                options_value = ''; 
+                options_value = '';
             }
         }
 
@@ -3809,31 +4139,31 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             var valuesArray = {
                 remove_menu: remove_menu,
                 company_emails_only: company_emails_only,
-                is_strict_validation: is_strict_validation,               
+                is_strict_validation: is_strict_validation,
             };
             var options_value = JSON.stringify(valuesArray);
             if (options_value === 'undefined') {
-                options_value = ''; 
+                options_value = '';
             }
             var error_text = $('#Question_error_message').val();
         }
 
         if (type_of_question == "4") {
-            var comined = {}; 
+            var comined = {};
             var options = $('.multiple_choice_options').val();
-            comined.options = options; 
-            for (var i = 1; i <= 3; i++) { 
+            comined.options = options;
+            for (var i = 1; i <= 3; i++) {
                 var options_i = $('.multiple_choice_options_' + i).val();
                 if (options_i) {
                     if (comined.options !== "") {
-                        comined.options += ";"; 
+                        comined.options += ";";
                     }
                     comined.options += options_i;
                 }
             }
             var options_value = JSON.stringify(comined);
             if (options_value === 'undefined') {
-                options_value = ''; 
+                options_value = '';
             }
         }
 
@@ -3842,11 +4172,11 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             var maximum_value = $('.maximum_value').val();
             var valuesArray = {
                 min: minimum_value,
-                max: maximum_value,      
+                max: maximum_value,
             };
             var options_value = JSON.stringify(valuesArray);
             if (options_value === 'undefined') {
-                options_value = ''; 
+                options_value = '';
             }
         }
 
@@ -3880,7 +4210,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
             var options_value = JSON.stringify(valuesArray);
             if (options_value === 'undefined') {
-                options_value = ''; 
+                options_value = '';
             }
         }
 
@@ -3944,7 +4274,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             };
 
             var options_value = JSON.stringify(defaultOptions);
-        }   
+        }
 
         if (type_of_question == "16") {
             var buttonText = $('.button_text').val();
@@ -3960,7 +4290,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
         if (type_of_question == "17") {
             function createFormDataArray() {
-                var formDataArray = []; 
+                var formDataArray = [];
                 var formContainers = document.querySelectorAll('.Forms_in_div');
                 formContainers.forEach(function(container) {
                     var formData = {};
@@ -3983,7 +4313,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     formDataArray.push(formData);
                 });
 
-                return JSON.stringify({ questions: formDataArray });
+                return JSON.stringify({
+                    questions: formDataArray
+                });
             }
             var options_value = createFormDataArray();
         }
@@ -3993,15 +4325,17 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             $('.Corousel-table-body').find('tr').each(function() {
                 var $row = $(this);
 
+                var auto_slide_carousel = $(".auto_slide_carousel").is(":checked") ? "1" : "0";
                 var questionTextInput = $row.find('.carousel_question_text').val();
                 var carousel_jump = $row.find('.carousel_jump').val();
                 var fileInput = $row.find('#insert_image').prop('files')[0];
-                var fileName = fileInput ? fileInput.name : ''; 
+                var fileName = fileInput ? fileInput.name : '';
 
                 var rowData = {
+                    auto_slide_carousel: auto_slide_carousel,
                     questionText: questionTextInput,
                     carousel_jump: carousel_jump,
-                    fileInput: fileName 
+                    fileInput: fileName
                 };
 
                 carouselData.push(rowData);
@@ -4031,7 +4365,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             var meeting_url = $(".meeting_url").val();
             var already_booked_message = $(".already_booked_message").val();
             var no_slots_message = $(".no_slots_message").val();
-            var next_days = $(".appointment_next_days").val(); 
+            var next_days = $(".appointment_next_days").val();
             var channel = $(".channel").val();
             var enable_timezone_selection = $(".enable_timezone_selection").is(":checked") ? "1" : "0";
 
@@ -4057,6 +4391,134 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             var options_value = JSON.stringify(data);
         }
 
+        if (type_of_question == "23") {
+            var rowData = [];
+            $(".updates_divin").each(function(index) {
+                var type = $(this).find(".url_navigator_select").val();
+                var text = $(this).find(".url_text").val();
+                var link = $(this).find(".url_link").val();
+                var row = {
+                    url_navigator_select: type,
+                    url_text: text,
+                    url_link: link
+                };
+                rowData.push(row);
+            });
+            var options_value = JSON.stringify(rowData);
+        }
+
+
+        if (type_of_question == "24") {
+            var rowData = [];
+            $(".product_table").each(function(index) {
+                var auto_slide_carousel = $(".auto_slide_carousel").is(":checked") ? "1" : "0";
+                var product_type = $(this).find(".product_type").val();
+                var product_url = $(this).find(".product_url").val();
+                var product_title = $(this).find(".product_title").val();
+                var product_description = $(this).find(".product_description").val();
+                var product_button_text = $(this).find(".product_button_text").val();
+                var product_button_url = $(this).find(".product_button_url").val();
+                var row = {
+                    auto_slide_carousel: auto_slide_carousel,
+                    product_type: product_type,
+                    product_url: product_url,
+                    product_title: product_title,
+                    product_description: product_description,
+                    product_button_text: product_button_text,
+                    product_button_url: product_button_url
+                };
+                rowData.push(row);
+            });
+            var options_value = JSON.stringify(rowData);
+        }
+
+        // if (type_of_question == "25") {
+        //     var rowData = [];
+        //     var carousel_image = $('.carousel_img_input').prop('files')[0];
+        //     var carousel_imaged = carousel_image ? carousel_image.name : '';
+        //     var row = {
+        //         carousel_image: carousel_imaged
+        //     };
+        //     var options_value = JSON.stringify(row);
+        //     console.log(options_value);
+        // }
+
+
+        if (type_of_question == "25") {
+            
+            var options_value = $('.carousel_img_input').prop('files')[0];
+        }
+
+        if (type_of_question == "27") {
+            var rowData = [];
+            $(".contact_div_in").each(function(index) {
+                var contact_name = $(".contact_name").val();
+                var contact_number = $(".contact_number").val();
+                var row = {
+                    contact_name: contact_name,
+                    contact_number: contact_number
+                };
+                rowData.push(row);
+            });
+            var options_value = JSON.stringify(rowData);
+        }
+
+        if (type_of_question == "28" || type_of_question == "43") {
+            var rowData = [];
+            var location_place = $(".location_place").val();
+            var row = {
+                location_place: location_place
+            };
+            var options_value = JSON.stringify(row);
+        }
+
+        if (type_of_question == "30") {
+            var rowData = [];
+            var redirect_url = $(".redirect_url").val();
+            var open_tab = $(".open_tab").val();
+            var delay_url = $(".delay_url").val();
+            var row = {
+                redirect_url: redirect_url,
+                open_tab: open_tab,
+                delay_url: delay_url
+            };
+            var options_value = JSON.stringify(row);
+        }
+
+        if (type_of_question == "41") {
+            var rowData = [];
+            var add_more_button = $(".add_more_button").val();
+            var add_more_button_jump = $(".add_more_button_jump").val();
+
+            var submit_button = $(".submit_button").val();
+            var quantity_button_jump = $(".quantity_button_jump").val();
+
+            var edit_quantity_button = $(".edit_quantity_button").val();
+            var row = {
+                add_more_button: add_more_button,
+                add_more_button_jump:add_more_button_jump,
+                submit_button: submit_button,
+                quantity_button_jump: quantity_button_jump,
+                edit_quantity_button: edit_quantity_button
+            };
+            var options_value = JSON.stringify(row);
+        }
+
+
+        if (type_of_question == "44") {
+            var rowData = [];
+            var remove_question = $(".remove_question").is(":checked") ? "true" : "false";
+            var previous_address = $(".previous_address").is(":checked") ? "true" : "false";
+            var header_text = $(".header_text").val();
+            var footer_text = $(".footer_text").val();
+            var row = {
+                remove_question: remove_question,
+                previous_address: previous_address,
+                header_text: header_text,
+                footer_text: footer_text
+            };
+            var options_value = JSON.stringify(row);
+        }
 
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
@@ -4065,7 +4527,6 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             formdata.append('edit_id', update_id);
             formdata.append('table', table);
             formdata.append('question', htmlContent);
-
             if (typeof options_value === 'undefined') {
                 formdata.append('menu_message', '');
             } else {
@@ -4082,31 +4543,30 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 data: formdata,
                 processData: false,
                 contentType: false,
-                success: function (res) {
-                    if (res == true) {
+                success: function(res) {
+                    // if (res == true) {
                         $('.loader').hide();
-                        $("form[name='question_update_form']")[0].reset();
+                        // $("form[name='question_update_form']")[0].reset();
                         $("form[name='question_update_form']").removeClass("was-validated");
                         $(".btn-close").trigger("click");
                         iziToast.success({
                             title: 'Update Successfully'
                         });
                         bot_list_data();
-                    } else {
-                        $('.loader').hide();
-                        $(".btn-close").trigger("click");
-                        $("form[name='question_update_form']").removeClass("was-validated");
-                        iziToast.error({
-                            title: 'Duplicate data'
-                        });
-                    }
+                    // } else {
+                    //     $('.loader').hide();
+                    //     $(".btn-close").trigger("click");
+                    //     $("form[name='question_update_form']").removeClass("was-validated");
+                    //     iziToast.error({
+                    //         title: 'Duplicate data'
+                    //     });
+                    // }
                 },
-                error: function (error) {
+                error: function(error) {
                     $('.loader').hide();
                 }
             });
-        } 
-        else {
+        } else {
             $('.loader').hide();
         }
     });
@@ -4141,7 +4601,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     var response = JSON.parse(res);
 
                     $("#formGroupExampleInput").val(response[0].question);
-                    $(".conditional_flow_update").attr('data-id',response[0].id);
+                    $(".conditional_flow_update").attr('data-id', response[0].id);
                 },
                 error: function(error) {
                     $('.loader').hide();
@@ -4160,8 +4620,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         e.preventDefault();
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
-       
-        var next_question_id = $('.question_select').val(); 
+
+        var next_question_id = $('.question_select').val();
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
             var formdata = new FormData(form);
@@ -4177,7 +4637,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 data: formdata,
                 processData: false,
                 contentType: false,
-                success: function (res) {
+                success: function(res) {
                     if (res == true) {
                         $('.loader').hide();
                         // $("form[name='question_update_form']")[0].reset();
@@ -4196,12 +4656,11 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         });
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     $('.loader').hide();
                 }
             });
-        } 
-        else {
+        } else {
             $('.loader').hide();
         }
     });
@@ -4266,7 +4725,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         });
 
     });
-    
+
     // $('body').on('click', '.user_reply', function(e) {
     //     var question = $(this).attr('data-question');
     //     var skip_question = $(this).attr('data-skip_question');
@@ -4291,11 +4750,13 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     $("body").on('click', '.question_edit', function(e) {
         e.preventDefault();
         var type_of_question = $(this).attr("data-type_of_question");
-        clearQuestions(); 
+        clearQuestions();
         var questionContainers = {
             1: "#firstquestion",
             13: "#firstquestion",
             2: "#secondquestion",
+            40: "#secondquestion",
+            42: "#secondquestion",
             3: "#thirdquestion",
             4: "#fourthquestion",
             5: "#fifthquestion",
@@ -4311,13 +4772,22 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             17: "#seventeenquestion",
             18: "#eighteenquestion",
             21: "#twentyonequestion",
+            23: "#twentythreequestion",
+            24: "#twentyfourquestion",
+            25: "#twentyfivequestion",
+            27: "#twentysevenquestion",
+            28: "#twentyeightquestion",
+            30: "#thirtyethquestion",
+            43: "#fourythreequestion",
+            44: "#fouryfourquestion",
+            41: "#fourtyonequestion",
         };
         var htmlContent = getQuestionHTML(type_of_question);
         $(questionContainers[type_of_question]).html(htmlContent);
     });
 
     function clearQuestions() {
-        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion").html("");
+        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion, #twentythreequestion, #twentyfourquestion ,#twentysevenquestion, #twentyeightquestion, #thirtyethquestion, #fourythreequestion, #fouryfourquestion, #twentyfivequestion, #fourtyonequestion").html("");
     }
 
     function getQuestionHTML(type_of_question) {
@@ -4394,16 +4864,80 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                 <option selected>No Jump</option>
                     
                                                 <?php
-                                                    if (isset($admin_bot_setup)) {
-                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                            // pre($type_value);
-                                                        
-                                                            if ($type_value['bot_id'] == $botId ) {
-                                                            
-                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                            }
+                                                if (isset($admin_bot_setup)) {
+                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                        // pre($type_value);
+
+                                                        if ($type_value['bot_id'] == $botId) {
+
+                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                                         }
                                                     }
+                                                }
+                                                ?>
+
+                                            </select>
+                                        </td>
+                                        <td class="col-2">
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="fa fa-trash  cursor-pointer"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary single-choice-add-tabal">add</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                `;
+            case "40":
+            case "42":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap single-choice">
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <table class="table w-100 col-12">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Sub-Flow</th>
+                                        <th scope="col">Jump To</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+
+                                    <tr class="col-12 main-plan">
+                                        <td class="col-3">
+                                            <input type="text" class="form-control single_choice_options" placeholder="Enter the option" value="">
+                                        </td>
+                                        <td class="col-3">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option value="1">Main-flow</option>
+                                            </select>
+                                        </td>
+                                        <td class="col-4">
+                                            <select class="form-select question_select" aria-label="Default select example">
+                                                <option selected>No Jump</option>
+                    
+                                                <?php
+                                                if (isset($admin_bot_setup)) {
+                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                        // pre($type_value);
+
+                                                        if ($type_value['bot_id'] == $botId) {
+
+                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                        }
+                                                    }
+                                                }
                                                 ?>
 
                                             </select>
@@ -4583,16 +5117,16 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                 <option selected>No Jump</option>
                     
                                                 <?php
-                                                    if (isset($admin_bot_setup)) {
-                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                            // pre($type_value);
-                                                        
-                                                            if ($type_value['bot_id'] == $botId ) {
-                                                            
-                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                            }
+                                                if (isset($admin_bot_setup)) {
+                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                        // pre($type_value);
+
+                                                        if ($type_value['bot_id'] == $botId) {
+
+                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                                         }
                                                     }
+                                                }
                                                 ?>
 
                                             </select>
@@ -4613,16 +5147,16 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                 <option selected>No Jump</option>
                     
                                                 <?php
-                                                    if (isset($admin_bot_setup)) {
-                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                            // pre($type_value);
-                                                        
-                                                            if ($type_value['bot_id'] == $botId ) {
-                                                            
-                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                            }
+                                                if (isset($admin_bot_setup)) {
+                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                        // pre($type_value);
+
+                                                        if ($type_value['bot_id'] == $botId) {
+
+                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                                         }
                                                     }
+                                                }
                                                 ?>
 
                                             </select>
@@ -4643,16 +5177,16 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                 <option selected>No Jump</option>
                     
                                                 <?php
-                                                    if (isset($admin_bot_setup)) {
-                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                            // pre($type_value);
-                                                        
-                                                            if ($type_value['bot_id'] == $botId ) {
-                                                            
-                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                            }
+                                                if (isset($admin_bot_setup)) {
+                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                        // pre($type_value);
+
+                                                        if ($type_value['bot_id'] == $botId) {
+
+                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                                         }
                                                     }
+                                                }
                                                 ?>
 
                                             </select>
@@ -4673,16 +5207,16 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                 <option selected>No Jump</option>
                     
                                                 <?php
-                                                    if (isset($admin_bot_setup)) {
-                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                            // pre($type_value);
-                                                        
-                                                            if ($type_value['bot_id'] == $botId ) {
-                                                            
-                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                            }
+                                                if (isset($admin_bot_setup)) {
+                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                        // pre($type_value);
+
+                                                        if ($type_value['bot_id'] == $botId) {
+
+                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                                         }
                                                     }
+                                                }
                                                 ?>
 
                                             </select>
@@ -4703,16 +5237,16 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                 <option selected>No Jump</option>
                     
                                                 <?php
-                                                    if (isset($admin_bot_setup)) {
-                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                            // pre($type_value);
-                                                        
-                                                            if ($type_value['bot_id'] == $botId ) {
-                                                            
-                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                            }
+                                                if (isset($admin_bot_setup)) {
+                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                        // pre($type_value);
+
+                                                        if ($type_value['bot_id'] == $botId) {
+
+                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                                         }
                                                     }
+                                                }
                                                 ?>
 
                                             </select>
@@ -4918,7 +5452,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 </form>
                 `;
             case "15":
-            return `
+                return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 my-2">
                         <div class="col-12 d-flex flex-wrap">
@@ -4987,7 +5521,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 </form>
                 `;
             case "16":
-            return `
+                return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap">
                         <div class="col-12 my-2">
@@ -5010,7 +5544,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 </form>
             `;
             case "17":
-            return `
+                return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="forms_div">
 
@@ -5024,14 +5558,14 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 </form>
             `;
             case "18":
-            return `
+                return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap Corousel-choice">
                         <div class="col-12 d-flex flex-wrap my-3">
                             <div class="form-check form-switch d-flex flex-wrap align-items-center col-4 m-2">
                                 <div class="d-flex align-items-center col-12 my-2">
                                     <label class="switch_toggle_primary">
-                                        <input class="toggle-checkbox Corousel-1" type="checkbox" id="Corousel-1">
+                                        <input class="toggle-checkbox Corousel-1 auto_slide_carousel" type="checkbox" id="Corousel-1">
                                         <span class="check_input_primary round"></span>
                                     </label>
                                     <p class="mx-2 fw-medium Corousel-1">Do Not Auto Slide</p>
@@ -5067,7 +5601,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 </form>
             `;
             case "21":
-            return `
+                return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap">
                         <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
@@ -5237,16 +5771,16 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     <div class="col-12">
                                         <select class="form-select appointment_jump_question" aria-label="Default select example">
                                             <?php
-                                                if (isset($admin_bot_setup)) {
-                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                        // pre($type_value);
-                                                    
-                                                        if ($type_value['bot_id'] == $botId ) {
-                                                        
-                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                        }
+                                            if (isset($admin_bot_setup)) {
+                                                foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                    // pre($type_value);
+
+                                                    if ($type_value['bot_id'] == $botId) {
+
+                                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                                     }
                                                 }
+                                            }
                                             ?>
                                         </select>
                                     </div>
@@ -5290,11 +5824,358 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     </div>
                 </form>
             `;
+            case "23":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div>
+                        <div class="updates_mandiv">
+
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn mt-3 btn-primary updates_mandivc">ADD</button>
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "24":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap">
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <div class="d-flex flex-wrap align-items-center col-4 m-2">
+                                <div class="d-flex align-items-center ">
+                                    <label class="switch_toggle_primary">
+                                        <input class="toggle-checkbox proudect-1 auto_slide_carousel" type="checkbox" id="proudect-1">
+                                        <span class="check_input_primary round"></span>
+                                    </label>
+                                    <p class="mx-2 fw-medium proudect-1">Do Not Auto Slide</p>
+                                </div>
+                            </div>
+                            <div class="col-4 d-flex flex-wrap  align-items-center proudect-corousel-sec-input second-remove">
+                                <span class="col">Delay (sec)</span>
+                                <span class="col mx-2"><input type="number" class="form-control" id="" value="1"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <div class="proudect-table-body">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary proudect-add-tabal">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "25":
+                return `
+               
+                    <div class="d-flex flex-wrap col-12">
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <div class="d-flex flex-wrap align-items-center col-4 m-2" style="height: 69px;">
+                                <div class="d-flex align-items-center ">
+                                    <label class="switch_toggle_primary">
+                                        <input class="toggle-checkbox proudect-1" type="checkbox" id="proudect-1">
+                                        <span class="check_input_primary round auto_slide_carousel"></span>
+                                    </label>
+                                    <p class="mx-2 fw-medium proudect-1">Do Not Auto Slide</p>
+                                </div>
+                            </div>
+
+                            <div class="col-4 d-flex flex-wrap  align-items-center proudect-corousel-sec-input second-remove">
+                                <span class="col">Delay (sec)</span>
+                                <span class="col mx-2">
+                                    <input type="number" class="form-control" id="" value="1">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="img_carousel mt-3 d-none">
+                        <div class="position-relative">
+                            <img src="https://th.bing.com/th/id/OIP.IhiqRWFamp-enjV2csKdzwHaE8?rs=1&pid=ImgDetMain" height="200px" width="200px" class="position-relative" alt="">
+
+                            <button class="border-0 position-absolute bg-white rounded-5 img_carousel_clo_btn top-0 end-0" style="height: 20px; width: 20px;  "><i class="bi bi-x"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex flex-wrap px-3 input-change">
+                        <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box">
+                            <input type="file" class="position-absolute carousel_img_input col-12" style="height: 200px; opacity: 0;" name="" id="">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <g>
+                                            <defs>
+                                                <clipPath id="a" clipPathUnits="userSpaceOnUse">
+                                                    <path d="M0 512h512V0H0Z" fill="#000000" opacity="1" data-original="#000000"></path>
+                                                </clipPath>
+                                            </defs>
+                                            <g clip-path="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 682.667)">
+                                                <path d="M0 0h-189.325c-18.299 0-33.133 14.834-33.133 33.132v33.134H31.824Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(246.509 90.334)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                                <path d="M0 0v-231.933h-397.633c-18.299 0-33.133 14.834-33.133 33.133V0l231.95 82.834z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(454.816 355.4)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
+                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(281.128 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(347.384 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(413.65 289.133)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0v24.85a8.282 8.282 0 0 1-8.283 8.283H-24.85a8.282 8.282 0 0 1-8.283-8.283V8.283A8.282 8.282 0 0 1-24.85 0Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(289.128 222.867)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 156.6)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 156.6)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 156.6)" fill="#3c58a0" data-original="#3c58a0"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(413.65 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(347.384 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(281.128 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 322.267)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 256)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.619-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(82.328 189.733)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 256)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.619-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(148.595 189.733)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.618-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 256)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0v25.133a8 8 0 0 1-8 8h-17.133a7.961 7.961 0 0 1-2.933-.562C-25.102 31.4-23 28.515-23 25.133V8c0-3.382-2.102-6.267-5.066-7.438A7.982 7.982 0 0 1-25.133 0Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(289.128 222.867)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0h-17.133a7.982 7.982 0 0 1-2.933-.562C-17.102-1.733-15-4.619-15-8v-17.133c0-3.382-2.102-6.267-5.066-7.438a7.961 7.961 0 0 1 2.933-.562H0a8 8 0 0 1 8 8V-8a8 8 0 0 1-8 8" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(214.861 189.733)" fill="#2a428c" data-original="#2a428c"></path>
+                                                <path d="M0 0v-241.522h23.016V-9.589z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(431.8 364.99)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                                <path d="M0 0v82.834c0 18.299-14.834 33.133-33.132 33.133h-364.501c-18.299 0-33.133-14.834-33.133-33.133V0z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(454.816 355.4)" fill="#ff4155" data-original="#ff4155"></path>
+                                                <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.438 0-20.709 9.271-20.709 20.708v41.417c0 11.437 9.271 20.708 20.709 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(164.867 442.375)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
+                                                <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.437 0-20.708 9.271-20.708 20.708v41.417c0 11.437 9.271 20.708 20.708 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(355.394 442.375)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
+                                                <path d="M0 0a20.604 20.604 0 0 1-11.488-3.482C-5.932-7.196-2.27-13.523-2.27-20.708v-41.417c0-7.186-3.662-13.513-9.218-17.226A20.604 20.604 0 0 1 0-82.833c11.437 0 20.708 9.271 20.708 20.708v41.417C20.708-9.271 11.437 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(334.687 504.5)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                                <path d="M0 0a20.607 20.607 0 0 1-11.489-3.482C-5.932-7.196-2.27-13.523-2.27-20.708v-41.417c0-7.186-3.662-13.513-9.219-17.226A20.607 20.607 0 0 1 0-82.833c11.437 0 20.708 9.271 20.708 20.708v41.417C20.708-9.271 11.437 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(144.16 504.5)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                                <path d="M0 0h-23.009C-4.71 0 10.124-14.833 10.124-33.132v-82.835h23.008v82.835C33.132-14.833 18.298 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(421.685 471.367)" fill="#e80054" data-original="#e80054"></path>
+                                                <path d="M0 0c0 68.622 55.629 124.25 124.25 124.25C192.871 124.25 248.5 68.622 248.5 0s-55.629-124.25-124.25-124.25C55.629-124.25 0-68.622 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(239.434 131.75)" fill="#4fabf7" data-original="#4fabf7"></path>
+                                                <path d="M0 0c0 50.322 40.794 91.117 91.116 91.117S182.233 50.322 182.233 0s-40.795-91.117-91.117-91.117S0-50.322 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(272.567 131.75)" fill="#ebf5fc" data-original="#ebf5fc" class=""></path>
+                                                <path d="M0 0c-3.878 0-7.712-.187-11.5-.535C51.729-6.339 101.25-59.507 101.25-124.25S51.729-242.161-11.5-247.965A125.64 125.64 0 0 1 0-248.5c68.621 0 124.25 55.629 124.25 124.25C124.25-55.629 68.621 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(363.684 256)" fill="#1886ea" data-original="#1886ea"></path>
+                                                <path d="M0 0c-3.893 0-7.728-.246-11.492-.719C33.405-6.37 68.133-44.687 68.133-91.117c0-46.429-34.728-84.747-79.625-90.397A91.942 91.942 0 0 1 0-182.233c50.322 0 91.117 40.794 91.117 91.116C91.117-40.794 50.322 0 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(363.684 222.867)" fill="#d3dcfb" data-original="#d3dcfb" class=""></path>
+                                                <path d="M0 0c0-9.149-7.417-16.567-16.566-16.567-9.15 0-16.567 7.418-16.567 16.567 0 9.149 7.417 16.567 16.567 16.567C-7.417 16.567 0 9.149 0 0" style="fill-opacity:1;fill-rule:nonzero;stroke:none" transform="translate(380.25 131.75)" fill="#ffdd40" data-original="#ffdd40"></path>
+                                                <path d="M0 0v222.032c0 18.298-14.834 33.132-33.133 33.132h-66.266" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(454.816 216.203)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0v-134.1c0-18.298 14.834-33.132 33.133-33.132h182.595" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(24.05 290.7)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-66.267c-18.298 0-33.132-14.834-33.132-33.132v-117.535" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(123.45 471.367)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-149.111" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(313.978 471.367)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-18.145c-18.298 0-33.132 14.834-33.132 33.132v33.134" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(75.328 90.334)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-141.181" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(246.509 90.334)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.438 0-20.709 9.271-20.709 20.708v41.417c0 11.437 9.271 20.708 20.709 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(164.867 442.375)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-16.566" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(123.45 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h16.566" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(164.867 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h430.766" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(24.05 355.4)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h430.766" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(24.05 388.533)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0c0-11.437-9.271-20.708-20.708-20.708-11.437 0-20.708 9.271-20.708 20.708v41.417c0 11.437 9.271 20.708 20.708 20.708C-9.271 62.125 0 52.854 0 41.417Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(355.394 442.375)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-16.567" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(313.978 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h16.567" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(355.394 438.233)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(82.328 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(148.595 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(214.861 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(281.128 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(347.384 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(413.65 289.133)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(82.328 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(148.595 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(214.861 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-14.931a8.282 8.282 0 0 0-8.283 8.283V24.85a8.282 8.282 0 0 0 8.283 8.283H1.636a8.282 8.282 0 0 0 8.283-8.283V8.283" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(279.209 222.867)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.134a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(82.328 156.6)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(148.595 156.6)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h-17.133a8 8 0 0 0-8 8v17.133a8 8 0 0 0 8 8H0a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(214.861 156.6)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0c0 68.622 55.629 124.25 124.25 124.25C192.871 124.25 248.5 68.622 248.5 0s-55.629-124.25-124.25-124.25C55.629-124.25 0-68.622 0 0Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(239.434 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0c0 50.322 40.794 91.117 91.116 91.117S182.233 50.322 182.233 0s-40.795-91.117-91.117-91.117S0-50.322 0 0Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(272.567 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0c0-9.149-7.417-16.567-16.566-16.567-9.15 0-16.567 7.418-16.567 16.567 0 9.149 7.417 16.567 16.567 16.567C-7.417 16.567 0 9.149 0 0Z" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(380.25 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0v41.417" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(363.684 148.317)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                                <path d="M0 0h24.851" style="stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" transform="translate(380.25 131.75)" fill="none" stroke="#000000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="none" stroke-opacity="" data-original="#000000" class=""></path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                        
+                        </div>
+                    </div>
+
+                    
+            `;
+            case "27":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12">
+                        <div class="contact_div">
+
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn mt-3 btn-primary contact_div_add">ADD</button>
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "28":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap">
+                        <div class="col-12 my-2">
+                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Choose your location</label>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <input type="text" class="form-control location_place" id="" value="" placeholder="Enter a place">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "30":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-warp">
+                        <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
+                            <div class="col-12 d-flex flex-wrap align-items-center my-1">
+                                <div class="col-12 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label fw-medium">Enter your URL <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control redirect_url" id="" placeholder="your URL">
+                                    </div>
+                                </div>
+                                <div class="col-6 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label fw-medium">Open In </label>
+                                        <select class="form-select open_tab" aria-label="Default select example">
+                                            <option selected>Same Tab</option>
+                                            <option value="1">New Tab</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6 p-2 d-flex flex-wrap align-items-center">
+                                    <div class="col-12">
+                                        <label for="" class="form-label fw-medium">Delay </label>
+                                        <input type="number" class="form-control delay_url" id="" placeholder="" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "43":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap">
+                        <div class="col-12 my-2">
+                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Cateory Id</label>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <input type="text" class="form-control location_place" id="" value="" placeholder="Enter Cateory Id">
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn mt-3 btn-primary contact_div_add">Fetch</button>
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "44":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap px-2">
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1 remove_question" type="checkbox" role="switch" id="Number-1">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Remove Message(For Whatsaapp)</label>
+                        </div>
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1 previous_address" type="checkbox" role="switch" id="Number-1">
+                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">show previous address</label>
+                        </div>
+                        <div class="col-12 my-2 d-flex flex-wrap">
+                                <div class="col-6 px-2">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Header Text</label>
+                                        <input type="text" class="form-control header_text" id="" aria-describedby="" placeholder="Enter Header Text">
+                                    </div>
+                                </div>
+                                <div class="col-6 px-2">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">Footer Text</label>
+                                        <input type="text" class="form-control footer_text" id="" placeholder="Enter Footer Text">
+                                    </div>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </form>
+            `;
+            case "41":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div>
+                        <div class="row col-12 text-center">
+                            <div class="col-4"><label for="formGroupExampleInput" class="form-label">Options</label></div>
+                            <div class="col-3"><label for="formGroupExampleInput" class="form-label">Sub-Flow</label></div>
+                            <div class="col-5"><label for="formGroupExampleInput" class="form-label">Jump To</label></div>
+                        </div>
+                        <label for="formGroupExampleInput" class="form-label">Add More Button</label>
+                        <div class="row mt-1 mb-3">
+                            <div class="col-4">
+                                <input type="text" class="form-control add_more_button" id="formGroupExampleInput" value="Add More" placeholder="Add More" disabled>
+                            </div>
+                            <div class="col-3">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Main Flow</option>
+                                </select>
+                            </div>
+
+                            <div class="col-5">
+                                <select class="form-select add_more_button_jump" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                    <?php
+                                        if (isset($admin_bot_setup)) {
+                                            foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                // pre($type_value);
+
+                                                if ($type_value['bot_id'] == $botId) {
+
+                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                }
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <label for="formGroupExampleInput" class="form-label">Submit Button</label>
+                        <div class="row mt-1 mb-3">
+                            <div class="col-4">
+                                <input type="text" class="form-control submit_button" id="formGroupExampleInput" value="Submit" placeholder="Submit" disabled>
+                            </div>
+                            <div class="col-3">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Main Flow</option> 
+                                </select>
+                            </div>
+
+                            <div class="col-5">
+                                <select class="form-select quantity_button_jump" aria-label="Default select example">
+                                    <?php
+                                        if (isset($admin_bot_setup)) {
+                                            foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                // pre($type_value);
+
+                                                if ($type_value['bot_id'] == $botId) {
+
+                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                }
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <label for="formGroupExampleInput" class="form-label col-12">Remove Items text</label>
+                        <div>
+                            <input type="text" class="form-control w-25 edit_quantity_button" id="formGroupExampleInput" value="Edit Quantity" placeholder="Edit Quantity" disabled>
+                        </div>
+                    </div>
+                </form>
+            `;
             default:
-            return ""; 
+            return "";
         }
     }
-
 </script>
 
 <script>
