@@ -571,10 +571,13 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/CheckWhataAppConnection', 'WhatAppIntegrationController::CheckWhataAppConnection');
 	$routes->post('/WhatsAppRTemplateDeleteRequest', 'WhatAppIntegrationController::WhatsAppRTemplateDeleteRequest');
 	$routes->post('/single_whatsapp_template_sent', 'WhatAppIntegrationController::single_whatsapp_template_sent');
+	$routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessagesHistory');
 
+	
 	$routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
 	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
 	$routes->post('/GetWhatsAppTemplateDetails', 'WhatAppIntegrationController::GetWhatsAppTemplateDetails');
+
 
 
 	// aaksh

@@ -961,11 +961,6 @@ class WhatAppAakashController extends BaseController
                 $business_account_id = $value['business_account_id'];
                 $access_token = $value['access_token'];
                 $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
-
-
-
-                // pre($url);
-                // die();
                 $DataArray = getSocialData($url);
                 if (isset($DataArray['data'])) {
                     $display_phone_number = '';
@@ -974,19 +969,15 @@ class WhatAppAakashController extends BaseController
                     $qualityColor = '';
                     if (isset($DataArray['data'][0]['display_phone_number'])) {
                         $display_phone_number = $DataArray['data'][0]['display_phone_number'];
-                        // pre($display_phone_number);
                     }
                     if (isset($DataArray['data'][0]['verified_name'])) {
                         $verified_name = $DataArray['data'][0]['verified_name'];
-                        // pre($verified_name);
                     }
                     if (isset($DataArray['data'][0]['throughput']['level'])) {
                         $qualityReating = $DataArray['data'][0]['throughput']['level'];
-                        // pre($verified_name);
                     }
                     if (isset($DataArray['data'][0]['quality_rating'])) {
                         $$qualityColor = $DataArray['data'][0]['quality_rating'];
-                        // pre($verified_name);
                     }
                     $phoneNumber = $display_phone_number; // Replace with the actual phone number
                     $countryCode = substr($phoneNumber, 0, 3); // Extract the first three characters
@@ -1028,15 +1019,10 @@ class WhatAppAakashController extends BaseController
                             </td>
                         </tr>
                     ';
-                }else{
-
                 }
-                // pre($DataArray);
             }
         }
         $html .= '<script>$(".CountedNumberT").text('.$count.');</script>';
         echo $html;
-        
-        // pre($settings_data);
     }
 }

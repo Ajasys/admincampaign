@@ -22,12 +22,70 @@ class Home extends BaseController
             }
         }
     }    
-    public function whatapp(){
-        
+    public function whatapp()
+    {
+        $responseArray = array();
+        $MetaUrl = config('App')->metaurl;
+        $html = '';
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $table_name = $username . '_platform_integration';
+        $db_connection = \Config\Database::connect('second');
+        $query90 = "SELECT * FROM $table_name WHERE platform_status = 1";
+        $result = $db_connection->query($query90);
+        $total_dataa_userr_22 = $result->getResult();
+        if (isset($total_dataa_userr_22[0])) {
+            $settings_data = $result->getResultArray();
+        } else {
+            $settings_data = array(); 
+        }
+        $count = 0;
+        if (!empty($settings_data)) {
+            foreach ($settings_data as $key => $value) {
+                $phone_number_id = $value['phone_number_id'];
+                $business_account_id = $value['business_account_id'];
+                $access_token = $value['access_token'];
+                $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
+                $DataArray = getSocialData($url);
+                if (isset($DataArray['data'])) {
+                    $display_phone_number = '';
+                    $verified_name = '';
+                    $qualityReating = '';
+                    $qualityColor = '';
+                    if (isset($DataArray['data'][0]['display_phone_number'])) {
+                        $display_phone_number = $DataArray['data'][0]['display_phone_number'];
+                    }
+                    if (isset($DataArray['data'][0]['verified_name'])) {
+                        $verified_name = $DataArray['data'][0]['verified_name'];
+                    }
+                    if (isset($DataArray['data'][0]['throughput']['level'])) {
+                        $qualityReating = $DataArray['data'][0]['throughput']['level'];
+                    }
+                    if (isset($DataArray['data'][0]['quality_rating'])) {
+                        $$qualityColor = $DataArray['data'][0]['quality_rating'];
+                    }
+                    $phoneNumber = $display_phone_number; 
+                    if($display_phone_number != '' && $value['id'] != '' && $verified_name != ''){
+                        $responseArray[] = array(
+                            'display_phone_number' => $display_phone_number,
+                            'id' => $value['id'],
+                            'verified_name' => $verified_name,
+                        );
+                    }
+                }
+            }
+        }
+
+
+        $responseArray =  json_encode($responseArray);
+        if(isset($responseArray) && !empty($responseArray) ){
+            $data['connections'] = $responseArray;
         $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
-        return view('whatapp' , $data);
-
-
+        return view('whatapp', $data);
+}else{
+            return view('whatsapp_connections');
+        }
 }
     // ======phone-number-page======
     public function phone_number()
@@ -129,6 +187,8 @@ public function whatsapp_connections(){
             'Createdat datetime',
             'delivertimedate datetime',
             'readtimedate datetime',
+'templatearray longtext ',
+            'connection_id int(255) NOT NULL'
         ];
 
         $table = tableCreateAndTableUpdate2($table_username.'_sent_message_detail', '', $admin_sent_message_detail);
@@ -173,6 +233,8 @@ public function whatsapp_connections(){
             "phone_number_id varchar(400) NOT NULL",
             "business_account_id varchar(400) NOT NULL",
             "access_token longtext NOT NULL",
+"whatsapp_name longtext NOT NULL",
+            "whatsapp_number varchar(400)",
             "fb_app_id text NOT NULL",
             'fb_app_name varchar(200)',
             'fb_app_type varchar(200)',

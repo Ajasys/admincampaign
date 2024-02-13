@@ -93,9 +93,17 @@ class WhatAppIntegrationController extends BaseController
 
     public function master_whatsapp_list_data()
     {
+
+
         $table_username = getMasterUsername();
         $db_connection = \Config\Database::connect('second');
-        $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $table_name = $username . '_platform_integration';
+
+        $query90 = "SELECT * FROM $table_name WHERE id = " . intval($_POST['connectionid']) . "";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
         if (isset($total_dataa_userr_22[0])) {
@@ -103,6 +111,9 @@ class WhatAppIntegrationController extends BaseController
         } else {
             $settings_data = array();
         }
+
+        // pre($settings_data);
+        // die();
         $WhatAppRedirectStatus = 0;
         $Error = '';
         $ConnectionName = '';
@@ -111,13 +122,13 @@ class WhatAppIntegrationController extends BaseController
         $footer = '';
         $Html = '';
         if (isset($settings_data) && !empty($settings_data)) {
-            if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
+            if (isset($settings_data['phone_number_id']) && isset($settings_data['business_account_id']) && isset($settings_data['access_token']) && !empty($settings_data['phone_number_id']) && !empty($settings_data['business_account_id']) && !empty($settings_data['access_token']) && $settings_data['phone_number_id'] != '0' && $settings_data['business_account_id'] != '0') {
+                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['business_account_id'] . '/?access_token=' . $settings_data['access_token'];
                 $DataArray = getSocialData($url);
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
                         $ConnectionStatus = 1;
-                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?limit=500&fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['whatapp_access_token'];
+                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['business_account_id'] . '/message_templates?limit=500&fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['access_token'];
                         $responselistdata = getSocialData($urllistdata);
                         $templateNames = [];
 
@@ -131,36 +142,31 @@ class WhatAppIntegrationController extends BaseController
                                         if ($value2['type'] == 'BODY') {
                                             $Body1 = $value2['text'];
                                             $templatebody[$item['name']] = $Body1;
-
                                         }
 
                                         if ($value2['type'] == 'FOOTER') {
                                             $footer1 = $value2['text'];
                                             $templatefooter[$item['name']] = $footer1;
-
                                         }
 
-                                               $buttonvalue = "";
+                                        $buttonvalue = "";
 
-                                                if ($value2['type'] == 'BUTTONS' && isset($value2['buttons'][0])) {
-                                                    $button = $value2['buttons'][0];
-                                                    $templateBUTTON[$item['name']] = $button;
+                                        if ($value2['type'] == 'BUTTONS' && isset($value2['buttons'][0])) {
+                                            $button = $value2['buttons'][0];
+                                            $templateBUTTON[$item['name']] = $button;
 
 
-                                                    if ($button['type'] == 'QUICK_REPLY' && isset($button['text']) && is_string($button['text'])) {
-                                                        $buttonvalue = $button['text'];
-                                                        $templateBUTTON[$item['name']] = $buttonvalue;
-
-                                                    } elseif ($button['type'] == 'URL' && isset($button['url']) && is_string($button['url'])) {
-                                                        $buttonvalue = $button['url'];
-                                                        $templateBUTTON[$item['name']] = $buttonvalue;
-
-                                                    } elseif ($button['type'] == 'PHONE_NUMBER' && isset($button['phone_number']) && is_string($button['phone_number'])) {
-                                                        $buttonvalue = $button['phone_number'];
-                                                        $templateBUTTON[$item['name']] = $buttonvalue;
-
-                                                    }
-                                                }
+                                            if ($button['type'] == 'QUICK_REPLY' && isset($button['text']) && is_string($button['text'])) {
+                                                $buttonvalue = $button['text'];
+                                                $templateBUTTON[$item['name']] = $buttonvalue;
+                                            } elseif ($button['type'] == 'URL' && isset($button['url']) && is_string($button['url'])) {
+                                                $buttonvalue = $button['url'];
+                                                $templateBUTTON[$item['name']] = $buttonvalue;
+                                            } elseif ($button['type'] == 'PHONE_NUMBER' && isset($button['phone_number']) && is_string($button['phone_number'])) {
+                                                $buttonvalue = $button['phone_number'];
+                                                $templateBUTTON[$item['name']] = $buttonvalue;
+                                            }
+                                        }
 
 
                                         if ($value2['type'] == 'HEADER') {
@@ -169,7 +175,6 @@ class WhatAppIntegrationController extends BaseController
                                                     if (isset($value2['example']['header_handle']) && is_array($value2['example']['header_handle'])) {
                                                         $header1 = $value2['example']['header_handle'][0];
                                                         $templateheader[$item['name']] = $header1;
-
                                                     } else {
                                                         $templateheader = "";
                                                     }
@@ -193,7 +198,7 @@ class WhatAppIntegrationController extends BaseController
                                 }
                             }
                         }
-                   
+
 
 
                         if (isset($responselistdata)) {
@@ -292,9 +297,12 @@ class WhatAppIntegrationController extends BaseController
                                                 }
                                             }
                                         }
-                                        $Html .= '
+
+
+                                        if($_POST['searchtext'] ==  "" ||  strpos($Name, strtolower($_POST['searchtext'])) !== false){
+                                            $Html .= '
                                         <tr class="rounded-pill "  >
-                                                <td class="py-2 text-capitalize WhatsAppTemplateModelViewBtn"   name="' . $Name . '"data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Name . '</td>
+                                                <td class="py-2  WhatsAppTemplateModelViewBtn"   name="' . $Name . '"data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Name . '</td>
                                                 <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Category . '</td>
                                                 <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $status . '</td>
 
@@ -313,6 +321,10 @@ class WhatAppIntegrationController extends BaseController
                                                 </td>
                                             </tr>
                                         ';
+                                        }
+
+
+
                                     }
                                 } else {
                                     $Html .= '<p>No Templates Found</p>';
@@ -338,46 +350,46 @@ class WhatAppIntegrationController extends BaseController
         $Sent_messagae_data = $this->MasterInformationModel->display_all_records2('admin_sent_message_detail');
         $sentmsgdisplaydata = json_decode($Sent_messagae_data, true);
 
-        $html1='';
-        $i='';
-		foreach ($sentmsgdisplaydata as $key => $value) {
-            // pre($value['Status']);
-            $statusname = '';
-            $formattedDate  = '';
-            if($value['Createdat'] != '0000-00-00 00:00:00'){
+        $html1 = '';
+        $i = '';
+        // foreach ($sentmsgdisplaydata as $key => $value) {
+        //     // pre($value['Status']);
+        //     $statusname = '';
+        //     $formattedDate  = '';
+        //     if ($value['Createdat'] != '0000-00-00 00:00:00') {
 
-                $formattedDate = (new \DateTime($value['Createdat']))->format('d-m-Y h:i A');
-            }
+        //         $formattedDate = (new \DateTime($value['Createdat']))->format('d-m-Y h:i A');
+        //     }
 
-            if($value['Status'] == '0'){
-                $statusname = 'Sent';
-            }
-            if($value['Status'] == '1'){
-                $statusname = 'Delivered';
-            }
-            if($value['Status'] == '3'){
-                $statusname = 'Read';
-            }
-            if($value['Status'] == '4'){
-                $statusname = 'Failed';
-            }
-            $html1 .= '<tr>
+        //     if ($value['Status'] == '0') {
+        //         $statusname = 'Sent';
+        //     }
+        //     if ($value['Status'] == '1') {
+        //         $statusname = 'Delivered';
+        //     }
+        //     if ($value['Status'] == '3') {
+        //         $statusname = 'Read';
+        //     }
+        //     if ($value['Status'] == '4') {
+        //         $statusname = 'Failed';
+        //     }
+        //     $html1 .= '<tr>
 		
-            <td class="whatsapp-col">'.$value['receiver_number'].'</td>
-            <td>'.$value['Template_name'].'</td>
-            <td>
-                <div id="whatsapp-meassage">
-                '.$value['Whatsapp_Message_id'].'</div>
-            </td>
-            <td>'.$statusname.'</td>
-            <td>'.$value['WhatsApp_Response'].'</td>
-            <td>'.$formattedDate.'</td>
+        //     <td class="whatsapp-col">' . $value['receiver_number'] . '</td>
+        //     <td>' . $value['Template_name'] . '</td>
+        //     <td>
+        //         <div id="whatsapp-meassage">
+        //         ' . $value['Whatsapp_Message_id'] . '</div>
+        //     </td>
+        //     <td>' . $statusname . '</td>
+        //     <td>' . $value['WhatsApp_Response'] . '</td>
+        //     <td>' . $formattedDate . '</td>
 					
 			
-		</td>';
-        $html1 .= '</tr>';
-        $i++;
-        }
+		// </td>';
+        //     $html1 .= '</tr>';
+        //     $i++;
+        // }
 
 
         $recordsCount = '';
@@ -389,12 +401,130 @@ class WhatAppIntegrationController extends BaseController
         $return_array['template_name'] = $templateNames;
         $return_array['templatelanguage'] = $templatelanguage;
         $return_array['html'] = $Html;
-        $return_array['html1'] = $html1;
+        // $return_array['html1'] = $html1;
 
-        
+
         return json_encode($return_array, true);
         die();
     }
+
+    public function SendMessagesHistory()
+    {
+        $connctionid = $_POST['connectionid'];
+        $sentmsgdisplaydata = array();
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $table_name = $username . '_sent_message_detail';
+        $db_connection = \Config\Database::connect('second');
+        $query90 = "SELECT * FROM $table_name WHERE connection_id = $connctionid ";
+        $result = $db_connection->query($query90);
+        $total_dataa_userr_22 = $result->getResult();
+        if (isset($total_dataa_userr_22[0])) {
+            $sentmsgdisplaydata = $result->getResultArray();
+        } 
+
+        $html1 = '';
+        $i = '';
+
+
+        
+        
+        
+        
+
+
+        $FilterPhoneNumber = $_POST['FilterPhoneNumber'];
+        $FilterDate = $_POST['FilterDate'];
+        $FilterTemplateStatus = $_POST['FilterTemplateStatus'];
+        $FilterTemplateName = $_POST['FilterTemplateName'];
+
+
+        if(isset($sentmsgdisplaydata) && !empty($sentmsgdisplaydata)){
+            foreach ($sentmsgdisplaydata as $key => $value) {
+                // pre($value['Status']);
+                $statusname = '';
+                $formattedDate  = '';
+                if ($value['Createdat'] != '0000-00-00 00:00:00') {
+    
+                    $formattedDate = (new \DateTime($value['Createdat']))->format('d-m-Y h:i A');
+                    $formattedDate = Utctodate('d-m-Y h:i A',timezonedata(),$formattedDate);
+                    
+
+
+                }
+                if ($value['Status'] == '0') {
+                    $statusname = '<i class="bi bi-check2 text-dark"></i>';
+                }
+                if ($value['Status'] == '1') {
+                    $statusname = '<i class="bi bi-check2-all text-dark"></i>';
+                }
+                if ($value['Status'] == '2') {
+                    $statusname = '<i class="bi bi-check2-all text-primary"></i>';
+                }
+                if ($value['Status'] == '3') {
+                    $statusname = '<i class="bi bi-exclamation-circle-fill text-danger"></i>
+                    ';
+                }
+
+                // $one = '7845468745454';
+                // $two = '7845';
+                // if($two == '' || $two is matched with $one in ){
+
+                // }
+
+
+               
+
+                if (
+                    ($FilterPhoneNumber == '' || strpos($value['receiver_number'], $FilterPhoneNumber)) &&
+                    ($FilterDate == '' || date('d-m-Y', strtotime($formattedDate)) == $FilterDate) &&
+                    ($FilterTemplateStatus == '' || $value['Status'] == $FilterTemplateStatus) &&
+                    ($FilterTemplateName == '' || $value['Template_name'] == $FilterTemplateName)
+                ) 
+                {
+                    $html1 .= '<tr>
+                    <td class="whatsapp-col">+ ' . substr_replace($value['receiver_number'], ' ', -10, 0) . '</td>
+                    <td>' . $value['Template_name'] . '</td>
+                    <td class="d-none">
+                        <div id="whatsapp-meassage">
+                        ' . $value['Whatsapp_Message_id'] . '</div>
+                    </td>
+                    <td>' . $statusname . '</td>
+                    <td class="d-none">' . $value['WhatsApp_Response'] . '</td>
+                    <td>' . $formattedDate . '</td>
+                    </td> </tr>';
+                    $i++;
+                }
+
+
+
+
+
+
+
+
+            }
+        }
+
+
+        if($FilterPhoneNumber != '' || $FilterDate != '' ||  $FilterTemplateStatus != '' || $FilterTemplateName != ''){
+            $html1 .= '<script>$(".FilterClearAll").show();</script>';
+        }else{
+            $html1 .= '<script>$(".FilterClearAll").hide();</script>';
+
+        }
+
+
+
+        $return_array['html1'] = $html1;
+        return json_encode($return_array, true);
+        die();
+    }
+
+
+
+
 
 
 
@@ -722,15 +852,38 @@ class WhatAppIntegrationController extends BaseController
 
     public function WhatsAppRTemplateDeleteRequest()
     {
-        if (isset($_POST['id']) && !empty($_POST['id'])) {
-            $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-            $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?hsm_id=' . $_POST['id'] . '&name=' . $_POST['name'] . '&access_token=' . $access_token;
-            $Result = deleteSocialData($url);
-            $DeleteStatus = 0;
-            if (isset($Result)) {
-                $DeleteStatus = 1;
+        $connectionid = $_POST['connectionid'];
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $DeleteStatus = 0;
+
+        $table_name = $username . '_platform_integration';
+
+        $ConnectionData = get_editData2($table_name, $connectionid);
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
             }
-            echo $DeleteStatus;
+        }
+
+
+        if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
+            if (isset($_POST['id']) && !empty($_POST['id'])) {
+                $url = $MetaUrl.$business_account_id.'/message_templates?hsm_id=' . $_POST['id'] . '&name=' . $_POST['name'] . '&access_token=' . $access_token;
+                $Result = deleteSocialData($url);
+                if (isset($Result)) {
+                    $DeleteStatus = 1;
+                }
+                echo $DeleteStatus;
+            }
         }
     }
 
@@ -795,7 +948,7 @@ class WhatAppIntegrationController extends BaseController
         $ConnectionStatus = 0;
 
         if (isset($settings_data) && !empty($settings_data)) {
-            if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
+            if (isset($settings_data['phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
                 $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
                 $DataArray = getSocialData($url);
                 if (isset($DataArray) && !empty($DataArray)) {
@@ -1047,105 +1200,166 @@ class WhatAppIntegrationController extends BaseController
 
     public function SendWhatsAppTemplate()
     {
-
+        $connectionid = $_POST['connectionid'];
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
         $ReturnResult = 0;
 
-        if ($_POST['action'] == "insert") {
-            $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-            $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
-            $Result = postSocialData($url, $_POST['jsonString']);
-            if (isset($Result['id'])) {
-                $ReturnResult = 1;
+        $table_name = $username . '_platform_integration';
+
+        $ConnectionData = get_editData2($table_name, $connectionid);
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
             }
-        } else {
+        }
 
-            if ($_POST['templatename'] != '' && $_POST['templateid']) {
-                $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-                $url = 'https://graph.facebook.com/v19.0/' . $_POST['templateid'] . '/?access_token=' . $access_token;
+
+        if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
+            if ($_POST['action'] == "insert") {
+           
+                $url = $MetaUrl.$business_account_id.'/message_templates?access_token=' . $access_token;
+                // pre($url);
+                // die();
                 $Result = postSocialData($url, $_POST['jsonString']);
-
-                if (isset($Result['success'])) {
+                if (isset($Result['id'])) {
                     $ReturnResult = 1;
+                }
+            } else {
+    
+                if ($_POST['templatename'] != '' && $_POST['templateid']) {
+             
+                    $url = $MetaUrl . $_POST['templateid'] . '/?access_token=' . $access_token;
+                    $Result = postSocialData($url, $_POST['jsonString']);
+    
+                    if (isset($Result['success'])) {
+                        $ReturnResult = 1;
+                    }
                 }
             }
         }
-        // pre($Result);
+
         echo $ReturnResult;
     }
 
     public function single_whatsapp_template_sent()
     {
         $post_data = $_POST;
-
         $template_name = $post_data['template_name'];
         $phone_no = $post_data['phone_no'];
         $language = $post_data['language'];
         $template_id = $post_data['template_id'];
         $cuurrenttime = gmdate('Y-m-d H:i:s');
-
-
-        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-
-        $url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
-        $postData = json_encode([
-            "messaging_product" => "whatsapp",
-            "recipient_type" => "individual",
-            "to" => $phone_no,
-            "type" => "template",
-            "template" => [
-                "name" => $template_name,
-                "language" => [
-                    "code" => $language
-                ]
-            ]
-        ]);
-        $Result = postSocialData($url, $postData);
+        $connectionid = $_POST['connectionid'];
         $ReturnResult = 0;
-        
-        if (isset($Result['error_data'])) {
-        } elseif (isset($Result['contacts'])) {
-            $ReturnResult = 1;
 
-            $db_connection = \Config\Database::connect('second');
-        
-            foreach ($Result['contacts'] as $contact) {
-                $receiver_number = $contact['wa_id'];
-        
-                foreach ($Result['messages'] as $message) {
-                    $WhatsApp_Message_id = $message['id'];
-                    $WhatsApp_Response = $message['message_status'];
-                    
-                    $sql = "INSERT INTO admin_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime')";
-                    $db_connection->query($sql);
-                }
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+  
+        $table_name = $username . '_platform_integration';
+
+        $ConnectionData = get_editData2($table_name, $connectionid);
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
             }
         }
-        
-        echo $ReturnResult;
-        
-        
 
-    }
 
-    public function GetWhatsAppTemplateDetails()
-    {
-        $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-        // $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?name=' . strtolower($_POST['name']) . '&access_token=' . $access_token;
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?hsm_id=' . $_POST['id'] . '&name=' . strtolower($_POST['name']) . '&access_token=' . $access_token;
-        $responselistdata = getSocialData($url);
-        $resposearray = array();
-        if (isset($responselistdata)) {
-            if (isset($responselistdata['data'])) {
-                if (!empty($responselistdata['data'])) {
-                    foreach ($responselistdata['data'] as $key => $value) {
-                        $Name = $value['name'];
-                        if ($Name == strtolower($_POST['name'])) {
-                            $resposearray = $value;
-                        }
+        if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
+            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+            $postData = json_encode([
+                "messaging_product" => "whatsapp",
+                "recipient_type" => "individual",
+                "to" => $phone_no,
+                "type" => "template",
+                "template" => [
+                    "name" => $template_name,
+                    "language" => [
+                        "code" => $language
+                    ]
+                ]
+            ]);
+            $Result = postSocialData($url, $postData);
+            if (isset($Result['error_data'])) {
+            } elseif (isset($Result['contacts'])) {
+                $ReturnResult = 1;
+                $db_connection = \Config\Database::connect('second');
+                foreach ($Result['contacts'] as $contact) {
+                    $receiver_number = $contact['wa_id'];
+                    foreach ($Result['messages'] as $message) {
+                        $WhatsApp_Message_id = $message['id'];
+                        $WhatsApp_Response = $message['message_status'];
+
+                        $sql = "INSERT INTO admin_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat, connection_id) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime', '$connectionid')";
+                        $db_connection->query($sql);
                     }
                 }
             }
         }
-        echo json_encode($resposearray);
+        echo $ReturnResult;
+    }
+
+    public function GetWhatsAppTemplateDetails()
+    {
+
+        $connectionid = $_POST['connectionid'];
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+  
+        $table_name = $username . '_platform_integration';
+
+        $ConnectionData = get_editData2($table_name, $connectionid);
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
+            }
+        }
+
+
+        if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
+            $url = $MetaUrl.$business_account_id.'/message_templates?hsm_id=' . $_POST['id'] . '&name=' . strtolower($_POST['name']) . '&access_token=' . $access_token;
+            $responselistdata = getSocialData($url);
+            $resposearray = array();
+            if (isset($responselistdata)) {
+                if (isset($responselistdata['data'])) {
+                    if (!empty($responselistdata['data'])) {
+                        foreach ($responselistdata['data'] as $key => $value) {
+                            $Name = $value['name'];
+                            if ($Name == strtolower($_POST['name'])) {
+                                $resposearray = $value;
+                            }
+                        }
+                    }
+                }
+            }
+            echo json_encode($resposearray);
+        }
+
+        
     }
 }

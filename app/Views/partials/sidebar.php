@@ -454,7 +454,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         <a class="dropdown-item" href="<?= base_url(); ?>lead_module">Lead Integration</a>
                      </li>
                      <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>whatsapp">WhatsApp Integration</a>
+                        <a class="dropdown-item" href="<?= base_url(); ?>whatsapp">WhatsApp Message Template</a>
                      </li>
                      <!-- <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>">Email Integration</a>
