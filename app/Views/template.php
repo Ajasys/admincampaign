@@ -735,7 +735,7 @@
                             $counter_contant.text(`160`);
                             if (res != "error") {
                                 // $("form[name='smstemplate_form']")[0].reset();
-                                // $(".modal-close-btn").trigger("click");
+                                $(".modal-close-btn").trigger("click");
                                 $("form[name='smstemplate_form']").removeClass("was-validated");
                                 iziToast.success({
                                     title: 'Added Successfully'
@@ -987,7 +987,7 @@
                             iziToast.success({
                                 title: 'Successfully added'
                             });
-                            // $(".close_btn").trigger("click");
+                            $(".close_btn").trigger("click");
                         }
                     });
                 } else {

@@ -209,15 +209,18 @@ if (!function_exists('SendMail')) {
                 // Use a regular expression to find all links in the email body
                 preg_match_all('/\b(?:https?:\/\/|http:\/\/)\S+\b/', $message, $matches);
                 $links = $matches[0];
-                $base_url_link = base_url('');
+                // $base_url_link = base_url('');
           
                 foreach ($links as $link) {
                     // $track_code_link = md5($link); // Generate a unique tracking code for each link
                     // pre($link);
                     // $tracked_link = '<a href="' . $base_url . 'email_link_track?link_track='  . $track_code_link . '">' . $link . '</a>';
                 }
-                $tracked_link = '<a href="' . $base_url . 'login?link_track=' . $track_code_link . '">' . $link . '</a>'; 
-                $message_body = str_replace($link, $tracked_link, $message_body);
+                if(isset($link))
+                {
+                    $tracked_link = '<a href="' . $base_url . 'login?link_track=' . $track_code_link . '">' . $link . '</a>'; 
+                    $message_body = str_replace($link, $tracked_link, $message_body);
+                }
 
                 $from_email_address = 'neel@ajasys.com';
                 $email->setMessage($message_body);
