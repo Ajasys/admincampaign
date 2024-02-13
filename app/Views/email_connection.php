@@ -2,7 +2,7 @@
 <?= $this->include('partials/sidebar') ?>
 <?php
 $db_connection = \Config\Database::connect('second');
-$query90 = "SELECT * FROM admin_platform_integration WHERE master_id = '" . $_SESSION['master'] . "'";
+$query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND  master_id = '" . $_SESSION['master'] . "'";
 $result = $db_connection->query($query90);
 $total_dataa_userr_22 = $result->getResult();
 if (isset($total_dataa_userr_22[0])) {
@@ -381,7 +381,6 @@ if (isset($total_dataa_userr_22[0])) {
     // });
 
     $('body').on('click', '.email_updatees', function(e) {
-        alert('dfsdf');
         e.preventDefault();
         var email_radio = $(".email_radio:checked").val();
         var form = $('form[name="email_update_form"]')[0];

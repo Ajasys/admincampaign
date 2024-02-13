@@ -109,24 +109,33 @@ if (!function_exists('SendMail')) {
         //     'email_open_datetime varchar(50) DEFAULT NULL',
         // ];
         // $table50 = tableCreateAndTableUpdate2($table_name1189, '', $columns50);
-        try {
+        // try {
             $first_db = \Config\Database::connect('second');
             // $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
-            $master = $_SESSION['master'];
-            $settings = $first_db->table('admin_generale_setting')
-            ->where('master_id', $master)
-            ->where('platform_status', 3)
-            ->get()
-            ->getRow();
+            // $master = $_SESSION['master'];
+            // $settings = $first_db->table('admin_generale_setting')
+            // ->where('master_id', $master)
+            // ->where('platform_status', 3)
+            // ->get()
+            // ->getRow();
+            $db_connection = \Config\Database::connect('second');
+            $query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND  master_id = '" . $_SESSION['master'] . "'";
 
-      
+            $result = $db_connection->query($query90);
+            $total_dataa_userr_22 = $result->getResult();
+            if (isset($total_dataa_userr_22[0])) {
+                $settings_data = get_object_vars($total_dataa_userr_22[0]);
+            } else {
+                $settings_data = array();
+            }
+          
             // $email_from = $generalSetting->email_from;
             // cc code
-            $SendMailUsing = $settings->email_radio;
-            $platform_status = $settings->platform_status;
+            $SendMailUsing = $settings_data['email_radio'];
+            $platform_status = $settings_data['platform_status'];
+          
 
-
-            if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 1 && $platform_status == 3) {
+            if ( $SendMailUsing == 1 && $platform_status == 3) {
                 // $username = session_username($_SESSION['username']);
                 $first_db = \Config\Database::connect();
                 $email = \Config\Services::email();
@@ -139,11 +148,9 @@ if (!function_exists('SendMail')) {
                     $email->attach($attachment);
                 }
                 $email->send();
-            } else if (isset($SendMailUsing) && !empty($SendMailUsing) && $SendMailUsing == 2 && $platform_status == 3) {
-            try {
-                $first_db = \Config\Database::connect('second');
-                $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
-
+            } else if ( $SendMailUsing == 2 && $platform_status == 3) {
+                // try {
+                  
                 // if ($generalSetting) {
                     // master_id
                 // $senderEmail = $generalSetting->smtp_user;
@@ -164,38 +171,39 @@ if (!function_exists('SendMail')) {
                 // ];
                 $smtpConfigInfo = [
                     'protocol' => 'smtp',
-                    'SMTPHost' => $generalSetting->smtp_host,
-                    'SMTPPort' => $generalSetting->smtp_port,
-                    'SMTPUser' => $generalSetting->smtp_user,
-                    'SMTPPass' => $generalSetting->smtp_password,
-                    'SMTPCrypto' => $generalSetting->smtp_crypto,
+                    'SMTPHost' => $settings_data['smtp_host'],
+                    'SMTPPort' => $settings_data['smtp_port'],
+                    'SMTPUser' => $settings_data['smtp_user'],
+                    'SMTPPass' => $settings_data['smtp_password'],
+                    'SMTPCrypto' => $settings_data['smtp_crypto'],
                     'mailType' => 'html',
                     'charset' => 'utf-8',
                     'validate' => true,
                     'CRLF' => "\r\n",
                     'newline' => "\r\n"
                 ];
-
+                
                 $email->initialize($smtpConfigInfo);
                 $email->setTo($toemail);
                 $email->setFrom('neel@ajasys.com', $subject);
 
-                if (isset($generalSetting->mail_cc) && !empty($generalSetting->mail_cc)) {
-                    $email->setCC($generalSetting->mail_cc);
+                if (isset($settings_data['mail_cc']) && !empty($settings_data['mail_cc'])) {
+                    $email->setCC($settings_data['mail_cc']);
                 }
 
                 $email->setSubject($subject);
                 $email->setMessage(base64_encode($message));
-                //
+                
                 if (!empty($attachment)) {
                     $email->attach($attachment);
                 }
+                
                 $base_url = base_url('');
                 $track_code = md5(rand());
                 $track_code_link = md5(rand());
                 $message_body = $message;
                 $message_body .= '<img src="' . $base_url . 'email_track?code=' . $track_code . ' " width="1" height="1" />';
-
+               
 
                 $links = array();
                 // Use a regular expression to find all links in the email body
@@ -233,7 +241,7 @@ if (!function_exists('SendMail')) {
                     // pre($email); 
                 } else {
                     $error_message = $email->printDebugger(['headers']);
-
+                   
                     error_log("Email sending failed: " . $error_message);
                     return 1; // Failed to send email
                 }
@@ -241,19 +249,19 @@ if (!function_exists('SendMail')) {
                 // } else {
                 //     return 1; // General settings not found
                 // }
-            } catch (Exception $e) {
-                $error_message = $e->getMessage();
-                error_log("Email sending failed: " . $error_message);
-                return 1; // Failed to send email due to exception
-            }
+            // } catch (Exception $e) {
+            //     $error_message = $e->getMessage();
+            //     error_log("Email sending failed: " . $error_message);
+            //     return 1; // Failed to send email due to exception
+            // }
             }
 
             // echo "Email sent to $toemail<br>";
 
             return 0;
-        } catch (Exception $e) {
-            return 1;
-        }
+        // } catch (Exception $e) {
+        //     return 1;
+        // }
     }
 }
 
