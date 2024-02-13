@@ -887,11 +887,29 @@ class Booking extends BaseController
                     
                         if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
                             if ($result['response'] == 1) {
-                            $inquiry_data_live['inquiry_status'] = 12;
-                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
-                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
-                            $inquiry_data_live['inquiry_data'] = 3;
-                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+							$existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+							// pre($inquiry_id);
+							if (!empty($existing_entry)) {
+								$inquiry_data_live['inquiry_status'] = 12;
+								$inquiry_data_live['name'] = $all_data_live[0]['name'];
+								$inquiry_data_live['source'] = $all_data_live[0]['source'];
+								$inquiry_data_live['inquiry_data'] = 3;
+								$response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+							} else {
+									// pre('mital');
+								// Insert new entry into the audience table
+								$inquiry_data_live['inquiry_id'] = $inquiry_id;
+								$inquiry_data_live['full_name'] = $inquiry_data['full_name'];
+								$inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+								$inquiry_data_live['email'] = $inquiry_data['email'];
+								$inquiry_data_live['inquiry_status'] = 12;
+								$inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
+								$inquiry_data_live['name'] = $all_data_live[0]['name'];
+								$inquiry_data_live['source'] = $all_data_live[0]['source'];
+								$inquiry_data_live['inquiry_data'] = 3;
+								$response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
+								
+							}
                         }
                     }
 					// } else {

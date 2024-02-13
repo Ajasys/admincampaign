@@ -157,6 +157,12 @@ class MasterInformationModel extends Model
 
     }
 
+    public function get_entry_by_id($inquiry_id, $table) {
+        $db = \Config\Database::connect('second');
+        $sql = 'SELECT * FROM ' . $table . ' WHERE inquiry_id = ?';
+        $query = $db->query($sql, [$inquiry_id]);
+        return $query->getRow() !== null;
+    }
     public function update_entry2($id,$data,$tablename){
 
         $secondDb = \Config\Database::connect('second');

@@ -861,11 +861,30 @@ class Followup extends BaseController
     
                     if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
                         if ($result['response'] == 1) {
-                        $inquiry_data_live['inquiry_status'] = 8;
-                        $inquiry_data_live['name'] = $all_data_live[0]['name'];
-                        $inquiry_data_live['source'] = $all_data_live[0]['source'];
-                        $inquiry_data_live['inquiry_data'] = 3;
-                        $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+                        // pre($inquiry_id);
+
+                        if (!empty($existing_entry)) {
+                            $inquiry_data_live['inquiry_status'] = 8;
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        } else {
+                                // pre('mital');
+                            // Insert new entry into the audience table
+                            $inquiry_data_live['inquiry_id'] = $inquiry_id;
+                            $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_live['email'] = $inquiry_data['email'];
+                            $inquiry_data_live['inquiry_status'] = 8;
+                            $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
+                            
+                        }
                     }
             } 
                 }else{
@@ -935,11 +954,29 @@ class Followup extends BaseController
                 
                     if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
                         if ($result['response'] == 1) {
-                        $inquiry_data_live['inquiry_status'] = 7;
-                        $inquiry_data_live['name'] = $all_data_live[0]['name'];
-                        $inquiry_data_live['source'] = $all_data_live[0]['source'];
-                        $inquiry_data_live['inquiry_data'] = 3;
-                        $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+                        // pre($inquiry_id);
+
+                        if (!empty($existing_entry)) {
+                            $inquiry_data_live['inquiry_status'] = 7;
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        } else {
+                            // Insert new entry into the audience table
+                            $inquiry_data_live['inquiry_id'] = $inquiry_id;
+                            $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_live['email'] = $inquiry_data['email'];
+                            $inquiry_data_live['inquiry_status'] = 7;
+                            $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
+                            
+                        }
                     }
                 } 
                 }else{
@@ -1044,11 +1081,30 @@ class Followup extends BaseController
             
                     if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
                         if ($result['response'] == 1) {
-                        $inquiry_data_live['inquiry_status'] = 6;
-                        $inquiry_data_live['name'] = $all_data_live[0]['name'];
-                        $inquiry_data_live['source'] = $all_data_live[0]['source'];
-                        $inquiry_data_live['inquiry_data'] = 3;
-                        $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+                        // pre($inquiry_id);
+
+                        if (!empty($existing_entry)) {
+                            $inquiry_data_live['inquiry_status'] = 6;
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        } else {
+                                // pre('mital');
+                            // Insert new entry into the audience table
+                            $inquiry_data_live['inquiry_id'] = $inquiry_id;
+                            $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_live['email'] = $inquiry_data['email'];
+                            $inquiry_data_live['inquiry_status'] = 6;
+                            $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
+                            
+                        }
                     }
             } 
                 }else{
@@ -1151,15 +1207,35 @@ class Followup extends BaseController
                     $find_audience_live = $db_connection->query($find_audience_live);
                     $all_data_live = $find_audience_live->getResultArray();
             
-                if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
-                    if ($result['response'] == 1) {
-                    $inquiry_data_live['inquiry_status'] = 9;
-                    $inquiry_data_live['name'] = $all_data_live[0]['name'];
-                    $inquiry_data_live['source'] = $all_data_live[0]['source'];
-                    $inquiry_data_live['inquiry_data'] = 3;
-                    $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
-                }
-            } 
+                        if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
+                            if ($result['response'] == 1) {
+                            
+                            $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+                            // pre($inquiry_id);
+
+                            if (!empty($existing_entry)) {
+                                $inquiry_data_live['inquiry_status'] = 9;
+                                $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                                $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                                $inquiry_data_live['inquiry_data'] = 3;
+                                $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                            } else {
+                                    // pre('mital');
+                                // Insert new entry into the audience table
+                                $inquiry_data_live['inquiry_id'] = $inquiry_id;
+                                $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
+                                $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                                $inquiry_data_live['email'] = $inquiry_data['email'];
+                                $inquiry_data_live['inquiry_status'] = 9;
+                                $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
+                                $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                                $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                                $inquiry_data_live['inquiry_data'] = 3;
+                                $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
+                                
+                            }
+                        }
+                    } 
                 }else{
                     $result['result'] = 0;
                     $result['msg'] = 'Inquiry Feedback Status not changed';
@@ -1346,19 +1422,59 @@ class Followup extends BaseController
                     
                     if ($result['result'] == 1 && $inquiry_data['inquiry_status']==3) {
                         if (!empty($all_data_live) && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
-                            $inquiry_data_live['inquiry_status'] = 3;
-                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
-                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
-                            $inquiry_data_live['inquiry_data'] = 3;
-                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                            
+                            $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+                            // pre($inquiry_id);
+
+                            if (!empty($existing_entry)) {
+                                $inquiry_data_live['inquiry_status'] = 3;
+                                $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                                $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                                $inquiry_data_live['inquiry_data'] = 3;
+                                $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                            } else {
+                                    // pre('mital');
+                                // Insert new entry into the audience table
+                                $inquiry_data_live['inquiry_id'] = $inquiry_id;
+                                $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
+                                $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                                $inquiry_data_live['email'] = $inquiry_data['email'];
+                                $inquiry_data_live['inquiry_status'] = 3;
+                                $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
+                                $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                                $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                                $inquiry_data_live['inquiry_data'] = 3;
+                                $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
+                                
+                            }
                         }
                     } elseif ($result['result'] == 1) {
                         if (!empty($all_dataas_live) && isset($all_dataas_live[0]['inquiry_data']) && $all_dataas_live[0]['inquiry_data'] == 3) {
+                           
+                            $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+                        // pre($inquiry_id);
+
+                        if (!empty($existing_entry)) {
                             $inquiry_dataas_live['inquiry_status'] = 10;
                             $inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
                             $inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
                             $inquiry_dataas_live['inquiry_data'] = 3;
                             $response_alert2 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");
+                        } else {
+                                // pre('mital');
+                            // Insert new entry into the audience table
+                            $inquiry_dataas_live['inquiry_id'] = $inquiry_id;
+                            $inquiry_dataas_live['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_dataas_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_dataas_live['email'] = $inquiry_data['email'];
+                            $inquiry_dataas_live['inquiry_status'] = 10;
+                            $inquiry_dataas_live['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
+                            $inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
+                            $inquiry_dataas_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_dataas_live, $this->username . "_audience");
+                            
+                        }
                         }
                     }
 
@@ -1523,11 +1639,30 @@ class Followup extends BaseController
                 
                     if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
                         if ($result['response'] == 1) {
-                        $inquiry_data_live['inquiry_status'] = 17;
-                        $inquiry_data_live['name'] = $all_data_live[0]['name'];
-                        $inquiry_data_live['source'] = $all_data_live[0]['source'];
-                        $inquiry_data_live['inquiry_data'] = 3;
-                        $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                       
+                        $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+                        // pre($inquiry_id);
+                        if (!empty($existing_entry)) {
+                            $inquiry_data_live['inquiry_status'] = 17;
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        } else {
+                                // pre('mital');
+                            // Insert new entry into the audience table
+                            $inquiry_data_live['inquiry_id'] = $inquiry_id;
+                            $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_live['email'] = $inquiry_data['email'];
+                            $inquiry_data_live['inquiry_status'] = 17;
+                            $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
+                            
+                        }
                     }
                 } 
                 }
@@ -1662,19 +1797,58 @@ class Followup extends BaseController
                 
                 if ($result['result'] == 1 && $inquiry_data['inquiry_status'] == 2) {
                     if (!empty($all_data_live) && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
-                        $inquiry_data_live['inquiry_status'] = 2;
-                        $inquiry_data_live['name'] = $all_data_live[0]['name'];
-                        $inquiry_data_live['source'] = $all_data_live[0]['source'];
-                        $inquiry_data_live['inquiry_data'] = 3;
-                        $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        
+                        $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+                        // pre($inquiry_id);
+                        if (!empty($existing_entry)) {
+                            $inquiry_data_live['inquiry_status'] = 2;
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        } else {
+                                // pre('mital');
+                            // Insert new entry into the audience table
+                            $inquiry_data_live['inquiry_id'] = $inquiry_id;
+                            $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_live['email'] = $inquiry_data['email'];
+                            $inquiry_data_live['inquiry_status'] = 2;
+                            $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
+                            
+                        }
                     }
                 } elseif ($result['result'] == 1) {
                     if (!empty($all_dataas_live) && isset($all_dataas_live[0]['inquiry_data']) && $all_dataas_live[0]['inquiry_data'] == 3) {
-                        $inquiry_dataas_live['inquiry_status'] = 13;
-                        $inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
-                        $inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
-                        $inquiry_dataas_live['inquiry_data'] = 3;
-                        $response_alert2 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");
+                       
+                        // $response_alert2 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");
+                        $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
+                        // pre($inquiry_id);
+
+                        if (!empty($existing_entry)) {
+                            $inquiry_dataas_live['inquiry_status'] = 13;
+                            $inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
+                            $inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
+                            $inquiry_dataas_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");
+                        } else {
+                            // Insert new entry into the audience table
+                            $inquiry_dataas_live['inquiry_id'] = $inquiry_id;
+                            $inquiry_dataas_live['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_dataas_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_dataas_live['email'] = $inquiry_data['email'];
+                            $inquiry_dataas_live['inquiry_status'] = 13;
+                            $inquiry_dataas_live['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
+                            $inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
+                            $inquiry_dataas_live['inquiry_data'] = 3;
+                            $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_dataas_live, $this->username . "_audience");
+                            
+                        }
                     }
                 }
             }else{
