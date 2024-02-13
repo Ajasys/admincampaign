@@ -5,11 +5,21 @@
 $language_name = json_decode($language_name, true);
 $connections = json_decode($connections, true);
 
+if (!empty($connections)) {
+} else {
+    echo '<script>window.location.href = "'.base_url().'whatsapp_connections'.'";</script>';
+}
+
 ?>
 <style>
     .wa-preview-main-div-cont {
         max-width: 500px;
         margin: auto;
+    }
+.mobile-whatapp{
+        width: 300px!important;
+        height: 550px;
+        /* margin: auto; */
     }
 
     .preview-header-paragraph .user-name-chat-header {
@@ -87,6 +97,13 @@ $connections = json_decode($connections, true);
         min-height: 503px;
         max-height: 503px;
     }
+.mobile-whatapp-body{
+        padding: 10px;
+        /* height: calc(45vh - 10px); */
+        background-color: #F1EDE5;
+        min-height: 370px !important;
+        /* max-height: 30px !important; */
+    }
 
     .preview-chat-paragraph {
         margin-bottom: 10px;
@@ -106,7 +123,7 @@ $connections = json_decode($connections, true);
 
     .single-t-text-chat {
         white-space: pre-line;
-        font-size: 13px !important;
+        font-size: 11px !important;
         padding: 6px 10px;
         color: black;
         word-break: break-word;
@@ -180,12 +197,12 @@ $connections = json_decode($connections, true);
         margin-right: 10px;
     }
 
-    .whatsapp-footer i {
-        font-size: 18px;
+    /* .whatsapp-footer i {
+        font-size: 14px;
         margin-right: 10px;
         color: #095f54;
         cursor: pointer;
-    }
+    } */
 
     .whatsapp-footer-1 {
         background-color: #F1EDE5;
@@ -275,18 +292,18 @@ $connections = json_decode($connections, true);
         font-weight: 500;
         color: black;
         overflow-x: hidden;
-        overflow-wrap: break-word;
+        /* overflow-wrap: break-word; */
         font-family: 'Poppins', sans-serif;
     }
 
-    .single-t-text-chat {
+    /* .single-t-text-chat {
         white-space: pre-line;
         font-size: 13px !important;
         padding: 6px 10px;
         color: black;
         word-break: break-word;
         font-family: 'Poppins', sans-serif;
-    }
+    } */
 
     .user-name-chat-footer {
         white-space: pre-line;
@@ -356,12 +373,12 @@ $connections = json_decode($connections, true);
         margin-left: 10px;
     }
 
-    .wa-phone-header {
+    /* .wa-phone-header {
         display: flex;
-    }
+    } */
 
     .wa-phone-header i {
-        font-size: 18px;
+        font-size: 14px;
         margin-right: 10px;
         color: #fff;
         cursor: pointer;
@@ -394,11 +411,11 @@ $connections = json_decode($connections, true);
 
     }
 
-    .preview-chat-paragraph>p {
+    /* .preview-chat-paragraph>p {
         word-break: break-all;
 
 
-    }
+    } */
 
     .preview-chat-paragraph1 {
         margin-bottom: 10px;
@@ -464,7 +481,7 @@ $connections = json_decode($connections, true);
     }
 
     .whatsapp-footer i {
-        font-size: 18px;
+        font-size: 14px;
         margin-right: 10px;
         color: #095f54;
         cursor: pointer;
@@ -575,7 +592,7 @@ $connections = json_decode($connections, true);
             <div class="p-1 first-container slide-toggle">
                 <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap">
                     <div class="col-12 d-flex flex-wrap w-100 mt-5">
-                        <ul class=" d-flex navbar-nav flex-wrap nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
+                        <ul class=" d-flex  flex-wrap nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
                             <!-- <li class="btn-group dropend col-12 d-flex my-2 flex-wrap  p-2 rounded-3 border border-light-subtle menu-toggle  nav-item Tab1Class" role="presentation" style="cursor: pointer;">
                                     <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="dropdown" aria-expanded="false">
                                         <p>
@@ -702,7 +719,7 @@ $connections = json_decode($connections, true);
                                 <div class="col-12 justify-content-center col-12 ms-0" style="width: 100%;">
                                     <div class="col-12 hello">
                                         <div class="d-flex flex-wrap align-items-start  p-3  justify-content-between">
-                                            <div class="col-4">
+                                            <div class="col-12 col-lg-4">
                                                 <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
                                                     <div class="modal-content">
                                                         <div class="modal-body-secondery">
@@ -874,11 +891,11 @@ $connections = json_decode($connections, true);
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="col-6 d-flex px-4">
+                                            <div class="col-12 col-lg-6 d-flex px-0 px-lg-4">
                                                 <!-- whatsapp   .. -->
                                                 <div class="col-7">
                                                     <div class="wa-preview-main-div-cont">
-                                                        <div class="preview-chat-section">
+                                                        <div class="preview-chat-section mobile-whatapp">
                                                             <div class="preview-header-main-cont">
                                                                 <div class="header-image">
                                                                     <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png">
@@ -886,37 +903,38 @@ $connections = json_decode($connections, true);
                                                                 <div class="preview-header-text">
                                                                     <span class="company-name user ng-binding">appo</span>
                                                                 </div>
-                                                                <div class="wa-phone-header">
+                                                                <div class="wa-phone-header d-flex">
                                                                     <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
                                                                     <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
                                                                     <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="preview-chat-section-chat overflow-y-scroll">
+                                                            <div class="preview-chat-section-chat overflow-y-scroll mobile-whatapp-body">
 
-                                                                <div class="preview-chat-paragraph bg-white p-3 col-7">
-                                                                    <p class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue">
+                                                                <div class="preview-chat-paragraph bg-white p-3 col-10">
+                                                                    <p class="word-wrap single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue word-break-all">
                                                                         Message Header Section</p>
                                                                     <img class="rounded-3 preview-header-VIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
 
-                                                                    <p contenteditable="false" class="single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue">
+                                                                    <p contenteditable="false" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue word-break-all">
                                                                         Message Body Section</p>
-                                                                    <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue" contenteditable="false">Message Footer Section
+                                                                    <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue word-break-all" contenteditable="false">Message Footer Section
                                                                     </p>
                                                                 </div>
                                                                 <div class="single-t-call-button">
-                                                                    <button class="single-button-whatsapp-template ">Ok</button>
-                                                                    <button class="single-button-whatsapp-template13 " hidden>Cancel</button>
+                                                                    <button class="single-button-whatsapp-template word-wrap">Ok</button>
+                                                                    <button class="single-button-whatsapp-template13 word-wrap" hidden>Cancel</button>
                                                                 </div>
 
                                                             </div>
                                                             <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
                                                                 <div class="preview-whatsapp-footer">
-                                                                    <div class="whatsapp-footer">
+                                                                    <div class="whatsapp-footer d-flex flex-wrap align-items-center">
 
-                                                                        <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
-                                                                        <input class="chat-btn-chat whatsapp-footer-1" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                                                        <!-- <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i> -->
+                                                                        <i class="fa-regular fa-face-smile"></i>
+                                                                        <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
                                                                         <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
                                                                         <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
                                                                         <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
@@ -929,6 +947,238 @@ $connections = json_decode($connections, true);
                                                                 <div class="col-4 text-center"><i class="fa-solid fa-chevron-right"></i></div>
                                                             </div>
 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+<!--  -->
+                                        <div class="col-12 col-lg-4 d-lg-none">
+                                                <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
+                                                    <div class="modal-content">
+                                                        <div class="modal-body-secondery">
+                                                            <div class="modal-body-card pb-1">
+                                                                <h5 class="mb-3 pb-2 border-bottom col-12">Template</h5>
+                                                                <div class="col-12">
+                                                                <div class="col-12 mb-3 mt-2">
+                                                                    <select class="form-control main-control header_div"  id="header" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                                        <option value="" selected disabled>Please select
+                                                                            template</option>
+                                                                    </select>
+                                    </div>
+<div class="col-12 mb-3 mt-2">
+
+                                                                    <input type="text" id="mobile_code" class="form-control phone_number_div" placeholder="Enter your phone number" name="name">
+                                </div>
+<div class="col-12 mb-3 mt-2">
+                                                                    <select class="form-control main-control language_div" id="language" name="language" disabled required>
+                                                                        <option class="fs-12" label="Please select your language" value="">Please select
+                                                                            template</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="en_US" ng-repeat="lang in template_lang">English US
+                                                                            (en_US)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">English
+                                                                            (en)</option>
+
+                                                                        <option class="fs-12 ng-binding ng-scope" value="af" ng-repeat="lang in template_lang">Afrikaans
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sq" ng-repeat="lang in template_lang">Albanian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ar" ng-repeat="lang in template_lang">Arabic
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="az" ng-repeat="lang in template_lang">
+                                                                            Azerbaijani</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="bn" ng-repeat="lang in template_lang">Bengali
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="bg" ng-repeat="lang in template_lang">Bulgarian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ca" ng-repeat="lang in template_lang">Catalan
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="zh_CN" ng-repeat="lang in template_lang">Chinese
+                                                                            (CHN)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="zh_HK" ng-repeat="lang in template_lang">Chinese
+                                                                            (HKG)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="zh_TW" ng-repeat="lang in template_lang">Chinese
+                                                                            (TAI)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="hr" ng-repeat="lang in template_lang">Croatian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="cs" ng-repeat="lang in template_lang">Czech
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="da" ng-repeat="lang in template_lang">Danish
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="nl" ng-repeat="lang in template_lang">Dutch
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="en_GB" ng-repeat="lang in template_lang">English
+                                                                            (UK)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="et" ng-repeat="lang in template_lang">Estonian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="fil" ng-repeat="lang in template_lang">Filipino
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="fi" ng-repeat="lang in template_lang">Finnish
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="fr" ng-repeat="lang in template_lang">French
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="de" ng-repeat="lang in template_lang">German
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="el" ng-repeat="lang in template_lang">Greek
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="gu" ng-repeat="lang in template_lang">Gujarati
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ha" ng-repeat="lang in template_lang">Hausa
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="he" ng-repeat="lang in template_lang">Hebrew
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="hi" ng-repeat="lang in template_lang">Hindi
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="hu" ng-repeat="lang in template_lang">Hungarian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="id" ng-repeat="lang in template_lang">Indonesian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ga" ng-repeat="lang in template_lang">Irish
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="it" ng-repeat="lang in template_lang">Italian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ja" ng-repeat="lang in template_lang">Japanese
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="kn" ng-repeat="lang in template_lang">Kannada
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="kk" ng-repeat="lang in template_lang">Kazakh
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ko" ng-repeat="lang in template_lang">Korean
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="lo" ng-repeat="lang in template_lang">Lao
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="lv" ng-repeat="lang in template_lang">Latvian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="lt" ng-repeat="lang in template_lang">Lithuanian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="mk" ng-repeat="lang in template_lang">Macedonian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ms" ng-repeat="lang in template_lang">Malay
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ml" ng-repeat="lang in template_lang">Malayalam
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="mr" ng-repeat="lang in template_lang">Marathi
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="nb" ng-repeat="lang in template_lang">Norwegian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="fa" ng-repeat="lang in template_lang">Persian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="pl" ng-repeat="lang in template_lang">Polish
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="pt_BR" ng-repeat="lang in template_lang">Portuguese
+                                                                            (BR)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="pt_PT" ng-repeat="lang in template_lang">Portuguese
+                                                                            (POR)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="pa" ng-repeat="lang in template_lang">Punjabi
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ro" ng-repeat="lang in template_lang">Romanian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ru" ng-repeat="lang in template_lang">Russian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sr" ng-repeat="lang in template_lang">Serbian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sk" ng-repeat="lang in template_lang">Slovak
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sl" ng-repeat="lang in template_lang">Slovenian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="es" ng-repeat="lang in template_lang">Spanish
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="es_AR" ng-repeat="lang in template_lang">Spanish
+                                                                            (ARG)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="es_ES" ng-repeat="lang in template_lang">Spanish
+                                                                            (SPA)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="es_MX" ng-repeat="lang in template_lang">Spanish
+                                                                            (MEX)</option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sw" ng-repeat="lang in template_lang">Swahili
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="sv" ng-repeat="lang in template_lang">Swedish
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ta" ng-repeat="lang in template_lang">Tamil
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="te" ng-repeat="lang in template_lang">Telugu
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="th" ng-repeat="lang in template_lang">Thai
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="tr" ng-repeat="lang in template_lang">Turkish
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="uk" ng-repeat="lang in template_lang">Ukrainian
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="ur" ng-repeat="lang in template_lang">Urdu
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="uz" ng-repeat="lang in template_lang">Uzbek
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="vi" ng-repeat="lang in template_lang">Vietnamese
+                                                                        </option>
+                                                                        <option class="fs-12 ng-binding ng-scope" value="zu" ng-repeat="lang in template_lang">Zulu
+                                                                        </option>
+                                                                    </select>
+                            </div>
+<div class="modal-footer justify-content-center mt-2 col-12 text-center">
+                                                                    <!-- <span class="btn-primary Template_send" data-edit_id="">Send</span>     -->
+                        </div>
+<div class="col-12 pt-3 border-top mb-2">
+                                                                        <button class="btn-primary Template_send" id="memberships_add_btn" data-edit_id="" name="memberships_update1" value="memberships_update1">Send</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                        <div class="col-12 col-lg-6 d-flex px-0 px-lg-4 d-lg-none">
+                                            <!-- whatsapp   .. -->
+                                            <div style="col-7">
+                                                <div class="wa-preview-main-div-cont">
+                                                    <div class="preview-chat-section mobile-whatapp">
+                                                        <div class="preview-header-main-cont ">
+                                                            <div class="header-image">
+                                                                <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png">
+                                                            </div>
+                                                            <div class="preview-header-text">
+                                                                <span class="company-name user ng-binding">appo</span>
+                                                            </div>
+                                                            <div class="wa-phone-header d-flex">
+                                                                <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
+                                                                <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
+                                                                <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="preview-chat-section-chat overflow-y-scroll mobile-whatapp-body">
+
+                                                            <div class="preview-chat-paragraph bg-white p-3 col-10">
+                                                                <p class="word-wrap single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue word-break-all">
+                                                                    Message Header Section</p>
+                                                                <img class="rounded-3 preview-header-VIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
+
+                                                                <p contenteditable="false" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue word-break-all">
+                                                                    Message Body Section</p>
+                                                                <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue word-break-all" contenteditable="false">Message Footer Section
+                                                                </p>
+                                                            </div>
+                                                            <div class="single-t-call-button">
+                                                                <button class="single-button-whatsapp-template word-wrap">Ok</button>
+                                                                <button class="single-button-whatsapp-template13 word-wrap" hidden>Cancel</button>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
+                                                            <div class="preview-whatsapp-footer">
+                                                                <div class="whatsapp-footer d-flex flex-wrap align-items-center">
+
+                                                                    <!-- <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i> -->
+                                                                    <i class="fa-regular fa-face-smile"></i>
+                                                                    <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                                                    <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
+                                                                    <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
+                                                                    <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 d-flex  flex-wrap mobile-footer py-2">
+                                                            <div class="col-4 text-center"><i class="fa-solid fa-bars"></i></div>
+                                                            <div class="col-4 text-center"><i class="fa-regular fa-square"></i></div>
+                                                            <div class="col-4 text-center"><i class="fa-solid fa-chevron-right"></i></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1033,25 +1283,25 @@ $connections = json_decode($connections, true);
                                                         <div class="preview-chat-section-chat overflow-y-scroll">
 
                                                             <div class="preview-chat-paragraph bg-white p-3 col-7">
-                                                                <p class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 ">
+                                                                <p class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 word-wrap">
                                                                     Message Header Section</p>
-                                                                <p contenteditable="false" class="single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue" id="bodytextvalue">
+                                                                <p contenteditable="false" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue" id="bodytextvalue">
                                                                     Message Body Section</p>
                                                                 <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5" contenteditable="false">Message Footer Section
                                                                 </p>
                                                             </div>
                                                             <div class="single-t-call-button">
-                                                                <button class="single-button-whatsapp-template ">Ok</button>
-                                                                <button class="single-button-whatsapp-template ">Cancel</button>
+                                                                <button class="single-button-whatsapp-template word-wrap">Ok</button>
+                                                                <button class="single-button-whatsapp-template word-wrap">Cancel</button>
                                                             </div>
 
                                                         </div>
                                                         <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
                                                             <div class="preview-whatsapp-footer">
-                                                                <div class="whatsapp-footer">
+                                                                <div class="whatsapp-footer d-flex flex-wrap align-items-center">
 
                                                                     <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
-                                                                    <input class="chat-btn-chat whatsapp-footer-1" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                                                    <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
                                                                     <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
                                                                     <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
                                                                     <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
@@ -1408,10 +1658,10 @@ $connections = json_decode($connections, true);
                                         </div>
                                         <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
                                             <div class="preview-whatsapp-footer">
-                                                <div class="whatsapp-footer">
+                                                <div class="whatsapp-footer d-flex flex-wrap align-items-center">
 
                                                     <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
-                                                    <input class="chat-btn-chat whatsapp-footer-1" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                                    <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
                                                     <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
                                                     <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
                                                     <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
@@ -1497,10 +1747,10 @@ $connections = json_decode($connections, true);
                                     </div>
                                     <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
                                         <div class="preview-whatsapp-footer">
-                                            <div class="whatsapp-footer">
+                                            <div class="whatsapp-footer d-flex flex-wrap align-items-center">
 
                                                 <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
-                                                <input class="chat-btn-chat whatsapp-footer-1" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                                <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
                                                 <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
                                                 <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
                                                 <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>

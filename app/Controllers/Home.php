@@ -21,7 +21,7 @@ class Home extends BaseController
                 $this->get_roll_id_to_roll_duty_var = array();
             }
         }
-    }    
+    }
     public function whatapp()
     {
         $responseArray = array();
@@ -38,7 +38,7 @@ class Home extends BaseController
         if (isset($total_dataa_userr_22[0])) {
             $settings_data = $result->getResultArray();
         } else {
-            $settings_data = array(); 
+            $settings_data = array();
         }
         $count = 0;
         if (!empty($settings_data)) {
@@ -65,8 +65,8 @@ class Home extends BaseController
                     if (isset($DataArray['data'][0]['quality_rating'])) {
                         $$qualityColor = $DataArray['data'][0]['quality_rating'];
                     }
-                    $phoneNumber = $display_phone_number; 
-                    if($display_phone_number != '' && $value['id'] != '' && $verified_name != ''){
+                    $phoneNumber = $display_phone_number;
+                    if ($display_phone_number != '' && $value['id'] != '' && $verified_name != '') {
                         $responseArray[] = array(
                             'display_phone_number' => $display_phone_number,
                             'id' => $value['id'],
@@ -78,15 +78,13 @@ class Home extends BaseController
         }
 
 
-        $responseArray =  json_encode($responseArray);
-        if(isset($responseArray) && !empty($responseArray) ){
+        $responseArray = json_encode($responseArray);
+
             $data['connections'] = $responseArray;
-        $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
-        return view('whatapp', $data);
-}else{
-            return view('whatsapp_connections');
-        }
-}
+            $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
+            return view('whatapp', $data);
+        
+    }
     // ======phone-number-page======
     public function phone_number()
     {
@@ -124,7 +122,7 @@ class Home extends BaseController
 
         return view('whatappaakash', $data);
     }
-    
+
     public function email_fetch()
     {
         return view('details_email_send');
@@ -150,8 +148,9 @@ class Home extends BaseController
     {
         return view('whatapp_connection');
     }
-    
-public function whatsapp_connections(){
+
+    public function whatsapp_connections()
+    {
         return view('whatsapp_connections');
     }
 
@@ -175,7 +174,7 @@ public function whatsapp_connections(){
     public function index()
     {
         $table_username = session_username($_SESSION['username']);
-        
+
         $admin_sent_message_detail = [
             'id int primary key AUTO_INCREMENT',
             'receiver_number int(255) NOT NULL',
@@ -187,11 +186,11 @@ public function whatsapp_connections(){
             'Createdat datetime',
             'delivertimedate datetime',
             'readtimedate datetime',
-'templatearray longtext ',
+            'templatearray longtext ',
             'connection_id int(255) NOT NULL'
         ];
 
-        $table = tableCreateAndTableUpdate2($table_username.'_sent_message_detail', '', $admin_sent_message_detail);
+        $table = tableCreateAndTableUpdate2($table_username . '_sent_message_detail', '', $admin_sent_message_detail);
         // $table_username = getMasterUsername();
         $table_name100 = $table_username . '_email_track';
         $columns100 = [
@@ -199,9 +198,9 @@ public function whatsapp_connections(){
             'email_track_code varchar(400)',
             'email_status varchar(400)',
             'email_open_datetime varchar(400)',
-            'email_link_track_code varchar(400)',      
+            'email_link_track_code varchar(400)',
         ];
-  
+
         $table = tableCreateAndTableUpdate2($table_name100, '', $columns100);
 
         $table_name89 = $table_username . '_emailtemplate';
@@ -210,9 +209,9 @@ public function whatsapp_connections(){
             'title varchar(400)',
             'attachment longtext NOT NULL',
             'template longtext NOT NULL',
-      
+
         ];
-  
+
         $table = tableCreateAndTableUpdate2($table_name89, '', $columns50);
         $table_username = session_username($_SESSION['username']);
         $table_name3 = 'admin_generale_setting';
@@ -233,7 +232,7 @@ public function whatsapp_connections(){
             "phone_number_id varchar(400) NOT NULL",
             "business_account_id varchar(400) NOT NULL",
             "access_token longtext NOT NULL",
-"whatsapp_name longtext NOT NULL",
+            "whatsapp_name longtext NOT NULL",
             "whatsapp_number varchar(400)",
             "fb_app_id text NOT NULL",
             'fb_app_name varchar(200)',
@@ -252,7 +251,7 @@ public function whatsapp_connections(){
         ];
         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
 
-        
+
         $table_name11 = $table_username . '_task_status';
         $columns = [
             'id int primary key AUTO_INCREMENT',
@@ -294,7 +293,7 @@ public function whatsapp_connections(){
         ];
         $table = tableCreateAndTableUpdate2($table_name119, '', $columns);
 
-        
+
 
         $table_name10 = $table_username . '_tasks';
         $columns = [
@@ -461,8 +460,9 @@ public function whatsapp_connections(){
         return view('messenger_bot');
     }
 
-    public function bot() {
-        $table_name = getMasterUsername2().'_bot';
+    public function bot()
+    {
+        $table_name = getMasterUsername2() . '_bot';
         $columns = [
             'id int primary key AUTO_INCREMENT',
             'name varchar(255)',
@@ -474,11 +474,13 @@ public function whatsapp_connections(){
         return view('bot');
     }
 
-    public function messenger() {
+    public function messenger()
+    {
         return view('messenger');
     }
 
-    public function installer() {
+    public function installer()
+    {
         return view('installer');
     }
 
@@ -520,7 +522,7 @@ public function whatsapp_connections(){
         $data['admin_bot_setup'] = $this->MasterInformationModel->display_all_records2($table_username . '_bot_setup');
         return view('bot_setup', $data);
     }
-    
+
     public function bot_setup_designer()
     {
         $table_username = getMasterUsername2();
@@ -573,20 +575,20 @@ public function whatsapp_connections(){
             'source varchar(255) NOT NULL',
             'inquiry_data int(11) NOT NULL',
         ];
-        tableCreateAndTableUpdate2($table_username .'_audience', '', $columns_audience);
+        tableCreateAndTableUpdate2($table_username . '_audience', '', $columns_audience);
         $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_type');
-            $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_source');
-            // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
-            $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
-            $data['admin_user'] = $this->MasterInformationModel->display_all_records2('admin_user');
-            // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
-            // $data['project_management_type'] = $this->MasterInformationModel->display_all_records('project_management_type');
-            $data['admin_subscription_master'] = $this->MasterInformationModel->display_all_records2('admin_subscription_master');
-            $data['admin_product'] = $this->MasterInformationModel->display_all_records2('admin_product');
-            $data['master_inquiry_close'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_close');
-            $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
-            $data['user_data'] = $this->MasterInformationModel->display_all_records2('admin_user');
-        return view('manage_audience' , $data);
+        $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_source');
+        // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
+        $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
+        $data['admin_user'] = $this->MasterInformationModel->display_all_records2('admin_user');
+        // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
+        // $data['project_management_type'] = $this->MasterInformationModel->display_all_records('project_management_type');
+        $data['admin_subscription_master'] = $this->MasterInformationModel->display_all_records2('admin_subscription_master');
+        $data['admin_product'] = $this->MasterInformationModel->display_all_records2('admin_product');
+        $data['master_inquiry_close'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_close');
+        $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
+        $data['user_data'] = $this->MasterInformationModel->display_all_records2('admin_user');
+        return view('manage_audience', $data);
     }
     public function integration()
     {
@@ -902,7 +904,7 @@ public function whatsapp_connections(){
         $username = session_username($_SESSION['username']);
         $this->db = \Config\Database::connect('second');
         $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
-        return view('lead_module',$data);
+        return view('lead_module', $data);
     }
     public function leadlist()
     {
@@ -932,8 +934,8 @@ public function whatsapp_connections(){
     public function email_connection()
     {
         $username = session_username($_SESSION['username']);
-        $data['platform_integration'] = $this->MasterInformationModel->display_all_records2($username.'_platform_integration');
-        return view('email_connection',$data);
+        $data['platform_integration'] = $this->MasterInformationModel->display_all_records2($username . '_platform_integration');
+        return view('email_connection', $data);
     }
     public function peoplelist()
     {
@@ -1144,8 +1146,8 @@ public function whatsapp_connections(){
         return view('addnew_user');
     }
     public function login()
-    {   
-        
+    {
+
         return view('auth-login/login');
     }
     public function signup()
