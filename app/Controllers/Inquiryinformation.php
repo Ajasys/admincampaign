@@ -110,29 +110,30 @@ class Inquiryinformation extends BaseController
 					$result['response'] = 1;
 					$result['message'] = 'Added Successfully !';
 
-					$inquiry_data = array();
+					
 					$intrested_product = $insert_data['intrested_product']; // Storing the value in a variable
 
 					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 1 AND intrested_product = $intrested_product";
 					$db_connection = \Config\Database::connect('second');
 					$find_audience = $db_connection->query($find_audience);
-					$all_data = $find_audience->getResultArray();
-
+					$all_datas = $find_audience->getResultArray();
+					$inquiry_datas = array();
 					// Check if there are rows returned and if is_status_active is 1
-					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+					if (!empty($all_datas)&& isset($all_datas[0]['intrested_product']) && $all_datas[0]['intrested_product'] == $intrested_product && isset($all_datas[0]['is_status_active']) && $all_datas[0]['is_status_active'] == 1) {
 						if ($result['response'] == 1) {
-							$inquiry_data['inquiry_id'] = $response;
-							$inquiry_data['full_name'] = $insert_data['full_name'];
-							$inquiry_data['mobileno'] = $insert_data['mobileno'];
-							$inquiry_data['email'] = $insert_data['email'];
-							$inquiry_data['inquiry_status'] = 1;
-							$inquiry_data['intrested_product'] = $insert_data['intrested_product'];
-							$inquiry_data['name'] = $all_data[0]['name'];
-							$inquiry_data['source'] = $all_data[0]['source'];
-							$inquiry_data['is_status_active'] = 1;
-							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_data, $this->username . "_audience");
+							$inquiry_datas['inquiry_id'] = $response;
+							$inquiry_datas['full_name'] = $insert_data['full_name'];
+							$inquiry_datas['mobileno'] = $insert_data['mobileno'];
+							$inquiry_datas['email'] = $insert_data['email'];
+							$inquiry_datas['inquiry_status'] = 1;
+							$inquiry_datas['intrested_product'] = $insert_data['intrested_product'];
+							$inquiry_datas['name'] = $all_datas[0]['name'];
+							$inquiry_datas['source'] = $all_datas[0]['source'];
+							$inquiry_datas['is_status_active'] = 1;
+							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_datas, $this->username . "_audience");
 						}
 					}
+					$inquiry_data = array();
 					$find_alert = "SELECT * FROM " . $this->username . "_alert_setting WHERE alert_title=14";
 					$db_connection = \Config\Database::connect('second');
 					$find_alert = $db_connection->query($find_alert);
