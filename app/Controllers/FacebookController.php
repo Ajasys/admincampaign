@@ -417,6 +417,11 @@ class FaceBookController extends BaseController
         if ($count_num > 0) {
             $status = 1;
             foreach ($result_facebook_data as $key => $value) {
+                $simbol = '';
+                if($value['is_status']==4)
+                {
+                    $simbol = '<i class="fa-solid fa-triangle-exclamation fa-xl text-danger" title="Lost Connection"></i>';
+                }
                 $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
                         FROM admin_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
@@ -447,9 +452,9 @@ class FaceBookController extends BaseController
                     $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
                 }
 
-                $html .= '
-                      <div class="lead_list p-2 rounded-2 position-relative">
-                        <div class="d-flex align-items-center justify-content-end">
+                $html .= '<div class="lead_list p-2 rounded-2 position-relative">
+                        <div class="d-flex flex-wrap align-items-center justify-content-between">
+                        <div class="d-flex flex-wrap">
                             <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
                                 <div class="mx-1">
                             <img src="' . $page_img . '">
@@ -475,7 +480,10 @@ class FaceBookController extends BaseController
                                     <i class="bi bi-person me-1"></i>
                                     <span>' . $_SESSION['username'] . '</span>
                                 </div>
-                            </a></div></div>';
+                            </a></div>
+                            <div>'.$simbol.'</div>
+                            </div>
+                        </div>';
             }
         } else {
             $html .= '<p>No Data Found</p>';

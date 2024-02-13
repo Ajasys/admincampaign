@@ -335,7 +335,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         });
     }
 
-    function deletefbconn($id)
+    function deletefbconn(id)
     {
         $.ajax({
             datatype: 'json',
@@ -350,6 +350,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     iziToast.error({
                         title: 'Your connection has been deleted successfully..!',
                     });
+                    list_data();
                 }
                 else
                 {
