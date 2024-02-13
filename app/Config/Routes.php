@@ -558,6 +558,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/fb_connection_list', 'FacebookController::fb_connection_list');
 	$routes->post('/fb_permission_list', 'FacebookController::fb_permission_list');
 	$routes->post('/edit_facebook_scenarious', 'FacebookController::edit_facebook_scenarious');
+	$routes->post('/delete_fb_connection', 'FacebookController::delete_fb_connection');
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
 	$routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');

@@ -352,7 +352,7 @@ public function whatsapp_connections(){
             'form_id varchar(255)  NOT NULL',
             'form_name varchar(255)  NOT NULL',
             'page_img longtext  NOT NULL',
-            'is_status smallint(1) NOT NULL DEFAULT 0  COMMENT \'0=fresh connection, 1=deleted, 2=old connection\''
+            'is_status smallint(1) NOT NULL DEFAULT 0  COMMENT \'0-fresh connection,1-deleted,2-old connection,3-draft connection,4-lost connection\''
         ];
         $fbtable = tableCreateAndTableUpdate2($fb_table, '', $fb_column);
 

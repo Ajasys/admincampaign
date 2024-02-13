@@ -334,6 +334,32 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             }
         });
     }
+
+    function deletefbconn($id)
+    {
+        $.ajax({
+            datatype: 'json',
+            method: "POST",
+            url: 'delete_fb_connection',
+            data: {
+                id: id,
+            },
+            success: function (res) {
+                var result = JSON.parse(res);
+                if (result.response == 1) {
+                    iziToast.error({
+                        title: 'Your connection has been deleted successfully..!',
+                    });
+                }
+                else
+                {
+                    iziToast.error({
+                        title: 'Your connection has not been deleted successfully..!',
+                    });
+                }
+            }
+        });
+    }
     $('#fb_filter input[type="search"]').on('keyup', function (e) {
         if (e.which == 13) {
             $('.fb_pagination').twbsPagination('destroy');

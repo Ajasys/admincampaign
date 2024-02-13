@@ -93,8 +93,6 @@ class FaceBookController extends BaseController
             $result_array['message'] = $errorMsg;
         }
 
-        
-
         echo json_encode($result_array, true);
         die();
     }
@@ -413,7 +411,7 @@ class FaceBookController extends BaseController
         $status = 0;
         $query = $this->db->query("SELECT * , p.id AS page_ids
                 FROM admin_fb_pages AS p
-                WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status=1");
+                WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status IN (1,4)");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         if ($count_num > 0) {
@@ -1188,10 +1186,10 @@ class FaceBookController extends BaseController
                 }
                 $html .=  '</td>
                     <td class="p-2 text-nowrap text-center">
-                        <button type="button" class="btn border-0 bg-transparent get-permission" data-bs-toggle="modal" data-bs-target="#informaion_connection" data-access-token="'.$value['access_token'].'">
-                            <i class="fa-solid fa-circle-info"></i>
+                        <button type="button" class="ms-auto btn-primary px-2 py-1 rounded-1 fs-12 get-permission" data-bs-toggle="modal" data-bs-target="#informaion_connection" data-access-token="'.$value['access_token'].'">
+                           View
                         </button>
-                        <i class="fa-solid fa-trash-can"></i>
+                        <i class="fa-solid fa-trash-can text-danger px-2" onclick="deletefbconn('.$value['id'].');"></i>
                     </td>
                 </tr>';
             }
@@ -1255,6 +1253,22 @@ class FaceBookController extends BaseController
                 $return_array['result'] = $rows[0];
             }
 
+        }
+        echo json_encode($return_array);
+    }
+
+    public function delete_fb_connection()
+    {
+        $return_array['response'] = 0;
+        if(isset($_POST['id']))
+        {
+            $delete_data = $this->MasterInformationModel->delete_entry2($this->username."_platform_integration",$_POST['id']);
+            $update_data = $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=4 WHERE connection_id='.$_POST['id']);
+            
+            if($delete_data && $update_data)
+            {
+                $return_array['response'] = 1;
+            }
         }
         echo json_encode($return_array);
     }
