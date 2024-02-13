@@ -3287,7 +3287,7 @@ function deleteSocialData($url)
 function fb_page_list($access_token)
 {
     $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token);
-
+   
     $errorMsg = 'Something Went wrong..!';
     if (isset($result['error']['message'])) {
         $errorMsg = $result['error']['message'];
@@ -3316,6 +3316,40 @@ function fb_page_list($access_token)
 
     return json_encode($result_array, true);
 }
+function fb_insta_page_list($access_token)
+{
+    $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token.'&field=ccess_token&field=access_token&field=,access_token&fields=instagram_business_account{id,username},access_token,name,id');
+   
+    $errorMsg = 'Something Went wrong..!';
+    if (isset($result['error']['message'])) {
+        $errorMsg = $result['error']['message'];
+    }
+    $result_array['response'] = 0;
+    $result_array['message'] = $errorMsg;
+
+    if (isset($result['data']) && is_array($result['data']) && $result['data'] != '') {
+        $numberOfPages = count($result['data']);
+        if ($numberOfPages > 0) {
+            $result_array['response'] = 1;
+            $result_array['message'] = 'Facebook connected successfully..!';
+        } else {
+            $result_array['response'] = 0;
+            $result_array['message'] = $errorMsg;
+        }
+
+        $result_array['page_list'] = $result['data'];
+    } else {
+        $is_facebook_connect = 0;
+        $result_array['response'] = 0;
+        $result_array['message'] = $errorMsg;
+        $result_array['page_list'] = '';
+    }
+    
+
+    return json_encode($result_array, true);
+}
+
+
 
 function fb_page_img($page_id,$access_token)
 {

@@ -108,9 +108,11 @@ class CreateController extends BaseController
         // die;
         // pre('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
         // die;
-        
-        $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
-        // pre($response);
+
+        // $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
+        $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
+        // pre('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account    ');
+        // die();
 
         // $curl = curl_init();
 
@@ -132,12 +134,12 @@ class CreateController extends BaseController
 
         // curl_close($curl);
         $fb_page_list = $response;
+            
         $html = "";
         $comments_html = "";
         // $comments_responce = getSocialData('https://graph.facebook.com/196821650189891_122116834772192565/comments?fields=from,message&access_token='.$accesss_tocken);
 
         foreach ($fb_page_list['data'] as $key => $value) {
-            // pre($value);
             $comments_responce = getSocialData('https://graph.facebook.com/' . $value['id'] . '/comments??fields=from,message&access_token=' . $accesss_tocken);
             if (isset($value['full_picture'])) {
                 $fb_upload_img = ($value['full_picture']);
@@ -176,16 +178,28 @@ class CreateController extends BaseController
             }
 
 
-            $html.='<div class="card-header mb-2 col-12 col-sm-5 col-md-12 col-xl-5 col-xxl-3 border rounded-4 bg-white p-3 shadow mx-2" id="post_card">
+            $html .= '<div class="card-header mb-2 col-12 col-sm-5 col-md-12 col-xl-5 col-xxl-3 border rounded-4 bg-white p-3 shadow mx-2" id="post_card">
             <div class="col-12 d-flex flex-wrap border-bottom">
                 <div class="me-2">
-                    <img class="rounded-circle" src="'.$data_img.'" alt="#" style="width:40px;height:40px;">
+                    <img class="rounded-circle" src="' . $data_img . '" alt="#" style="width:40px;height:40px;">
                 </div>
                 <div class="col">
-                    <h5>'.$page_namee.'</h5>
+                    <div class="col-12 d-flex flex-wrap justify-content-between">
+                        <h5 class="col-10">' . $page_namee . '</h5>
+                        <div class="btn-group dropdown">
+                            <div class="col-2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </div>
+                            <ul class="dropdown-menu">
+                                <p class="delete_post_facebook" data-delete_id="' . $value['id'] . '">Delete Post</p>
+                            </ul>
+                        </div>
+
+                    </div>
+
                     <div class="col-12">
                         <span class="text-muted">
-                            <span class="fs-14">'.$facebook_upload_time.'</span>
+                            <span class="fs-14">' . $facebook_upload_time . '</span>
                         </span>
                         <span>
                             <i class="fa-solid fa-earth-asia fs-14 fw-muted"></i>
@@ -194,15 +208,15 @@ class CreateController extends BaseController
                 </div>
             </div>
             <div class="col-12 my-2">
-                <p class="fs-14">'.$fb_titile.'</p>
+                <p class="fs-14">' . $fb_titile . '</p>
             </div>
             <div class="col-12">
                 <div style="width:100%; max-height: 300px; min-height: 250px; overflow: hidden;">
-                    <img src="'.$fb_upload_img.'" alt="#" class="w-100 rounded-3 object-fit-content">
+                    <img src="' . $fb_upload_img . '" alt="#" class="w-100 rounded-3 object-fit-content">
                 </div>
             </div>
             <hr>
-            <div class="col-12 p-1 mt-2 d-flex">
+            <div class="col-12 p-1 mt-2 d-flex post-btn-box">
                 <div class="col-6 d-flex flex-wrap rounded-3 text-muted" >
                     <button class="btn w-100 like_button"><i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i>Like</button>
                 </div>
@@ -237,10 +251,10 @@ class CreateController extends BaseController
                     $facebook_comment_time = $date_comment->format('F d \a\t h:i A');
                 }
                 // pre($comment_value);
-                $access_token='EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
-                
+                $access_token = 'EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
+
                 // replay to comment 
-                // $comment_id = '122116834772192565_359791573621931';
+                $comment_id = '196821650189891_122116834772192565';
                 // $reply_message = 'how are you.';
                 // $url = "https://graph.facebook.com/v13.0/{$comment_id}/comments";
                 // $data = array(
@@ -264,7 +278,7 @@ class CreateController extends BaseController
                 //     echo "Failed to make request.";
                 // }
                 // end replay comment 
-                // $post_id = '196821650189891_122116834772192565';
+                $post_id = '196821650189891_122116834772192565';
 
                 // // $url = "https://graph.facebook.com/v12.0/{$post_id}/comments?fields=from,message&access_token={$access_token}";
 
@@ -289,6 +303,50 @@ class CreateController extends BaseController
                 // } else {
                 //     echo "Error fetching comments: " . $data['error']['message'] . PHP_EOL;
                 // }
+                // $fields = 'id,comments.summary(true),likes.summary(true)';
+
+                // $url = "https://graph.facebook.com/v12.0/{$comment_id}?fields={$fields}&access_token={$access_token}";
+
+                // $response = file_get_contents($url);
+                // $data = json_decode($response, true);
+
+                // if (!empty($data)) {
+                //     $likes_count = $data['likes']['summary']['total_count'];
+                //     $comments_count = $data['comments']['summary']['total_count'];
+                // }
+                //     $fields = 'id,comments.summary(true),likes.summary(true)';
+                //     $url = "https://graph.facebook.com/v12.0/$post_id?fields=$fields&access_token=$access_token";
+                //     $response = file_get_contents($url);
+                //     $data = json_decode($response, true);
+
+                // if (!empty($data)) {
+                //     $likes_count = $data['likes']['summary']['total_count'];
+                //     $comments_count = $data['comments']['summary']['total_count'];
+
+                //     // Check if the owner of the access token has liked the post
+                //     $liked_by_user = false;
+                //     $me_likes_url = "https://graph.facebook.com/v12.0/me/likes/$post_id?access_token=$access_token";
+                //     pre($me_likes_url);
+                //     die();
+                //     $me_likes_response = file_get_contents($me_likes_url);
+                //     $me_likes_data = json_decode($me_likes_response, true);
+                //     if (!empty($me_likes_data) && isset($me_likes_data['data']) && count($me_likes_data['data']) > 0) {
+                //         $liked_by_user = true;
+                //     }
+
+                //     // Prepare the message based on whether the user has liked the post
+                //     if ($liked_by_user) {
+                //         echo "You and {$likes_count} other like this.<br>";
+                //     } else {
+                //         echo "{$likes_count} people like this.<br>";
+                //     }
+
+                //     echo "Comments: {$comments_count}<br>";
+                // } else {
+                //     echo "Unable to fetch data from Facebook API.";
+                // }
+
+
 
                 $comments_html .= '<div class="d-flex">
                 <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex">
@@ -307,7 +365,7 @@ class CreateController extends BaseController
                         <div class="border p-2 bg-dark-subtle rounded-3 comment_box d-none">
                         <div class="d-flex justify-content-between">
                             <div class="col">
-                                <input type="text" value="" id="input_comment" class="bg-dark-subtle comment_input p-2 w-100 border-0 " placeholder="Example input placeholder">
+                                <input type="text" value="" id="input_comment" class="bg-dark-subtle comment_input p-2 w-100 border-0 "0>
                             </div>
                             <div>
                                 <button type="button" class="comment_btn_close btn-close justify-content-end "></button>
@@ -335,7 +393,7 @@ class CreateController extends BaseController
         echo json_encode($return_array, true);
         die();
     }
-  
+
     public function comment_replay_send()
     {
         if (isset($_POST['data_post_id'])) {
@@ -343,42 +401,76 @@ class CreateController extends BaseController
         } else {
             $comment_id =  "";
         }
-		$result = array();
+        $result = array();
 
         if (isset($_POST['input_comment'])) {
             $input_comment = ($_POST['input_comment']);
         } else {
             $input_comment =  "";
         }
-        $access_token='EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
+        $access_token = 'EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
         //  $comment_id = '122116834772192565_934718831708235';
-                $reply_message = $input_comment;
-                $url = "https://graph.facebook.com/v13.0/{$comment_id}/comments";
-                $data = array(
-                    'message' => $reply_message,
-                    'access_token' => $access_token
-                );
-                $ch = curl_init($url);
-                curl_setopt($ch, CURLOPT_POST, 1);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                $response = curl_exec($ch);
-                curl_close($ch);
-                if ($response !== false) {
-                    $response_data = json_decode($response, true);
-                    if (isset($response_data['id'])) {
-                        $result['response'] = 1;
-						$result['message'] = 'inquiry added succesfully !';
-                    } else {
-                        $answer =  "Failed to post reply: " . $response;
-                    }
-                } else {
-                    echo "Failed to make request.";
-                }
- 
-        
-                return json_encode($result, true);
-                die();
+        $reply_message = $input_comment;
+        $url = "https://graph.facebook.com/v13.0/{$comment_id}/comments";
+        $data = array(
+            'message' => $reply_message,
+            'access_token' => $access_token
+        );
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        if ($response !== false) {
+            $response_data = json_decode($response, true);
+            if (isset($response_data['id'])) {
+                $result['response'] = 1;
+                $result['message'] = 'inquiry added succesfully !';
+            } else {
+                $answer =  "Failed to post reply: " . $response;
+            }
+        } else {
+            echo "Failed to make request.";
+        }
+
+
+
+
+
+        return json_encode($result, true);
+        die();
+    }
+
+    public function delete_post()
+    {
+        if (isset($_POST['data_delete_id']) && !empty($_POST['data_delete_id'])) {
+            $delete_post_id = $_POST['data_delete_id'];
+        } else {
+            $delete_post_id = "";
+        }
+
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://graph.facebook.com/v19.0/'.$delete_post_id.'',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'DELETE',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer EAADNF4vVgk0BO78lRPy6esK4KZCXdEuZB7ZCds7af8hZAXCDA5HyOfkghG4jZBAbvNa8T5YcYPweb3sZAaE23B8qeGJjDZBi2T1WZA1ZBA3IhTevK2MJMaZCRCgy0qAgou4EZAa7gAOuZCh6ZAVue31jqMnfTNJKdZA4kIMPAs3rgZA5azH5WXfIMJj5PBKKUZAlJXjyTZBMWRDEtoF0ZD',
+                'Cookie: ps_l=0; ps_n=0'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        echo $response;
 
     }
 

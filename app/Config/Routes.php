@@ -108,7 +108,7 @@ $routes->post('/create_insert_data', 'CreateController::create_insert_data');
 $routes->post('/SendPostDataFB', 'CreateController::SendPostDataFB');
 $routes->post('/list_post_pagewise', 'CreateController::list_post_pagewise');
 $routes->post('/comment_replay_send', 'CreateController::comment_replay_send');
-
+$routes->post('/delete_post', 'CreateController::delete_post');
 
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');
 $routes->post('/update_data_2DB', 'MasterInformation::update_data_2DB');
@@ -558,7 +558,6 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/fb_connection_list', 'FacebookController::fb_connection_list');
 	$routes->post('/fb_permission_list', 'FacebookController::fb_permission_list');
 	$routes->post('/edit_facebook_scenarious', 'FacebookController::edit_facebook_scenarious');
-	$routes->post('/delete_fb_connection', 'FacebookController::delete_fb_connection');
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
 	$routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
@@ -572,13 +571,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/CheckWhataAppConnection', 'WhatAppIntegrationController::CheckWhataAppConnection');
 	$routes->post('/WhatsAppRTemplateDeleteRequest', 'WhatAppIntegrationController::WhatsAppRTemplateDeleteRequest');
 	$routes->post('/single_whatsapp_template_sent', 'WhatAppIntegrationController::single_whatsapp_template_sent');
-	$routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessagesHistory');
 
-	
 	$routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
 	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
 	$routes->post('/GetWhatsAppTemplateDetails', 'WhatAppIntegrationController::GetWhatsAppTemplateDetails');
-
 
 
 	// aaksh

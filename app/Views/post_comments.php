@@ -24,7 +24,69 @@
         height: 50px;
     }
 </style>
+<style>
+    body {
+        background-color: #f3f3f3;
+    }
 
+    .fs-12 {
+        font-size: 12px;
+    }
+
+    .form-control:focus {
+        box-shadow: 0px 0px 0px black;
+    }
+
+    .account-nav {
+        cursor: pointer;
+        background-color: white;
+        overflow: hidden;
+    }
+
+    .account_icon {
+        background-color: #f3f3f3;
+        height: 40px;
+        width: 40px;
+        overflow: hidden;
+        background-position: center;
+        align-self: center;
+    }
+
+    .chat_loader {
+        display: block;
+        --height-of-loader: 4px;
+        --loader-color: #0071e2;
+        width: 130px;
+        height: var(--height-of-loader);
+        border-radius: 30px;
+        background-color: rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    .chat_loader::before {
+        content: "";
+        position: absolute;
+        background: var(--loader-color);
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        border-radius: 30px;
+        animation: moving 1s ease-in-out infinite;
+    }
+
+    @keyframes moving {
+        50% {
+            width: 100%;
+        }
+
+        100% {
+            width: 0;
+            right: 0;
+            /* left: unset; */
+        }
+    }
+</style>
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2">
@@ -42,21 +104,38 @@
                         <!--  facebook page get start -->
                         <?php
                         $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-                        $fb_page_list = fb_page_list($token);
+                        $fb_page_list = fb_insta_page_list($token);
                         $fb_page_list = get_object_vars(json_decode($fb_page_list));
                         $i = 0;
                         foreach ($fb_page_list['page_list'] as $key => $value) {
                             $pageprofile = fb_page_img($value->id, $value->access_token);
                             $img_decode = json_decode($pageprofile, true);
                         ?>
-                            <div class="col-12 d-flex flex-wrap align-items-start">
-                                <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
-                                    <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
-                                    <div class="col">
-                                        <?php echo $value->name ?>
-                                    </div>
-                                </div>
-                            </div>
+                        
+                        <div class="col-12 d-flex flex-wrap align-items-start">
+    <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])): ?>
+        <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
+            <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
+            <div class="col">
+                <?php echo $value->name ?>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+<div class="col-12 d-flex flex-wrap align-items-start">
+    <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)): pre($value); ?>
+        <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post " data-pagee_id="<?php if(isset($value->instagram_business_account))
+        {
+            echo $value->id;
+        }  ?>" data-page_name="<?php echo $value->instagram_business_account->username;?>" data-img="<?php echo $img_decode['page_img'];  ?>" data-acess_token="<?php echo $value->access_token;  ?>">
+            <?php if (isset($value->instagram_business_account->username)): ?>
+                <?php echo $value->instagram_business_account->username; ?>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+</div>
+
+                        
                         <?php $i++;
                         } ?>
                         <!-- facebook page get end  -->
@@ -287,6 +366,15 @@
                 </div>
             </div>
         </div>
+        <div class="m-auto massage_list_loader text-center">
+            <span>Loading...</span>
+            <div class="mx-auto chat_loader"></div>
+        </div>
+
+        <div class="m-auto delete_loader text-center">
+            <span>Loading...</span>
+            <div class="mx-auto chat_loader"></div>
+        </div>
 
 
         <!-- post comment modal -->
@@ -298,12 +386,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body overflow-y-scroll" id="comments_list" style="max-height:400px;">
-                        
+
                     </div>
-                    <div class="modal-footer">
+                    <!-- <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary">Understood</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -338,13 +426,13 @@
                 $('#event_end').val(endDate.format('DD-MM-YYYY h:m A'));
             });
             $("body").on("click", ".Replay_btn", function() {
-               $(this).closest('.replay-parent').find('.comment_box ').removeClass('d-none');
+                $(this).closest('.replay-parent').find('.comment_box ').removeClass('d-none');
             })
 
             // $("body").on("keyup", ".comment_input", function() {
             //     $('.comment-send-btn').attr("disabled", false);
             // })
-            
+
             // $("body").on("focusout", ".comment_input", function() {
             //     var comment_input = $('.comment_input').val();
 
@@ -383,19 +471,42 @@
                         if (result.response == "1") {
                             $("#comment-modal .comment_btn_close").trigger("click");
                             iziToast.success({
-                                    title: 'Comment Successfully'
+                                title: 'Comment Successfully'
                             });
                         }
 
                     }
                 });
             });
+            $('body').on('click', '.delete_post_facebook', function() {
+                var data_delete_id = $(this).attr('data-delete_id');
+
+                $.ajax({
+                    type: 'post',
+                    url: '<?= base_url('delete_post') ?>',
+                    data: {
+                        data_delete_id: data_delete_id,
+                    },
+                    beforeSend: function() {
+                        $('.delete_loader').show();
+                        $('.noRecourdFound').hide();
+                    },
+                    success: function(res) {
+                        $('.delete_loader').hide();
+                        iziToast.delete({
+                            title: 'Post Delete Successfully'
+                        });
+                    }
+                });
+            });
+            $('.delete_loader').hide();
 
             $('body').on('click', '.app_card_post', function() {
                 var access_tocken = $(this).attr('data-acess_token');
                 var pagee_id = $(this).attr('data-pagee_id');
                 var page_name = $(this).attr('data-page_name');
                 var data_img = $(this).attr('data-img');
+
                 $.ajax({
                     type: 'post',
                     url: '<?= base_url('list_post_pagewise') ?>',
@@ -405,17 +516,21 @@
                         page_name: page_name,
                         data_img: data_img,
                     },
+                    beforeSend: function() {
+                        $('.massage_list_loader').show();
+                        $('.noRecourdFound').hide();
+                    },
                     success: function(res) {
                         var result = JSON.parse(res);
                         $('.loader').hide();
+                        $('.massage_list_loader').hide();
                         $('#demo_list_data').html(result.html);
                         $('#comments_list').html(result.comments_html);
 
                     }
                 });
             });
-
-
+            $('.massage_list_loader').hide();
 
             setTimeout(function() {
                 $('.first').trigger('click');
