@@ -329,6 +329,7 @@
                     </div>
                 </div>
                 <div class="col-9 p-3  mt-2">
+                    <div class="col-12"> <button class="btn btn-primary-rounded col-2 offset-10" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-plus"></i></button></div>
                     <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
 
                         <div class="demo_list_data  d-flex flex-wrap" id="demo_list_data"></div>
@@ -759,9 +760,9 @@
 
 
 
-            //---------------------------- modal input ----------------------------
+             //---------------------------- modal input ----------------------------
 
-            $("#pills-master-diet").click(function() {
+           /*  $("#pills-master-diet").click(function() {
                 $(".card-body").show();
                 $("#select-box").hide();
                 $("#event-input").hide();
@@ -788,7 +789,19 @@
             $("#pills-all-offer").click(function() {
                 $("#offer-input").show();
                 $("#select-box").hide();
-            });
+            }); */
+
+         $("#event-option").change(function(){
+        var selectedValue = $(this).val();
+        if(selectedValue === "event") {
+            $("#event-input").removeClass("d-none");
+        } else {
+            $("#event-input").addClass("d-none");
+        }
+        if(selectedValue === "offer") {
+            $("#event-input").removeClass("d-none");
+        } 
+    });
         </script>
 
         <?= $this->include('partials/footer') ?>
