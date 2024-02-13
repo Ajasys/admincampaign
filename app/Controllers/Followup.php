@@ -830,7 +830,7 @@ class Followup extends BaseController
                     $response_status_log = $this->MasterInformationModel->insert_entry2($inquiry_log,$this->username.'_inquiry_log');
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Status Dismissed Request Successfully';
-                     //increment audience
+                   //increment audience table insert productwise inquiry_data=2 in 
                     $inquiry_dataa = array();
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
@@ -853,7 +853,7 @@ class Followup extends BaseController
 							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
 						}
 					}
-                    // live audience auto increment code
+                    // live audience auto increment code inquiry_data=3 in
                     $inquiry_data_live = array();
                     $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 8 AND intrested_product = $intrested_product";
                     $find_audience_live = $db_connection->query($find_audience_live);
@@ -922,7 +922,8 @@ class Followup extends BaseController
                     $response_status_log = $this->MasterInformationModel->insert_entry2($inquiry_log,$this->username.'_inquiry_log');
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Status Dismissed Successfully';
-                     //increment audience
+
+                    //increment audience table insert productwise inquiry_data=2 in 
                    
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
@@ -946,7 +947,7 @@ class Followup extends BaseController
                             $response_audience = $this->MasterInformationModel->insert_entry2($audience_data, $this->username . "_audience");
                         }
                     }
-                    // live audience auto increment code
+                    // live audience auto increment code inquiry_data=3 in
                         $inquiry_data_live = array();
                         $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 7 AND intrested_product = $intrested_product";
                         $find_audience_live = $db_connection->query($find_audience_live);
@@ -1049,7 +1050,8 @@ class Followup extends BaseController
                     // $response = 1;
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Status Negotiation changed Successfully';
-                     //increment audience
+
+                    //increment audience table insert productwise inquiry_data=2 in 
                     $inquiry_data_audience = array();
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
@@ -1072,7 +1074,7 @@ class Followup extends BaseController
 							$response_audience = $this->MasterInformationModel->insert_entry2($inquiry_data_audience, $this->username . "_audience");
 						}
 					}
-                     //live audience auto increment code
+                     //live audience auto increment code inquiry_data=3 in
                     $inquiry_data_live = array();
                     $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 6 AND intrested_product = $intrested_product";
                     $find_audience_live = $db_connection->query($find_audience_live);
@@ -1178,7 +1180,7 @@ class Followup extends BaseController
                     // $response = 1;
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Status Feedback changed Successfully';
-                    //increment audience
+                   //increment audience table insert productwise inquiry_data=2 in 
                     $inquiry_data_audience = array();
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
@@ -1201,7 +1203,7 @@ class Followup extends BaseController
 							$response_audience = $this->MasterInformationModel->insert_entry2($inquiry_data_audience, $this->username . "_audience");
 						}
 					}
-                //live audience auto increment code
+                //live audience auto increment code inquiry_data=3 in
                     $inquiry_data_live = array();
                     $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 9 AND intrested_product = $intrested_product";
                     $find_audience_live = $db_connection->query($find_audience_live);
@@ -1366,7 +1368,7 @@ class Followup extends BaseController
                     
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Appointment Successfully';
-                    //increment audience
+                   //increment audience table insert productwise inquiry_data=2 in 
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
                     $db_connection = \Config\Database::connect('second');
@@ -1409,7 +1411,7 @@ class Followup extends BaseController
                             $response_audience2 = $this->MasterInformationModel->insert_entry2($inquiry_dataas_audience, $this->username . "_audience");
                         }
                     }
-                  //live audience auto increment code
+                  //live audience auto increment code inquiry_data=3 in
                     $inquiry_data_live = array();
                     $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 3 AND intrested_product = $intrested_product";
                     $find_audience_live = $db_connection->query($find_audience_live);
@@ -1607,7 +1609,7 @@ class Followup extends BaseController
                     $response_status_log = $this->MasterInformationModel->insert_entry2($inquiry_log,$this->username.'_inquiry_log');
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry CNR Successfully';
-                     //increment audience
+                   //increment audience table insert productwise inquiry_data=2 in 
                     $inquiry_data_audience = array();
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
@@ -1630,7 +1632,7 @@ class Followup extends BaseController
 							$response_audience = $this->MasterInformationModel->insert_entry2($inquiry_data_audience, $this->username . "_audience");
 						}
 					}
-                     //live audience auto increment code
+                     //live audience auto increment code inquiry_data=3 in
                         $inquiry_data_live = array();
                         $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 17 AND intrested_product = $intrested_product";
                         $find_audience_live = $db_connection->query($find_audience_live);
@@ -1741,7 +1743,7 @@ class Followup extends BaseController
                 $result['result'] = 1;
                 $result['msg'] = 'Inquiry Status Updated Successfully';
 
-                //increment audience
+               //increment audience table insert productwise inquiry_data=2 in 
                 $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                 $intrested_product = $inquiry_data['intrested_product'];
                 $db_connection = \Config\Database::connect('second');
@@ -1784,7 +1786,7 @@ class Followup extends BaseController
                         $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataas_audience, $this->username . "_audience");
                     }
                 }
-              //live audience auto increment code
+              //live audience auto increment code inquiry_data=3 in
                 $inquiry_data_live = array();
                 $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 2 AND intrested_product = $intrested_product";
                 $find_audience_live = $db_connection->query($find_audience_live);

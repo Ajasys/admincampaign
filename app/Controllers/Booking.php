@@ -857,7 +857,7 @@ class Booking extends BaseController
 
 						$return_result['result'] = 1;
 						$return_result['msg'] = "Booking successfully";
-						 //increment audience
+						//increment audience table insert productwise inquiry_data=2 in 
 						$inquiry_data_audience = array();
 						$inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
 						$intrested_product = $inquiry_data['intrested_product'];
@@ -879,7 +879,7 @@ class Booking extends BaseController
 								$response_audience = $this->MasterInformationModel->insert_entry2($inquiry_data_audience, $this->username . "_audience");
 							}
 						}
-                      //live audience auto increment code
+                      //live audience auto increment code inquiry_data=3 in
 						    $inquiry_data_live = array();
                             $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 12 AND intrested_product = $intrested_product";
                             $find_audience_live = $db_connection->query($find_audience_live);

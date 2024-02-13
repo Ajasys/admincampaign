@@ -110,7 +110,7 @@ class Inquiryinformation extends BaseController
 					$result['response'] = 1;
 					$result['message'] = 'Added Successfully !';
 
-					//increment audience
+					//increment audience table insert productwise inquiry_data=2 in 
 					$intrested_product = $insert_data['intrested_product']; // Storing the value in a variable
 					$inquiry_datas_audience = array();
 					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 1 AND intrested_product = $intrested_product";
@@ -133,7 +133,7 @@ class Inquiryinformation extends BaseController
 							$response_audience = $this->MasterInformationModel->insert_entry2($inquiry_datas_audience, $this->username . "_audience");
 						}
 					}
-					 //live audience auto increment code
+					 //live audience auto increment code inquiry_data=3 in
 						$inquiry_data_live = array();
 						$find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 1 AND intrested_product = $intrested_product";
 						$find_audience_live = $db_connection->query($find_audience_live);
@@ -1935,7 +1935,7 @@ class Inquiryinformation extends BaseController
 		);
 		$result['result'] = 1;
 		$departmentUpdatedata = $this->MasterInformationModel->update_entry2($inquiry_id, $visit_array, 'admin_all_inquiry');
-		
+		//increment audience table insert productwise inquiry_data=2 in 
 			$inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
 			$intrested_product = $inquiry_data['intrested_product'];
 			$db_connection = \Config\Database::connect('second');
@@ -1978,7 +1978,7 @@ class Inquiryinformation extends BaseController
 					$response_audience1 = $this->MasterInformationModel->insert_entry2($inquiry_dataas_audience, $this->username . "_audience");
 				}
 			}
-          //live audience auto increment code
+          //live audience auto increment code inquiry_data=3 in
 			$inquiry_data_live = array();
 			$find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 11 AND intrested_product = $intrested_product";
 			$find_audience_live = $db_connection->query($find_audience_live);
