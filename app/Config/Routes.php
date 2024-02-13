@@ -571,10 +571,14 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/CheckWhataAppConnection', 'WhatAppIntegrationController::CheckWhataAppConnection');
 	$routes->post('/WhatsAppRTemplateDeleteRequest', 'WhatAppIntegrationController::WhatsAppRTemplateDeleteRequest');
 	$routes->post('/single_whatsapp_template_sent', 'WhatAppIntegrationController::single_whatsapp_template_sent');
+$routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessagesHistory');
+
 
 	$routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
 	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
 	$routes->post('/GetWhatsAppTemplateDetails', 'WhatAppIntegrationController::GetWhatsAppTemplateDetails');
+$routes->post('/WhatsAppConnectionsList', 'WhatAppIntegrationController::WhatsAppConnectionsList');
+
 
 
 	// aaksh
@@ -584,8 +588,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 	// $routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
 	$routes->post('/WhatsAppConnectionEntry', 'WhatAppAakashController::WhatsAppConnectionEntry');
-	$routes->post('/WhatsAppConnectionsList', 'WhatAppAakashController::WhatsAppConnectionsList');
-});
+	});
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');
 // $routes->post('/occupation_insert', 'Home::occupation_insert');
