@@ -30,6 +30,7 @@
         background-position: center;
         align-self: center;
     }
+
     .chat_loader {
         display: block;
         --height-of-loader: 4px;
@@ -37,7 +38,7 @@
         width: 130px;
         height: var(--height-of-loader);
         border-radius: 30px;
-        background-color: rgba(0,0,0,0.2);
+        background-color: rgba(0, 0, 0, 0.2);
         position: relative;
     }
 
@@ -53,6 +54,9 @@
         animation: moving 1s ease-in-out infinite;
     }
 
+    .active-tab{
+        background-color: #007145;
+    }
     @keyframes moving {
         50% {
             width: 100%;
@@ -64,6 +68,20 @@
             /* left: unset; */
         }
     }
+    .account-box{
+        background-color: white;
+    }
+    .active-account-box{
+        background-color: #eaeaea9c;
+        border-right: 1px solid #b55dcd;
+    }
+    .chat-account-box{
+        background-color: white;
+    }
+    .chat-account-active{
+        background-color: #eaeaea9c;
+        border-right: 2px solid #724ebf;
+    }
 </style>
 
 
@@ -74,18 +92,28 @@
                 <i class="bi bi-gear-fill"></i>
                 <h2>Bot Chats</h2>
             </div>
-            <div class="col-12 d-flex flex-wrap">
-                <div class="col-2 p-1" style="height:80vh">
-                    <div class="col-12 border rounded-3 bg-white" style="height:80vh">
-                        <div class="chat-nav-search-bar p-2 border-bottom col-12">
+            <div class="col-12 d-flex flex-wrap rounded-3">
+                <!-- <div class="col-12 border bg-white p-3">
+                    <nav class="nav">
+                        <a class="nav-link bg-dark-subtle text-emphasis-dark" aria-current="page" href="#">All Messanger</a>
+                        <a class="nav-link" href="#">Messanger</a>
+                        <a class="nav-link" href="#">Instragram</a>
+                        <a class="nav-link" href="#">Whatsapp</a>
+                        <a class="nav-link" href="#">facebook</a>
+                    </nav>
+                </div> -->
+
+                <div class="col-2" style="height:80vh">
+                    <div class="col-12 border bg-white" style="height:80vh">
+                        <div class="chat-nav-search-bar p-2 col-12 mt-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="dropdown d-flex align-items-center">
+                                <div class="dropdown d-flex align-items-center ps-2">
                                     <i class="fas fa-user fs-5  me-2"></i>
-                                    <h5 class="fs-5 ">Accounts</h5>
+                                    <h5 class="fs-5 fw-semibold">Accounts</h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll account_list p-1" style="max-height: 100%;">
+                        <div class="col-12 overflow-y-scroll account_list" style="max-height: 100%;">
                             <!-- <div class="col-12 account-nav p-2 border my-2 rounded-3">
                                 <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
                                     <a href="" class="col-4 account_icon border border-1 rounded-circle me-2">
@@ -124,24 +152,24 @@
                     </div>
                 </div>
 
-                <div class="col-3 p-1" style="height:80vh">
-                    <div class="col-12 border rounded-3 bg-white" style="height:80vh">
-                        <div class="chat-nav-search-bar p-2 border-bottom col-12">
+                <div class="col-3" style="height:80vh">
+                    <div class="col-12 border  bg-white"  style="height:80vh">
+                        <div class="chat-nav-search-bar p-2 col-12 mt-2">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="dropdown d-flex align-items-center">
+                                <div class="dropdown d-flex align-items-center ps-2">
                                     <i class="fas fa-comment fs-5  me-2"></i>
-                                    <h5 class="fs-5 ">Chats</h5>
+                                    <h5 class="fs-5 w-semibold">Chats</h5>
                                 </div>
                                 <div class="">
-                                    <p class="page_name"></p>
+                                    <p class="page_name border-bottom p-1 "></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll chat_list p-2 d-none" style="max-height: 100%;">
-                            <div class="chat-nav-search-bar p-2 border border-2 my-2 col-12  rounded-3">
+                        <div class="col-12 overflow-y-scroll chat_list p-1 d-none" style="max-height: 100%;">
+                            <div class="chat-nav-search-bar p-1 border  my-2 col-12">
                                 <div class="d-flex justify-content-between align-items-center col-12">
                                     <div class="col-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                             <g>
                                                 <path fill="#eceff1" d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 2.875 0-2.883 9.935 1.696 17.838L0 24l6.335-1.652c2.76 1.491 5.021 1.359 5.716 1.447 10.633 0 15.926-12.864 8.454-20.307z" opacity="1" data-original="#eceff1" class=""></path>
                                                 <path fill="#4caf50" d="m12.067 21.751-.006-.001h-.016c-3.182 0-5.215-1.507-5.415-1.594l-3.75.975 1.005-3.645-.239-.375a9.869 9.869 0 0 1-1.516-5.26c0-8.793 10.745-13.19 16.963-6.975 6.203 6.15 1.848 16.875-7.026 16.875z" opacity="1" data-original="#4caf50"></path>
@@ -162,7 +190,7 @@
                             <div class="chat-nav-search-bar p-2 border border-2 my-2 col-12  rounded-3">
                                 <div class="d-flex justify-content-between align-items-center col-12">
                                     <div class="col-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                             <g>
                                                 <g data-name="Layer 2">
                                                     <g data-name="01.facebook">
@@ -253,9 +281,9 @@
 
                 </div>
 
-                <div class="col-7 p-1 position-relative" style="height:80vh">
-                    <div class="col-12 border rounded-3 bg-white p-3" style="height:80vh">
-                        <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-1 px-3">
+                <div class="col-7 position-relative" style="height:80vh">
+                    <div class="col-12 border bg-white p-3" style="height:80vh">
+                        <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3">
                             <div class="d-flex flex-wrap bg-white rounded-pill py-1 border">
                                 <div class="input-group  position-relative ">
                                     <input type="text" class="form-control rounded-pill px-4 py-2 border-0 massage_input" placeholder="Enter Your Quithions">
@@ -336,9 +364,25 @@
 
 
 <script>
+
+$('body').on('click', '.account-box', function() {
+
+    $(this).addClass('active-account-box');
+   $(this).siblings().removeClass('active-account-box');
+
+});
+$('body').on('click', '.chat-account-box', function() {
+
+$(this).addClass('chat-account-active');
+$(this).siblings().removeClass('chat-account-active');
+
+});
+
+</script>
+<script>
     $(document).ready(function() {
         // massage list data
-        function list_data(api = false, action = 'account_list',page_id = '',page_access_token = '') {
+        function list_data(api = false, action = 'account_list', page_id = '', page_access_token = '') {
             $.ajax({
                 method: "post",
                 url: "<?= site_url('get_chat_data'); ?>",
@@ -349,9 +393,9 @@
                     page_access_token: page_access_token,
                 },
                 beforeSend: function() {
-                    if(action == 'account_list') {
+                    if (action == 'account_list') {
                         $('.acc_loader').show();
-                    } else if(action == 'chat_list'){
+                    } else if (action == 'chat_list') {
                         $('.chat_list').html('');
                         $('.chat_list_loader').show();
                     }
@@ -359,9 +403,9 @@
                 success: function(data) {
                     $('.acc_loader').hide();
                     var obj = JSON.parse(data);
-                    if(action == 'account_list') {
+                    if (action == 'account_list') {
                         $('.account_list').html(obj.chat_list_html);
-                    } else if(action == 'chat_list'){
+                    } else if (action == 'chat_list') {
                         $('.chat_list').html(obj.chat_list_html);
                         $('.chat_list_loader').hide();
                     }
@@ -369,14 +413,14 @@
             });
         }
         list_data();
-        
+
         $('.chat_list_loader').hide();
 
-        $('body').on('click','.account-nav',function() {
+        $('body').on('click', '.account-nav', function() {
             var page_id = $(this).attr("data-page_id");
             var page_access_token = $(this).attr("data-page_access_token");
             $('.page_name').text($(this).attr('data-page_name'));
-            list_data(false,'chat_list',page_id,page_access_token);
+            list_data(false, 'chat_list', page_id, page_access_token);
         });
 
         $('body').on('click', '.chat_list', function() {
@@ -411,10 +455,10 @@
                     $('.send_massage').attr("data-massage_id", massage_id);
                 }
             });
-            
+
             return false;
         });
-        
+
         $('.massage_list_loader').hide();
 
         $('body').on('click', '.send_massage', function() {

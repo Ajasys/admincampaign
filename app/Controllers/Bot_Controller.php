@@ -902,12 +902,12 @@ class Bot_Controller extends BaseController
 				$page_data = fb_page_img($value->id,$value->access_token);
 				$page_data = json_decode($page_data);
 
-				$chat_list_html .= '<div class="col-12 account-nav p-2 border my-2 rounded-3" data-page_id="'.$value->id.'" data-page_access_token="'.$value->access_token.'" data-page_name="'.$value->name.'">
-										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+				$chat_list_html .= '<div class="col-12 account-nav my-2 account-box" data-page_id="'.$value->id.'" data-page_access_token="'.$value->access_token.'" data-page_name="'.$value->name.'">
+										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 												<img src="'.$page_data->page_img.'" alt="">
 											</a>
-											<p class="fs-6 fw-medium col">'.$value->name.'
+											<p class="fs-6 fw-medium col ps-2">'.$value->name.'
 											</p>
 										</div>
 									</div>';
@@ -939,8 +939,9 @@ class Bot_Controller extends BaseController
 							$time_count_text = $times['minutes'].' min ago';
 						}
 						$chat_list_html .= '
-							<div class=" fw-semibold fs-12 border-muted chat-nav-search-bar p-2  border my-2 col-12  rounded-3 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '">
-							<div class="d-flex justify-content-between align-items-center col-12">
+							<div class=" fw-semibold fs-12 chat-nav-search-bar my-2 col-12 chat-account-box p-1 pe-3
+							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '">
+							<div class="d-flex flex justify-content-between align-items-center col-12">
 										<div class="col-2 p-1">
 											<svg class="w-100" xmlns="http://www.w3.org/2000/svg" version="1.1"
 											xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" x="0" y="0"
@@ -959,8 +960,8 @@ class Bot_Controller extends BaseController
 											</g>
 										</svg>
 									</div>
-									<div class="col-10">
-									<p style="font-size:14px;">' . $conversion_value['participants']['data'][0]['name'] . '</p>
+									<div class="col-10 d-flex flex-wrap justify-content-between align-items-center">
+									<p style="font-size:18px;">' . $conversion_value['participants']['data'][0]['name'] . '</p>
 										<p class="fs-12 "></p>
 										<div class="text-end">
 											<span class="fs-12">'.$time_count_text.'</span>
