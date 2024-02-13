@@ -361,7 +361,7 @@ class AudianceController extends BaseController
 
                 // Query to retrieve data from admin_all_inquiry with a retention period
                 $qry =
-                $qry = "SELECT id, full_name, inquiry_status, intrested_product, mobileno, email, address FROM " . $this->username . "_all_inquiry WHERE intrested_product = ? AND inquiry_status = ? AND created_at >= ?";
+                $qry = "SELECT id, full_name, inquiry_status, mobileno, email, address FROM " . $this->username . "_all_inquiry WHERE intrested_product = ? AND inquiry_status = ? AND created_at >= ?";
                 // Pass placeholders as an associative array
                 $result = $secondDb->query($qry, [
                     $intrested_product,
@@ -391,6 +391,7 @@ class AudianceController extends BaseController
                         $merged_data = array_merge($row, $insert_data, [
                             "retansion" => $retention_days,
                             "source" => $source,
+                            "intrested_product" => $intrested_product,
                             "name" => $name,
                             "created_at" => $currentDateTime,
                             "updated_at" => $currentDateTime,
