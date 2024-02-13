@@ -580,11 +580,13 @@ if (!empty($connections)) {
 
         .mobile-whatapp {
             width: 100% !important;
-            height: 357px;
+            height: 451px;
+            
         }
 
         .preview-chat-section-chat {
             max-height: 155px;
+            min-height: 246px!important;
         }
     }
 </style>
@@ -790,7 +792,7 @@ if (!empty($connections)) {
                                 <div class="col-12 justify-content-center col-12 ms-0" style="width: 100%;">
                                     <div class="col-12 hello">
                                         <div
-                                            class="d-flex flex-wrap align-items-start  p-lg-3  justify-content-between">
+                                            class="d-flex flex-wrap align-items-start  p-lg-3  justify-content-center justify-content-xl-between">
                                             <div class="col-12 col-lg-6 col-xl-6 col-xxl-4 my-2 my-lg-0">
                                                 <form class="needs-validation membershipDiv"
                                                     name="master_membership_update_form" method="POST" novalidate>
@@ -1161,9 +1163,9 @@ if (!empty($connections)) {
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="col-12 col-lg-6 d-flex px-0 px-lg-4 my-2 my-lg-0">
+                                            <div class="col-12 col-xl-6 d-flex px-0 px-lg-4 my-2  my-2 my-xxl-0 justify-content-center">
                                                 <!-- whatsapp   .. -->
-                                                <div class="col-12 col-lg-7">
+                                                <div class="">
                                                     <div
                                                         class="wa-preview-main-div-cont d-flex justify-content-center ">
                                                         <div class="preview-chat-section mobile-whatapp" style="border:10px solid #9a9a9a;">
@@ -1222,7 +1224,7 @@ if (!empty($connections)) {
                                                                         class="whatsapp-footer d-flex flex-wrap align-items-center">
 
                                                                         <!-- <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i> -->
-                                                                        <i class="fa-regular fa-face-smile"></i>
+                                                                        <i class="fa-regular fa-face-smile d-none"></i>
                                                                         <input
                                                                             class="chat-btn-chat whatsapp-footer-1 col-7"
                                                                             placeholder="Type a message"
