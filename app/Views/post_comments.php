@@ -75,6 +75,14 @@
         animation: moving 1s ease-in-out infinite;
     }
 
+    .account-box{
+        background-color: white;
+    }
+    .active-account-box{
+        background-color: #eaeaea9c;
+        border-right: 1px solid #b55dcd;
+    }
+
     @keyframes moving {
         50% {
             width: 100%;
@@ -113,9 +121,9 @@
                             $img_decode = json_decode($pageprofile, true);
                         ?>
 
-                            <div class="col-12 d-flex flex-wrap align-items-start">
+                            <div class="col-12 d-flex flex-wrap  align-items-start">
                                 <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])) : ?>
-                                    <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
+                                    <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
                                         <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
                                         <div class="col">
                                             <?php echo $value->name ?>
@@ -125,7 +133,7 @@
                             </div>
                             <div class="col-12 d-flex flex-wrap align-items-start">
                                 <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)) :  ?>
-                                    <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post " data-pagee_id="<?php if (isset($value->instagram_business_account)) {
+                                    <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post" data-pagee_id="<?php if (isset($value->instagram_business_account)) {
                                                                                                                                                                 echo $value->id;
                                                                                                                                                             }  ?>" data-page_name="<?php echo $value->instagram_business_account->username; ?>" data-img="<?php echo $img_decode['page_img'];  ?>" data-acess_token="<?php echo $value->access_token;  ?>">
                                         <?php if (isset($value->instagram_business_account->username)) : ?>
@@ -329,7 +337,6 @@
                     </div>
                 </div>
                 <div class="col-9 p-3  mt-2">
-                    <div class="col-12"> <button class="btn btn-primary-rounded col-2 offset-10" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-plus"></i></button></div>
                     <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
 
                         <div class="demo_list_data  d-flex flex-wrap" id="demo_list_data"></div>
@@ -367,12 +374,7 @@
                 </div>
             </div>
         </div>
-        <div class="m-auto massage_list_loader text-center">
-            <span>Loading...</span>
-            <div class="mx-auto chat_loader"></div>
-        </div>
-
-        <div class="m-auto delete_loader text-center">
+        <div class="m-auto massage_list_loader text-center position-fixed top-50 start-50">
             <span>Loading...</span>
             <div class="mx-auto chat_loader"></div>
         </div>
@@ -478,6 +480,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
         <script>
+
+$('body').on('click', '.account-box', function() {
+
+$(this).addClass('active-account-box');
+$(this).parent().siblings().children('.app_card_post').removeClass('active-account-box');
+
+});
             $('#event_end').bootstrapMaterialDatePicker({
                 format: 'DD-MM-YYYY h:m A',
                 cancelText: 'cancel',
@@ -760,9 +769,9 @@
 
 
 
-             //---------------------------- modal input ----------------------------
+            //---------------------------- modal input ----------------------------
 
-           /*  $("#pills-master-diet").click(function() {
+            $("#pills-master-diet").click(function() {
                 $(".card-body").show();
                 $("#select-box").hide();
                 $("#event-input").hide();
@@ -789,19 +798,7 @@
             $("#pills-all-offer").click(function() {
                 $("#offer-input").show();
                 $("#select-box").hide();
-            }); */
-
-         $("#event-option").change(function(){
-        var selectedValue = $(this).val();
-        if(selectedValue === "event") {
-            $("#event-input").removeClass("d-none");
-        } else {
-            $("#event-input").addClass("d-none");
-        }
-        if(selectedValue === "offer") {
-            $("#event-input").removeClass("d-none");
-        } 
-    });
+            });
         </script>
 
         <?= $this->include('partials/footer') ?>
