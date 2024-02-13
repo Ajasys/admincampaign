@@ -81,9 +81,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                                     class="bi bi-arrow-down-up"></i></span></span></th>
                                     <th scope="col"><span class="text-muted phone-header">Name <span class="mx-2"><i
                                                     class="bi bi-arrow-down-up"></i></span></span></th>
-                                    <th scope="col"><span class="text-muted phone-header">Certificate</span></th>
                                     <th scope="col"><span class="text-muted phone-header">Delete</span></th>
-                                    <th scope="col"><span class="text-muted phone-header">Setting</span></th>
                                 </tr>
                             </thead>
                             <tbody class="SetHtmlListData">
@@ -216,6 +214,46 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     }
     ListData();
 
+    $('body').on('click', '.DelectConnection', function(){
+        var id = $(this).attr('id');
+        var table = $(this).attr('table');
+        var record_text = "Are you sure you want to Delete this?";
+
+        if (id != '' && table != '') {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: record_text,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'CONFIRM',
+                cancelButtonText: 'CANCEL',
+                cancelButtonColor: '#6e7881',
+                confirmButtonColor: '#dd3333',
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        method: "post",
+                        url: "<?= site_url('delete_data_secound_db'); ?>",
+                        data: {
+                            'action': 'delete',
+                            'id': id,
+                            "table" : table,
+                        },
+                        success: function(data) {
+                            iziToast.error({
+                                title: 'Deleted Successfully'
+                            });
+                            ListData();
+                            $(".btn-close").trigger("click");
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+
 
     $('body').on('click', '#SubmitWhatAppIntegrationData', function(){
         var PhoneNumberID = $('.PhoneNumberID').val();
@@ -254,4 +292,8 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             $('.ConnectionAddFormList').addClass('was-validated');
         }
     });
+
+
+
+   
 </script>

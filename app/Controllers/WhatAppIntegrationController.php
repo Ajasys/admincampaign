@@ -1391,9 +1391,9 @@ class WhatAppIntegrationController extends BaseController
                 $access_token = $value['access_token'];
                 $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
                 $DataArray = getSocialData($url);
-                pre($url);
-                pre($DataArray);
-                die();
+                // pre($url);
+                // pre($DataArray);
+                // die();
                 if (isset($DataArray['data'])) {
                     $display_phone_number = '';
                     $verified_name = '';
@@ -1434,21 +1434,13 @@ class WhatAppIntegrationController extends BaseController
                                 scope="col-2">10 k customers</td>
                             <td class="align-middle" scope="col-1">'.$countryName.'</td>
                             <td class="align-middle" scope="col-2">'.$verified_name.'</td>
-                            <td class="align-middle" scope="col-1 text-center">
-                                <button class="btn border rounded-3">
-                                    View
-                                </button>
-                            </td>
+                    
                             <td class="align-middle" scope="col-1">
-                                <button class="btn border rounded-3">
+                                <button class="btn border rounded-3 DelectConnection"  table="'.$table_name.'" id="'.$value['id'].'">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </td>
-                            <td class="align-middle" scope="col-1">
-                                <button class="btn border rounded-3">
-                                    <i class="fa-solid fa-gear"></i>
-                                </button>
-                            </td>
+       
                         </tr>
                     ';
                 }
