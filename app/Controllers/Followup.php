@@ -840,7 +840,7 @@ class Followup extends BaseController
 					$all_data = $find_audience->getResultArray();
 
 					// Check if there are rows returned and if is_status_active is 1
-					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['inquiry_data']) && $all_data[0]['inquiry_data'] == 2) {
 						if ($result['response'] == 1) {
 							$inquiry_dataa['inquiry_id'] = $inquiry_id;
 							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
@@ -850,10 +850,28 @@ class Followup extends BaseController
 							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
 							$inquiry_dataa['name'] = $all_data[0]['name'];
 							$inquiry_dataa['source'] = $all_data[0]['source'];
-							$inquiry_dataa['is_status_active'] = 1;
+							$inquiry_dataa['inquiry_data'] = 2;
 							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
 						}
 					}
+                    $inquiry_data_live = array();
+                    $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 8 AND intrested_product = $intrested_product";
+                    $find_audience_live = $db_connection->query($find_audience_live);
+                    $all_data_live = $find_audience_live->getResultArray();
+            
+            
+                if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
+                    if ($result['response'] == 1) {
+                    // Prepare data for update
+                    $inquiry_data_live['inquiry_status'] = 8;
+                    $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                    $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                    $inquiry_data_live['inquiry_data'] = 3;
+                    // Update the existing data in the audience table
+                    $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                    // pre($response_alert1);
+                }
+            } 
                 }else{
                     $result['result'] = 0;
                     $result['msg'] = 'Inquiry Dismissed Status Not Updated';
@@ -889,30 +907,52 @@ class Followup extends BaseController
                     $response_status_log = $this->MasterInformationModel->insert_entry2($inquiry_log,$this->username.'_inquiry_log');
                     $result['result'] = 1;
                     $result['msg'] = 'Inquiry Status Dismissed Successfully';
-                    $inquiry_dataa = array();
+                    $inquiry_data = array();
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
-                    // pre($inquiry_data);
                     $intrested_product = $inquiry_data['intrested_product'];
-					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 7 AND intrested_product = $intrested_product";
-					$db_connection = \Config\Database::connect('second');
-					$find_audience = $db_connection->query($find_audience);
-					$all_data = $find_audience->getResultArray();
-
-					// Check if there are rows returned and if is_status_active is 1
-					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
-						if ($result['result'] == 1) {
-							$inquiry_dataa['inquiry_id'] = $inquiry_id;
-							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
-							$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
-							$inquiry_dataa['email'] = $inquiry_data['email'];
-							$inquiry_dataa['inquiry_status'] = 7;
-							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
-							$inquiry_dataa['name'] = $all_data[0]['name'];
-							$inquiry_dataa['source'] = $all_data[0]['source'];
-							$inquiry_dataa['is_status_active'] = 1;
-							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
-						}
-					}
+                    
+                    // Find audience data where inquiry_status is 7 and intrested_product matches
+                    $find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 7 AND intrested_product = $intrested_product";
+                    $db_connection = \Config\Database::connect('second');
+                    $find_audience = $db_connection->query($find_audience);
+                    $all_data = $find_audience->getResultArray();
+                    
+                    // Check if there are rows returned and if inquiry_data is 2
+                    if (!empty($all_data) && isset($all_data[0]['inquiry_data']) && $all_data[0]['inquiry_data'] == 2) {
+                        if ($result['result'] == 1) {
+                            // If result is 1, prepare data for insertion
+                            $inquiry_data['inquiry_id'] = $inquiry_id;
+                            $inquiry_data['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_data['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data['email'] = $inquiry_data['email'];
+                            $inquiry_data['inquiry_status'] = 7;
+                            $inquiry_data['intrested_product'] = $intrested_product;
+                            $inquiry_data['name'] = $all_data[0]['name'];
+                            $inquiry_data['source'] = $all_data[0]['source'];
+                            $inquiry_data['inquiry_data'] = 2;
+                            
+                            // Insert the prepared data into the audience table
+                            $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_data, $this->username . "_audience");
+                        }
+                    }
+                    $inquiry_data_live = array();
+                    $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 7 AND intrested_product = $intrested_product";
+                    $find_audience_live = $db_connection->query($find_audience_live);
+                    $all_data_live = $find_audience_live->getResultArray();
+            
+            
+                if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
+                    if ($result['response'] == 1) {
+                    // Prepare data for update
+                    $inquiry_data_live['inquiry_status'] = 7;
+                    $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                    $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                    $inquiry_data_live['inquiry_data'] = 3;
+                    // Update the existing data in the audience table
+                    $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                    // pre($response_alert1);
+                }
+            } 
                 }else{
                     $result['result'] = 0;
                     $result['msg'] = 'Inquiry Status Not Dismissed';
@@ -993,7 +1033,7 @@ class Followup extends BaseController
 					$all_data = $find_audience->getResultArray();
 
 					// Check if there are rows returned and if is_status_active is 1
-					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['inquiry_data']) && $all_data[0]['inquiry_data'] == 2) {
 						if ($result['response'] == 1) {
 							$inquiry_dataa['inquiry_id'] = $inquiry_id;
 							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
@@ -1003,10 +1043,28 @@ class Followup extends BaseController
 							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
 							$inquiry_dataa['name'] = $all_data[0]['name'];
 							$inquiry_dataa['source'] = $all_data[0]['source'];
-							$inquiry_dataa['is_status_active'] = 1;
+							$inquiry_dataa['inquiry_data'] = 2;
 							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
 						}
 					}
+                    $inquiry_data_live = array();
+                    $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 6 AND intrested_product = $intrested_product";
+                    $find_audience_live = $db_connection->query($find_audience_live);
+                    $all_data_live = $find_audience_live->getResultArray();
+            
+            
+                if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
+                    if ($result['response'] == 1) {
+                    // Prepare data for update
+                    $inquiry_data_live['inquiry_status'] = 6;
+                    $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                    $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                    $inquiry_data_live['inquiry_data'] = 3;
+                    // Update the existing data in the audience table
+                    $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                    // pre($response_alert1);
+                }
+            } 
                 }else{
                     $result['result'] = 0;
                     $result['msg'] = 'Inquiry Negotiation Status not changed';
@@ -1088,7 +1146,7 @@ class Followup extends BaseController
 					$all_data = $find_audience->getResultArray();
 
 					// Check if there are rows returned and if is_status_active is 1
-					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['inquiry_data']) && $all_data[0]['inquiry_data'] == 2) {
 						if ($result['response'] == 1) {
 							$inquiry_dataa['inquiry_id'] = $inquiry_id;
 							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
@@ -1098,10 +1156,28 @@ class Followup extends BaseController
 							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
 							$inquiry_dataa['name'] = $all_data[0]['name'];
 							$inquiry_dataa['source'] = $all_data[0]['source'];
-							$inquiry_dataa['is_status_active'] = 1;
+							$inquiry_dataa['inquiry_data'] = 2;
 							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
 						}
 					}
+                    $inquiry_data_live = array();
+                    $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 9 AND intrested_product = $intrested_product";
+                    $find_audience_live = $db_connection->query($find_audience_live);
+                    $all_data_live = $find_audience_live->getResultArray();
+            
+            
+                if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
+                    if ($result['response'] == 1) {
+                    // Prepare data for update
+                    $inquiry_data_live['inquiry_status'] = 9;
+                    $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                    $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                    $inquiry_data_live['inquiry_data'] = 3;
+                    // Update the existing data in the audience table
+                    $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                    // pre($response_alert1);
+                }
+            } 
                 }else{
                     $result['result'] = 0;
                     $result['msg'] = 'Inquiry Feedback Status not changed';
@@ -1249,7 +1325,7 @@ class Followup extends BaseController
                     $find_audiences = $db_connection->query($find_audiences);
                     $all_dataas = $find_audiences->getResultArray();
                     if ($result['result'] == 1 && $inquiry_data['inquiry_status']==3 ) {
-                        if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['is_status_active']) && $all_data_audience[0]['is_status_active'] == 1) {
+                        if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['inquiry_data']) && $all_data_audience[0]['inquiry_data'] == 2) {
                             $inquiry_dataa['inquiry_id'] = $inquiry_id;
                             $inquiry_dataa['full_name'] = $inquiry_data['full_name'];
                             $inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
@@ -1258,11 +1334,11 @@ class Followup extends BaseController
                             $inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
                             $inquiry_dataa['name'] = $all_data_audience[0]['name'];
                             $inquiry_dataa['source'] = $all_data_audience[0]['source'];
-                            $inquiry_dataa['is_status_active'] = 1;
+                            $inquiry_dataa['inquiry_data'] = 2;
                             $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
                         }
                     } elseif ($result['result'] == 1) {
-                        if (!empty($all_dataas)&& isset($all_dataas[0]['intrested_product']) && $all_dataas[0]['intrested_product'] == $intrested_product && isset($all_dataas[0]['is_status_active']) && $all_dataas[0]['is_status_active'] == 1) {
+                        if (!empty($all_dataas)&& isset($all_dataas[0]['intrested_product']) && $all_dataas[0]['intrested_product'] == $intrested_product && isset($all_dataas[0]['inquiry_data']) && $all_dataas[0]['inquiry_data'] == 2) {
                             $inquiry_dataas['inquiry_id'] = $inquiry_id;
                             $inquiry_dataas['full_name'] = $inquiry_data['full_name'];
                             $inquiry_dataas['mobileno'] = $inquiry_data['mobileno'];
@@ -1271,8 +1347,42 @@ class Followup extends BaseController
                             $inquiry_dataas['intrested_product'] = $inquiry_data['intrested_product'];
                             $inquiry_dataas['name'] = $all_dataas[0]['name'];
                             $inquiry_dataas['source'] = $all_dataas[0]['source'];
-                            $inquiry_dataas['is_status_active'] = 1;
+                            $inquiry_dataas['inquiry_data'] = 2;
                             $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataas, $this->username . "_audience");
+                        }
+                    }
+
+                    $inquiry_data_live = array();
+                    $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 3 AND intrested_product = $intrested_product";
+                    $find_audience_live = $db_connection->query($find_audience_live);
+                    $all_data_live = $find_audience_live->getResultArray();
+                    
+                    $inquiry_dataas_live = array();
+                    $find_audiences_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 10 AND intrested_product = $intrested_product";
+                    $find_audiences_live = $db_connection->query($find_audiences_live);
+                    $all_dataas_live = $find_audiences_live->getResultArray();
+                    
+                    if ($result['result'] == 1 && $inquiry_data['inquiry_status']==3) {
+                        if (!empty($all_data_live) && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
+                            // Prepare data for update
+                            $inquiry_data_live['inquiry_status'] = 3;
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            // Update the existing data in the audience table
+                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                            // pre($response_alert1);
+                        }
+                    } elseif ($result['result'] == 1) {
+                        // If inquiry_status is not 3, update it to 10
+                        if (!empty($all_dataas_live) && isset($all_dataas_live[0]['inquiry_data']) && $all_dataas_live[0]['inquiry_data'] == 3) {
+                            // Prepare data for update
+                            $inquiry_dataas_live['inquiry_status'] = 10;
+                            $inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
+                            $inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
+                            $inquiry_dataas_live['inquiry_data'] = 3;
+                            // Update the existing data in the audience table
+                            $response_alert2 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");
                         }
                     }
 
@@ -1415,7 +1525,7 @@ class Followup extends BaseController
 					$all_data = $find_audience->getResultArray();
 
 					// Check if there are rows returned and if is_status_active is 1
-					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['is_status_active']) && $all_data[0]['is_status_active'] == 1) {
+					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['inquiry_data']) && $all_data[0]['inquiry_data'] == 2) {
 						if ($result['response'] == 1) {
 							$inquiry_dataa['inquiry_id'] = $inquiry_id;
 							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
@@ -1425,10 +1535,28 @@ class Followup extends BaseController
 							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
 							$inquiry_dataa['name'] = $all_data[0]['name'];
 							$inquiry_dataa['source'] = $all_data[0]['source'];
-							$inquiry_dataa['is_status_active'] = 1;
+							$inquiry_dataa['inquiry_data'] = 2;
 							$response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
 						}
 					}
+                            $inquiry_data_live = array();
+                            $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 17 AND intrested_product = $intrested_product";
+                            $find_audience_live = $db_connection->query($find_audience_live);
+                            $all_data_live = $find_audience_live->getResultArray();
+                    
+                    
+                        if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
+                            if ($result['response'] == 1) {
+                            // Prepare data for update
+                            $inquiry_data_live['inquiry_status'] = 17;
+                            $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                            $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                            $inquiry_data_live['inquiry_data'] = 3;
+                            // Update the existing data in the audience table
+                            $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                            // pre($response_alert1);
+                        }
+                    } 
                 }
                 else{
                     $result['result'] = 0;
@@ -1521,7 +1649,7 @@ class Followup extends BaseController
                 $find_audiences = $db_connection->query($find_audiences);
                 $all_dataas = $find_audiences->getResultArray();
                 if ($result['result'] == 1 && $inquiry_data['inquiry_status'] == 2) {
-                    if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['is_status_active']) && $all_data_audience[0]['is_status_active'] == 1) {
+                    if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['inquiry_data']) && $all_data_audience[0]['inquiry_data'] == 2) {
                         $inquiry_dataa['inquiry_id'] = $inquiry_id;
                         $inquiry_dataa['full_name'] = $inquiry_data['full_name'];
                         $inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
@@ -1534,7 +1662,7 @@ class Followup extends BaseController
                         $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataa, $this->username . "_audience");
                     }
                 } elseif ($result['result'] == 1) {
-                    if (!empty($all_dataas)&& isset($all_dataas[0]['intrested_product']) && $all_dataas[0]['intrested_product'] == $intrested_product && isset($all_dataas[0]['is_status_active']) && $all_dataas[0]['is_status_active'] == 1) {
+                    if (!empty($all_dataas)&& isset($all_dataas[0]['intrested_product']) && $all_dataas[0]['intrested_product'] == $intrested_product && isset($all_dataas[0]['inquiry_data']) && $all_dataas[0]['inquiry_data'] == 2) {
                         $inquiry_dataas['inquiry_id'] = $inquiry_id;
                         $inquiry_dataas['full_name'] = $inquiry_data['full_name'];
                         $inquiry_dataas['mobileno'] = $inquiry_data['mobileno'];
@@ -1545,6 +1673,40 @@ class Followup extends BaseController
                         $inquiry_dataas['source'] = $all_dataas[0]['source'];
                         $inquiry_dataas['is_status_active'] = 1;
                         $response_alert = $this->MasterInformationModel->insert_entry2($inquiry_dataas, $this->username . "_audience");
+                    }
+                }
+
+                $inquiry_data_live = array();
+                $find_audience_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 2 AND intrested_product = $intrested_product";
+                $find_audience_live = $db_connection->query($find_audience_live);
+                $all_data_live = $find_audience_live->getResultArray();
+                
+                $inquiry_dataas_live = array();
+                $find_audiences_live = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 13 AND intrested_product = $intrested_product";
+                $find_audiences_live = $db_connection->query($find_audiences_live);
+                $all_dataas_live = $find_audiences_live->getResultArray();
+                
+                if ($result['result'] == 1 && $inquiry_data['inquiry_status'] == 2) {
+                    if (!empty($all_data_live) && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
+                        // Prepare data for update
+                        $inquiry_data_live['inquiry_status'] = 2;
+                        $inquiry_data_live['name'] = $all_data_live[0]['name'];
+                        $inquiry_data_live['source'] = $all_data_live[0]['source'];
+                        $inquiry_data_live['inquiry_data'] = 3;
+                        // Update the existing data in the audience table
+                        $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
+                        // pre($response_alert1);
+                    }
+                } elseif ($result['result'] == 1) {
+                    // If inquiry_status is not 3, update it to 10
+                    if (!empty($all_dataas_live) && isset($all_dataas_live[0]['inquiry_data']) && $all_dataas_live[0]['inquiry_data'] == 3) {
+                        // Prepare data for update
+                        $inquiry_dataas_live['inquiry_status'] = 13;
+                        $inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
+                        $inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
+                        $inquiry_dataas_live['inquiry_data'] = 3;
+                        // Update the existing data in the audience table
+                        $response_alert2 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");
                     }
                 }
             }else{

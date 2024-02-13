@@ -68,15 +68,16 @@ class AudianceController extends BaseController
         $username = session_username($_SESSION["username"]);
         $action_name = $this->request->getPost("action");
         $new_name = $_POST["name"];
-        $is_status_active = $_POST["is_status_active"];
-
+        $inquiry_data = $_POST["inquiry_data"];
+    
         $response = 0;
         if ($action_name == "update") {
             if (!empty($post_data)) {
-                // pre($post_data);
-                // Update all rows with the same name
-                $update_data = ["name" => $new_name];
-                $update_data = ["is_status_active" => $is_status_active];
+                $update_data = [
+                    "name" => $new_name,
+                    "inquiry_data" => $inquiry_data
+                ];
+    
                 $result = $this->MasterInformationModel->update_entry_by_name(
                     $edit_id,
                     $update_data,
