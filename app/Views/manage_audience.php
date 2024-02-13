@@ -368,7 +368,7 @@
                </div>
                <div class="col-12 mt-3">
                   <div class="main-selectpicker">
-                     <label for="#">Select any one<sup class="validationn">*</sup></label>
+                     <label for="#">Select inquiry audience<sup class="validationn">*</sup></label>
                      <div class="col-12 d-flex align-items-center mt-1">
                         <div class="col-4">
                            <input type="radio" id="static_data" name="option" value="1" checked>
@@ -553,7 +553,7 @@
                </div>
                <div class="col-12 mt-3">
                   <div class="main-selectpicker">
-                     <label for="#">Edit Data <sup class="validationn">*</sup></label>
+                  <div class="fw-bold mt-4">Edit inquiry audience<sup class="validationn">*</sup></div>
                      <div class="col-12 d-flex align-items-center">
                         <div class="col-4">
                            <input type="radio" id="static_data" name="option1" value="1" checked>
@@ -832,8 +832,8 @@
                    iziToast.success({
                        title: 'Update Successfully'
                    });
-                   list_data();
                    location.reload(true);
+                   list_data();
                } else {
                    $('.loader').hide();
                    iziToast.error({
