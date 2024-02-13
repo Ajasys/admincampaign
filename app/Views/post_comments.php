@@ -101,6 +101,7 @@
                             <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <span class="input-group-text" id="basic-addon2"><i class="bi bi-search"></i></span>
                         </div>
+                        
                         <!--  facebook page get start -->
                         <?php
                         $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
@@ -111,31 +112,30 @@
                             $pageprofile = fb_page_img($value->id, $value->access_token);
                             $img_decode = json_decode($pageprofile, true);
                         ?>
-                        
-                        <div class="col-12 d-flex flex-wrap align-items-start">
-    <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])): ?>
-        <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
-            <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
-            <div class="col">
-                <?php echo $value->name ?>
-            </div>
-        </div>
-    <?php endif; ?>
-</div>
-<div class="col-12 d-flex flex-wrap align-items-start">
-    <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)): pre($value); ?>
-        <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post " data-pagee_id="<?php if(isset($value->instagram_business_account))
-        {
-            echo $value->id;
-        }  ?>" data-page_name="<?php echo $value->instagram_business_account->username;?>" data-img="<?php echo $img_decode['page_img'];  ?>" data-acess_token="<?php echo $value->access_token;  ?>">
-            <?php if (isset($value->instagram_business_account->username)): ?>
-                <?php echo $value->instagram_business_account->username; ?>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
-</div>
 
-                        
+                            <div class="col-12 d-flex flex-wrap align-items-start">
+                                <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])) : ?>
+                                    <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token;  ?>" data-pagee_id="<?php echo $value->id;  ?>" data-page_name="<?php echo $value->name;  ?>" data-img="<?php echo $img_decode['page_img'];  ?>">
+                                        <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
+                                        <div class="col">
+                                            <?php echo $value->name ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="col-12 d-flex flex-wrap align-items-start">
+                                <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)) :  ?>
+                                    <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post " data-pagee_id="<?php if (isset($value->instagram_business_account)) {
+                                                                                                                                                                echo $value->id;
+                                                                                                                                                            }  ?>" data-page_name="<?php echo $value->instagram_business_account->username; ?>" data-img="<?php echo $img_decode['page_img'];  ?>" data-acess_token="<?php echo $value->access_token;  ?>">
+                                        <?php if (isset($value->instagram_business_account->username)) : ?>
+                                            <?php echo $value->instagram_business_account->username; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+
+
                         <?php $i++;
                         } ?>
                         <!-- facebook page get end  -->
@@ -374,6 +374,78 @@
         <div class="m-auto delete_loader text-center">
             <span>Loading...</span>
             <div class="mx-auto chat_loader"></div>
+        </div>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12">
+                            <div class="tab-content active show" id="pills-tabContent">
+                                <div class="tab-pane fade active show" id="pills-master-diet-tab" role="tabpanel" aria-labelledby="update-all-tab-modal" tabindex="0">
+                                    <div class="col-12  tab-compo">
+                                        <div class="card-body p-2">
+                                            <div id="event-input" class="d-none">
+                                                <div class="col-12 my-1 p-1">
+                                                    <div class="col-12">
+                                                        <input type="text" class="form-control p-2" id="event_title" placeholder="Title">
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <div class="col-6 my-1 p-1">
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control p-2 offer_start_date" id="event_start_date" placeholder="Start Date">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 my-1 p-1">
+                                                        <div class="col-12">
+                                                            <input type="text" class="form-control p-2 event_end_date" id="event_end" placeholder="End Date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 border rounded  p-3">
+                                                <textarea cols="30" rows="5" class="col-12 border-0 event_address" placeholder="Write something or use shortcodes, spintax..... " id="event_address"></textarea>
+
+                                                <span class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 " data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#bdbaba;;">Click or Drag &
+                                                    Drop Media</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer border-top p-2 px-4 d-flex  align-content-center flex-wrap">
+                                    <div class="col-12 mb-3">
+                                        <select class="selectpicker form-control form-main" data-live-search="true" id="event-option" required>
+                                            <option value="" selected disabled>Select an option</option>
+                                            <option value="event">Event</option>
+                                            <option value="offer">Offer</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <div class="col-8 d-flex">
+                                            <button class="btn btn-outline-secondary mx-1 draft_create" id="draft_create">Draft</button>
+                                            <button class="btn btn-primary mx-1 create_comment">Publish</button>
+                                            <button class="btn btn-secondery mx-1 Scedual_start_date btn-outline-dark">Scedual</button>
+                                            <div class="btn-group dropup btn-outline-dark mx-1">
+                                                <button type="button" class="btn btn-outline-dark rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa-solid fa-angle-up"></i></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                                    <li><a class="dropdown-item" href="#">Action two</a></li>
+                                                    <li><a class="dropdown-item" href="#">Action three</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
