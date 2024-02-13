@@ -555,8 +555,8 @@ if (!empty($connections)) {
     .preview-chat-section {
         border-radius: 40px;
         background: #e0e0e0;
-        box-shadow: 20px 20px 60px #e1daf882, -20px -20px 60px #e7e7e7;
-        border: 10px solid #CED5DD;
+        /* box-shadow: 20px 20px 60px #e1daf882, -20px -20px 60px #e7e7e7; */
+        
     }
 
     .rotate-arrow {
@@ -1166,7 +1166,7 @@ if (!empty($connections)) {
                                                 <div class="col-12 col-lg-7">
                                                     <div
                                                         class="wa-preview-main-div-cont d-flex justify-content-center ">
-                                                        <div class="preview-chat-section mobile-whatapp">
+                                                        <div class="preview-chat-section mobile-whatapp" style="border:10px solid #9a9a9a;">
                                                             <div class="preview-header-main-cont">
                                                                 <div class="header-image">
                                                                     <img class="profile-img ng-scope"
