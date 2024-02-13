@@ -101,7 +101,7 @@ if (!empty($connections)) {
         padding: 10px;
         /* height: calc(45vh - 10px); */
         background-color: #F1EDE5;
-        min-height: 370px !important;
+        height: 370px !important;
         /* max-height: 30px !important; */
     }
 
@@ -566,6 +566,22 @@ if (!empty($connections)) {
         transition: all 0.5s;
         transform: rotate(360deg);
     }
+    @media (max-width:575px) {
+        .mobile-whatapp-body{
+        padding: 10px;
+        /* height: calc(45vh - 10px); */
+        background-color: #F1EDE5;
+        height: 100px !important;
+        /* max-height: 30px !important; */
+        }
+        .mobile-whatapp {
+            width: 100%!important;
+            height: 357px;
+        }
+        .preview-chat-section-chat{
+            max-height: 155px;
+        }
+    }
 </style>
 
 <div class="main-dashbord p-2 ">
@@ -591,7 +607,7 @@ if (!empty($connections)) {
         <div class="col-12 p-2 d-flex flex-wrap">
             <div class="p-1 first-container slide-toggle">
                 <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap">
-                    <div class="col-12 d-flex flex-wrap w-100 mt-5">
+                    <div class="col-12 d-flex flex-wrap w-100 ">
                         <ul class=" d-flex  flex-wrap nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
                             <!-- <li class="btn-group dropend col-12 d-flex my-2 flex-wrap  p-2 rounded-3 border border-light-subtle menu-toggle  nav-item Tab1Class" role="presentation" style="cursor: pointer;">
                                     <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="dropdown" aria-expanded="false">
@@ -665,7 +681,7 @@ if (!empty($connections)) {
                     </div>
                 </div>
             </div>
-            <div class="col p-1">
+            <div class="col-12 col-lg p-1">
 
                 <!-- <div class="Activeclass p-2  d-none">
                     <div class="container p-0 ms-0">
@@ -882,7 +898,7 @@ if (!empty($connections)) {
                                                                     <div class="modal-footer justify-content-center mt-2 col-12 text-center">
                                                                         <!-- <span class="btn-primary Template_send" data-edit_id="">Send</span>     -->
                                                                     </div>
-                                                                    <div class="col-12 pt-3 border-top mb-2">
+                                                                    <div class="col-12 pt-3 border-top mb-2 text-end">
                                                                         <span class="btn-primary Template_send" id="memberships_add_btn" data-edit_id="" name="memberships_update1" value="memberships_update1">Send</sp>
                                                                     </div>
                                                                 </div>
@@ -893,7 +909,7 @@ if (!empty($connections)) {
                                             </div>
                                             <div class="col-12 col-lg-6 d-flex px-0 px-lg-4">
                                                 <!-- whatsapp   .. -->
-                                                <div class="col-7">
+                                                <div class="col-12 col-lg-7">
                                                     <div class="wa-preview-main-div-cont">
                                                         <div class="preview-chat-section mobile-whatapp">
                                                             <div class="preview-header-main-cont">
@@ -1324,24 +1340,24 @@ if (!empty($connections)) {
                 <div class="tab-content">
                     <div class="tab-pane fade " id="pills-ex-schedule-tab3" role="tabpanel" aria-labelledby="pills-ex-schedule" tabindex="0">
                         <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap ">
-                            <div class="col-12 d-flex flex-wrap my-2">
+                            <div class="col-12 d-flex flex-wrap my-2 justify-content-between">
 
-                                <div class="col-4 d-flex align-items-center">
+                                <div class="d-flex align-items-center">
                                     <h6>WhatsApp Template Details</h6>
                                 </div>
-                                <div class="col-3 d-flex align-items-center">
+                                <div class=" d-flex align-items-center">
                                     <div class="input-group">
                                         <input type="text" class="form-control MasterListDataSearchBar" placeholder="Search Name" aria-label="Recipient's username" aria-describedby="button-addon2">
                                         <button class="btn btn-outline-secondary border MasterListDataSearchBarButton" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
                                     </div>
                                 </div>
-                                <div class="col-5 d-flex flex-wrap align-items-center justify-content-end float-end ">
+                                <div class=" d-flex flex-wrap align-items-center justify-content-end col-2 ">
                                     <div class="col-5 px-2">
                                         <button type="button" class="btn-primary CancleBtn me-2  w-100 d-none" data-bs-dismiss="modal" data-bs-toggle="modal" id="cancel" data-delete_id=""><i class="bi bi-arrow-repeat"></i> Sync with
                                             Facebook</button>
                                     </div>
 
-                                    <div class="col-1 px-2">
+                                    <div class="col-3 px-2">
                                         <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
                                             <i class="bi bi-plus PlusButtonDiv "></i>
                                         </button>
@@ -1378,50 +1394,52 @@ if (!empty($connections)) {
 
                 <div class="tab-content">
                     <div class="tab-pane fade " id="pills-ex-view-tab" role="tabpanel" aria-labelledby="pills-ex-view" tabindex="0">
-                        <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex justify-content-between align-items-center mt-3">
-                            <div class="input-group me-5">
-                                <input type="text" name="phone" class="form-control FilterPhoneNumber" placeholder="Phone....">
-                                <!-- <button class="btn btn-light"><i class="fa-solid fa-magnifying-glass"></i></button> -->
+                        <div class="col-12 bg-white border rounded-3 px-4 py-2">
+                            <div class="col-12 bg-white  rounded-3  py-2 d-flex justify-content-between align-items-center ">
+                                <div class="input-group me-5">
+                                    <input type="text" name="phone" class="form-control FilterPhoneNumber" placeholder="Phone....">
+                                    <!-- <button class="btn btn-light"><i class="fa-solid fa-magnifying-glass"></i></button> -->
+                                </div>
+                                <div class="input-group me-5">
+                                    <input type="text" name="select-date" class="FilterDatePicker form-control FilterDate" placeholder="Select Date">
+                                    <button class="btn btn-light FilterDatePicker border"><i class="fa-regular fa-calendar-days"></i></button>
+                                </div>
+                                <select name="Templates" class="form-select me-5 templatesnamelistddclass FilterTemplateName">
+                                    <option value="">Templates</option>
+                                </select>
+                                <select name="Status" class="form-select me-5 FilterTemplateStatus">
+                                    <option value="">Select Status</option>
+                                    <option value="0">Sent</option>
+                                    <option value="1">Delivered</option>
+                                    <option value="2">Read</option>
+                                    <option value="3">Failed</option>
+    
+                                </select>
+                                <div>
+                                    <button class="btn-primary-rounded refresh-btn mx-2 FilterClearAll"><i class="bi bi-x-lg fs-14"></i></button>
+                                </div>
+                                <div>
+                                    <button class="btn-primary-rounded refresh-btn"><i class="fa-solid fa-rotate-right RefreshBtnConversation fs-14 "></i></button>
+                                    <!-- <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
+                                                    <i class="bi bi-plus PlusButtonDiv" id="plus_btn"></i>
+                                                </button> -->
+                                    <!-- <button class="btn-primary refresh-btn fs-12">Clear All</button> -->
+                                </div>
                             </div>
-                            <div class="input-group me-5">
-                                <input type="text" name="select-date" class="FilterDatePicker form-control FilterDate" placeholder="Select Date">
-                                <button class="btn btn-light FilterDatePicker"><i class="fa-regular fa-calendar-days"></i></button>
-                            </div>
-                            <select name="Templates" class="form-select me-5 templatesnamelistddclass FilterTemplateName">
-                                <option value="">Templates</option>
-                            </select>
-                            <select name="Status" class="form-select me-5 FilterTemplateStatus">
-                                <option value="">Select Status</option>
-                                <option value="0">Sent</option>
-                                <option value="1">Delivered</option>
-                                <option value="2">Read</option>
-                                <option value="3">Failed</option>
-
-                            </select>
-                            <div>
-                                <button class="btn-primary-rounded refresh-btn mx-2 FilterClearAll"><i class="bi bi-x-lg fs-14"></i></button>
-                            </div>
-                            <div>
-                                <button class="btn-primary-rounded refresh-btn"><i class="fa-solid fa-rotate-right RefreshBtnConversation fs-14 "></i></button>
-                                <!-- <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
-                                                <i class="bi bi-plus PlusButtonDiv" id="plus_btn"></i>
-                                            </button> -->
-                                <!-- <button class="btn-primary refresh-btn fs-12">Clear All</button> -->
-                            </div>
+                            <table class="table whatsapp-table  my-2 w-100  table table-striped dt-responsive nowrap main-table">
+    
+                                <thead>
+                                    <th>Receiver Number</th>
+                                    <th>Template Name</th>
+                                    <th class="d-none">Whatsapp Message id</th>
+                                    <th>Status</th>
+                                    <th class="d-none">WhatsApp Response</th>
+                                    <th>Date and Time</th>
+                                </thead>
+                                <tbody id="sentmsg_list">
+                                </tbody>
+                            </table>
                         </div>
-                        <table class="table whatsapp-table  my-2 w-100  table table-striped dt-responsive nowrap main-table">
-
-                            <thead>
-                                <th>Receiver Number</th>
-                                <th>Template Name</th>
-                                <th class="d-none">Whatsapp Message id</th>
-                                <th>Status</th>
-                                <th class="d-none">WhatsApp Response</th>
-                                <th>Date and Time</th>
-                            </thead>
-                            <tbody id="sentmsg_list">
-                            </tbody>
-                        </table>
 
 
                     </div>
@@ -2171,7 +2189,8 @@ if (!empty($connections)) {
                             var footer = footervalue[selectDropdown];
                             var button = buttonvalue[selectDropdown];
 
-
+                            $('.preview-chat-section-chat').slideUp(100);
+                            $('.preview-chat-section-chat').slideDown(1000);
 
                             $('.BodyValue').text(body);
                             $('.footervalue').text(footer);

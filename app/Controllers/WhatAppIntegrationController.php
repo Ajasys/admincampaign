@@ -1433,13 +1433,13 @@ class WhatAppIntegrationController extends BaseController
                                     style="width:11px;height:11px"></span>
                                 <span Class="mx-2">'.$qualityReating.'</span>
                             </td>
-                            <td class="align-middle text-truncate messeging-content" style="max-width: 150px;"
+                            <td class="align-middle text-truncate messeging-content d-none" style="max-width: 150px;"
                                 scope="col-2">10 k customers</td>
                             <td class="align-middle" scope="col-1">'.$countryName.'</td>
                             <td class="align-middle" scope="col-2">'.$verified_name.'</td>
                     
                             <td class="align-middle" scope="col-1">
-                                <button class="btn border rounded-3 DelectConnection"  table="'.$table_name.'" id="'.$value['id'].'">
+                                <button class="btn p-0 DelectConnection"  table="'.$table_name.'" id="'.$value['id'].'">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </td>

@@ -16,7 +16,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     <i class="fa-solid fa-phone"></i>
                     <h2>Phone Number</h2>
                 </div>
-                <div class="d-flex align-items-center col-1    ">
+                <div class="col-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control MasterListDataSearchBar" placeholder="Search Name" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary border MasterListDataSearchBarButton" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center col-2">
                     <div class="main-selectpicker col">
                         <select id="product_type" name="product_type"
                             class="selectpicker form-control form-main main-control d-none product_type"
@@ -32,10 +38,10 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             </div>
         </div>
     </div>
-    <div class="container-fluid p-0 mt-4 bg-white border rounded-3">
+    <div class="container-fluid p-0  bg-white border rounded-3">
         <div class="row">
             <div class="p-2">
-                <div class="col-xl-12 d-flex p-2 px-4 d-flex flex-wrap">
+                <div class="col-xl-12 d-flex  px-3 d-flex flex-wrap">
                     <div class="col-3">
                         <div class="d-flex input-group d-none">
                             <span class="input-group-text" id="basic-addon2"><i
@@ -64,23 +70,19 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     <div class="d-flex align-items-center col-1 mx-2">
 
                     </div>
-                    <div class="col-12 w-100  my-3">
-                        <table class="table table-borderless">
+                    <div class="col-12 w-100 ">
+                        <table class="table table-borderless mb-0">
                             <thead>
                                 <tr class="border-bottom">
                                     <th scope="col"><span class="text-muted phone-header">Phone Number <span
-                                                class="mx-2"><i class="bi bi-arrow-up"></i></span></span></th>
-                                    <th scope="col"><span class="text-muted phone-header">Status <span class="mx-2"><i
-                                                    class="bi bi-arrow-down-up"></i></span></span></th>
+                                                class="mx-2"></span></span></th>
+                                    <th scope="col"><span class="text-muted phone-header">Status <span class="mx-2"></span></span></th>
                                     <th scope="col"><span class="text-muted phone-header">Quality rating <span
-                                                class="mx-2"><i class="bi bi-arrow-down-up"></i></span></span></th>
-                                    <th scope="col" style="max-width: 150px;"><span
-                                            class="text-muted phone-header">Messaging Limit <span class="mx-2"><i
-                                                    class="bi bi-arrow-down-up"></i></span></span></th>
-                                    <th scope="col"><span class="text-muted phone-header">Country <span class="mx-2"><i
-                                                    class="bi bi-arrow-down-up"></i></span></span></th>
-                                    <th scope="col"><span class="text-muted phone-header">Name <span class="mx-2"><i
-                                                    class="bi bi-arrow-down-up"></i></span></span></th>
+                                                class="mx-2"></span></span></th>
+                                    <!-- <th scope="col" style="max-width: 150px;"><span
+                                            class="text-muted phone-header">Messaging Limit <span class="mx-2"></span></span></th> -->
+                                    <th scope="col"><span class="text-muted phone-header">Country <span class="mx-2"></span></span></th>
+                                    <th scope="col"><span class="text-muted phone-header">Name <span class="mx-2"></span></span></th>
                                     <th scope="col"><span class="text-muted phone-header">Delete</span></th>
                                 </tr>
                             </thead>
