@@ -97,32 +97,11 @@ if (isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray
                                     </a>
                                 </div>
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
-                                    <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
-                                        <div class="d-flex justify-content-end align-items-center ">
-                                            <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0"
-                                                y="0" viewBox="0 0 64 64" style="enable-background:new 0 0 512 512"
-                                                xml:space="preserve" class="">
-                                                <g>
-                                                    <path fill="#03b811"
-                                                        d="M51.084 15.489c.471-.38 1.091.29.681.73l-19.62 20.949c-.94.99-2.63.75-3.25-.47l-5.28-10.42c-.5-.98.82-1.94 1.61-1.15l6.26 6.301z"
-                                                        opacity="1" data-original="#03b811"></path>
-                                                    <path fill="#9b9b9b"
-                                                        d="M51.515 27.669c2.21 10-3.78 20.351-13.54 23.4-8.95 2.8-18.94-1.17-23.49-9.39-4.53-8.2-2.65-18.73 4.45-24.851 7.05-6.09 17.71-6.399 25.13-.78l-3.22 2.61c-7.9-5.25-18.92-2.3-23.17 6.17-4.24 8.46.02 19.04 8.92 22.23 5.159 1.85 11.08.859 15.359-2.551 5.181-4.13 7.3-11.25 5.221-17.539l3.029-3.23a20.187 20.187 0 0 1 1.311 3.931z"
-                                                        opacity="1" data-original="#9b9b9b"></path>
-                                                </g>
-                                            </svg> -->
-
-                                            <?php
-                                            if ($WhatAppRedirectStatus == '1') {
-                                                echo '<span class="fw-bold  text-success  px-2 py-1 rounded-pill " style="font-size:10px">Connected</span>';
-                                            } else {
-                                                echo '<span class="fw-bold  text-danger  px-2 py-1 rounded-pill " style="font-size:10px">Disconnected</span>';
-                                            }
-                                            ?>
-
-                                        </div>
-                                        <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                    <a href="<?= base_url('whatsapp_connections') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center ">
+                                            </div>
+                                            <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="hovered-paths">
                                                 <g>
                                                     <g data-name="Layer 2">
@@ -137,25 +116,13 @@ if (isset($WhatsAppConnectionCheckArray) && !empty($WhatsAppConnectionCheckArray
                                                 </g>
                                             </svg>
                                             <h5 class="text-center col-12 text-dark text-center mt-2">WhatsApp</h5>
-
-                                            <?php if ($WhatAppRedirectStatus == '1') { ?>
-                                                <button class="btn btn-success fs-10 fw-semibold mt-3 WhatAppConnectBtn d-none"> Connected </button>
-                                            <?php
-                                            } elseif ($WhatAppRedirectStatus == '2') {
-                                                echo   '<button class="btn btn-danger fs-10 fw-semibold mt-3 WhatAppConnectBtn d-none"> Disconnected  </button>';
-                                            } else {
-                                            ?>
-                                                <a href="<?= base_url('whatapp_connection') ?>" class="btn btn-primary fs-10 fw-semibold mt-3">Connect</a>
-                                            <?php
-                                            } ?>
+                                            </div>
+                                            <div class="d-flex justify-content-end p-2" style="height: 40px;">
+                                            </div>
                                         </div>
-                                        <div class="d-flex justify-content-end p-2  " style="height: 40px;">
-                                            <a href="<?= base_url('whatapp_connection') ?>" class="border-0 text-dark bg-transparent <?php if ($WhatAppRedirectStatus == '0') {
-                                                                                                                                            echo 'd-none';
-                                                                                                                                        } ?>"><i class="fa-solid fa-pencil"></i></a>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
+                                
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <!-- email  -->
