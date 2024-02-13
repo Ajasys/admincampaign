@@ -3038,7 +3038,11 @@ $username = session_username($_SESSION['username']);
 						contentType: false,
 						success: function(res) {
 							var response = JSON.parse(res);
+							<?php if (isset($_REQUEST["modalopen"]) && $_REQUEST["modalopen"] == 1) { ?>
+								$('$inquiry_all_status_update .modal-close-btn').trigger('click');
+								<?php } ?>
 							if (response.response != "0") {
+								
 								$('.loader').hide();
 								// $("form[name='inquiry_all_status_update_form']")[0].reset();
 								$('.modal-close-btn').click(function() {
@@ -3046,7 +3050,7 @@ $username = session_username($_SESSION['username']);
 									$('form[name="inquiry_all_status_update_form"]')[0].reset();
 								});
 								$("form[name='inquiry_all_status_update_form']").removeClass("was-validated");
-								// $(".modal-close-btn").trigger("click");
+								$(".modal-close-btn").trigger("click");
 								sweet_edit_sucess(response.message);
 								//$('.inq_pagination').twbsPagination('destroy');
 								list_data('inquiry_all_status', inquiry_status_type, page_number, perPageCount);
