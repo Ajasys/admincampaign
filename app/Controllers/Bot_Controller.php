@@ -1104,14 +1104,14 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 				if (!empty($message)) {
 					if ($_POST['page_id'] == $massage_value['from']['id']) {
 					$html .= '
-								<div class="d-flex mb-4 justify-content-end" ' . ($i == $count ? 'id="hellow"' : '') . ' >
+								<div class="d-flex mb-4 justify-content-end" >
                                 <div class="col-6 text-end">
                                     <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">'.$message.'</span>
                                 </div>
                             </div>';
 				} else {
 					$html .= '
-							<div class="d-flex mb-4 " ' . ($i == $count ? 'id="hellow"' : '') . '>
+							<div class="d-flex mb-4 ">
 								<div class="col-6 text-start">
 									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">'.$message.'</span>
 								</div>
