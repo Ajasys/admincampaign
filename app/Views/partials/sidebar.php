@@ -46,8 +46,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                <li class="main-drop">
 
-                  <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip"
-                     data-bs-placement="right" data-bs-title="Master">
+                  <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Master">
 
                      <span class="drop_icon_main">
 
@@ -344,8 +343,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                <li class="main-drop">
 
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>user"
-                     data-tbs-toggle="tooltip" data-bs-title="Staff">
+                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>user" data-tbs-toggle="tooltip" data-bs-title="Staff">
 
                      <span class="drop_icon_main">
 
@@ -364,8 +362,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                <li class="main-drop">
 
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>attendance"
-                     data-tbs-toggle="tooltip" data-bs-title="Attendacne">
+                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>attendance" data-tbs-toggle="tooltip" data-bs-title="Attendacne">
 
                      <span class="drop_icon_main">
                         <i class="fa-solid fa-clipboard-user lh-28"></i>
@@ -385,8 +382,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                <li class="main-drop">
 
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>signuplist"
-                     data-tbs-toggle="tooltip" data-bs-title="Signup">
+                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>signuplist" data-tbs-toggle="tooltip" data-bs-title="Signup">
 
                      <span class="drop_icon_main">
 
@@ -420,19 +416,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                </li> -->
             <li class="main-drop ">
 
-               <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip"
-                  data-bs-placement="right" data-bs-title="Social Campaign">
+               <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Social Campaign">
 
                   <span class="drop_icon_main  ">
                      <i>
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
-                           width="30" height="30" x="0" y="0" viewBox="0 0 70 70"
-                           style="enable-background:new 0 0 512 512;width:78px;height:28px;" xml:space="preserve"
-                           class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 70 70" style="enable-background:new 0 0 512 512;width:78px;height:28px;" xml:space="preserve" class="">
                            <g>
-                              <path
-                                 d="m15.198 52.567 7.37 13.01a3.355 3.355 0 0 0 4.24 1.43l4.44-1.89a3.365 3.365 0 0 0 1.6-4.75l-7.1-12.53c5.532-2.53 10.919-3.854 16.72-2.19l.09.19c.96 2.01 3.165 2.724 5.01 1.9 1.9-.87 2.73-3.11 1.86-5l-4.04-8.86a6.732 6.732 0 0 0 1.08-7.29 6.73 6.73 0 0 0-6.21-3.96h-.01l-4.04-8.86a3.772 3.772 0 0 0-5.01-1.86c-1.773.82-2.787 2.937-1.8 5.13l.04.08v.01c-1.707 3.71-4.46 6.559-7.99 8.74 0 0-.01 0-.02.01-2.801 1.85-3.826 2.045-14.13 6.82-3.56 1.62-5.12 5.83-3.51 9.39l3.03 6.6c1.494 3.294 5.16 4.812 8.38 3.88zm29.48-25.17c.67 1.46.55 3.11-.23 4.43l-3.26-7.15a4.74 4.74 0 0 1 3.49 2.72zm-14.19-7.98 10.93 23.94c-5.05-1.03-9.47 0-13.52 1.42l-7.33-16.07c3.71-2.13 7.38-4.8 9.92-9.29zm-6.57 29.26 7.19 12.68c.388.659.145 1.566-.65 1.92l-4.44 1.89c-.63.27-1.37.02-1.71-.58l-7.24-12.78zM44.308 17.147l4.16-1.86 5.78 1.26c1.21.27 2.41-.5 2.68-1.72l1.52-6.98c.26-1.21-.51-2.41-1.72-2.68l-10.99-2.39c-1.22-.27-2.43.5-2.69 1.71l-1.52 6.98c-.26 1.22.51 2.42 1.73 2.69l.84.18-.49 2.25c-.083.393.299.742.7.56zm3.5-10.29c.84-.61 2-.39 2.57.46.03.04.05.09.07.13.04-.03.08-.06.13-.09.85-.56 2.01-.31 2.54.58.51.85.17 1.95-.65 2.5l-2.59 1.71a.54.54 0 0 1-.74-.15l-1.71-2.59c-.54-.82-.42-1.97.38-2.55zM52.188 40.537l.74.26-.7 1.99a.46.46 0 0 0 .57.59l4-1.23 5.13 1.8c1.07.38 2.26-.19 2.64-1.27l2.16-6.19c.38-1.07-.19-2.25-1.26-2.63l-9.75-3.41c-1.08-.38-2.26.18-2.64 1.26l-2.17 6.18c-.37 1.09.19 2.27 1.28 2.65zm4.37-2.26 1.06-3.02c.16-.45.75-.54 1.04-.16l1.7 2.29c.25.34.08.83-.33.93l-2.76.73a.592.592 0 0 1-.71-.77zM58.128 27.667l2.57-1.88 4.14.01c.86 0 1.57-.7 1.57-1.57l.02-4.99c0-.87-.71-1.58-1.57-1.58l-7.86-.02c-.88 0-1.59.7-1.59 1.57l-.01 4.99c0 .87.7 1.58 1.58 1.58h.6l-.01 1.61c0 .309.361.446.56.28zm1.1-7.13h3.79c.55 0 1 .45 1 1s-.45 1-1 1h-3.79c-.56 0-1-.45-1-1s.44-1 1-1z"
-                                 fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                              <path d="m15.198 52.567 7.37 13.01a3.355 3.355 0 0 0 4.24 1.43l4.44-1.89a3.365 3.365 0 0 0 1.6-4.75l-7.1-12.53c5.532-2.53 10.919-3.854 16.72-2.19l.09.19c.96 2.01 3.165 2.724 5.01 1.9 1.9-.87 2.73-3.11 1.86-5l-4.04-8.86a6.732 6.732 0 0 0 1.08-7.29 6.73 6.73 0 0 0-6.21-3.96h-.01l-4.04-8.86a3.772 3.772 0 0 0-5.01-1.86c-1.773.82-2.787 2.937-1.8 5.13l.04.08v.01c-1.707 3.71-4.46 6.559-7.99 8.74 0 0-.01 0-.02.01-2.801 1.85-3.826 2.045-14.13 6.82-3.56 1.62-5.12 5.83-3.51 9.39l3.03 6.6c1.494 3.294 5.16 4.812 8.38 3.88zm29.48-25.17c.67 1.46.55 3.11-.23 4.43l-3.26-7.15a4.74 4.74 0 0 1 3.49 2.72zm-14.19-7.98 10.93 23.94c-5.05-1.03-9.47 0-13.52 1.42l-7.33-16.07c3.71-2.13 7.38-4.8 9.92-9.29zm-6.57 29.26 7.19 12.68c.388.659.145 1.566-.65 1.92l-4.44 1.89c-.63.27-1.37.02-1.71-.58l-7.24-12.78zM44.308 17.147l4.16-1.86 5.78 1.26c1.21.27 2.41-.5 2.68-1.72l1.52-6.98c.26-1.21-.51-2.41-1.72-2.68l-10.99-2.39c-1.22-.27-2.43.5-2.69 1.71l-1.52 6.98c-.26 1.22.51 2.42 1.73 2.69l.84.18-.49 2.25c-.083.393.299.742.7.56zm3.5-10.29c.84-.61 2-.39 2.57.46.03.04.05.09.07.13.04-.03.08-.06.13-.09.85-.56 2.01-.31 2.54.58.51.85.17 1.95-.65 2.5l-2.59 1.71a.54.54 0 0 1-.74-.15l-1.71-2.59c-.54-.82-.42-1.97.38-2.55zM52.188 40.537l.74.26-.7 1.99a.46.46 0 0 0 .57.59l4-1.23 5.13 1.8c1.07.38 2.26-.19 2.64-1.27l2.16-6.19c.38-1.07-.19-2.25-1.26-2.63l-9.75-3.41c-1.08-.38-2.26.18-2.64 1.26l-2.17 6.18c-.37 1.09.19 2.27 1.28 2.65zm4.37-2.26 1.06-3.02c.16-.45.75-.54 1.04-.16l1.7 2.29c.25.34.08.83-.33.93l-2.76.73a.592.592 0 0 1-.71-.77zM58.128 27.667l2.57-1.88 4.14.01c.86 0 1.57-.7 1.57-1.57l.02-4.99c0-.87-.71-1.58-1.57-1.58l-7.86-.02c-.88 0-1.59.7-1.59 1.57l-.01 4.99c0 .87.7 1.58 1.58 1.58h.6l-.01 1.61c0 .309.361.446.56.28zm1.1-7.13h3.79c.55 0 1 .45 1 1s-.45 1-1 1h-3.79c-.56 0-1-.45-1-1s.44-1 1-1z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
                            </g>
                         </svg>
                      </i>
@@ -445,11 +435,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                </a>
 
 
-               <div class="drop_down " style="">
+               <div class="drop_down">
 
                   <ul>
                      <p class="text-white dp-title"></p>
-                     <li> <a class="dropdown-item" href="<?= base_url(); ?>integration" ?>Platform Connection</a> </li>
+                     <li> <a class="dropdown-item" href="<?= base_url(); ?>integration" ?>Social Media Accounts</a> </li>
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>lead_module">Lead Integration</a>
                      </li>
@@ -486,8 +476,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                <li class="main-drop">
 
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>subscription"
-                     data-tbs-toggle="tooltip" data-bs-title="Subscriptions">
+                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>subscription" data-tbs-toggle="tooltip" data-bs-title="Subscriptions">
 
                      <span class="drop_icon_main">
 
@@ -507,8 +496,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                <li class="main-drop">
 
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>coupon"
-                     data-tbs-toggle="tooltip" data-bs-title="Coupons">
+                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>coupon" data-tbs-toggle="tooltip" data-bs-title="Coupons">
 
                      <span class="drop_icon_main">
 
@@ -528,8 +516,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                <li class="main-drop">
 
-                  <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip"
-                     data-bs-placement="right" data-bs-title="Inquiries">
+                  <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Inquiries">
 
                      <span class="drop_icon_main">
 
@@ -560,8 +547,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                            <a href="<?= base_url(); ?>allinquiry?followup=pending" class="dropdown-item">Pending inq</a>
 
                         </li>
-                        <li><a class="dropdown-item" href="<?= base_url(); ?>allinquiry?followup=cnr"
-                              data-menu="allinquiry?followup=cnr">Cnr</a>
+                        <li><a class="dropdown-item" href="<?= base_url(); ?>allinquiry?followup=cnr" data-menu="allinquiry?followup=cnr">Cnr</a>
                         </li>
 
                         <li>
@@ -591,8 +577,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             <?php } ?>
             <?php if (in_array('taskcheck', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>task"
-                     data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Task">
+                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>task" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Task">
                      <span class="drop_icon_main">
                         <i class="bi bi-calendar2-check-fill"></i>
                      </span>
@@ -605,8 +590,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                <li class="main-drop">
 
-                  <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip"
-                     data-bs-placement="right" data-bs-title="Register">
+                  <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Register">
 
                      <span class="drop_icon_main">
 
@@ -634,23 +618,23 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                                  Register</a>
 
-                           </li>
+                        </li>
 
-                        <?php } ?>
+                     <?php } ?>
 
-                        <?php if (in_array('register_dismiss_request_inquiry_management_information', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+                     <?php if (in_array('register_dismiss_request_inquiry_management_information', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
 
-                           <li>
+                        <li>
 
-                              <a href="<?= base_url(); ?>allinquiry?followup=dismissed" class="dropdown-item">Dismissed Inq
+                           <a href="<?= base_url(); ?>allinquiry?followup=dismissed" class="dropdown-item">Dismissed Inq
 
-                                 Register</a>
+                              Register</a>
 
-                           </li>
+                        </li>
 
-                        <?php } ?>
+                     <?php } ?>
 
-                        <!-- <?php if (in_array('subscription_request_register_conversion_register', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+                     <!-- <?php if (in_array('subscription_request_register_conversion_register', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
 
                            <li>
 
@@ -662,7 +646,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                         <?php } ?> -->
 
-                        <!-- <?php if (in_array('subscription_register_conversion_register', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+                     <!-- <?php if (in_array('subscription_register_conversion_register', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
 
                            <li>
 
@@ -674,15 +658,15 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                         <?php } ?> -->
 
-                        <?php if (in_array('demo_register', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+                     <?php if (in_array('demo_register', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
 
-                           <li>
+                        <li>
 
-                              <a href="<?= base_url(); ?>demo_register" class="dropdown-item">Demo Register</a>
+                           <a href="<?= base_url(); ?>demo_register" class="dropdown-item">Demo Register</a>
 
-                           </li>
+                        </li>
 
-                        <?php } ?>
+                     <?php } ?>
 
                      </ul>
 
@@ -696,8 +680,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                <li class="main-drop">
 
-                  <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip"
-                     data-bs-placement="right" data-bs-title="Finance">
+                  <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Finance">
 
                      <span class="drop_icon_main">
 
@@ -747,8 +730,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
             <?php if (in_array('data_module', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>data_module"
-                     data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Data Module">
+                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>data_module" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Data Module">
                      <span class="drop_icon_main">
                         <i class="fa-solid fa-database"></i>
                      </span>
@@ -759,8 +741,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
             <?php if (in_array('client_supportcheck', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>supportticket"
-                     data-tbs-toggle="tooltip" data-bs-title="Client Support">
+                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>supportticket" data-tbs-toggle="tooltip" data-bs-title="Client Support">
                      <span class="drop_icon_main">
                         <i class="bi bi-ticket-detailed lh-28"></i>
                      </span>
@@ -771,8 +752,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
             <?php if (in_array('main_calender', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
-                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url('payment_receivable'); ?>"
-                     data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Calender">
+                  <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url('payment_receivable'); ?>" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Calender">
                      <span class="drop_icon_main">
                         <i class="bi bi-calendar2-date-fill"></i>
                      </span>
