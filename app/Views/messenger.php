@@ -54,7 +54,7 @@
         animation: moving 1s ease-in-out infinite;
     }
 
-    .active-tab{
+    .active-tab {
         background-color: #007145;
     }
     @keyframes moving {
@@ -68,17 +68,17 @@
             /* left: unset; */
         }
     }
-    .account-box{
+    .account-box {
         background-color: white;
     }
-    .active-account-box{
+    .active-account-box {
         background-color: #eaeaea9c;
         border-right: 1px solid #b55dcd;
     }
-    .chat-account-box{
+    .chat-account-box {
         background-color: white;
     }
-    .chat-account-active{
+    .chat-account-active {
         background-color: #eaeaea9c;
         border-right: 2px solid #724ebf;
     }
@@ -89,10 +89,12 @@
     <div class="container-fluid p-0">
         <div class="p-2">
             <div class="d-flex align-items-center title-1">
-                <i class="bi bi-gear-fill"></i>
-                <h2>Bot Chats</h2>
+                <i class="fa-solid fa-message"></i>
+                <h2>Messenger</h2>
             </div>
-            <div class="col-12 d-flex flex-wrap rounded-3">
+
+            <div class="col-12 d-flex flex-wrap mt-2">
+
                 <!-- <div class="col-12 border bg-white p-3">
                     <nav class="nav">
                         <a class="nav-link bg-dark-subtle text-emphasis-dark" aria-current="page" href="#">All Messanger</a>
@@ -103,44 +105,56 @@
                     </nav>
                 </div> -->
 
-                <div class="col-2" style="height:80vh">
-                    <div class="col-12 border bg-white" style="height:80vh">
+                <div class="col-4 col-sm-5 col-md-6 col-lg-3 col-xl-2 col-xxl-3 account-box" style="height:80vh">
+                    <div class="col-12 border rounded-4 bg-white" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="dropdown d-flex align-items-center ps-2">
-                                    <i class="fas fa-user fs-5  me-2"></i>
-                                    <h5 class="fs-5 fw-semibold">Accounts</h5>
+                            <div class="d-flex justify-content-between align-items-center border-bottom">
+                                <div class="dropdown d-flex align-items-center ps-2 pb-2">
+                                    <i class="fa-solid fa-user fs-5 me-2"></i>
+                                    <h5 class="fs-5 fw-semibold">Social Accounts</h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll account_list" style="max-height: 100%;">
-                            <!-- <div class="col-12 account-nav p-2 border my-2 rounded-3">
-                                <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
-                                    <a href="" class="col-4 account_icon border border-1 rounded-circle me-2">
+                        <div class="col-12 overflow-y-scroll ms-1" style="max-height: 100%;">
+                            <div class="accordion mt-2" id="accordionExample">
+                                <div class="accordion-item border-0 border-bottom">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <i class="fa-brands fa-facebook fa-2xl me-2"></i>
+                                            <P>Facebook</P>
 
-                                    </a>
-                                    <p class="fs-5 fw-medium col">Realtosmart
-                                    </p>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body account_list p-0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item border-0 border-bottom">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <i class="fa-brands fa-instagram fa-2xl me-2"></i>
+                                            <P>instagram</P>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body account_list p-0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item border-0 border-bottom">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <i class="fa-brands fa-whatsapp fa-2xl me-2"></i>
+                                            <P>Whatsapp</P>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body account_list p-0">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-12 account-nav p-2 border my-2 rounded-3">
-                                <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
-                                    <a href="" class="col-4 account_icon border border-1 rounded-circle me-2">
-
-                                    </a>
-                                    <p class="fs-5 fw-medium col">Ajasys
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-12 account-nav p-2 border my-2 rounded-3">
-                                <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
-                                    <a href="" class="col-4 account_icon border border-1 rounded-circle me-2">
-
-                                    </a>
-                                    <p class="fs-5 fw-medium col">Gymsmart
-                                    </p>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="m-auto acc_loader text-center">
                             <span>Loading...</span>
@@ -152,8 +166,8 @@
                     </div>
                 </div>
 
-                <div class="col-3" style="height:80vh">
-                    <div class="col-12 border  bg-white"  style="height:80vh">
+                <div class="col-8 col-sm-7 col-md-6 col-lg-3 col-xl-3 col-xxl-3 chat-box" style="height:80vh">
+                    <div class="col-12 border rounded-4 bg-white" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="dropdown d-flex align-items-center ps-2">
@@ -165,7 +179,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll chat_list p-1 d-none" style="max-height: 100%;">
+                        <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1 d-none" style="max-height: 100%;">
                             <div class="chat-nav-search-bar p-1 border  my-2 col-12">
                                 <div class="d-flex justify-content-between align-items-center col-12">
                                     <div class="col-2">
@@ -278,11 +292,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="col-7 position-relative" style="height:80vh">
-                    <div class="col-12 border bg-white p-3" style="height:80vh">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-6  position-relative transcript_box" style="height:80vh">
+                    <div class="col-12 border rounded-4 bg-white" style="height:80vh">
                         <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3">
                             <div class="d-flex flex-wrap bg-white rounded-pill py-1 border">
                                 <div class="input-group  position-relative ">
@@ -365,18 +378,18 @@
 
 <script>
 
-$('body').on('click', '.account-box', function() {
+    $('body').on('click', '.account-box', function() {
 
-    $(this).addClass('active-account-box');
-   $(this).siblings().removeClass('active-account-box');
+        $(this).addClass('active-account-box');
+        $(this).siblings().removeClass('active-account-box');
 
-});
-$('body').on('click', '.chat-account-box', function() {
+    });
+    $('body').on('click', '.chat-account-box', function() {
 
-$(this).addClass('chat-account-active');
-$(this).siblings().removeClass('chat-account-active');
+        $(this).addClass('chat-account-active');
+        $(this).siblings().removeClass('chat-account-active');
 
-});
+    });
 
 </script>
 <script>
