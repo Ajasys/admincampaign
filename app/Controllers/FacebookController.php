@@ -23,6 +23,7 @@ class FaceBookController extends BaseController
         $this->timezone = timezonedata();
     }
 
+    //For app connection
     function check_fb_connection()
     {
         $table_username = session_username($_SESSION['username']);
@@ -92,7 +93,8 @@ class FaceBookController extends BaseController
         echo json_encode($result_array, true);
         die();
     }
-    //delete
+
+    //Delete page and forms
     public function delete_pages_fb()
     {
         $table_username = session_username($_SESSION['username']);
@@ -126,6 +128,8 @@ class FaceBookController extends BaseController
         }
         die();
     }
+
+    //Listing page on connection id 
     function facebook_user()
     {
         $action = $this->request->getPost("action");
@@ -165,6 +169,8 @@ class FaceBookController extends BaseController
         return json_encode($resultff);
         die();
     }
+
+    //Listing form on pages id 
     function facebook_form()
     {
         $resultff = array();
@@ -192,6 +198,8 @@ class FaceBookController extends BaseController
         return json_encode($resultff);
         die();
     }
+
+    //Submit page ,form and other details.
     function facebook_page()
     {
         $this->db = \Config\Database::connect('second');
@@ -294,6 +302,8 @@ class FaceBookController extends BaseController
         echo json_encode($result_array, true);
         die();
     }
+
+    //Listing connected pages..
     function pages_list_data()
     {
         $html = "";
@@ -405,6 +415,8 @@ class FaceBookController extends BaseController
         echo json_encode($result_array, true);
         die();
     }
+
+    //Listing deleted pages..
     function deleted_pages_list_data()
     {
         $html = "";
@@ -495,6 +507,8 @@ class FaceBookController extends BaseController
         echo json_encode($result_array, true);
         die();
     }
+
+    //Listing old connection data pages..
     function updated_pages_list_data()
     {
         $html = "";
@@ -580,6 +594,7 @@ class FaceBookController extends BaseController
         die();
     }
 
+    //Listing draft connection pages..
     function draft_pages_list_data()
     {
         $html = "";
@@ -962,6 +977,7 @@ class FaceBookController extends BaseController
         }
     }
 
+    //view lead details..
     public function view_integrate_lead()
     {
         $this->db = \Config\Database::connect('second');
@@ -973,6 +989,7 @@ class FaceBookController extends BaseController
         echo json_encode($count_lead);
     }
 
+    //Listing leads..
     public function lead_list()
     {
         $this->db = \Config\Database::connect('second');
@@ -1107,6 +1124,7 @@ class FaceBookController extends BaseController
         echo json_encode($return_array);
     }
 
+    //Listing Fb connection list..
     public function fb_connection_list()
     {
         $this->db = \Config\Database::connect('second');
@@ -1208,6 +1226,7 @@ class FaceBookController extends BaseController
         echo json_encode($return_array);
     }
 
+    //Listing fb permission list
     public function fb_permission_list()
     {
         if (isset($_POST['access_token'])) {
@@ -1236,6 +1255,7 @@ class FaceBookController extends BaseController
         echo json_encode($return_array);
     }
 
+    //Edit scenarious of pages and form..
     public function edit_facebook_scenarious()
     {
         $return_array['response'] = 1;
@@ -1254,6 +1274,7 @@ class FaceBookController extends BaseController
         echo json_encode($return_array);
     }
 
+    //Delete connections..
     public function delete_fb_connection()
     {
         $return_array['response'] = 0;
