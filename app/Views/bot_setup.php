@@ -89,6 +89,11 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     .second-remove {
         display: none !important;
     }
+
+    .user-table .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: var(--first-color) !important;
+}
 </style>
 
 
@@ -98,9 +103,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             <div class="d-flex align-items-center title-1 flex-wrap justify-content-between">
                 <div class="col d-flex flex-wrap align-items-center">
                     <i class="bi bi-gear-fill mx-2"></i>
-                    <h2>Bot Chats</h2>
+                    <h2>Bot Setup</h2>
                 </div>
-                <button type="button" class="btn btn-primary bot_preview" data-bs-toggle="modal" data-bs-target="#chat_withbot">Preview</button>
+                <button type="button" class="btn-primary bot_preview" data-bs-toggle="modal" data-bs-target="#chat_withbot">Preview</button>
             </div>
 
 
@@ -761,7 +766,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 </div>
                             </div>
                             <div class="col-12 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary">Setup Menu Options</button>
+                                <button type="button" class="btn-primary">Setup Menu Options</button>
                             </div>
                         </form>
 
@@ -817,7 +822,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
                             </div>
                             <div class="col-12 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary">Map Intents</button>
+                                <button type="button" class="btn-primary">Map Intents</button>
                             </div>
                         </form>
 
@@ -1273,15 +1278,15 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 </div>
 
                 <div class="col-12 d-flex flex-wrap">
-                    <ul class="nav nav-tabs col-12" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs col-12 " id="myTab" role="tablist">
                         <li class="nav-item col-4 d-flex justify-content-center" role="presentation">
-                            <button class="nav-link active w-100 fw-medium" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic-edit" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic</button>
+                            <button class="nav-link active w-100 fw-medium text-secondary" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic-edit" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic</button>
                         </li>
                         <li class="nav-item col-4 d-flex justify-content-center" role="presentation">
-                            <button class="nav-link w-100 fw-medium" id="media-tab" data-bs-toggle="tab" data-bs-target="#media-edit" type="button" role="tab" aria-controls="media" aria-selected="false">Media</button>
+                            <button class="nav-link w-100 fw-medium text-secondary" id="media-tab" data-bs-toggle="tab" data-bs-target="#media-edit" type="button" role="tab" aria-controls="media" aria-selected="false">Media</button>
                         </li>
                         <li class="nav-item col-4 d-flex justify-content-center" role="presentation">
-                            <button class="nav-link w-100 fw-medium" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced-edit" type="button" role="tab" aria-controls="advanced" aria-selected="false">Advanced</button>
+                            <button class="nav-link w-100 fw-medium text-secondary" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced-edit" type="button" role="tab" aria-controls="advanced" aria-selected="false">Advanced</button>
                         </li>
                     </ul>
                 </div>
@@ -2035,7 +2040,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                 <div class="col-8">
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" placeholder="Coppy Text Hear" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                                        <button class="btn btn-primary" type="button" id="button-addon2">Coppy</button>
+                                                        <button class="btn-primary" type="button" id="button-addon2">Coppy</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2195,7 +2200,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             <div class="col-8">
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" placeholder="Coppy Text Hear" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                                    <button class="btn btn-primary" type="button" id="button-addon2">Coppy</button>
+                                                    <button class="btn-primary" type="button" id="button-addon2">Coppy</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -2207,8 +2212,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary update_question">Update</button>
+                <button type="button" class="btn-primary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn-primary update_question">Update</button>
             </div>
         </div>
     </div>
@@ -2636,8 +2641,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 </div> -->
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary conditional_flow_update">Save</button>
+                <button type="button" class="btn-primary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn-primary conditional_flow_update">Save</button>
             </div>
         </div>
     </div>
@@ -2664,10 +2669,10 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <h6 class="mx-2">Oppo</h6>
                             </div>
                             <div class="d-flex flex-wrap">
-                                <button class="btn bg-primary mx-2 px-3 text-white" id="sound-icon">
+                                <button class="bg-primary mx-2 px-3 text-white" id="sound-icon">
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </button>
-                                <button class="btn bg-primary text-white">
+                                <button class="bg-primary text-white">
                                     <i class="fa-solid fa-rotate-right"></i>
                                 </button>
                             </div>
@@ -2720,7 +2725,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             <div class="d-flex flex-wrap col-8  bg-white mb-3 rounded-pill py-1">
                                 <div class="input-group  position-relative ">
                                     <input type="text" class="form-control rounded-pill px-4 py-2 border-0 answer_chat" placeholder="Type Your Answer">
-                                    <button class="btn btn-primary rounded-circle me-1 px-3 chatting_data" questionId=""><i class="fa-solid fa-caret-right"></i></button>
+                                    <button class="btn-primary rounded-circle me-1 px-3 chatting_data" questionId=""><i class="fa-solid fa-caret-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -3066,7 +3071,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             options.forEach(function(option) {
                 main_table_html += '<option value="' + option.id + '">' + option.question + '</option>';
             });
-            main_table_html += '<td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td></select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
+            main_table_html += '<td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td></select></td><td class="col-2"><button type="button" class="btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".tbody").append(main_table_html);
         }
         table_html();
@@ -3115,7 +3120,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
         function multiple_table_html(index) {
             var row_numbers = $('.multiple_main-plan').length;
-            var multiple_table_row = '<tr class="col-12 multiple_main-plan"><td class="col-3"><input type="text" class="form-control multiple-row-option-value multiple_choice_options_' + row_numbers + '" id="" placeholder="Enter the option" value=""></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
+            var multiple_table_row = '<tr class="col-12 multiple_main-plan"><td class="col-3"><input type="text" class="form-control multiple-row-option-value multiple_choice_options_' + row_numbers + '" id="" placeholder="Enter the option" value=""></td><td class="col-2"><button type="button" class="btn-danger multiple-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
             $(".multiple-table-body").append(multiple_table_row);
         }
         multiple_table_html();
@@ -3157,7 +3162,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             '</div>'
             '</td>'
             '<td class="col">  '
-            '<button type="button" class="btn btn-danger form-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button>'
+            '<button type="button" class="btn-danger form-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button>'
             '</td>'
             '</tr>';
             $(".form-table-body").append(form_table_row);
@@ -3200,7 +3205,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ?></select></td><td class="col-2"><div class="col"> <input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image"></div></td><td class="col"><button type="button" class="btn btn-danger btn-sm Corousel-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ?></select></td><td class="col-2"><div class="col"> <input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image"></div></td><td class="col"><button type="button" class="btn-danger btn-sm Corousel-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".Corousel-table-body").append(Corousel_table_row);
         }
 
@@ -3275,7 +3280,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     <textarea class="text-area form-control fs-12 fw-medium form-detail form_dropdown" placeholder="Options(comma seperated)" id=""></textarea>
                                 </div>
                                 <div class="ms-2 me-2">
-                                    <button type="button" id="updates_div_d" class="btn form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                    <button type="button" id="updates_div_d" class="form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -3344,7 +3349,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <input type="text" class="form-control url_link" aria-describedby="" value="" placeholder="Set Button Text">
                             </div>
                             <div class="col-1 mt-3">
-                                <button type="button" id="updates_div_d" class="btn facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                <button type="button" id="updates_div_d" class="facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                             </div>
                         </div>`;
 
@@ -3357,7 +3362,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
 
     function proudect_table_row() {
-        var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row product_table"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select proudect-select-picker product_type" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control product_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control product_title" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center proudect-selecter"> <div class="col-12 proudect-image second-add"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control proudect-file" type="file" id="formFile"> </div> <div class="col-12 proudect-video second-remove"> <label for="" class="form-label fw-medium">URL<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control product_description" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control product_button_text" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control product_button_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class="btn btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
+        var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row product_table"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select proudect-select-picker product_type" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control product_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control product_title" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center proudect-selecter"> <div class="col-12 proudect-image second-add"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control proudect-file" type="file" id="formFile"> </div> <div class="col-12 proudect-video second-remove"> <label for="" class="form-label fw-medium">URL<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control product_description" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control product_button_text" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control product_button_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class=" btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
         $(".proudect-table-body").append(proudect_table_row);
     }
     proudect_table_row();
@@ -3420,7 +3425,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         <input type="text" class="form-control contact_number" id="" placeholder="Enter contact">
                     </div>
                     <div class="col-2 mt-1">
-                    <button type="button" class="btn contact_div_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                    <button type="button" class="contact_div_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                     </div>
                 </div>`;
 
@@ -3813,7 +3818,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         '</select>' +
                                         '</td>' +
                                         '<td class="col-2">' +
-                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                        '<button type="button" class="btn-danger multiple-remove-btn">' +
                                         '<i class="fa fa-trash cursor-pointer"></i>' +
                                         '</button>' +
                                         '</td>' +
@@ -3837,7 +3842,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         '<input type="text" class="form-control multiple_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
                                         '</td>' +
                                         '<td class="col-2">' +
-                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                        '<button type="button" class="btn-danger multiple-remove-btn">' +
                                         '<i class="fa fa-trash cursor-pointer"></i>' +
                                         '</button>' +
                                         '</td>' +
@@ -3888,7 +3893,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                 <textarea class="text-area form-control fs-12 fw-medium form-detail form_dropdown" placeholder="Options(comma seperated)" id="">${question.options}</textarea>
                                             </div>
                                             <div class="ms-2 me-2">
-                                                <button type="button" id="updates_div_d" class="btn form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                                <button type="button" id="updates_div_d" class="form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -3928,7 +3933,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     '</div>' +
                                     '</td>' +
                                     '<td class="col">' +
-                                    '<button type="button" class="btn btn-danger btn-sm Corousel-remove-btn">' +
+                                    '<button type="button" class="btn-danger btn-sm Corousel-remove-btn">' +
                                     '<i class="fa fa-trash cursor-pointer"></i>' +
                                     '</button>' +
                                     '</td>' +
@@ -3972,7 +3977,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             <input type="text" class="form-control url_link" aria-describedby="" value="${rowData.url_link}" placeholder="Set Button Text">
                                         </div>
                                         <div class="col-1 mt-3">
-                                            <button type="button" id="updates_div_d" class="btn facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                            <button type="button" id="updates_div_d" class="facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                                         </div>
                                     </div>`;
                             });
@@ -4082,7 +4087,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                                                 <div class="col-12 d-flex flex-wrap align-items-center"> 
                                                                     <div class="col-12"> 
                                                                         <label for="" class="form-label fw-medium col-12">Remove</label> 
-                                                                        <button type="button" class="btn btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> 
+                                                                        <button type="button" class="btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> 
                                                                     </div> 
                                                                 </div> 
                                                             </td> 
@@ -4114,7 +4119,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         <input type="text" class="form-control" id="" placeholder="Enter contact" value="${rowData.contact_number}">
                                     </div>
                                     <div class="col-2 mt-1">
-                                        <button type="button" class="btn contact_div_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                        <button type="button" class="contact_div_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                                     </div>
                                 </div>`;
                             });
@@ -4859,15 +4864,28 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap px-2">
-                    
-                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 menu_message" value="1" type="checkbox" role="switch" id="Question-1">
-                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                        <div class="col-12">
+                            <div class="ps-0 form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                                <label class="switch_toggle_primary">
+                                    <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 menu_message opacity-0" value="1" type="checkbox" id="Question-1">
+                                    <div class="check_input_primary round" ></div>
+                                </label>
+                                    
+                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                            </div>
                         </div>
-                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
-                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Question-2 skip_question" type="checkbox" role="switch" id="Question-2">
-                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
+                        
+                        <div class="col-12">
+                            <div class="ps-0 form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
+                                <label class="switch_toggle_primary">
+                                    <input class="px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Question-2 skip_question opacity-0" type="checkbox" role="switch" id="Question-2">
+                                    <div class="check_input_primary round" ></div>
+                                </label>
+                                    
+                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
+                            </div>
                         </div>
+                        
                         <div class="col-12 my-2">
                             <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal" >Enter the error message here.</label>
                         </div>
@@ -4888,16 +4906,16 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <label class="form-check-label fw-semibold d-flex align-items-center py-2 single-choice-show-options">Show Options</label>
                             </div>
                             <div class="col p-1">
-                                <button type="button" class="btn btn-outline-primary w-100">Vertically</button>
+                                <button type="button" class="btn-primary w-100">Vertically</button>
                             </div>
                             <div class="col p-1">
-                                <button type="button" class="btn btn-outline-primary w-100">Horizontally</button>
+                                <button type="button" class="btn-primary w-100">Horizontally</button>
                             </div>
                             <div class="col p-1">
-                                <button type="button" class="btn btn-outline-primary w-100">Dropdown</button>
+                                <button type="button" class="btn-primary w-100">Dropdown</button>
                             </div>
                             <div class="col p-1">
-                                <button type="button" class="btn btn-outline-primary w-100">Do not show</button>
+                                <button type="button" class="btn-primary w-100">Do not show</button>
                             </div>
                         </div>
                         <div class="col-12 d-flex flex-wrap my-3">
@@ -4941,7 +4959,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </select>
                                         </td>
                                         <td class="col-2">
-                                            <button type="button" class="btn btn-danger">
+                                            <button type="button" class="btn-danger">
                                                 <i class="fa fa-trash  cursor-pointer"></i>
                                             </button>
                                         </td>
@@ -4953,7 +4971,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <div class="col-12">
                             <div class="col-2">
-                                <button type="button" class="btn btn-primary single-choice-add-tabal">add</button>
+                                <button type="button" class="btn-primary single-choice-add-tabal">add</button>
                             </div>
                         </div>
                     </div>
@@ -5005,7 +5023,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </select>
                                         </td>
                                         <td class="col-2">
-                                            <button type="button" class="btn btn-danger">
+                                            <button type="button" class="btn-danger">
                                                 <i class="fa fa-trash  cursor-pointer"></i>
                                             </button>
                                         </td>
@@ -5017,7 +5035,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <div class="col-12">
                             <div class="col-2">
-                                <button type="button" class="btn btn-primary single-choice-add-tabal">add</button>
+                                <button type="button" class="btn-primary single-choice-add-tabal">add</button>
                             </div>
                         </div>
                     </div>
@@ -5059,10 +5077,10 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <label class="form-check-label fw-semibold d-flex align-items-center py-2 single-choice-show-options">Show Options</label>
                             </div>
                             <div class="col-3 p-1">
-                                <button type="button" class="btn btn-outline-primary w-100">Vertically</button>
+                                <button type="button" class="btn-outline-primary w-100">Vertically</button>
                             </div>
                             <div class="col-3 p-1">
-                                <button type="button" class="btn btn-outline-primary w-100">Dropdown</button>
+                                <button type="button" class="btn-outline-primary w-100">Dropdown</button>
                             </div>
                         </div>
                         <div class="col-12 d-flex flex-wrap my-3">
@@ -5080,7 +5098,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             <input type="text" class="form-control multiple_choice_options" placeholder="Enter the option" value="">
                                         </td>
                                         <td class="col-2">
-                                            <button type="button" class="btn btn-danger">
+                                            <button type="button" class="btn-danger">
                                                 <i class="fa fa-trash  cursor-pointer"></i>
                                             </button>
                                         </td>
@@ -5091,7 +5109,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <div class="col-12">
                             <div class="col-2">
-                                <button type="button" class="btn btn-primary multiple-choice-add-tabal">add</button>
+                                <button type="button" class="btn-primary multiple-choice-add-tabal">add</button>
                             </div>
                         </div>
                         <div class="col-12 my-3">
@@ -5504,7 +5522,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     <div class="col-12 p-2">
                                         <div class="input-group col-6">
                                             <input type="email" class="form-control" placeholder="Enter Email Address" aria-label="Enter Email Address" aria-describedby="button-email">
-                                            <button class="btn btn-outline-secondary" type="button" id="button-email">Submit</button>
+                                            <button class="btn-outline-secondary" type="button" id="button-email">Submit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -5614,7 +5632,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
                     <div class="col-12 p-3">
                         <div class="col-2">
-                            <button type="button" class="btn btn-primary form_question">Add</button>
+                            <button type="button" class="btn-primary form_question">Add</button>
                         </div>
                     </div>
                 </form>
@@ -5656,7 +5674,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <div class="col-12">
                             <div class="col-2">
-                                <button type="button" class="btn btn-primary Corousel-add-tabal">Add</button>
+                                <button type="button" class="btn-primary Corousel-add-tabal">Add</button>
                             </div>
                         </div>
                     </div>
@@ -5681,7 +5699,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             <div class="col-6 d-flex flex-wrap justify-content-center">
                                 <div class="input-group col-4">
                                     <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Remove</button>
+                                    <button class="btn-outline-secondary" type="button" id="button-addon2">Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -5894,7 +5912,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
                         </div>
                         <div class="col-1">
-                            <button type="button" class="btn mt-3 btn-primary updates_mandivc">ADD</button>
+                            <button type="button" class="mt-3 btn-primary updates_mandivc">ADD</button>
                         </div>
                     </div>
                 </form>
@@ -5924,7 +5942,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <div class="col-12">
                             <div class="col-2">
-                                <button type="button" class="btn btn-primary proudect-add-tabal">Add</button>
+                                <button type="button" class="btn-primary proudect-add-tabal">Add</button>
                             </div>
                         </div>
                     </div>
@@ -6061,7 +6079,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
                         </div>
                         <div class="col-1">
-                            <button type="button" class="btn mt-3 btn-primary contact_div_add">ADD</button>
+                            <button type="button" class="mt-3 btn-primary contact_div_add">ADD</button>
                         </div>
                     </div>
                 </form>
@@ -6126,7 +6144,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             </div>
                         </div>
                         <div class="col-1">
-                            <button type="button" class="btn mt-3 btn-primary contact_div_add">Fetch</button>
+                            <button type="button" class="mt-3 btn-primary contact_div_add">Fetch</button>
                         </div>
                     </div>
                 </form>
