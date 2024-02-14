@@ -811,27 +811,117 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		die();
 	}
 
+	//chat list
+	// public function chat_list()
+	// {
+	// 	$table = $_POST['table'];
+	// 	$bot_id = $_POST['bot_id'];
+	// 	// $sequence = $_POST['sequence']; 
+	// 	$db_connection = \Config\Database::connect('second');
+	// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ''; 
+	// 	$resultss = $db_connection->query($sql);
+	// 	$bot_chat_data = $resultss->getResultArray();
+	// 	$html = '';
+
+	// 	foreach($bot_chat_data as $key => $value) {
+	// 		// pre($bot_chat_data);
+	// 		// $value = $bot_chat_data[0];
+	// 		$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="'.$value['id'].'" data-sequence="'.$value['sequence'].'">
+	// 					<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+	// 						<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+	// 					</div>
+	// 					<div class="col px-2">
+	// 						<div class="col-12 mb-2">
+	// 							<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="'.$value['id'].'">
+	// 								'.$value['question'].'
+	// 							</span>
+	// 						</div>
+	// 					</div>
+	// 				</div>
+	// 				<div class="messege2 d-flex flex-wrap  ">
+	// 					<div class="col px-2">
+	// 						<div class="col-12 mb-2 text-end ">
+	// 							<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
+	// 							'.$value['answer'].'
+	// 							</span>
+	// 						</div>
+	// 					</div>
+	// 					<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+	// 						<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+	// 					</div>
+	// 				</div>';
+	// 	}
+	// 	$dateresult['html'] = $html;
+	// 	return json_encode($dateresult, true);
+	// 	die();
+	// }
+
+
 	//bot preview
+// public function bot_preview_data()
+	// {
+	// 	$table = $_POST['table'];
+	// 	$bot_id = $_POST['bot_id'];
+	// 	$sequence = $_POST['sequence']; // Retrieve the sequence number
+	// 	$db_connection = \Config\Database::connect('second');
+	// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence; // Retrieve the question with the specified sequence
+	// 	$resultss = $db_connection->query($sql);
+	// 	$bot_chat_data = $resultss->getResultArray();
+	// 	$html = '';
+
+	// 	if (!empty($bot_chat_data)) {
+	// 		$value = $bot_chat_data[0];
+	// 		$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="'.$value['id'].'" data-sequence="'.$value['sequence'].'">
+	// 					<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+	// 						<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+	// 					</div>
+	// 					<div class="col px-2">
+	// 						<div class="col-12 mb-2">
+	// 							<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="'.$value['id'].'">
+	// 								'.$value['question'].'
+	// 							</span>
+	// 						</div>
+	// 					</div>
+	// 				</div>
+	// 				<div class="messege2 d-flex flex-wrap  ">
+	// 					<div class="col px-2">
+	// 						<div class="col-12 mb-2 text-end ">
+	// 							<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
+	// 							'.$value['answer'].'
+	// 							</span>
+	// 						</div>
+	// 					</div>
+	// 					<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+	// 						<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+	// 					</div>
+	// 				</div>';
+	// 	}
+	// 	$dateresult['html'] = $html;
+	// 	return json_encode($dateresult, true);
+	// 	die();
+	// }
+
+
 	public function bot_preview_data()
 	{
 		$table = $_POST['table'];
 		$bot_id = $_POST['bot_id'];
+$sequence = $_POST['sequence']; // Retrieve the sequence number
 		$db_connection = \Config\Database::connect('second');
-		$sql = 'SELECT * FROM '.$table.' WHERE bot_id = '.$bot_id.'';
+		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence'; // Retrieve all chats up to the current sequence
 		$resultss = $db_connection->query($sql);
 		$bot_chat_data = $resultss->getResultArray();
 		$html = '';
 
-		// Check if there are any records
-		if (!empty($bot_chat_data)) {
-			$value = $bot_chat_data[0]; // Get the first record
-			$html .= '<div class="messege1 d-flex flex-wrap" data-conversation-id="'.$value['id'].'">
+				if (!empty($bot_chat_data)) {
+			foreach ($bot_chat_data as $value) {
+			$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="'.$value['id'].'" data-sequence="'.$value['sequence'].'">
 						<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
 							<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 						</div>
 						<div class="col px-2">
 							<div class="col-12 mb-2">
-								<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3">
+								<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="'.$value['id'].'">
 									'.$value['question'].'
 								</span>
 							</div>
@@ -841,7 +931,7 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 						<div class="col px-2">
 							<div class="col-12 mb-2 text-end ">
 								<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
-									Hello
+									'.$value['answer'].'
 								</span>
 							</div>
 						</div>
@@ -850,11 +940,12 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 						</div>
 					</div>';
 		}
-
+}
 		$dateresult['html'] = $html;
 		return json_encode($dateresult, true);
 		die();
 	}
+
 
 	//chat answer
 	public function insert_chat_answer()
