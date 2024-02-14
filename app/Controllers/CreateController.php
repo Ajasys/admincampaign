@@ -211,17 +211,17 @@ class CreateController extends BaseController
                 <p class="fs-14">' . $fb_titile . '</p>
             </div>
             <div class="col-12">
-                <div style="width:100%; max-height: 300px; min-height: 250px; overflow: hidden;">
-                    <img src="' . $fb_upload_img . '" alt="#" class="w-100 rounded-3 object-fit-content">
+                <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden" style="width:295px; height: 295px; overflow: hidden;">
+                    <img src="' . $fb_upload_img . '" alt="#" class="object-fit-content" style="width:290px; height: auto; max-height:290px;">
                 </div>
             </div>
             <hr>
             <div class="col-12 p-1 mt-2 d-flex post-btn-box">
                 <div class="col-6 d-flex flex-wrap rounded-3 text-muted" >
-                    <button class="btn w-100 like_button"><i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i>Like</button>
+                    <button class="btn w-100 like_button border-0"><i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i>Like</button>
                 </div>
                 <div class="col-6 d-flex flex-wrap rounded-3">
-                    <div class="btn w-100 text-muted d-flex p-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto"></i><div class="my-auto"> Comment</div></div>
+                    <div class="btn w-100 text-muted d-flex p-0 border-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto"></i><div class="my-auto"> Comment</div></div>
                 </div>
             </div>
         </div>';
