@@ -512,6 +512,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 	$routes->post('bot_preview_data', 'Bot_Controller::bot_preview_data');
 	$routes->post('insert_chat_answer', 'Bot_Controller::insert_chat_answer');
+	$routes->post('chat_list', 'Bot_Controller::chat_list');
 
 	//bot setup
 	$routes->get('/messenger_bot', 'Home::messenger_bot');
@@ -534,7 +535,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
 
-	$routes->get('/installer', 'Home::installer');
+	$routes->get('/bot_installer', 'Home::bot_installer');
 	$routes->post('bot_preview', 'Bot_Controller::bot_preview');
 	$routes->post('', 'Bot_Controller::get_chat_data');
 

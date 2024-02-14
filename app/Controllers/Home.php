@@ -479,9 +479,9 @@ class Home extends BaseController
         return view('messenger');
     }
 
-    public function installer()
+    public function bot_installer()
     {
-        return view('installer');
+        return view('bot_installer');
     }
 
     public function bot_setup()
