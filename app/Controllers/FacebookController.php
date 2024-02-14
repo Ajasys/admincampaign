@@ -509,7 +509,6 @@ class FaceBookController extends BaseController
         if ($count_num > 0) {
             $status = 1;
             foreach ($result_facebook_data as $key => $value) {
-
                 $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
                         FROM " . $this->username . "_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
@@ -701,7 +700,6 @@ class FaceBookController extends BaseController
         $count_lead = $queryd->getResultArray();
         $count_num = $queryd->getNumRows();
 
-
         if ($count_num > 0) {
             // while ($row = $result_page->fetch_assoc()) {
             foreach ($count_lead as $aa_key => $row) {
@@ -744,8 +742,6 @@ class FaceBookController extends BaseController
                 } else {
                     $mobile_nffo = '0000000000';
                 }
-
-
 
                 $mobile_nffo = "";
                 //date_default_timezone_set('Asia/Kolkata');
