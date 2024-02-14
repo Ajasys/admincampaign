@@ -140,6 +140,7 @@
 </style>
 
 <?php
+// pre($_COOKIE);
 $table_username = session_username($_SESSION['username']);
 $product = json_decode($product, true);
 $this->db = \Config\Database::connect('second');
@@ -166,7 +167,7 @@ $user_data = $user_result->getResultArray();
                 </li>
             </ul> -->
             <!-- <div class="col-12"> -->
-                <!-- <div class="tab-pane fade" id="Connection-name" role="tabpanel" aria-labelledby="pills-General-tab" tabindex="0">
+            <!-- <div class="tab-pane fade" id="Connection-name" role="tabpanel" aria-labelledby="pills-General-tab" tabindex="0">
                     <?php if (isset($data[0])) { ?>
                         <div class="p-2 bg-white rounded-2 mx-2 ">
                             <div class="lead_list p-2 rounded-2">
@@ -199,263 +200,263 @@ $user_data = $user_result->getResultArray();
                         </div>
                     <?php } ?>
                 </div> -->
-                <div class="col-12" >
-                    <div class="p-3">
-                        <div class="p-2">
-                            <div class="d-flex justify-content-between">
-                                <button class="btn-primary-rounded lead_main_box_add ">
-                                    <i class="bi bi-plus"></i>
-                                </button>
-                            </div>
+            <div class="col-12">
+                <div class="p-3">
+                    <div class="p-2">
+                        <div class="d-flex justify-content-between">
+                            <button class="btn-primary-rounded lead_main_box_add ">
+                                <i class="bi bi-plus"></i>
+                            </button>
                         </div>
-                        <form class="needs-validation" name="pagelist" method="POST" novalidate="">
-                            <div class="lead_add_main_box px-3 py-5 bg-white rounded-2 mx-2 mb-2 position-relative" style="display: none;">
+                    </div>
+                    <form class="needs-validation" name="pagelist" method="POST" novalidate="">
+                        <div class="lead_add_main_box px-3 py-5 bg-white rounded-2 mx-2 mb-2 position-relative" style="display: none;">
 
-                                <i class="fa-solid fa-angle-left position-absolute top-0 start-0 translate-middle m-4 fs-4 text-secondary-emphasis cursor-pointer discard-tag" data-bs-toggle="modal" data-bs-target="#discard_main_box"></i>
+                            <i class="fa-solid fa-angle-left position-absolute top-0 start-0 translate-middle m-4 fs-4 text-secondary-emphasis cursor-pointer discard-tag" data-bs-toggle="modal" data-bs-target="#discard_main_box"></i>
 
-                                <!--updated ka code  -->
-                                <div class="d-flex justify-content-center align-items-center gap-3 py-4">
+                            <!--updated ka code  -->
+                            <div class="d-flex justify-content-center align-items-center gap-3 py-4">
 
-                                    <div class="big_list_add_outer_main big_list_add_outer_main_1 position-relative">
+                                <div class="big_list_add_outer_main big_list_add_outer_main_1 position-relative">
 
-                                        <div class="big_circle_plus_outer position-relative">
-                                            <div class="big_circle_plus cursor-pointer">
-                                                <div class="big_circle_plus_inner bg-primary p-5 rounded-circle position-relative">
-                                                    <div class="z-2 position-relative">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="z-2">
-                                                            <g>
-                                                                <path d="M492 236H276V20c0-11.046-8.954-20-20-20s-20 8.954-20 20v216H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h216v216c0 11.046 8.954 20 20 20s20-8.954 20-20V276h216c11.046 0 20-8.954 20-20s-8.954-20-20-20z" fill="#ffffff" data-original="#000000" class="" opacity="1"></path>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
+                                    <div class="big_circle_plus_outer position-relative">
+                                        <div class="big_circle_plus cursor-pointer">
+                                            <div class="big_circle_plus_inner bg-primary p-5 rounded-circle position-relative">
+                                                <div class="z-2 position-relative">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="z-2">
+                                                        <g>
+                                                            <path d="M492 236H276V20c0-11.046-8.954-20-20-20s-20 8.954-20 20v216H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h216v216c0 11.046 8.954 20 20 20s20-8.954 20-20V276h216c11.046 0 20-8.954 20-20s-8.954-20-20-20z" fill="#ffffff" data-original="#000000" class="" opacity="1"></path>
+                                                        </g>
+                                                    </svg>
                                                 </div>
                                             </div>
-                                            <div class="big_circle_plus_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 ms-3 top-50 start-100 translate-middle-y">
-                                                <ul class="position-relative px-3">
-                                                    <li class="py-1">
-                                                        <a class="dropdown-item cursor-pointer" id="facebook_lead_drop_1">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 1643 1643" fill="none" class="me-2">
-                                                                <path d="M1643 823.999C1643 370.808 1275.19 3 822 3C368.808 3 1 370.808 1 823.999C1 1221.36 283.424 1552.22 657.8 1628.58V1070.3H493.6V823.999H657.8V618.749C657.8 460.296 786.697 331.4 945.15 331.4H1150.4V577.699H986.2C941.045 577.699 904.1 614.644 904.1 659.799V823.999H1150.4V1070.3H904.1V1640.89C1318.7 1599.84 1643 1250.1 1643 823.999Z" fill="#0D6AE2"></path>
-                                                            </svg>
-                                                            <span>Facebook Leads</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="py-1">
-                                                        <a class="dropdown-item cursor-pointer">
-                                                            <img src="https://ajasys.com/img/favicon.png" width="35px" alt="realtosmart" class="me-2">
-                                                            <span>Website Lead Setting</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                         </div>
-
-                                        <div class="big_circle_fb_outer position-relative logo-1">
-                                            <div class="big_circle_fb cursor-pointer">
-                                                <div class="big_circle_fb_inner p-5 rounded-circle position-relative profile_div">
-
-                                                    <div class="z-2 position-relative fb_div_hide">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                                            <g>
-                                                                <path fill-rule="evenodd" d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z" fill="#ffffff" data-original="#000000" opacity="1" class=""></path>
-                                                            </g>
+                                        <div class="big_circle_plus_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 ms-3 top-50 start-100 translate-middle-y">
+                                            <ul class="position-relative px-3">
+                                                <li class="py-1">
+                                                    <a class="dropdown-item cursor-pointer" id="facebook_lead_drop_1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 1643 1643" fill="none" class="me-2">
+                                                            <path d="M1643 823.999C1643 370.808 1275.19 3 822 3C368.808 3 1 370.808 1 823.999C1 1221.36 283.424 1552.22 657.8 1628.58V1070.3H493.6V823.999H657.8V618.749C657.8 460.296 786.697 331.4 945.15 331.4H1150.4V577.699H986.2C941.045 577.699 904.1 614.644 904.1 659.799V823.999H1150.4V1070.3H904.1V1640.89C1318.7 1599.84 1643 1250.1 1643 823.999Z" fill="#0D6AE2"></path>
                                                         </svg>
-                                                    </div>
-
-                                                    <!-- <img src="https://ajasys.com/img/favicon.png" class="w-100 h-100 object-fit-contain rounded-circle"> -->
-                                                </div>
-                                            </div>
-                                            <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
-                                                <?php if (isset($fb_account) && !empty($fb_account)) { ?>
-                                                    <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
-                                                        Name</label>
-                                                    <div class="main-selectpicker">
-                                                        <select id="user_agent" class="selectpicker form-control form-main user_agent" data-live-search="true">
-                                                            <?php foreach ($fb_account as $key => $value) {
-                                                                echo "<option value=" . $value['accessToken'] . " data-user_id=" . $value['userid'] . " data-username='" . $value['username'] . "'>" . $value['username'] . "</option>";
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="text-end mt-3 fb_user_next">
-                                                        <button class="btn-primary big_falcebook_circle_sbt" data-master_id=<?php if (isset($fb_account[0]['master_id'])) {
-                                                                                                                                echo $fb_account[0]['master_id'];
-                                                                                                                            } ?>>Next</button>
-                                                    </div>
-                                                <?php } else { ?>
-                                                    <div class="text-end mt-2">
-                                                        <fb:login-button onlogin="myFacebookLogin();"></fb:login-button>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
-                                            <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
-                                                <b>Facebook Lead Connection</b>
-                                            </h6>
+                                                        <span>Facebook Leads</span>
+                                                    </a>
+                                                </li>
+                                                <li class="py-1">
+                                                    <a class="dropdown-item cursor-pointer" id="website_lead">
+                                                        <img src="https://ajasys.com/img/favicon.png" width="35px" alt="realtosmart" class="me-2">
+                                                        <span>Website Lead Setting</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
-
-                                        <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
-                                            <div class="btn-primary-rounded add_next_big_plus_1">
-                                                <i class="bi bi-plus"></i>
-                                            </div>
-                                        </div>
-
                                     </div>
 
+                                    <div class="big_circle_fb_outer position-relative logo-1">
+                                        <div class="big_circle_fb cursor-pointer">
+                                            <div class="big_circle_fb_inner p-5 rounded-circle position-relative profile_div">
 
-                                    <div class="big_list_add_outer_main big_list_add_outer_main_2 position-relative">
-                                        <div class="big_circle_fb_outer position-relative">
-                                            <div class="big_circle_fb cursor-pointer">
-                                                <div class="big_circle_fb_inner p-5 rounded-circle position-relative page-profile">
-                                                    <div class="z-2 position-relative fb_div_hide1">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                                            <g>
-                                                                <path fill-rule="evenodd" d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z" fill="#ffffff" data-original="#000000" opacity="1" class=""></path>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
+                                                <div class="z-2 position-relative fb_div_hide">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                        <g>
+                                                            <path fill-rule="evenodd" d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z" fill="#ffffff" data-original="#000000" opacity="1" class=""></path>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+
+                                                <!-- <img src="https://ajasys.com/img/favicon.png" class="w-100 h-100 object-fit-contain rounded-circle"> -->
+                                            </div>
+                                        </div>
+                                        <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+                                            <?php if (isset($fb_account) && !empty($fb_account)) { ?>
+                                                <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
+                                                    Name</label>
+                                                <div class="main-selectpicker">
+                                                    <select id="user_agent" class="selectpicker form-control form-main user_agent" data-live-search="true">
+                                                        <?php foreach ($fb_account as $key => $value) {
+                                                            echo "<option value=" . $value['accessToken'] . " data-user_id=" . $value['userid'] . " data-username='" . $value['username'] . "'>" . $value['username'] . "</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="text-end mt-3 fb_user_next">
+                                                    <button class="btn-primary big_falcebook_circle_sbt" data-master_id=<?php if (isset($fb_account[0]['master_id'])) {
+                                                                                                                            echo $fb_account[0]['master_id'];
+                                                                                                                        } ?>>Next</button>
+                                                </div>
+                                            <?php } else { ?>
+                                                <div class="text-end mt-2">
+                                                    <fb:login-button onlogin="myFacebookLogin();"></fb:login-button>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                        <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
+                                            <b>Facebook Lead Connection</b>
+                                        </h6>
+                                    </div>
+
+                                    <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
+                                        <div class="btn-primary-rounded add_next_big_plus_1">
+                                            <i class="bi bi-plus"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="big_list_add_outer_main big_list_add_outer_main_2 position-relative">
+                                    <div class="big_circle_fb_outer position-relative">
+                                        <div class="big_circle_fb cursor-pointer">
+                                            <div class="big_circle_fb_inner p-5 rounded-circle position-relative page-profile">
+                                                <div class="z-2 position-relative fb_div_hide1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                        <g>
+                                                            <path fill-rule="evenodd" d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z" fill="#ffffff" data-original="#000000" opacity="1" class=""></path>
+                                                        </g>
+                                                    </svg>
                                                 </div>
                                             </div>
-                                            <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
-                                                <form>
-                                                    <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
-                                                        Name</label>
-                                                    <div class="main-selectpicker">
-                                                        <select id="fb_conn_id" class="selectpicker form-control form-main fb_conn_id" required>
-                                                            <option value="">select Connection</option>
-                                                            <?php foreach ($conn_rows as $key => $value) {
-                                                                echo "<option value=" . $value['id'] . "  data-access-token=" . $value['access_token'] . " data-connection-check=" . $value['verification_status'] . ">" . $value['fb_app_name'] . "</option>";
-                                                            }
-                                                            ?>
-                                                        </select>
-                                                    </div>
+                                        </div>
+                                        <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+                                            <form>
+                                                <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
+                                                    Name</label>
+                                                <div class="main-selectpicker">
+                                                    <select id="fb_conn_id" class="selectpicker form-control form-main fb_conn_id" required>
+                                                        <option value="">select Connection</option>
+                                                        <?php foreach ($conn_rows as $key => $value) {
+                                                            echo "<option value=" . $value['id'] . "  data-access-token=" . $value['access_token'] . " data-connection-check=" . $value['verification_status'] . ">" . $value['fb_app_name'] . "</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
 
-                                                    <label class="form-label main-label fs-14 text-nowrap">Page</label><sup class="validationn">*</sup>
-                                                    <div class="main-selectpicker">
-                                                        <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
-                                                            <option value="">select Page</option>
-                                                        </select>
-                                                    </div>
+                                                <label class="form-label main-label fs-14 text-nowrap">Page</label><sup class="validationn">*</sup>
+                                                <div class="main-selectpicker">
+                                                    <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
+                                                        <option value="">select Page</option>
+                                                    </select>
+                                                </div>
 
-                                                    <label class="form-label main-label fs-14 text-nowrap">Form</label><sup class="validationn">*</sup>
-                                                    <div class="main-selectpicker">
-                                                        <select id="facebookform" class="selectpicker form-control form-main" data-live-search="true" required>
-                                                            <option value="">select Form</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="text-end mt-3 page_frm_save">
-                                                        <button class="btn-primary d-inline-block big_falcebook_circle_2_sbt" edit-id="">Save</button>
-                                                    </div>
-                                            </div>
-                        </form>
-                        <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
-                            <b>Facebook Pages & Forms</b>
-                        </h6>
-                    </div>
-
-                    <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
-                        <div class="btn-primary-rounded add_next_big_plus_2">
-                            <i class="bi bi-plus"></i>
-                        </div>
-                    </div>
+                                                <label class="form-label main-label fs-14 text-nowrap">Form</label><sup class="validationn">*</sup>
+                                                <div class="main-selectpicker">
+                                                    <select id="facebookform" class="selectpicker form-control form-main" data-live-search="true" required>
+                                                        <option value="">select Form</option>
+                                                    </select>
+                                                </div>
+                                                <div class="text-end mt-3 page_frm_save">
+                                                    <button class="btn-primary d-inline-block big_falcebook_circle_2_sbt" edit-id="">Save</button>
+                                                </div>
+                                        </div>
+                    </form>
+                    <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
+                        <b>Facebook Pages & Forms</b>
+                    </h6>
                 </div>
 
-                <div class="lead_module_devider lead_module_devider_2"></div>
-                <div class="big_list_add_outer_main big_list_add_outer_main_3 position-relative">
-                    <div class="big_circle_fb_outer position-relative">
-                        <div class="big_circle_fb after-none cursor-pointer">
-                            <div class="big_circle_fb_inner bg-white shadow-none p-5 rounded-circle position-relative">
-                                <div class="position-relative">
-                                    <img src="https://ajasys.com/img/favicon.png" alt="" width="80">
-                                </div>
+                <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
+                    <div class="btn-primary-rounded add_next_big_plus_2">
+                        <i class="bi bi-plus"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lead_module_devider lead_module_devider_2"></div>
+            <div class="big_list_add_outer_main big_list_add_outer_main_3 position-relative">
+                <div class="big_circle_fb_outer position-relative">
+                    <div class="big_circle_fb after-none cursor-pointer">
+                        <div class="big_circle_fb_inner bg-white shadow-none p-5 rounded-circle position-relative">
+                            <div class="position-relative">
+                                <img src="https://ajasys.com/img/favicon.png" alt="" width="80">
                             </div>
                         </div>
-                        <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+                    </div>
+                    <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
 
-                            <label class="form-label main-label fs-14 text-nowrap mt-2">Int Product</label> <sup class="validationn">*</sup>
-                            <div class="main-selectpicker">
-                                <select id="product" class="selectpicker form-control form-main product" data-live-search="true" required>
-                                    <option value="0">Select Int Product</option>
-                                    <?php
-                                    if (isset($product)) {
-                                        foreach ($product as $product_key => $product_value) {
-                                            echo '<option data-product_option_id="' . $product_value["id"] . '" value="' . $product_value["id"] . '">' . $product_value["product_name"] . '</option>';
-                                        }
+                        <label class="form-label main-label fs-14 text-nowrap mt-2">Interested Product</label> <sup class="validationn">*</sup>
+                        <div class="main-selectpicker">
+                            <select id="product" class="selectpicker form-control form-main product" data-live-search="true" required>
+                                <option value="0">Select Interested Product</option>
+                                <?php
+                                if (isset($product)) {
+                                    foreach ($product as $product_key => $product_value) {
+                                        echo '<option data-product_option_id="' . $product_value["id"] . '" value="' . $product_value["id"] . '">' . $product_value["product_name"] . '</option>';
                                     }
-                                    ?>
-                                </select>
-                            </div>
+                                }
+                                ?>
+                            </select>
+                        </div>
 
-                            <label class="form-label main-label fs-14 text-nowrap mt-2">Assign
-                                to <sup class="validationn">*</sup></label>
-                            <div class="main-selectpicker">
-                                <select id="assign_to" class="selectpicker form-control form-main assign_to" data-live-search="true" required>
-                                    <option class="dropdown-item" data-sourcetype_name="employee" value="0">Roll Over Staff</option>
-                                    <option class="dropdown-item" data-sourcetype_name="employee" value="1">Assign To Staff</option>
-                                </select>
-                            </div>
+                        <label class="form-label main-label fs-14 text-nowrap mt-2">Assign
+                            to <sup class="validationn">*</sup></label>
+                        <div class="main-selectpicker">
+                            <select id="assign_to" class="selectpicker form-control form-main assign_to" data-live-search="true" required>
+                                <option class="dropdown-item" data-sourcetype_name="employee" value="0">Roll Over Staff</option>
+                                <option class="dropdown-item" data-sourcetype_name="employee" value="1">Assign To Staff</option>
+                            </select>
+                        </div>
 
-                            <label class="form-label main-label fs-14 text-nowrap mt-2 staff">Staff<sup class="validationn">*</sup></label>
-                            <div class="main-selectpicker multiple-select staff">
-                                <select class="selectpicker form-control form-main staff_to" multiple id="staff_to" name="staff_to" data-live-search="true" required>
-                                    <?php
-                                    if (isset($user_data)) {
-                                        foreach ($user_data as $type_key => $user_value) {
-                                            echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
-                                        }
+                        <label class="form-label main-label fs-14 text-nowrap mt-2 staff">Staff<sup class="validationn">*</sup></label>
+                        <div class="main-selectpicker multiple-select staff">
+                            <select class="selectpicker form-control form-main staff_to" multiple id="staff_to" name="staff_to" data-live-search="true" required>
+                                <?php
+                                if (isset($user_data)) {
+                                    foreach ($user_data as $type_key => $user_value) {
+                                        echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
                                     }
-                                    ?>
-                                </select>
-                            </div>
+                                }
+                                ?>
+                            </select>
+                        </div>
 
-                            <div class="text-end mt-3">
-                                <button class="btn-primary big_falcebook_circle_4_sbt">Save</button>
-                            </div>
+                        <div class="text-end mt-3">
+                            <button class="btn-primary big_falcebook_circle_4_sbt">Save</button>
                         </div>
                     </div>
+                </div>
 
-                    <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
-                        <div class="btn-primary-rounded add_next_big_plus_2">
-                            <i class="bi bi-plus"></i>
-                        </div>
+                <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
+                    <div class="btn-primary-rounded add_next_big_plus_2">
+                        <i class="bi bi-plus"></i>
                     </div>
-
                 </div>
-            </div>
-        </div>
-        </form>
-        <div class="p-2 bg-white rounded-2 mx-2 pages_list">
-        </div>
 
-        <div class="delete_div">
-            <div class="border-bottom m-3"></div>
-            <div class="p-2 bg-white rounded-2 mx-2">
-                <div class="mb-2">
-                    <h2 class="fs-14 text-gray">Recently deleted</h2>
-                </div>
-                <div class="deleted_pages_list"></div>
-            </div>
-        </div>
-
-        <div class="update_div">
-            <div class="border-bottom m-3"></div>
-            <div class="p-2 bg-white rounded-2 mx-2">
-                <div class="mb-2">
-                    <h2 class="fs-14 text-gray">Before updated Form</h2>
-                </div>
-                <div class="updated_pages_list"></div>
-            </div>
-        </div>
-
-        <div class="draft_div">
-            <div class="border-bottom m-3"></div>
-            <div class="p-2 bg-white rounded-2 mx-2">
-                <div class="mb-2">
-                    <h2 class="fs-14 text-gray">Saved Drafts</h2>
-                </div>
-                <div class="draft_pages_list"></div>
             </div>
         </div>
     </div>
+    </form>
+    <div class="p-2 bg-white rounded-2 mx-2 pages_list">
+    </div>
+
+    <div class="delete_div">
+        <div class="border-bottom m-3"></div>
+        <div class="p-2 bg-white rounded-2 mx-2">
+            <div class="mb-2">
+                <h2 class="fs-14 text-gray">Recently deleted</h2>
+            </div>
+            <div class="deleted_pages_list"></div>
+        </div>
+    </div>
+
+    <div class="update_div">
+        <div class="border-bottom m-3"></div>
+        <div class="p-2 bg-white rounded-2 mx-2">
+            <div class="mb-2">
+                <h2 class="fs-14 text-gray">Before updated Form</h2>
+            </div>
+            <div class="updated_pages_list"></div>
+        </div>
+    </div>
+
+    <div class="draft_div">
+        <div class="border-bottom m-3"></div>
+        <div class="p-2 bg-white rounded-2 mx-2">
+            <div class="mb-2">
+                <h2 class="fs-14 text-gray">Saved Drafts</h2>
+            </div>
+            <div class="draft_pages_list"></div>
+        </div>
+    </div>
+</div>
 </div>
 </div>
 </div>
@@ -802,15 +803,12 @@ $user_data = $user_result->getResultArray();
         var assign_to = $(".assign_to option:selected").val();
         var staff_to = $("#staff_to").val();
         var staff_to = staff_to.join(',');
-        if(assign_to==1)
-        {
+        if (assign_to == 1) {
             var chk = staff_to;
-        }
-        else
-        {
+        } else {
             var chk = assign_to;
         }
-        
+
         var page_id = $("#facebookpages option:selected").val();
         var access_token = $("#facebookpages").find("option:selected").attr("data-access_token");
         var page_name = $("#facebookpages").find("option:selected").attr("data-page_name");
@@ -818,7 +816,7 @@ $user_data = $user_result->getResultArray();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
 
-        if (assign_to != "" && int_product > 0 && chk!='') {
+        if (assign_to != "" && int_product > 0 && chk != '') {
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_page'); ?>",
@@ -984,7 +982,7 @@ $user_data = $user_result->getResultArray();
                             location.reload();
                         }
                     });
-                }, true], // true to focus
+                }, true],
                 ['<button>Close</button>', function(instance, toast) {
                     instance.hide({
                         transitionOut: 'fadeOutUp',
@@ -996,51 +994,88 @@ $user_data = $user_result->getResultArray();
                 console.info('callback abriu!');
             },
             onClosing: function(instance, toast, closedBy) {
-                console.info('closedBy: ' + closedBy); // tells if it was closed by 'drag' or 'button'
+                console.info('closedBy: ' + closedBy);
             }
         });
     });
 
     $('body').on('click', '.delete_page', function() {
         var delete_id = $(this).attr('data-delete_id');
-        var checkbox = $('.checkbox:checked');
-        iziToast.delete({
-            message: 'Are You Sure',
-            buttons: [
-                ['<button>delete</button>', function(instance, toast) {
+        var is_draft = $(this).attr('data-draft');
+
+        var record_text = "Are you sure you want to Delete this?";
+        if (delete_id != '' && delete_id !== undefined && delete_id !== 'undefined') {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: record_text,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'CONFIRM',
+                cancelButtonText: 'CANCEL',
+                cancelButtonColor: '#6e7881',
+                confirmButtonColor: '#dd3333',
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
                     $.ajax({
                         url: "<?= site_url('delete_pages_fb'); ?>",
                         method: "post",
                         data: {
                             action: 'delete',
                             delete_id: delete_id,
-                            table: 'admin_fb_pages',
+                            is_draft: is_draft,
+                            table: 'fb_pages',
                         },
                         success: function(data) {
                             iziToast.error({
-                                title: 'Delete Successfully'
+                                title: 'Form Deleted Successfully..!'
                             });
-                            // pages_list_data();
                             location.reload();
                         }
                     });
-                }, true], // true to focus
-                ['<button>Close</button>', function(instance, toast) {
-                    instance.hide({
-                        transitionOut: 'fadeOutUp',
-                        onClosing: function(instance, toast, closedBy) {
-                            console.info('closedBy: ' + closedBy); // The return will be: 'closedBy: buttonName'
-                        }
-                    }, toast, 'buttonName');
-                }]
-            ],
-            onOpening: function(instance, toast) {
-                console.info('callback abriu!');
-            },
-            onClosing: function(instance, toast, closedBy) {
-                console.info('closedBy: ' + closedBy); // tells if it was closed by 'drag' or 'button'
-            }
-        });
+                }
+            });
+
+        }
+
+        // var checkbox = $('.checkbox:checked');
+        // iziToast.delete({
+        //     message: 'Are You Sure',
+        //     buttons: [
+        //         ['<button>delete</button>', function(instance, toast) {
+        //             $.ajax({
+        //                 url: "<?= site_url('delete_pages_fb'); ?>",
+        //                 method: "post",
+        //                 data: {
+        //                     action: 'delete',
+        //                     delete_id: delete_id,
+        //                     is_draft:is_draft,
+        //                     table: 'fb_pages',
+        //                 },
+        //                 success: function(data) {
+        //                     iziToast.error({
+        //                         title: 'Delete Successfully'
+        //                     });
+        //                     location.reload();
+        //                 }
+        //             });
+        //         }, true], 
+        //         ['<button>Close</button>', function(instance, toast) {
+        //             instance.hide({
+        //                 transitionOut: 'fadeOutUp',
+        //                 onClosing: function(instance, toast, closedBy) {
+        //                     console.info('closedBy: ' + closedBy); 
+        //                 }
+        //             }, toast, 'buttonName');
+        //         }]
+        //     ],
+        //     onOpening: function(instance, toast) {
+        //         console.info('callback abriu!');
+        //     },
+        //     onClosing: function(instance, toast, closedBy) {
+        //         console.info('closedBy: ' + closedBy);
+        //     }
+        // });
     });
 
     function discard_page() {
@@ -1109,7 +1144,7 @@ $user_data = $user_result->getResultArray();
         $('.big_circle_fb_outer,.lead_add_main_box,.lead_main_box_add').show();
         // $('.discard-tag').show();
 
-      
+
         // $(".big_list_add_outer_main").hide();
         // $(".big_list_add_outer_main_1").show();
 

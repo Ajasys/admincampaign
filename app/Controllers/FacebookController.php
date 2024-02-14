@@ -5,6 +5,7 @@ namespace App\Controllers;
 //use CodeIgniter\Database\ConnectionInterface;
 use App\Models\MasterInformationModel;
 use Config\Database;
+
 class FaceBookController extends BaseController
 {
     //private $db;
@@ -27,6 +28,7 @@ class FaceBookController extends BaseController
         $table_username = session_username($_SESSION['username']);
         $action = $this->request->getPost("action");
         $access_token = $this->request->getPost("access_token");
+        $access_token = trim($access_token);
         $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token);
 
         $errorMsg = 'Something Went wrong..!';
@@ -40,34 +42,29 @@ class FaceBookController extends BaseController
             $numberOfPages = count($result['data']);
             if ($numberOfPages > 0) {
 
-                $appresult = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' .$access_token.'&access_token='.$access_token);
-                if(isset($appresult['data']))
-                {
+                $appresult = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' . $access_token . '&access_token=' . $access_token);
+                if (isset($appresult['data'])) {
                     $fbdata = $appresult['data'];
                 }
 
                 $is_facebook_connect = 1;
-                $query = "SELECT * FROM ".$table_username."_platform_integration WHERE access_token='".$access_token."' AND platform_status=2";
+                $query = "SELECT * FROM " . $table_username . "_platform_integration WHERE access_token='" . $access_token . "' AND platform_status=2";
                 $int_rows = $this->db->query($query);
                 $int_result = $int_rows->getResult();
                 if (isset($int_result[0])) {
                     $int_data = get_object_vars($int_result[0]);
-                    if($int_data['verification_status']==1)
-                    {
-                        $result_array['response'] = 1;
-                        $result_array['message'] = $int_data['fb_app_name'].' facebook app connection already exists..!';
-                    }
-                    else
-                    {
+                    if ($int_data['verification_status'] == 1) {
+                        $result_array['response'] = 2;
+                        $result_array['message'] = $int_data['fb_app_name'] . ' facebook app connection already exists..!';
+                    } else {
                         $update_data['fb_app_id'] = $fbdata['app_id'];
                         $update_data['fb_app_name'] = $fbdata['application'];
                         $update_data['fb_app_type'] = $fbdata['type'];
                         $update_data['verification_status'] = $is_facebook_connect;
-                        $departmentUpdatedata = $this->MasterInformationModel->update_entry2($int_data['id'], $update_data, $table_username.'_platform_integration');
+                        $departmentUpdatedata = $this->MasterInformationModel->update_entry2($int_data['id'], $update_data, $table_username . '_platform_integration');
                         $result_array['response'] = 1;
-                        $result_array['message'] = $fbdata['application'].' facebook app connected successfully..!';
+                        $result_array['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
                     }
-
                 } else {
                     //insert 
                     $insert_data['master_id'] = $_SESSION['master'];
@@ -77,11 +74,10 @@ class FaceBookController extends BaseController
                     $insert_data['fb_app_type'] = $fbdata['type'];
                     $insert_data['verification_status'] = $is_facebook_connect;
                     $insert_data['platform_status'] = 2;
-                    $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $table_username.'_platform_integration');
+                    $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $table_username . '_platform_integration');
                     $result_array['response'] = 1;
-                    $result_array['message'] = $fbdata['application'].' facebook app connected successfully..!';
-                }  
-                
+                    $result_array['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
+                }
             } else {
                 $is_facebook_connect = 0;
                 $result_array['response'] = 0;
@@ -99,6 +95,7 @@ class FaceBookController extends BaseController
     //delete
     public function delete_pages_fb()
     {
+        $table_username = session_username($_SESSION['username']);
         $response = array();
         $table_name = array();
         if ($this->request->getPost("action") == "delete") {
@@ -110,7 +107,11 @@ class FaceBookController extends BaseController
                 $find_Array_all = "DELETE FROM admin_fb_pages where master_id='" . $_SESSION['master'] . "'";
                 $find_Array_all = $this->db->query($find_Array_all);
             } else {
-                $this->db->query('UPDATE ' . $table_name . ' SET `is_status`=1 WHERE id=' . $delete_id . '');
+                if ($this->request->getPost('is_draft') == 1) {
+                    $this->MasterInformationModel->delete_entry2($table_username . '_' . $table_name, $delete_id);
+                } else {
+                    $this->db->query('UPDATE ' . $table_username . '_' . $table_name . ' SET `is_status`=1 WHERE id=' . $delete_id . '');
+                }
             }
             $response['response'] = 0;
             echo json_encode($response);
@@ -140,8 +141,8 @@ class FaceBookController extends BaseController
         if ($action == "user" && $fb_access_token) {
             $html .= '<option value="0">Select Page</option>';
             if (isset($fb_access_token) && $fb_check_conn == 1) {
-                $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token='.$fb_access_token);
-            
+                $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
+
                 foreach ($pageresult['data'] as $aa_key => $aa_value) {
                     $longLivedAccessToken = $aa_value['access_token'];
                     $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
@@ -157,7 +158,7 @@ class FaceBookController extends BaseController
                 $resultff['response'] = 0;
                 $resultff['message'] = 'Please check your access token..!';
             }
-        } 
+        }
 
         $resultff['html'] = $html;
         $resultff['profile_pic'] = '';
@@ -170,7 +171,7 @@ class FaceBookController extends BaseController
         $html = "";
         $page_id = $this->request->getPost("page_id");
         $access_token = $this->request->getPost("access_token");
-    
+
         try {
             $result = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/leadgen_forms?access_token=' . $access_token . '');
             $html .= '<option value="0">Select Form</option>';
@@ -240,21 +241,20 @@ class FaceBookController extends BaseController
                     $this->db->query('UPDATE `admin_fb_pages` SET `intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = $form_name." re-connect successfully";
-                }
-                else if ($result_facebook_data[0]['is_status'] == 1) {
+                    $result_array['msg'] = $form_name . " re-connect successfully";
+                } else if ($result_facebook_data[0]['is_status'] == 1) {
                     //is_status==1-for delete to connection
                     $this->db->query('UPDATE `admin_fb_pages` SET `is_status`=0 WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
 
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = $form_name." re-connect successfully";
+                    $result_array['msg'] = $form_name . " re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 3) {
                     //is_status==0-for draft to connection
                     $this->db->query('UPDATE `admin_fb_pages` SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = $form_name." connection successfully";
+                    $result_array['msg'] = $form_name . " connection successfully";
                 } else if ($this->request->getPost("edit_id") == $result_facebook_data[0]['id'] && ($form_id != $result_facebook_data[0]['form_id'] || $is_status == 3)) {
                     //is_status == 2//old to new
                     $this->db->query('UPDATE `admin_fb_pages` SET `is_status`=2 WHERE form_id=' . $form_id . '');
@@ -274,12 +274,12 @@ class FaceBookController extends BaseController
                     $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, 'admin_fb_pages');
                     $result_array['page_profile'] = $response_pictures['data']['url'];
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = $form_name." Connected successfully";
+                    $result_array['msg'] = $form_name . " Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
                     $this->db->query('UPDATE `admin_fb_pages` SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = $form_name." Updated successfully";
+                    $result_array['msg'] = $form_name . " Updated successfully";
                 } else {
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 0;
@@ -360,7 +360,7 @@ class FaceBookController extends BaseController
                                    <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
                                 </div>
                             </div>
-                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="'.base_url().'leadlist?id=' . $value['form_id'] . '">
+                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="' . base_url() . 'leadlist?id=' . $value['form_id'] . '">
                                 <p class="d-block col-12 text-dark">' . $value['page_name'] . '(' . $form_name . ')</p>
                                 <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
                                 <i class="bi bi-gear me-1"></i>
@@ -418,8 +418,7 @@ class FaceBookController extends BaseController
             $status = 1;
             foreach ($result_facebook_data as $key => $value) {
                 $simbol = '';
-                if($value['is_status']==4)
-                {
+                if ($value['is_status'] == 4) {
                     $simbol = '<i class="fa-solid fa-triangle-exclamation fa-xl text-danger" title="Lost Connection"></i>';
                 }
                 $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
@@ -471,7 +470,7 @@ class FaceBookController extends BaseController
                                    <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
                                 </div>
                             </div>
-                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="'.base_url().'leadlist?id=' . $value['form_id'] . '">
+                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="' . base_url() . 'leadlist?id=' . $value['form_id'] . '">
                                 <p class="d-block col-12 text-dark">' . $value['page_name'] . '(' . $form_name . ')</p>
                                 <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
                                 <i class="bi bi-gear me-1"></i>
@@ -481,7 +480,7 @@ class FaceBookController extends BaseController
                                     <span>' . $_SESSION['username'] . '</span>
                                 </div>
                             </a></div>
-                            <div>'.$simbol.'</div>
+                            <div>' . $simbol . '</div>
                             </div>
                         </div>';
             }
@@ -558,7 +557,7 @@ class FaceBookController extends BaseController
                                    <img src="https://ajasys.com/img/favicon.png">
                                 </div>
                             </div>
-                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="'.base_url().'leadlist?id=' . $value['form_id'] . '">
+                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="' . base_url() . 'leadlist?id=' . $value['form_id'] . '">
                                 <p class="d-block col-12 text-dark">' . $value['page_name'] . '(' . $form_name . ')</p>
                                 <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
                                 <i class="bi bi-gear me-1"></i>
@@ -671,7 +670,7 @@ class FaceBookController extends BaseController
                                     </button>
                                     <ul class="dropdown-menu py-2">
                                         <li onclick="EditScenarios(\'' . $value['page_ids'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
-                                        <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . '><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
+                                        <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . ' data-draft="1"><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
                                     </ul>
                                 </div>
                             </div></div></div></div>';
@@ -1183,17 +1182,17 @@ class FaceBookController extends BaseController
                 <td class="p-2 text-nowrap">' . $value['fb_app_type'] . '</td>
                 <td class="p-2 text-nowrap"></td>
                 <td class="p-2 text-nowrap">';
-                if ($value['verification_status']==1) {
+                if ($value['verification_status'] == 1) {
                     $html .=  '<span class="rounded-2 text-white fs-12 sm-btn Success">connect</span>';
                 } else {
                     $html .=  '<span class="rounded-2 text-white fs-12 sm-btn Error">failure</span>';
                 }
                 $html .=  '</td>
                     <td class="p-2 text-nowrap text-center">
-                        <button type="button" class="ms-auto btn-primary px-2 py-1 rounded-1 fs-12 get-permission" data-bs-toggle="modal" data-bs-target="#informaion_connection" data-access-token="'.$value['access_token'].'">
+                        <button type="button" class="ms-auto btn-primary px-2 py-1 rounded-1 fs-12 get-permission" data-bs-toggle="modal" data-bs-target="#informaion_connection" data-access-token="' . $value['access_token'] . '">
                            View
                         </button>
-                        <i class="fa-solid fa-trash-can text-danger px-2" onclick="deletefbconn('.$value['id'].');"></i>
+                        <i class="fa-solid fa-trash-can text-danger px-2" onclick="deletefbconn(' . $value['id'] . ');"></i>
                     </td>
                 </tr>';
             }
@@ -1211,15 +1210,13 @@ class FaceBookController extends BaseController
 
     public function fb_permission_list()
     {
-        if(isset($_POST['access_token']))
-        {
-            $result = getSocialData('https://graph.facebook.com/v19.0/me/permissions?access_token='.$_POST['access_token']);
-            if(isset($result['data']))
-            {
+        if (isset($_POST['access_token'])) {
+            $result = getSocialData('https://graph.facebook.com/v19.0/me/permissions?access_token=' . $_POST['access_token']);
+            if (isset($result['data'])) {
                 $tableHtml = '<table style="width: 100%;">';
                 $tableHtml .= '<tr><th>Permission</th><th>Status</th></tr>';
                 // $tableHtml .= '<td>' . htmlspecialchars($permission['status']) . '<i class="fa-solid fa-check text-success fa-lg"></i></td>';
-                    
+
                 foreach ($result['data'] as $permission) {
                     $tableHtml .= '<tr>';
                     $tableHtml .= '<td>' . htmlspecialchars($permission['permission']) . '</td>';
@@ -1231,9 +1228,7 @@ class FaceBookController extends BaseController
 
                 $return_array['tableHtml'] = $tableHtml;
                 $return_array['response'] = 1;
-            }
-            else
-            {
+            } else {
                 $return_array['tableHtml'] = '';
                 $return_array['response'] = 0;
             }
@@ -1245,19 +1240,16 @@ class FaceBookController extends BaseController
     {
         $return_array['response'] = 1;
         $return_array['result'] = '';
-        if(isset($_POST['id']))
-        {
+        if (isset($_POST['id'])) {
             $query = $this->db->query("SELECT p.*,i.id as connection_id,i.access_token,i.verification_status 
             FROM " . $this->username . "_fb_pages p  
             JOIN " . $this->username . "_platform_integration as i ON i.id=p.connection_id
-            WHERE p.id=".$_POST['id']);
+            WHERE p.id=" . $_POST['id']);
             $rows = $query->getResultArray();
-            if($rows)
-            {
+            if ($rows) {
                 $return_array['response'] = 1;
                 $return_array['result'] = $rows[0];
             }
-
         }
         echo json_encode($return_array);
     }
@@ -1265,21 +1257,14 @@ class FaceBookController extends BaseController
     public function delete_fb_connection()
     {
         $return_array['response'] = 0;
-        if(isset($_POST['id']))
-        {
-            $delete_data = $this->MasterInformationModel->delete_entry2($this->username."_platform_integration",$_POST['id']);
-            $update_data = $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=4 WHERE connection_id='.$_POST['id']);
-            
-            if($delete_data && $update_data)
-            {
+        if (isset($_POST['id'])) {
+            $delete_data = $this->MasterInformationModel->delete_entry2($this->username . "_platform_integration", $_POST['id']);
+            $update_data = $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `is_status`=4 WHERE connection_id=' . $_POST['id']);
+
+            if ($delete_data && $update_data) {
                 $return_array['response'] = 1;
             }
         }
         echo json_encode($return_array);
     }
-
 }
-
-
-
-

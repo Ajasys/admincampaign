@@ -43,13 +43,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         <div>
             <div class="col-xl-12 d-flex justify-content-between">
                 <div class="title-1  d-flex align-items-center">
-                    <i class="fa-brands fa-facebook transition-5 icon2 rounded-circle"
-                        style="font-size: 35px;color: #3a559f;"></i>
+                    <i class="fa-brands fa-facebook transition-5 icon2 rounded-circle" style="font-size: 35px;color: #3a559f;"></i>
                     <h2>Facebook Connections</h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end  col-1">
-                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#fbCntModal"
-                        class="btn-primary-rounded mx-2">
+                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#fbCntModal" class="btn-primary-rounded mx-2">
                         <i class="bi bi-plus"></i>
                     </button>
                 </div>
@@ -140,8 +138,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                             <div class="dataTables_length" id="project_length">
                                 <label>
                                     Show
-                                    <select name="project_length" id="fb_length_show" aria-controls="project"
-                                        class="table_length_select_check_2">
+                                    <select name="project_length" id="fb_length_show" aria-controls="project" class="table_length_select_check_2">
                                         <option value="10">10</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>
@@ -153,8 +150,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                             </div>
                             <div id="people_wrapper" class="dataTables_wrapper no-footer">
                                 <div id="fb_filter" class="dataTables_filter justify-content-end d-flex py-1 py-sm-0">
-                                    <label>Search:<input type="search" class="" placeholder=""
-                                            aria-controls="project"></label>
+                                    <label>Search:<input type="search" class="" placeholder="" aria-controls="project"></label>
                                 </div>
                             </div>
                         </div>
@@ -201,8 +197,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 <form class="needs-validation row" name="fb_cnt" method="POST" novalidate="">
                     <div class="col-12">
                         <h6 class="modal-body-title">Access Token<sup class="validationn">*</sup></h6>
-                        <textarea type="text" class="form-control main-control" id="access_token" name="access_token"
-                            placeholder="Enter Access Token" required></textarea>
+                        <textarea type="text" class="form-control main-control" id="access_token" name="access_token" placeholder="Enter Access Token" required></textarea>
                     </div>
                 </form>
             </div>
@@ -222,7 +217,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body overflow-y-scroll set-permission" style="height:400px">
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
@@ -233,12 +228,15 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         list_data();
     });
-    $('body').on('click', '#facebook_cnt', function () {
+
+    //facebook connection
+    $('body').on('click', '#facebook_cnt', function() {
         var access_token = $("#access_token").val();
         if (access_token != '') {
+            $('.loader').show();
             $.ajax({
                 type: "post",
                 url: "<?= site_url('check_fb_connection'); ?>",
@@ -246,31 +244,39 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     action: 'insert',
                     access_token: access_token,
                 },
-                success: function (res) {
+                success: function(res) {
                     var result = JSON.parse(res);
-                    if (result.response == 1) {
+                    if (result.response == 1 || result.response == 2) {
                         $("form[name='fb_cnt']")[0].reset();
                         $("form[name='fb_cnt']").removeClass("was-validated");
-                        $(".modal-close").trigger("click");
+                        $("#fbCntModal").modal('hide');
+
                         list_data();
-                        fb_permission_list(access_token);
-                        iziToast.success({
-                            title: result.message,
-                        });
+                        if (result.response == 1) {
+                            fb_permission_list(access_token);
+                            iziToast.success({
+                                title: result.message,
+                            });
+                        } else {
+                            iziToast.warning({
+                                title: result.message,
+                            });
+                        }
                     } else {
                         iziToast.error({
                             title: result.message,
                         });
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     $('.loader').hide();
                 }
             });
+            $('.loader').hide();
             return false;
         } else {
             var form = $("form[name='fb_cnt']")[0];
-            $(form).find('.selectpicker').each(function () {
+            $(form).find('.selectpicker').each(function() {
                 var selectpicker_valid = 0;
                 if ($(this).attr('required') == 'undefined') {
                     var selectpicker_valid = 0;
@@ -315,7 +321,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             data: data,
             processData: processdd,
             contentType: contentType,
-            success: function (res) {
+            success: function(res) {
                 var result = JSON.parse(res);
                 if (result.response == 1) {
                     if (result.total_page == 0 || result.total_page == '') {
@@ -330,7 +336,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         visiblePages: 2,
                         next: '>>',
                         prev: '<<',
-                        onPageClick: function (event, page) {
+                        onPageClick: function(event, page) {
                             list_data(table, page, perPageCount, ajaxsearch);
                         }
                     });
@@ -339,33 +345,51 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         });
     }
 
-    function deletefbconn(id)
-    {
-        $.ajax({
-            datatype: 'json',
-            method: "POST",
-            url: 'delete_fb_connection',
-            data: {
-                id: id,
-            },
-            success: function (res) {
-                var result = JSON.parse(res);
-                if (result.response == 1) {
-                    iziToast.error({
-                        title: 'Facebook app connection has been deleted successfully..!',
+    function deletefbconn(id) {
+        var record_text = "Are you sure you want to Delete this?";
+        if (id != '' && id !== undefined && id !== 'undefined') {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: record_text,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'CONFIRM',
+                cancelButtonText: 'CANCEL',
+                cancelButtonColor: '#6e7881',
+                confirmButtonColor: '#dd3333',
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+
+                    $.ajax({
+                        datatype: 'json',
+                        method: "POST",
+                        url: 'delete_fb_connection',
+                        data: {
+                            id: id,
+                        },
+                        success: function(res) {
+                            var result = JSON.parse(res);
+                            if (result.response == 1) {
+                                iziToast.error({
+                                    title: 'Facebook app connection has been deleted successfully..!',
+                                });
+                                list_data();
+                            } else {
+                                iziToast.error({
+                                    title: 'Facebook app connection has not been deleted successfully..!',
+                                });
+                            }
+                        }
                     });
-                    list_data();
                 }
-                else
-                {
-                    iziToast.error({
-                        title: 'Facebook app connection has not been deleted successfully..!',
-                    });
-                }
-            }
-        });
+            });
+
+        }
+
     }
-    $('#fb_filter input[type="search"]').on('keyup', function (e) {
+
+    $('#fb_filter input[type="search"]').on('keyup', function(e) {
         if (e.which == 13) {
             $('.fb_pagination').twbsPagination('destroy');
             var input = $(this).val().toLowerCase();
@@ -374,18 +398,17 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             list_data('integration', '', '', input);
         }
     });
-    $('body').on('change', '#fb_length_show', function () {
+    $('body').on('change', '#fb_length_show', function() {
         $('.fb_pagination').twbsPagination('destroy');
         var perPageCount = $(this).val();
         list_data('integration', 1, perPageCount)
     });
-    $('body').on('click', '.get-permission', function () {
+    $('body').on('click', '.get-permission', function() {
         var access_token = $(this).attr('data-access-token');
         fb_permission_list(access_token);
     });
 
-    function fb_permission_list(access_token)
-    {
+    function fb_permission_list(access_token) {
         $('#informaion_connection').modal('show');
         var data = {
             'access_token': access_token,
@@ -396,7 +419,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             method: "POST",
             url: 'fb_permission_list',
             data: data,
-            success: function (res) {
+            success: function(res) {
                 var result = JSON.parse(res);
                 if (result.response == 1) {
                     $('.set-permission').html(result.tableHtml);
@@ -405,5 +428,4 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             }
         });
     }
-
 </script>
