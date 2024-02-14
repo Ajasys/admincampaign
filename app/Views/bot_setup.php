@@ -881,7 +881,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Talh to out live agent">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Talk to out live agent">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-headphones icon"></i>
@@ -1051,7 +1051,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="WhatsApp Ad Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-rectangle-ad icon"></i>
