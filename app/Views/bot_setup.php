@@ -12,6 +12,7 @@ if (isset($_GET['bot_id'])) {
 
 $master_bot_typeof_question = json_decode($master_bot_typeof_question, true);
 $admin_bot_setup = json_decode($admin_bot_setup, true);
+$admin_bot = json_decode($admin_bot, true);
 ?>
 
 <style>
@@ -169,7 +170,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-1">
+                            <div class="col-1 d-none">
                                 <button class="btn-primary-rounded mx-1 All_memberPlusBtn" id="plus_btn" data-bs-toggle="modal" datamno="" data-bs-target="#add-member">
                                     <i class="bi bi-plus"></i>
                                 </button>
@@ -2722,8 +2723,18 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <div class="border  rounded-circle overflow-hidden" style="width:35px;height:35px">
                                     <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
                                 </div>
-                                <h6 class="mx-2">Oppo</h6>
-                            </div>
+                                <h6 class="mx-2">
+                                    <?php
+                                        if (isset($admin_bot)) {                                                      
+                                            foreach ($admin_bot as $type_key => $type_value) {
+                                                if ($type_value['id'] == $botId) {
+                                                    echo '' . $type_value["name"] . '';
+                                                }
+                                            }
+                                        }
+                                    ?>
+                                </h6>
+                           </div>
                             <div class="d-flex flex-wrap">
                                 <button class="bg-primary mx-2 px-3 text-white" id="sound-icon">
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -2795,7 +2806,8 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 <?= $this->include('partials/footer') ?>
 
 <script>
-    function bot_preview_data(sequence) {
+   //bot chat list into preview
+   function bot_preview_data(sequence,action) {
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
         var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
@@ -2808,21 +2820,24 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             url: "<?= site_url('bot_preview_data'); ?>",
             data: {
                 action: 'init_chat',
+                action: action,
                 table: table,
                 bot_id: bot_id,
                 sequence: sequence
             },
             success: function(data) {
                 var response = JSON.parse(data);
+                $('.skip_question').hide();
                 $('.loader').hide();
                 $(".bot_preview_html").html(response.html);
             }
         });
         
     }
-    bot_preview_data(1);
+    bot_preview_data(1,'');
 
 
+    //insert chat answer
     var sequence = 1;
     $('body').on('click', '.chatting_data', function (e) {
         e.preventDefault();
@@ -2845,7 +2860,9 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 },
                 success: function (res) {
                     console.log(res);
-                    sequence++;
+                        $('.skip_question').hide();
+                        sequence++;
+                        $('.answer_chat').val('');
                     bot_preview_data(sequence); 
                 }
             });
@@ -2853,66 +2870,26 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
     });
 
 
-//  // Define a global variable to keep track of the sequence
-//  var sequence = 1;
+    //enter chat answer insert
+    // var input = document.getElementById("answer_chat");
+    // input.addEventListener("keypress", function (event) {
+    //     if (event.key === "Enter") {
+    //         event.preventDefault();
+    //         document.getElementById("chatting_data").click();
+    //     }
+    // });
 
-// $('body').on('click', '.chatting_data', function (e) {
-//     e.preventDefault();
-//     var chatting = $('.answer_chat').val();
-//     var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
-//     var bot_id = '<?php echo $botId; ?>';
-//     var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
-    
-//     if (chatting !== "") {
-//         $.ajax({
-//             method: "post",
-//             url: "<?= site_url('insert_chat_answer'); ?>",
-//             data: {
-//                 table: table,
-//                 action: "chat_answer",
-//                 answer: chatting,
-//                 bot_id: bot_id,
-//                 question_id: conversion_id ,
-//                 // Use the global sequence variable here
-//                 sequence: sequence
-//             },
-//             success: function (res) {
-//                 console.log(res);
-//                 // Increment the sequence for the next question
-//                 sequence++;
-//                 // Call bot_preview_data with the incremented sequence
-//                 bot_preview_data(sequence); 
-//             }
-//         });
-//     }
-// });
 
-     // //chat message list
-    // function chat_list(sequence) {
-    //     var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
-    //     var bot_id = '<?php echo $botId; ?>';
-    //     var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
-    //     var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id',conversion_id); 
-        
-    //     var chatting_sequence = $(".chatting_data").attr('data-sequence',sequence); 
+    //skip question next question can set
+    var sequence = 1;
+    $('body').on('click', '.skip_questioned', function(e) {
+        // alert();
+        e.preventDefault();
+        $('.skip_question').hide();
+        sequence++;
+        bot_preview_data(sequence,'skip_question');
+    });
 
-    //     $.ajax({
-    //         method: "post",
-    //         url: "<?= site_url('chat_list'); ?>",
-    //         data: {
-    //             action: 'init_chat',
-    //             table: table,
-    //             bot_id: bot_id,
-    //             // sequence: sequence 
-    //         },
-    //         success: function(data) {
-    //             var response = JSON.parse(data);
-    //             $('.loader').hide();
-    //             $(".bot_preview_html").html(response.html);
-    //         }
-    //     });
-    // }
-    // chat_list();
 
     //page js for drag and drop
     $(".question_add").on("dragstart", function(e) {
