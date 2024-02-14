@@ -430,21 +430,19 @@ $user_data = $user_result->getResultArray();
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+                                        <div class="big_circle_fb_list all_circle_plus_list all_circle_plus_list1 bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
                                             <form>
                                                 <div class="col-12">
-                                                    <label class="form-label main-label fs-14 text-nowrap mb-2">Website URL</label>
-                                                    <input type="text" class="form-control form-main" placeholder="htttps//....." disabled>
+                                                    <label class="form-label main-label fs-14 text-nowrap mt-3">Website URL <sup class="validationn">*</sup></label>
+                                                    <input type="url" class="form-control main-control" name="website_url" placeholder="Enter your website URL" id="website_url" required>
                                                 </div>
                                                 <div class="col-12">
-                                                    <label class="form-label main-label fs-14 text-nowrap">API</label><sup
-                                                        class="validationn">*</sup>
-                                                    <input type="text" class="form-control form-main" placeholder="API....." disabled>
+                                                    <label class="form-label main-label fs-14 text-nowrap">API</label>
+                                                    <input type="text" class="form-control form-main" placeholder="" disabled>
                                                 </div>
                                                 <div class="col-12">
-                                                    <label class="form-label main-label fs-14 text-nowrap">Access Token</label><sup
-                                                        class="validationn">*</sup>
-                                                    <textarea id=""  rows="3" class="form-control form-main" placeholder="Enter Access Token..."></textarea>
+                                                    <label class="form-label main-label fs-14 text-nowrap">Access Token</label>
+                                                    <textarea id=""  rows="3" class="form-control form-main" placeholder=""></textarea>
                                                 </div>
 
                                                 <div class="text-end mt-3 page_frm_save">
@@ -648,6 +646,7 @@ $user_data = $user_result->getResultArray();
             $(this).closest(".big_circle_plus_outer").hide();
             $(".big_list_add_outer_main_4").show();
             $(".big_list_add_outer_main_4 .big_circle_fb_outer").show();
+            $(".all_circle_plus_list1").show();
         });
 
         $('body').on('change', '#fb_conn_id', function () {
