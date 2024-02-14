@@ -778,14 +778,20 @@ class Bot_Controller extends BaseController
 								<p class="fw-semibold d-inline block mx-2 cursor-pointer sequence" data-id='.$value['id'].' data-sequence='.$value['sequence'].'>' . $value['question'] . '</p>
 							</label>
 						</div>
-						<div class="col-2 d-flex flex-wrap align-items-center">
-							<div class="col-3 p-1">
-								<i class="fa fa-pencil cursor-pointer question_edit" data-id='.$value['id'].' data-type_of_question='.$value['type_of_question'].' data-bs-toggle="modal" data-bs-target="#add-email"></i>
-							</div>
-							<div class="col-3 p-1">
-								<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id='.$value['id'].' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-							</div>
-							<div class="col-3 p-1">
+						<div class="col-2 d-flex flex-wrap align-items-center">';
+						$html .= '<div class="col-3 p-1">';
+						if ($value['type_of_question'] != 31 && $value['type_of_question'] != 32 && $value['type_of_question'] != 33 && $value['type_of_question'] != 45) {
+							$html .= '<i class="fa fa-pencil cursor-pointer question_edit" data-id='.$value['id'].' data-type_of_question='.$value['type_of_question'].' data-bs-toggle="modal" data-bs-target="#add-email"></i>';
+						}
+						$html .= '</div>';
+				 
+				        if ($value['type_of_question'] != 36) {
+							$html .= '<div class="col-3 p-1">';
+				            $html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id='.$value['id'].' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
+							$html .= '	</div>';
+				        }
+				 
+						$html .= '	<div class="col-3 p-1">
 								<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question='.$value['id'].'></i>
 							</div>
 							<div class="col-3 p-1">
