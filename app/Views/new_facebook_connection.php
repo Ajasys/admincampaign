@@ -207,7 +207,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary modal-close-btn" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="facebook_cnt">Submit</button>
             </div>
         </div>
@@ -223,6 +223,9 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             </div>
             <div class="modal-body overflow-y-scroll set-permission" style="height:400px">
                 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>
@@ -250,6 +253,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         $("form[name='fb_cnt']").removeClass("was-validated");
                         $(".modal-close-btn").trigger("click");
                         list_data();
+                        fb_permission_list(access_token);
                         iziToast.success({
                             title: result.message,
                         });
@@ -348,14 +352,14 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 var result = JSON.parse(res);
                 if (result.response == 1) {
                     iziToast.error({
-                        title: 'Your connection has been deleted successfully..!',
+                        title: 'Facebook app connection has been deleted successfully..!',
                     });
                     list_data();
                 }
                 else
                 {
                     iziToast.error({
-                        title: 'Your connection has not been deleted successfully..!',
+                        title: 'Facebook app connection has not been deleted successfully..!',
                     });
                 }
             }
@@ -377,6 +381,12 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     });
     $('body').on('click', '.get-permission', function () {
         var access_token = $(this).attr('data-access-token');
+        fb_permission_list(access_token);
+    });
+
+    function fb_permission_list(access_token)
+    {
+        $('#informaion_connection').modal('show');
         var data = {
             'access_token': access_token,
         };
@@ -394,6 +404,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 $('.loader').hide();
             }
         });
-    });
+    }
 
 </script>

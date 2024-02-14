@@ -2,9 +2,17 @@
 <?= $this->include('partials/sidebar') ?>
 
 <?php
-$table_username = getMasterUsername();
+$table_username = session_username($_SESSION['username']);
 $db_connection = \Config\Database::connect('second');
 
+$query = "SELECT 
+(select count(id) from admin_platform_integration where `platform_status`=2) as fbcount,
+(select count(id) from admin_platform_integration where `platform_status`=1) as whatsappcount 
+FROM ".$table_username."_platform_integration
+WHERE `verification_status`=1";
+$rows = $db_connection->query($query);
+$resultdata = $rows->getResult();
+$result = get_object_vars($resultdata[0]);
 ?>
 <style>
     .inti-card {
@@ -38,7 +46,13 @@ $db_connection = \Config\Database::connect('second');
                                         <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
                                                 <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">1</span>connections</span>
+                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                        <?php 
+                                                        if(isset($result['fbcount']))
+                                                        {
+                                                            echo $result['fbcount'];
+                                                        }?>
+                                                    </span>connections</span>
                                             </div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
 
@@ -74,7 +88,12 @@ $db_connection = \Config\Database::connect('second');
                                         <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
                                                 <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">0</span>connections</span>
+                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                    <?php 
+                                                        if(isset($result['whatsappcount']))
+                                                        {
+                                                            echo $result['whatsappcount'];
+                                                        }?></span>connections</span>
                                             </div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="hovered-paths">

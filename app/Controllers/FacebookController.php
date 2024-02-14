@@ -55,7 +55,7 @@ class FaceBookController extends BaseController
                     if($int_data['verification_status']==1)
                     {
                         $result_array['response'] = 1;
-                        $result_array['message'] = 'Facebook connection already exists..!';
+                        $result_array['message'] = $int_data['fb_app_name'].' facebook app connection already exists..!';
                     }
                     else
                     {
@@ -65,7 +65,7 @@ class FaceBookController extends BaseController
                         $update_data['verification_status'] = $is_facebook_connect;
                         $departmentUpdatedata = $this->MasterInformationModel->update_entry2($int_data['id'], $update_data, $table_username.'_platform_integration');
                         $result_array['response'] = 1;
-                        $result_array['message'] = 'Facebook connection successfully..!';
+                        $result_array['message'] = $fbdata['application'].' facebook app connected successfully..!';
                     }
 
                 } else {
@@ -79,7 +79,7 @@ class FaceBookController extends BaseController
                     $insert_data['platform_status'] = 2;
                     $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $table_username.'_platform_integration');
                     $result_array['response'] = 1;
-                    $result_array['message'] = 'Facebook connection successfully..!';
+                    $result_array['message'] = $fbdata['application'].' facebook app connected successfully..!';
                 }  
                 
             } else {
@@ -240,7 +240,7 @@ class FaceBookController extends BaseController
                     $this->db->query('UPDATE `admin_fb_pages` SET `intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = "Form Re-connect successfully";
+                    $result_array['msg'] = $form_name." re-connect successfully";
                 }
                 else if ($result_facebook_data[0]['is_status'] == 1) {
                     //is_status==1-for delete to connection
@@ -248,13 +248,13 @@ class FaceBookController extends BaseController
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
 
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = "Form Re-connect successfully";
+                    $result_array['msg'] = $form_name." re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 3) {
                     //is_status==0-for draft to connection
                     $this->db->query('UPDATE `admin_fb_pages` SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = "Form connection successfully";
+                    $result_array['msg'] = $form_name." connection successfully";
                 } else if ($this->request->getPost("edit_id") == $result_facebook_data[0]['id'] && ($form_id != $result_facebook_data[0]['form_id'] || $is_status == 3)) {
                     //is_status == 2//old to new
                     $this->db->query('UPDATE `admin_fb_pages` SET `is_status`=2 WHERE form_id=' . $form_id . '');
@@ -274,12 +274,12 @@ class FaceBookController extends BaseController
                     $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, 'admin_fb_pages');
                     $result_array['page_profile'] = $response_pictures['data']['url'];
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = "Form Connected successfully";
+                    $result_array['msg'] = $form_name." Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
                     $this->db->query('UPDATE `admin_fb_pages` SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
-                    $result_array['msg'] = "Form Updated successfully";
+                    $result_array['msg'] = $form_name." Updated successfully";
                 } else {
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 0;
@@ -1222,11 +1222,12 @@ class FaceBookController extends BaseController
             {
                 $tableHtml = '<table style="width: 100%;">';
                 $tableHtml .= '<tr><th>Permission</th><th>Status</th></tr>';
-
+                // $tableHtml .= '<td>' . htmlspecialchars($permission['status']) . '<i class="fa-solid fa-check text-success fa-lg"></i></td>';
+                    
                 foreach ($result['data'] as $permission) {
                     $tableHtml .= '<tr>';
                     $tableHtml .= '<td>' . htmlspecialchars($permission['permission']) . '</td>';
-                    $tableHtml .= '<td>' . htmlspecialchars($permission['status']) . '</td>';
+                    $tableHtml .= '<td style="text-align: center;"><i class="fa-solid fa-check text-success fa-lg"></i></td>';
                     $tableHtml .= '</tr>';
                 }
 
