@@ -76,7 +76,7 @@
          <div class="px-3 py-2  bg-white rounded-2 col-12 border first-container">
             <div class="bg-white rounded-2 rounded-2 p-3">
                <div class="row align-items-center justify-content-between">
-                  <div class="col-lg-4 col-md-1 col-sm-6 px-2">
+                  <div class="col-lg-4 col-md-4 col-sm-6 px-2">
                      <button class=" btn-primary btn-primary button-add" data-bs-toggle="modal"
                         data-bs-target="#create_audience_list" name="inquirysource_add" value="occupation-add"
                         type="submit">Create Audience +</button>
@@ -256,7 +256,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class=" modal-body modal-body-secondery d-flex flex-wrap">
-            <div class="col-6 px-2">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 px-2">
                <div class="modal-body-card col-12">
                   <div class="row col-12">
                      <div class="col-12 px-2">
@@ -273,7 +273,7 @@
                   </div>
                </div>
             </div>
-            <div class="col-6 px-2">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 px-2 mt-2 mt-sm-2 mt-md-0 mt-lg-0 mt-xl-0 mt-xxl-0">
                <div class="modal-body-card col-12">
                   <div class="row col-12">
                      <div class="col-12 px-2">
@@ -370,15 +370,15 @@
                   <div class="main-selectpicker">
                      <label for="#">Select inquiry audience<sup class="validationn">*</sup></label>
                      <div class="col-12 d-flex align-items-center mt-1">
-                        <div class="col-4">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                            <input type="radio" id="static_data" name="option" value="1" checked>
                            <label for="static_data" style="margin-right: 10px;">Static Data</label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                            <input type="radio" id="increase_data" name="option" value="2">
                            <label for="increase_data" style="margin-right: 10px;">Increase Data</label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                            <input type="radio" id="live_data" name="option" value="3">
                            <label for="live_data">Live Data</label>
                         </div>
@@ -555,15 +555,15 @@
                   <div class="main-selectpicker">
                   <div class="fw-bold mt-4">Edit inquiry audience<sup class="validationn">*</sup></div>
                      <div class="col-12 d-flex align-items-center">
-                        <div class="col-4">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                            <input type="radio" id="static_data" name="option1" value="1" checked>
                            <label for="static_data" style="margin-right: 10px;">Static Data</label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                            <input type="radio" id="increase_data" name="option1" value="2">
                            <label for="increase_data" style="margin-right: 10px;">Increase Data</label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                            <input type="radio" id="live_data" name="option1" value="3">
                            <label for="live_data">Live Data</label>
                         </div>
