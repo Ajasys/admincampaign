@@ -2741,7 +2741,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id',conversion_id); 
         
         var chatting_sequence = $(".chatting_data").attr('data-sequence',sequence); 
-
+        // console.log(chatting_sequence);
         $.ajax({
             method: "post",
             url: "<?= site_url('bot_preview_data'); ?>",
@@ -2755,23 +2755,21 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 var response = JSON.parse(data);
                 $('.loader').hide();
                 $(".bot_preview_html").html(response.html);
-                
-                // bot_preview_data(parseInt(res)); // Assuming res contains the last inserted sequence number
-     
             }
         });
+        
     }
     bot_preview_data(1);
 
 
+    var sequence = 1;
     $('body').on('click', '.chatting_data', function (e) {
         e.preventDefault();
         var chatting = $('.answer_chat').val();
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
-        var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
-        var sequence = $(".conversion_id").attr('data-sequence'); 
-
+        var last_conversation_id = $(".bot_preview_html .messege1:last").attr('data-conversation-id'); 
+        
         if (chatting !== "") {
             $.ajax({
                 method: "post",
@@ -2781,18 +2779,52 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     action: "chat_answer",
                     answer: chatting,
                     bot_id: bot_id,
-                    question_id: conversion_id ,
+                    question_id: last_conversation_id, 
                     sequence: sequence
                 },
                 success: function (res) {
                     console.log(res);
-                    bot_preview_data(parseInt(sequence) + 1); 
-                    // chat_list();
+                    sequence++;
+                    bot_preview_data(sequence); 
                 }
             });
         }
     });
 
+
+//  // Define a global variable to keep track of the sequence
+//  var sequence = 1;
+
+// $('body').on('click', '.chatting_data', function (e) {
+//     e.preventDefault();
+//     var chatting = $('.answer_chat').val();
+//     var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+//     var bot_id = '<?php echo $botId; ?>';
+//     var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
+    
+//     if (chatting !== "") {
+//         $.ajax({
+//             method: "post",
+//             url: "<?= site_url('insert_chat_answer'); ?>",
+//             data: {
+//                 table: table,
+//                 action: "chat_answer",
+//                 answer: chatting,
+//                 bot_id: bot_id,
+//                 question_id: conversion_id ,
+//                 // Use the global sequence variable here
+//                 sequence: sequence
+//             },
+//             success: function (res) {
+//                 console.log(res);
+//                 // Increment the sequence for the next question
+//                 sequence++;
+//                 // Call bot_preview_data with the incremented sequence
+//                 bot_preview_data(sequence); 
+//             }
+//         });
+//     }
+// });
 
      // //chat message list
     // function chat_list(sequence) {
