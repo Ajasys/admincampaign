@@ -500,6 +500,20 @@ class Home extends BaseController
         ];
         tableCreateAndTableUpdate2($table_username . '_bot_setup', '', $columns_bot);
 
+
+        $db_connection = \Config\Database::connect('second');
+        $sql = 'ALTER TABLE ' . $table_username . '_bot_setup MODIFY COLUMN menu_message longtext NOT NULL';
+        $db_connection->query($sql);
+
+        $column_check_sql = "SELECT COUNT(*) AS column_exists FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $table_username . "_bot_setup' AND COLUMN_NAME = 'answer'";
+        $query = $db_connection->query($column_check_sql);
+        $result = $query->getRow();
+
+        if ($result->column_exists == 0) {
+            $sql = 'ALTER TABLE ' . $table_username . '_bot_setup ADD COLUMN answer varchar(1000) NOT NULL';
+            $db_connection->query($sql);
+        }
+        
         $table_username = getMasterUsername2();
         $columns_bot = [
             'id int primary key AUTO_INCREMENT',
@@ -520,6 +534,7 @@ class Home extends BaseController
 
         $data['master_bot_typeof_question'] = $this->MasterInformationModel->display_all_records2('master_bot_typeof_question');
         $data['admin_bot_setup'] = $this->MasterInformationModel->display_all_records2($table_username . '_bot_setup');
+        $data['admin_bot'] = $this->MasterInformationModel->display_all_records2($table_username . '_bot');
         return view('bot_setup', $data);
     }
 

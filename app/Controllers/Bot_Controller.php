@@ -675,7 +675,7 @@ class Bot_Controller extends BaseController
 			if($value['bot_id'] == $bot_id){
 				$html .= '
 					<div class="col-12 w-100 d-flex flex-wrap p-2 cursor-pointer drag_question">
-						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup" draggable="true">
+						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup question_edit" data-id='.$value['id'].' data-type_of_question='.$value['type_of_question'].' data-bs-toggle="modal" data-bs-target="#add-email" draggable="true">
 							<div class="col-10 d-flex flex-wrap align-items-center">
 								<label class="text-wrap px-2" for="">';
 								if(isset($value['type_of_question']) && $value['type_of_question'] == 1) {
@@ -912,6 +912,14 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		$table = $_POST['table'];
 		$bot_id = $_POST['bot_id'];
 		$sequence = $_POST['sequence']; 
+
+		if(isset($_POST['action']) && $_POST['action'] != "") {
+        	$skip_question = $_POST['action'];
+			// pre($skip_question);
+		} else {
+			$skip_question = ''; 
+		}
+
 		$db_connection = \Config\Database::connect('second');
 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence'; 
 		$resultss = $db_connection->query($sql);
@@ -921,29 +929,66 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		if (!empty($bot_chat_data)) {
 			foreach ($bot_chat_data as $value) {
 				$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="'.$value['id'].'" data-sequence="'.$value['sequence'].'">
-								<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
+								<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-								</div>
-								<div class="col px-2">
+								</div>';
+
+						$html .= '<div class="col px-2">
 									<div class="col-12 mb-2">
-										<span class="p-1 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="'.$value['id'].'">
+										<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="'.$value['id'].'">
 											'.$value['question'].'
 										</span>
-									</div>
-								</div>
-							</div>
+									</div>';
+
+										if (isset($skip_question) && $skip_question == '' && $value['type_of_question'] == 1 && $value['skip_question'] == 1) {
+											$html .= '<div class="col-12 mb-2">
+												<button class="btn bg-primary rounded-pill text-white skip_questioned">
+													Skip
+												</button>
+											</div>';
+										}
+										
+										if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
+											$menuOptions = json_decode($value['menu_message'], true);
+										
+											if (isset($menuOptions['options'])) {
+												$options = explode(';', $menuOptions['options']);
+												foreach ($options as $option) {
+													$html .= '<div class="col-12 mb-2 option-wrapper">
+																 <button class="btn bg-primary rounded-pill text-white option-button" onclick="selectOption(this, \''.$option.'\')">'.$option.'</button>
+															  </div>';
+												}
+											}
+										}
+										
+					$html .= '</div>';
+										
+					$html .= '<script>
+								function selectOption(button, value) {
+									$(".answer_chat").val(value);
+									$(".option-button").hide();
+								}
+								</script>';										
+
+					$html .= '</div>
 							<div class="messege2 d-flex flex-wrap  ">
-								<div class="col px-2">
-									<div class="col-12 mb-2 text-end ">
-										<span class="p-1 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
+								<div class="col px-2">';
+
+									if($value['answer'] != ''){
+										$html .= '<div class="col-12 mb-2 text-end ">
+										<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3">
+
 										'.$value['answer'].'
 										</span>
 									</div>
 								</div>
-								<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
+								<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>
 							</div>';
+}
+							
+						
 			}
 		}
 
@@ -951,6 +996,7 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		return json_encode($dateresult, true);
 		die();
 	}
+
 
 
 	// public function bot_preview_data()
@@ -1005,16 +1051,15 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
     $table = $_POST['table'];
     $bot_id = $_POST['bot_id'];
     $answer = $_POST['answer'];
-    $questionId = $_POST['question_id']; // Retrieve question id
-    $sequence = $_POST['sequence']; // Retrieve sequence number
+    $questionId = $_POST['question_id'];
+    $sequence = $_POST['sequence'];
 
     $db_connection = \Config\Database::connect('second');
-    $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence; // Retrieve the question with the specified sequence
+    $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
     $result = $db_connection->query($sql);
     $question = $result->getRowArray();
 
-    if (!empty($question) && $question['id'] == $questionId) { // Check if the retrieved question matches the sent question id
-        // Update the answer for the question with the specified sequence
+    if (!empty($question) && $question['id'] == $questionId) { 
         $updateData = [
             'answer' => $answer
         ];
@@ -1054,7 +1099,7 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 								<div class="border h-100"></div>
 								<div class="col-md-8">
 									<div class="card-body d-flex flex-wrap py-1 px-2 justify-content-between">
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted"
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted bot_setup"
 											data-toggle="tooltip" data-placement="top" title="Setup">
 											<a href="'. base_url('') .'bot_setup?bot_id='.$value['id'].'" class="text-muted">
 												<i class="fa-solid fa-screwdriver-wrench"></i>

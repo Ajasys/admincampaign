@@ -538,7 +538,9 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/bot_installer', 'Home::bot_installer');
 	$routes->post('bot_preview', 'Bot_Controller::bot_preview');
 	$routes->post('', 'Bot_Controller::get_chat_data');
-
+	$routes->post('bot_preview_data', 'Bot_Controller::bot_preview_data');
+	$routes->post('insert_chat_answer', 'Bot_Controller::insert_chat_answer');
+	
 	// massager code routes 
 	$routes->post('get_chat_data', 'Bot_Controller::get_chat_data');
 	$routes->post('send_chat', 'Bot_Controller::send_chat');
