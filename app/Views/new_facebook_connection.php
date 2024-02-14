@@ -207,7 +207,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary modal-close-btn" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="facebook_cnt">Submit</button>
             </div>
         </div>
@@ -251,7 +251,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     if (result.response == 1) {
                         $("form[name='fb_cnt']")[0].reset();
                         $("form[name='fb_cnt']").removeClass("was-validated");
-                        $(".modal-close-btn").trigger("click");
+                        $(".modal-close").trigger("click");
                         list_data();
                         fb_permission_list(access_token);
                         iziToast.success({

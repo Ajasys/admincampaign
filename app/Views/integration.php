@@ -12,7 +12,12 @@ FROM ".$table_username."_platform_integration
 WHERE `verification_status`=1";
 $rows = $db_connection->query($query);
 $resultdata = $rows->getResult();
-$result = get_object_vars($resultdata[0]);
+$result = $resultdata;
+if(isset($resultdata[0]))
+{
+    $result = get_object_vars($resultdata[0]);
+}
+
 ?>
 <style>
     .inti-card {
@@ -51,6 +56,10 @@ $result = get_object_vars($resultdata[0]);
                                                         if(isset($result['fbcount']))
                                                         {
                                                             echo $result['fbcount'];
+                                                        }
+                                                        else
+                                                        {
+                                                            echo 0; 
                                                         }?>
                                                     </span>connections</span>
                                             </div>
@@ -93,7 +102,12 @@ $result = get_object_vars($resultdata[0]);
                                                         if(isset($result['whatsappcount']))
                                                         {
                                                             echo $result['whatsappcount'];
-                                                        }?></span>connections</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            echo 0; 
+                                                        }?>
+                                                        </span>connections</span>
                                             </div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="hovered-paths">
