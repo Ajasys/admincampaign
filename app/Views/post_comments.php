@@ -338,7 +338,9 @@
                 </div>
                 <div class="col-9 p-3  mt-2">
                     <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
-
+                        <div class="col-12 bg-light p-3 d-flex justify-content-end mb-2">
+                        <button class=" btn btn-primary-rounded " data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-plus"></i></button>
+                        </div>
                         <div class="demo_list_data  d-flex flex-wrap" id="demo_list_data"></div>
                     </div>
                 </div>
@@ -765,11 +767,7 @@ $(this).parent().siblings().children('.app_card_post').removeClass('active-accou
                 });
             });
 
-
-
-
-
-            //---------------------------- modal input ----------------------------
+           /*  ---------------------------- modal input ----------------------------
 
             $("#pills-master-diet").click(function() {
                 $(".card-body").show();
@@ -799,6 +797,26 @@ $(this).parent().siblings().children('.app_card_post').removeClass('active-accou
                 $("#offer-input").show();
                 $("#select-box").hide();
             });
+ */
+
+   $("#event-option").change(function(){
+        var selectedValue = $(this).val();
+        if(selectedValue === "event") {
+            $("#event-input").removeClass("d-none");
+        } else {
+            $("#event-input").addClass("d-none");
+        }
+        if(selectedValue === "offer") {
+            $("#event-input").removeClass("d-none");
+        } 
+    });
+
+            $(document).on("click", ".like_button", function() {
+                var button = $(this);
+                button.find("#like_icon").toggleClass("d-none");
+                button.find("#like_icon_lite").toggleClass("d-none");
+            });
+
         </script>
 
         <?= $this->include('partials/footer') ?>
