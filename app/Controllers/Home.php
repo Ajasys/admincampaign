@@ -494,7 +494,7 @@ class Home extends BaseController
             'sequence int(11) NOT NULL',
             'bot_id int(11) NOT NULL',
             'next_question_id int(11) NOT NULL',
-            'menu_message longtext',
+            'menu_message longtext NOT NULL',
             'skip_question int(11) NOT NULL',
             'error_text varchar(500) NOT NULL',
         ];
