@@ -82,6 +82,10 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
         display: none;
     }
 
+    .form-check-input:checked {
+    background-color: var(--second-color);
+    border-color: var(--all-light);
+}
     .second-add {
         display: block !important;
     }
@@ -1306,12 +1310,12 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
                                 <div class="col-12 d-flex flex-wrap px-3" id="firstquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="secondquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="thirdquestion"></div>
+                                <div class="col-12 d-flex flex-wrap " id="thirdquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="fourthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="fifthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="sixthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap " id="fifthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap " id="sixthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="eighthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="tenthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap " id="tenthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="twelthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="senenthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-3" id="fifteenquestion"></div>
@@ -5044,18 +5048,33 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
             case "3":
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
-                    <div class="col-12 d-flex flex-wrap px-2">
-                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Email-1 remove_menu" type="checkbox" role="switch" id="Email-1">
-                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-1" for="Email-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                    <div class="col-12 d-flex flex-wrap ">
+                       <div class="col-12">
+                            <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
+                                <label class="switch_toggle_primary">
+                                    <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Email-1 remove_menu opacity-0" value="1" type="checkbox" id="Email-1">
+                                    <div class="check_input_primary round" ></div>
+                                </label>
+                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-1" for="Email-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                            </div>
                         </div>
-                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
-                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Email-2 company_emails_only" type="checkbox" role="switch" id="Email-2">
-                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-2" for="Email-2">Do Not Restrict to Company Emails</label>
+                        <div class="col-12">
+                            <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
+                                <label class="switch_toggle_primary">
+                                    <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Email-2 company_emails_only opacity-0" value="1" type="checkbox" id="Email-2">
+                                    <div class="check_input_primary round" ></div>
+                                </label>
+                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-2" for="Email-2">Do Not Restrict to Company Emails</label>
+                            </div>
                         </div>
-                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2">
-                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Email-3 is_strict_validation" type="checkbox" role="switch" id="Email-3">
-                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-3" for="Email-3">No Strict Validation</label>
+                        <div class="col-12">
+                            <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
+                                <label class="switch_toggle_primary">
+                                    <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Email-3 is_strict_validation opacity-0" value="1" type="checkbox" id="Email-3">
+                                    <div class="check_input_primary round" ></div>
+                                </label>
+                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-3" for="Email-3">No Strict Validation</label>
+                            </div>
                         </div>
                         <div class="col-12 my-2">
                             <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
@@ -5077,10 +5096,10 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 <label class="form-check-label fw-semibold d-flex align-items-center py-2 single-choice-show-options">Show Options</label>
                             </div>
                             <div class="col-3 p-1">
-                                <button type="button" class="btn-outline-primary w-100">Vertically</button>
+                                <button type="button" class="btn-primary w-100">Vertically</button>
                             </div>
                             <div class="col-3 p-1">
-                                <button type="button" class="btn-outline-primary w-100">Dropdown</button>
+                                <button type="button" class="btn-primary w-100">Dropdown</button>
                             </div>
                         </div>
                         <div class="col-12 d-flex flex-wrap my-3">
@@ -5125,9 +5144,16 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap px-2">
-                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Mobile-1 menu_message" type="checkbox" role="switch" id="Mobile-1">
-                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Mobile-1" for="Mobile-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0 ">
+                            <div class="col-12">
+                                <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
+                                    <label class="switch_toggle_primary">
+                                        <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Mobile-1 menu_message opacity-0" value="1" type="checkbox" id="Mobile-1">
+                                        <div class="check_input_primary round" ></div>
+                                    </label>
+                                    <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Mobile-1" for="Mobile-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-12 my-2">
                             <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal">Enter the error message here.</label>
@@ -5145,10 +5171,13 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap px-2">
-                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question" type="checkbox" role="switch" id="Number-1">
-                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
-                        </div>
+                               <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
+                                    <label class="switch_toggle_primary">
+                                        <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question opacity-0" value="1" type="checkbox" id="Number-1">
+                                        <div class="check_input_primary round" ></div>
+                                    </label>
+                                    <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
+                                </div>
                         <div class="col-12 my-2 d-flex flex-wrap">
                             <form class="col-12">
                                 <div class="col-6 px-2">
@@ -5481,10 +5510,13 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap px-2">
-                        <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                            <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question" type="checkbox" role="switch" id="Number-1">
-                            <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
-                        </div>
+                    <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
+                                    <label class="switch_toggle_primary">
+                                        <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question opacity-0" value="1" type="checkbox" id="Number-1">
+                                        <div class="check_input_primary round" ></div>
+                                    </label>
+                                    <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
+                                </div>
                     </div>
                 </form>
                 `;
@@ -5493,8 +5525,11 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap">
                         <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
-                            <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 mx-3 px-5 ">
-                                <input class="form-check-input px-3 fs-4 bg-success text-emphasis-success d-flex align-items-center pb-1 Location-1 skip_question" type="checkbox" role="switch" id="Location-1">
+                            <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
+                                <label class="switch_toggle_primary">
+                                    <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Location-1 skip_question opacity-0" value="1" type="checkbox" id="Location-1">
+                                    <div class="check_input_primary round" ></div>
+                                </label>
                                 <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Location-1" for="Location-1">Do Not Give Skip Option</label>
                             </div>
                         </div>
@@ -5522,7 +5557,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     <div class="col-12 p-2">
                                         <div class="input-group col-6">
                                             <input type="email" class="form-control" placeholder="Enter Email Address" aria-label="Enter Email Address" aria-describedby="button-email">
-                                            <button class="btn-outline-secondary" type="button" id="button-email">Submit</button>
+                                            <button class="btn-primary" type="button" id="button-email">Submit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -5699,7 +5734,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             <div class="col-6 d-flex flex-wrap justify-content-center">
                                 <div class="input-group col-4">
                                     <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                    <button class="btn-outline-secondary" type="button" id="button-addon2">Remove</button>
+                                    <button class="btn-primary" type="button" id="button-addon2">Remove</button>
                                 </div>
                             </div>
                         </div>

@@ -797,7 +797,7 @@ class Bot_Controller extends BaseController
 if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $value['type_of_question'] <= 21) {
 						$html .= '
 					<div class="col-12 d-flex justify-content-end">
-						<button type="button" class="btn btn-primary user_reply" data-question="'.$value['question'].'" data-skip_question="'.$value['skip_question'].'" data-menu_message="'.$value['menu_message'].'">Users Reply</button>
+						<button type="button" class="btn-primary user_reply" data-question="'.$value['question'].'" data-skip_question="'.$value['skip_question'].'" data-menu_message="'.$value['menu_message'].'">Users Reply</button>
 									</div>';
 }
 					
@@ -915,12 +915,12 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		if (!empty($bot_chat_data)) {
 			foreach ($bot_chat_data as $value) {
 				$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="'.$value['id'].'" data-sequence="'.$value['sequence'].'">
-								<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+								<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>
 								<div class="col px-2">
 									<div class="col-12 mb-2">
-										<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="'.$value['id'].'">
+										<span class="p-1 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="'.$value['id'].'">
 											'.$value['question'].'
 										</span>
 									</div>
@@ -929,12 +929,12 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 							<div class="messege2 d-flex flex-wrap  ">
 								<div class="col px-2">
 									<div class="col-12 mb-2 text-end ">
-										<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
+										<span class="p-1 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
 										'.$value['answer'].'
 										</span>
 									</div>
 								</div>
-								<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+								<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>
 							</div>';
