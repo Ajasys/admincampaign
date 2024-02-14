@@ -35,7 +35,6 @@
     .card-border-color {
         border-color: #FAFAFA;
     }
-
 </style>
 
 <div class="main-dashbord p-2">
@@ -56,42 +55,56 @@
         </div> -->
 
         <div class="container-fluid p-4">
-            <div class="col-12 bg-white px-3 p-2 d-flex flex-wrap rounded-4 shadow justify-content-between align-items-center">
-                <div class="col-6 p-2 d-flex flex-wrap justify-content-start align-items-center">
-                    <div class="col-1 d-flex justify-content-start align-items-center">
+
+            <div class="col-12 bg-white px-3 p-2 d-flex flex-wrap rounded-4 shadow align-items-center">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 p-2 d-flex flex-wrapalign-items-center">
+                    <div class="col-3 d-flex justify-content-start align-items-center">
                         <div class="title-1">
                             <i class="fa-brands fa-bots fs-1"></i>
                         </div>
                     </div>
-                    <div class="col-6 d-flex justify-content-start align-items-center">
-                        <select class="form-select border border-white" aria-label="Default select example">
-                            <option selected>All</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
                 </div>
-                <div class="col-6 p-2 d-flex flex-wrap justify-content-end align-items-center">
-                    <div class="col-7 d-flex justify-content-end align-items-center">
-                        <div class="input-group">
-                            <input type="text" class="form-control border border-white" placeholder="Search here for bot" aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-secondery border border-white bg-white border-start-0" type="button" id="button-addon2">Q</button>
+
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 p-2 d-flex flex-wrap align-items-center">
+                    <div class="row col-12">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 d-flex align-items-center ps-0 pe-0">
+                            <div class="col-sm-12 col-md-12 col-lg-7 col-xl-7 col-xxl-7 col-12 input-group">
+                                <input type="text" class="form-control main-control" placeholder="Search">
+                                <button class="btn btn-secondery main-control bg-white" type="button" id="button-addon2">Q</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-1 d-flex justify-content-end align-items-center">
-                        <button class="btn-primary-rounded add" type="button" data-bs-toggle="modal" data-bs-target="#bot_crate" aria-controls="bot_crate">
-                            <i class="bi bi-plus"></i>
-                        </button>
+                        <div class="col-sm-8 col-md-8 col-lg-4 col-xl-4 col-xxl-4 col-8 ps-0 pe-0 d-flex justify-content-start align-items-center">
+                            <div class="ms-sm-0 ms-md-0 ms-lg-3 ms-xl-3 ms-xxl-3 col-12 p-0 mt-sm-2 mt-md-2 mt-lg-0 mt-xl-0 mt-xxl-0 mt-2">
+                                <div class="main-selectpicker">
+                                    <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control product_type" data-live-search="true" required="" tabindex="-98">
+                                        <option class="dropdown-item" selected>Open this select</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2 col-4 d-flex align-items-center justify-content-end">
+                            <button class="btn-primary-rounded add" type="button" data-bs-toggle="modal" data-bs-target="#bot_crate" aria-controls="bot_crate">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="bot_list bg-white-50 px-3 py-3 my-5 d-flex flex-wrap">
+
+
+
+            <div class="bot_list bg-white-50 d-flex flex-wrap">
                 <!-- card start -->
                 <!--new card-->
-                <div class="col-3 p-2">
-                    <div class="card mb-3 rounded-4 shadow bot-card">
-                        <div class="row g-0 p-2">
+
+                <div class="col-12 d-flex flex-wrap justify-content-center justify-content-xl-start justify-content-xxl-start">
+                    <div class="card mb-3 rounded-4 m-3 shadow bot-card" style="width: 310px;">
+                        <div class="row g-0">
                             <div class="d-flex align-items-center">
                                 <div class="col-md-4 my-3 text-center bot-name-tab">
                                     <div class="p-2 my-3">
@@ -101,23 +114,23 @@
                                 </div>
                                 <div class="border h-100"></div>
                                 <div class="col-md-8 my-2 px-2 bot-data-tab">
-                                    <div class="card-body d-flex flex-wrap py-1 px-1 justify-content-between my-2">
-                                        <div class="border border-1 rounded-3 d-inline w-auto p-1 px-3 py-2 icon-box text-muted" data-toggle="tooltip"  data-placement="top" title="Setup">
+                                    <div class="card-body d-flex flex-wrap py-1 px-1 my-2">
+                                        <div class="border border-1 rounded-3 d-inline w-auto p-2 ms-1 me-1 ps-2 icon-box text-muted" data-toggle="tooltip" data-placement="top" title="Setup">
                                             <a href="#" class="text-muted">
                                                 <i class="fa-solid fa-screwdriver-wrench fa-lg"></i>
                                             </a>
                                         </div>
-                                        <div class="border rounded-3 d-inline w-auto p-1 px-3 py-2 icon-box text-muted" data-toggle="tooltip" data-placement="top" title="Trigger">
+                                        <div class="border rounded-3 d-inline w-auto p-2 ms-1 me-1 ps-2 icon-box text-muted" data-toggle="tooltip" data-placement="top" title="Trigger">
                                             <a href="#" class="text-muted">
                                                 <i class="fa-solid fa-bell fa-lg"></i>
                                             </a>
                                         </div>
-                                        <div class="border rounded-3 d-inline w-auto p-1 px-3 py-2 icon-box text-muted" data-toggle="tooltip" data-placement="top" title="Bot Chats">
+                                        <div class="border rounded-3 d-inline w-auto p-2 ms-1 me-1 ps-2 icon-box text-muted" data-toggle="tooltip" data-placement="top" title="Bot Chats">
                                             <a href="#" class="text-muted">
                                                 <i class="fa-solid fa-comment fa-lg"></i>
                                             </a>
                                         </div>
-                                        <div class="border rounded-3 shadow-sm bg-body-tertiary d-inline w-auto p-1 px-3 py-2 icon-box text-muted" data-toggle="tooltip" data-placement="top" title="Setting">
+                                        <div class="border rounded-3 shadow-sm bg-body-tertiary d-inline w-auto p-2 ms-1 me-1 ps-2 icon-box text-muted" data-toggle="tooltip" data-placement="top" title="Setting">
                                             <a href="#" class="text-muted">
                                                 <i class="fa-solid fa-gear fa-lg"></i>
                                             </a>
@@ -131,7 +144,7 @@
                                             </label>
                                             <p class="mx-2 fw-medium">Active</p>
                                         </div>
-                                        <div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted" data-toggle="tooltip" data-placement="top" data-bs-placement="right"  title="Delete">
+                                        <div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted" data-toggle="tooltip" data-placement="top" data-bs-placement="right" title="Delete">
                                             <i class="fa-solid fa-trash"></i>
                                         </div>
                                     </div>
@@ -139,7 +152,9 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
+
                 <!--new card end-->
                 <!-- <div class="col-3 p-2">
                     <div class="card mb-3">
