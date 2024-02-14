@@ -585,8 +585,52 @@ if (!empty($connections)) {
         }
 
         .preview-chat-section-chat {
-            max-height: 155px;
-            min-height: 246px!important;
+            max-height: 264px;
+            min-height: 264px!important;
+        }
+    }
+    @media (min-width:575px) {
+        .mobile-whatapp-body {
+            padding: 10px;
+            /* height: calc(45vh - 10px); */
+            background-color: #F1EDE5;
+            height: 100px ;
+            /* max-height: 30px !important; */
+        }
+
+        .mobile-whatapp {
+            width: 300px ;
+            height: 451px;
+            
+        }
+
+        .preview-chat-section-chat {
+            max-height: 264px;
+            min-height: 264px!important;
+        }
+    }
+    @media (min-width:1400px) {
+        
+        .mobile-whatapp-body {
+            padding: 10px;
+            background-color: #F1EDE5;
+            height: 370px !important;
+    
+        }
+        .mobile-whatapp {
+            width: 300px !important;
+            height: 550px;
+        }
+
+        /* .mobile-whatapp {
+            width: 300px ;
+            height: 496px;
+            
+        } */
+
+        .preview-chat-section-chat {
+            max-height: 362px;
+            min-height: 362px!important;
         }
     }
 </style>
@@ -612,7 +656,7 @@ if (!empty($connections)) {
         </div>
     </div>
     <div class="container-fluid p-0">
-        <div class="col-12 p-2 d-flex flex-wrap">
+        <div class="col-12 p-2 d-flex flex-wrap justify-content-sm-center justify-content-lg-start">
             <div class="p-1 first-container slide-toggle">
                 <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap">
                     <div class="col-12 d-flex flex-wrap w-100 ">
@@ -699,7 +743,7 @@ if (!empty($connections)) {
                                                     fill="#ffffff" opacity="1" data-original="#000000" class=""></path>
                                             </g>
                                         </svg></p>
-                                    <span class="ms-3 first-container-text viewdata ">View Sent Messages</span>
+                                    <span class="ms-3 first-container-text viewdata ">View Sent Template</span>
                                 </div>
                             </li>
                             <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle nav-item Tab3Class"
@@ -737,7 +781,7 @@ if (!empty($connections)) {
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg p-1">
+            <div class="col-12 col-md p-1">
 
                 <!-- <div class="Activeclass p-2  d-none">
                     <div class="container p-0 ms-0">
@@ -770,7 +814,7 @@ if (!empty($connections)) {
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-ex-single-tab" role="tabpanel"
                         aria-labelledby="pills-ex-single" tabindex="0">
-                        <div class=" p-2 main-check-class bg-white p-2 rounded-3 border">
+                        <div class=" p-2 main-check-class bg-white p-2 rounded-3 border col-12 col-sm-8 col-md-12  mx-auto mx-md-0">
 
                             <div class="col-12 p-0 ms-0">
                                 <!-- <div class="px-3 py-2 bg-white rounded-2 mx-2">
@@ -793,7 +837,7 @@ if (!empty($connections)) {
                                     <div class="col-12 hello">
                                         <div
                                             class="d-flex flex-wrap align-items-start  p-lg-3  justify-content-center justify-content-xl-between">
-                                            <div class="col-12 col-lg-6 col-xl-6 col-xxl-4 my-2 my-lg-0">
+                                            <div class="col-12 col-md-12 col-lg-10 col-xl-6 col-xxl-4 my-2 my-lg-0">
                                                 <form class="needs-validation membershipDiv"
                                                     name="master_membership_update_form" method="POST" novalidate>
                                                     <div class="modal-content">
@@ -1196,15 +1240,15 @@ if (!empty($connections)) {
 
                                                                 <div class="preview-chat-paragraph bg-white p-3 col-10">
                                                                     <p
-                                                                        class="word-wrap single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue word-break-all">
+                                                                        class="word-wrap single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue text-break">
                                                                         Message Header Section</p>
                                                                     <img class="rounded-3 preview-header-VIDEO" src=""
                                                                         style="width:150px;height:150px;object-fit: contain;">
 
                                                                     <p contenteditable="false"
-                                                                        class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue word-break-all">
+                                                                        class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break">
                                                                         Message Body Section</p>
-                                                                    <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue word-break-all"
+                                                                    <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue text-break"
                                                                         contenteditable="false">Message Footer Section
                                                                     </p>
                                                                 </div>
@@ -1570,20 +1614,21 @@ if (!empty($connections)) {
                                     </div>
                                 </div>
                             </div>
-                            <table
-                                class="table whatsapp-table  my-2 w-100  table table-striped dt-responsive nowrap main-table">
-
-                                <thead>
-                                    <th>Receiver Number</th>
-                                    <th>Template Name</th>
-                                    <th class="d-none">Whatsapp Message id</th>
-                                    <th>Status</th>
-                                    <th class="d-none">WhatsApp Response</th>
-                                    <th>Date and Time</th>
-                                </thead>
-                                <tbody id="sentmsg_list">
-                                </tbody>
-                            </table>
+                            <div class="col-12 overflow-scroll dt-row">
+                                <table class="table whatsapp-table  my-2 w-100  table table-striped dt-responsive w-100 main-table lead_list_table no-footer dataTable">
+    
+                                    <thead>
+                                        <th>Receiver Number</th>
+                                        <th>Template Name</th>
+                                        <th class="d-none">Whatsapp Message id</th>
+                                        <th>Status</th>
+                                        <th class="d-none">WhatsApp Response</th>
+                                        <th>Date and Time</th>
+                                    </thead>
+                                    <tbody id="sentmsg_list">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
 
 
