@@ -2653,18 +2653,18 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Bot Preview</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body ">
+            <div class="modal-body px-3 pt-1">
                 <div class="col-12 border rounded-3">
-                    <div class="moda-card-header d-flex flex-wrap justify-content-center py-3 border-bottom bg-primary">
+                    <div class="moda-card-header d-flex flex-wrap justify-content-center py-3 border-bottom">
                         <div class="col-8 d-flex flex-wrap align-items-center justify-content-between ">
                             <div class="d-flex flex-wrap align-items-center">
-                                <div class="border  rounded-circle overflow-hidden" style="width:40px;height:40px">
+                                <div class="border  rounded-circle overflow-hidden" style="width:35px;height:35px">
                                     <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
                                 </div>
-                                <h6 class="mx-2 text-white">Oppo</h6>
+                                <h6 class="mx-2">Oppo</h6>
                             </div>
                             <div class="d-flex flex-wrap">
-                                <button class="btn bg-primary mx-2 text-white">
+                                <button class="btn bg-primary mx-2 px-3 text-white" id="sound-icon">
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </button>
                                 <button class="btn bg-primary text-white">
@@ -2672,6 +2672,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 </button>
                             </div>
                         </div>
+                        <div class=" p-3 d-none border rounded sound-icon-lite" style="width:fit-content; background:white; position:absolute; left:470px; top:60px; ">muted <i class="fa-solid fa-volume-high"></i></div>
                     </div>
                     <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
                         <div class="overflow-y-scroll col-8 py-3 messege-scroll" style="min-height:400px; max-height:400px">
@@ -6208,6 +6209,24 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 </script>
 
 <script>
+    // $('#date_range1').bootstrapMaterialDatePicker({
+    //     format: 'DD-MM-YYYY',
+    //     time: false,
+    //     clearButton: true
+    // });
+    // $('.date_range2').bootstrapMaterialDatePicker({
+    //     format: 'DD-MM-YYYY',
+    //     time: false,
+    //     clearButton: true
+    // });
+</script>
+<script>
+    $(document).ready(function() {
+        $(document).on("click","#sound-icon",function(){
+            $(".sound-icon-lite").toggleClass("d-none");
+        })
+        
+    })
     // $('#date_range1').bootstrapMaterialDatePicker({
     //     format: 'DD-MM-YYYY',
     //     time: false,

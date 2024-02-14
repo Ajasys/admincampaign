@@ -916,12 +916,12 @@ $sequence = $_POST['sequence']; // Retrieve the sequence number
 				if (!empty($bot_chat_data)) {
 			foreach ($bot_chat_data as $value) {
 			$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="'.$value['id'].'" data-sequence="'.$value['sequence'].'">
-						<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+						<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
 							<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 						</div>
 						<div class="col px-2">
 							<div class="col-12 mb-2">
-								<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="'.$value['id'].'">
+								<span class="p-1 rounded-pill  d-inline-block   bg-white  px-3">
 									'.$value['question'].'
 								</span>
 							</div>
@@ -930,12 +930,12 @@ $sequence = $_POST['sequence']; // Retrieve the sequence number
 					<div class="messege2 d-flex flex-wrap  ">
 						<div class="col px-2">
 							<div class="col-12 mb-2 text-end ">
-								<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
+								<span class="p-1 rounded-pill text-white d-inline-block  bg-secondary  px-3  ">
 									'.$value['answer'].'
 								</span>
 							</div>
 						</div>
-						<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+						<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
 							<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 						</div>
 					</div>';
