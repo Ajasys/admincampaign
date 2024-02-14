@@ -494,7 +494,7 @@ class Bot_Controller extends BaseController
 	}
 
 	//bot duplicate question add
-	public function duplicate_Question() 
+	public function duplicate_Question()
 	{
 		$table_username = getMasterUsername2();
 		$questionId = $this->request->getPost("questionId");
@@ -509,7 +509,7 @@ class Bot_Controller extends BaseController
 
 
 	//bot insert duplicate question
-	private function insertQuestionData($question_data) 
+	private function insertQuestionData($question_data)
 	{
 		$table_username = getMasterUsername2();
 		$db = \Config\Database::connect('second');
@@ -533,20 +533,20 @@ class Bot_Controller extends BaseController
 		$targetQuestionId = $_POST['targetQuestionId'];
 		$droppedSequence = $_POST['droppedSequence'];
 		$targetSequence = $_POST['targetSequence'];
-		
+
 		$db = \Config\Database::connect('second');
 		$table_username = getMasterUsername2();
 
 		$db->transStart();
 		$db->table($table_username . '_bot_setup')
-		->where('id', $droppedQuestionId)
-		->set('sequence', $droppedSequence)
-		->update();
+			->where('id', $droppedQuestionId)
+			->set('sequence', $droppedSequence)
+			->update();
 
 		$db->table($table_username . '_bot_setup')
-		->where('id', $targetQuestionId)
-		->set('sequence', $targetSequence)
-		->update();
+			->where('id', $targetQuestionId)
+			->set('sequence', $targetSequence)
+			->update();
 
 		$db->transComplete();
 
@@ -591,14 +591,14 @@ class Bot_Controller extends BaseController
 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (isset($_FILES['menu_message'])) {
-				$targetDir = "C:/xampp/htdocs/GymSmart/assets/image/"; 
+				$targetDir = "C:/xampp/htdocs/GymSmart/assets/image/";
 				$file_name = $_FILES['menu_message']['name'];
 				$targetFile = $targetDir . basename($file_name);
-		
+
 				if (!file_exists($targetDir)) {
 					mkdir($targetDir, 0777, true);
 				}
-		
+
 				if (move_uploaded_file($_FILES['menu_message']['tmp_name'], $targetFile)) {
 					$image_name = basename($file_name);
 					$update_data['menu_message'] = $image_name;
@@ -632,7 +632,7 @@ class Bot_Controller extends BaseController
 				$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
 				$departmentdisplaydata = json_decode($departmentdisplaydata, true);
 				$response = 1;
-				
+
 			}
 		}
 		echo $response;
@@ -647,15 +647,15 @@ class Bot_Controller extends BaseController
 			$table_name = $this->request->getPost('table');
 			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
 
-			if(!isset($_POST['bot'])) {
-                $this->MasterInformationModel->delete_question_sequence($table_name);
-            }
-            echo "success";
+			if (!isset($_POST['bot'])) {
+				$this->MasterInformationModel->delete_question_sequence($table_name);
+			}
+			echo "success";
 		}
 		die();
 	}
 
-	
+
 
 	//bot list question
 	public function bot_list_data()
@@ -667,149 +667,149 @@ class Bot_Controller extends BaseController
 		$botdisplaydata = json_decode($botdisplaydata, true);
 		$html = "";
 
-		usort($botdisplaydata, function($a, $b) {
+		usort($botdisplaydata, function ($a, $b) {
 			return $a['sequence'] <=> $b['sequence'];
 		});
 
 		foreach ($botdisplaydata as $key => $value) {
-			if($value['bot_id'] == $bot_id){
+			if ($value['bot_id'] == $bot_id) {
 				$html .= '
 					<div class="col-12 w-100 d-flex flex-wrap p-2 cursor-pointer drag_question">
-						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup question_edit" data-id='.$value['id'].' data-type_of_question='.$value['type_of_question'].' data-bs-toggle="modal" data-bs-target="#add-email" draggable="true">
+						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup question_edit" data-id=' . $value['id'] . ' data-type_of_question=' . $value['type_of_question'] . ' data-bs-toggle="modal" data-bs-target="#add-email" draggable="true">
 							<div class="col-10 d-flex flex-wrap align-items-center">
 								<label class="text-wrap px-2" for="">';
-								if(isset($value['type_of_question']) && $value['type_of_question'] == 1) {
-									$html .= '<i class="fa fa-question"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 2){
-									$html .= ' <i class="fa-regular fa-circle-dot"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 3){
-									$html .= ' <i class="fa fa-envelope"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 4){
-									$html .= ' <i class="fa fa-check-square"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 5){
-									$html .= ' <i class="fa-solid fa-mobile-screen-button"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 6){
-									$html .= ' <i class="fa fa-hashtag"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 7){
-									$html .= ' <i class="fa fa-star"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 8){
-									$html .= ' <i class="fa-regular fa-calendar-days"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 9){
-									$html .= ' <i class="fa-regular fa-clock"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 10){
-									$html .= ' <i class="fa-solid fa-location-dot"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 11){
-									$html .= ' <i class="fa fa-expand"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 12){
-									$html .= ' <i class="fa fa-upload"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 13){
-									$html .= ' <i class="fa fa-link"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 14){
-									$html .= ' <i class="fa fa-user-plus"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 15){
-									$html .= ' <i class="fa fa-shopping-cart"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 16){
-									$html .= ' <i class="fa fa-key"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 17){
-									$html .= ' <i class="fa-brands fa-forumbee"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 18){
-									$html .= ' <i class="fa fa-list"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 19){
-									$html .= ' <i class="fa fa-bullseye"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 20){
-									$html .= ' <i class="fa fa-search"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 21){
-									$html .= ' <i class="fa-regular fa-calendar-check"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 22){
-									$html .= ' <i class="fa-solid fa-quote-left"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 23){
-									$html .= ' <i class="fa-regular fa-compass"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 24){
-									$html .= ' <i class="fa-sharp fa-solid fa-sliders"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 25){
-									$html .= ' <i class="fa-regular fa-image"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 26){
-									$html .= ' <i class="fa-regular fa-file-audio"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 27){
-									$html .= ' <i class="fa-sharp fa-solid fa-address-book"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 28){
-									$html .= ' <i class="fa-sharp fa-solid fa-paper-plane"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 29){
-									$html .= ' <i class="fa-solid fa-file"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 30){
-									$html .= ' <i class="fa-solid fa-arrow-up-right-from-square"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 31){
-									$html .= ' <i class="fa-solid fa-scissors"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 32){
-									$html .= ' <i class="fa-solid fa-earth-americas"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 33){
-									$html .= ' <i class="fa-solid fa-signs-post"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 34){
-									$html .= ' <i class="fa-regular fa-circle-question"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 35){
-									$html .= ' <i class="fa-brands fa-wpexplorer"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 36){
-									$html .= ' <i class="fa-solid fa-headphones"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 37){
-									$html .= ' <i class="fa-solid fa-diamond-turn-right"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 38){
-									$html .= ' <i class="fa-solid fa-comment-dots"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 39){
-									$html .= ' <i class="fa-solid fa-users"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 40){
-									$html .= ' <i class="fa-solid fa-list-ol"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 41){
-									$html .= ' <i class="fa-solid fa-cart-shopping"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 42){
-									$html .= ' <i class="fa-brands fa-whatsapp"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 43){
-									$html .= ' <i class="fa-solid fa-cart-arrow-down"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 44){
-									$html .= ' <i class="fa-solid fa-map-pin"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 45){
-									$html .= ' <i class="fa-solid fa-rectangle-ad"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 46){
-									$html .= ' <i class="fa-brands fa-instagram"></i>';
-								}else if(isset($value['type_of_question']) && $value['type_of_question'] == 47){
-									$html .= ' <i class="fa-brands fa-instagram"></i>';
-								}
-								
-							$html .= '
-								<p class="fw-semibold d-inline block mx-2 cursor-pointer sequence" data-id='.$value['id'].' data-sequence='.$value['sequence'].'>' . $value['question'] . '</p>
+				if (isset($value['type_of_question']) && $value['type_of_question'] == 1) {
+					$html .= '<i class="fa fa-question"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 2) {
+					$html .= ' <i class="fa-regular fa-circle-dot"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 3) {
+					$html .= ' <i class="fa fa-envelope"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 4) {
+					$html .= ' <i class="fa fa-check-square"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 5) {
+					$html .= ' <i class="fa-solid fa-mobile-screen-button"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 6) {
+					$html .= ' <i class="fa fa-hashtag"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 7) {
+					$html .= ' <i class="fa fa-star"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 8) {
+					$html .= ' <i class="fa-regular fa-calendar-days"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 9) {
+					$html .= ' <i class="fa-regular fa-clock"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 10) {
+					$html .= ' <i class="fa-solid fa-location-dot"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 11) {
+					$html .= ' <i class="fa fa-expand"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 12) {
+					$html .= ' <i class="fa fa-upload"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 13) {
+					$html .= ' <i class="fa fa-link"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 14) {
+					$html .= ' <i class="fa fa-user-plus"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 15) {
+					$html .= ' <i class="fa fa-shopping-cart"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 16) {
+					$html .= ' <i class="fa fa-key"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 17) {
+					$html .= ' <i class="fa-brands fa-forumbee"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 18) {
+					$html .= ' <i class="fa fa-list"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 19) {
+					$html .= ' <i class="fa fa-bullseye"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 20) {
+					$html .= ' <i class="fa fa-search"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 21) {
+					$html .= ' <i class="fa-regular fa-calendar-check"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 22) {
+					$html .= ' <i class="fa-solid fa-quote-left"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 23) {
+					$html .= ' <i class="fa-regular fa-compass"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 24) {
+					$html .= ' <i class="fa-sharp fa-solid fa-sliders"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 25) {
+					$html .= ' <i class="fa-regular fa-image"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 26) {
+					$html .= ' <i class="fa-regular fa-file-audio"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 27) {
+					$html .= ' <i class="fa-sharp fa-solid fa-address-book"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 28) {
+					$html .= ' <i class="fa-sharp fa-solid fa-paper-plane"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 29) {
+					$html .= ' <i class="fa-solid fa-file"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 30) {
+					$html .= ' <i class="fa-solid fa-arrow-up-right-from-square"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 31) {
+					$html .= ' <i class="fa-solid fa-scissors"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 32) {
+					$html .= ' <i class="fa-solid fa-earth-americas"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 33) {
+					$html .= ' <i class="fa-solid fa-signs-post"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 34) {
+					$html .= ' <i class="fa-regular fa-circle-question"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 35) {
+					$html .= ' <i class="fa-brands fa-wpexplorer"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 36) {
+					$html .= ' <i class="fa-solid fa-headphones"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 37) {
+					$html .= ' <i class="fa-solid fa-diamond-turn-right"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 38) {
+					$html .= ' <i class="fa-solid fa-comment-dots"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 39) {
+					$html .= ' <i class="fa-solid fa-users"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 40) {
+					$html .= ' <i class="fa-solid fa-list-ol"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 41) {
+					$html .= ' <i class="fa-solid fa-cart-shopping"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 42) {
+					$html .= ' <i class="fa-brands fa-whatsapp"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 43) {
+					$html .= ' <i class="fa-solid fa-cart-arrow-down"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 44) {
+					$html .= ' <i class="fa-solid fa-map-pin"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 45) {
+					$html .= ' <i class="fa-solid fa-rectangle-ad"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 46) {
+					$html .= ' <i class="fa-brands fa-instagram"></i>';
+				} else if (isset($value['type_of_question']) && $value['type_of_question'] == 47) {
+					$html .= ' <i class="fa-brands fa-instagram"></i>';
+				}
+
+				$html .= '
+								<p class="fw-semibold d-inline block mx-2 cursor-pointer sequence" data-id=' . $value['id'] . ' data-sequence=' . $value['sequence'] . '>' . $value['question'] . '</p>
 							</label>
 						</div>
 						<div class="col-2 d-flex flex-wrap align-items-center">';
-						$html .= '<div class="col-3 p-1">';
-						if ($value['type_of_question'] != 31 && $value['type_of_question'] != 32 && $value['type_of_question'] != 33 && $value['type_of_question'] != 45) {
-							$html .= '<i class="fa fa-pencil cursor-pointer question_edit" data-id='.$value['id'].' data-type_of_question='.$value['type_of_question'].' data-bs-toggle="modal" data-bs-target="#add-email"></i>';
-						}
-						$html .= '</div>';
-				 
-				        if ($value['type_of_question'] != 36) {
-							$html .= '<div class="col-3 p-1">';
-				            $html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id='.$value['id'].' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
-							$html .= '	</div>';
-				        }
-				 
-						$html .= '	<div class="col-3 p-1">
-								<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question='.$value['id'].'></i>
+				$html .= '<div class="col-3 p-1">';
+				if ($value['type_of_question'] != 31 && $value['type_of_question'] != 32 && $value['type_of_question'] != 33 && $value['type_of_question'] != 45) {
+					$html .= '<i class="fa fa-pencil cursor-pointer question_edit" data-id=' . $value['id'] . ' data-type_of_question=' . $value['type_of_question'] . ' data-bs-toggle="modal" data-bs-target="#add-email"></i>';
+				}
+				$html .= '</div>';
+
+				if ($value['type_of_question'] != 36) {
+					$html .= '<div class="col-3 p-1">';
+					$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
+					$html .= '	</div>';
+				}
+
+				$html .= '	<div class="col-3 p-1">
+								<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question=' . $value['id'] . '></i>
 							</div>
 							<div class="col-3 p-1">
-								<i class="fa fa-trash question_delete cursor-pointer" data-question='.$value['id'].'></i>
+								<i class="fa fa-trash question_delete cursor-pointer" data-question=' . $value['id'] . '></i>
 							</div>
 						</div>
 					</div>';
 
-if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $value['type_of_question'] <= 21) {
-						$html .= '
+				if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $value['type_of_question'] <= 21) {
+					$html .= '
 					<div class="col-12 d-flex justify-content-end">
-						<button type="button" class="btn-primary user_reply" data-question="'.$value['question'].'" data-skip_question="'.$value['skip_question'].'" data-menu_message="'.$value['menu_message'].'">Users Reply</button>
+						<button type="button" class="btn-primary user_reply" data-question="' . $value['question'] . '" data-skip_question="' . $value['skip_question'] . '" data-menu_message="' . $value['menu_message'] . '">Users Reply</button>
 									</div>';
-}
-					
-					
+				}
+
+
 				$html .= '</div>';
-		
+
 			}
 		}
 		$result['html'] = $html;
@@ -911,74 +911,74 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 	{
 		$table = $_POST['table'];
 		$bot_id = $_POST['bot_id'];
-		$sequence = $_POST['sequence']; 
+		$sequence = $_POST['sequence'];
 
-		if(isset($_POST['action']) && $_POST['action'] != "") {
-        	$skip_question = $_POST['action'];
+		if (isset($_POST['action']) && $_POST['action'] != "") {
+			$skip_question = $_POST['action'];
 			// pre($skip_question);
 		} else {
-			$skip_question = ''; 
+			$skip_question = '';
 		}
 
 		$db_connection = \Config\Database::connect('second');
-		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence'; 
+		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 		$resultss = $db_connection->query($sql);
-		$bot_chat_data = $resultss->getResultArray(); 
+		$bot_chat_data = $resultss->getResultArray();
 		$html = '';
 
 		if (!empty($bot_chat_data)) {
 			foreach ($bot_chat_data as $value) {
-				$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="'.$value['id'].'" data-sequence="'.$value['sequence'].'">
+				$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
 
-						$html .= '<div class="col px-2">
+				$html .= '<div class="col px-2">
 									<div class="col-12 mb-2">
-										<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="'.$value['id'].'">
-											'.$value['question'].'
+										<span class="p-2 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
 										</span>
 									</div>';
 
-										if (isset($skip_question) && $skip_question == '' && $value['type_of_question'] == 1 && $value['skip_question'] == 1) {
-											$html .= '<div class="col-12 mb-2">
+				if (isset($skip_question) && $skip_question == '' && $value['type_of_question'] == 1 && $value['skip_question'] == 1) {
+					$html .= '<div class="col-12 mb-2">
 												<button class="btn bg-primary rounded-pill text-white skip_questioned">
 													Skip
 												</button>
 											</div>';
-										}
-										
-										if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
-											$menuOptions = json_decode($value['menu_message'], true);
-										
-											if (isset($menuOptions['options'])) {
-												$options = explode(';', $menuOptions['options']);
-												foreach ($options as $option) {
-													$html .= '<div class="col-12 mb-2 option-wrapper">
-																 <button class="btn bg-primary rounded-pill text-white option-button" onclick="selectOption(this, \''.$option.'\')">'.$option.'</button>
+				}
+
+				if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
+					$menuOptions = json_decode($value['menu_message'], true);
+
+					if (isset($menuOptions['options'])) {
+						$options = explode(';', $menuOptions['options']);
+						foreach ($options as $option) {
+							$html .= '<div class="col-12 mb-2 option-wrapper">
+																 <button class="btn bg-primary rounded-pill text-white option-button" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
 															  </div>';
-												}
-											}
-										}
-										
-					$html .= '</div>';
-										
-					$html .= '<script>
+						}
+					}
+				}
+
+				$html .= '</div>';
+
+				$html .= '<script>
 								function selectOption(button, value) {
 									$(".answer_chat").val(value);
 									$(".option-button").hide();
 								}
-								</script>';										
+								</script>';
 
-					$html .= '</div>
+				$html .= '</div>
 							<div class="messege2 d-flex flex-wrap  ">
 								<div class="col px-2">';
 
-									if($value['answer'] != ''){
-										$html .= '<div class="col-12 mb-2 text-end ">
+				if ($value['answer'] != '') {
+					$html .= '<div class="col-12 mb-2 text-end ">
 										<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3">
 
-										'.$value['answer'].'
+										' . $value['answer'] . '
 										</span>
 									</div>
 								</div>
@@ -986,9 +986,9 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>
 							</div>';
-}
-							
-						
+				}
+
+
 			}
 		}
 
@@ -1047,34 +1047,35 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 
 	//chat answer
 	public function insert_chat_answer()
-{
-    $table = $_POST['table'];
-    $bot_id = $_POST['bot_id'];
-    $answer = $_POST['answer'];
-    $questionId = $_POST['question_id'];
-    $sequence = $_POST['sequence'];
+	{
+		$table = $_POST['table'];
+		$bot_id = $_POST['bot_id'];
+		$answer = $_POST['answer'];
+		$questionId = $_POST['question_id'];
+		$sequence = $_POST['sequence'];
 
-    $db_connection = \Config\Database::connect('second');
-    $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
-    $result = $db_connection->query($sql);
-    $question = $result->getRowArray();
+		$db_connection = \Config\Database::connect('second');
+		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
+		$result = $db_connection->query($sql);
+		$question = $result->getRowArray();
 
-    if (!empty($question) && $question['id'] == $questionId) { 
-        $updateData = [
-            'answer' => $answer
-        ];
+		if (!empty($question) && $question['id'] == $questionId) {
+			$updateData = [
+				'answer' => $answer
+			];
 
-        $db_connection->table($table)->update($updateData, ['id' => $question['id']]);
+			$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
 
-        echo "Answer inserted successfully for question: " . $question['question'];
-    } else {
-        echo "Question with sequence " . $sequence . " not found or does not match the specified question id.";
-    }
-}
+			echo "Answer inserted successfully for question: " . $question['question'];
+		} else {
+			echo "Question with sequence " . $sequence . " not found or does not match the specified question id.";
+		}
+	}
 
 
 
-	public function main_bot_list_data() {
+	public function main_bot_list_data()
+	{
 		// bot main page list data
 		$table_name = $_POST['table'];
 		$botdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
@@ -1082,8 +1083,8 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		$i = 1;
 		$html = "";
 
-		foreach($botdisplaydata as $key => $value) {
-			$bot_img = empty($value['bot_img']) ? base_url('') .'assets/images/bot_img/bot-1.png' : /* bot img uploading path */base_url('') .'assets/images/bot_img/bot-1.png' ;
+		foreach ($botdisplaydata as $key => $value) {
+			$bot_img = empty($value['bot_img']) ? base_url('') . 'assets/images/bot_img/bot-1.png' : /* bot img uploading path */ base_url('') . 'assets/images/bot_img/bot-1.png';
 			$html .= '
 			<div class="col-3 p-2">
 			<div class="card mb-3 bg-white shadow">
@@ -1091,9 +1092,9 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 					<div class="d-flex align-items-center">
 						<div class="col-md-4 text-center">
 							<div class="p-2">
-								<img src="'. $bot_img .'"
+								<img src="' . $bot_img . '"
 											class="img-fluid rounded-start mb-1" width="30px">
-										<p class="card-text"><small class="text-body-secondary">'.$value['name'].'</small></p>
+										<p class="card-text"><small class="text-body-secondary">' . $value['name'] . '</small></p>
 									</div>
 								</div>
 								<div class="border h-100"></div>
@@ -1101,7 +1102,7 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 									<div class="card-body d-flex flex-wrap py-1 px-2 justify-content-between">
 										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted bot_setup"
 											data-toggle="tooltip" data-placement="top" title="Setup">
-											<a href="'. base_url('') .'bot_setup?bot_id='.$value['id'].'" class="text-muted">
+											<a href="' . base_url('') . 'bot_setup?bot_id=' . $value['id'] . '" class="text-muted">
 												<i class="fa-solid fa-screwdriver-wrench"></i>
 											</a>
 										</div>
@@ -1128,11 +1129,11 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 										class="card-body d-flex flex-wrap py-1 px-2 justify-content-between align-items-center">
 										<div class="form-check form-switch">
 											<input class="form-check-input bot_active" type="checkbox" role="switch" id="is_active"
-												'.($value['active'] == 1 ? 'checked' : '').' data-update_id="'.$value['id'].'">
+												' . ($value['active'] == 1 ? 'checked' : '') . ' data-update_id="' . $value['id'] . '">
 											<label class="form-check-label" for="is_active">Active</label>
 										</div>
 										<div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted bot_delete"
-                                            data-toggle="tooltip" data-placement="top" title="Delete" data-delete_id="'.$value['id'].'">
+                                            data-toggle="tooltip" data-placement="top" title="Delete" data-delete_id="' . $value['id'] . '">
                                             <i class="fa-solid fa-trash"></i>
 										</div>
 									</div>
@@ -1147,7 +1148,8 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		return $html;
 	}
 
-	public function bot_update() {
+	public function bot_update()
+	{
 		// bot active / inactive code
 		if ($this->request->getPost("action") == "update") {
 			$update_id = $this->request->getPost('id');
@@ -1156,7 +1158,7 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 			unset($_POST['table']);
 			unset($_POST['action']);
 			// bot check data
-			if($_POST['type'] == 'activation') {
+			if ($_POST['type'] == 'activation') {
 				$second_table = $this->request->getPost('second_table');
 				unset($_POST['type']);
 				unset($_POST['second_table']);
@@ -1164,48 +1166,77 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 				$botdisplaydata = json_decode($botdisplaydata);
 				$i = 0;
 				foreach ($botdisplaydata as $key => $val) {
-					if($val->bot_id == $update_id) {
+					if ($val->bot_id == $update_id) {
 						$i++;
 					}
 				}
 
 				// if $i < 0 then user is not setup the bot data and it's not active
-				if($i <= 0 && $_POST['active'] == 1) {
+				if ($i <= 0 && $_POST['active'] == 1) {
 					return 'empty';
 				}
 			}
 			$update_data = $_POST;
-			$delete_displaydata = $this->MasterInformationModel->update_entry2($update_id,$update_data,$table_name);
+			$delete_displaydata = $this->MasterInformationModel->update_entry2($update_id, $update_data, $table_name);
 
-            echo "success";
+			echo "success";
 		}
 	}
 
 	public function get_chat_data()
 	{
-		if($_POST['action'] == 'account_list') {
+		if ($_POST['action'] == 'account_list') {
 			$token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-			$fb_page_list = fb_page_list($token);
-			$fb_page_list = get_object_vars(json_decode($fb_page_list));
+			$fileds = 'instagram_business_account{id,username,profile_picture_url},profile_picture_url,access_token,name,id';
+			$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
+			// $fb_page_list = fb_page_list($token);
+			// $fb_page_list = get_object_vars(json_decode($fb_page_list));
+			$fb_page_list = getSocialData($url);
+			// pre($fb_page_list);
 
-			$chat_list_html = '';
+			$fb_chat_list_html = '';
+			$IG_chat_list_html = '';
 			$return_result = array();
-			foreach($fb_page_list['page_list'] as $key => $value){
-				$page_data = fb_page_img($value->id,$value->access_token);
+			$IG_data = array();
+
+			foreach ($fb_page_list['data'] as $key => $value) {
+				// pre($value);
+				$page_data = fb_page_img($value['id'], $value['access_token']);
 				$page_data = json_decode($page_data);
 
-				$chat_list_html .= '<div class="col-12 account-nav my-2 account-box" data-page_id="'.$value->id.'" data-page_access_token="'.$value->access_token.'" data-page_name="'.$value->name.'">
-										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2">
+				$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
+										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
-												<img src="'.$page_data->page_img.'" alt="">
+												<img src="' . $page_data->page_img . '" alt="" width="45">
 											</a>
-											<p class="fs-6 fw-medium col ps-2">'.$value->name.'
+											<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
 											</p>
 										</div>
 									</div>';
+				if (isset($value['instagram_business_account'])) {
+					$value['instagram_business_account']['access_token'] = $value['access_token'];
+					$value['instagram_business_account']['fb_page_id'] = $value['id'];
+					$IG_data[] = $value['instagram_business_account'];
+				}
 			}
 
-			$return_result['chat_list_html'] = $chat_list_html;
+			foreach ($IG_data as $IG_key => $IG_value) {
+				$IG_chat_list_html .= '
+								<div class="col-12 account-nav my-2 account-box" data-page_id="' . $IG_value['id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
+									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
+										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
+											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
+										</a>
+										<p class="fs-6 fw-medium col ps-2">' . $IG_value['username'] . '
+										</p>
+									</div>
+								</div>
+									';
+			}
+
+			// pre($IG_data);
+			$return_result['chat_list_html'] = $fb_chat_list_html;
+			$return_result['IG_chat_list_html'] = $IG_chat_list_html;
 			return json_encode($return_result);
 		}
 
@@ -1213,29 +1244,36 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 
 			$page_access_token = $_POST['page_access_token'];
 			$page_id = $_POST['page_id'];
-					
-					// if ($_POST['api'] === true) {
-					$url = 'https://graph.facebook.com/' . $page_id . '/conversations?fields=id,participants,messages.limit(1)&pretty=0&access_token=' . $page_access_token;
-			
-					$data = getSocialData($url);
+			$platform = $_POST['platform'];
+
+			// if ($_POST['api'] === true) {
+			$url = 'https://graph.facebook.com/' . $page_id . '/conversations?platform=' . $platform . '&fields=id,participants,messages.limit(1).fields(id,message,created_time,from)&pretty=0&access_token=' . $page_access_token;
+			// echo $url;
+			$data = getSocialData($url);
+			pre($data);
 			$chat_list_html = '';
 
-					foreach($data['data'] as $conversion_value) {
-						$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
-
-						if($times['days'] >= 1) {
-							$time_count_text = ($times['days'] > 1 ? $times['days'] : 'a').' Day ago';
-						} else if($times['hours'] > 0){
-							$time_count_text = $times['hours'].' Hour ago';
-						} else {
-							$time_count_text = $times['minutes'].' min ago';
-						}
-						$chat_list_html .= '
+			foreach ($data['data'] as $conversion_value) {
+				$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
+				// pre($conversion_value);
+				if ($times['days'] >= 30) {
+					$time_count_text = (int) ($times['days'] / 30) . ' MO';
+				} else if ($times['days'] >= 7) {
+					$time_count_text = ($times['days'] / 7) . ' W';
+				} else if ($times['days'] >= 1) {
+					$time_count_text = $times['days'] . ' D';
+				} else if ($times['hours'] > 0) {
+					$time_count_text = $times['hours'] . ' H';
+				} else {
+					$time_count_text = $times['minutes'] . ' M';
+				}
+				$chat_list_html .= '
 							<div class=" fw-semibold fs-12 chat-nav-search-bar my-2 col-12 chat-account-box p-1 pe-3
 							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '">
 							<div class="d-flex flex justify-content-between align-items-center col-12">
-										<div class="col-2 p-1">
-											<svg class="w-100" xmlns="http://www.w3.org/2000/svg" version="1.1"
+										<div class="col-2 p-1">';
+				if ($platform == 'messenger') {
+					$chat_list_html .= '<svg class="w-100" xmlns="http://www.w3.org/2000/svg" version="1.1"
 											xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" x="0" y="0"
 											viewBox="0 0 176 176" style="enable-background:new 0 0 512 512"
 											xml:space="preserve" class="">
@@ -1250,14 +1288,14 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 													</g>
 												</g>
 											</g>
-										</svg>
-									</div>
+										</svg>';
+				} else if ($platform == 'instagram') {
+					$chat_list_html .= '<img src="' . base_url() . 'assets/images/instagram.svg' . '" >';
+				}
+				$chat_list_html .= '</div>
 									<div class="col-10 d-flex flex-wrap justify-content-between align-items-center">
-									<p style="font-size:18px;">' . $conversion_value['participants']['data'][0]['name'] . '</p>
-										<p class="fs-12 "></p>
-										<div class="text-end">
-											<span class="fs-12">'.$time_count_text.'</span>
-										</div>
+									<p class="col-12" style="font-size:18px;">' . $conversion_value['participants']['data'][1]['username'] . '</p>
+										<p class=" fs-6 text-secondary-emphasis">' . $conversion_value['messages']['data'][0]['message'] . ' <span class="ms-2">' . $time_count_text . '</span> </p>
 									</div>
 									
 							</div>
@@ -1269,7 +1307,7 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 			return json_encode($return_result);
 		}
 
-		if($_POST['action'] == 'chat_massage_list') {
+		if ($_POST['action'] == 'chat_massage_list') {
 			$conversion_id = $_POST['conversion_id'];
 			$page_access_token = $_POST['page_access_token'];
 			// $massage_id = $_POST['id'];
@@ -1287,21 +1325,21 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 			// $delete_displaydata = $this->MasterInformationModel->update_entry2($massage_id, $update_data, $massage_table_name);
 			$count = count($massage_array);
 			$i = 0;
-			foreach($massage_array as $massage_key => $massage_value) {
+			foreach ($massage_array as $massage_key => $massage_value) {
 				$message = $massage_value['message'];
 				if (!empty($message)) {
 					if ($_POST['page_id'] == $massage_value['from']['id']) {
-					$html .= '
+						$html .= '
 								<div class="d-flex mb-4 justify-content-end" >
                                 <div class="col-6 text-end">
-                                    <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">'.$message.'</span>
+                                    <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $message . '</span>
                                 </div>
                             </div>';
-				} else {
-					$html .= '
+					} else {
+						$html .= '
 							<div class="d-flex mb-4 ">
 								<div class="col-6 text-start">
-									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">'.$message.'</span>
+									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $message . '</span>
 								</div>
 							</div>';
 					}
@@ -1315,17 +1353,17 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		}
 	}
 
-	
+
 	public function send_massage()
 	{
 		// send massage to whatsapp,facebook and insta
-			
+
 		// $curl = curl_init();
 
 		// $page_id = "196821650189891";
 		// $massage = "hello";
 		// $psid = "24658518140462514";
-	
+
 		// curl_setopt_array(
 		// 	$curl,
 		// 	array(
@@ -1353,15 +1391,15 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		// 		),
 		// 	)
 		// );
-	
+
 		// $response = curl_exec($curl);
-	
+
 		// curl_close($curl);
 		// echo $response;
-	
+
 		// Facebook page access token
 		$access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-	
+
 		// Recipient ID (Facebook User ID or Page ID)
 		$recipient_id = '24658518140462514';
 
@@ -1376,6 +1414,6 @@ if (isset($value['type_of_question']) && $value['type_of_question'] >= 1 && $val
 		$reponce = postSocialData($endpoint, $params);
 		echo 'Response: ';
 		print_r($reponce);
-	
+
 	}
 }

@@ -105,8 +105,8 @@
                     </nav>
                 </div> -->
 
-                <div class="col-4 col-sm-5 col-md-6 col-lg-3 col-xl-2 col-xxl-3 account-box" style="height:80vh">
-                    <div class="col-12 border rounded-4 bg-white" style="height:80vh">
+                <div class="col-4 col-sm-5 col-md-6 col-lg-3 col-xl-2 col-xxl-3" style="height:80vh">
+                    <div class="col-12 border rounded-start-4 bg-white" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
                             <div class="d-flex justify-content-between align-items-center border-bottom">
                                 <div class="dropdown d-flex align-items-center ps-2 pb-2">
@@ -138,7 +138,7 @@
                                         </button>
                                     </h2>
                                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body account_list p-0">
+                                        <div class="accordion-body IG_account_list p-0">
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                                         </button>
                                     </h2>
                                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body account_list p-0">
+                                        <div class="accordion-body WA_account_list p-0">
                                         </div>
                                     </div>
                                 </div>
@@ -167,15 +167,15 @@
                 </div>
 
                 <div class="col-8 col-sm-7 col-md-6 col-lg-3 col-xl-3 col-xxl-3 chat-box" style="height:80vh">
-                    <div class="col-12 border rounded-4 bg-white" style="height:80vh">
+                    <div class="col-12 border  bg-white" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="dropdown d-flex align-items-center ps-2">
+                            <div class="d-flex justify-content-between border-bottom align-items-center">
+                                <div class="dropdown d-flex align-items-center p-1">
                                     <i class="fas fa-comment fs-5  me-2"></i>
                                     <h5 class="fs-5 w-semibold">Chats</h5>
                                 </div>
                                 <div class="">
-                                    <p class="page_name border-bottom p-1 "></p>
+                                    <p class="page_name p-1 "></p>
                                 </div>
                             </div>
                         </div>
@@ -295,7 +295,7 @@
                 </div>
 
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-6  position-relative transcript_box" style="height:80vh">
-                    <div class="col-12 border rounded-4 bg-white" style="height:80vh">
+                    <div class="col-12 border rounded-end-4 bg-white" style="height:80vh">
                         <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3">
                             <div class="d-flex flex-wrap bg-white rounded-pill py-1 border">
                                 <div class="input-group  position-relative ">
@@ -395,7 +395,7 @@
 <script>
     $(document).ready(function() {
         // massage list data
-        function list_data(api = false, action = 'account_list', page_id = '', page_access_token = '') {
+        function list_data(api = false, action = 'account_list', page_id = '', page_access_token = '', platform) {
             $.ajax({
                 method: "post",
                 url: "<?= site_url('get_chat_data'); ?>",
@@ -404,6 +404,7 @@
                     api: api,
                     page_id: page_id,
                     page_access_token: page_access_token,
+                    platform: platform,
                 },
                 beforeSend: function() {
                     if (action == 'account_list') {
@@ -418,6 +419,7 @@
                     var obj = JSON.parse(data);
                     if (action == 'account_list') {
                         $('.account_list').html(obj.chat_list_html);
+                        $('.IG_account_list').html(obj.IG_chat_list_html);
                     } else if (action == 'chat_list') {
                         $('.chat_list').html(obj.chat_list_html);
                         $('.chat_list_loader').hide();
@@ -432,8 +434,9 @@
         $('body').on('click', '.account-nav', function() {
             var page_id = $(this).attr("data-page_id");
             var page_access_token = $(this).attr("data-page_access_token");
+            var platform = $(this).attr("data-platform");
             $('.page_name').text($(this).attr('data-page_name'));
-            list_data(false, 'chat_list', page_id, page_access_token);
+            list_data(false, 'chat_list', page_id, page_access_token, platform);
         });
 
         $('body').on('click', '.chat_list', function() {
