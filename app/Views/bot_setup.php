@@ -98,6 +98,50 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 .nav-tabs .nav-link.active {
   color: var(--first-color) !important;
 }
+
+.list-group-item.active {
+    z-index: 2;
+    color: var(--bs-list-group-active-color);
+    background-color: var(--first-color) !important;
+    border-color:1px solid var(--all-light);
+}
+
+.main-task{
+    font-size: 15px;
+}
+.user_reply{
+    font-size: 15px;
+}
+.modal{
+    font-size: 15px;
+    padding: 0px !important;
+}
+.modal button{
+    font-size: 15px;
+}
+.modal select{
+    font-size: 15px;
+}
+
+@media  (max-width:600px){
+.main-task{
+    font-size: 13px;
+} 
+.user_reply{
+    font-size: 13px;
+}
+.modal{
+    font-size: 12px;
+}
+.modal button{
+    font-size: 12px;
+}
+.modal select{
+    font-size: 12px;
+}
+
+}
+
 </style>
 
 
@@ -114,14 +158,16 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
 
 
             <div class="col-12 d-flex flex-wrap ">
-                <div class="col-4 p-1 ">
+                <div class="col-12 col-lg-4 p-1 ">
                     <div class="col-12 border rounded-3 bg-white p-3 overflow-y-scroll d-flex flex-wrap" style="height:80vh">
                         <div class="col-12  d-flex justify-content-between my-3">
                             <div class="col-6">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Main Flow</option>
+                                <div class="main-selectpicker">
+                                    <select class="form-control main-control from-main selectpicker" aria-label="Default select example">
+                                        <option selected>Main Flow</option>
 
-                                </select>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-1">
                                 <button class="btn-primary-rounded mx-1 All_memberPlusBtn" id="plus_btn" data-bs-toggle="modal" datamno="" data-bs-target="#add-member">
@@ -135,7 +181,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="bot_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-3 p-2 question_add" data-qu="What is Your Name?">
+                            <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="What is Your Name?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-question icon"></i>
@@ -153,7 +199,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="What is Your Gender?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="What is Your Gender?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-circle-dot icon"></i>
@@ -171,7 +217,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="Enter Your Email.">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Enter Your Email.">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-envelope icon"></i>
@@ -190,7 +236,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="What type of food do you eat?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="What type of food do you eat?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-check-square icon" ng-class="i.icon"></i>
@@ -210,7 +256,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 </div>
 
 
-                                <div class="col-3 p-2 question_add" data-qu="Enter your mobile number">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Enter your mobile number">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-mobile-screen-button icon"></i>
@@ -229,7 +275,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="How many bots do you want?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="How many bots do you want?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-hashtag icon"></i>
@@ -248,7 +294,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="How would you rate our company?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="How would you rate our company?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-star icon"></i>
@@ -267,7 +313,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="When is your birthday?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="When is your birthday?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-calendar-days icon"></i>
@@ -286,7 +332,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="In which slot would you like to book the appointment?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="In which slot would you like to book the appointment?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-clock icon"></i>
@@ -305,7 +351,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Where do you live?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Where do you live?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-location-dot icon"></i>
@@ -324,7 +370,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="What is your age?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="What is your age?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-expand icon"></i>
@@ -343,7 +389,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Can you upload a file?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Can you upload a file?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-upload icon"></i>
@@ -362,7 +408,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Can you give us your website?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Can you give us your website?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-link icon"></i>
@@ -381,7 +427,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Please share your contact details">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Please share your contact details">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-user-plus icon"></i>
@@ -400,7 +446,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Choose item(s)">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Choose item(s)">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-shopping-cart icon"></i>
@@ -419,7 +465,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Please authenticate">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Please authenticate">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-key icon"></i>
@@ -438,7 +484,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Please share your full address">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Please share your full address">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-forumbee icon"></i>
@@ -457,7 +503,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Pick an item of your choices">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Pick an item of your choices">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-list icon"></i>
@@ -476,7 +522,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="This will call your api and show the response to the user">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="This will call your api and show the response to the user">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-bullseye icon"></i>
@@ -495,7 +541,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="This will call your api and show the search result in real time to the user">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="This will call your api and show the search result in real time to the user">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-search icon"></i>
@@ -514,7 +560,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="When would you like to book your appointment?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="When would you like to book your appointment?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-calendar-check icon"></i>
@@ -541,7 +587,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-3 p-2 question_add" data-qu="Hello">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Hello">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-quote-left icon"></i>
@@ -559,7 +605,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="Follow us on facebook for more updates.">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Follow us on facebook for more updates.">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-compass icon"></i>
@@ -577,7 +623,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="Here are recommended products for you">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Here are recommended products for you">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-sharp fa-solid fa-sliders icon"></i>
@@ -596,7 +642,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="These are product samples">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="These are product samples">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-image icon"></i>
@@ -616,7 +662,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                 </div>
 
 
-                                <div class="col-3 p-2 question_add" data-qu="Listen to this">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Listen to this">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-file-audio icon"></i>
@@ -635,7 +681,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Our contact(s)">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our contact(s)">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-sharp fa-solid fa-address-book icon"></i>
@@ -655,7 +701,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Our Location">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our Location">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-sharp fa-solid fa-paper-plane icon"></i>
@@ -674,7 +720,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Our Logo">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our Logo">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-file icon"></i>
@@ -693,7 +739,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="URL Auto Redirect">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="URL Auto Redirect">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-arrow-up-right-from-square icon"></i>
@@ -712,7 +758,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="URL Based Flow">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="URL Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-scissors icon"></i>
@@ -731,7 +777,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Country Based Flow">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Country Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-earth-americas icon"></i>
@@ -750,7 +796,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div>
 
-                                <div class="col-3 p-2 question_add" data-qu="Action Based Flow">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Action Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-signs-post icon"></i>
@@ -779,7 +825,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-3 p-2 question_add">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-circle-question icon"></i>
@@ -805,7 +851,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-3 p-2 question_add">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-wpexplorer icon"></i>
@@ -835,7 +881,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-3 p-2 question_add" data-qu="Talh to out live agent">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Talh to out live agent">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-headphones icon"></i>
@@ -879,7 +925,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-3 p-2 question_add" data-qu="Choose one template">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Choose one template">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-comment-dots icon"></i>
@@ -897,7 +943,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="Whatsapp Message Based Flow">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Whatsapp Message Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-users icon"></i>
@@ -915,7 +961,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="Choose From the below list">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Choose From the below list">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-list-ol icon"></i>
@@ -933,7 +979,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="======Cart Summery======">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="======Cart Summery======">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-cart-shopping icon"></i>
@@ -951,7 +997,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="Adding the whatsapp button.">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Adding the whatsapp button.">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-whatsapp icon"></i>
@@ -969,7 +1015,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="Adding the whatsapp catalog">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Adding the whatsapp catalog">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-cart-arrow-down icon"></i>
@@ -987,7 +1033,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="Provide Address">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Provide Address">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-map-pin icon"></i>
@@ -1005,7 +1051,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add" data-qu="">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-rectangle-ad icon"></i>
@@ -1032,7 +1078,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-3 p-2 question_add">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-instagram icon"></i>
@@ -1050,7 +1096,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-instagram icon"></i>
@@ -1308,30 +1354,30 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                     </div>
                                 </div> -->
 
-                                <div class="col-12 d-flex flex-wrap px-3" id="firstquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="secondquestion"></div>
-                                <div class="col-12 d-flex flex-wrap " id="thirdquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="fourthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap " id="fifthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap " id="sixthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="eighthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap " id="tenthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="twelthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="senenthquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="fifteenquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="sixteenquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="seventeenquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="eighteenquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="twentyonequestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="twentythreequestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="twentyfourquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="twentysevenquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="twentyeightquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="thirtyethquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="fourythreequestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="fouryfourquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="twentyfivequestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-3" id="fourtyonequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="firstquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="secondquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="thirdquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fifthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="sixthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="eighthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="tenthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twelthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="senenthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fifteenquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="sixteenquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="seventeenquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="eighteenquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyonequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentythreequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyfourquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentysevenquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyeightquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="thirtyethquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourythreequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fouryfourquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyfivequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourtyonequestion"></div>
                                 <!--Question-->
                                 <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                                     <div class="col-12 d-flex flex-wrap px-2">
@@ -1992,7 +2038,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                             <div class="accordion" id="accordionExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <button class="accordion-button text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="background-color: #d8d7ff;">
                                             Data Referencing
                                         </button>
                                     </h2>
@@ -2000,20 +2046,24 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                         <div class="accordion-body">
                                             <div class="col-12 d-flex flex-wrap my-2">
                                                 <div class="col-5 p-2">
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <div class="main-selectpicker">
+                                                        <select class="selectpicker form-control form-main main-control" aria-label="Default select example" data-live-search="true" required="" tabindex="-98">
+                                                            <option selected class="dropdown-item">Open this select menu</option>
+                                                            <option value="1" class="dropdown-item">One</option>
+                                                            <option value="2" class="dropdown-item">Two</option>
+                                                            <option value="3" class="dropdown-item">Three</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6 p-2">
+                                                <div class="main-selectpicker">
+                                                    <select class="selectpicker form-control form-main main-control" aria-label="Default select example" data-live-search="true" required="" tabindex="-98">
                                                         <option selected>Open this select menu</option>
                                                         <option value="1">One</option>
                                                         <option value="2">Two</option>
                                                         <option value="3">Three</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-6 p-2">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Open this select menu</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex flex-wrap my-2 px-2 fw-medium">
@@ -2021,12 +2071,14 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </div>
                                             <div class="col-12 my-2">
                                                 <div class="col-5 p-2">
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option selected>Open this select menu</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
+                                                    <div class="main-selectpicker">
+                                                        <select class="selectpicker form-control form-main main-control" aria-label="Default select example" data-live-search="true" required="" tabindex="-98">
+                                                            <option selected>Open this select menu</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2056,7 +2108,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                     </div>
                 </div>
             </div>
-            <div class="col-12 d-flex flex-wrap p-1 my-3">
+            <div class="col-12">
 
                 <div class="tab-content col-12 edit-data-panal">
                     <div class="tab-pane" id="media-edit" role="tabpanel" aria-labelledby="media-tab" tabindex="0">
@@ -4963,7 +5015,7 @@ $admin_bot_setup = json_decode($admin_bot_setup, true);
                                             </select>
                                         </td>
                                         <td class="col-2">
-                                            <button type="button" class="btn-danger">
+                                            <button type="button" class="btn btn-danger">
                                                 <i class="fa fa-trash  cursor-pointer"></i>
                                             </button>
                                         </td>
