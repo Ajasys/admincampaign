@@ -2087,7 +2087,7 @@ $admin_bot = json_decode($admin_bot, true);
                                 </div>
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <button class="accordion-button collapsed text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="background-color: #d8d7ff;">
                                             Time Based Greeting
                                         </button>
                                     </h2>
@@ -2736,10 +2736,10 @@ $admin_bot = json_decode($admin_bot, true);
                                 </h6>
                            </div>
                             <div class="d-flex flex-wrap">
-                                <button class="bg-primary mx-2 px-3 text-white" id="sound-icon">
+                                <button class="btn bg-primary mx-2 px-3 text-white" id="sound-icon">
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </button>
-                                <button class="bg-primary text-white">
+                                <button class="btn bg-primary text-white">
                                     <i class="fa-solid fa-rotate-right"></i>
                                 </button>
                             </div>
@@ -3101,7 +3101,7 @@ $admin_bot = json_decode($admin_bot, true);
             options.forEach(function(option) {
                 main_table_html += '<option value="' + option.id + '">' + option.question + '</option>';
             });
-            main_table_html += '<td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td></select></td><td class="col-2"><button type="button" class="btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
+            main_table_html += '<td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td></select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".tbody").append(main_table_html);
         }
         table_html();
@@ -3150,7 +3150,7 @@ $admin_bot = json_decode($admin_bot, true);
 
         function multiple_table_html(index) {
             var row_numbers = $('.multiple_main-plan').length;
-            var multiple_table_row = '<tr class="col-12 multiple_main-plan"><td class="col-3"><input type="text" class="form-control multiple-row-option-value multiple_choice_options_' + row_numbers + '" id="" placeholder="Enter the option" value=""></td><td class="col-2"><button type="button" class="btn-danger multiple-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
+            var multiple_table_row = '<tr class="col-12 multiple_main-plan"><td class="col-3"><input type="text" class="form-control multiple-row-option-value multiple_choice_options_' + row_numbers + '" id="" placeholder="Enter the option" value=""></td><td class="col-2"><button type="button" class="btn btn-danger multiple-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
             $(".multiple-table-body").append(multiple_table_row);
         }
         multiple_table_html();
@@ -3192,7 +3192,7 @@ $admin_bot = json_decode($admin_bot, true);
             '</div>'
             '</td>'
             '<td class="col">  '
-            '<button type="button" class="btn-danger form-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button>'
+            '<button type="button" class="btn btn-danger form-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button>'
             '</td>'
             '</tr>';
             $(".form-table-body").append(form_table_row);
@@ -3235,7 +3235,7 @@ $admin_bot = json_decode($admin_bot, true);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ?></select></td><td class="col-2"><div class="col"> <input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image"></div></td><td class="col"><button type="button" class="btn-danger btn-sm Corousel-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ?></select></td><td class="col-2"><div class="col"> <input type="file" name="images[]" class="form-control main-control place" required="" id="insert_image"></div></td><td class="col"><button type="button" class="btn btn-danger btn-sm Corousel-remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".Corousel-table-body").append(Corousel_table_row);
         }
 
@@ -3392,7 +3392,7 @@ $admin_bot = json_decode($admin_bot, true);
 
 
     function proudect_table_row() {
-        var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row product_table"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select proudect-select-picker product_type" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control product_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control product_title" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center proudect-selecter"> <div class="col-12 proudect-image second-add"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control proudect-file" type="file" id="formFile"> </div> <div class="col-12 proudect-video second-remove"> <label for="" class="form-label fw-medium">URL<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control product_description" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control product_button_text" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control product_button_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class=" btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
+        var proudect_table_row = '<div class="d-flex flex-wrap col-12 w-100 proudect-table-row product_table"> <div class="proudect-table-1 col-12 w-100 "> <table class="table w-100 col-12 proudect-table-upper table-borderless"> <tbody class="proudect-table-upper-body"> <tr> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Type<span class="text-danger">*</span></label> <select class="form-select proudect-select-picker product_type" aria-label="Default select example"> <option value="1">Image</option> <option value="2">Video</option> </select> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Image URL <span class="text-danger">*</span></label> <input type="text" class="form-control product_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Title<span class="text-danger">*</span></label> <input type="text" class="form-control product_title" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center proudect-selecter"> <div class="col-12 proudect-image second-add"> <label for="" class="form-label fw-medium">Upload<span class="text-danger">*</span></label> <input class="form-control proudect-file" type="file" id="formFile"> </div> <div class="col-12 proudect-video second-remove"> <label for="" class="form-label fw-medium">URL<span class="text-danger">*</span></label> <input type="text" class="form-control" id="" placeholder="your URL"> </div> </div> </td> </tr> </tbody> </table> </div> <div class="proudect-table-1 col-12 w-100"> <table class="table w-100 col-12 table-borderless proudect-table-lower"> <tbody class="proudect-table-lower-body"> <tr> <td class="proudect-table-1 col-4"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Description</label> <input type="text" class="form-control product_description" id="" placeholder="Description"> </div> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Text<span class="text-danger">*</span></label> <input type="text" class="form-control product_button_text" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium">Button Url <span class="text-danger">*</span></label> <input type="text" class="form-control product_button_url" id="" placeholder="your URL"> </div> </div> </td> <td class="proudect-table-1 col-2"> <div class="col-12 d-flex flex-wrap align-items-center"> <div class="col-12"> <label for="" class="form-label fw-medium col-12">Remove</label> <button type="button" class="btn btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> </div> </div> </td> </tr> </tbody> </table> </div> </div>';
         $(".proudect-table-body").append(proudect_table_row);
     }
     proudect_table_row();
@@ -3848,7 +3848,7 @@ $admin_bot = json_decode($admin_bot, true);
                                         '</select>' +
                                         '</td>' +
                                         '<td class="col-2">' +
-                                        '<button type="button" class="btn-danger multiple-remove-btn">' +
+                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
                                         '<i class="fa fa-trash cursor-pointer"></i>' +
                                         '</button>' +
                                         '</td>' +
@@ -3872,7 +3872,7 @@ $admin_bot = json_decode($admin_bot, true);
                                         '<input type="text" class="form-control multiple_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
                                         '</td>' +
                                         '<td class="col-2">' +
-                                        '<button type="button" class="btn-danger multiple-remove-btn">' +
+                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
                                         '<i class="fa fa-trash cursor-pointer"></i>' +
                                         '</button>' +
                                         '</td>' +
@@ -3963,7 +3963,7 @@ $admin_bot = json_decode($admin_bot, true);
                                     '</div>' +
                                     '</td>' +
                                     '<td class="col">' +
-                                    '<button type="button" class="btn-danger btn-sm Corousel-remove-btn">' +
+                                    '<button type="button" class="btn btn-danger btn-sm Corousel-remove-btn">' +
                                     '<i class="fa fa-trash cursor-pointer"></i>' +
                                     '</button>' +
                                     '</td>' +
@@ -4117,7 +4117,7 @@ $admin_bot = json_decode($admin_bot, true);
                                                                 <div class="col-12 d-flex flex-wrap align-items-center"> 
                                                                     <div class="col-12"> 
                                                                         <label for="" class="form-label fw-medium col-12">Remove</label> 
-                                                                        <button type="button" class="btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> 
+                                                                        <button type="button" class="btn btn-danger proudect-remove-btn "><i class="fa fa-trash cursor-pointer"></i></button> 
                                                                     </div> 
                                                                 </div> 
                                                             </td> 
@@ -5053,7 +5053,7 @@ $admin_bot = json_decode($admin_bot, true);
                                             </select>
                                         </td>
                                         <td class="col-2">
-                                            <button type="button" class="btn-danger">
+                                            <button type="button" class="btn btn-danger">
                                                 <i class="fa fa-trash  cursor-pointer"></i>
                                             </button>
                                         </td>
@@ -5143,7 +5143,7 @@ $admin_bot = json_decode($admin_bot, true);
                                             <input type="text" class="form-control multiple_choice_options" placeholder="Enter the option" value="">
                                         </td>
                                         <td class="col-2">
-                                            <button type="button" class="btn-danger">
+                                            <button type="button" class="btn btn-danger">
                                                 <i class="fa fa-trash  cursor-pointer"></i>
                                             </button>
                                         </td>
