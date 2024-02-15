@@ -675,7 +675,7 @@ class Bot_Controller extends BaseController
 			if ($value['bot_id'] == $bot_id) {
 				$html .= '
 					<div class="col-12 w-100 d-flex flex-wrap p-2 cursor-pointer drag_question">
-						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup question_edit" data-id=' . $value['id'] . ' data-type_of_question=' . $value['type_of_question'] . ' data-bs-toggle="modal" data-bs-target="#add-email" draggable="true">
+						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
 							<div class="col-10 d-flex flex-wrap align-items-center">
 								<label class="text-wrap px-2" for="">';
 				if (isset($value['type_of_question']) && $value['type_of_question'] == 1) {
@@ -913,12 +913,12 @@ class Bot_Controller extends BaseController
 		$bot_id = $_POST['bot_id'];
 		$sequence = $_POST['sequence'];
 
-		if (isset($_POST['action']) && $_POST['action'] != "") {
-			$skip_question = $_POST['action'];
-			// pre($skip_question);
-		} else {
-			$skip_question = '';
-		}
+		// if (isset($_POST['action']) && $_POST['action'] != "") {
+		// 	$skip_question = $_POST['action'];
+		// 	// pre($skip_question);
+		// } else {
+		// 	$skip_question = '';
+		// }
 
 		$db_connection = \Config\Database::connect('second');
 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
@@ -928,7 +928,9 @@ class Bot_Controller extends BaseController
 
 		if (!empty($bot_chat_data)) {
 			foreach ($bot_chat_data as $value) {
-				$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+				
+				$html .= ' 
+							<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
@@ -940,7 +942,7 @@ class Bot_Controller extends BaseController
 										</span>
 									</div>';
 
-				if (isset($skip_question) && $skip_question == '' && $value['type_of_question'] == 1 && $value['skip_question'] == 1) {
+				if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
 					$html .= '<div class="col-12 mb-2">
 												<button class="btn bg-primary rounded-pill text-white skip_questioned">
 													Skip

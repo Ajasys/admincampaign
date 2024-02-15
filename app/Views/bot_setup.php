@@ -2087,7 +2087,7 @@ $admin_bot = json_decode($admin_bot, true);
                                 </div>
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="background-color: #d8d7ff;">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                             Time Based Greeting
                                         </button>
                                     </h2>
@@ -2748,6 +2748,20 @@ $admin_bot = json_decode($admin_bot, true);
                     </div>
                     <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
                         <div class="overflow-y-scroll col-8 py-3 messege-scroll" style="min-height:400px; max-height:400px">
+                                        <div class="col-12 d-flex flex-wrap align-items-end">
+                                            <div class="border  rounded-circle overflow-hidden" style="width:35px;height:35px">
+                                                <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+                                            </div>
+                                            <div class="d-inline-block px-3 py-2 col-6 bg-primary text-white rounded-3 mx-2">
+                                                <p>Hey! This is not the first time you are here. What would you like to do?</p>
+                                                <div class="col-12 text-center mt-2">
+                                                    <button class=" btn btn-secondary col-12 chat_start_again">Start Again</button>
+                                                </div>
+                                                <div class="col-12 text-center mt-2">
+                                                    <button class=" btn btn-secondary col-12 chat_continue">Continue</button>
+                                                </div>
+                                            </div>
+                                        </div>
 
                             <div class="bot_preview_html"></div>
                             <!-- <div class="messege1 d-flex flex-wrap  ">
@@ -2807,12 +2821,11 @@ $admin_bot = json_decode($admin_bot, true);
 
 <script>
    //bot chat list into preview
-   function bot_preview_data(sequence,action) {
+   function bot_preview_data(sequence) {
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
         var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
         var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id',conversion_id); 
-        
         var chatting_sequence = $(".chatting_data").attr('data-sequence',sequence); 
         // console.log(chatting_sequence);
         $.ajax({
@@ -2820,7 +2833,6 @@ $admin_bot = json_decode($admin_bot, true);
             url: "<?= site_url('bot_preview_data'); ?>",
             data: {
                 action: 'init_chat',
-                action: action,
                 table: table,
                 bot_id: bot_id,
                 sequence: sequence
@@ -2834,8 +2846,11 @@ $admin_bot = json_decode($admin_bot, true);
         });
         
     }
-    bot_preview_data(1,'');
+    // bot_preview_data(1);
 
+    // $('body').on('click', '.bot_preview', function (e) {
+    //     bot_preview_data(1);
+    // });
 
     //insert chat answer
     var sequence = 1;
@@ -2876,7 +2891,7 @@ $admin_bot = json_decode($admin_bot, true);
         e.preventDefault();
         $('.skip_question').hide();
         sequence++;
-        bot_preview_data(sequence,'skip_question');
+        bot_preview_data(sequence);
     });
 
     //enter chat answer insert
