@@ -256,8 +256,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                         class="form-control rounded-pill px-4 py-2 border-0 massage_input"
                                         placeholder="Write a message...">
                                     <button class="btn btn-primary rounded-circle me-1 px-3 send_massage"
-                                        data-conversion_id="" data-page_token="" data-page_id="" data-massage_id=""><i
-                                            class="fa-solid fa-caret-right"></i></button>
+                                        data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
+                                        <i class="fa-regular fa-paper-plane"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
