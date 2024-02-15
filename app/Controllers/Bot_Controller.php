@@ -884,6 +884,7 @@ class Bot_Controller extends BaseController
 	
 		if (!empty($bot_chat_data)) {
 			foreach ($bot_chat_data as $value) {
+				
 				if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">
@@ -906,24 +907,28 @@ class Bot_Controller extends BaseController
 					$html .= '</div>				
 					</div>';
 
-					
 				} else {
+
+
 					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
-					
-					$html .= '<div class="col px-2">
-								<div class="col-12 mb-2">
-									<span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
-										' . $value['question'] . '
-									</span>
-								</div>';
-				
-								if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
+	
+		
+								
+								
+									$html .= '<div class="col px-2">
+												<div class="col-12 mb-2">
+													<span class="p-1 rounded-pill ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+														'.$value['question'].'
+													</span>
+												</div>';
+
+								if (($value['type_of_question'] == 1 && $value['skip_question'] == 6)) {
 									$html .= '<div class="col-12 mb-2">
-																<button class="btn bg-primary rounded-pill text-white skip_questioned">
-																	Skip
+																<button class="btn bg-primary rounded-pill text-white skip_questioned hide_skip_btn">
+																	Skip hellow
 																</button>
 															</div>';
 								}
@@ -940,6 +945,28 @@ class Bot_Controller extends BaseController
 										}
 									}
 								}
+
+								if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
+									$menuOptions = json_decode($value['menu_message'], true);
+									
+									if (isset($menuOptions['options'])) {
+										$options = explode(';', $menuOptions['options']);
+										$html .= '<div class="col-12 mb-2 option-wrapper">';
+										foreach ($options as $option) {
+											$html .= '<div class="col-12 d-flex flex-wrap align-items-end chat_again_continue my-1">
+														  <div class="d-inline-block px-3 py-2 col-6 btn-secondary rounded-3 mx-2">
+															  <div class="col-12">
+																  <input type="checkbox" class="me-2 main-form option-check rounded-circle" value="' . $option . '">' . $option . '
+															  </div>
+														  </div>
+													  </div>';
+										}
+										$html .= '<div class="col-6 text-center mt-2 mx-2">
+													  <button class="text-white btn bg-primary col-12" onclick="submitOptions()">Submit</button>
+												  </div>
+											  </div>';
+									}
+								}
 				
 								$html .= '</div>';
 								$html .= '<script>
@@ -947,30 +974,47 @@ class Bot_Controller extends BaseController
 													$(".answer_chat").val(value); 
 													insertAnswer();
 												}
+												function submitOptions() {
+													var selectedOptions = [];
+													$(".option-check:checked").each(function() {
+														selectedOptions.push($(this).val());
+													});
+													var selectedOptionsString = selectedOptions.join(" , "); 
+													console.log("Selected options string: ", selectedOptionsString);
+													$(".answer_chat").val(selectedOptionsString);
+													insertAnswer();
+												}
 												</script>';
 				
 								$html .= '</div>
-											<div class="messege2 d-flex flex-wrap  ">
-												<div class="col px-2">';
-				
-								if (!empty($value['answer'])) {
-									$html .= '<div class="col-12 mb-2 text-end ">
-														<span class="p-1 rounded-pill text-white d-inline-block  bg-secondary  px-3">
-				
-														' . $value['answer'] . '
-														</span>
+								<div class="messege2 d-flex flex-wrap">
+									<div class="col px-2">';
+					
+									if ($value['answer'] != '') {
+										$html .= '<div class="col-12 mb-2 text-end ">
+															<span class="p-2 rounded-pill text-white d-inline-block bg-secondary px-3">
+															' . $value['answer'] . '
+															</span>
+														</div>
 													</div>
-												</div>
-												<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
-													<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-												</div>
-											</div>';
-								}
-				
+													<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+														<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+													</div>
+												</div>';
+									}
+									else if($value['answer'] != '' && $value['type_of_question'] == "3" ){
+										$html .= '<div class="col-12 mb-2 text-end">
+															<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3">
+															' . $value['answer'] . '
+															</span>
+														</div>
+													</div>
+													<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+														<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+													</div>
+												</div>';
+									}			
 				}
-
-				
-
 
 			}
 		}
@@ -980,34 +1024,25 @@ class Bot_Controller extends BaseController
 		die();
 	}
 
+	
 
 
-	//chat answer
-	public function insert_chat_answer()
-	{
-		$table = $_POST['table'];
-		$bot_id = $_POST['bot_id'];
-		$answer = $_POST['answer'];
-		$questionId = $_POST['question_id'];
-		$sequence = $_POST['sequence'];
-
+	public function delete_record() {
 		$db_connection = \Config\Database::connect('second');
-		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
-		$result = $db_connection->query($sql);
-		$question = $result->getRowArray();
-
-		if (!empty($question) && $question['id'] == $questionId) {
-			$updateData = [
-				'answer' => $answer
-			];
-
-			$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
-
-			echo "Answer inserted successfully for question: " . $question['question'];
+		$table = 'admin_bot_setup';
+		$column = 'answer';
+		$sql = "UPDATE $table SET $column = '' ";
+		
+		$query = $db_connection->query($sql);
+		
+		if ($query) {
+			$response = array('success' => true);
 		} else {
-			echo "Question with sequence " . $sequence . " not found or does not match the specified question id.";
+			$response = array('success' => false, 'error' => 'Failed to delete the records.');
 		}
+		echo json_encode($response);
 	}
+
 
 
 

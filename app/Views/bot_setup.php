@@ -2713,7 +2713,7 @@ $admin_bot = json_decode($admin_bot, true);
         <div class="modal-content">
             <div class="modal-header border-bottom-0">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Bot Preview</h1>
-                <button type="button" class="btn-close chat_model_refresh" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" id="modal_refresh" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-3 pt-1">
                 <div class="col-12 border rounded-3">
@@ -2850,25 +2850,69 @@ $admin_bot = json_decode($admin_bot, true);
 
     // bot_preview_data(1);
     $('body').on('click', '.chat_continue', function (e) {
-        bot_preview_data(1);
+        // bot_preview_data(1);
     });
 
-    $('body').on('click', '.chat_start_again', function (e) {
-        bot_preview_data(1, true); 
-    });
+    // $('body').on('click', '.chat_start_again', function (e) {
 
-    $('body').on('click', '.chat_model_refresh', function (e) {
+    //     bot_preview_data(1, true); 
+    // });
+
+    $('body').on('click', '#modal_refresh', function (e) {
         window.location.reload();
     });
-    
+
+
+    $('body').on('click', '.chat_start_again', function (e) {
+        
+        $.ajax({
+            type: 'POST',
+            url: 'delete_record',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    // Records deleted successfully
+                    // console.log('Records deleted successfully.');
+                    // Call bot_preview_data function
+                    bot_preview_data(1, true);
+                } else {
+                    // Failed to delete the records
+                    console.error('Failed to delete the records: ' + response.error);
+                }
+            },
+            error: function(xhr, status, error) {
+
+                console.error('AJAX error: ' + error);
+            }
+        });
+    });
+
+
+
+    // if (type_of_question == "28" || type_of_question == "43") {
+    //     var rowData = [];
+    //     var location_place = $(".location_place").val();
+    //     var row = {
+    //         location_place: location_place
+    //     };
+    //     var options_value = JSON.stringify(row);
+    // }
+
     //insert chat answer
     var sequence = 1;
     function insertAnswer() {
+        
+        var rowData = [];
         var chatting = $('.answer_chat').val();
+        // var row = {
+        //     chatting: chatting
+        // };
+        // var options_value = JSON.stringify(row);
+
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
         var last_conversation_id = $(".bot_preview_html .messege1:last").attr('data-conversation-id'); 
-        
+  
         if (chatting !== "") {
             $.ajax({
                 method: "post",
@@ -3842,8 +3886,11 @@ $admin_bot = json_decode($admin_bot, true);
                         } else {
                             $(".company_emails_only").prop("checked", false);
                         }
+
+                        // console.log(menu_message.is_strict_validation);
                         if (menu_message.is_strict_validation === "true") {
                             $(".is_strict_validation").prop("checked", true);
+                            // $(".is_strict_validation").prop("checked", true);
                         } else {
                             $(".is_strict_validation").prop("checked", false);
                         }
@@ -3882,7 +3929,7 @@ $admin_bot = json_decode($admin_bot, true);
                                     $(".tbody").append(main_table_html);
                                 });
                             } else {
-                                $(".is_strict_validation").prop("checked", false);
+                                // $(".is_strict_validation").prop("checked", false);
                             }
                         }
 
@@ -3906,7 +3953,7 @@ $admin_bot = json_decode($admin_bot, true);
                                     $(".tbody_multiple").append(main_table_html);
                                 });
                             } else {
-                                $(".is_strict_validation").prop("checked", false);
+                                // $(".is_strict_validation").prop("checked", false);
                             }
 
                         }
@@ -3997,7 +4044,7 @@ $admin_bot = json_decode($admin_bot, true);
                                 $(".Corousel-table-body").append(corousel_table_html);
                             });
                         } else {
-                            $(".is_strict_validation").prop("checked", false);
+                            // $(".is_strict_validation").prop("checked", false);
                         }
 
                         if (type_of_question == 23) {
@@ -4568,7 +4615,6 @@ $admin_bot = json_decode($admin_bot, true);
 
 
         if (type_of_question == "25") {
-            
             var options_value = $('.carousel_img_input').prop('files')[0];
         }
 
@@ -5425,7 +5471,7 @@ $admin_bot = json_decode($admin_bot, true);
                         </div>
                         <div class="col-12 my-2">
 
-                            <div class="row">
+                        <div class="row">
                                 <div class="col-4">
                                     <div class="list-group" id="list-tab" role="tablist">
                                         <a class="list-group-item list-group-item-action active" id="list-Smilies-list" data-bs-toggle="list" href="#list-Smilies" role="tab" aria-controls="list-Smilies">Smilies</a>
@@ -5437,28 +5483,82 @@ $admin_bot = json_decode($admin_bot, true);
                                 <div class="col-8">
                                     <div class="tab-content" id="nav-tabContent">
                                         <div class="tab-pane fade show active" id="list-Smilies" role="tabpanel" aria-labelledby="list-Smilies-list">
-                                            <div class="col-12 text-center">
-                                                <img src="<?= site_url('assets/images/rating_smilies.png') ?>" alt="#" height="280px" width="350px">
-                                            </div>
+                                            <div class="col-12 text-center ">
+                                                <div class="col-10 d-flex ">
+                                                    <div class="col-1 align-bottom mt-auto"><img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-98 img-circle"></div>
+                                                    <div class="col-9 p-3 rounded" style="background:lightgray;">How would you rate your company ?</div>
+                                                </div>                                          
+                                        
+                                                <div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+                                                    <div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+                                                    <div class="text-center pt-4">Please rate</div>
+                                                        <div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+                                                            <div class="px-2 fs-3">😍</div>
+                                                            <div class="px-2 fs-3">😃</div>
+                                                            <div class="px-2 fs-3">😊</div>
+                                                            <div class="px-2 fs-3">😞</div>
+                                                            <div class="px-2 fs-3">😪</div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
                                         </div>
                                         <div class="tab-pane fade" id="list-Stars" role="tabpanel" aria-labelledby="list-Stars-list">
-                                            <div class="col-12 text-center">
-                                                <img src="<?= site_url('assets/images/rating_stars.png') ?>" alt="#" height="280px" width="330px">
+                                            <div class="col-10 d-flex ">
+                                                <div class="col-1 align-bottom mt-auto"><img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-98 img-circle"></div>
+                                                <div class="col-9 p-3 rounded" style="background:lightgray;">How would you rate your company ?</div>
                                             </div>
-                                        </div>
+                                            <div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+                                            <div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+                                                <div class="text-center pt-4">Please rate</div>
+                                                    <div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+                                                        <div class="px-2 fs-3"><i class="fa-regular fa-star "></i></div>
+                                                        <div class="px-2 fs-3"><i class="fa-regular fa-star "></i></div>
+                                                        <div class="px-2 fs-3"><i class="fa-regular fa-star "></i></div>
+                                                        <div class="px-2 fs-3"><i class="fa-regular fa-star"></i></div>
+                                                        <div class="px-2 fs-3"><i class="fa-regular fa-star"></i></div>
+                                                    </div>
+                                                    <button class="btn btn-secondary col-8 mx-5 mb-4">Submit</button>
+                                                </div>
+                                        </div> 
+                                        
                                         <div class="tab-pane fade" id="list-Numbers" role="tabpanel" aria-labelledby="list-Numbers-list">
-                                        <div class="col-12 text-center">
-                                                <img src="<?= site_url('assets/images/rating_numbers.png') ?>" alt="#" height="280px" width="350px">
-                                            </div>
+                                            <div class="col-10 d-flex ">
+                                                    <div class="col-1 align-bottom mt-auto"><img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-98 img-circle"></div>
+                                                    <div class="col-9 p-3 rounded" style="background:lightgray;">How would you rate your company ?</div>
+                                                </div>
+                                                <div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+                                                <div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+                                                    <div class="text-center pt-4">Please rate</div>
+                                                        <div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+                                                            <div class="px-2 fs-3">1</div>
+                                                            <div class="px-2 fs-3">2</div>
+                                                            <div class="px-2 fs-3">3</div>
+                                                            <div class="px-2 fs-3">4</div>
+                                                            <div class="px-2 fs-3">5</div>
+                                                        </div>  
+                                                    </div>
+                                           
                                         </div>
                                         <div class="tab-pane fade" id="list-Options" role="tabpanel" aria-labelledby="list-Options-list">
-                                        <div class="col-12 text-center">
-                                                <img src="<?= site_url('assets/images/rating_options.png') ?>" alt="#" height="280px" width="300px">
+                                        <div class="col-10 d-flex ">
+                                                    <div class="col-1 align-bottom mt-auto"><img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-98 img-circle"></div>
+                                                    <div class="col-9 p-3 rounded" style="background:lightgray;">How would you rate your company ?</div>
+                                                </div>
+                                                <div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+                                                <div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+                                                    <div class="text-center pt-4">Please rate</div>
+                                                    <div class=" mt-2 pb-3 px-2">
+                                                        <div class="px-2 "><i class="fa-regular fa-circle"></i> Terrible (1 Star)</div>
+                                                        <div class="px-2 "><i class="fa-regular fa-circle"></i> Bad (1 Star)</div>
+                                                        <div class="px-2 "><i class="fa-regular fa-circle"></i> Okay (1 Star)</div>
+                                                        <div class="px-2 "><i class="fa-regular fa-circle"></i> Good (1 Star)</div>
+                                                        <div class="px-2"><i class="fa-regular fa-circle"></i> Great (1 Star)</div>
+                                                    </div>  
+                                                </div>
+                                            </div> 
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </form>
