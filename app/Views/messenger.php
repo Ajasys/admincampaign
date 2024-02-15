@@ -255,7 +255,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                     <input type="text"
                                         class="form-control rounded-pill px-4 py-2 border-0 massage_input"
                                         placeholder="Write a message...">
-                                    <button class="btn btn-primary rounded-circle me-1 px-3 send_massage"
+                                    <button class="btn btn-primary rounded-circle me-1 px-3 SendWhatsAppMessage send_massage"
                                         data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
                                         <i class="fa-regular fa-paper-plane"></i>
                                     </button>
@@ -489,6 +489,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
     $('body').on('click', '.WA_account_listTab', function() {
         $('.chat_bord').html('');
+        $('.in_chat_page_name').text('');
         $('.UserChatName').text('User Name');
         $('.chat_list_loader').hide();
         $('.ChatListSetHTML').html('');
@@ -514,6 +515,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     $('body').on('click', '.ChatClickOpenHtml', function() {
         $('.chat_bord').html('');
         $('.UserChatName').text('User Name');
+        $('.in_chat_page_name').text('');
+
         var contact_no = $(this).attr('contact_no');
         $('.SendWhatsAppMessage').attr('DataPhoneno', contact_no);
         var whatsapp_name = $(this).attr('whatsapp_name');
@@ -557,7 +560,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     massage_input: massage_input
                 },
                 success: function(data) {
-                    $('.ChatListSetHTML .active-account-box').trigger('click');
+                    $('.chat_list .active-account-box').trigger('click');
                 }
             });
         }
