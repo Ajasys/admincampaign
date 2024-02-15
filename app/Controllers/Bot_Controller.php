@@ -1024,8 +1024,6 @@ class Bot_Controller extends BaseController
 		die();
 	}
 
-	
-
 
 	public function delete_record() {
 		$db_connection = \Config\Database::connect('second');
@@ -1043,7 +1041,30 @@ class Bot_Controller extends BaseController
 		echo json_encode($response);
 	}
 
+	public function insert_chat_answer()
+	{
+		$table = $_POST['table'];
+		$bot_id = $_POST['bot_id'];
+		$answer = $_POST['answer'];
+		$questionId = $_POST['question_id'];
+		$sequence = $_POST['sequence'];
 
+		$db_connection = \Config\Database::connect('second');
+		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
+		$result = $db_connection->query($sql);
+		$question = $result->getRowArray();
+
+		if (!empty($question) && $question['id'] == $questionId) {
+			$updateData = [
+				'answer' => $answer
+			];
+
+			$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
+			echo "Answer inserted successfully for question: " . $question['question'];
+		} else {
+			echo "Question with sequence " . $sequence . " not found or does not match the specified question id.";
+		}
+	}
 
 
 	public function main_bot_list_data()
