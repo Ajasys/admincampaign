@@ -495,6 +495,7 @@ class WebController extends BaseController
                 $insert_data['intrested_product'] = $int_product;
                 $insert_data['user_id'] = $assign_to;
                 $insert_data['is_status'] = $is_status;
+                $insert_data['status'] = 1;
                 $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
                 $result_array['id'] = $response_status_log;
                
@@ -531,7 +532,6 @@ class WebController extends BaseController
                     $result_array['msg'] = $connection_name . " Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
                     $this->db->query('UPDATE '.$this->username.'_fb_pages SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE connection_id=' . $connection_id . '');
-             
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $connection_name . " Updated successfully";
                 } else {
