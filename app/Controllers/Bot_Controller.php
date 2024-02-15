@@ -913,34 +913,64 @@ class Bot_Controller extends BaseController
 		$bot_id = $_POST['bot_id'];
 		$sequence = $_POST['sequence'];
 
-		// if (isset($_POST['action']) && $_POST['action'] != "") {
-		// 	$skip_question = $_POST['action'];
-		// 	// pre($skip_question);
-		// } else {
-		// 	$skip_question = '';
-		// }
-
+		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
+			$db_connection = \Config\Database::connect('second');
+			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
+			$result = $db_connection->query($sql)->getRowArray();
+		}
+	
+		$sequence = isset($result) ? 1 : $sequence;
+	
 		$db_connection = \Config\Database::connect('second');
 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 		$resultss = $db_connection->query($sql);
 		$bot_chat_data = $resultss->getResultArray();
 		$html = '';
-
+	
 		if (!empty($bot_chat_data)) {
 			foreach ($bot_chat_data as $value) {
-				
-				$html .= ' 
-							<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
-								<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
+				// Check if it's the first record or if we're fetching the first record
+				if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
+					// If it's the first record, only display the question
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+								<div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
-
-				$html .= '<div class="col px-2">
+					
+					$html .= '<div class="col px-2">
 									<div class="col-12 mb-2">
-										<span class="p-1 rounded-pill  d-inline-block   bg-white  px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+										<span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
 											' . $value['question'] . '
 										</span>
 									</div>';
+					
+					$html .= '</div>';
+				} else {
+					// If it's not the first record, display both question and answer
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+								<!-- Display question -->
+								<div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">
+									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+								</div>';
+					
+					$html .= '<div class="col px-2">
+									<div class="col-12 mb-2">
+										<span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
+										</span>
+									</div>';
+					
+					// Display answer if it's not empty
+					if (!empty($value['answer'])) {
+						$html .= '<div class="col-12 mb-2 text-end ">
+									<span class="p-1 rounded-pill text-white d-inline-block bg-secondary px-3">
+										' . $value['answer'] . '
+									</span>
+								</div>';
+					}
+					
+					$html .= '</div>';
+				}
 
 				if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
 					$html .= '<div class="col-12 mb-2">

@@ -2748,7 +2748,7 @@ $admin_bot = json_decode($admin_bot, true);
                     </div>
                     <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
                         <div class="overflow-y-scroll col-8 py-3 messege-scroll" style="min-height:400px; max-height:400px">
-                                        <div class="col-12 d-flex flex-wrap align-items-end">
+                                        <div class="col-12 d-flex flex-wrap align-items-end chat_again_continue">
                                             <div class="border  rounded-circle overflow-hidden" style="width:35px;height:35px">
                                                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
                                             </div>
@@ -2840,6 +2840,7 @@ $admin_bot = json_decode($admin_bot, true);
             success: function(data) {
                 var response = JSON.parse(data);
                 $('.skip_question').hide();
+                $('.chat_again_continue').addClass('d-none');
                 $('.loader').hide();
                 $(".bot_preview_html").html(response.html);
             }
@@ -2847,11 +2848,13 @@ $admin_bot = json_decode($admin_bot, true);
         
     }
     // bot_preview_data(1);
+    $('body').on('click', '.chat_continue', function (e) {
+        bot_preview_data(1);
+    });
 
-    // $('body').on('click', '.bot_preview', function (e) {
-    //     bot_preview_data(1);
-    // });
-
+    $('body').on('click', '.chat_start_again', function (e) {
+        bot_preview_data(1, true); 
+    });
     //insert chat answer
     var sequence = 1;
     $('body').on('click', '.chatting_data', function (e) {
