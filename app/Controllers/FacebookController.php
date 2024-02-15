@@ -106,7 +106,7 @@ class FaceBookController extends BaseController
             $table_name = $this->request->getPost('table');
             if ($table_name == 'admin_fb_account') {
                 $departmentdisplaydata = $this->MasterInformationModel->delete_entry($table_name, $delete_id);
-                $find_Array_all = "DELETE FROM admin_fb_pages where master_id='" . $_SESSION['master'] . "'";
+                $find_Array_all = "DELETE FROM ".$this->username."_fb_pages where master_id='" . $_SESSION['master'] . "'";
                 $find_Array_all = $this->db->query($find_Array_all);
             } else {
                 if ($this->request->getPost('is_draft') == 1) {
@@ -219,7 +219,7 @@ class FaceBookController extends BaseController
         $form_id = $this->request->getPost("form_id");
         $form_name = $this->request->getPost("form_name");
         $is_status = $this->request->getPost("is_status") ? $this->request->getPost("is_status") : 0;
-        $query = $this->db->query("SELECT * FROM `admin_fb_pages` where form_id=" . $form_id . "");
+        $query = $this->db->query("SELECT * FROM ".$this->username."_fb_pages where form_id=" . $form_id . "");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         $result_array = array();
@@ -238,7 +238,7 @@ class FaceBookController extends BaseController
                 $insert_data['is_status'] = $is_status;
                 $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
                 $insert_data['page_img'] = $response_pictures['data']['url'];
-                $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, 'admin_fb_pages');
+                $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
                 $result_array['id'] = $response_status_log;
                 $result_array['page_profile'] = $response_pictures['data']['url'];
                 // $result_array['respoance'] = 1;
@@ -246,26 +246,26 @@ class FaceBookController extends BaseController
             } else {
                 if ($result_facebook_data[0]['is_status'] == 0) {
                     //is_status==0-for fresh to connection
-                    $this->db->query('UPDATE `admin_fb_pages` SET `intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 1) {
                     //is_status==1-for delete to connection
-                    $this->db->query('UPDATE `admin_fb_pages` SET `is_status`=0 WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=0 WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
 
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 3) {
                     //is_status==0-for draft to connection
-                    $this->db->query('UPDATE `admin_fb_pages` SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " connection successfully";
                 } else if ($this->request->getPost("edit_id") == $result_facebook_data[0]['id'] && ($form_id != $result_facebook_data[0]['form_id'] || $is_status == 3)) {
                     //is_status == 2//old to new
-                    $this->db->query('UPDATE `admin_fb_pages` SET `is_status`=2 WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=2 WHERE form_id=' . $form_id . '');
                     $insert_data['master_id'] = $_SESSION['master'];
                     $insert_data['page_access_token'] = $access_token;
                     $insert_data['connection_id'] = $connection_id;
@@ -279,12 +279,12 @@ class FaceBookController extends BaseController
                     $insert_data['is_status'] = $is_status;
                     $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
                     $insert_data['page_img'] = $response_pictures['data']['url'];
-                    $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, 'admin_fb_pages');
+                    $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
                     $result_array['page_profile'] = $response_pictures['data']['url'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
-                    $this->db->query('UPDATE `admin_fb_pages` SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " Updated successfully";
@@ -296,7 +296,7 @@ class FaceBookController extends BaseController
             }
         } else {
             $status = $this->request->getPost("status");
-            $this->db->query('UPDATE `admin_fb_pages` SET `status`=' . $status . ' WHERE form_id=' . $form_id . '');
+            $this->db->query('UPDATE '.$this->username.'_fb_pages SET `status`=' . $status . ' WHERE form_id=' . $form_id . '');
             $result_array['respoance'] = 1;
         }
         echo json_encode($result_array, true);
@@ -308,7 +308,7 @@ class FaceBookController extends BaseController
     {
         $html = "";
         $query = $this->db->query("SELECT * , p.id AS page_ids
-                FROM admin_fb_pages AS p
+                FROM ".$this->username."_fb_pages AS p
                 WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status=0");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
@@ -322,7 +322,7 @@ class FaceBookController extends BaseController
                     $staff_id = $value['user_id'];
                 }
                 $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM admin_integration
+                        FROM ".$this->username."_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
                 $count_lead = $queryd->getResultArray();
 
@@ -331,7 +331,7 @@ class FaceBookController extends BaseController
                     $count = $count_lead[0]['form_count'];
                 }
                 $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM admin_integration
+                        FROM ".$this->username."_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
                 $count_leads = $queryds->getResultArray();
 
@@ -422,7 +422,7 @@ class FaceBookController extends BaseController
         $html = "";
         $status = 0;
         $query = $this->db->query("SELECT * , p.id AS page_ids
-                FROM admin_fb_pages AS p
+                FROM ".$this->username."_fb_pages AS p
                 WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status IN (1,4)");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
@@ -434,7 +434,7 @@ class FaceBookController extends BaseController
                     $simbol = '<i class="fa-solid fa-triangle-exclamation fa-xl text-danger" title="Lost Connection"></i>';
                 }
                 $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM admin_integration
+                        FROM ".$this->username."_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
                 $count_lead = $queryd->getResultArray();
 
@@ -443,7 +443,7 @@ class FaceBookController extends BaseController
                     $count = $count_lead[0]['form_count'];
                 }
                 $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM admin_integration
+                        FROM ".$this->username."_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
                 $count_leads = $queryds->getResultArray();
 
@@ -513,10 +513,11 @@ class FaceBookController extends BaseController
     {
         $html = "";
         $status = 0;
+        
         $query = $this->db->query("SELECT * , p.id AS page_ids
-                FROM admin_fb_pages AS p
-                JOIN admin_fb_account AS a ON p.master_id = a.master_id
-                WHERE p.master_id = '" . $_SESSION['master'] . "' AND is_status=2");
+                FROM ".$this->username."_fb_pages AS p
+                WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status IN (2)");
+
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         if ($count_num > 0) {
@@ -600,7 +601,7 @@ class FaceBookController extends BaseController
         $html = "";
         $status = 0;
         $query = $this->db->query("SELECT * , p.id AS page_ids
-                FROM admin_fb_pages AS p
+                FROM ".$this->username."_fb_pages AS p
                 WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status=3");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
@@ -615,7 +616,7 @@ class FaceBookController extends BaseController
                     $staff_id = $value['user_id'];
                 }
                 $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM admin_integration
+                        FROM ".$this->username."_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
                 $count_lead = $queryd->getResultArray();
 
@@ -624,7 +625,7 @@ class FaceBookController extends BaseController
                     $count = $count_lead[0]['form_count'];
                 }
                 $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM admin_integration
+                        FROM ".$this->username."_integration
                         WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
                 $count_leads = $queryds->getResultArray();
 
@@ -709,7 +710,7 @@ class FaceBookController extends BaseController
         $result_res = array();
         $queryd = $this->db->query("SELECT *,i.id AS inte_id
           FROM " . $this->username . "_integration AS i
-          JOIN admin_fb_pages AS p ON i.form_id = p.form_id
+          JOIN ".$this->username."_fb_pages AS p ON i.form_id = p.form_id
           WHERE i.form_id = " . $form_id . " AND i.page_id != '' AND i.fb_update = 2");
         $count_lead = $queryd->getResultArray();
         $count_num = $queryd->getNumRows();

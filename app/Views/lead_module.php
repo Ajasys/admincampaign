@@ -1093,7 +1093,7 @@ $user_data = $user_result->getResultArray();
                         data: {
                             action: 'delete',
                             delete_id: delete_id,
-                            table: 'admin_fb_account',
+                            table: 'fb_account',
                         },
                         success: function (data) {
                             iziToast.error({
@@ -1206,7 +1206,7 @@ $user_data = $user_result->getResultArray();
             data: {
                 action: 'discard',
                 delete_id: delete_id,
-                table: 'admin_fb_pages',
+                table: 'fb_pages',
             },
             success: function (data) {
                 iziToast.error({
