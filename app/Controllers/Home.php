@@ -141,7 +141,7 @@ class Home extends BaseController
     }
     public function facebook_connection()
     {
-        return view('new_facebook_connection');
+        return view('facebook_connection');
     }
 
     public function whatapp_connection()
