@@ -1194,7 +1194,7 @@ class Bot_Controller extends BaseController
 
 			foreach ($IG_data as $IG_key => $IG_value) {
 				$IG_chat_list_html .= '
-								<div class="col-12 account-nav my-2 account-box" data-page_id="' . $IG_value['id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
+								<div class="col-12 account-nav my-2 account-box" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
 									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
 										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
@@ -1250,12 +1250,12 @@ if($platform == 'messenger') {
 					}
 				$chat_list_html .= '
 							<div class=" fw-semibold fs-12 chat-nav-search-bar my-2 col-12 chat-account-box p-1 pe-3
-							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="'.$conversion_value['participants']['data'][$key][$name].'">
+							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="'.$conversion_value['participants']['data'][$key][$name].'" data-platform="'.$platform.'">
 							<div class="d-flex flex justify-content-between align-items-center col-12">
 										<div class="col-2 p-1">';
 				if ($platform == 'messenger') {
 					$chat_list_html .= '<svg class="w-100" xmlns="http://www.w3.org/2000/svg" version="1.1"
-											xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" x="0" y="0"
+											xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0"
 											viewBox="0 0 176 176" style="enable-background:new 0 0 512 512"
 											xml:space="preserve" class="">
 											<g>
@@ -1271,7 +1271,7 @@ if($platform == 'messenger') {
 											</g>
 										</svg>';
 				} else if ($platform == 'instagram') {
-					$chat_list_html .= '<img src="' . base_url() . 'assets/images/instagram.svg' . '" >';
+					$chat_list_html .= '<img src="' . base_url() . 'assets/images/instagram.svg' . '" style="width:40px;height:40px">';
 				}
 				$chat_list_html .= '</div>
 									<div class="col-10 d-flex flex-wrap justify-content-between align-items-center">
@@ -1284,7 +1284,7 @@ if($platform == 'messenger') {
 						';
 }
 			} else {
-				$chat_list_html .= 'No Chats Found!';
+				$chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
 			}
 
 			$return_result['chat_list_html'] = $chat_list_html;
@@ -1312,9 +1312,18 @@ if($platform == 'messenger') {
 			$dates = '';
 			foreach ($massage_array as $massage_key => $massage_value) {
 				$dateTime = new \DateTime($massage_value['created_time']);
-				$date = $dateTime->format('Y-m-d');
+				$last7DaysStart = new \DateTime('-7 days');
+				$today = new \DateTime();
+				// pre($today);
+				$date = $dateTime->format('d/m/Y');
+$isWithinLast7Days = $dateTime >= $last7DaysStart;
 				if($date != $dates) {
-					$html .= '<div class="col-12 text-center fs-12">'.$date.'</div>';
+					if($isWithinLast7Days) {
+						$dayOfWeek = $dateTime->format('l');
+					} else {
+						$dayOfWeek = $dateTime->format('d/m/Y');
+					}
+					$html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">'.$dayOfWeek.'</div>';
 					$dates = $date;
 				}
 				$time = $dateTime->format('H:i a');
