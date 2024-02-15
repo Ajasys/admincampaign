@@ -106,7 +106,7 @@ class FaceBookController extends BaseController
             $table_name = $this->request->getPost('table');
             if ($table_name == 'admin_fb_account') {
                 $departmentdisplaydata = $this->MasterInformationModel->delete_entry($table_name, $delete_id);
-                $find_Array_all = "DELETE FROM ".$this->username."_fb_pages where master_id='" . $_SESSION['master'] . "'";
+                $find_Array_all = "DELETE FROM " . $this->username . "_fb_pages where master_id='" . $_SESSION['master'] . "'";
                 $find_Array_all = $this->db->query($find_Array_all);
             } else {
                 if ($this->request->getPost('is_draft') == 1) {
@@ -219,7 +219,7 @@ class FaceBookController extends BaseController
         $form_id = $this->request->getPost("form_id");
         $form_name = $this->request->getPost("form_name");
         $is_status = $this->request->getPost("is_status") ? $this->request->getPost("is_status") : 0;
-        $query = $this->db->query("SELECT * FROM ".$this->username."_fb_pages where form_id=" . $form_id . "");
+        $query = $this->db->query("SELECT * FROM " . $this->username . "_fb_pages where form_id=" . $form_id . "");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         $result_array = array();
@@ -238,7 +238,7 @@ class FaceBookController extends BaseController
                 $insert_data['is_status'] = $is_status;
                 $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
                 $insert_data['page_img'] = $response_pictures['data']['url'];
-                $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
+                $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_fb_pages');
                 $result_array['id'] = $response_status_log;
                 $result_array['page_profile'] = $response_pictures['data']['url'];
                 // $result_array['respoance'] = 1;
@@ -246,26 +246,26 @@ class FaceBookController extends BaseController
             } else {
                 if ($result_facebook_data[0]['is_status'] == 0) {
                     //is_status==0-for fresh to connection
-                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 1) {
                     //is_status==1-for delete to connection
-                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=0 WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `is_status`=0 WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
 
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 3) {
                     //is_status==0-for draft to connection
-                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " connection successfully";
                 } else if ($this->request->getPost("edit_id") == $result_facebook_data[0]['id'] && ($form_id != $result_facebook_data[0]['form_id'] || $is_status == 3)) {
                     //is_status == 2//old to new
-                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=2 WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `is_status`=2 WHERE form_id=' . $form_id . '');
                     $insert_data['master_id'] = $_SESSION['master'];
                     $insert_data['page_access_token'] = $access_token;
                     $insert_data['connection_id'] = $connection_id;
@@ -279,12 +279,12 @@ class FaceBookController extends BaseController
                     $insert_data['is_status'] = $is_status;
                     $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
                     $insert_data['page_img'] = $response_pictures['data']['url'];
-                    $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
+                    $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_fb_pages');
                     $result_array['page_profile'] = $response_pictures['data']['url'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
-                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $form_name . " Updated successfully";
@@ -296,7 +296,7 @@ class FaceBookController extends BaseController
             }
         } else {
             $status = $this->request->getPost("status");
-            $this->db->query('UPDATE '.$this->username.'_fb_pages SET `status`=' . $status . ' WHERE form_id=' . $form_id . '');
+            $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `status`=' . $status . ' WHERE form_id=' . $form_id . '');
             $result_array['respoance'] = 1;
         }
         echo json_encode($result_array, true);
@@ -308,12 +308,16 @@ class FaceBookController extends BaseController
     {
         $html = "";
         $query = $this->db->query("SELECT * , p.id AS page_ids
-                FROM ".$this->username."_fb_pages AS p
+                FROM " . $this->username . "_fb_pages AS p
                 WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status=0");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         if ($count_num > 0) {
             foreach ($result_facebook_data as $key => $value) {
+                $integrationData = $this->MasterInformationModel->edit_entry2($this->username . '_platform_integration', $value['connection_id']);
+                $integrationData = get_object_vars($integrationData[0]);
+                $platform_status = $integrationData['platform_status'];
+
                 if ($value['user_id'] == 0) {
                     $assign_id = 0;
                     $staff_id = '';
@@ -321,43 +325,78 @@ class FaceBookController extends BaseController
                     $assign_id = 1;
                     $staff_id = $value['user_id'];
                 }
-                $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM ".$this->username."_integration
-                        WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
-                $count_lead = $queryd->getResultArray();
+                if ($platform_status == 2) {
+                    
+                    $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
+                    FROM " . $this->username . "_integration
+                    WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
+                    $count_lead = $queryd->getResultArray();
 
-                $count = 0;
-                if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
-                    $count = $count_lead[0]['form_count'];
-                }
-                $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM ".$this->username."_integration
-                        WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
-                $count_leads = $queryds->getResultArray();
+                    $count = 0;
+                    if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
+                        $count = $count_lead[0]['form_count'];
+                    }
 
-                $counts = 0;
-                if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
-                    $counts = $count_leads[0]['form_counts'];
-                }
+                    $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
+                            FROM " . $this->username . "_integration
+                            WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
+                    $count_leads = $queryds->getResultArray();
 
-                $form_name = "";
-                if (isset($value['form_name']) && !empty($value['form_name'])) {
-                    $form_name = $value['form_name'];
-                }
+                    $counts = 0;
+                    if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
+                        $counts = $count_leads[0]['form_counts'];
+                    }
 
-                if (isset($value['page_img']) && !empty($value['page_img'])) {
-                    $page_img = $value['page_img'];
-                } else {
-                    $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                    $form_name = "";
+                    if (isset($value['form_name']) && !empty($value['form_name'])) {
+                        $form_name = $value['form_name'];
+                    }
+
+                    if (isset($value['page_img']) && !empty($value['page_img'])) {
+                        $page_img = $value['page_img'];
+                    } else {
+                        $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                    }
+                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <g data-name="Layer 2">
+                                            <g data-name="01.facebook">
+                                                <circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1" data-original="#3a559f"></circle>
+                                                <path fill="#ffffff" d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z" opacity="1" data-original="#ffffff"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>';
+                    $page_img_div = '<div class="mx-1">
+                                        <img src="' . $page_img . '">
+                                    </div>';
+                    $connection_name = $value['page_name'] . '(' . $form_name . ')';
+                } else if ($platform_status == 5) {
+
+                    $queryd = $this->db->query("SELECT COUNT(*) AS form_count
+                    FROM " . $this->username . "_integration
+                    WHERE platform = 'website'");
+                    $count_lead = $queryd->getResultArray();
+
+                    $count = 0;
+                    if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
+                        $count = $count_lead[0]['form_count'];
+                    }
+                    
+                    $connection_name = $integrationData['website_name'];
+                    $page_img_div = '';
+                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>';
                 }
 
                 $html .= '
                       <div class="lead_list p-2 rounded-2 position-relative">
                         <div class="d-flex align-items-center justify-content-end">
                             <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
-                                <div class="mx-1">
-                            <img src="' . $page_img . '">
-                                </div>
+                                
+                            <div class="mx-1">
+                            ' . $logo_img . '
+                           </div>
+                        ' . $page_img_div . '
                                
                                <div class="load-icon center">
                                 	<span><i class="bi bi-caret-right-fill fs-10"></i></span>
@@ -370,8 +409,9 @@ class FaceBookController extends BaseController
                                    <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
                                 </div>
                             </div>
+
                             <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="' . base_url() . 'leadlist?id=' . $value['form_id'] . '">
-                                <p class="d-block col-12 text-dark">' . $value['page_name'] . '(' . $form_name . ')</p>
+                                <p class="d-block col-12 text-dark">' . $connection_name . '</p>
                                 <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
                                 <i class="bi bi-gear me-1"></i>
                                 <span class="me-2">' . $count . '</span>
@@ -390,21 +430,20 @@ class FaceBookController extends BaseController
                     $html .= ' <input type="checkbox" class="page_actiive" value="0" data-form_id=' . $value['form_id'] . ' >';
                 }
 
-                $html .= '  <span class="check_input round"></span>
+                $html .= '<span class="check_input round"></span>
                                 </label>
                                 <div class="dropdown">
                                     <button class="bg-transparent border-2 rounded-2 border p-1 dropdown-toggle after-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-caret-down-fill fs-12 text-secondary-emphasis"></i>
                                     </button>
                                     <ul class="dropdown-menu py-2">
-                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
+                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $platform_status . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
                                         <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . '><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                      ';
+                    </div>';
             }
         } else {
             $html .= '<p>No Data Found</p>';
@@ -422,7 +461,7 @@ class FaceBookController extends BaseController
         $html = "";
         $status = 0;
         $query = $this->db->query("SELECT * , p.id AS page_ids
-                FROM ".$this->username."_fb_pages AS p
+                FROM " . $this->username . "_fb_pages AS p
                 WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status IN (1,4)");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
@@ -430,46 +469,72 @@ class FaceBookController extends BaseController
             $status = 1;
             foreach ($result_facebook_data as $key => $value) {
                 $simbol = '';
-                if ($value['is_status'] == 4) {
-                    $simbol = '<i class="fa-solid fa-triangle-exclamation fa-xl text-danger" title="Lost Connection"></i>';
-                }
-                $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM ".$this->username."_integration
-                        WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
-                $count_lead = $queryd->getResultArray();
+                $integrationData = $this->MasterInformationModel->edit_entry2($this->username . '_platform_integration', $value['connection_id']);
+                $integrationData = get_object_vars($integrationData[0]);
+                $platform_status = $integrationData['platform_status'];
 
-                $count = 0;
-                if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
-                    $count = $count_lead[0]['form_count'];
-                }
-                $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM ".$this->username."_integration
-                        WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
-                $count_leads = $queryds->getResultArray();
-
-                $counts = 0;
-                if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
-                    $counts = $count_leads[0]['form_counts'];
-                }
-
-                $form_name = "";
-                if (isset($value['form_name']) && !empty($value['form_name'])) {
-                    $form_name = $value['form_name'];
-                }
-
-                if (isset($value['page_img']) && !empty($value['page_img'])) {
-                    $page_img = $value['page_img'];
+                if ($value['user_id'] == 0) {
+                    $assign_id = 0;
+                    $staff_id = '';
                 } else {
-                    $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                    $assign_id = 1;
+                    $staff_id = $value['user_id'];
                 }
+                if ($platform_status == 2) {
+                    $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
+                    FROM " . $this->username . "_integration
+                    WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
+                    $count_lead = $queryd->getResultArray();
 
+                    $count = 0;
+                    if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
+                        $count = $count_lead[0]['form_count'];
+                    }
+                    $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
+                            FROM " . $this->username . "_integration
+                            WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
+                    $count_leads = $queryds->getResultArray();
+
+                    $counts = 0;
+                    if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
+                        $counts = $count_leads[0]['form_counts'];
+                    }
+
+                    $form_name = "";
+                    if (isset($value['form_name']) && !empty($value['form_name'])) {
+                        $form_name = $value['form_name'];
+                    }
+
+                    if (isset($value['page_img']) && !empty($value['page_img'])) {
+                        $page_img = $value['page_img'];
+                    } else {
+                        $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                    }
+                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <g data-name="Layer 2">
+                                            <g data-name="01.facebook">
+                                                <circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1" data-original="#3a559f"></circle>
+                                                <path fill="#ffffff" d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z" opacity="1" data-original="#ffffff"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>';
+                    $page_img_div = '<div class="mx-1">
+                                        <img src="' . $page_img . '">
+                                    </div>';
+                } else if ($platform_status == 5) {
+                    $page_img_div = '';
+                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>';
+                }
                 $html .= '<div class="lead_list p-2 rounded-2 position-relative">
                         <div class="d-flex flex-wrap align-items-center justify-content-between">
                         <div class="d-flex flex-wrap">
                             <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
-                                <div class="mx-1">
-                            <img src="' . $page_img . '">
-                                </div>
+                            <div class="mx-1">
+                            ' . $logo_img . '
+                           </div>
+                        ' . $page_img_div . '
                                
                                <div class="load-icon center">
                                 	<span><i class="bi bi-caret-right-fill fs-10"></i></span>
@@ -513,9 +578,9 @@ class FaceBookController extends BaseController
     {
         $html = "";
         $status = 0;
-        
+
         $query = $this->db->query("SELECT * , p.id AS page_ids
-                FROM ".$this->username."_fb_pages AS p
+                FROM " . $this->username . "_fb_pages AS p
                 WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status IN (2)");
 
         $result_facebook_data = $query->getResultArray();
@@ -523,44 +588,72 @@ class FaceBookController extends BaseController
         if ($count_num > 0) {
             $status = 1;
             foreach ($result_facebook_data as $key => $value) {
-                $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM " . $this->username . "_integration
-                        WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
-                $count_lead = $queryd->getResultArray();
+                $integrationData = $this->MasterInformationModel->edit_entry2($this->username . '_platform_integration', $value['connection_id']);
+                $integrationData = get_object_vars($integrationData[0]);
+                $platform_status = $integrationData['platform_status'];
 
-                $count = 0;
-                if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
-                    $count = $count_lead[0]['form_count'];
-                }
-                $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM " . $this->username . "_integration
-                        WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
-                $count_leads = $queryds->getResultArray();
-
-                $counts = 0;
-                if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
-                    $counts = $count_leads[0]['form_counts'];
-                }
-
-                $form_name = "";
-                if (isset($value['form_name']) && !empty($value['form_name'])) {
-                    $form_name = $value['form_name'];
-                }
-
-                if (isset($value['page_img']) && !empty($value['page_img'])) {
-                    $page_img = $value['page_img'];
+                if ($value['user_id'] == 0) {
+                    $assign_id = 0;
+                    $staff_id = '';
                 } else {
-                    $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                    $assign_id = 1;
+                    $staff_id = $value['user_id'];
                 }
+                if ($platform_status == 2) {
+                    $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
+                    FROM " . $this->username . "_integration
+                    WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
+                    $count_lead = $queryd->getResultArray();
 
+                    $count = 0;
+                    if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
+                        $count = $count_lead[0]['form_count'];
+                    }
+                    $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
+                            FROM " . $this->username . "_integration
+                            WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
+                    $count_leads = $queryds->getResultArray();
+
+                    $counts = 0;
+                    if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
+                        $counts = $count_leads[0]['form_counts'];
+                    }
+
+                    $form_name = "";
+                    if (isset($value['form_name']) && !empty($value['form_name'])) {
+                        $form_name = $value['form_name'];
+                    }
+
+                    if (isset($value['page_img']) && !empty($value['page_img'])) {
+                        $page_img = $value['page_img'];
+                    } else {
+                        $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                    }
+                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <g data-name="Layer 2">
+                                            <g data-name="01.facebook">
+                                                <circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1" data-original="#3a559f"></circle>
+                                                <path fill="#ffffff" d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z" opacity="1" data-original="#ffffff"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>';
+                    $page_img_div = '<div class="mx-1">
+                                        <img src="' . $page_img . '">
+                                    </div>';
+                } else if ($platform_status == 5) {
+                    $page_img_div = '';
+                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>';
+                }
                 $html .= '
                       <div class="lead_list p-2 rounded-2 position-relative">
                         <div class="d-flex align-items-center justify-content-end">
                             <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
-                                <div class="mx-1">
-                            <img src="' . $page_img . '">
-                                </div>
-                               
+                            <div class="mx-1">
+                            ' . $logo_img . '
+                           </div>
+                        ' . $page_img_div . '
                                <div class="load-icon center">
                                 	<span><i class="bi bi-caret-right-fill fs-10"></i></span>
                                 	<span><i class="bi bi-caret-right-fill fs-10"></i></span>
@@ -600,14 +693,20 @@ class FaceBookController extends BaseController
     {
         $html = "";
         $status = 0;
+        $platform_status = $this->request->getPost("platform_status");
         $query = $this->db->query("SELECT * , p.id AS page_ids
-                FROM ".$this->username."_fb_pages AS p
+                FROM " . $this->username . "_fb_pages AS p
                 WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status=3");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         if ($count_num > 0) {
             $status = 1;
             foreach ($result_facebook_data as $key => $value) {
+
+                $integrationData = $this->MasterInformationModel->edit_entry2($this->username . '_platform_integration', $value['connection_id']);
+                $integrationData = get_object_vars($integrationData[0]);
+                $platform_status = $integrationData['platform_status'];
+
                 if ($value['user_id'] == 0) {
                     $assign_id = 0;
                     $staff_id = '';
@@ -615,43 +714,62 @@ class FaceBookController extends BaseController
                     $assign_id = 1;
                     $staff_id = $value['user_id'];
                 }
-                $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                        FROM ".$this->username."_integration
-                        WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
-                $count_lead = $queryd->getResultArray();
+                if ($platform_status == 2) {
+                    $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
+                    FROM " . $this->username . "_integration
+                    WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
+                    $count_lead = $queryd->getResultArray();
 
-                $count = 0;
-                if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
-                    $count = $count_lead[0]['form_count'];
-                }
-                $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                        FROM ".$this->username."_integration
-                        WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
-                $count_leads = $queryds->getResultArray();
+                    $count = 0;
+                    if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
+                        $count = $count_lead[0]['form_count'];
+                    }
+                    $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
+                            FROM " . $this->username . "_integration
+                            WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
+                    $count_leads = $queryds->getResultArray();
 
-                $counts = 0;
-                if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
-                    $counts = $count_leads[0]['form_counts'];
-                }
+                    $counts = 0;
+                    if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
+                        $counts = $count_leads[0]['form_counts'];
+                    }
 
-                $form_name = "";
-                if (isset($value['form_name']) && !empty($value['form_name'])) {
-                    $form_name = $value['form_name'];
-                }
+                    $form_name = "";
+                    if (isset($value['form_name']) && !empty($value['form_name'])) {
+                        $form_name = $value['form_name'];
+                    }
 
-                if (isset($value['page_img']) && !empty($value['page_img'])) {
-                    $page_img = $value['page_img'];
-                } else {
-                    $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                    if (isset($value['page_img']) && !empty($value['page_img'])) {
+                        $page_img = $value['page_img'];
+                    } else {
+                        $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                    }
+                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <g>
+                                        <g data-name="Layer 2">
+                                            <g data-name="01.facebook">
+                                                <circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1" data-original="#3a559f"></circle>
+                                                <path fill="#ffffff" d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z" opacity="1" data-original="#ffffff"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>';
+                    $page_img_div = '<div class="mx-1">
+                                        <img src="' . $page_img . '">
+                                    </div>';
+                } else if ($platform_status == 5) {
+                    $page_img_div = '';
+                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>';
                 }
 
                 $html .= '<div class="lead_list p-2 rounded-2 position-relative">
                             <div class="d-flex align-items-center justify-content-end">
                                 <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
                                     <div class="mx-1">
-                                        <img src="' . $page_img . '">
-                                    </div>
-                                <div class="load-icon center">
+                                        ' . $logo_img . '
+                                       </div>
+                                    ' . $page_img_div . '
+                                    <div class="load-icon center">
                                         <span><i class="bi bi-caret-right-fill fs-10"></i></span>
                                         <span><i class="bi bi-caret-right-fill fs-10"></i></span>
                                         <span><i class="bi bi-caret-right-fill fs-10"></i></span>
@@ -685,7 +803,7 @@ class FaceBookController extends BaseController
                                         <i class="bi bi-caret-down-fill fs-12 text-secondary-emphasis"></i>
                                     </button>
                                     <ul class="dropdown-menu py-2">
-                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
+                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $platform_status . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
                                         <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . ' data-draft="1"><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
                                     </ul>
                                 </div>
@@ -710,7 +828,7 @@ class FaceBookController extends BaseController
         $result_res = array();
         $queryd = $this->db->query("SELECT *,i.id AS inte_id
           FROM " . $this->username . "_integration AS i
-          JOIN ".$this->username."_fb_pages AS p ON i.form_id = p.form_id
+          JOIN " . $this->username . "_fb_pages AS p ON i.form_id = p.form_id
           WHERE i.form_id = " . $form_id . " AND i.page_id != '' AND i.fb_update = 2");
         $count_lead = $queryd->getResultArray();
         $count_num = $queryd->getNumRows();

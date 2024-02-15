@@ -214,6 +214,7 @@ $user_data = $user_result->getResultArray();
                         </div>
                     </div>
                     <form class="needs-validation" name="pagelist" method="POST" novalidate="">
+                        <input type="hidden" id="platform_status" name="platform_status" value="">
                         <div class="lead_add_main_box px-3 py-5 bg-white rounded-2 mx-2 mb-2 position-relative"
                             style="display: none;">
 
@@ -250,7 +251,7 @@ $user_data = $user_result->getResultArray();
                                             class="big_circle_plus_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 ms-3 top-50 start-100 translate-middle-y">
                                             <ul class="position-relative px-3">
                                                 <li class="py-1">
-                                                    <a class="dropdown-item cursor-pointer" id="facebook_lead_drop_1">
+                                                    <a class="dropdown-item cursor-pointer" id="facebook_lead_drop_1" data-type="2">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
                                                             viewBox="0 0 1643 1643" fill="none" class="me-2">
                                                             <path
@@ -261,7 +262,7 @@ $user_data = $user_result->getResultArray();
                                                     </a>
                                                 </li>
                                                 <li class="py-1">
-                                                    <a class="dropdown-item cursor-pointer" id="website_lead">
+                                                    <a class="dropdown-item cursor-pointer" id="website_lead" data-type="5">
                                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="30" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>                        
                                                         <span> Website Lead Setting</span>
                                                     </a>
@@ -451,7 +452,7 @@ $user_data = $user_result->getResultArray();
 
                                                 <div class="text-end mt-3 page_frm_save">
                                                     <button
-                                                        class="btn-primary d-inline-block big_website_circle_2_sbt"
+                                                        class="btn-primary d-inline-block big_falcebook_circle_2_sbt"
                                                         edit-id="">Save</button>
                                                 </div>
                                             </form>
@@ -644,6 +645,7 @@ $user_data = $user_result->getResultArray();
             $(this).closest(".big_circle_plus_outer").hide();
             $(".big_list_add_outer_main_2").show();
             $(".big_list_add_outer_main_2 .big_circle_fb_outer").show();
+            $('#platform_status').val(2);
         });
         // =========websiet============
         $('body').on('click', '#website_lead', function () {
@@ -651,6 +653,7 @@ $user_data = $user_result->getResultArray();
             $(".big_list_add_outer_main_4").show();
             $(".big_list_add_outer_main_4 .big_circle_fb_outer").show();
             $(".all_circle_plus_list1").show();
+            $('#platform_status').val(5);
         });
 
         $('body').on('change', '#fb_conn_id', function () {
@@ -793,6 +796,7 @@ $user_data = $user_result->getResultArray();
             url: "<?= site_url('draft_pages_list_data'); ?>",
             data: {
                 action: 'draft_pages_list_data',
+
             },
             success: function (res) {
                 $('.loader').hide();
@@ -920,7 +924,17 @@ $user_data = $user_result->getResultArray();
 
     //for save connection and all functionality...
     $('body').on('click', '.big_falcebook_circle_4_sbt', function () {
-        var connection_id = $("#fb_conn_id option:selected").val();
+        var platform_status = $('#platform_status').val();
+        if(platform_status==2)
+        {
+            var connection_id = $("#fb_conn_id option:selected").val();
+            var site_url = '<?= site_url('facebook_page'); ?>';  
+        }
+        else if(platform_status==5)
+        {
+            var connection_id = $("#web_conn_id option:selected").val();
+            var site_url = '<?= site_url('website_connectionpage'); ?>';
+        }
         var int_product = $(".product option:selected").val();
         var sub_type = $(".sub_type option:selected").val();
         var assign_to = $(".assign_to option:selected").val();
@@ -942,9 +956,10 @@ $user_data = $user_result->getResultArray();
         if (assign_to != "" && int_product > 0 && chk != '') {
             $.ajax({
                 type: "post",
-                url: "<?= site_url('facebook_page'); ?>",
+                url: site_url,
                 data: {
                     action: 'page',
+                    platform_status:platform_status,
                     connection_id: connection_id,
                     page_id: page_id,
                     access_token: access_token,
@@ -998,161 +1013,166 @@ $user_data = $user_result->getResultArray();
             });
             return false;
         }
+       
     });
 
     //save as draft and all save also
     $('body').on('click', '.big_falcebook_circle_2_sbt', function () {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
-        var connection_id = $("#fb_conn_id option:selected").val();
-        var int_product = $(".product option:selected").val();
-        var sub_type = $(".sub_type option:selected").val();
-        var assign_to = $(".assign_to option:selected").val();
-        var page_id = $("#facebookpages option:selected").val();
-        var access_token = $("#facebookpages").find("option:selected").attr("data-access_token");
-        var page_name = $("#facebookpages").find("option:selected").attr("data-page_name");
-        var form_id = $("#facebookform option:selected").val();
-        var form_name = $("#facebookform option:selected").text();
-        var edit_id = $(this).attr('edit_id');
-        if (int_product > 0 && assign_to != "" && page_id != "" && form_id != "") {
-            var draft_status = 0;
-        } else {
-            var draft_status = 3;
-        }
-        if (connection_id > 0 && page_id > 0 && form_id > 0) {
-            $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
-            $.ajax({
-                type: "post",
-                url: "<?= site_url('facebook_page'); ?>",
-                data: {
-                    action: 'page',
-                    connection_id: connection_id,
-                    page_id: page_id,
-                    access_token: access_token,
-                    page_name: page_name,
-                    int_product: int_product,
-                    sub_type: sub_type,
-                    assign_to: assign_to,
-                    form_name: form_name,
-                    form_id: form_id,
-                    edit_id: edit_id,
-                    is_status: draft_status,
-                },
-                success: function (res) {
-                    var result = JSON.parse(res);
-                    $('.discard_main_box').val(result.id);
-                    $('.fb_div_hide1').hide();
-                    if (result.page_profile) {
-                        $('.page-profile').html('<img src="' + result.page_profile + '" class="w-100 h-100 object-fit-contain rounded-circle">');
+        var platform_status = $('#platform_status').val();
+        if(platform_status==2)
+        {
+            var connection_id = $("#fb_conn_id option:selected").val();
+            var int_product = $(".product option:selected").val();
+            var sub_type = $(".sub_type option:selected").val();
+            var assign_to = $(".assign_to option:selected").val();
+            var page_id = $("#facebookpages option:selected").val();
+            var access_token = $("#facebookpages").find("option:selected").attr("data-access_token");
+            var page_name = $("#facebookpages").find("option:selected").attr("data-page_name");
+            var form_id = $("#facebookform option:selected").val();
+            var form_name = $("#facebookform option:selected").text();
+            var edit_id = $(this).attr('edit_id');
+            if (int_product > 0 && assign_to != "" && page_id != "" && form_id != "") {
+                var draft_status = 0;
+            } else {
+                var draft_status = 3;
+            }
+            if (connection_id > 0 && page_id > 0 && form_id > 0) {
+                $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
+                $.ajax({
+                    type: "post",
+                    url: "<?= site_url('facebook_page'); ?>",
+                    data: {
+                        action: 'page',
+                        platform_status:platform_status,
+                        connection_id: connection_id,
+                        page_id: page_id,
+                        access_token: access_token,
+                        page_name: page_name,
+                        int_product: int_product,
+                        sub_type: sub_type,
+                        assign_to: assign_to,
+                        form_name: form_name,
+                        form_id: form_id,
+                        edit_id: edit_id,
+                        is_status: draft_status,
+                    },
+                    success: function (res) {
+                        var result = JSON.parse(res);
+                        $('.discard_main_box').val(result.id);
+                        $('.fb_div_hide1').hide();
+                        if (result.page_profile) {
+                            $('.page-profile').html('<img src="' + result.page_profile + '" class="w-100 h-100 object-fit-contain rounded-circle">');
+                        }
+                        $(".big_list_add_outer_main_2 .all_circle_plus_list").hide();
+                        if (result.respoance == 1) {
+                            // iziToast.success({
+                            //     title: result.msg,
+                            // });
+                        } else {
+                            iziToast.error({
+                                title: result.msg,
+                            });
+                        }
+                    },
+                    error: function (error) {
+                        $('.loader').hide();
                     }
-                    $(".big_list_add_outer_main_2 .all_circle_plus_list").hide();
-                    if (result.respoance == 1) {
-                        // iziToast.success({
-                        //     title: result.msg,
-                        // });
-                    } else {
-                        iziToast.error({
-                            title: result.msg,
-                        });
-                    }
-                },
-                error: function (error) {
-                    $('.loader').hide();
-                }
-            });
-            return false;
-        } else {
-            var form = $("form[name='pagelist']")[0];
-            $(form).find('.selectpicker').each(function () {
-                var selectpicker_valid = 0;
-                if ($(this).attr('required') == 'undefined') {
+                });
+                return false;
+            } else {
+                var form = $("form[name='pagelist']")[0];
+                $(form).find('.selectpicker').each(function () {
                     var selectpicker_valid = 0;
-                }
-                if ($(this).attr('required') == 'required') {
-                    var selectpicker_valid = 1;
-                }
-                if (selectpicker_valid == 1) {
-                    if ($(this).val() == 0 || $(this).val() == '') {
-                        $(this).closest("div").addClass('selectpicker-validation');
+                    if ($(this).attr('required') == 'undefined') {
+                        var selectpicker_valid = 0;
+                    }
+                    if ($(this).attr('required') == 'required') {
+                        var selectpicker_valid = 1;
+                    }
+                    if (selectpicker_valid == 1) {
+                        if ($(this).val() == 0 || $(this).val() == '') {
+                            $(this).closest("div").addClass('selectpicker-validation');
+                        } else {
+                            $(this).closest("div").removeClass('selectpicker-validation');
+                        }
                     } else {
                         $(this).closest("div").removeClass('selectpicker-validation');
                     }
-                } else {
-                    $(this).closest("div").removeClass('selectpicker-validation');
-                }
-            });
-            return false;
+                });
+                return false;
+            }
         }
-    });
-
-
-    $('body').on('click', '.big_website_circle_2_sbt', function () {
-        $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
-        var connection_id = $("#web_conn_id option:selected").val();
-        var connection_name = $("#web_conn_id option:selected").text();
-        var int_product = $(".product option:selected").val();
-        var sub_type = $(".sub_type option:selected").val();
-        var assign_to = $(".assign_to option:selected").val();
+        else if(platform_status==5)
+        {
+            var connection_id = $("#web_conn_id option:selected").val();
+            var connection_name = $("#web_conn_id option:selected").text();
+            var int_product = $(".product option:selected").val();
+            var sub_type = $(".sub_type option:selected").val();
+            var assign_to = $(".assign_to option:selected").val();
+            
+            var edit_id = $(this).attr('edit_id');
+            if (int_product > 0 && assign_to != "") {
+                var draft_status = 0;
+            } else {
+                var draft_status = 3;
+            }
+            if (connection_id > 0) {
+                $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
+                $.ajax({
+                    type: "post",
+                    url: "<?= site_url('website_connectionpage'); ?>",
+                    data: {
+                        action: 'page',
+                        platform_status:platform_status,
+                        connection_id: connection_id,
+                        connection_name:connection_name,
+                        int_product: int_product,
+                        sub_type: sub_type,
+                        assign_to: assign_to,
+                        edit_id: edit_id,
+                        is_status: draft_status,
+                    },
+                    success: function (res) {
+                        var result = JSON.parse(res);
+                        $('.discard_main_box').val(result.id);
         
-        var edit_id = $(this).attr('edit_id');
-        if (int_product > 0 && assign_to != "") {
-            var draft_status = 0;
-        } else {
-            var draft_status = 3;
-        }
-        if (connection_id > 0) {
-            $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
-            $.ajax({
-                type: "post",
-                url: "<?= site_url('website_connectionpage'); ?>",
-                data: {
-                    action: 'page',
-                    connection_id: connection_id,
-                    connection_name:connection_name,
-                    int_product: int_product,
-                    sub_type: sub_type,
-                    assign_to: assign_to,
-                    edit_id: edit_id,
-                    is_status: draft_status,
-                },
-                success: function (res) {
-                    var result = JSON.parse(res);
-                    $('.discard_main_box').val(result.id);
-      
-                    $(".big_list_add_outer_main_4 .all_circle_plus_list").hide();
-                    if (result.respoance == 1) {
-                   
-                    } else {
-                        iziToast.error({
-                            title: result.msg,
-                        });
+                        $(".big_list_add_outer_main_4 .all_circle_plus_list").hide();
+                        if (result.respoance == 1) {
+                    
+                        } else {
+                            iziToast.error({
+                                title: result.msg,
+                            });
+                        }
+                    },
+                    error: function (error) {
+                        $('.loader').hide();
                     }
-                },
-                error: function (error) {
-                    $('.loader').hide();
-                }
-            });
-            return false;
-        } else {
-            var form = $("form[name='pagelist']")[0];
-            $(form).find('.selectpicker').each(function () {
-                var selectpicker_valid = 0;
-                if ($(this).attr('required') == 'undefined') {
+                });
+                return false;
+            } else {
+                var form = $("form[name='pagelist']")[0];
+                $(form).find('.selectpicker').each(function () {
                     var selectpicker_valid = 0;
-                }
-                if ($(this).attr('required') == 'required') {
-                    var selectpicker_valid = 1;
-                }
-                if (selectpicker_valid == 1) {
-                    if ($(this).val() == 0 || $(this).val() == '') {
-                        $(this).closest("div").addClass('selectpicker-validation');
+                    if ($(this).attr('required') == 'undefined') {
+                        var selectpicker_valid = 0;
+                    }
+                    if ($(this).attr('required') == 'required') {
+                        var selectpicker_valid = 1;
+                    }
+                    if (selectpicker_valid == 1) {
+                        if ($(this).val() == 0 || $(this).val() == '') {
+                            $(this).closest("div").addClass('selectpicker-validation');
+                        } else {
+                            $(this).closest("div").removeClass('selectpicker-validation');
+                        }
                     } else {
                         $(this).closest("div").removeClass('selectpicker-validation');
                     }
-                } else {
-                    $(this).closest("div").removeClass('selectpicker-validation');
-                }
-            });
-            return false;
+                });
+                return false;
+            }
         }
     });
 
@@ -1332,24 +1352,12 @@ $user_data = $user_result->getResultArray();
     //     location.reload();
     // });
 
-    function EditScenarios(edit_id) {
-
-        $('.big_list_add_outer_main_2,.lead_module_devider_1,.big_list_add_outer_main_3,.lead_module_devider_2').show();
+    function EditScenarios(edit_id,paltform_status) {
+        $('#platform_status').val(paltform_status);
+        $('.lead_module_devider_1,.big_list_add_outer_main_3,.lead_module_devider_2').show();
         $('.big_list_add_outer_main_1,.big_circle_plus_outer,.add_next_big_plus_outer,.all_circle_plus_list,.discard-tag').hide();
         $('.big_circle_fb_outer,.lead_add_main_box,.lead_main_box_add').show();
-        // $('.discard-tag').show();
-
-
-        // $(".big_list_add_outer_main").hide();
-        // $(".big_list_add_outer_main_1").show();
-
-        $('.fb_div_hide1,.fb_div_hide').hide();
-        // if ('<?php echo isset($data[0]['user_profile']) ?>') {
-        //     $('.fb_div_hide').hide();
-        //     $('.profile_div').html('<img src="<?php echo isset($data[0]['user_profile']) ?>" class="w-100 h-100 object-fit-contain rounded-circle">');
-
-        // }
-
+       
         $.ajax({
             type: "post",
             url: "<?= site_url('edit_facebook_scenarious'); ?>",
@@ -1359,65 +1367,68 @@ $user_data = $user_result->getResultArray();
             success: function (res) {
                 var editresult = JSON.parse(res);
                 if (editresult.response == 1) {
-                    $('#fb_conn_id').val(editresult.result['connection_id']);
-                    $('.page-profile').html('<img src="' + editresult.result['page_img'] + '" class="w-100 h-100 object-fit-contain rounded-circle">');
+                    if(paltform_status==2)
+                    {
+                        $('#fb_conn_id').val(editresult.result['connection_id']);
+                        $('.big_list_add_outer_main_2').show();
+                        $('.fb_div_hide1,.fb_div_hide').hide();
 
-                    $.ajax({
-                        type: "post",
-                        url: "<?= site_url('facebook_user'); ?>",
-                        data: {
-                            fb_access_token: editresult.result['access_token'],
-                            fb_check_conn: editresult.result['verification_status'],
-                            action: 'user'
-                        },
-                        success: function (res) {
-                            $('.loader').hide();
-                            var result = JSON.parse(res);
-                            if (result.response == 1) {
-                                $('#facebookpages').html(result.html);
-                                $('#facebookpages').val(editresult.result['page_id']);
-                                $('#facebookpages').selectpicker('refresh');
+                        $('.page-profile').html('<img src="' + editresult.result['page_img'] + '" class="w-100 h-100 object-fit-contain rounded-circle">');
+                        $.ajax({
+                            type: "post",
+                            url: "<?= site_url('facebook_user'); ?>",
+                            data: {
+                                fb_access_token: editresult.result['access_token'],
+                                fb_check_conn: editresult.result['verification_status'],
+                                action: 'user'
+                            },
+                            success: function (res) {
+                                $('.loader').hide();
+                                var result = JSON.parse(res);
+                                if (result.response == 1) {
+                                    $('#facebookpages').html(result.html);
+                                    $('#facebookpages').val(editresult.result['page_id']);
+                                    $('#facebookpages').selectpicker('refresh');
 
-                                var page_access_token = $('#facebookpages').find("option:selected").attr("data-access_token");
-                                $.ajax({
-                                    type: "post",
-                                    url: "<?= site_url('facebook_form'); ?>",
-                                    data: {
-                                        action: 'page_to_form',
-                                        access_token: page_access_token,
-                                        page_id: editresult.result['page_id'],
-                                    },
-                                    success: function (res) {
-                                        var result = JSON.parse(res);
-                                        $('#facebookform').html(result.html);
-                                        $('#facebookform').val(editresult.result['form_id']);
-                                        $('#facebookform').selectpicker('refresh');
-                                    },
-                                    error: function (error) {
-                                        $('.loader').hide();
-                                    }
-                                });
-                            } else {
-                                $(this).closest(".big_circle_plus_outer").show();
-                                $(".big_list_add_outer_main_2").hide();
-                                $(".big_list_add_outer_main_2 .big_circle_fb_outer").hide();
-                                iziToast.error({
-                                    title: result.message
-                                });
+                                    var page_access_token = $('#facebookpages').find("option:selected").attr("data-access_token");
+                                    $.ajax({
+                                        type: "post",
+                                        url: "<?= site_url('facebook_form'); ?>",
+                                        data: {
+                                            action: 'page_to_form',
+                                            access_token: page_access_token,
+                                            page_id: editresult.result['page_id'],
+                                        },
+                                        success: function (res) {
+                                            var result = JSON.parse(res);
+                                            $('#facebookform').html(result.html);
+                                            $('#facebookform').val(editresult.result['form_id']);
+                                            $('#facebookform').selectpicker('refresh');
+                                        },
+                                        error: function (error) {
+                                            $('.loader').hide();
+                                        }
+                                    });
+                                } else {
+                                    $(this).closest(".big_circle_plus_outer").show();
+                                    $(".big_list_add_outer_main_2").hide();
+                                    $(".big_list_add_outer_main_2 .big_circle_fb_outer").hide();
+                                    iziToast.error({
+                                        title: result.message
+                                    });
+                                }
+                            },
+                            error: function (error) {
+                                $('.loader').hide();
                             }
-                        },
-                        error: function (error) {
-                            $('.loader').hide();
-                        }
-                    });
+                        });
+                    }
+                    else if(paltform_status==5)
+                    {
+                        $('.big_list_add_outer_main_4').show();
+                        $('#web_conn_id').val(editresult.result['connection_id']);
+                    }
 
-                    // getPagesList(result.result['access_token'], result.result['verification_status']);
-                    // $('#facebookpages').val(result.result['page_id']);
-                    // $('#facebookpages').selectpicker('refresh');
-
-                    // getFormsList(page_access_token, result.result['page_id']);
-                    // $('#facebookform').val(result.result['form_id']);
-                    // $('#facebookform').selectpicker('refresh');
 
                     $('#product').val(editresult.result['intrested_product']);
                     if (editresult.result['user_id'] == 0) {
