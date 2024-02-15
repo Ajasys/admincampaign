@@ -16,6 +16,9 @@ if (!empty($connections)) {
         max-width: 500px;
         margin: auto;
     }
+    body{
+        text-transform: capitalize!important;
+    }
 
     .mobile-whatapp {
         width: 300px !important;
@@ -636,8 +639,12 @@ if (!empty($connections)) {
 </style>
 
 <div class="main-dashbord p-2 ">
-    <div class="col-12 d-flex justify-content-end">
-        <div class="col-6 col-lg-1">
+    <div class="col-12 d-flex justify-content-between">
+        <div class="title-1 d-flex align-items-center">
+            <i class="fa-brands fa-whatsapp"></i>
+            <h2>WhatsApp Message Template</h2>
+        </div>
+        <div class="col-6 col-lg-2">
             <div class="main-selectpicker">
                 <select id="" name=""
                     class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control ">
@@ -656,8 +663,8 @@ if (!empty($connections)) {
         </div>
     </div>
     <div class="container-fluid p-0">
-        <div class="col-12 p-2 d-flex flex-wrap justify-content-sm-center justify-content-lg-start">
-            <div class="p-1 first-container slide-toggle">
+        <div class="col-12  d-flex flex-wrap justify-content-sm-center justify-content-lg-start mt-2">
+            <div class="first-container slide-toggle">
                 <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap">
                     <div class="col-12 d-flex flex-wrap w-100 ">
                         <ul class=" d-flex  flex-wrap nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
@@ -781,7 +788,7 @@ if (!empty($connections)) {
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md p-1">
+            <div class="col-12 col-md ps-1">
 
                 <!-- <div class="Activeclass p-2  d-none">
                     <div class="container p-0 ms-0">
@@ -1650,8 +1657,8 @@ if (!empty($connections)) {
                         <button type="button" class="border-0 modal-close-btn close_btn" data-bs-dismiss="modal"
                             aria-label="Close"><i class="bi bi-x-circle fs-5"></i></button>
                     </div>
-                    <div class="modal-body modal-body-secondery d-flex flex-wrap bg-white">
-                        <div class="col-6">
+                    <div class="modal-body modal-body-secondery d-flex flex-wrap bg-white justify-content-center justify-content-lg-start ">
+                        <div class="col-12 col-md-10 col-lg-6">
                             <div class="modal-body-card justify-content-center overflow-y-scroll border-0"
                                 style="max-height:657px;">
                                 <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit"
@@ -1668,7 +1675,6 @@ if (!empty($connections)) {
                                             can
                                             only contain lowercase alphanumeric characters and underscores ( _ )</p>
                                     </div>
-
                                     <div class="col-12 mb-3 ">
                                         <label for="form-memberships" class="main-label">Select Category<sup
                                                 class="validationn">*</sup></label>
@@ -1932,90 +1938,97 @@ if (!empty($connections)) {
                                 </form>
                             </div>
                         </div>
-                        <div class="col-6 hello">
-                            <div class=" justify-content-center h-100 d-flex flex-wrap p-3">
+                        <div class="col-12 col-md-10 col-lg-6  hello">
+                            <div class=" justify-content-center h-100 d-flex flex-wrap  ">
                                 <!-- whatsapp   .. -->
-                                <div class="wa-preview-main-div-cont">
-                                    <div class="preview-chat-section">
-                                        <div class="preview-header-main-cont">
-                                            <div class="header-image">
-                                                <img class="profile-img ng-scope"
-                                                    ng-if="!company_photo || company_photo.length == 0"
-                                                    ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"
-                                                    alt="logo"
-                                                    src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
-                                            </div>
-                                            <div class="preview-header-text">
-                                                <span class="company-name user ng-binding">appo</span>
-                                            </div>
-                                            <div class="wa-phone-header">
-                                                <i class="fa fa-video-camera wa-phone-header-video-icon"
-                                                    aria-hidden="true"></i>
-                                                <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
-                                                <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon"
-                                                    aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="preview-chat-section-chat overflow-y-scroll">
-                                            <div class="preview-chat-paragraph bg-white p-3 col-10">
-                                                <!-- <div class="preview-header-paragraph refreshit" ng-if="submitParamDetails"  class="ng-scope" style=""> -->
-                                                <div ng-if="media_footer_text.length > 0 "
-                                                    class="user-name-chat-header preview-header-paragraph message msg  m-0 p-l-10 p-r-5 ng-binding fw-bold ng-scope"
-                                                    style=""></div>
-                                                <!-- end ngIf: media_footer_text.length > 0 -->
-                                                <!-- </div> -->
-                                                <div ng-if="final_bodyPreviewValue.length > 0"
-                                                    class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope"
-                                                    id="bodychange11">
+                                <div>
+                                    <div class="wa-preview-main-div-cont d-flex justify-content-center ">
+                                        <div class="preview-chat-section mobile-whatapp" style="border:10px solid #9a9a9a;">
+                                            <div class="preview-header-main-cont">
+                                                <div class="header-image">
+                                                    <img class="profile-img ng-scope"
+                                                        ng-if="!company_photo || company_photo.length == 0"
+                                                        ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"
+                                                        alt="logo"
+                                                        src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
                                                 </div>
-                                                <!-- <div class="preview-footer-paragraph refreshit p-1" ng-if="submitParamDetails"
-                                                class="ng-scope" style=""> -->
-                                                <div ng-if="media_footer_text.length > 0 "
-                                                    class="user-name-chat-footer message msg preview-footer-paragraph font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope"
-                                                    contenteditable="false" style=""></div>
-                                                <!-- end ngIf: media_footer_text.length > 0 -->
-                                                <!-- </div> -->
-
-                                            </div>
-                                            <div class="single-t-call-button">
-                                                <button class="single-button-whatsapp-template1 refreshit"></button>
-                                                <button class="single-button-whatsapp-template2"
-                                                    data-template="2"></button>
-                                                <button class="single-button-whatsapp-template3"
-                                                    data-template="3"></button>
-
-                                            </div>
-                                        </div>
-                                        <div class="preview-call-button ng-scope"
-                                            ng-if="!edit_template &amp;&amp; !preview_open">
-                                            <div class="preview-whatsapp-footer">
-                                                <div class="whatsapp-footer d-flex flex-wrap align-items-center">
-
-                                                    <i class="fa fa-smile-o whatsapp-footer-relative"
+                                                <div class="preview-header-text">
+                                                    <span class="company-name user ng-binding">appo</span>
+                                                </div>
+                                                <div class="wa-phone-header">
+                                                    <i class="fa fa-video-camera wa-phone-header-video-icon"
                                                         aria-hidden="true"></i>
-                                                    <input class="chat-btn-chat whatsapp-footer-1 col-7"
-                                                        placeholder="Type a message" ng-disabled="true"
-                                                        aria-disabled="true" disabled="disabled">
-                                                    <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
-                                                    <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
-                                                    <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro"
-                                                            aria-hidden="true"></i></p>
+                                                    <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
+                                                    <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon"
+                                                        aria-hidden="true"></i>
                                                 </div>
                                             </div>
+    
+                                            <div class="preview-chat-section-chat overflow-y-scroll mobile-whatapp-body">
+                                                <div class="preview-chat-paragraph bg-white p-3 col-10">
+                                                    <!-- <div class="preview-header-paragraph refreshit" ng-if="submitParamDetails"  class="ng-scope" style=""> -->
+                                                    <div ng-if="media_footer_text.length > 0 "
+                                                        class="user-name-chat-header preview-header-paragraph message msg  m-0 p-l-10 p-r-5 ng-binding fw-bold ng-scope"
+                                                        style=""></div>
+                                                    <!-- end ngIf: media_footer_text.length > 0 -->
+                                                    <!-- </div> -->
+                                                    <div ng-if="final_bodyPreviewValue.length > 0"
+                                                        class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope"
+                                                        id="bodychange11">
+                                                    </div>
+                                                    <!-- <div class="preview-footer-paragraph refreshit p-1" ng-if="submitParamDetails"
+                                                    class="ng-scope" style=""> -->
+                                                    <div ng-if="media_footer_text.length > 0 "
+                                                        class="user-name-chat-footer message msg preview-footer-paragraph font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope"
+                                                        contenteditable="false" style=""></div>
+                                                    <!-- end ngIf: media_footer_text.length > 0 -->
+                                                    <!-- </div> -->
+    
+                                                </div>
+                                                <div class="single-t-call-button">
+                                                    <button class="single-button-whatsapp-template1 refreshit"></button>
+                                                    <button class="single-button-whatsapp-template2"
+                                                        data-template="2"></button>
+                                                    <button class="single-button-whatsapp-template3"
+                                                        data-template="3"></button>
+    
+                                                </div>
+                                            </div>
+                                            <div class="preview-call-button ng-scope"
+                                                ng-if="!edit_template &amp;&amp; !preview_open">
+                                                <div class="preview-whatsapp-footer">
+                                                    <div class="whatsapp-footer d-flex flex-wrap align-items-center">
+    
+                                                        <i class="fa fa-smile-o whatsapp-footer-relative"
+                                                            aria-hidden="true"></i>
+                                                        <input class="chat-btn-chat whatsapp-footer-1 col-7"
+                                                            placeholder="Type a message" ng-disabled="true"
+                                                            aria-disabled="true" disabled="disabled">
+                                                        <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
+                                                        <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
+                                                        <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro"
+                                                                aria-hidden="true"></i></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-flex  flex-wrap mobile-footer py-2">
+                                                <div class="col-4 text-center"><i
+                                                        class="fa-solid fa-bars"></i></div>
+                                                <div class="col-4 text-center"><i
+                                                        class="fa-regular fa-square"></i></div>
+                                                <div class="col-4 text-center"><i
+                                                        class="fa-solid fa-chevron-right"></i></div>
+                                            </div>
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary CloseBtnModelAdd"
                             data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary previewbutton d-none" data-bs-target="#view_modal"
+                        <button type="button" class="btn btn-primary d-none " data-bs-target="#view_modal"
                             data-bs-toggle="modal">Preview and Submit</button>
                         <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid=""
                             action="insert">Submit</button>
@@ -2037,7 +2050,7 @@ if (!empty($connections)) {
                         <div class=" justify-content-center h-100">
                             <!-- whatsapp   .. -->
                             <div class="wa-preview-main-div-cont">
-                                <div class="preview-chat-section rounded-0">
+                                                            <div class="preview-chat-section rounded-0">
                                     <div class="preview-header-main-cont">
                                         <div class="header-image">
                                             <img class="profile-img ng-scope"
@@ -2146,49 +2159,54 @@ if (!empty($connections)) {
             time: false
         });
 
-        $('body').on('click', '.previewbutton', function () {
+        // $('body').on('click', '.previewbutton', function () {
 
-            var body = $('.body_div').val();
-            var regex = /{{\d+}}/g;
-            var matches = body.match(regex);
+        //     var body = $('.body_div').val();
+        //     var regex = /{{\d+}}/g;
+        //     var matches = body.match(regex);
 
-            if (matches) {
+        //     if (matches) {
 
-                $('#dynamicInputsContainer').empty();
+        //         $('#dynamicInputsContainer').empty();
 
-                for (var i = 0; i < matches.length; i++) {
-                    var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
-                    $('#dynamicInputsContainer').append(inputField);
+        //         for (var i = 0; i < matches.length; i++) {
+        //             var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
+        //             $('#dynamicInputsContainer').append(inputField);
 
-                }
-            }
+        //         }
+        //     }
 
 
-        });
+        // });
 
-        $('#dynamicInputsContainer').on('input', '.inputypeBody', function () {
-            var bodyText = $(this).val();
-            var index = $('.inputypeBody').index($(this)) + 1;
-            var regex = new RegExp("{{" + index + "}}", "g");
+        originalHTML = '';
 
-            // var regex = new RegExp('{{' + index + '}}');
-            if (bodyText === "") {
-                $('.preview-chat-paragraph').hide();
-            } else {
-                $('.preview-chat-paragraph').show();
 
-                var originalText = $('.preview-chat-paragraph .msg-text-chat').html();
-                var match = originalText.match(regex);
-                console.log(match);
-                if (match) {
-                    console.log(match[0].slice(2, -2));
-                }
-                var newText = originalText.replace(regex, bodyText);
-
-                $('.preview-chat-paragraph .msg-text-chat').html(newText);
-            }
-        });
-
+// $('#dynamicInputsContainer').on('input', '#inputbody', function() {
+//     var bodyText1 = $(this).val();
+//     var inputId = $(this).attr('Dataid');
+//     // var regex = /{{[2]}}/g;
+//     // /{{1}}/g
+//     // var regex = /{{\d+}}/g;
+    
+//     var regex = new RegExp("{{[" + inputId + "]}}", "g");
+      
+//     if (bodyText1.trim() !== '') {
+//         if (!originalHTML) {
+//             originalHTML += $('.preview-chat-paragraph .msg-text-chat').html();
+            
+            
+//         }
+//         // else{}
+//         var updatedHTML = originalHTML.replace(regex, bodyText1);
+//         $('.preview-chat-paragraph .msg-text-chat').html(updatedHTML);
+//     } 
+//     else {
+//         $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
+//         originalHTML = '';
+//         // alert('kjh');
+//     }
+// });
 
 
 
@@ -2421,9 +2439,8 @@ if (!empty($connections)) {
                 $('#dynamicInputsContainer').empty();
 
                 for (var i = 0; i < matches.length; i++) {
-                    var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
-                    $('#dynamicInputsContainer').append(inputField);
-                    // $('.msg-text-chat').append(body);
+                    var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" Dataid="' + i + '"  placeholder="Body' + i + '" name="body_' + i + '" required>';                    $('#dynamicInputsContainer').append(inputField);
+// $('.msg-text-chat').append(body);
 
                 }
             }

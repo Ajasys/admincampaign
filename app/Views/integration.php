@@ -8,13 +8,12 @@ $db_connection = \Config\Database::connect('second');
 $query = "SELECT 
 (select count(id) from admin_platform_integration where `platform_status`=2) as fbcount,
 (select count(id) from admin_platform_integration where `platform_status`=1) as whatsappcount 
-FROM ".$table_username."_platform_integration
+FROM " . $table_username . "_platform_integration
 WHERE `verification_status`=1";
 $rows = $db_connection->query($query);
 $resultdata = $rows->getResult();
 $result = $resultdata;
-if(isset($resultdata[0]))
-{
+if (isset($resultdata[0])) {
     $result = get_object_vars($resultdata[0]);
 }
 
@@ -48,76 +47,81 @@ if(isset($resultdata[0]))
                                 <!-- facebook -->
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('facebook_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
-                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">
-                                                        <?php 
-                                                        if(isset($result['fbcount']))
-                                                        {
-                                                            echo $result['fbcount'];
-                                                        }
-                                                        else
-                                                        {
-                                                            echo 0; 
-                                                        }?>
-                                                    </span>connections</span>
-                                            </div>
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card"
+                                            style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-
-                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40"
+                                                    x="0" y="0" viewBox="0 0 176 176"
+                                                    style="enable-background:new 0 0 512 512" xml:space="preserve"
+                                                    class="">
                                                     <g>
                                                         <g data-name="Layer 2">
                                                             <g data-name="01.facebook">
-                                                                <circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1" data-original="#3a559f"></circle>
-                                                                <path fill="#ffffff" d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z" opacity="1" data-original="#ffffff"></path>
+                                                                <circle cx="88" cy="88" r="88" fill="#3a559f"
+                                                                    opacity="1" data-original="#3a559f"></circle>
+                                                                <path fill="#ffffff"
+                                                                    d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z"
+                                                                    opacity="1" data-original="#ffffff"></path>
                                                             </g>
                                                         </g>
                                                     </g>
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Facebook</h5>
-
-
-
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end" style="height: 40px;">
-
+                                            <div class="d-flex  p-2 align-items-end justify-content-end"
+                                                style="height: 40px;">
                                                 <!-- 
                                                 <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">2</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-
-
+                                                <div class="d-flex justify-content-end align-items-center"
+                                                    style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            <?php
+                                                            if (isset($result['fbcount'])) {
+                                                                echo $result['fbcount'];
+                                                            } else {
+                                                                echo 0;
+                                                            } ?>
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('whatsapp_connections') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
-                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">
-                                                    <?php 
-                                                        if(isset($result['whatsappcount']))
-                                                        {
-                                                            echo $result['whatsappcount'];
-                                                        }
-                                                        else
-                                                        {
-                                                            echo 0; 
-                                                        }?>
-                                                        </span>connections</span>
-                                            </div>
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card"
+                                            style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="hovered-paths">
+                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40"
+                                                    x="0" y="0" viewBox="0 0 176 176"
+                                                    style="enable-background:new 0 0 512 512" xml:space="preserve"
+                                                    class="hovered-paths">
                                                     <g>
                                                         <g data-name="Layer 2">
                                                             <g data-name="09.whatsapp">
-                                                                <circle cx="88" cy="88" r="88" fill="#29a71a" opacity="1" data-original="#29a71a" class=""></circle>
+                                                                <circle cx="88" cy="88" r="88" fill="#29a71a"
+                                                                    opacity="1" data-original="#29a71a" class="">
+                                                                </circle>
                                                                 <g fill="#fff">
-                                                                    <path d="M126.8 49.2a54.57 54.57 0 0 0-87.42 63.13l-5.79 28.11a2.08 2.08 0 0 0 .33 1.63 2.11 2.11 0 0 0 2.24.87l27.55-6.53A54.56 54.56 0 0 0 126.8 49.2zm-8.59 68.56a42.74 42.74 0 0 1-49.22 8l-3.84-1.9-16.89 4 .05-.21 3.5-17-1.88-3.71a42.72 42.72 0 0 1 7.86-49.59 42.73 42.73 0 0 1 60.42 0 2.28 2.28 0 0 0 .22.22 42.72 42.72 0 0 1-.22 60.19z" fill="#ffffff" opacity="1" data-original="#ffffff" class="hovered-path"></path>
-                                                                    <path d="M116.71 105.29c-2.07 3.26-5.34 7.25-9.45 8.24-7.2 1.74-18.25.06-32-12.76l-.17-.15C63 89.41 59.86 80.08 60.62 72.68c.42-4.2 3.92-8 6.87-10.48a3.93 3.93 0 0 1 6.15 1.41l4.45 10a3.91 3.91 0 0 1-.49 4l-2.25 2.92a3.87 3.87 0 0 0-.35 4.32c1.26 2.21 4.28 5.46 7.63 8.47 3.76 3.4 7.93 6.51 10.57 7.57a3.82 3.82 0 0 0 4.19-.88l2.61-2.63a4 4 0 0 1 3.9-1l10.57 3a4 4 0 0 1 2.24 5.91z" fill="#ffffff" opacity="1" data-original="#ffffff" class="hovered-path"></path>
+                                                                    <path
+                                                                        d="M126.8 49.2a54.57 54.57 0 0 0-87.42 63.13l-5.79 28.11a2.08 2.08 0 0 0 .33 1.63 2.11 2.11 0 0 0 2.24.87l27.55-6.53A54.56 54.56 0 0 0 126.8 49.2zm-8.59 68.56a42.74 42.74 0 0 1-49.22 8l-3.84-1.9-16.89 4 .05-.21 3.5-17-1.88-3.71a42.72 42.72 0 0 1 7.86-49.59 42.73 42.73 0 0 1 60.42 0 2.28 2.28 0 0 0 .22.22 42.72 42.72 0 0 1-.22 60.19z"
+                                                                        fill="#ffffff" opacity="1"
+                                                                        data-original="#ffffff" class="hovered-path">
+                                                                    </path>
+                                                                    <path
+                                                                        d="M116.71 105.29c-2.07 3.26-5.34 7.25-9.45 8.24-7.2 1.74-18.25.06-32-12.76l-.17-.15C63 89.41 59.86 80.08 60.62 72.68c.42-4.2 3.92-8 6.87-10.48a3.93 3.93 0 0 1 6.15 1.41l4.45 10a3.91 3.91 0 0 1-.49 4l-2.25 2.92a3.87 3.87 0 0 0-.35 4.32c1.26 2.21 4.28 5.46 7.63 8.47 3.76 3.4 7.93 6.51 10.57 7.57a3.82 3.82 0 0 0 4.19-.88l2.61-2.63a4 4 0 0 1 3.9-1l10.57 3a4 4 0 0 1 2.24 5.91z"
+                                                                        fill="#ffffff" opacity="1"
+                                                                        data-original="#ffffff" class="hovered-path">
+                                                                    </path>
                                                                 </g>
                                                             </g>
                                                         </g>
@@ -125,29 +129,39 @@ if(isset($resultdata[0]))
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">WhatsApp</h5>
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end" style="height: 40px;">
-
-
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
                                                 <!-- <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-
-
+                                                <div class="d-flex justify-content-end align-items-center"
+                                                style="font-size:10px">
+                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                        <?php
+                                                        if (isset($result['whatsappcount'])) {
+                                                            echo $result['whatsappcount'];
+                                                        } else {
+                                                            echo 0;
+                                                        } ?>
+                                                    </span>
+                                                        connections
+                                                </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
-
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
-                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">0</span>connections</span>
-                                            </div>
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card"
+                                            style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center"style="font-size:10px"></div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
-                                                    <radialGradient id="yOrnnhliCrdS2gy~4tD8ma_Xy10Jcu1L2Su_gr1" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse">
+                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48"
+                                                    height="48" viewBox="0 0 48 48">
+                                                    <radialGradient id="yOrnnhliCrdS2gy~4tD8ma_Xy10Jcu1L2Su_gr1"
+                                                        cx="19.38" cy="42.035" r="44.899"
+                                                        gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#fd5"></stop>
                                                         <stop offset=".328" stop-color="#ff543f"></stop>
                                                         <stop offset=".348" stop-color="#fc5245"></stop>
@@ -156,88 +170,126 @@ if(isset($resultdata[0]))
                                                         <stop offset=".761" stop-color="#cc39a4"></stop>
                                                         <stop offset=".841" stop-color="#c837ab"></stop>
                                                     </radialGradient>
-                                                    <path fill="url(#yOrnnhliCrdS2gy~4tD8ma_Xy10Jcu1L2Su_gr1)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"></path>
-                                                    <radialGradient id="yOrnnhliCrdS2gy~4tD8mb_Xy10Jcu1L2Su_gr2" cx="11.786" cy="5.54" r="29.813" gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse">
+                                                    <path fill="url(#yOrnnhliCrdS2gy~4tD8ma_Xy10Jcu1L2Su_gr1)"
+                                                        d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z">
+                                                    </path>
+                                                    <radialGradient id="yOrnnhliCrdS2gy~4tD8mb_Xy10Jcu1L2Su_gr2"
+                                                        cx="11.786" cy="5.54" r="29.813"
+                                                        gradientTransform="matrix(1 0 0 .6663 0 1.849)"
+                                                        gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#4168c9"></stop>
-                                                        <stop offset=".999" stop-color="#4168c9" stop-opacity="0"></stop>
+                                                        <stop offset=".999" stop-color="#4168c9" stop-opacity="0">
+                                                        </stop>
                                                     </radialGradient>
-                                                    <path fill="url(#yOrnnhliCrdS2gy~4tD8mb_Xy10Jcu1L2Su_gr2)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"></path>
-                                                    <path fill="#fff" d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z"></path>
+                                                    <path fill="url(#yOrnnhliCrdS2gy~4tD8mb_Xy10Jcu1L2Su_gr2)"
+                                                        d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z">
+                                                    </path>
+                                                    <path fill="#fff"
+                                                        d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z">
+                                                    </path>
                                                     <circle cx="31.5" cy="16.5" r="1.5" fill="#fff"></circle>
-                                                    <path fill="#fff" d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"></path>
+                                                    <path fill="#fff"
+                                                        d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z">
+                                                    </path>
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Instagram</h5>
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end" style="height: 40px;">
-
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
                                                 <!-- 
                                                 <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-
-
+                                                <div class="d-flex justify-content-end align-items-center"style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            0
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
-
-
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('email_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
-                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">0</span>connections</span>
-                                            </div>
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card"
+                                            style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center"style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40"
+                                                    x="0" y="0" viewBox="0 0 512 512"
+                                                    style="enable-background:new 0 0 512 512" xml:space="preserve"
+                                                    class="">
                                                     <g>
-                                                        <path d="M64 64h384v384H64z" style="" fill="#eceff1" data-original="#eceff1" class=""></path>
-                                                        <path d="M256 296.384 448 448V148.672z" style="" fill="#cfd8dc" data-original="#cfd8dc"></path>
-                                                        <path d="M464 64h-16L256 215.616 64 64H48C21.504 64 0 85.504 0 112v288c0 26.496 21.504 48 48 48h16V148.672l192 147.68L448 148.64V448h16c26.496 0 48-21.504 48-48V112c0-26.496-21.504-48-48-48z" style="" fill="#f44336" data-original="#f44336" class=""></path>
+                                                        <path d="M64 64h384v384H64z" style="" fill="#eceff1"
+                                                            data-original="#eceff1" class=""></path>
+                                                        <path d="M256 296.384 448 448V148.672z" style="" fill="#cfd8dc"
+                                                            data-original="#cfd8dc"></path>
+                                                        <path
+                                                            d="M464 64h-16L256 215.616 64 64H48C21.504 64 0 85.504 0 112v288c0 26.496 21.504 48 48 48h16V148.672l192 147.68L448 148.64V448h16c26.496 0 48-21.504 48-48V112c0-26.496-21.504-48-48-48z"
+                                                            style="" fill="#f44336" data-original="#f44336" class="">
+                                                        </path>
                                                     </g>
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Email</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end" style="height: 40px;">
-
-
-                                                <!-- <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                                <!-- 
+                                                <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-
-
+                                                <div class="d-flex justify-content-end align-items-center"style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            0
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
-
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
-                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">0</span>connections</span>
-                                            </div>
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card"
+                                            style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
-                                                    <path fill="#0078d4" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z"></path>
-                                                    <path d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z" opacity=".05"></path>
-                                                    <path d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z" opacity=".07"></path>
-                                                    <path fill="#fff" d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z"></path>
+                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48"
+                                                    height="48" viewBox="0 0 48 48">
+                                                    <path fill="#0078d4"
+                                                        d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5	V37z">
+                                                    </path>
+                                                    <path
+                                                        d="M30,37V26.901c0-1.689-0.819-2.698-2.192-2.698c-0.815,0-1.414,0.459-1.779,1.364	c-0.017,0.064-0.041,0.325-0.031,1.114L26,37h-7V18h7v1.061C27.022,18.356,28.275,18,29.738,18c4.547,0,7.261,3.093,7.261,8.274	L37,37H30z M11,37V18h3.457C12.454,18,11,16.528,11,14.499C11,12.472,12.478,11,14.514,11c2.012,0,3.445,1.431,3.486,3.479	C18,16.523,16.521,18,14.485,18H18v19H11z"
+                                                        opacity=".05"></path>
+                                                    <path
+                                                        d="M30.5,36.5v-9.599c0-1.973-1.031-3.198-2.692-3.198c-1.295,0-1.935,0.912-2.243,1.677	c-0.082,0.199-0.071,0.989-0.067,1.326L25.5,36.5h-6v-18h6v1.638c0.795-0.823,2.075-1.638,4.238-1.638	c4.233,0,6.761,2.906,6.761,7.774L36.5,36.5H30.5z M11.5,36.5v-18h6v18H11.5z M14.457,17.5c-1.713,0-2.957-1.262-2.957-3.001	c0-1.738,1.268-2.999,3.014-2.999c1.724,0,2.951,1.229,2.986,2.989c0,1.749-1.268,3.011-3.015,3.011H14.457z"
+                                                        opacity=".07"></path>
+                                                    <path fill="#fff"
+                                                        d="M12,19h5v17h-5V19z M14.485,17h-0.028C12.965,17,12,15.888,12,14.499C12,13.08,12.995,12,14.514,12	c1.521,0,2.458,1.08,2.486,2.499C17,15.887,16.035,17,14.485,17z M36,36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698	c-1.501,0-2.313,1.012-2.707,1.99C24.957,25.543,25,26.511,25,27v9h-5V19h5v2.616C25.721,20.5,26.85,19,29.738,19	c3.578,0,6.261,2.25,6.261,7.274L36,36L36,36z">
+                                                    </path>
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">LinkedIn</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end" style="height: 40px;">
-
-
-                                                <!-- <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                                <!-- 
+                                                <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-
-
+                                                <div class="d-flex justify-content-end align-items-center"style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            0
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
@@ -246,34 +298,48 @@ if(isset($resultdata[0]))
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
-                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">0</span>connections</span>
-                                            </div>
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card"
+                                            style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
-                                                    <linearGradient id="PgB_UHa29h0TpFV_moJI9a_9a46bTk3awwI_gr1" x1="9.816" x2="41.246" y1="9.871" y2="41.301" gradientUnits="userSpaceOnUse">
+                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48"
+                                                    height="48" viewBox="0 0 48 48">
+                                                    <linearGradient id="PgB_UHa29h0TpFV_moJI9a_9a46bTk3awwI_gr1"
+                                                        x1="9.816" x2="41.246" y1="9.871" y2="41.301"
+                                                        gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#f44f5a"></stop>
                                                         <stop offset=".443" stop-color="#ee3d4a"></stop>
                                                         <stop offset="1" stop-color="#e52030"></stop>
                                                     </linearGradient>
-                                                    <path fill="url(#PgB_UHa29h0TpFV_moJI9a_9a46bTk3awwI_gr1)" d="M45.012,34.56c-0.439,2.24-2.304,3.947-4.608,4.267C36.783,39.36,30.748,40,23.945,40	c-6.693,0-12.728-0.64-16.459-1.173c-2.304-0.32-4.17-2.027-4.608-4.267C2.439,32.107,2,28.48,2,24s0.439-8.107,0.878-10.56	c0.439-2.24,2.304-3.947,4.608-4.267C11.107,8.64,17.142,8,23.945,8s12.728,0.64,16.459,1.173c2.304,0.32,4.17,2.027,4.608,4.267	C45.451,15.893,46,19.52,46,24C45.89,28.48,45.451,32.107,45.012,34.56z"></path>
-                                                    <path d="M32.352,22.44l-11.436-7.624c-0.577-0.385-1.314-0.421-1.925-0.093C18.38,15.05,18,15.683,18,16.376	v15.248c0,0.693,0.38,1.327,0.991,1.654c0.278,0.149,0.581,0.222,0.884,0.222c0.364,0,0.726-0.106,1.04-0.315l11.436-7.624	c0.523-0.349,0.835-0.932,0.835-1.56C33.187,23.372,32.874,22.789,32.352,22.44z" opacity=".05"></path>
-                                                    <path d="M20.681,15.237l10.79,7.194c0.689,0.495,1.153,0.938,1.153,1.513c0,0.575-0.224,0.976-0.715,1.334	c-0.371,0.27-11.045,7.364-11.045,7.364c-0.901,0.604-2.364,0.476-2.364-1.499V16.744C18.5,14.739,20.084,14.839,20.681,15.237z" opacity=".07"></path>
-                                                    <path fill="#fff" d="M19,31.568V16.433c0-0.743,0.828-1.187,1.447-0.774l11.352,7.568c0.553,0.368,0.553,1.18,0,1.549	l-11.352,7.568C19.828,32.755,19,32.312,19,31.568z"></path>
+                                                    <path fill="url(#PgB_UHa29h0TpFV_moJI9a_9a46bTk3awwI_gr1)"
+                                                        d="M45.012,34.56c-0.439,2.24-2.304,3.947-4.608,4.267C36.783,39.36,30.748,40,23.945,40	c-6.693,0-12.728-0.64-16.459-1.173c-2.304-0.32-4.17-2.027-4.608-4.267C2.439,32.107,2,28.48,2,24s0.439-8.107,0.878-10.56	c0.439-2.24,2.304-3.947,4.608-4.267C11.107,8.64,17.142,8,23.945,8s12.728,0.64,16.459,1.173c2.304,0.32,4.17,2.027,4.608,4.267	C45.451,15.893,46,19.52,46,24C45.89,28.48,45.451,32.107,45.012,34.56z">
+                                                    </path>
+                                                    <path
+                                                        d="M32.352,22.44l-11.436-7.624c-0.577-0.385-1.314-0.421-1.925-0.093C18.38,15.05,18,15.683,18,16.376	v15.248c0,0.693,0.38,1.327,0.991,1.654c0.278,0.149,0.581,0.222,0.884,0.222c0.364,0,0.726-0.106,1.04-0.315l11.436-7.624	c0.523-0.349,0.835-0.932,0.835-1.56C33.187,23.372,32.874,22.789,32.352,22.44z"
+                                                        opacity=".05"></path>
+                                                    <path
+                                                        d="M20.681,15.237l10.79,7.194c0.689,0.495,1.153,0.938,1.153,1.513c0,0.575-0.224,0.976-0.715,1.334	c-0.371,0.27-11.045,7.364-11.045,7.364c-0.901,0.604-2.364,0.476-2.364-1.499V16.744C18.5,14.739,20.084,14.839,20.681,15.237z"
+                                                        opacity=".07"></path>
+                                                    <path fill="#fff"
+                                                        d="M19,31.568V16.433c0-0.743,0.828-1.187,1.447-0.774l11.352,7.568c0.553,0.368,0.553,1.18,0,1.549	l-11.352,7.568C19.828,32.755,19,32.312,19,31.568z">
+                                                    </path>
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">YouTube</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end" style="height: 40px;">
-
-
-                                                <!-- <div class="text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                                <!-- 
+                                                <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-
-
+                                                <div class="d-flex justify-content-end align-items-center"style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            0
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
@@ -281,36 +347,59 @@ if(isset($resultdata[0]))
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
-                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">0</span>connections</span>
-                                            </div>
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card"
+                                            style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center"style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
-                                                    <path fill="#2196f3" d="M8,38c0,1.657,1.343,3,3,3h13.975L8,24.025V38z"></path>
-                                                    <path fill="#1e88e5" d="M8,16v8.025L24.975,41H38c1.657,0,3-1.343,3-3V16H8z"></path>
-                                                    <path fill="#81acea" d="M14.75,19.12c0,2.7-2.18,4.88-4.88,4.88C7.18,24,5,21.82,5,19.12V19h9.74 C14.75,19.04,14.75,19.08,14.75,19.12z"></path>
-                                                    <path fill="#3f51b5" d="M24.5,19v0.12c0,2.7-2.18,4.88-4.88,4.88c-2.69,0-4.87-2.18-4.87-4.88c0-0.04,0-0.08,0.01-0.12H24.5 z"></path>
-                                                    <path fill="#81acea" d="M34.25,19.12c0,2.7-2.18,4.88-4.88,4.88c-2.69,0-4.87-2.18-4.87-4.88V19h9.74 C34.25,19.04,34.25,19.08,34.25,19.12z"></path>
-                                                    <path fill="#3f51b5" d="M44,19v0.12c0,2.7-2.18,4.88-4.88,4.88c-2.69,0-4.87-2.18-4.87-4.88c0-0.04,0-0.08,0.01-0.12H44z"></path>
-                                                    <path fill="#82b1ff" d="M9.562,7c-0.918,0-1.718,0.625-1.94,1.516L5.01,18.98C5,18.99,5,18.99,5,19h9.766l1.5-12H9.562z"></path>
-                                                    <polygon fill="#5c6bc0" points="16.266,7 14.766,19 24.5,19 24.5,7"></polygon>
-                                                    <path fill="#5c6bc0" d="M44,19c0-0.01,0-0.01-0.01-0.02L41.378,8.516C41.156,7.625,40.356,7,39.438,7h-6.703l1.5,12H44z"></path>
-                                                    <polygon fill="#82b1ff" points="32.735,7 24.5,7 24.5,19 34.235,19"></polygon>
-                                                    <path fill="#ededed" d="M33.649,38.299c-2.563,0-4.649-2.086-4.649-4.649S31.086,29,33.649,29 c1.072,0,2.119,0.374,2.947,1.054l-1.269,1.547C34.85,31.207,34.269,31,33.649,31C32.188,31,31,32.188,31,33.649 s1.188,2.649,2.649,2.649c1.107,0,2.058-0.683,2.453-1.649h-2.1v-2h4.296v1C38.298,36.213,36.213,38.299,33.649,38.299z"></path>
+                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48"
+                                                    height="48" viewBox="0 0 48 48">
+                                                    <path fill="#2196f3"
+                                                        d="M8,38c0,1.657,1.343,3,3,3h13.975L8,24.025V38z"></path>
+                                                    <path fill="#1e88e5"
+                                                        d="M8,16v8.025L24.975,41H38c1.657,0,3-1.343,3-3V16H8z"></path>
+                                                    <path fill="#81acea"
+                                                        d="M14.75,19.12c0,2.7-2.18,4.88-4.88,4.88C7.18,24,5,21.82,5,19.12V19h9.74 C14.75,19.04,14.75,19.08,14.75,19.12z">
+                                                    </path>
+                                                    <path fill="#3f51b5"
+                                                        d="M24.5,19v0.12c0,2.7-2.18,4.88-4.88,4.88c-2.69,0-4.87-2.18-4.87-4.88c0-0.04,0-0.08,0.01-0.12H24.5 z">
+                                                    </path>
+                                                    <path fill="#81acea"
+                                                        d="M34.25,19.12c0,2.7-2.18,4.88-4.88,4.88c-2.69,0-4.87-2.18-4.87-4.88V19h9.74 C34.25,19.04,34.25,19.08,34.25,19.12z">
+                                                    </path>
+                                                    <path fill="#3f51b5"
+                                                        d="M44,19v0.12c0,2.7-2.18,4.88-4.88,4.88c-2.69,0-4.87-2.18-4.87-4.88c0-0.04,0-0.08,0.01-0.12H44z">
+                                                    </path>
+                                                    <path fill="#82b1ff"
+                                                        d="M9.562,7c-0.918,0-1.718,0.625-1.94,1.516L5.01,18.98C5,18.99,5,18.99,5,19h9.766l1.5-12H9.562z">
+                                                    </path>
+                                                    <polygon fill="#5c6bc0" points="16.266,7 14.766,19 24.5,19 24.5,7">
+                                                    </polygon>
+                                                    <path fill="#5c6bc0"
+                                                        d="M44,19c0-0.01,0-0.01-0.01-0.02L41.378,8.516C41.156,7.625,40.356,7,39.438,7h-6.703l1.5,12H44z">
+                                                    </path>
+                                                    <polygon fill="#82b1ff" points="32.735,7 24.5,7 24.5,19 34.235,19">
+                                                    </polygon>
+                                                    <path fill="#ededed"
+                                                        d="M33.649,38.299c-2.563,0-4.649-2.086-4.649-4.649S31.086,29,33.649,29 c1.072,0,2.119,0.374,2.947,1.054l-1.269,1.547C34.85,31.207,34.269,31,33.649,31C32.188,31,31,32.188,31,33.649 s1.188,2.649,2.649,2.649c1.107,0,2.058-0.683,2.453-1.649h-2.1v-2h4.296v1C38.298,36.213,36.213,38.299,33.649,38.299z">
+                                                    </path>
                                                 </svg>
-                                                <h5 class="text-center col-12 text-dark text-center mt-2">Google My Business</h5>
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">Google My
+                                                    Business</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end" style="height: 40px;">
-
-
-                                                <!-- <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                                <!-- 
+                                                <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-
-
+                                                <div class="d-flex justify-content-end align-items-center"style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            0
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
@@ -319,26 +408,32 @@ if(isset($resultdata[0]))
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
-                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
-                                                    <span class="badge rounded-pill inqq_cunt bg-success mx-1">0</span>connections</span>
-                                            </div>
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card"
+                                            style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center"style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50">
-                                                    <path d="M 11 4 C 7.134 4 4 7.134 4 11 L 4 39 C 4 42.866 7.134 46 11 46 L 39 46 C 42.866 46 46 42.866 46 39 L 46 11 C 46 7.134 42.866 4 39 4 L 11 4 z M 13.085938 13 L 21.023438 13 L 26.660156 21.009766 L 33.5 13 L 36 13 L 27.789062 22.613281 L 37.914062 37 L 29.978516 37 L 23.4375 27.707031 L 15.5 37 L 13 37 L 22.308594 26.103516 L 13.085938 13 z M 16.914062 15 L 31.021484 35 L 34.085938 35 L 19.978516 15 L 16.914062 15 z"></path>
+                                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50"
+                                                    height="50" viewBox="0 0 50 50">
+                                                    <path
+                                                        d="M 11 4 C 7.134 4 4 7.134 4 11 L 4 39 C 4 42.866 7.134 46 11 46 L 39 46 C 42.866 46 46 42.866 46 39 L 46 11 C 46 7.134 42.866 4 39 4 L 11 4 z M 13.085938 13 L 21.023438 13 L 26.660156 21.009766 L 33.5 13 L 36 13 L 27.789062 22.613281 L 37.914062 37 L 29.978516 37 L 23.4375 27.707031 L 15.5 37 L 13 37 L 22.308594 26.103516 L 13.085938 13 z M 16.914062 15 L 31.021484 35 L 34.085938 35 L 19.978516 15 L 16.914062 15 z">
+                                                    </path>
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Twitter</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end" style="height: 40px;">
-
-
-                                                <!-- <div class="text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                                <!-- 
+                                                <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-
-
+                                                <div class="d-flex justify-content-end align-items-center"style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            0
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </a>
