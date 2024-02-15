@@ -550,6 +550,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     });
 
     $('body').on('click', '.WA_account_listTab', function() {
+        $('.chat_bord').html('');
+
         $('.chat_list_loader').hide();
         $('.ChatListSetHTML').html('');
         var id = $(this).attr('id');
@@ -572,6 +574,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     });
 
     $('body').on('click', '.ChatClickOpenHtml', function() {
+        $('.chat_bord').html('');
+
         var contact_no = $(this).attr('contact_no');
         $('.SendWhatsAppMessage').attr('DataPhoneno', contact_no);
         var whatsapp_name = $(this).attr('whatsapp_name');
