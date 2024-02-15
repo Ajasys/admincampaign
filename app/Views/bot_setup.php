@@ -2713,7 +2713,7 @@ $admin_bot = json_decode($admin_bot, true);
         <div class="modal-content">
             <div class="modal-header border-bottom-0">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Bot Preview</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close chat_model_refresh" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-3 pt-1">
                 <div class="col-12 border rounded-3">
@@ -2839,7 +2839,7 @@ $admin_bot = json_decode($admin_bot, true);
             },
             success: function(data) {
                 var response = JSON.parse(data);
-                $('.skip_question').hide();
+                // $('.skip_question').hide();
                 $('.chat_again_continue').addClass('d-none');
                 $('.loader').hide();
                 $(".bot_preview_html").html(response.html);
@@ -2847,6 +2847,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
         
     }
+
     // bot_preview_data(1);
     $('body').on('click', '.chat_continue', function (e) {
         bot_preview_data(1);
@@ -2855,10 +2856,14 @@ $admin_bot = json_decode($admin_bot, true);
     $('body').on('click', '.chat_start_again', function (e) {
         bot_preview_data(1, true); 
     });
+
+    $('body').on('click', '.chat_model_refresh', function (e) {
+        window.location.reload();
+    });
+    
     //insert chat answer
     var sequence = 1;
-    $('body').on('click', '.chatting_data', function (e) {
-        e.preventDefault();
+    function insertAnswer() {
         var chatting = $('.answer_chat').val();
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
@@ -2877,12 +2882,22 @@ $admin_bot = json_decode($admin_bot, true);
                     sequence: sequence
                 },
                 success: function (res) {
-                    $('.skip_question').hide();
                     sequence++;
                     $('.answer_chat').val('');
                     bot_preview_data(sequence); 
                 }
             });
+        }
+    }
+    $('body').on('click', '.chatting_data', function (e) {
+        insertAnswer();
+    });
+
+
+    //enter chat answer insert
+    $('.answer_chat').keypress(function (e) {
+        if (e.which == 13) {
+            insertAnswer(); 
         }
     });
 
@@ -2892,19 +2907,12 @@ $admin_bot = json_decode($admin_bot, true);
     $('body').on('click', '.skip_questioned', function(e) {
         // alert();
         e.preventDefault();
-        $('.skip_question').hide();
+        // $('.skip_question').hide();
         sequence++;
         bot_preview_data(sequence);
     });
 
-    //enter chat answer insert
-    // var input = document.getElementById("answer_chat");
-    // input.addEventListener("keypress", function (event) {
-    //     if (event.key === "Enter") {
-    //         event.preventDefault();
-    //         document.getElementById("chatting_data").click();
-    //     }
-    // });
+    
 
     //page js for drag and drop
     $(".question_add").on("dragstart", function(e) {
