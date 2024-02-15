@@ -1274,21 +1274,31 @@ if($platform == 'messenger') {
 			// $delete_displaydata = $this->MasterInformationModel->update_entry2($massage_id, $update_data, $massage_table_name);
 			$count = count($massage_array);
 			$i = 0;
+			$dates = '';
 			foreach ($massage_array as $massage_key => $massage_value) {
+				$dateTime = new \DateTime($massage_value['created_time']);
+				$date = $dateTime->format('Y-m-d');
+				if($date != $dates) {
+					$html .= '<div class="col-12 text-center fs-12">'.$date.'</div>';
+					$dates = $date;
+				}
+				$time = $dateTime->format('H:i a');
+				// pre($date);
+				// pre($time);
 				$message = $massage_value['message'];
 				if (!empty($message)) {
 					if ($_POST['page_id'] == $massage_value['from']['id']) {
 						$html .= '
 								<div class="d-flex mb-4 justify-content-end" >
-                                <div class="col-6 text-end">
-                                    <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $message . '</span>
+                                <div class="col-9 text-end">
+									<span class="me-2" style="font-size:12px;">'.$time.'</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $message . ' </span> 
                                 </div>
                             </div>';
 					} else {
 						$html .= '
 							<div class="d-flex mb-4 ">
-								<div class="col-6 text-start">
-									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $message . '</span>
+								<div class="col-9 text-start">
+									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $message . ' </span> <span class="ms-2" style="font-size:12px;">'.$time.'</span>
 								</div>
 							</div>';
 					}
@@ -1305,64 +1315,7 @@ if($platform == 'messenger') {
 
 	public function send_massage()
 	{
-		// send massage to whatsapp,facebook and insta
-
-		// $curl = curl_init();
-
-		// $page_id = "196821650189891";
-		// $massage = "hello";
-		// $psid = "24658518140462514";
-
-		// curl_setopt_array(
-		// 	$curl,
-		// 	array(
-		// 		CURLOPT_URL => 'https://graph.facebook.com/v19.0/'.$page_id.'/messages',
-		// 		CURLOPT_RETURNTRANSFER => true,
-		// 		CURLOPT_ENCODING => '',
-		// 		CURLOPT_MAXREDIRS => 10,
-		// 		CURLOPT_TIMEOUT => 0,
-		// 		CURLOPT_FOLLOWLOCATION => true,
-		// 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		// 		CURLOPT_CUSTOMREQUEST => 'POST',
-		// 		CURLOPT_POSTFIELDS => '{
-		// 			"messaging_type": "MESSAGE_TAG",
-		// 			"recipient": {
-		// 				"id": "'.$psid.'"
-		// 			},
-		// 			"message": {
-		// 				"text": "'.$massage.'"
-		// 			}
-		// 		}',
-		// 		CURLOPT_HTTPHEADER => array(
-		// 			'Content-Type: application/json',
-		// 			'Authorization: Bearer EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L',
-		// 			'Cookie: ps_l=0; ps_n=0'
-		// 		),
-		// 	)
-		// );
-
-		// $response = curl_exec($curl);
-
-		// curl_close($curl);
-		// echo $response;
-
-		// Facebook page access token
-		$access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-
-		// Recipient ID (Facebook User ID or Page ID)
-		$recipient_id = '24658518140462514';
-
-		// Message you want to send
-		$message_text = 'Hello, this is a test message!';
-
-		// Facebook Graph API endpoint for sending messages
-		$endpoint = "https://graph.facebook.com/v19.0/196821650189891/messages";
-
-		// Parameters for the POST request
-		$params = '{"messaging_type" : "UPDATE","recipient" : {"id" : "' . $recipient_id . '"},"message" : {"text" : "' . $message_text . '"},"access_token" : "' . $access_token . '"}';
-		$reponce = postSocialData($endpoint, $params);
-		echo 'Response: ';
-		print_r($reponce);
+		
 
 	}
 }
