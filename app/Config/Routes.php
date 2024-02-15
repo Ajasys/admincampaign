@@ -593,7 +593,12 @@ $routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessage
 	$routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
 	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
 	$routes->post('/GetWhatsAppTemplateDetails', 'WhatAppIntegrationController::GetWhatsAppTemplateDetails');
-$routes->post('/WhatsAppConnectionsList', 'WhatAppIntegrationController::WhatsAppConnectionsList');
+	$routes->post('/WhatsAppConnectionsList', 'WhatAppIntegrationController::WhatsAppConnectionsList');
+	$routes->post('/WhatsAppAccountsContactList', 'WhatAppIntegrationController::WhatsAppAccountsContactList');
+	$routes->post('/WhatsAppListConverstion', 'WhatAppIntegrationController::WhatsAppListConverstion');
+	$routes->post('/SendWhatsAppChatMessage', 'WhatAppIntegrationController::SendWhatsAppChatMessage');
+
+
 
 
 
