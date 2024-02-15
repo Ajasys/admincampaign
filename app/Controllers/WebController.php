@@ -29,12 +29,13 @@ class WebController extends BaseController
     {
         $conn = \Config\Database::connect('second');
 
-        $access_token = $_POST['access_token'];
-        $name = $_POST['name'];
-        $mobileno = $_POST['mobileno'];
-        $email = $_POST['email'];
-        $message = $_POST['message'];
+        $access_token = $this->request->getPost("access_token");
+        $name = $this->request->getPost("name");
+        $mobileno = $this->request->getPost("mobileno");
+        $email = $this->request->getPost("email");
+        $message = $this->request->getPost("message");
 
+        echo $access_token;
         if (isset($access_token) && isset($name) && isset($mobileno)) {
             $query = "SELECT * FROM `master_user`";
             $result_page = $conn->query($query);
@@ -43,7 +44,7 @@ class WebController extends BaseController
                 $allRows = $result_page->getResultArray();
                 foreach ($allRows as $key => $row) {
 
-                    $query_mater = "SELECT * FROM " . $row['username'] . "_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
+                    echo $query_mater = "SELECT * FROM " . $row['username'] . "_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
                     $results = $conn->query($query_mater);
                     $rows = $results->getResultArray();
 
@@ -495,7 +496,6 @@ class WebController extends BaseController
                 $insert_data['intrested_product'] = $int_product;
                 $insert_data['user_id'] = $assign_to;
                 $insert_data['is_status'] = $is_status;
-                $insert_data['status'] = 1;
                 $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
                 $result_array['id'] = $response_status_log;
                
@@ -532,6 +532,7 @@ class WebController extends BaseController
                     $result_array['msg'] = $connection_name . " Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
                     $this->db->query('UPDATE '.$this->username.'_fb_pages SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE connection_id=' . $connection_id . '');
+             
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = $connection_name . " Updated successfully";
                 } else {

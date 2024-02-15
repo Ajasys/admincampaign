@@ -120,6 +120,7 @@ $routes->post('/food_master_update_data', 'MasterInformation::food_master_update
 $routes->post('/login_insert_data', 'Userlogin::insert_data');
 $routes->get('/checkout', 'Razorpay::index');
 $routes->get('biometric_member_attendance', 'CronController::biometric_member_attendance');
+$routes->post('/web_integrate', 'WebController::web_integrate');
 $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/pdf_view', 'UserInformation::pdf_view');
 	$routes->get('/allinquiry', 'Home::allinquiry');
@@ -567,7 +568,6 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/delete_fb_connection', 'FacebookController::delete_fb_connection');
 
 	//website connection
-	$routes->post('/web_integrate', 'WebController::web_integrate');
 	$routes->get('/website_connection', 'Home::website_connection');
 	$routes->post('/add_website_connection', 'WebController::add_website_connection');
 	$routes->post('/website_connection_list', 'WebController::website_connection_list');
