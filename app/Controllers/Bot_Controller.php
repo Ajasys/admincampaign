@@ -960,65 +960,66 @@ class Bot_Controller extends BaseController
 										</span>
 									</div>';
 					
-					// Display answer if it's not empty
-					if (!empty($value['answer'])) {
-						$html .= '<div class="col-12 mb-2 text-end ">
-									<span class="p-1 rounded-pill text-white d-inline-block bg-secondary px-3">
-										' . $value['answer'] . '
-									</span>
-								</div>';
-					}
+									if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
+										$html .= '<div class="col-12 mb-2">
+																	<button class="btn bg-primary rounded-pill text-white skip_questioned">
+																		Skip
+																	</button>
+																</div>';
+									}
 					
-					$html .= '</div>';
+									if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
+										$menuOptions = json_decode($value['menu_message'], true);
+					
+										if (isset($menuOptions['options'])) {
+											$options = explode(';', $menuOptions['options']);
+											foreach ($options as $option) {
+												$html .= '<div class="col-12 mb-2 option-wrapper">
+																					 <button class="btn bg-primary rounded-pill text-white option-button" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
+																				  </div>';
+											}
+										}
+									}
+					
+									$html .= '</div>';
+					
+									$html .= '<script>
+													function selectOption(button, value) {
+														$(".answer_chat").val(value);
+														$(".option-button").hide();
+													}
+													</script>';
+					
+									$html .= '</div>
+												<div class="messege2 d-flex flex-wrap  ">
+													<div class="col px-2">';
+					
+													if (!empty($value['answer'])) {
+										$html .= '<div class="col-12 mb-2 text-end ">
+															<span class="p-1 rounded-pill text-white d-inline-block  bg-secondary  px-3">
+					
+															' . $value['answer'] . '
+															</span>
+														</div>
+													</div>
+													<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
+														<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+													</div>
+												</div>';
+									}
+					// // Display answer if it's not empty
+					// if (!empty($value['answer'])) {
+					// 	$html .= '<div class="col-12 mb-2 text-end ">
+					// 				<span class="p-1 rounded-pill text-white d-inline-block bg-secondary px-3">
+					// 					' . $value['answer'] . '
+					// 				</span>
+					// 			</div>';
+					// }
+					
+					// $html .= '</div>';
 				}
 
-				if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
-					$html .= '<div class="col-12 mb-2">
-												<button class="btn bg-primary rounded-pill text-white skip_questioned">
-													Skip
-												</button>
-											</div>';
-				}
-
-				if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
-					$menuOptions = json_decode($value['menu_message'], true);
-
-					if (isset($menuOptions['options'])) {
-						$options = explode(';', $menuOptions['options']);
-						foreach ($options as $option) {
-							$html .= '<div class="col-12 mb-2 option-wrapper">
-																 <button class="btn bg-primary rounded-pill text-white option-button" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
-															  </div>';
-						}
-					}
-				}
-
-				$html .= '</div>';
-
-				$html .= '<script>
-								function selectOption(button, value) {
-									$(".answer_chat").val(value);
-									$(".option-button").hide();
-								}
-								</script>';
-
-				$html .= '</div>
-							<div class="messege2 d-flex flex-wrap  ">
-								<div class="col px-2">';
-
-				if ($value['answer'] != '') {
-					$html .= '<div class="col-12 mb-2 text-end ">
-										<span class="p-1 rounded-pill text-white d-inline-block  bg-secondary  px-3">
-
-										' . $value['answer'] . '
-										</span>
-									</div>
-								</div>
-								<div class="border  rounded-circle overflow-hidden " style="width:35px;height:35px">
-									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-								</div>
-							</div>';
-				}
+				
 
 
 			}
