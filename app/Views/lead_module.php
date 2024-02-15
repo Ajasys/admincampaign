@@ -432,17 +432,18 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                         <div class="big_circle_fb_list all_circle_plus_list all_circle_plus_list1 bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
                                             <form>
-                                                <div class="col-12">
+                                                <!-- <div class="col-12">
                                                     <label class="form-label main-label fs-14 text-nowrap mt-3">Website URL <sup class="validationn">*</sup></label>
                                                     <input type="url" class="form-control main-control" name="website_url" placeholder="Enter your website URL" id="website_url" required>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-12">
                                                     <label class="form-label main-label fs-14 text-nowrap">API</label>
-                                                    <input type="text" class="form-control form-main" placeholder="" disabled>
+                                                    <input type="text" class="form-control form-main" placeholder="" readonly>
                                                 </div>
                                                 <div class="col-12">
-                                                    <label class="form-label main-label fs-14 text-nowrap">Access Token</label>
-                                                    <textarea id=""  rows="3" class="form-control form-main" placeholder=""></textarea>
+                                                    <label class="form-label main-label fs-14 text-nowrap">Access Token :</label>
+                                                    <!-- <p></p> -->
+                                                    <textarea id=""  rows="3" class="form-control form-main" placeholder="" readonly>ajasyscheckfortest</textarea>
                                                 </div>
 
                                                 <div class="text-end mt-3 page_frm_save">
@@ -453,7 +454,7 @@ $user_data = $user_result->getResultArray();
                                             </form>
                                         </div>
                                         <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
-                                            <b>Website Pages & Forms</b>
+                                            <b>Website Connection</b>
                                         </h6>   
                                     </div>  
                                     <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
