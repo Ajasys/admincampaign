@@ -1258,6 +1258,8 @@ class WhatAppIntegrationController extends BaseController
         $post_data = $_POST;
         $template_name = $post_data['template_name'];
         $phone_no = $post_data['phone_no'];
+        $countrey_code = $post_data['countrey_code'];
+
         $language = $post_data['language'];
         $template_id = $post_data['template_id'];
         $cuurrenttime = gmdate('Y-m-d H:i:s');
@@ -1290,7 +1292,7 @@ class WhatAppIntegrationController extends BaseController
             $postData = json_encode([
                 "messaging_product" => "whatsapp",
                 "recipient_type" => "individual",
-                "to" => $phone_no,
+                "to" =>  $countrey_code . $phone_no,
                 "type" => "template",
                 "template" => [
                     "name" => $template_name,
