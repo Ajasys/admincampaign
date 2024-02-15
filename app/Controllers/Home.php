@@ -491,6 +491,9 @@ class Home extends BaseController
             'status varchar(500) NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_username . '_messeging_bot', '', $columns_bot);
+
+    
+
         return view('messenger_bot');
     }
 
@@ -510,7 +513,66 @@ class Home extends BaseController
 
     public function messenger()
     {
-        return view('messenger');
+        $table_username = getMasterUsername2();
+        $db_connection = \Config\Database::connect('second');
+        $responseArray = array();
+        $MetaUrl = config('App')->metaurl;
+        $html = '';
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $table_name = $username . '_platform_integration';
+        $db_connection = \Config\Database::connect('second');
+        $query90 = "SELECT * FROM $table_name WHERE platform_status = 1";
+        $result = $db_connection->query($query90);
+        $total_dataa_userr_22 = $result->getResult();
+        if (isset($total_dataa_userr_22[0])) {
+            $settings_data = $result->getResultArray();
+        } else {
+            $settings_data = array();
+        }
+        $count = 0;
+        if (!empty($settings_data)) {
+            foreach ($settings_data as $key => $value) {
+                $phone_number_id = $value['phone_number_id'];
+                $business_account_id = $value['business_account_id'];
+                $access_token = $value['access_token'];
+                $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
+                $DataArray = getSocialData($url);
+                if (isset($DataArray['data'])) {
+                    $display_phone_number = '';
+                    $verified_name = '';
+                    $qualityReating = '';
+                    $qualityColor = '';
+                    if (isset($DataArray['data'][0]['display_phone_number'])) {
+                        $display_phone_number = $DataArray['data'][0]['display_phone_number'];
+                    }
+                    if (isset($DataArray['data'][0]['verified_name'])) {
+                        $verified_name = $DataArray['data'][0]['verified_name'];
+                    }
+                    if (isset($DataArray['data'][0]['throughput']['level'])) {
+                        $qualityReating = $DataArray['data'][0]['throughput']['level'];
+                    }
+                    if (isset($DataArray['data'][0]['quality_rating'])) {
+                        $$qualityColor = $DataArray['data'][0]['quality_rating'];
+                    }
+                    $phoneNumber = $display_phone_number;
+                    if ($display_phone_number != '' && $value['id'] != '' && $verified_name != '') {
+                        $responseArray[] = array(
+                            'display_phone_number' => $display_phone_number,
+                            'id' => $value['id'],
+                            'verified_name' => $verified_name,
+                        );
+                    }
+                }
+            }
+        }
+
+
+        $responseArray = json_encode($responseArray);
+        $data['WhatsAppAccounts'] = $responseArray;
+ 
+        return view('messenger', $data);
     }
 
     public function bot_installer()

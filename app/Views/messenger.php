@@ -1,7 +1,11 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
-<?php $table_username = getMasterUsername(); ?>
+<?php $table_username = getMasterUsername();
+
+$WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
+
+?>
 
 <style>
     body {
@@ -57,6 +61,7 @@
     .active-tab {
         background-color: #007145;
     }
+
     @keyframes moving {
         50% {
             width: 100%;
@@ -68,16 +73,20 @@
             /* left: unset; */
         }
     }
+
     .account-box {
         background-color: white;
     }
+
     .active-account-box {
         background-color: #eaeaea9c;
         border-right: 1px solid #b55dcd;
     }
+
     .chat-account-box {
         background-color: white;
     }
+
     .chat-account-active {
         background-color: #eaeaea9c;
         border-right: 2px solid #724ebf;
@@ -150,8 +159,26 @@
                                         </button>
                                     </h2>
                                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body WA_account_list p-0">
+
+                                        <?php
+
+                                        if (isset($WhatsAppAccountsData) && !empty($WhatsAppAccountsData)) {
+                                            foreach ($WhatsAppAccountsData as $key => $value) {
+                                                echo '<div class="accordion-body  WA_account_list  WA_account_listTab p-0 account-box" id ="' . $value['id'] . '" phoneno = "' . $value['display_phone_number'] . '" name="' . $value['verified_name'] . '"> 
+                                                <div class="col-12  my-2 " data-page_id="17841457874373728" data-platform="instagram" data-page_access_token="EAADNF4vVgk0BO6ZBcyZCiZCY5FGuPPWKb7npn8YcXafmqIexQxBgMPRZAAttSOgFr6NqP2B74icpZAcvL5pJgwv4ZBdTsM4Neik41DvLdjprcNSGdIfty83qi5CkzEAyuXUeEYVQf9lNRy9GtaDhFZBYBpKKyZCkfGqAB6wcfP8cvcx8mjcXrbpYEfbq0XYucWT81gzkkywZD" data-page_name="ajasystechnologies">
+                                                    <div class="col-12 d-flex flex-wrap  align-items-center  p-2">
+                                                            <img src="https://erp.gymsmart.in/assets/image/member.png" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" alt="" height="100" width="100">
+                                                         <div class="ps-2">
+                                                            <p class="fs-6 fw-medium col">' . $value['verified_name'] . '</p>
+                                                            <span class="fs-12 text-muted">+ 91 990234523</span>
+                                                         </div>   
+                                                    </div>
                                         </div>
+</div>';
+                                            }
+                                        }
+
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -297,7 +324,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll chat_list p-2" style="max-height: 100%;">
+                        <div class="col-12 overflow-y-scroll ChatListSetHTML chat_list p-2" style="max-height: 100%;">
                             <div class="col-12 text-center">
                                 <p class="fs-5 fw-medium mt-5">No Record Found</p>
                             </div>
@@ -311,14 +338,14 @@
                             <div class="d-flex flex-wrap bg-white rounded-pill py-1 border">
                                 <div class="input-group  position-relative ">
                                     <input type="text" class="form-control rounded-pill px-4 py-2 border-0 massage_input" placeholder="Enter Your Quithions">
-                                    <button class="btn btn-primary rounded-circle me-1 px-3 send_massage" data-conversion_id="" data-page_token="" data-page_id="" data-massage_id=""><i class="fa-solid fa-caret-right"></i></button>
+                                    <button class="btn btn-primary rounded-circle me-1 px-3 send_massage SendWhatsAppMessage" DataPhoneno="" DataSenderId="" data-conversion_id="" data-page_token="" data-page_id="" data-massage_id=""><i class="fa-solid fa-caret-right"></i></button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="chat-nav-search-bar p-2 mt-2 col-12">
                             <div class="d-flex justify-content-between border-bottom align-items-center">
-                                <h5 class="fs-5 d-flex  align-content-center ps-2 pb-2"><i class="fa-solid fa-circle-user fs-5 me-2"></i><span class="username">Chat Name</span></h5>
+                                <h5 class="fs-5 d-flex  align-content-center ps-2 pb-2"><i class="fa-solid fa-circle-user fs-5 me-2"></i><span class="username UserChatName">Chat Name</span></h5>
                                 <button class="bg-transparent border-0"><i class="fa-regular fa-star"></i></button>
                             </div>
                         </div>
@@ -392,7 +419,6 @@
 
 
 <script>
-
     $('body').on('click', '.account-box', function() {
 
         $(this).addClass('active-account-box');
@@ -405,7 +431,6 @@
         $(this).siblings().removeClass('chat-account-active');
 
     });
-
 </script>
 <script>
     $(document).ready(function() {
@@ -522,5 +547,78 @@
             });
             // } 
         });
+    });
+
+    $('body').on('click', '.WA_account_listTab', function() {
+        $('.chat_list_loader').hide();
+        $('.ChatListSetHTML').html('');
+        var id = $(this).attr('id');
+        $('.SendWhatsAppMessage').attr('DataSenderId', id);
+        var phoneno = $(this).attr('phoneno');
+        var name = $(this).attr('name');
+        $('.page_name').text(name);
+        $.ajax({
+            method: "post",
+            url: "WhatsAppAccountsContactList",
+            data: {
+                id: id,
+                phoneno: phoneno,
+                name: name
+            },
+            success: function(data) {
+                $('.ChatListSetHTML').html(data);
+            }
+        });
+    });
+
+    $('body').on('click', '.ChatClickOpenHtml', function() {
+        var contact_no = $(this).attr('contact_no');
+        $('.SendWhatsAppMessage').attr('DataPhoneno', contact_no);
+        var whatsapp_name = $(this).attr('whatsapp_name');
+        var account_phone_no = $(this).attr('account_phone_no');
+        var fcontact_no = $(this).attr('fcontact_no');
+        $('.massage_list_loader').hide();
+        $('.massage_list_loader').hide();
+        var fullnameDetail = '';
+        if (whatsapp_name != '') {
+            fullnameDetail = whatsapp_name + ' (' + fcontact_no + ')';
+        } else {
+            fullnameDetail = fcontact_no;
+        }
+        $('.UserChatName').text(fullnameDetail);
+        $.ajax({
+            method: "post",
+            url: "WhatsAppListConverstion",
+            data: {
+                contact_no: contact_no,
+            },
+            success: function(data) {
+                $('.chat_bord').html(data);
+
+            }
+        });
+    });
+
+
+    // SendWhatsAppMessage" data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="" DataSenderId
+    $('body').on('click', '.SendWhatsAppMessage', function() {
+        var DataSenderId = $(this).attr('DataSenderId');
+        var DataPhoneno = $(this).attr('DataPhoneno');
+        var massage_input = $('.massage_input').val();
+        if (DataSenderId !== undefined && DataSenderId !== 'undefined' && DataSenderId != '' && DataPhoneno !== undefined && DataPhoneno !== 'undefined' && DataPhoneno != '' && massage_input != '') {
+            $.ajax({
+                method: "post",
+                url: "SendWhatsAppChatMessage",
+                data: {
+                    DataSenderId: DataSenderId,
+                    DataPhoneno: DataPhoneno,
+                    massage_input: massage_input
+                },
+                success: function(data) {
+                    $('.ChatListSetHTML .active-account-box').trigger('click');
+                }
+            });
+        }
+        $('.massage_input').val('');
     });
 </script>

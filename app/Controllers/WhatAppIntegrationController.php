@@ -1454,4 +1454,109 @@ class WhatAppIntegrationController extends BaseController
         $html .= '<script>$(".CountedNumberT").text('.$count.'); $(".CountedNumberT").attr("total","'.$count.'");  </script>';
         echo $html;
     }
+
+    public function WhatsAppListConverstion()
+    {
+        $contact_no = $_POST['contact_no'];
+        $table_username = getMasterUsername2();
+        $Database = \Config\Database::connect('second');
+        $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE contact_no = "' . $contact_no . '"';
+        $Getresult = $Database->query($sql);
+        $GetData = $Getresult->getResultArray();
+        $html = '';
+        foreach ($GetData as $key => $value) {
+            $sent_recieved_status = $value['sent_recieved_status'];
+            $formattedDate = Utctodate('Y-m-d h:i A', timezonedata(), $value['created_at']);
+            $formattedtime = date('h:i A', strtotime('2024-02-15 06:46:21'));
+            $msgtype = $value['message_type'];
+            if ($msgtype == 1) {
+                if ($sent_recieved_status == '2') {
+                    $html .= '
+                        <div class="d-flex mb-4 ">
+                            <div class="col-9 text-start">
+                                <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $value['message_contant'] . ' </span> <span class="ms-2" style="font-size:12px;">'.$formattedtime.'</span>
+                            </div>
+                        </div>';
+                }
+                if ($sent_recieved_status == '1') {
+                    $html .= '
+								<div class="d-flex mb-4 justify-content-end" >
+                                <div class="col-9 text-end">
+									<span class="me-2" style="font-size:12px;">' . $formattedtime  . '</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">'.$value['message_contant'].'</span> 
+                                </div>
+                            </div>';
+                }
+            }
+        }
+
+        $html .= '<script>$(".massage_list_loader").hide();</script>';
+        echo $html;
+    }
+
+    public function SendWhatsAppChatMessage()
+    {
+        $DataSenderId = $_POST['DataSenderId'];
+        $DataPhoneno =  $_POST['DataPhoneno'];
+        $massage_input = $_POST['massage_input'];
+
+
+ 
+
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+
+        $table_name = $username . '_platform_integration';
+
+        $ConnectionData = get_editData2($table_name, $DataSenderId);
+        // pre($ConnectionData);
+        // die();
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
+            }
+        }
+
+        if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
+            $JsonDataString = '{
+                                "messaging_product": "whatsapp",
+                                "recipient_type": "individual",
+                                "to": "' . $DataPhoneno . '",
+                                "type": "text",
+                                "text": { 
+                                "preview_url": false,
+                                "body": "' . $massage_input . '"
+                                }
+                            }';
+
+
+            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+
+            $Result = postSocialData($url, $JsonDataString);
+            if (isset($Result) && !empty($Result)) {
+                if (isset($Result['messages'][0]['id']) && isset($Result['contacts'][0]['wa_id'])) {
+                    $insert_data['contact_no'] = $Result['contacts'][0]['wa_id'];
+                    $insert_data['platform_account_id'] = $DataSenderId;
+                    $insert_data['message_status'] = '0';
+                    $insert_data['created_at'] = gmdate('Y-m-d H:i:s');
+                    $insert_data['conversation_id'] = $Result['messages'][0]['id'];
+                    $insert_data['platform_status'] = '1';
+                    $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
+                    $insert_data['message_type'] = '1';
+                    $insert_data['sent_recieved_status'] = '1';
+                    $insert_data['message_contant'] = $massage_input;
+                    $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
+                }
+            }
+        }
+        // pre($Result);
+        die();
+    }
 }
