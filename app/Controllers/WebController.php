@@ -466,4 +466,85 @@ class WebController extends BaseController
         }
         echo json_encode($return_array);
     }
+
+    //Submit page ,form and other details.
+    function website_connectionpage()
+    {
+        $this->db = \Config\Database::connect('second');
+        $action = $this->request->getPost("action");
+        $connection_id = $this->request->getPost("connection_id");
+        $connection_name = $this->request->getPost("connection_name");
+        $int_product = $this->request->getPost("int_product") ? $this->request->getPost("int_product") : 0;
+        $sub_type = $this->request->getPost("sub_type") ? $this->request->getPost("sub_type") : 0;
+        if ($this->request->getPost("assign_to") == 1) {
+            $assign_to = "'" . $this->request->getPost("staff_to") . "'";
+        } else {
+            $assign_to = $this->request->getPost("assign_to") ? $this->request->getPost("assign_to") : 0;
+        }
+
+        $is_status = $this->request->getPost("is_status") ? $this->request->getPost("is_status") : 0;
+        $query = $this->db->query("SELECT * FROM ".$this->username."_fb_pages where connection_id=" . $connection_id . "");
+        $result_facebook_data = $query->getResultArray();
+        $count_num = $query->getNumRows();
+        $result_array = array();
+        if (!empty($action) && $action == "page") {
+            if ($count_num == 0) {
+                $insert_data['master_id'] = $_SESSION['master'];
+                $insert_data['connection_id'] = $connection_id;
+                $insert_data['property_sub_type'] = $sub_type;
+                $insert_data['intrested_product'] = $int_product;
+                $insert_data['user_id'] = $assign_to;
+                $insert_data['is_status'] = $is_status;
+                $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
+                $result_array['id'] = $response_status_log;
+               
+            } else {
+                if ($result_facebook_data[0]['is_status'] == 0) {
+                    //is_status==0-for fresh to connection
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE connection_id=' . $connection_id . '');
+                    $result_array['respoance'] = 1;
+                    $result_array['msg'] = $connection_name . " re-connect successfully";
+                } else if ($result_facebook_data[0]['is_status'] == 1) {
+                    //is_status==1-for delete to connection
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=0 WHERE connection_id=' . $connection_id . '');
+                    $result_array['respoance'] = 1;
+                    $result_array['msg'] = $connection_name . " re-connect successfully";
+                } else if ($result_facebook_data[0]['is_status'] == 3) {
+                    //is_status==0-for draft to connection
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE connection_id=' . $connection_id . '');
+                
+                    $result_array['respoance'] = 1;
+                    $result_array['msg'] = $connection_name . " connection successfully";
+                } else if ($this->request->getPost("edit_id") == $result_facebook_data[0]['id'] && ($is_status == 3)) {
+                    //is_status == 2//old to new
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=2 WHERE connection_id=' . $connection_id . '');
+                    $insert_data['master_id'] = $_SESSION['master'];
+                    $insert_data['connection_id'] = $connection_id;
+                    $insert_data['property_sub_type'] = $sub_type;
+                    $insert_data['intrested_product'] = $int_product;
+                    $insert_data['user_id'] = $assign_to;
+                    $insert_data['is_status'] = $is_status;
+                   
+                    $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
+           
+                    $result_array['respoance'] = 1;
+                    $result_array['msg'] = $connection_name . " Connected successfully";
+                } else if ($this->request->getPost("edit_id")) {
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `property_sub_type`=' . $sub_type . ',`intrested_product`=' . $int_product . ',`user_id`=' . $assign_to . ' WHERE connection_id=' . $connection_id . '');
+             
+                    $result_array['respoance'] = 1;
+                    $result_array['msg'] = $connection_name . " Updated successfully";
+                } else {
+                    $result_array['respoance'] = 0;
+                    $result_array['msg'] = "Duplicate Form not Allow";
+                }
+            }
+        } else {
+            $status = $this->request->getPost("status");
+            $this->db->query('UPDATE '.$this->username.'_fb_pages SET `status`=' . $status . ' WHERE connection_id=' . $connection_id . '');
+            $result_array['respoance'] = 1;
+        }
+        echo json_encode($result_array, true);
+        die();
+    }
 }

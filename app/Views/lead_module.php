@@ -144,9 +144,13 @@
 $table_username = session_username($_SESSION['username']);
 $product = json_decode($product, true);
 $this->db = \Config\Database::connect('second');
-$conn_query = "SELECT * FROM " . $table_username . "_platform_integration Where master_id=" . $_SESSION['master'] . " AND platform_status=2";
+$conn_query = "SELECT * FROM " . $table_username . "_platform_integration Where master_id=" . $_SESSION['master'] . " AND platform_status=2 AND verification_status=1";
 $conn_result = $this->db->query($conn_query);
 $conn_rows = $conn_result->getResultArray();
+
+$webconn_query = "SELECT * FROM " . $table_username . "_platform_integration Where master_id=" . $_SESSION['master'] . " AND platform_status=5  AND verification_status=1";
+$webconn_result = $this->db->query($webconn_query);
+$webconn_rows = $webconn_result->getResultArray();
 
 $user_get = "SELECT * FROM " . $table_username . "_user WHERE switcher_active = 'active' ORDER BY id ASC";
 $user_result = $this->db->query($user_get);
@@ -258,9 +262,8 @@ $user_data = $user_result->getResultArray();
                                                 </li>
                                                 <li class="py-1">
                                                     <a class="dropdown-item cursor-pointer" id="website_lead">
-                                                        <img src="https://ajasys.com/img/favicon.png" width="35px"
-                                                            alt="realtosmart" class="me-2">
-                                                        <span>Website Lead Setting</span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="30" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>                        
+                                                        <span> Website Lead Setting</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -414,19 +417,7 @@ $user_data = $user_result->getResultArray();
                                             <div
                                                 class="big_circle_fb_inner p-5 rounded-circle position-relative page-profile">
                                                 <div class="z-2 position-relative fb_div_hide1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                        xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80"
-                                                        x="0" y="0" viewBox="0 0 512 512"
-                                                        style="enable-background:new 0 0 512 512" xml:space="preserve"
-                                                        class="">
-                                                        <g>
-                                                            <path fill-rule="evenodd"
-                                                                d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z"
-                                                                fill="#ffffff" data-original="#000000" opacity="1"
-                                                                class=""></path>
-                                                        </g>
-                                                    </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>
                                                 </div>
                                             </div>
                                         </div>
@@ -436,19 +427,31 @@ $user_data = $user_result->getResultArray();
                                                     <label class="form-label main-label fs-14 text-nowrap mt-3">Website URL <sup class="validationn">*</sup></label>
                                                     <input type="url" class="form-control main-control" name="website_url" placeholder="Enter your website URL" id="website_url" required>
                                                 </div> -->
-                                                <div class="col-12">
-                                                    <label class="form-label main-label fs-14 text-nowrap">API</label>
-                                                    <input type="text" class="form-control form-main" placeholder="" readonly>
+                                                <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
+                                                    Name</label>
+                                                <div class="main-selectpicker">
+                                                    <select id="web_conn_id"
+                                                        class="selectpicker form-control form-main web_conn_id" required>
+                                                        <option value="">select Connection</option>
+                                                        <?php foreach ($webconn_rows as $key => $value) {
+                                                            echo "<option value=" . $value['id'] . "  data-access-token=" . $value['access_token'] . " data-connection-check=" . $value['verification_status'] . ">" . $value['website_name'] . "</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
                                                 </div>
-                                                <div class="col-12">
-                                                    <label class="form-label main-label fs-14 text-nowrap">Access Token :</label>
-                                                    <!-- <p></p> -->
-                                                    <textarea id=""  rows="3" class="form-control form-main" placeholder="" readonly>ajasyscheckfortest</textarea>
+
+                                                <div class="col-12 webDiv">
+                                                    <label class="form-label main-label fs-14 text-nowrap">API</label>
+                                                    <textarea id="web_api"  rows="3" class="form-control form-main" placeholder="" readonly>curl -X POST -d  <br>"https://ajasys.in/web_integrate?name=<name_value>&mobileno=<mobileno_value>&email=<email_value>&description=<description_value>&access_token=<access_token_value>"</textarea>
+                                                </div>
+                                                <div class="col-12 webDiv">
+                                                    <label class="form-label main-label fs-14 text-nowrap">Access Token</label>
+                                                    <textarea id="web_token"  rows="3" class="form-control form-main" placeholder="" readonly></textarea>
                                                 </div>
 
                                                 <div class="text-end mt-3 page_frm_save">
                                                     <button
-                                                        class="btn-primary d-inline-block big_falcebook_circle_2_sbt"
+                                                        class="btn-primary d-inline-block big_website_circle_2_sbt"
                                                         edit-id="">Save</button>
                                                 </div>
                                             </form>
@@ -594,7 +597,7 @@ $user_data = $user_result->getResultArray();
 <script>
     $(document).ready(function () {
 
-        $(".lead_add_main_box,.delete_div,.update_div,.draft_div,.staff").hide();
+        $(".lead_add_main_box,.delete_div,.update_div,.draft_div,.staff,.webDiv").hide();
 
         $('body').on('click', '.discard_main_box', function () {
             $(".lead_module_devider , .big_circle_plus_outer , .all_circle_plus_list , .big_circle_fb_outer , .add_next_big_plus_outer").hide();
@@ -1081,6 +1084,78 @@ $user_data = $user_result->getResultArray();
         }
     });
 
+
+    $('body').on('click', '.big_website_circle_2_sbt', function () {
+        $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
+        var connection_id = $("#web_conn_id option:selected").val();
+        var connection_name = $("#web_conn_id option:selected").text();
+        var int_product = $(".product option:selected").val();
+        var sub_type = $(".sub_type option:selected").val();
+        var assign_to = $(".assign_to option:selected").val();
+        
+        var edit_id = $(this).attr('edit_id');
+        if (int_product > 0 && assign_to != "") {
+            var draft_status = 0;
+        } else {
+            var draft_status = 3;
+        }
+        if (connection_id > 0) {
+            $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").show();
+            $.ajax({
+                type: "post",
+                url: "<?= site_url('website_connectionpage'); ?>",
+                data: {
+                    action: 'page',
+                    connection_id: connection_id,
+                    connection_name:connection_name,
+                    int_product: int_product,
+                    sub_type: sub_type,
+                    assign_to: assign_to,
+                    edit_id: edit_id,
+                    is_status: draft_status,
+                },
+                success: function (res) {
+                    var result = JSON.parse(res);
+                    $('.discard_main_box').val(result.id);
+      
+                    $(".big_list_add_outer_main_4 .all_circle_plus_list").hide();
+                    if (result.respoance == 1) {
+                   
+                    } else {
+                        iziToast.error({
+                            title: result.msg,
+                        });
+                    }
+                },
+                error: function (error) {
+                    $('.loader').hide();
+                }
+            });
+            return false;
+        } else {
+            var form = $("form[name='pagelist']")[0];
+            $(form).find('.selectpicker').each(function () {
+                var selectpicker_valid = 0;
+                if ($(this).attr('required') == 'undefined') {
+                    var selectpicker_valid = 0;
+                }
+                if ($(this).attr('required') == 'required') {
+                    var selectpicker_valid = 1;
+                }
+                if (selectpicker_valid == 1) {
+                    if ($(this).val() == 0 || $(this).val() == '') {
+                        $(this).closest("div").addClass('selectpicker-validation');
+                    } else {
+                        $(this).closest("div").removeClass('selectpicker-validation');
+                    }
+                } else {
+                    $(this).closest("div").removeClass('selectpicker-validation');
+                }
+            });
+            return false;
+        }
+    });
+
     $('body').on('click', '.delete_account', function () {
         var delete_id = $(this).attr('data-delete_id');
         iziToast.delete({
@@ -1371,6 +1446,20 @@ $user_data = $user_result->getResultArray();
         });
     }
 
+    $('body').on('change', '#web_conn_id', function () {
+        var web_access_token = $(this).find(':selected').data('access-token');
+        var web_check_conn = $(this).find(':selected').data('connection-check');
+        if (web_access_token != '' && web_check_conn==1) {
+           $('.webDiv').show();
+           $('#web_token').html(web_access_token);
+        } else {
+            $('.webDiv').hide();
+            $('#web_token').html('');
+            iziToast.error({
+                title: 'Please select your connection..!'
+            });
+        }
+    });
 
     function getPagesList(fb_access_token, fb_check_conn) {
         $.ajax({
