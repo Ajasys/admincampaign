@@ -2859,25 +2859,14 @@ $admin_bot = json_decode($admin_bot, true);
                     sequence: sequence
                 },
                 success: function (res) {
-                    console.log(res);
-                        $('.skip_question').hide();
-                        sequence++;
-                        $('.answer_chat').val('');
+                    $('.skip_question').hide();
+                    sequence++;
+                    $('.answer_chat').val('');
                     bot_preview_data(sequence); 
                 }
             });
         }
     });
-
-
-    //enter chat answer insert
-    // var input = document.getElementById("answer_chat");
-    // input.addEventListener("keypress", function (event) {
-    //     if (event.key === "Enter") {
-    //         event.preventDefault();
-    //         document.getElementById("chatting_data").click();
-    //     }
-    // });
 
 
     //skip question next question can set
@@ -2890,6 +2879,14 @@ $admin_bot = json_decode($admin_bot, true);
         bot_preview_data(sequence,'skip_question');
     });
 
+    //enter chat answer insert
+    // var input = document.getElementById("answer_chat");
+    // input.addEventListener("keypress", function (event) {
+    //     if (event.key === "Enter") {
+    //         event.preventDefault();
+    //         document.getElementById("chatting_data").click();
+    //     }
+    // });
 
     //page js for drag and drop
     $(".question_add").on("dragstart", function(e) {
