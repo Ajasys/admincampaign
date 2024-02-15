@@ -180,24 +180,26 @@ class CreateController extends BaseController
 
             $html .= '<div class="card-header mb-2 col-12 col-sm-5 col-md-12 col-xl-5 col-xxl-3 border rounded-4 bg-white p-3 shadow mx-2" id="post_card">
             <div class="col-12 d-flex flex-wrap border-bottom">
-                <div class="me-2">
+                <div class="me-2" data-bs-toggle="modal" data-bs-target="#comment-modal">
                     <img class="rounded-circle" src="' . $data_img . '" alt="#" style="width:40px;height:40px;">
                 </div>
                 <div class="col">
                     <div class="col-12 d-flex flex-wrap justify-content-between">
-                        <h5 class="col-10">' . $page_namee . '</h5>
+                        <h5 class="col-10" data-bs-toggle="modal" data-bs-target="#comment-modal">' . $page_namee . '</h5>
                         <div class="btn-group dropdown">
                             <div class="col-2" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                                <i class="fa-solid fa-ellipsis-vertical cursor-pinter"></i>
                             </div>
-                            <ul class="dropdown-menu">
-                                <p class="delete_post_facebook" data-delete_id="' . $value['id'] . '">Delete Post</p>
+                            <ul class="dropdown-menu border-0 bg-transparent">
+                                <div class="d-inline-block bg-white border p-2 rounded-2">
+                                    <button class="btn btn-danger bg-danger delete_post_facebook" data-delete_id="' . $value['id'] . '">Delete</button>
+                                </div>
                             </ul>
                         </div>
 
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" data-bs-toggle="modal" data-bs-target="#comment-modal">
                         <span class="text-muted">
                             <span class="fs-14">' . $facebook_upload_time . '</span>
                         </span>
@@ -210,8 +212,8 @@ class CreateController extends BaseController
             <div class="col-12 my-2">
                 <p class="fs-14">' . $fb_titile . '</p>
             </div>
-            <div class="col-12">
-                <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden" style="width:295px; height: 295px; overflow: hidden;">
+            <div class="col-12" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="min-height: 295px; max-height: 295px; overflow: hidden;">
                     <img src="' . $fb_upload_img . '" alt="#" class="object-fit-content" style="width:290px; height: auto; max-height:290px;">
                 </div>
             </div>
@@ -220,7 +222,7 @@ class CreateController extends BaseController
                 <div class="col-6 d-flex flex-wrap rounded-3 text-muted" >
                     <button class="btn w-100 like_button border-0"><i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i>Like</button>
                 </div>
-                <div class="col-6 d-flex flex-wrap rounded-3">
+                <div class="col-6 d-flex flex-wrap rounded-3" data-bs-toggle="modal" data-bs-target="#comment-modal">
                     <div class="btn w-100 text-muted d-flex p-0 border-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto"></i><div class="my-auto"> Comment</div></div>
                 </div>
             </div>
@@ -349,7 +351,7 @@ class CreateController extends BaseController
 
 
                 $comments_html .= '<div class="d-flex">
-                <div class="col-12 d-flex flex-wrap  my-1 p-2 border rounded-3 d-flex">
+                <div class="col-12 d-flex flex-wrap  my-1 p-2  rounded-3 d-flex">
                     <div>
                         <img class="rounded-circle me-2"
                             src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=9qjkhS9gmdUAX-2J9y7&amp;_nc_oc=AQky_tG-iOP3AdkBy_o83i2Tvjg_ZDX9zQZMqzlphf-YR-RgBPwqmtoOKuvTx333A6A-JJgTtVCMgUkU5ifXr1Hj&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCo_kgqoIaCT6fQk2AqiNCtydAZFeqWYfMuAZkX91nyvg&amp;oe=65CE56C5"
@@ -362,27 +364,15 @@ class CreateController extends BaseController
                             <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><span class="mx-1 text-muted">' . $facebook_comment_time . '</span><span class="mx-2 text-muted">Like</span></div>
                             <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 Replay_btn fdsfgdfg"  style="cursor:pointer;">Replay</span></div>
                         </div>
-                        <div class="border p-2 bg-dark-subtle rounded-3 comment_box d-none">
-                        <div class="d-flex justify-content-between">
-                            <div class="col">
-                                <input type="text" value="" id="input_comment" class="bg-dark-subtle comment_input p-2 w-100 border-0 "0>
-                            </div>
-                            <div>
-                                <button type="button" class="comment_btn_close btn-close justify-content-end "></button>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-between">
-                            <div>
-
-                            </div>
-                            <div>
-                                <button class="btn btn-link comment-send-btn comment_send" data-post_id =' . $comment_value['id'] . '><i class="bi bi-send" style="color: blue;"></i></button>
+                        <div class="border rounded-3 comment_box d-none">
+                            <div class="d-flex justify-content-between">
+                                <div class="col">
+                                    <input type="text" value="" id="input_comment" class="comment_input p-2 w-100 border-0 " placeholder="Add comment...">
+                                </div>
+                                <button class="btn btn-link comment-send-btn comment_send" data-post_id =' . $comment_value['id'] . '><i class="bi bi-send text-primary" style="color: blue;"></i></button>
                             </div>
                         </div>
                     </div>
-                    </div>
-
                 </div>
             </div>';
             }

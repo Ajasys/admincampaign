@@ -80,7 +80,7 @@
     }
 
     .active-account-box {
-        background-color: #eaeaea9c;
+        background-color: #aaaaaa9c;
         border-right: 1px solid #b55dcd;
     }
 
@@ -94,6 +94,25 @@
             right: 0;
             /* left: unset; */
         }
+    }
+
+    .cursor-pinter {
+        cursor: pointer;
+    }
+
+    .swiper-button-next:after {
+        font-size: 25px !important;
+        color: #858585;
+        font-weight: 900;
+    }
+
+    .swiper-button-prev:after {
+        font-size: 25px !important;
+        color: #858585;
+        font-weight: 900;
+    }
+    input{
+        outline: none;
     }
 </style>
 <div class="main-dashbord p-2">
@@ -118,7 +137,7 @@
                             $img_decode = json_decode($pageprofile, true);
                             ?>
 
-                            <div class="col-12 d-flex flex-wrap  align-items-start">
+                            <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
                                 <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])): ?>
                                     <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>"
                                         data-acess_token="<?php echo $value->access_token; ?>"
@@ -348,7 +367,7 @@
                     </div>
                     <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3"
                         style="max-height:700px;">
-                        <div class="demo_list_data  d-flex flex-wrap" id="demo_list_data"></div>
+                        <div class="demo_list_data  d-flex flex-wrap col-12" id="demo_list_data"></div>
                     </div>
                 </div>
             </div>
@@ -383,7 +402,8 @@
                     </div>
                     <div class="modal-footer">
                         <!-- <button class="btn btn-primary" data-bs-target="" data-bs-toggle="modal" data-bs-dismiss="modal"></button> -->
-                        <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal">Back to first</button>
+                        <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal">Back to
+                            first</button>
                     </div>
 
                 </div>
@@ -563,21 +583,109 @@
 
 
         <!-- post comment modal -->
-        <div class="modal fade" id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade show d-block" id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header ">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Comments</h1>
+                    <div class="modal-header p-2 py-3">
+                        <div class="col-11 d-flex flex-wrap ">
+                            <div class="me-2" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                                <img class="rounded-circle"
+                                    src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=0TEiKYItlngAX_Ns_i1&amp;_nc_oc=AQk3YbtUJ7KyXL-g6j6xMjQuMCdaeyYB3aG9sW1OhvdtEgz__SFpYb9nEtrPSIeyfoHYbS9eMFyqg3JEXIi77ErR&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCYEfsnxuyriahsInOArWDb4GVQEZTrhSXz_i5jFLkLXg&amp;oe=65D24B45"
+                                    alt="#" style="width:40px;height:40px;">
+                            </div>
+                            <div class="col">
+                                <div class="col-12 d-flex flex-wrap justify-content-between">
+                                    <h5 class="col-10" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                                        Realtosmart
+                                    </h5>
+                                </div>
+
+                                <div class="col-12" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                                    <span class="text-muted">
+                                        <span class="fs-14">5 days ago</span>
+                                    </span>
+                                    <span>
+                                        <i class="fa-solid fa-earth-asia fs-14 fw-muted"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body overflow-y-scroll" id="comments_list" style="max-height:400px;">
-
+                    <div class="modal-body p-2" style="max-height:700px;overflow-y:scroll;             ">
+                        <div class="card-header mb-2 col-12" id="post_card">
+                            <div class="col-12 ">
+                                <div class="swiper mySwiper position-relative">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <div
+                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8"
+                                                    alt="#" class="object-fit-content w-100">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div
+                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8"
+                                                    alt="#" class="object-fit-content w-100">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div
+                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8"
+                                                    alt="#" class="object-fit-content w-100">
+                                            </div>
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <div
+                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8"
+                                                    alt="#" class="object-fit-content w-100">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <!-- <div class="swiper-pagination position-absolute end-0 bg-white"></div> -->
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-12 p-1 mt-2 d-flex post-btn-box flex-wrap align-items-center">
+                                    <span class="cursor-pointer">
+                                        <button class="btn p-0 w-100 like_button border-0">22<i
+                                                class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i
+                                                class="fa-solid fa-thumbs-up d-none mx-2"
+                                                id="like_icon_lite"></i></button>
+                                    </span>
+                                    <span class="cursor-pointer">
+                                        <div class="btn w-100 text-muted d-flex p-0 border-0" data-bs-toggle="modal"
+                                            data-bs-target="#comment-modal" id="post_commnet_modal"><i
+                                                class="fa-regular fa-comment mx-2 my-auto "></i>
+                                        </div>
+                                    </span>
+                                </div>
+                                <p class="text-muted fs-12 overflow-hidden text-wrap">
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima, dolor Lorem ipsum
+                                    dolor sit, amet consectetur adipisicing elit. Nobis magni ea inventore
+                                    exercitationem est numquam dolores ducimus ab quidem quibusdam similique fuga, in
+                                    voluptatem aliquam asperiores...</p>
+                                <div id="comments_list" class="col-12"></div>
+                            </div>
+                        </div>
                     </div>
+                    <!-- <div class="modal-body overflow-y-scroll" id="comments_list"  style="max-height:400px;">
+
+                    </div> -->
                     <!-- <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary">Understood</button>
                     </div> -->
+                    <div class="modal-footer">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -960,19 +1068,32 @@
                 var b = '<div class="mx-2 rounded-3 border overflow-hidden" style="width:150px;height:150px"><img src="https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" class="w-100 h-100"></div>'
                 var a = $('.add-img-input').length;
                 // alert(a);
-                if(a == 0){
+                if (a == 0) {
                     var a = '<div class="mx-3 rounded-3 overflow-hidden position-relative d-flex justify-content-center  align-items-center " style="width:150px;height:150px;border:1px dashed gray"><div class="w-100 h-100 position-absolute add-img-input" data-bs-toggle="modal" data-bs-target="#get_file"></div><p class="fs-1">+</p></div>'
                     $('.img-input').append(a);
                     $('.img-placeholder').append(b);
                 }
-                else{
+                else {
                     $('.img-placeholder').append(b);
                 }
             })
             // $('body').on('click','.img-placeholder',function() {
-            //     var c = '<div class="rounded-3 border overflow-hidden" style="width:150px;height:150px"><img src="https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" class="w-100 h-100"></div>'  
+            //     var c = '<div class="rounded-3 border overflow-hidden" style="width:150px;height:150px"><img src="https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" class="w-100 h-100"></div>'
             //     $('.img-placeholder').append(c);
             // })
+
         </script>
         <?= $this->include('partials/footer') ?>
         <?= $this->include('partials/vendor-scripts') ?>
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                pagination: {
+                    el: ".swiper-pagination",
+                    type: "fraction",
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        </script>
