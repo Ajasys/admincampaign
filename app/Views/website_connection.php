@@ -58,7 +58,7 @@ function generateAccessToken($length = 32) {
                     <h2 class="mx-2">Website Connections</h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end  col-1">
-                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#fbCntModal" class="btn-primary-rounded mx-2">
+                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#webSntModal" class="btn-primary-rounded mx-2">
                         <i class="bi bi-plus"></i>
                     </button>
                 </div>
@@ -93,10 +93,8 @@ function generateAccessToken($length = 32) {
                         <table id="leadTable" class="table main-table w-100">
                             <thead>
                                 <tr>
-                                    <th class="p-2 text-nowrap"><span>App Name</span></th>
-                                    <th class="p-2 text-nowrap"><span>App Id </span></th>
-                                    <th class="p-2 text-nowrap"><span>Type</span></th>
-                                    <th class="p-2 text-nowrap"><span></span></th>
+                                    <th class="p-2 text-nowrap"><span>Website Name</span></th>
+                                    <th class="p-2 text-nowrap"><span>Access Token</span></th>
                                     <th class="p-2 text-nowrap"><span>Status</span></th>
                                     <th class="p-2 text-nowrap text-center"><span></span></th>
                                 </tr>
@@ -122,7 +120,7 @@ function generateAccessToken($length = 32) {
         </div>
     </div>
 </div>
-<div class="modal fade" id="fbCntModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="webSntModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -130,7 +128,7 @@ function generateAccessToken($length = 32) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="needs-validation row" name="fb_cnt" method="POST" novalidate="">
+                <form class="needs-validation row" name="web_cnt" method="POST" novalidate="">
                     <div class="col-12">
                         <h6 class="modal-body-title">Website Name<sup class="validationn">*</sup></h6>
                         <input type="text" class="form-control main-control" id="website_name" name="website_name" placeholder="Enter your website name" required>
@@ -144,28 +142,12 @@ function generateAccessToken($length = 32) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary modal-close" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="facebook_cnt">Submit</button>
+                <button type="button" class="btn btn-primary" id="website_cnt">Submit</button>
             </div>
         </div>
     </div>
 </div>
-<!-- informaion-modal -->
-<div class="modal fade" id="informaion_connection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Permission List</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body overflow-y-scroll set-permission" style="height:400px">
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
-            </div>
-        </div>
-    </div>
-</div>
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
@@ -173,28 +155,29 @@ function generateAccessToken($length = 32) {
         list_data();
     });
 
-    //facebook connection
-    $('body').on('click', '#facebook_cnt', function() {
+    //website connection
+    $('body').on('click', '#website_cnt', function() {
+        var website_name = $("#website_name").val();
         var access_token = $("#access_token").val();
-        if (access_token != '') {
+        if (access_token != '' && website_name !='') {
             $('.loader').show();
             $.ajax({
                 type: "post",
-                url: "<?= site_url('check_fb_connection'); ?>",
+                url: "<?= site_url('add_website_connection'); ?>",
                 data: {
                     action: 'insert',
-                    access_token: access_token,
+                    access_token:access_token,
+                    website_name:website_name,
                 },
                 success: function(res) {
                     var result = JSON.parse(res);
                     if (result.response == 1 || result.response == 2) {
-                        $("form[name='fb_cnt']")[0].reset();
-                        $("form[name='fb_cnt']").removeClass("was-validated");
-                        $("#fbCntModal").modal('hide');
+                        $("form[name='web_cnt']")[0].reset();
+                        $("form[name='web_cnt']").removeClass("was-validated");
+                        $("#webSntModal").modal('hide');
 
                         list_data();
                         if (result.response == 1) {
-                            fb_permission_list(access_token);
                             iziToast.success({
                                 title: result.message,
                             });
@@ -216,7 +199,7 @@ function generateAccessToken($length = 32) {
             $('.loader').hide();
             return false;
         } else {
-            var form = $("form[name='fb_cnt']")[0];
+            var form = $("form[name='web_cnt']")[0];
             $(form).find('.selectpicker').each(function() {
                 var selectpicker_valid = 0;
                 if ($(this).attr('required') == 'undefined') {
@@ -242,7 +225,7 @@ function generateAccessToken($length = 32) {
         }
     });
 
-    function list_data(table = 'integration', pageNumber = 1, perPageCount = '10', ajaxsearch = "", action = true) {
+    function list_data(table = 'platform_integration', pageNumber = 1, perPageCount = '10', ajaxsearch = "", action = true) {
         var followupTime = '';
         perPageCount = $('#fb_length_show').val();
         var data = {
@@ -258,10 +241,8 @@ function generateAccessToken($length = 32) {
         $.ajax({
             datatype: 'json',
             method: "POST",
-            url: 'fb_connection_list',
+            url: 'website_connection_list',
             data: data,
-            processData: processdd,
-            contentType: contentType,
             success: function(res) {
                 var result = JSON.parse(res);
                 if (result.response == 1) {
@@ -286,7 +267,7 @@ function generateAccessToken($length = 32) {
         });
     }
 
-    function deletefbconn(id) {
+    function deletewebsiteconn(id) {
         var record_text = "Are you sure you want to Delete this?";
         if (id != '' && id !== undefined && id !== 'undefined') {
             Swal.fire({
@@ -301,11 +282,10 @@ function generateAccessToken($length = 32) {
                 reverseButtons: true
             }).then(function(result) {
                 if (result.value) {
-
                     $.ajax({
                         datatype: 'json',
                         method: "POST",
-                        url: 'delete_fb_connection',
+                        url: 'delete_website_connection',
                         data: {
                             id: id,
                         },
@@ -313,12 +293,12 @@ function generateAccessToken($length = 32) {
                             var result = JSON.parse(res);
                             if (result.response == 1) {
                                 iziToast.error({
-                                    title: 'Facebook app connection has been deleted successfully..!',
+                                    title: 'Website connection has been deleted successfully..!',
                                 });
                                 list_data();
                             } else {
                                 iziToast.error({
-                                    title: 'Facebook app connection has not been deleted successfully..!',
+                                    title: 'Website connection has not been deleted successfully..!',
                                 });
                             }
                         }
@@ -344,29 +324,8 @@ function generateAccessToken($length = 32) {
         var perPageCount = $(this).val();
         list_data('integration', 1, perPageCount)
     });
-    $('body').on('click', '.get-permission', function() {
-        var access_token = $(this).attr('data-access-token');
-        fb_permission_list(access_token);
-    });
-
-    function fb_permission_list(access_token) {
-        $('#informaion_connection').modal('show');
-        var data = {
-            'access_token': access_token,
-        };
-        $('.loader').show();
-        $.ajax({
-            datatype: 'json',
-            method: "POST",
-            url: 'fb_permission_list',
-            data: data,
-            success: function(res) {
-                var result = JSON.parse(res);
-                if (result.response == 1) {
-                    $('.set-permission').html(result.tableHtml);
-                }
-                $('.loader').hide();
-            }
-        });
-    }
+  
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 </script>

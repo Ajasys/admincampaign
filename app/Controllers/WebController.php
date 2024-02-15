@@ -24,19 +24,18 @@ class WebController extends BaseController
         $this->timezone = timezonedata();
     }
 
-    
+
     public function web_integrate()
     {
-        $conn = \Config\Database::connect();
+        $conn = \Config\Database::connect('second');
 
-        $access_token=$_POST['access_token'];
-        $name=$_POST['name'];
-        $mobileno=$_POST['mobileno'];
-        $email=$_POST['email'];
-        $message=$_POST['message'];
-       
-        if(isset($access_token) && isset($name) && isset($mobileno))
-        {
+        $access_token = $_POST['access_token'];
+        $name = $_POST['name'];
+        $mobileno = $_POST['mobileno'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
+
+        if (isset($access_token) && isset($name) && isset($mobileno)) {
             $query = "SELECT * FROM `master_user`";
             $result_page = $conn->query($query);
             $i = 0;
@@ -44,7 +43,7 @@ class WebController extends BaseController
                 $allRows = $result_page->getResultArray();
                 foreach ($allRows as $key => $row) {
 
-                    $query_mater = "SELECT * FROM ".$row['username']."_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
+                    $query_mater = "SELECT * FROM " . $row['username'] . "_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
                     $results = $conn->query($query_mater);
                     $rows = $results->getResultArray();
 
@@ -66,8 +65,8 @@ class WebController extends BaseController
                     } else {
                         $mobile_nffo = '0000000000';
                     }
-                  
-                    
+
+
                     date_default_timezone_set('UTC');
                     $nxt_follow_up = date('Y-m-d H:i:s');
                     $intrested_site = $row['intrested_site'];
@@ -86,15 +85,14 @@ class WebController extends BaseController
                     $cntdata_int = $conn->query($cntdata_duplicate_intergration);
                     $rowss = $cntdata_int->getResultArray();
                     $mobile_nffo = "";
-                   
+
                     if ($mobile != '') {
                         $mobile_nffo_remove = str_replace(" ", "", $mobile);
                         $mobile_nffo = substr($mobile_nffo_remove, -10);
                     }
                     $user_list_executive = array();
 
-                    if($row['user_id']==0)
-                    {
+                    if ($row['user_id'] == 0) {
                         $user_child = array();
                         $user_parent = array();
                         $sitewisechild = "SELECT t1.id AS child_id, t1.parent_id AS parent_id FROM  " . $row['username'] . "_userrole t1 LEFT JOIN " . $row['username'] . "_userrole t2 ON t1.id = t2.parent_id WHERE t2.parent_id IS NULL";
@@ -131,7 +129,7 @@ class WebController extends BaseController
                         $user_valuedata = $result1->getResultArray();
                         foreach ($user_valuedata as $key => $user_value) {
                             // if ($user_value['form_id'] == $formId) {
-                                $assign_id = $user_value['assign_id'];
+                            $assign_id = $user_value['assign_id'];
                             // }
                         }
                         $next = 1;
@@ -156,16 +154,14 @@ class WebController extends BaseController
                                 }
                             }
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $deer = 'SELECT * FROM ' . $row['username'] . '_integration where unquie_id IN ( SELECT max(unquie_id) FROM ' . $row['username'] . '_integration  where `fb_update` = 1 group by form_id )';
                         $result1 = $conn->query($deer);
                         $assign_id = 0;
                         $user_valuerows = $result1->getResultArray();
-                        foreach ($user_valuerows as $key => $user_value){
+                        foreach ($user_valuerows as $key => $user_value) {
                             // if ($user_value['form_id'] == $formId) {
-                                $assign_id = $user_value['assign_id'];
+                            $assign_id = $user_value['assign_id'];
                             // }
                         }
                         $next = 1;
@@ -180,7 +176,7 @@ class WebController extends BaseController
                                 $search = array_search($assign_id, $assignIds);
                                 $next = $assignIds[(1 + $search) % $count];
                                 $cccd = 1;
-                                break; 
+                                break;
                             }
                         }
                     }
@@ -248,11 +244,11 @@ class WebController extends BaseController
                             }
 
                             if ($responce_insert == 1) {
-                                $fb_update =1;
-                                $next_assignId =$next;
+                                $fb_update = 1;
+                                $next_assignId = $next;
                             } else {
-                                $fb_update =0;
-                                $next_assignId =0;
+                                $fb_update = 0;
+                                $next_assignId = 0;
                             }
 
                             $update_sql = "UPDATE " . $row['username'] . "_integration SET 
@@ -261,7 +257,7 @@ class WebController extends BaseController
                                     lead_status = 1,
                                     inquiry_id = '" . $insertId . "'
                                     WHERE unquie_id = '" . $lead_insertedId . "'";
-                           
+
                             $updatedata = $conn->query($update_sql);
                         } else {
                             $update_sql = "UPDATE " . $row['username'] . "_integration SET 
@@ -322,5 +318,152 @@ class WebController extends BaseController
                 echo "0 results";
             }
         }
+    }
+
+    public function add_website_connection()
+    {
+        $action = $this->request->getPost("action");
+        $access_token = $this->request->getPost("access_token");
+        $website_name = $this->request->getPost("website_name");
+
+        $result_array = array(); // Initialize $result_array here
+
+        if (isset($website_name) && isset($access_token)) {
+            $query = "SELECT * FROM " . $this->username . "_platform_integration WHERE website_name='" . $website_name . "' AND platform_status=5";
+            $int_rows = $this->db->query($query);
+            $int_result = $int_rows->getResult();
+            if (isset($int_result[0])) {
+                $int_data = get_object_vars($int_result[0]);
+                if ($int_data['verification_status'] == 1) {
+                    $result_array['response'] = 2;
+                    $result_array['message'] = $int_data['website_name'] . ' website connection already exists..!';
+                }
+            } else {
+                $insert_data['master_id'] = $_SESSION['master'];
+                $insert_data['access_token'] = $access_token;
+                $insert_data['website_name'] = $website_name;
+                $insert_data['verification_status'] = 1;
+                $insert_data['platform_status'] = 5;
+                $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_platform_integration');
+                $result_array['response'] = 1;
+                $result_array['message'] = $website_name . ' website connected successfully..!';
+            }
+        } else {
+            $result_array['response'] = 1;
+            $result_array['message'] = 'Please add all required field..!';
+        }
+
+        echo json_encode($result_array, true);
+        die();
+    }
+
+    //Listing website connection list..
+    public function website_connection_list()
+    {
+        $this->db = \Config\Database::connect('second');
+        $username = session_username($_SESSION['username']);
+        $html = "";
+        $row_count_html = '';
+        $return_array = array(
+            'row_count_html' => '',
+            'html' => '',
+            'total_page' => 0,
+            'response' => 0
+        );
+
+        $perPageCount = isset($_POST['perPageCount']) && !empty($_POST['perPageCount']) ? $_POST['perPageCount'] : 10;
+        $pageNumber = isset($_POST['pageNumber']) && !empty($_POST['pageNumber']) ? $_POST['pageNumber'] : 1;
+        $ajaxsearch = isset($_POST['ajaxsearch']) && !empty($_POST['ajaxsearch']) ? $_POST['ajaxsearch'] : '';
+
+        // Calculate the offset based on pagination parameters
+        $offset = ($pageNumber - 1) * $perPageCount;
+
+        // Build the SQL query for data retrieval
+        $find_Array_data = "SELECT * FROM " . $username . "_platform_integration 
+                            WHERE platform_status=5 ";
+
+        // Add search condition if ajaxsearch is provided
+        if (!empty($ajaxsearch)) {
+            $find_Array_data .= " AND (
+                website_name LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                access_token LIKE '%" . $_POST['ajaxsearch'] . "%'
+            ) ";
+        }
+
+
+        $find_Array_data .= " ORDER BY id DESC 
+                             LIMIT $perPageCount OFFSET $offset";
+
+        // Execute the query for data retrieval
+        $find_Array_data = $this->db->query($find_Array_data);
+        $data = $find_Array_data->getResultArray();
+
+
+        // Build the SQL query for total count
+        $find_Array_count = "SELECT COUNT(*) as total_count FROM " . $username . "_platform_integration 
+                            WHERE platform_status=5";
+
+        // Add search condition if ajaxsearch is provided
+        if (!empty($ajaxsearch)) {
+            $find_Array_count .= " AND (
+                website_name LIKE '%" . $_POST['ajaxsearch'] . "%' OR 
+                access_token LIKE '%" . $_POST['ajaxsearch'] . "%' 
+            ) ";
+        }
+
+        // Execute the query for total count
+        $count_result = $this->db->query($find_Array_count);
+        $rowCount = $count_result->getRow()->total_count;
+
+        // Calculate pagination details
+        $start_entries = $offset + 1;
+        $last_entries = min($offset + $perPageCount, $rowCount);
+
+        // Calculate total pages
+        $pagesCount = ceil($rowCount / $perPageCount);
+
+        // Generate HTML for data
+        if ($find_Array_data->getNumRows() > 0) {
+            foreach ($data as $key => $value) {
+                $html .= '<tr>
+                <td class="p-2 text-nowrap">' . $value['website_name'] . '</td>
+                <td class="p-2 text-nowrap"><p style="width: 300px;overflow: hidden;text-overflow: ellipsis;">' . $value['access_token'] . '</p></td>
+                <td class="p-2 text-nowrap">';
+                if ($value['verification_status'] == 1) {
+                    $html .=  '<span class="rounded-2 text-white fs-12 sm-btn Success">connect</span>';
+                } else {
+                    $html .=  '<span class="rounded-2 text-white fs-12 sm-btn Error">Disconnect</span>';
+                }
+                $html .=  '</td>
+                    <td class="p-2 text-nowrap text-center">
+                        <i class="fa-solid fa-trash-can text-danger px-2" onclick="deletewebsiteconn(' . $value['id'] . ');"></i>
+                    </td>
+                </tr>';
+            }
+        }
+
+        // Set response values
+        $return_array['row_count_html'] = 'Showing ' . $start_entries . ' to ' . $last_entries . ' of ' . $rowCount . ' entries';
+        $return_array['rowCount'] = $rowCount;
+        $return_array['html'] = $html;
+        $return_array['total_page'] = $pagesCount;
+        $return_array['response'] = 1;
+
+        echo json_encode($return_array);
+    }
+
+    //Delete connections..
+    public function delete_website_connection()
+    {
+        $return_array['response'] = 0;
+        if (isset($_POST['id'])) {
+            $delete_data = $this->MasterInformationModel->delete_entry2($this->username . "_platform_integration", $_POST['id']);
+            $update_data = $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `is_status`=4 WHERE connection_id=' . $_POST['id']);
+
+            if ($delete_data && $update_data) {
+                $return_array['response'] = 1;
+            }
+        }
+        echo json_encode($return_array);
     }
 }

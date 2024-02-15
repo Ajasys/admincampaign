@@ -568,6 +568,9 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	//website connection
 	$routes->post('/web_integrate', 'WebController::web_integrate');
 	$routes->get('/website_connection', 'Home::website_connection');
+	$routes->post('/add_website_connection', 'WebController::add_website_connection');
+	$routes->post('/website_connection_list', 'WebController::website_connection_list');
+	$routes->post('/delete_website_connection', 'WebController::delete_website_connection');
 	
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');

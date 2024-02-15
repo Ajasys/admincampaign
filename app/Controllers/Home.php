@@ -290,6 +290,7 @@ class Home extends BaseController
             'mail_cc varchar(200)',
             'email_radio int(11)',
             'email_from varchar(200)',
+            'website_name varchar(255)',
             "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
             "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook & 3-Email & 4-Linkedin & 5-website'",
         ];
