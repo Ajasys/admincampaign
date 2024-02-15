@@ -1187,8 +1187,10 @@ class Bot_Controller extends BaseController
 			$url = 'https://graph.facebook.com/' . $page_id . '/conversations?platform=' . $platform . '&fields=id,participants,messages.limit(1).fields(id,message,created_time,from)&pretty=0&access_token=' . $page_access_token;
 			// echo $url;
 			$data = getSocialData($url);
-			pre($data);
+			// pre($data);
 			$chat_list_html = '';
+$chat_count = count($data['data']);
+			if($chat_count > 0) {
 
 			foreach ($data['data'] as $conversion_value) {
 				$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
@@ -1204,9 +1206,16 @@ class Bot_Controller extends BaseController
 				} else {
 					$time_count_text = $times['minutes'] . ' M';
 				}
+if($platform == 'messenger') {
+						$name = 'name';
+						$key = 0;
+					} else if($platform == 'instagram') {	
+						$name = 'username';
+						$key = 1;
+					}
 				$chat_list_html .= '
 							<div class=" fw-semibold fs-12 chat-nav-search-bar my-2 col-12 chat-account-box p-1 pe-3
-							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '">
+							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="'.$conversion_value['participants']['data'][$key][$name].'">
 							<div class="d-flex flex justify-content-between align-items-center col-12">
 										<div class="col-2 p-1">';
 				if ($platform == 'messenger') {
@@ -1231,13 +1240,16 @@ class Bot_Controller extends BaseController
 				}
 				$chat_list_html .= '</div>
 									<div class="col-10 d-flex flex-wrap justify-content-between align-items-center">
-									<p class="col-12" style="font-size:18px;">' . $conversion_value['participants']['data'][1]['username'] . '</p>
-										<p class=" fs-6 text-secondary-emphasis">' . $conversion_value['messages']['data'][0]['message'] . ' <span class="ms-2">' . $time_count_text . '</span> </p>
+									<p class="col-12 ps-2" style="font-size:16px;">' . $conversion_value['participants']['data'][$key][$name] . '</p>
+										<p class="col-10 ps-2 d-flex fs-12 text-secondary-emphasis"><span class="text-truncate">' . $conversion_value['messages']['data'][0]['message'] . '</span> <span class="col-3 ms-2">' . $time_count_text . '</span> </p>
 									</div>
 									
 							</div>
 						</div>
 						';
+}
+			} else {
+				$chat_list_html .= 'No Chats Found!';
 			}
 
 			$return_result['chat_list_html'] = $chat_list_html;

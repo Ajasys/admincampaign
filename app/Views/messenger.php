@@ -106,7 +106,7 @@
                 </div> -->
 
                 <div class="col-4 col-sm-5 col-md-6 col-lg-3 col-xl-2 col-xxl-3" style="height:80vh">
-                    <div class="col-12 border rounded-start-4 bg-white" style="height:80vh">
+                    <div class="col-12 border rounded-start-4 bg-white position-lg-relative" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
                             <div class="d-flex justify-content-between align-items-center border-bottom">
                                 <div class="dropdown d-flex align-items-center ps-2 pb-2">
@@ -156,9 +156,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="m-auto acc_loader text-center">
-                            <span>Loading...</span>
-                            <div class="mx-auto chat_loader"></div>
+                        <div class="m-auto acc_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0" style="">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                                <div>
+                                    <span>Loading...</span>
+                                    <div class="mx-auto chat_loader"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-12 text-center d-none">
                             <p class="fw-semibold fs-5">No Any Record Found</p>
@@ -167,10 +171,10 @@
                 </div>
 
                 <div class="col-8 col-sm-7 col-md-6 col-lg-3 col-xl-3 col-xxl-3 chat-box" style="height:80vh">
-                    <div class="col-12 border  bg-white" style="height:80vh">
+                    <div class="col-12 border  bg-white position-relative" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
                             <div class="d-flex justify-content-between border-bottom align-items-center">
-                                <div class="dropdown d-flex align-items-center p-1">
+                                <div class="dropdown d-flex align-items-center ps-2 pb-2">
                                     <i class="fas fa-comment fs-5  me-2"></i>
                                     <h5 class="fs-5 w-semibold">Chats</h5>
                                 </div>
@@ -280,11 +284,18 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="m-auto chat_list_loader text-center">
+                        <!-- <div class="m-auto  text-center">
                             <span>Loading...</span>
                             <div class="mx-auto chat_loader"></div>
+                        </div> -->
+                        <div class="m-auto chat_list_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                                <div>
+                                    <span>Loading...</span>
+                                    <div class="mx-auto chat_loader"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-12 overflow-y-scroll chat_list p-2" style="max-height: 100%;">
                             <div class="col-12 text-center">
@@ -294,8 +305,8 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-6  position-relative transcript_box" style="height:80vh">
-                    <div class="col-12 border rounded-end-4 bg-white" style="height:80vh">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-6   transcript_box" style="height:80vh">
+                    <div class="col-12 border rounded-end-4 bg-white position-relative" style="height:80vh">
                         <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3">
                             <div class="d-flex flex-wrap bg-white rounded-pill py-1 border">
                                 <div class="input-group  position-relative ">
@@ -305,9 +316,9 @@
                             </div>
                         </div>
 
-                        <div class="chat-nav-search-bar p-3 border-bottom col-12">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="fs-5 mb-2 d-flex  align-content-center "><i class="fa-solid fa-user-pen me-2"></i>Transcript</h5>
+                        <div class="chat-nav-search-bar p-2 mt-2 col-12">
+                            <div class="d-flex justify-content-between border-bottom align-items-center">
+                                <h5 class="fs-5 d-flex  align-content-center ps-2 pb-2"><i class="fa-solid fa-circle-user fs-5 me-2"></i><span class="username">Chat Name</span></h5>
                                 <button class="bg-transparent border-0"><i class="fa-regular fa-star"></i></button>
                             </div>
                         </div>
@@ -348,9 +359,13 @@
 
                             </div> -->
                         </div>
-                        <div class="m-auto massage_list_loader text-center">
-                            <span>Loading...</span>
-                            <div class="mx-auto chat_loader"></div>
+                        <div class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                                <div>
+                                    <span>Loading...</span>
+                                    <div class="mx-auto chat_loader"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-12 overflow-y-scroll p-2 noRecourdFound" style="max-height: 100%;">
                             <div class="col-12 text-center">
@@ -435,7 +450,7 @@
             var page_id = $(this).attr("data-page_id");
             var page_access_token = $(this).attr("data-page_access_token");
             var platform = $(this).attr("data-platform");
-            $('.page_name').text($(this).attr('data-page_name'));
+            var page_name = $('.page_name').text($(this).attr('data-page_name'));
             list_data(false, 'chat_list', page_id, page_access_token, platform);
         });
 
@@ -443,6 +458,8 @@
             var conversion_id = $(this).data('conversion_id');
             var page_access_token = $(this).data('page_token');
             var page_id = $(this).data('page_id');
+            var user_name = $(this).data('user_name');
+            var page_name = $('.page_name').text();
             // var massage_id = $(this).data('massage_id');
 
             $.ajax({
