@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\MasterInformationModel;
@@ -80,10 +81,9 @@ class Home extends BaseController
 
         $responseArray = json_encode($responseArray);
 
-            $data['connections'] = $responseArray;
-            $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
-            return view('whatapp', $data);
-        
+        $data['connections'] = $responseArray;
+        $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
+        return view('whatapp', $data);
     }
     // ======phone-number-page======
     public function phone_number()
@@ -247,7 +247,7 @@ class Home extends BaseController
             'email_radio int(11)',
             'email_from varchar(200)',
             "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
-            "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook'",
+            "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook & 3-Email & 4-Linkedin & 5-website'",
         ];
         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
 
@@ -355,17 +355,6 @@ class Home extends BaseController
         ];
         $fbtable = tableCreateAndTableUpdate2($fb_table, '', $fb_column);
 
-
-        $fba_table = $table_username . '_fb_account';
-        $fba_column = [
-            'id int(11) primary key AUTO_INCREMENT NOT NULL',
-            'userid varchar(255)  NOT NULL',
-            'accessToken longtext  NOT NULL',
-            'username longtext  NOT NULL',
-            'master_id int(11) NOT NULL',
-            'user_profile longtext  NOT NULL'
-        ];
-        $fbatable = tableCreateAndTableUpdate2($fba_table, '', $fba_column);
 
         $integration_table = $table_username . '_integration';
         $integration_columns = [
@@ -513,7 +502,7 @@ class Home extends BaseController
             $sql = 'ALTER TABLE ' . $table_username . '_bot_setup ADD COLUMN answer varchar(1000) NOT NULL';
             $db_connection->query($sql);
         }
-        
+
         $table_username = getMasterUsername2();
         $columns_bot = [
             'id int primary key AUTO_INCREMENT',
