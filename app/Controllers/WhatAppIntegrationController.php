@@ -411,6 +411,57 @@ class WhatAppIntegrationController extends BaseController
         die();
     }
 
+
+    public function WhatsAppAccountsContactList()
+    {
+        // pre($_POST);
+        $id = $_POST['id'];
+        $phoneno = str_replace([' ', '+'], '', $_POST['phoneno']);
+        $name = $_POST['name'];
+        $table_username = getMasterUsername2();
+        // pre($phoneno);
+        $Database = \Config\Database::connect('second');
+        $sql = 'SELECT * FROM ' . $table_username . '_social_accounts WHERE account_phone_no = "' . $phoneno . '" AND conversation_account_id = "' . $id . '" ';
+        $Getresult = $Database->query($sql);
+        $GetData = $Getresult->getResultArray();
+        $html = '';
+        foreach ($GetData as $key => $value) {
+
+
+
+
+
+            if ($value['whatsapp_name'] == '') {
+                $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml"   contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $value['whatsapp_name'] . '" account_phone_no="' . $value['account_phone_no'] . '">
+                                            <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
+                                            <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
+                                            <div class="col text-start">
+                                                <p class="fs-12 fw-medium col text-muted">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>';
+            } else {
+                $html .=    '<div class="col-12  my-2 account-box ChatClickOpenHtml"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $value['whatsapp_name'] . '" account_phone_no="' . $value['account_phone_no'] . '">
+                                        <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
+                                        <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
+                                        <div class="col text-start">
+                                            <span class="fs-14">' . $value['whatsapp_name'] . '</span>
+                                            <p class="fs-12 fw-medium col text-muted">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                            ';
+            }
+        }
+
+
+
+        echo $html;
+    }
+
+
     public function SendMessagesHistory()
     {
         $connctionid = $_POST['connectionid'];
