@@ -177,7 +177,48 @@ class Home extends BaseController
     public function index()
     {
         $table_username = session_username($_SESSION['username']);
+        $social_accounts = [
+            'id int(255) primary key AUTO_INCREMENT',
+            'name longtext',
+            'platform_status int(10) NOT NULL DEFAULT 0 COMMENT "1-WhatsApp & 2-Facebook"',
+            'platform_account int(255) NOT NULL',
+            'profilepath longtext',
+            'whatsapp_name longtext',
+            'contact_no varchar(255) NOT NULL',
+            'account_phone_no varchar(255) NOT NULL',
+            'phone_number_id longtext',
+            'conversation_account_id int(255) NOT NULL',
 
+        ];
+        $table = tableCreateAndTableUpdate2($table_username . '_social_accounts', '', $social_accounts);
+
+        $messages = [
+            'id int(255) primary key AUTO_INCREMENT',
+            'contact_no varchar(255) NOT NULL',
+            'platform_account_id int(255) NOT NULL',
+            'platform_status int(10) NOT NULL DEFAULT 0 COMMENT "1-WhatsApp & 2-Facebook"',
+            'message_status int(255) NOT NULL DEFAULT 0 COMMENT "0-sent & 1-delivered & 2-read & 3-failed"',
+            'created_at datetime NOT NULL',
+            'delivered_date_time datetime NOT NULL',
+            'sent_date_time datetime NOT NULL',
+            'failed_date_time datetime NOT NULL',
+            'read_date_time datetime NOT NULL',
+            'conversation_id longtext',
+            'message_type int(255) NOT NULL DEFAULT 0 COMMENT "0-nofound & 1-text msg & 2-replay on msg & 3-send image and video & 4-document & 5-contact no & 6-audio & 7-location"',
+            'sent_recieved_status int(255) DEFAULT 0 COMMENT "1-sent & 2-recieve"',
+            'message_contant longtext',
+            'replay_message_id longtext',
+            'assets_type longtext',
+            'assest_id longtext',
+            'sha_id longtext',
+            'asset_file_name longtext',
+            'timestamp varchar(400)',
+            'latitude longtext',
+            'longitude longtext',
+        ];
+        $table = tableCreateAndTableUpdate2($table_username . '_messages', '', $messages);
+
+        $table_username = session_username($_SESSION['username']);
         $admin_sent_message_detail = [
             'id int primary key AUTO_INCREMENT',
             'receiver_number int(255) NOT NULL',
