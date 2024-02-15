@@ -1254,7 +1254,7 @@ $chat_count = count($data['data']);
 				if ($times['days'] >= 30) {
 					$time_count_text = (int) ($times['days'] / 30) . ' MO';
 				} else if ($times['days'] >= 7) {
-					$time_count_text = ($times['days'] / 7) . ' W';
+					$time_count_text = (int) ($times['days'] / 7) . ' W';
 				} else if ($times['days'] >= 1) {
 					$time_count_text = $times['days'] . ' D';
 				} else if ($times['hours'] > 0) {
