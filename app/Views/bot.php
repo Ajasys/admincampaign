@@ -108,7 +108,7 @@
                             <div class="d-flex align-items-center">
                                 <div class="col-md-4 my-3 text-center bot-name-tab">
                                     <div class="p-2 my-3">
-                                        <img src="<?= base_url('') ?>assets/images/bot_img/bot-1.png" class="img-fluid rounded-start mb-1" width="40px">
+                                        <img src="<?= base_url('') ?>assets/images/account.png" class="img-fluid rounded-start mb-1" width="40px">
                                         <p class="card-text mt-2"><small class="text-body-secondary fs-6 fw-bold">Bot Name</small></p>
                                     </div>
                                 </div>

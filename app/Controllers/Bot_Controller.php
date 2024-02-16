@@ -875,7 +875,6 @@ class Bot_Controller extends BaseController
 		}
 	
 		$sequence = isset($result) ? 1 : $sequence;
-	
 		$db_connection = \Config\Database::connect('second');
 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 		$resultss = $db_connection->query($sql);
@@ -884,7 +883,11 @@ class Bot_Controller extends BaseController
 	
 		if (!empty($bot_chat_data)) {
 			foreach ($bot_chat_data as $value) {
-				
+
+				// if (!empty($value['error_text']) && $value['error_text'] != 'undefined' && $value['answer'] != "aesha@123") {
+				// 	$value['question'] = $value['error_text'];
+				// }
+			
 				if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">
@@ -903,12 +906,13 @@ class Bot_Controller extends BaseController
 														</button>
 													</div>';
 										}
-
 					$html .= '</div>				
-					</div>';
+					</div>
+					';
+
+					
 
 				} else {
-
 
 					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">
@@ -925,14 +929,85 @@ class Bot_Controller extends BaseController
 													</span>
 												</div>';
 
-								if (($value['type_of_question'] == 1 && $value['skip_question'] == 6)) {
+								if (($value['type_of_question'] == 6 && $value['skip_question'] == 1) || ($value['type_of_question'] == 10 && $value['skip_question'] == 1) || ($value['type_of_question'] == 11 && $value['skip_question'] == 1) || ($value['type_of_question'] == 12 && $value['skip_question'] == 1) || ($value['type_of_question'] == 13 && $value['skip_question'] == 1) || ($value['type_of_question'] == 14 && $value['skip_question'] == 1)) {
 									$html .= '<div class="col-12 mb-2">
-																<button class="btn bg-primary rounded-pill text-white skip_questioned hide_skip_btn">
-																	Skip hellow
-																</button>
-															</div>';
+													<button class="btn bg-primary rounded-pill text-white skip_questioned hide_skip_btn">
+														Skip
+													</button>
+												</div>';
 								}
-				
+												
+								
+								$menuOptions = json_decode($value['menu_message'], true);
+								if (isset($menuOptions['rating_type']) && $menuOptions['rating_type'] === "smilies") {
+									// Output the HTML snippet for smilies
+										$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+													<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+													<div class="text-center pt-4">Please rate</div>
+													<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+												
+														<div class="col-2 mb-2 option-wrapper">
+															<button class="bg-transparent fs-14" onclick="rating(this, \'Great\')" style="border:none !important; font-size:25px !important">😍</button>
+														</div>
+														<div class="col-2 mb-2 option-wrapper">
+															<button class="bg-transparent fs-14" onclick="rating(this, \'Good\')" style="border:none !important; font-size:25px !important">😃</button>
+														</div>
+														<div class="col-2 mb-2 option-wrapper">
+															<button class="bg-transparent fs-14" onclick="rating(this, \'Okay\')" style="border:none !important; font-size:25px !important">😊</button>
+														</div>
+														<div class="col-2 mb-2 option-wrapper">
+															<button class="bg-transparent fs-14" onclick="rating(this, \'Sad\')" style="border:none !important; font-size:25px !important">😞</button>
+														</div>
+														<div class="col-2 mb-2 option-wrapper">
+															<button class="bg-transparent fs-14" onclick="rating(this, \'Bad\')" style="border:none !important; font-size:25px !important">😪</button>
+														</div>
+
+													</div>
+													</div>
+												</div>
+												</div>';
+								}else if(isset($menuOptions['rating_type']) == "stars"){
+									$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+											<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+												<div class="text-center pt-4">Please rate</div>
+													<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'Great\')" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'Good\')" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'Okay\')" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'Sad\')" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'Bad\')" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
+													</div>
+												
+												</div>';
+								}else if(isset($menuOptions['rating_type']) == "numbers"){
+									$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+										<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+											<div class="text-center pt-4">Please rate</div>
+												<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'1\')" style="border:none !important; font-size:25px !important">1</button>
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'2\')" style="border:none !important; font-size:25px !important">2</button>
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'3\')" style="border:none !important; font-size:25px !important">3</button>
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'4\')" style="border:none !important; font-size:25px !important">4</button>
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'5\')" style="border:none !important; font-size:25px !important">5</button>
+												</div>  
+											</div>';
+								}else if(isset($menuOptions['rating_type']) == "options"){
+									$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+										<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+											<div class="text-center pt-4">Please rate</div>
+											<div class=" mt-2 pb-3 px-2">
+												<div class="px-2 "><i class="fa-regular fa-circle"></i> Terrible (1 Star)</div>
+												<div class="px-2 "><i class="fa-regular fa-circle"></i> Bad (1 Star)</div>
+												<div class="px-2 "><i class="fa-regular fa-circle"></i> Okay (1 Star)</div>
+												<div class="px-2 "><i class="fa-regular fa-circle"></i> Good (1 Star)</div>
+												<div class="px-2"><i class="fa-regular fa-circle"></i> Great (1 Star)</div>
+											</div>  
+										</div>';
+								}else{
+
+								}
+
+
 								if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 									$menuOptions = json_decode($value['menu_message'], true);
 				
@@ -984,45 +1059,85 @@ class Bot_Controller extends BaseController
 													$(".answer_chat").val(selectedOptionsString);
 													insertAnswer();
 												}
+												function rating(button, value) {
+													$(".answer_chat").val(value);
+													insertAnswer();
+												}
 												</script>';
-				
 								$html .= '</div>
 								<div class="messege2 d-flex flex-wrap">
 									<div class="col px-2">';
-					
-									if ($value['answer'] != '') {
-										$html .= '<div class="col-12 mb-2 text-end ">
-															<span class="p-2 rounded-pill text-white d-inline-block bg-secondary px-3">
-															' . $value['answer'] . '
-															</span>
-														</div>
-													</div>
-													<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
-														<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-													</div>
-												</div>';
-									}
-									else if($value['answer'] != '' && $value['type_of_question'] == "3" ){
+
+								
+									if($value['answer'] != ''){
 										$html .= '<div class="col-12 mb-2 text-end">
-															<span class="p-2 rounded-pill text-white d-inline-block  bg-secondary  px-3">
-															' . $value['answer'] . '
-															</span>
-														</div>
-													</div>
-													<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
-														<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-													</div>
-												</div>';
-									}			
+													<span class="p-2 rounded-pill ghjhg text-white d-inline-block bg-secondary px-3">
+													' . $value['answer'] . '
+													</span>
+												</div>
+											</div>
+											<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+												<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+											</div>
+										</div>';
+									}
+								
+			
 				}
 
 			}
 		}
 
+	
 		$dateresult['html'] = $html;
 		return json_encode($dateresult, true);
 		die();
 	}
+
+
+
+
+
+	// public function bot_preview_data()
+	// {
+	// 	$table = $_POST['table'];
+	// 	$bot_id = $_POST['bot_id'];
+	// 	$sequence = $_POST['sequence'];
+	
+	// 	if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
+	// 		$db_connection = \Config\Database::connect('second');
+	// 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
+	// 		$result = $db_connection->query($sql)->getRowArray();
+	// 	}
+	
+	// 	$sequence = isset($result) ? 1 : $sequence;
+	
+	// 	$db_connection = \Config\Database::connect('second');
+	// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
+	// 	$resultss = $db_connection->query($sql);
+	// 	$bot_chat_data = $resultss->getResultArray();
+	// 	$html = '';
+	
+	// 	if (!empty($bot_chat_data)) {
+	// 		foreach ($bot_chat_data as $value) {
+	// 			// Check if error_text exists
+				
+				
+	// 			if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
+	// 				// Your existing code for building HTML when sequence is 1
+	// 			} else {
+	// 				// Your existing code for building HTML when sequence is not 1
+	
+	// 				// Your existing code for building HTML
+	// 			}
+	// 		}
+	// 	}
+	
+	// 	$dateresult['html'] = $html;
+	// 	return json_encode($dateresult, true);
+	// 	die();
+	// }
+	
 
 
 	public function delete_record() {
@@ -1077,7 +1192,7 @@ class Bot_Controller extends BaseController
 		$html = "";
 
 		foreach ($botdisplaydata as $key => $value) {
-			$bot_img = empty($value['bot_img']) ? base_url('') . 'assets/images/bot_img/bot-1.png' : /* bot img uploading path */ base_url('') . 'assets/images/bot_img/bot-1.png';
+			$bot_img = empty($value['bot_img']) ? base_url('') . 'assets/images/account.png' : /* bot img uploading path */ base_url('') . 'assets/images/bot_img/bot-1.png';
 			$html .= '
 			<div class="col-3 p-2">
 			<div class="card mb-3 bg-white shadow">

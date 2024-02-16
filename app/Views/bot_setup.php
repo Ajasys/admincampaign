@@ -2739,16 +2739,16 @@ $admin_bot = json_decode($admin_bot, true);
                                 <button class="btn bg-primary mx-2 px-3 text-white" id="sound-icon">
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </button>
-                                <button class="btn bg-primary text-white">
+                                <!-- <button class="btn bg-primary text-white bot_preview">
                                     <i class="fa-solid fa-rotate-right"></i>
-                                </button>
+                                </button> -->
                             </div>
                         </div>
                         <div class=" p-3 d-none border rounded sound-icon-lite" style="width:fit-content; background:white; position:absolute; left:470px; top:60px; ">muted <i class="fa-solid fa-volume-high"></i></div>
                     </div>
                     <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
                         <div class="overflow-y-scroll col-8 py-3 messege-scroll" style="min-height:400px; max-height:400px">
-                                        <div class="col-12 d-flex flex-wrap align-items-end chat_again_continue">
+                                        <!-- <div class="col-12 d-flex flex-wrap align-items-end chat_again_continue">
                                             <div class="border  rounded-circle overflow-hidden" style="width:35px;height:35px">
                                                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
                                             </div>
@@ -2761,7 +2761,7 @@ $admin_bot = json_decode($admin_bot, true);
                                                     <button class=" btn btn-secondary col-12 chat_continue">Continue</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                             <div class="bot_preview_html"></div>
                             <!-- <div class="messege1 d-flex flex-wrap  ">
@@ -2818,6 +2818,7 @@ $admin_bot = json_decode($admin_bot, true);
 </div>
 
 <?= $this->include('partials/footer') ?>
+<?= $this->include('partials/vendor-scripts') ?>
 
 <script>
    //bot chat list into preview
@@ -2863,7 +2864,7 @@ $admin_bot = json_decode($admin_bot, true);
     });
 
 
-    $('body').on('click', '.chat_start_again', function (e) {
+    $('body').on('click', '.bot_preview', function (e) {
         
         $.ajax({
             type: 'POST',
@@ -2904,10 +2905,7 @@ $admin_bot = json_decode($admin_bot, true);
         
         var rowData = [];
         var chatting = $('.answer_chat').val();
-        // var row = {
-        //     chatting: chatting
-        // };
-        // var options_value = JSON.stringify(row);
+    
 
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
@@ -4372,17 +4370,25 @@ $admin_bot = json_decode($admin_bot, true);
                 question_select: $('.question_select_5').val()
             };
 
+            var rating_type = {};
+
+            var selectedList = $('.list-group-item.active').attr('value');
+           
             var reactionArray = [Terrible, Bad, Okay, Good, Great];
 
             var valuesArray = {
-                reaction: reactionArray
+                reaction: reactionArray,
+                rating_type: selectedList
+                
             };
-
             var options_value = JSON.stringify(valuesArray);
             if (options_value === 'undefined') {
                 options_value = '';
             }
         }
+
+
+       
 
         if (type_of_question == "8") {
             var checkedDays = $('.days_val:checked').map(function() {
@@ -4988,14 +4994,7 @@ $admin_bot = json_decode($admin_bot, true);
                             </div>
                         </div>
                         
-                        <div class="col-12 my-2">
-                            <label class="form-check-label fw-semibold d-flex align-items-center py-2 Question-labal" >Enter the error message here.</label>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="Question_error_message" value="Please enter a valid answer" placeholder="Enter Error Message">
-                            </div>
-                        </div>
+                       
                     </div>
                 </form>
                 `;
@@ -5474,10 +5473,10 @@ $admin_bot = json_decode($admin_bot, true);
                         <div class="row">
                                 <div class="col-4">
                                     <div class="list-group" id="list-tab" role="tablist">
-                                        <a class="list-group-item list-group-item-action active" id="list-Smilies-list" data-bs-toggle="list" href="#list-Smilies" role="tab" aria-controls="list-Smilies">Smilies</a>
-                                        <a class="list-group-item list-group-item-action" id="list-Stars-list" data-bs-toggle="list" href="#list-Stars" role="tab" aria-controls="list-Stars">Stars</a>
-                                        <a class="list-group-item list-group-item-action" id="list-Numbers-list" data-bs-toggle="list" href="#list-Numbers" role="tab" aria-controls="list-Numbers">Numbers</a>
-                                        <a class="list-group-item list-group-item-action" id="list-Options-list" data-bs-toggle="list" href="#list-Options" role="tab" aria-controls="list-Options">Options</a>
+                                        <a class="list-group-item list-group-item-action active" id="list-Smilies-list" value="smilies" data-bs-toggle="list" href="#list-Smilies" role="tab" aria-controls="list-Smilies">Smilies</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Stars-list" value="stars" data-bs-toggle="list" href="#list-Stars" role="tab" aria-controls="list-Stars">Stars</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Numbers-list" value="numbers" data-bs-toggle="list" href="#list-Numbers" role="tab" aria-controls="list-Numbers">Numbers</a>
+                                        <a class="list-group-item list-group-item-action" id="list-Options-list" value="options" data-bs-toggle="list" href="#list-Options" role="tab" aria-controls="list-Options">Options</a>
                                     </div>
                                 </div>
                                 <div class="col-8">
@@ -5612,7 +5611,7 @@ $admin_bot = json_decode($admin_bot, true);
                                 </div>
                                 <div class="col-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
-                                        <input type="text" class="form-control date_range1" id="" value="" placeholder="DD-MM-YYYY">
+                                        <input type="text" class="form-control date_range1 start_date_range" id="" value="" placeholder="DD-MM-YYYY">
                                     </div>
                                 </div>
                                 <div class="col-4 p-2 d-flex flex-wrap align-items-center">
@@ -6464,11 +6463,12 @@ $admin_bot = json_decode($admin_bot, true);
         })
         
     })
-    // $('#date_range1').bootstrapMaterialDatePicker({
-    //     format: 'DD-MM-YYYY',
-    //     time: false,
-    //     clearButton: true
-    // });
+   
+    $('.start_date_range').bootstrapMaterialDatePicker({
+        format: 'DD-MM-YYYY',
+        time: false,
+        clearButton: true
+    });
     // $('.date_range2').bootstrapMaterialDatePicker({
     //     format: 'DD-MM-YYYY',
     //     time: false,
