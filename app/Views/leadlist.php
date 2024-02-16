@@ -69,12 +69,25 @@ if (isset($_GET['id'])) {
                     <thead>
                         <tr>
                             <th class="p-2 text-nowrap"><span>Created Date </span></th>
-                            <th class="p-2 text-nowrap"><span>Lead Id </span></th>
+                            <?php
+                            if($_GET['platform']==5)//for website
+                            {
+
+                            } 
+                            else
+                            {
+                                ?>
+                                    <th class="p-2 text-nowrap"><span>Lead Id </span></th>
+                                <?php
+                            }
+                            ?>
+                            
                             <th class="p-2 text-nowrap"><span>Name </span></th>
                             <th class="p-2 text-nowrap "><span>Mobile Number </span></th>
                             <th class="p-2 text-nowrap "><span>Inquiry Id </span></th>
                             <th class="p-2 text-nowrap text-center"><span>Inquiry<br>Status </span></th>
                             <th class="p-2 text-nowrap text-center"><span>Lead<br>Status </span></th>
+                            <th class="p-2 text-nowrap text-center"><span>Platform</span></th>
                         </tr>
                     </thead>
                     <tbody id="lead_list_data"></tbody>
@@ -189,6 +202,7 @@ if (isset($_GET['id'])) {
             'ajaxsearch': ajaxsearch,
             'action': action,
             'id':'<?php echo $_GET['id']?>',
+            'platform':'<?php echo $_GET['platform']?>',
         };
         var processdd = true;
         var contentType = "application/x-www-form-urlencoded; charset=UTF-8";
