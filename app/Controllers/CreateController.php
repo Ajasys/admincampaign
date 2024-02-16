@@ -26,7 +26,6 @@ class CreateController extends BaseController
 
     public function SendPostDataFB()
     {
-        
         // Check if the request method is POST  
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Get the message and attachments from the form data
@@ -54,7 +53,8 @@ class CreateController extends BaseController
                 $attachments_data["attachment"] = curl_file_create($tmp_name, $attachments['type'][$index], $attachments['name'][$index]);
                 // Set cURL options
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/photos',
+                    // CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/photos',
+                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/videos',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -71,9 +71,12 @@ class CreateController extends BaseController
                 // pre(json_encode($attachments_data));
                 // Execute the POST request
                 $response = curl_exec($curl);
+               
                 $data = json_decode($response);
+           
                 // $feed_post_array['attached_media[' . $index . ']'] = array('media_fbid' => $data->id);
                 $feed_post_array['attached_media[' . $index . ']'] = '{"media_fbid":"' . $data->id . '"}';
+              
             }
      
             $post_array = array_merge(
@@ -83,7 +86,7 @@ class CreateController extends BaseController
                 ),
                 $feed_post_array
             );
-           
+          
             curl_setopt_array($curll, array(
                 CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/feed',
                 CURLOPT_RETURNTRANSFER => true,
@@ -103,7 +106,7 @@ class CreateController extends BaseController
             // $re = postSocialData($api,$post_array);
 
             pre(json_decode($re));
-
+            die();
             // Check for errors
             if ($response === false) {
                 // Handle cURL error
@@ -430,7 +433,7 @@ class CreateController extends BaseController
             $response_data = json_decode($response, true);
             if (isset($response_data['id'])) {
                 $result['response'] = 1;
-                $result['message'] = 'inquiry added succesfully !';
+                // $result['message'] = 'inquiry added succesfully !';
             } else {
                 $answer =  "Failed to post reply: " . $response;
             }

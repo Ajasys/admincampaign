@@ -699,7 +699,7 @@
                 $('.nav-item').removeClass('active');
                 $(this).addClass('active');
             });
-     
+
             $('body').on('click', '.comment_send', function() {
                 var data_post_id = $(this).attr('data-post_id');
                 var input_comment = $("#comment-modal #input_comment").val();
@@ -901,17 +901,15 @@
             });
 
             $('body').on('click', '.create_comment', function() {
-                var form = $("form[name='create_form']")[0];
+                var form = $("form[name='create_form']");
                 var form = $(".add_form_Email")[0];
-
-
                 // var attachment = $('.attachment').prop('files')[0];
                 var event_address = $('.event_address').val();
                 var formData = new FormData(form);
 
                 // Append additional data to the formData object
                 formData.append('action', 'post');
-                // formData.append('attachment', attachment);
+                formData.append('attachment', attachment);
                 formData.append('event_address', event_address);
 
                 $.ajax({
@@ -1011,30 +1009,25 @@
                 $("#select-box").hide();
             });
 
-
             function readURL(input) {
                 if (input.files && input.files.length > 0) {
-                    for (var i = 0; i < input.files.length; i++) {
-                        (function(file) { // Using an IIFE to capture the file object
+                    var files = input.files;
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        if (file.type.includes('image')) {
+                            // If it's an image file, create an <img> element
                             var reader = new FileReader();
                             reader.onload = function(e) {
-                                var mediaElement;
-                                if (file.type.includes('image')) {
-                                    // If it's an image file, create an <img> element
-                                    mediaElement = '<img src="' + e.target.result + '" alt="" class="w-100 h-100">';
-                                } else if (file.type.includes('video')) {
-                                    // If it's a video file, create a <video> element
-                                    mediaElement = '<video controls class="w-100 h-100"><source src="' + e.target.result + '" type="' + file.type + '"></video>';
-                                } else {
-                                    // Unsupported file type
-                                    console.log("Unsupported file type: " + file.type);
-                                    return; // Skip this file
-                                }
+                                var mediaElement = '<img src="' + e.target.result + '" alt="" class="w-100 h-100">';
                                 var imagePlaceholder = '<div class="mx-2 rounded-3 border overflow-hidden ClassImageMember" style="width:150px;height:150px">' + mediaElement + '</div>';
                                 $('.img-placeholder').append(imagePlaceholder);
                             };
                             reader.readAsDataURL(file);
-                        })(input.files[i]);
+                        } else if (file.type.includes('video')) {
+                            // If it's a video file, create a <video> element
+                            var videoElement = '<video controls class="" style="width:150px;height:150px;"><source src="' + URL.createObjectURL(file) + '" type="' + file.type + '"></video>';
+                            $('.img-placeholder').append(videoElement);
+                        }
                     }
                 }
             }
@@ -1046,10 +1039,11 @@
 
                 for (var i = 0; i < files.length; i++) {
                     var file = files[i];
-                    console.log(file.type);
                     if (file.type.includes("image")) {
-                        // If it's an image file, display the image
-                        readURL(this);
+                        // If it's an image file, call readURL for each file
+                        readURL({
+                            files: [file]
+                        });
                     } else if (file.type.includes("video")) {
                         // If it's a video file, display a video element
                         var videoElement = '<video controls class="" style="width:150px;height:150px;"><source src="' + URL.createObjectURL(file) + '" type="' + file.type + '"></video>';
@@ -1063,12 +1057,6 @@
                     $('.img-input').append(addInput);
                 }
             });
-
-
-
-
-
-          
         </script>
         <?= $this->include('partials/footer') ?>
         <?= $this->include('partials/vendor-scripts') ?>
