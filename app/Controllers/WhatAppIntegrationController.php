@@ -1514,11 +1514,30 @@ class WhatAppIntegrationController extends BaseController
         $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE contact_no = "' . $contact_no . '"';
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
-        $html = '';
+        $html = '<script>$(".massage_list_loader").hide();</script>';
+        $dates = '';
+
         foreach ($GetData as $key => $value) {
             $sent_recieved_status = $value['sent_recieved_status'];
             $formattedDate = Utctodate('Y-m-d h:i A', timezonedata(), $value['created_at']);
-            $formattedtime = date('h:i A', strtotime('2024-02-15 06:46:21'));
+            $dateTime = new \DateTime($formattedDate);
+            $last7DaysStart = new \DateTime('-7 days');
+            $today = new \DateTime();
+            $date = $dateTime->format('d/m/Y');
+            $isWithinLast7Days = $dateTime >= $last7DaysStart;
+            if($date != $dates) {
+                if($isWithinLast7Days) {
+                    $dayOfWeek = $dateTime->format('l');
+                } else {
+                    $dayOfWeek = $dateTime->format('d/m/Y');
+                }
+                $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">'.$dayOfWeek.'</div>';
+                $dates = $date;
+            }
+
+
+
+            $formattedtime = date('h:i A', strtotime($formattedDate));
             $msgtype = $value['message_type'];
             if ($msgtype == 1) {
                 if ($sent_recieved_status == '2') {

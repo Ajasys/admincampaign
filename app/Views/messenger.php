@@ -422,8 +422,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             var platform = $(this).data('platform');
             var page_name = $('.page_name').text();
             // var massage_id = $(this).data('massage_id');
-
-            $.ajax({
+            if(conversion_id !== undefined && conversion_id !== 'undefined' && conversion_id != ''){
+                $.ajax({
                 method: "post",
                 url: "<?= site_url('get_chat_data'); ?>",
                 data: {
@@ -451,8 +451,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     $('.send_massage').attr("data-massage_id", massage_id);
                 }
             });
-
             return false;
+            }
         });
 
         $('.massage_list_loader').hide();
@@ -538,11 +538,14 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 contact_no: contact_no,
             },
             success: function(data) {
+                $('.massage_list_loader').hide();
+
                 $('.chat_bord').html(data);
                 
             }
         });
     });
+
 
 
     // SendWhatsAppMessage" data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="" DataSenderId
@@ -566,4 +569,6 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         }
         $('.massage_input').val('');
     });
+
+
 </script>
