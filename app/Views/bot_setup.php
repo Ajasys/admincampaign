@@ -1,6 +1,7 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+
 <?php $table_username = getMasterUsername(); ?>
 
 <?php
@@ -141,6 +142,12 @@ $admin_bot = json_decode($admin_bot, true);
     font-size: 12px;
 }
 
+}
+.messege1{
+    width: 100%!important;
+}
+.messege2{
+    width: 100%!important;
 }
 
 </style>
@@ -2817,8 +2824,10 @@ $admin_bot = json_decode($admin_bot, true);
     </div>
 </div>
 
+
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
+<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> -->
 
 <script>
    //bot chat list into preview
@@ -3378,7 +3387,7 @@ $admin_bot = json_decode($admin_bot, true);
                                     <textarea class="text-area form-control fs-12 fw-medium form-detail form_dropdown" placeholder="Options(comma seperated)" id=""></textarea>
                                 </div>
                                 <div class="ms-2 me-2">
-                                    <button type="button" id="updates_div_d" class="form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                    <button type="button" id="updates_div_d" class="btn form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -3447,7 +3456,7 @@ $admin_bot = json_decode($admin_bot, true);
                                 <input type="text" class="form-control url_link" aria-describedby="" value="" placeholder="Set Button Text">
                             </div>
                             <div class="col-1 mt-3">
-                                <button type="button" id="updates_div_d" class="facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                <button type="button" id="updates_div_d" class="btn facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                             </div>
                         </div>`;
 
@@ -3994,7 +4003,7 @@ $admin_bot = json_decode($admin_bot, true);
                                                 <textarea class="text-area form-control fs-12 fw-medium form-detail form_dropdown" placeholder="Options(comma seperated)" id="">${question.options}</textarea>
                                             </div>
                                             <div class="ms-2 me-2">
-                                                <button type="button" id="updates_div_d" class="form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                                <button type="button" id="updates_div_d" class="btn form_delete_b mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -4078,7 +4087,7 @@ $admin_bot = json_decode($admin_bot, true);
                                             <input type="text" class="form-control url_link" aria-describedby="" value="${rowData.url_link}" placeholder="Set Button Text">
                                         </div>
                                         <div class="col-1 mt-3">
-                                            <button type="button" id="updates_div_d" class="facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
+                                            <button type="button" id="updates_div_d" class="btn facebook_updates_d mt-4 btn-outline-danger"><i class="fa fa-trash cursor-pointer"></i></button>
                                         </div>
                                     </div>`;
                             });
@@ -5611,12 +5620,12 @@ $admin_bot = json_decode($admin_bot, true);
                                 </div>
                                 <div class="col-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
-                                        <input type="text" class="form-control date_range1 start_date_range" id="" value="" placeholder="DD-MM-YYYY">
+                                        <input type="text" class="form-control date_range1 start_date_range"  id="" value="" placeholder="DD-MM-YYYY">
                                     </div>
                                 </div>
                                 <div class="col-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
-                                        <input type="text" class="form-control date_range2" id="" value="" placeholder="DD-MM-YYYY">
+                                        <input type="text" class="form-control date_range2 end_date_range" id="" value="" placeholder="DD-MM-YYYY">
                                     </div>
                                 </div>
                             </div>
@@ -6445,33 +6454,61 @@ $admin_bot = json_decode($admin_bot, true);
 </script>
 
 <script>
-    // $('#date_range1').bootstrapMaterialDatePicker({
-    //     format: 'DD-MM-YYYY',
-    //     time: false,
-    //     clearButton: true
-    // });
-    // $('.date_range2').bootstrapMaterialDatePicker({
-    //     format: 'DD-MM-YYYY',
-    //     time: false,
-    //     clearButton: true
-    // });
-</script>
-<script>
     $(document).ready(function() {
         $(document).on("click","#sound-icon",function(){
             $(".sound-icon-lite").toggleClass("d-none");
         })
         
     })
-   
-    $('.start_date_range').bootstrapMaterialDatePicker({
-        format: 'DD-MM-YYYY',
-        time: false,
-        clearButton: true
-    });
+    
+    $('body').on('click','.start_date_range',function(){
+        $(this).bootstrapMaterialDatePicker({
+            format: 'DD-MM-YYYY',
+            time: false,
+            clearButton: true
+        });
+    })
+    $('body').on('click','.end_date_range',function(){
+        $(this).bootstrapMaterialDatePicker({
+            format: 'DD-MM-YYYY',
+            time: false,
+            clearButton: true
+        });
+    })
+
+    // $('.start_date_range').bootstrapMaterialDatePicker({
+    //     format: 'DD-MM-YYYY',
+    //     time: false,
+    //     clearButton: true
+    // });
+    
     // $('.date_range2').bootstrapMaterialDatePicker({
     //     format: 'DD-MM-YYYY',
     //     time: false,
     //     clearButton: true
     // });
+    const progressCircle = document.querySelector(".autoplay-progress svg");
+    const progressContent = document.querySelector(".autoplay-progress span");
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+      },
+      on: {
+        autoplayTimeLeft(s, time, progress) {
+          progressCircle.style.setProperty("--progress", 1 - progress);
+          progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+        }
+      }
+    });
 </script>

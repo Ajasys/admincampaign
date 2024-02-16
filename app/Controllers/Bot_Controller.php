@@ -819,7 +819,7 @@ class Bot_Controller extends BaseController
 
 
 	//bot preview
-// public function bot_preview_data()
+	// public function bot_preview_data()
 	// {
 	// 	$table = $_POST['table'];
 	// 	$bot_id = $_POST['bot_id'];
@@ -873,75 +873,155 @@ class Bot_Controller extends BaseController
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
 			$result = $db_connection->query($sql)->getRowArray();
 		}
-	
+
 		$sequence = isset($result) ? 1 : $sequence;
 		$db_connection = \Config\Database::connect('second');
 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 		$resultss = $db_connection->query($sql);
 		$bot_chat_data = $resultss->getResultArray();
 		$html = '';
-	
+
 		if (!empty($bot_chat_data)) {
 			foreach ($bot_chat_data as $value) {
 
 				// if (!empty($value['error_text']) && $value['error_text'] != 'undefined' && $value['answer'] != "aesha@123") {
 				// 	$value['question'] = $value['error_text'];
 				// }
-			
+
 				if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
-								<div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">
+								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
-					
-					$html .= '<div class="col px-2">
+
+					$html .= '<div class="col">
 									<div class="col-12 mb-2">
-										<span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
 											' . $value['question'] . '
 										</span>';
-										if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
-											$html .= '<div class="col-12 mb-2 mt-1">
-														<button class="btn bg-primary rounded-pill text-white skip_questioned">
+					if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
+						$html .= '<div class="col-12 mb-2 mt-1">
+														<button class="btn bg-primary rounded-3 text-white skip_questioned">
 															Skip
 														</button>
 													</div>';
-										}
+					}
+					else{
+						$html .= '<div class="col-12 mb-2 mt-1" hidden>
+														<button class="btn bg-primary rounded-3 text-white skip_questioned">
+															Skip
+														</button>
+													</div>';
+					}
 					$html .= '</div>				
 					</div>
 					';
-
-					
-
 				} else {
 
 					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
-								<div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">
+								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
-	
-		
-								
-								
-									$html .= '<div class="col px-2">
+
+
+					if ($value['type_of_question'] == "16") {
+						$buttonData = json_decode($value['menu_message'], true);
+
+						if (isset($buttonData['button_text']) && isset($buttonData['button_url'])) {
+							$buttonText = $buttonData['button_text'];
+							$buttonUrl = $buttonData['button_url'];
+
+							$html .= '<div class="col ">
+													<div class="col-12 mb-2">
+														<span class="p-2 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+															' . $value['question'] . '
+															<div class="col-12 text-center my-1">
+																<a href="' . $buttonUrl . '" type="button" class="btn-primary" data-id="59" data-type_of_question="1">' . $buttonText . '</a>
+															</div>
+														</span>
+													</div>';
+						}
+						
+					} else if ($value['type_of_question'] == "17") {
+						// pre($value['type_of_question']);
+						$formData = json_decode($value['menu_message'], true);
+						
+						$html .= '<div class="col">
+									<div class="col-12 mb-2">
+										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
+										</span>
+									</div>
+									<div class="col-10 px-2 form_fill">
+										<form action="" class="col-12 text-center shadow-lg border bg-white p-2 rounded-3">';
+
+						if (isset($formData['questions'])) {
+							// pre($formData['questions']);
+							foreach ($formData['questions'] as $question) {
+								if ($question['type'] == 'Question') {
+									$html .= '<div class="col-10 my-2 mx-auto">
+												<textarea class="form-control main-control text_value" cols="3" rows="3" placeholder="' . $question['text'] . '"></textarea>
+											  </div>';
+								} elseif ($question['type'] == 'Dropdown') {
+									$html .= '<div class="col-10 my-2 mx-auto">
+												<select class="form-select form-select-sm mt-2 address_value" aria-label="Small select example">';
+									if (!empty($question['options'])) {
+										$options = explode(',', $question['options']);
+										foreach ($options as $option) {
+											$html .= '<option value="' . $option . '">' . $option . '</option>';
+										}
+									}
+									$html .= '</select></div>';
+								}
+							}
+						}
+					
+						$html .= '<button class="btn bg-primary rounded-3 text-white skip_questioned hide_skip_btn my-2" onclick="formvalue()">Submit</button>
+								</form>
+							</div>';
+
+					} else if ($value['type_of_question'] == "18") {
+						$formData = json_decode($value['menu_message'], true);
+						$imageSrc = isset($formData[0]['fileInput']) ? base_url('') . '/assets/images/' . $formData[0]['fileInput'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
+						$questionText = isset($formData[0]['questionText']) ? $formData[0]['questionText'] : '';
+						$html .= '<div class="col">
+									<div class="col-12 mb-2">
+										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
+										</span>
+									</div>
+									<div class="col-12 text-center">
+										<div class="position-relative bg-white border rounded-3 overflow-hidden" style="width:200px;height:200px">
+											<img src="' . $imageSrc . '" alt="" class="w-100 h-100 opacity-50">
+											<div class="position-absolute bottom-0 start-50 translate-middle mb-2 col-12 px-3">
+												<button class="btn-primary col-12" onclick="choose_item(this, \'' . $questionText . '\')">' . $questionText . '</button>
+											</div>
+										</div>
+									</div>
+								</div>';
+					}
+					else {
+						$html .= '<div class="col">
 												<div class="col-12 mb-2">
-													<span class="p-1 rounded-pill ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
-														'.$value['question'].'
+													<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+														' . $value['question'] . '
 													</span>
 												</div>';
+					}
 
-								if (($value['type_of_question'] == 6 && $value['skip_question'] == 1) || ($value['type_of_question'] == 10 && $value['skip_question'] == 1) || ($value['type_of_question'] == 11 && $value['skip_question'] == 1) || ($value['type_of_question'] == 12 && $value['skip_question'] == 1) || ($value['type_of_question'] == 13 && $value['skip_question'] == 1) || ($value['type_of_question'] == 14 && $value['skip_question'] == 1)) {
-									$html .= '<div class="col-12 mb-2">
-													<button class="btn bg-primary rounded-pill text-white skip_questioned hide_skip_btn">
+					if (($value['type_of_question'] == 6 && $value['skip_question'] == 1) || ($value['type_of_question'] == 10 && $value['skip_question'] == 1) || ($value['type_of_question'] == 11 && $value['skip_question'] == 1) || ($value['type_of_question'] == 12 && $value['skip_question'] == 1) || ($value['type_of_question'] == 13 && $value['skip_question'] == 1) || ($value['type_of_question'] == 14 && $value['skip_question'] == 1)) {
+						$html .= '<div class="col-12 mb-2">
+													<button class="btn bg-primary rounded-3 text-white skip_questioned hide_skip_btn">
 														Skip
 													</button>
 												</div>';
-								}
-												
-								
-								$menuOptions = json_decode($value['menu_message'], true);
-								if (isset($menuOptions['rating_type']) && $menuOptions['rating_type'] === "smilies") {
-									// Output the HTML snippet for smilies
-										$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+					}
+
+
+					$menuOptions = json_decode($value['menu_message'], true);
+					if (isset($menuOptions['rating_type']) && $menuOptions['rating_type'] === "smilies") {
+						// Output the HTML snippet for smilies
+						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 													<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 													<div class="text-center pt-4">Please rate</div>
 													<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
@@ -966,8 +1046,8 @@ class Bot_Controller extends BaseController
 													</div>
 												</div>
 												</div>';
-								}else if(isset($menuOptions['rating_type']) == "stars"){
-									$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+					} else if (isset($menuOptions['rating_type']) == "stars") {
+						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 											<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 												<div class="text-center pt-4">Please rate</div>
 													<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
@@ -979,8 +1059,8 @@ class Bot_Controller extends BaseController
 													</div>
 												
 												</div>';
-								}else if(isset($menuOptions['rating_type']) == "numbers"){
-									$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+					} else if (isset($menuOptions['rating_type']) == "numbers") {
+						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 										<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 											<div class="text-center pt-4">Please rate</div>
 												<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
@@ -991,8 +1071,8 @@ class Bot_Controller extends BaseController
 													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'5\')" style="border:none !important; font-size:25px !important">5</button>
 												</div>  
 											</div>';
-								}else if(isset($menuOptions['rating_type']) == "options"){
-									$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+					} else if (isset($menuOptions['rating_type']) == "options") {
+						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 										<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 											<div class="text-center pt-4">Please rate</div>
 											<div class=" mt-2 pb-3 px-2">
@@ -1003,48 +1083,47 @@ class Bot_Controller extends BaseController
 												<div class="px-2"><i class="fa-regular fa-circle"></i> Great (1 Star)</div>
 											</div>  
 										</div>';
-								}else{
+					} else {
+					}
 
-								}
 
+					if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
+						$menuOptions = json_decode($value['menu_message'], true);
 
-								if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
-									$menuOptions = json_decode($value['menu_message'], true);
-				
-									if (isset($menuOptions['options'])) {
-										$options = explode(';', $menuOptions['options']);
-										foreach ($options as $option) {
-											$html .= '<div class="col-12 mb-2 option-wrapper">
-															<button class="btn bg-primary rounded-pill text-white option-button" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
+						if (isset($menuOptions['options'])) {
+							$options = explode(';', $menuOptions['options']);
+							foreach ($options as $option) {
+								$html .= '<div class="col-12 mb-2 option-wrapper">
+															<button class="btn bg-primary rounded-3 text-white option-button" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
 														</div>';
-										}
-									}
-								}
+							}
+						}
+					}
 
-								if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
-									$menuOptions = json_decode($value['menu_message'], true);
-									
-									if (isset($menuOptions['options'])) {
-										$options = explode(';', $menuOptions['options']);
-										$html .= '<div class="col-12 mb-2 option-wrapper">';
-										foreach ($options as $option) {
-											$html .= '<div class="col-12 d-flex flex-wrap align-items-end chat_again_continue my-1">
+					if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
+						$menuOptions = json_decode($value['menu_message'], true);
+
+						if (isset($menuOptions['options'])) {
+							$options = explode(';', $menuOptions['options']);
+							$html .= '<div class="col-12 mb-2 option-wrapper">';
+							foreach ($options as $option) {
+								$html .= '<div class="col-12 d-flex flex-wrap align-items-end chat_again_continue my-1">
 														  <div class="d-inline-block px-3 py-2 col-6 btn-secondary rounded-3 mx-2">
 															  <div class="col-12">
 																  <input type="checkbox" class="me-2 main-form option-check rounded-circle" value="' . $option . '">' . $option . '
 															  </div>
 														  </div>
 													  </div>';
-										}
-										$html .= '<div class="col-6 text-center mt-2 mx-2">
+							}
+							$html .= '<div class="col-6 text-center mt-2 mx-2">
 													  <button class="text-white btn bg-primary col-12" onclick="submitOptions()">Submit</button>
 												  </div>
 											  </div>';
-									}
-								}
-				
-								$html .= '</div>';
-								$html .= '<script>
+						}
+					}
+
+					$html .= '</div>';
+					$html .= '<script>
 												function selectOption(button, value) {
 													$(".answer_chat").val(value); 
 													insertAnswer();
@@ -1055,7 +1134,6 @@ class Bot_Controller extends BaseController
 														selectedOptions.push($(this).val());
 													});
 													var selectedOptionsString = selectedOptions.join(" , "); 
-													console.log("Selected options string: ", selectedOptionsString);
 													$(".answer_chat").val(selectedOptionsString);
 													insertAnswer();
 												}
@@ -1063,32 +1141,40 @@ class Bot_Controller extends BaseController
 													$(".answer_chat").val(value);
 													insertAnswer();
 												}
+												function formvalue() {
+													var textareaValue = $(".text_value").val();
+													var selectedOption = $(".address_value").val();
+													$(".answer_chat").val(textareaValue);
+													insertAnswer();
+													$(".answer_chat").val(selectedOption);
+													insertAnswer();
+												}
+												function choose_item(button, value){
+													$(".answer_chat").val(value); 
+													insertAnswer();
+												}
 												</script>';
-								$html .= '</div>
+					$html .= '</div>
 								<div class="messege2 d-flex flex-wrap">
-									<div class="col px-2">';
+									<div class="col ">';
 
-								
-									if($value['answer'] != ''){
-										$html .= '<div class="col-12 mb-2 text-end">
-													<span class="p-2 rounded-pill ghjhg text-white d-inline-block bg-secondary px-3">
+
+					if ($value['answer'] != '') {
+						$html .= '<div class="col-12 mb-2 text-end">
+													<span class="p-2 rounded-3 ghjhg text-white d-inline-block bg-secondary px-3">
 													' . $value['answer'] . '
 													</span>
 												</div>
 											</div>
-											<div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
+											<div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px">
 												<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 											</div>
 										</div>';
-									}
-								
-			
+					}
 				}
-
 			}
 		}
 
-	
 		$dateresult['html'] = $html;
 		return json_encode($dateresult, true);
 		die();
@@ -1096,58 +1182,15 @@ class Bot_Controller extends BaseController
 
 
 
-
-
-	// public function bot_preview_data()
-	// {
-	// 	$table = $_POST['table'];
-	// 	$bot_id = $_POST['bot_id'];
-	// 	$sequence = $_POST['sequence'];
-	
-	// 	if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
-	// 		$db_connection = \Config\Database::connect('second');
-	// 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
-	// 		$result = $db_connection->query($sql)->getRowArray();
-	// 	}
-	
-	// 	$sequence = isset($result) ? 1 : $sequence;
-	
-	// 	$db_connection = \Config\Database::connect('second');
-	// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
-	// 	$resultss = $db_connection->query($sql);
-	// 	$bot_chat_data = $resultss->getResultArray();
-	// 	$html = '';
-	
-	// 	if (!empty($bot_chat_data)) {
-	// 		foreach ($bot_chat_data as $value) {
-	// 			// Check if error_text exists
-				
-				
-	// 			if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
-	// 				// Your existing code for building HTML when sequence is 1
-	// 			} else {
-	// 				// Your existing code for building HTML when sequence is not 1
-	
-	// 				// Your existing code for building HTML
-	// 			}
-	// 		}
-	// 	}
-	
-	// 	$dateresult['html'] = $html;
-	// 	return json_encode($dateresult, true);
-	// 	die();
-	// }
-	
-
-
-	public function delete_record() {
+	public function delete_record()
+	{
 		$db_connection = \Config\Database::connect('second');
 		$table = 'admin_bot_setup';
 		$column = 'answer';
 		$sql = "UPDATE $table SET $column = '' ";
-		
+
 		$query = $db_connection->query($sql);
-		
+
 		if ($query) {
 			$response = array('success' => true);
 		} else {
@@ -1360,37 +1403,37 @@ class Bot_Controller extends BaseController
 			$data = getSocialData($url);
 			// pre($data);
 			$chat_list_html = '';
-$chat_count = count($data['data']);
-			if($chat_count > 0) {
+			$chat_count = count($data['data']);
+			if ($chat_count > 0) {
 
-			foreach ($data['data'] as $conversion_value) {
-				$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
-				// pre($conversion_value);
-				if ($times['days'] >= 30) {
-					$time_count_text = (int) ($times['days'] / 30) . ' MO';
-				} else if ($times['days'] >= 7) {
-					$time_count_text = (int) ($times['days'] / 7) . ' W';
-				} else if ($times['days'] >= 1) {
-					$time_count_text = $times['days'] . ' D';
-				} else if ($times['hours'] > 0) {
-					$time_count_text = $times['hours'] . ' H';
-				} else {
-					$time_count_text = $times['minutes'] . ' M';
-				}
-if($platform == 'messenger') {
+				foreach ($data['data'] as $conversion_value) {
+					$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
+					// pre($conversion_value);
+					if ($times['days'] >= 30) {
+						$time_count_text = (int) ($times['days'] / 30) . ' MO';
+					} else if ($times['days'] >= 7) {
+						$time_count_text = (int) ($times['days'] / 7) . ' W';
+					} else if ($times['days'] >= 1) {
+						$time_count_text = $times['days'] . ' D';
+					} else if ($times['hours'] > 0) {
+						$time_count_text = $times['hours'] . ' H';
+					} else {
+						$time_count_text = $times['minutes'] . ' M';
+					}
+					if ($platform == 'messenger') {
 						$name = 'name';
 						$key = 0;
-					} else if($platform == 'instagram') {	
+					} else if ($platform == 'instagram') {
 						$name = 'username';
 						$key = 1;
 					}
-				$chat_list_html .= '
+					$chat_list_html .= '
 							<div class=" fw-semibold fs-12 chat-nav-search-bar my-2 col-12 chat-account-box p-1 pe-3
-							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="'.$conversion_value['participants']['data'][$key][$name].'" data-platform="'.$platform.'">
+							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '">
 							<div class="d-flex flex justify-content-between align-items-center col-12">
 										<div class="col-2 p-1">';
-				if ($platform == 'messenger') {
-					$chat_list_html .= '<svg class="w-100" xmlns="http://www.w3.org/2000/svg" version="1.1"
+					if ($platform == 'messenger') {
+						$chat_list_html .= '<svg class="w-100" xmlns="http://www.w3.org/2000/svg" version="1.1"
 											xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0"
 											viewBox="0 0 176 176" style="enable-background:new 0 0 512 512"
 											xml:space="preserve" class="">
@@ -1406,10 +1449,10 @@ if($platform == 'messenger') {
 												</g>
 											</g>
 										</svg>';
-				} else if ($platform == 'instagram') {
-					$chat_list_html .= '<img src="' . base_url() . 'assets/images/instagram.svg' . '" style="width:40px;height:40px">';
-				}
-				$chat_list_html .= '</div>
+					} else if ($platform == 'instagram') {
+						$chat_list_html .= '<img src="' . base_url() . 'assets/images/instagram.svg' . '" style="width:40px;height:40px">';
+					}
+					$chat_list_html .= '</div>
 									<div class="col-10 d-flex flex-wrap justify-content-between align-items-center">
 									<p class="col-12 ps-2" style="font-size:16px;">' . $conversion_value['participants']['data'][$key][$name] . '</p>
 										<p class="col-10 ps-2 d-flex fs-12 text-secondary-emphasis"><span class="text-truncate">' . $conversion_value['messages']['data'][0]['message'] . '</span> <span class="col-3 ms-2">' . $time_count_text . '</span> </p>
@@ -1418,7 +1461,7 @@ if($platform == 'messenger') {
 							</div>
 						</div>
 						';
-}
+				}
 			} else {
 				$chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
 			}
@@ -1452,14 +1495,14 @@ if($platform == 'messenger') {
 				$today = new \DateTime();
 				// pre($today);
 				$date = $dateTime->format('d/m/Y');
-$isWithinLast7Days = $dateTime >= $last7DaysStart;
-				if($date != $dates) {
-					if($isWithinLast7Days) {
+				$isWithinLast7Days = $dateTime >= $last7DaysStart;
+				if ($date != $dates) {
+					if ($isWithinLast7Days) {
 						$dayOfWeek = $dateTime->format('l');
 					} else {
 						$dayOfWeek = $dateTime->format('d/m/Y');
 					}
-					$html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">'.$dayOfWeek.'</div>';
+					$html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-3" style="background:#f3f3f3;">' . $dayOfWeek . '</div>';
 					$dates = $date;
 				}
 				$time = $dateTime->format('H:i a');
@@ -1471,14 +1514,14 @@ $isWithinLast7Days = $dateTime >= $last7DaysStart;
 						$html .= '
 								<div class="d-flex mb-4 justify-content-end" >
                                 <div class="col-9 text-end">
-									<span class="me-2" style="font-size:12px;">'.$time.'</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $message . ' </span> 
+									<span class="me-2" style="font-size:12px;">' . $time . '</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $message . ' </span> 
                                 </div>
                             </div>';
 					} else {
 						$html .= '
 							<div class="d-flex mb-4 ">
 								<div class="col-9 text-start">
-									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $message . ' </span> <span class="ms-2" style="font-size:12px;">'.$time.'</span>
+									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $message . ' </span> <span class="ms-2" style="font-size:12px;">' . $time . '</span>
 								</div>
 							</div>';
 					}
@@ -1495,7 +1538,5 @@ $isWithinLast7Days = $dateTime >= $last7DaysStart;
 
 	public function send_massage()
 	{
-		
-
 	}
 }
