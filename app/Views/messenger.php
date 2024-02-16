@@ -555,9 +555,6 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         });
     });
 
-
-
-    // SendWhatsAppMessage" data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="" DataSenderId
     $('body').on('click', '.SendWhatsAppMessage', function() {
         var DataSenderId = $(this).attr('DataSenderId');
         var DataPhoneno = $(this).attr('DataPhoneno');
@@ -579,5 +576,16 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.massage_input').val('');
     });
 
+    $('body').on('keydown', '.massage_input', function(event) {
+        if (event.which === 13) {
+            $('.SendWhatsAppMessage').trigger('click');
+            console.log('wroking');
+        }
+    });
 
+    $('body').on('click', '.accordion-header', function(){
+        $('.SendWhatsAppMessage').attr('datasenderid', '');
+        $('.SendWhatsAppMessage').attr('dataphoneno', '');
+
+    })
 </script>
