@@ -565,7 +565,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             var page_access_token = $(this).attr("data-page_access_token");
             var platform = $(this).attr("data-platform");
             var page_name = $('.page_name').text($(this).attr('data-page_name'));
-
+$('.username').text('User Name');
+            $('.in_chat_page_name').text('');
+            $('.chat_bord').html('');
             list_data(false, 'chat_list', page_id, page_access_token, platform);
         });
 
