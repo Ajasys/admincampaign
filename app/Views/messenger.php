@@ -138,37 +138,99 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             <div class="accordion mt-2" id="accordionExample">
                                 <div class="accordion-item border-0 border-bottom">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            <i class="fa-brands fa-facebook fa-2xl me-2"></i>
-                                            <P>Facebook</P>
+                                        <button class="accordion-button border-0 shadow-none fw-medium" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                <g>
+                                                    <path fill="#1877f2"
+                                                        d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z"
+                                                        opacity="1" data-original="#1877f2" class=""></path>
+                                                    <path fill="#ffffff"
+                                                        d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z"
+                                                        opacity="1" data-original="#ffffff"></path>
+                                                </g>
+                                            </svg>
+                                            <P class="ms-2">Facebook</P>
 
                                         </button>
                                     </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        data-bs-parent="#accordionExample">
                                         <div class="accordion-body account_list p-0">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item border-0 border-bottom">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            <i class="fa-brands fa-instagram fa-2xl me-2"></i>
-                                            <P>instagram</P>
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                <g>
+                                                    <linearGradient id="a" x1="84.679" x2="404.429" y1="427.321"
+                                                        y2="107.571" gradientUnits="userSpaceOnUse">
+                                                        <stop offset="0" stop-color="#fee411"></stop>
+                                                        <stop offset=".052" stop-color="#fedb16"></stop>
+                                                        <stop offset=".138" stop-color="#fec125"></stop>
+                                                        <stop offset=".248" stop-color="#fe983d"></stop>
+                                                        <stop offset=".376" stop-color="#fe5f5e"></stop>
+                                                        <stop offset=".5" stop-color="#fe2181"></stop>
+                                                        <stop offset="1" stop-color="#9000dc"></stop>
+                                                    </linearGradient>
+                                                    <circle cx="256" cy="256" r="225" fill="url(#a)" opacity="1"
+                                                        data-original="url(#a)" class=""></circle>
+                                                    <g fill="#fff">
+                                                        <path
+                                                            d="M303.8 131h-95.5c-42.6 0-77.2 34.6-77.2 77.2v95.5c0 42.6 34.6 77.2 77.2 77.2h95.5c42.6 0 77.2-34.6 77.2-77.2v-95.5c0-42.6-34.6-77.2-77.2-77.2zm49.3 172.8c0 27.2-22.1 49.4-49.4 49.4h-95.5c-27.2 0-49.4-22.1-49.4-49.4v-95.5c0-27.2 22.1-49.4 49.4-49.4h95.5c27.2 0 49.4 22.1 49.4 49.4z"
+                                                            fill="#ffffff" opacity="1" data-original="#ffffff"></path>
+                                                        <path
+                                                            d="M256 192.1c-35.2 0-63.9 28.7-63.9 63.9s28.7 63.9 63.9 63.9 63.9-28.7 63.9-63.9-28.7-63.9-63.9-63.9zm0 102.7c-21.4 0-38.8-17.4-38.8-38.8s17.4-38.8 38.8-38.8 38.8 17.4 38.8 38.8-17.4 38.8-38.8 38.8z"
+                                                            fill="#ffffff" opacity="1" data-original="#ffffff"></path>
+                                                        <circle cx="323.1" cy="188.4" r="10.8"
+                                                            transform="rotate(-9.25 323.353 188.804)" fill="#ffffff"
+                                                            opacity="1" data-original="#ffffff"></circle>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            <P class="ms-2">instagram</P>
                                         </button>
                                     </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
                                         <div class="accordion-body IG_account_list p-0">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item border-0 border-bottom">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            <i class="fa-brands fa-whatsapp fa-2xl me-2"></i>
-                                            <P>Whatsapp</P>
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                <g>
+                                                    <path
+                                                        d="M256.064 0h-.128C114.784 0 0 114.816 0 256c0 56 18.048 107.904 48.736 150.048l-31.904 95.104 98.4-31.456C155.712 496.512 204 512 256.064 512 397.216 512 512 397.152 512 256S397.216 0 256.064 0z"
+                                                        style="" fill="#4caf50" data-original="#4caf50" class=""></path>
+                                                    <path
+                                                        d="M405.024 361.504c-6.176 17.44-30.688 31.904-50.24 36.128-13.376 2.848-30.848 5.12-89.664-19.264-75.232-31.168-123.68-107.616-127.456-112.576-3.616-4.96-30.4-40.48-30.4-77.216s18.656-54.624 26.176-62.304c6.176-6.304 16.384-9.184 26.176-9.184 3.168 0 6.016.16 8.576.288 7.52.32 11.296.768 16.256 12.64 6.176 14.88 21.216 51.616 23.008 55.392 1.824 3.776 3.648 8.896 1.088 13.856-2.4 5.12-4.512 7.392-8.288 11.744-3.776 4.352-7.36 7.68-11.136 12.352-3.456 4.064-7.36 8.416-3.008 15.936 4.352 7.36 19.392 31.904 41.536 51.616 28.576 25.44 51.744 33.568 60.032 37.024 6.176 2.56 13.536 1.952 18.048-2.848 5.728-6.176 12.8-16.416 20-26.496 5.12-7.232 11.584-8.128 18.368-5.568 6.912 2.4 43.488 20.48 51.008 24.224 7.52 3.776 12.48 5.568 14.304 8.736 1.792 3.168 1.792 18.048-4.384 35.52z"
+                                                        style="" fill="#fafafa" data-original="#fafafa" class=""></path>
+                                                </g>
+                                            </svg>
+                                            <P class="ms-2">Whatsapp</P>
                                         </button>
                                     </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
 
                                         <?php
 
@@ -417,8 +479,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
                         <script>
-                            $(document).ready(function() {
-                                $(".btn_x").click(function() {
+                            $(document).ready(function () {
+                                $(".btn_x").click(function () {
                                     $(".accordion_item_div").toggle();
                                 });
                             });
@@ -507,13 +569,13 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
 
 <script>
-    $('body').on('click', '.account-box', function() {
+    $('body').on('click', '.account-box', function () {
 
         $(this).addClass('active-account-box');
         $(this).siblings().removeClass('active-account-box');
 
     });
-    $('body').on('click', '.chat-account-box', function() {
+    $('body').on('click', '.chat-account-box', function () {
 
         $(this).addClass('chat-account-active');
         $(this).siblings().removeClass('chat-account-active');
@@ -521,7 +583,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     });
 </script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // massage list data
         function list_data(api = false, action = 'account_list', page_id = '', page_access_token = '', platform) {
             $.ajax({
@@ -534,7 +596,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     page_access_token: page_access_token,
                     platform: platform,
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     if (action == 'account_list') {
                         $('.acc_loader').show();
                     } else if (action == 'chat_list') {
@@ -542,7 +604,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         $('.chat_list_loader').show();
                     }
                 },
-                success: function(data) {
+                success: function (data) {
                     $('.acc_loader').hide();
                     var obj = JSON.parse(data);
                     if (action == 'account_list') {
@@ -560,18 +622,18 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         $('.chat_list_loader').hide();
 
-        $('body').on('click', '.account-nav', function() {
+        $('body').on('click', '.account-nav', function () {
             var page_id = $(this).attr("data-page_id");
             var page_access_token = $(this).attr("data-page_access_token");
             var platform = $(this).attr("data-platform");
             var page_name = $('.page_name').text($(this).attr('data-page_name'));
-$('.username').text('User Name');
+            $('.username').text('User Name');
             $('.in_chat_page_name').text('');
             $('.chat_bord').html('');
             list_data(false, 'chat_list', page_id, page_access_token, platform);
         });
 
-        $('body').on('click', '.chat_list', function() {
+        $('body').on('click', '.chat_list', function () {
             var conversion_id = $(this).data('conversion_id');
             var page_access_token = $(this).data('page_token');
             var page_id = $(this).data('page_id');
@@ -590,11 +652,11 @@ $('.username').text('User Name');
                         page_id: page_id,
                         // id: massage_id,
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $('.massage_list_loader').show();
                         $('.noRecourdFound').hide();
                     },
-                    success: function(data) {
+                    success: function (data) {
                         var obj = JSON.parse(data);
                         $('.massage_list_loader').hide();
                         $('.chat_bord').show();
@@ -614,7 +676,7 @@ $('.username').text('User Name');
 
         $('.massage_list_loader').hide();
 
-        $('body').on('click', '.send_massage', function() {
+        $('body').on('click', '.send_massage', function () {
             var massage_input = $('.massage_input').val();
             var conversion_id = $(this).attr("data-conversion_id", conversion_id);
             var page_access_token = $(this).attr("data-page_token", page_access_token);
@@ -631,7 +693,7 @@ $('.username').text('User Name');
                     // page_id: page_id,
                     // id: massage_id,
                 },
-                success: function(data) {
+                success: function (data) {
                     // var obj = JSON.parse(data);
                     // $('.chat_bord').html(obj.html);
                     // $('.send_massage').attr("data-conversion_id",conversion_id);
@@ -644,7 +706,7 @@ $('.username').text('User Name');
         });
     });
 
-    $('body').on('click', '.WA_account_listTab', function() {
+    $('body').on('click', '.WA_account_listTab', function () {
         $('.chat_bord').html('');
         $('.in_chat_page_name').text('');
         $('.UserChatName').text('User Name');
@@ -669,13 +731,13 @@ $('.username').text('User Name');
                 phoneno: phoneno,
                 name: name
             },
-            success: function(data) {
+            success: function (data) {
                 $('.chat_list').html(data);
             }
         });
     });
 
-    $('body').on('click', '.ChatClickOpenHtml', function() {
+    $('body').on('click', '.ChatClickOpenHtml', function () {
         $('.chat_bord').html('');
         $('.UserChatName').text('User Name');
         $('.in_chat_page_name').text('');
@@ -703,7 +765,7 @@ $('.username').text('User Name');
             data: {
                 contact_no: contact_no,
             },
-            success: function(data) {
+            success: function (data) {
                 $('.massage_list_loader').hide();
 
                 $('.chat_bord').html(data);
@@ -712,7 +774,7 @@ $('.username').text('User Name');
         });
     });
 
-    $('body').on('click', '.SendWhatsAppMessage', function() {
+    $('body').on('click', '.SendWhatsAppMessage', function () {
         var DataSenderId = $(this).attr('DataSenderId');
         var DataPhoneno = $(this).attr('DataPhoneno');
         var massage_input = $('.massage_input').val();
@@ -725,7 +787,7 @@ $('.username').text('User Name');
                     DataPhoneno: DataPhoneno,
                     massage_input: massage_input
                 },
-                success: function(data) {
+                success: function (data) {
                     $('.chat_list .active-account-box').trigger('click');
                 }
             });
@@ -733,14 +795,14 @@ $('.username').text('User Name');
         $('.massage_input').val('');
     });
 
-    $('body').on('keydown', '.massage_input', function(event) {
+    $('body').on('keydown', '.massage_input', function (event) {
         if (event.which === 13) {
             $('.SendWhatsAppMessage').trigger('click');
             console.log('wroking');
         }
     });
 
-    $('body').on('click', '.accordion-header', function() {
+    $('body').on('click', '.accordion-header', function () {
         $('.SendWhatsAppMessage').attr('datasenderid', '');
         $('.SendWhatsAppMessage').attr('dataphoneno', '');
 
