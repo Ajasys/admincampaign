@@ -120,7 +120,7 @@ $routes->post('/food_master_update_data', 'MasterInformation::food_master_update
 $routes->post('/login_insert_data', 'Userlogin::insert_data');
 $routes->get('/checkout', 'Razorpay::index');
 $routes->get('biometric_member_attendance', 'CronController::biometric_member_attendance');
-$routes->post('/web_integrate', 'WebController::web_integrate');
+$routes->post('/web_integrate', 'WebAPIController::web_integrate');
 $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/pdf_view', 'UserInformation::pdf_view');
 	$routes->get('/allinquiry', 'Home::allinquiry');
@@ -598,8 +598,10 @@ $routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessage
 	$routes->post('/WhatsAppAccountsContactList', 'WhatAppIntegrationController::WhatsAppAccountsContactList');
 	$routes->post('/WhatsAppListConverstion', 'WhatAppIntegrationController::WhatsAppListConverstion');
 	$routes->post('/SendWhatsAppChatMessage', 'WhatAppIntegrationController::SendWhatsAppChatMessage');
+$routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
 
 
+$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
 
 
 

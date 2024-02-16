@@ -598,6 +598,18 @@ $user_data = $user_result->getResultArray();
 <script>
     $(document).ready(function () {
 
+        // $.ajax({
+        //     type: "post",
+        //     url: "<?= site_url('web_integrate'); ?>",
+        //     data: '',
+        //     success: function (res) {
+                
+        //     },
+        //     error: function (error) {
+        //         $('.loader').hide();
+        //     }
+        // });
+
         $(".lead_add_main_box,.delete_div,.update_div,.draft_div,.staff,.webDiv").hide();
 
         $('body').on('click', '.discard_main_box', function () {

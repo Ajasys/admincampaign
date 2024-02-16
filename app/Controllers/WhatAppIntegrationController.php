@@ -414,25 +414,24 @@ class WhatAppIntegrationController extends BaseController
 
     public function WhatsAppAccountsContactList()
     {
-        // pre($_POST);
         $id = $_POST['id'];
         $phoneno = str_replace([' ', '+'], '', $_POST['phoneno']);
         $name = $_POST['name'];
         $table_username = getMasterUsername2();
-        // pre($phoneno);
         $Database = \Config\Database::connect('second');
-        $sql = 'SELECT * FROM ' . $table_username . '_social_accounts WHERE account_phone_no = "' . $phoneno . '" AND conversation_account_id = "' . $id . '" ';
+        $sql = 'SELECT * FROM ' . $table_username . '_social_accounts WHERE account_phone_no = "' . $phoneno . '" AND conversation_account_id = "' . $id . '" ORDER BY `id` DESC';
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
         $html = '';
+        $htmlcontactlist = '';
         foreach ($GetData as $key => $value) {
+            if ($value['whatsapp_name'] == '' && $value['name'] == '') {
+                $Whatsappproname = $value['whatsapp_name'];
+                if($value['name'] != ''){
+                    $Whatsappproname = $value['name'];
+                }
 
-
-
-
-
-            if ($value['whatsapp_name'] == '') {
-                $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml"   contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $value['whatsapp_name'] . '" account_phone_no="' . $value['account_phone_no'] . '">
+                $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml '.substr($value['contact_no'], -10).' " conversation_account_id = "'.$id.'"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
                                             <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                             <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
                                             <div class="col text-start">
@@ -441,24 +440,57 @@ class WhatAppIntegrationController extends BaseController
                                         </p>
                                     </div>
                                 </div>';
+                $htmlcontactlist .= '
+                            <div class="col-12 d-flex border-top border-dark border-bottom justify-content-center align-items-center p-2">
+                                <div class="col-1 d-flex align-items-center justify-content-center"><input type="checkbox"
+                                        style="width:15px; height:15px;" class="ContactNoSelectionCheckbox" phoneno = "'.$value['contact_no'].'" name="'.$value['contact_no'].'"></div>
+                                <div class="col-2 d-flex align-items-center px-2">
+                                    <div class="border-2 border border-dark rounded-circle p-1 px-2"><i class="fa-solid fa-user fs-14"></i></div>
+                                </div>
+                                <div class="col-9 text-start">
+                                    <h5 class="fs-14">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '</h5>
+                                </div>
+                            </div>
+                ';
+
+
+
             } else {
-                $html .=    '<div class="col-12  my-2 account-box ChatClickOpenHtml"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $value['whatsapp_name'] . '" account_phone_no="' . $value['account_phone_no'] . '">
+
+                $Whatsappproname = $value['whatsapp_name'];
+                if($value['name'] != ''){
+                    $Whatsappproname = $value['name'];
+                }
+
+
+                $html .=    '<div class="col-12  my-2 account-box ChatClickOpenHtml '.substr($value['contact_no'], -10).' " conversation_account_id = "'.$id.'"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
                                         <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                         <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
                                         <div class="col text-start">
-                                            <span class="fs-14">' . $value['whatsapp_name'] . '</span>
+                                            <span class="fs-14">' . $Whatsappproname . '</span>
                                             <p class="fs-12 fw-medium col text-muted">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '
                                         </div>
                                     </p>
                                 </div>
                             </div>
                             ';
+                $htmlcontactlist .= '
+                            <div class="col-12 d-flex border-top border-dark justify-content-center align-items-center p-2">
+                                <div class="col-1 d-flex align-items-center justify-content-center " ><input type="checkbox"
+                                        style="width:15px; height:15px;" class="ContactNoSelectionCheckbox" phoneno = "'.$value['contact_no'].'" name="'.$Whatsappproname.'"></div>
+                                <div class="col-2 d-flex align-items-center px-2">
+                                    <div class="border-2 border border-dark rounded-circle p-1 px-2"><i class="fa-solid fa-user fs-14"></i></div>
+                                </div>
+                                <div class="col-9 text-start">
+                                    <h5 class="fs-14">' . $Whatsappproname . '</h5>
+                                    <div class="fs-12">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '</div>
+                                </div>
+                            </div>';
             }
         }
-
-
-
-        echo $html;
+        $return_array['htmlcontactlist'] = $htmlcontactlist;
+        $return_array['html'] = $html;
+        return json_encode($return_array, true);
     }
 
 
@@ -477,23 +509,12 @@ class WhatAppIntegrationController extends BaseController
         if (isset($total_dataa_userr_22[0])) {
             $sentmsgdisplaydata = $result->getResultArray();
         } 
-
         $html1 = '';
         $i = '';
-
-
-        
-        
-        
-        
-
-
         $FilterPhoneNumber = $_POST['FilterPhoneNumber'];
         $FilterDate = $_POST['FilterDate'];
         $FilterTemplateStatus = $_POST['FilterTemplateStatus'];
         $FilterTemplateName = $_POST['FilterTemplateName'];
-
-
         if(isset($sentmsgdisplaydata) && !empty($sentmsgdisplaydata)){
             foreach ($sentmsgdisplaydata as $key => $value) {
                 // pre($value['Status']);
@@ -1556,6 +1577,82 @@ class WhatAppIntegrationController extends BaseController
                                 </div>
                             </div>';
                 }
+            }elseif($msgtype == '5'){
+
+                
+                $Digi10Number = substr(str_replace([' ', '+'], '', $value['assest_id']), -10);
+                $MobileNoCount = strlen((string) str_replace([' ', '+'], '', $value['assest_id']));
+                $MobileNoOutput = str_replace([' ', '+'], '', $value['assest_id']);
+                if(intval($MobileNoCount) == '10'){
+                    $MobileNoOutput = '91'.str_replace([' ', '+'], '', $value['assest_id']);
+                }
+                $sql2 = 'SELECT * FROM `'.$table_username.'_social_accounts` WHERE conversation_account_id = "'.$_POST['conversation_account_id'].'" AND contact_no LIKE "%'.$Digi10Number. '%"';
+                $Getresult = $Database->query($sql2);
+       
+                
+                if ($sent_recieved_status == '2') {
+                    $html .= '<div class="d-flex align-items-center pb-3">
+                    <div class="border rounded-2 bg-white ps-4 pe-4" style="width:max-content;">
+                        <div class="d-flex p-2 border-bottom ">
+                            <div>
+                                <i class="bi bi-person-circle" style="font-size: 30px;"></i>
+                            </div>
+                            <div class="d-flex align-items-center ms-3">
+                                <p>'.$value['asset_file_name'].'</p>
+                            </div>
+                        </div>';
+                    if ($Getresult->getNumRows() > 0) {
+                        $html .= '
+                            <div class="p-2 d-flex justify-content-center">
+                                <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "'.$Digi10Number.'" style="list-style: none;">Message</p>
+                            </div>
+                        ';
+                    } else {
+                        $html .= '
+                            <div class="p-2 d-flex justify-content-center">
+                                <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "'.substr($_POST['contact_no'], -10).'" connection_id = "'.$_POST['conversation_account_id'].'" name="'.$value['asset_file_name'].'" phone_no = "'.$MobileNoOutput.'" >Add Contact</p>
+                            </div>
+                        ';
+                    }
+                    
+                    $html .= '
+                </div>
+                <span class="ms-2" style="font-size:12px;">'.$formattedtime.'</span>
+                </div>
+                ';
+                }
+
+                if ($sent_recieved_status == '1') {
+                    $html .= '
+                    <div class="d-flex justify-content-end align-items-center pb-3">
+                    <span class="me-2" style="font-size:12px;">'.$formattedtime.'</span>
+                    <div class="border rounded-2 ps-4 pe-4 " style="width:max-content; background-color: #005c4b;">
+                        <div class="d-flex p-2 border-bottom">
+                            <div>
+                                <i class="bi bi-person-circle" style="font-size: 30px;"></i>
+                            </div>
+                            <div class="d-flex align-items-center ms-3">
+                                <p class="text-white">'.$value["asset_file_name"].'</p>
+                            </div>
+                        </div>';
+                        if ($Getresult->getNumRows() > 0) {
+                            $html .= '
+                                <div class="p-2 d-flex justify-content-center">
+                                    <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "'.$Digi10Number.'"  style="list-style: none;">Message</p>
+                                </div>
+                            ';
+                        } else {
+                            $html .= '
+                                <div class="p-2 d-flex justify-content-center">
+                                    <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "'.substr($_POST['contact_no'], -10).'" connection_id = "'.$_POST['conversation_account_id'].'" name="'.$value['asset_file_name'].'" phone_no = "'.$MobileNoOutput.'" >Add Contact</p>
+                                </div>
+                            ';
+                        }
+                        
+                        $html .= '
+                    </div>
+                </div>';
+                }
             }
         }
         if($html != ''){
@@ -1571,10 +1668,6 @@ class WhatAppIntegrationController extends BaseController
         $DataSenderId = $_POST['DataSenderId'];
         $DataPhoneno =  $_POST['DataPhoneno'];
         $massage_input = $_POST['massage_input'];
-
-
- 
-
         $MetaUrl = config('App')->metaurl;
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
@@ -1631,5 +1724,115 @@ class WhatAppIntegrationController extends BaseController
         }
         // pre($Result);
         die();
+    }
+
+    public function WhatsAppInsertData(){
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        if(isset($_POST['action'])){
+            if($_POST['action'] == 'contactadd'){
+                $insert_data['platform_status'] = 1;
+                $insert_data['whatsapp_name'] = $_POST['name'];
+                $insert_data['contact_no'] = $_POST['phone_no'];
+                $insert_data['conversation_account_id'] = $_POST['connection_id'];
+                $insert_data['account_phone_no'] = $_POST['account_phone_no'];
+                $this->MasterInformationModel->insert_entry2($insert_data, $username . '_social_accounts');
+            }elseif($_POST['action'] == 'manualcontactadd'){
+                $table_username = getMasterUsername2();
+                $Database = \Config\Database::connect('second');
+                $Digi10Number = substr($_POST['phone_no'], -10);
+                $sql2 = 'SELECT * FROM `'.$table_username.'_social_accounts` WHERE conversation_account_id = "'.$_POST['connection_id'].'" AND contact_no LIKE "%'.$Digi10Number. '%"';
+                $Getresult = $Database->query($sql2);
+                $returnno = 0;
+                if ($Getresult->getNumRows() > 0) {
+                    $returnno = 0;
+                }else{
+                        $insert_data['platform_status'] = 1;
+                        $insert_data['name'] = $_POST['name'];
+                        $insert_data['contact_no'] = $_POST['phone_no'];
+                        $insert_data['conversation_account_id'] = $_POST['connection_id'];
+                        $insert_data['account_phone_no'] = $_POST['account_phone_no'];
+                        $this->MasterInformationModel->insert_entry2($insert_data, $username . '_social_accounts');
+                        $returnno = 1;
+                }
+
+         
+                echo $returnno;
+
+
+            }
+      
+        }
+        
+    }
+
+    public function SendWhatsAppContactNumber(){
+        $DataSenderId = $_POST['DataSenderId'];
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $table_name = $username . '_platform_integration';
+        $ConnectionData = get_editData2($table_name, $DataSenderId);
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
+            }
+        }
+
+
+        if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
+            $ContactData = json_decode($_POST['contactstring'], true);
+            if(isset($ContactData) && !empty($ContactData)){
+                foreach ($ContactData as $key => $value) {
+                    $name = $value['name'];
+                    $phoneno = $value['phoneno'];
+                    $jsonestring = '
+                    {
+                        "messaging_product": "whatsapp",
+                        "to": "'.$_POST['DataPhoneno'].'",
+                        "type": "contacts",
+                        "contacts": [
+                            {
+                                "name": {
+                                    "first_name": "'.$name.'",
+                                    "formatted_name": "'.$name.'",
+                                },
+                                "phones": [
+                                    {
+                                        "phone": "+ '.$phoneno.'",
+                                        "type": "MOBILE"
+                                    }
+                                ],
+                            }
+                        ]
+                    }
+                    ';
+                    $url = $MetaUrl.$phone_number_id."/messages/?access_token=".$access_token."";
+                    $Result = postSocialData($url, $jsonestring);
+                    if(isset($Result['contacts'][0]['wa_id']) && $Result['messages'][0]['id']){
+                        $contact = $Result['contacts'][0]['wa_id'];
+                        $insert_data['contact_no'] = $contact;
+                        $insert_data['platform_account_id'] = $DataSenderId;
+                        $insert_data['message_status'] = '0';
+                        $insert_data['created_at'] = gmdate('Y-m-d H:i:s');
+                        $insert_data['conversation_id'] = $Result['messages'][0]['id'];
+                        $insert_data['platform_status'] = '1';
+                        $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
+                        $insert_data['message_type'] = '5';
+                        $insert_data['sent_recieved_status'] = '1';
+                        $insert_data['assest_id'] = $phoneno;
+                        $insert_data['asset_file_name'] = $name;
+                        $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
+                    }
+                }
+            }
+        }
     }
 }

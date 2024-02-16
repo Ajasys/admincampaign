@@ -326,7 +326,7 @@ class FaceBookController extends BaseController
                     $staff_id = $value['user_id'];
                 }
                 if ($platform_status == 2) {
-                    
+
                     $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
                     FROM " . $this->username . "_integration
                     WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
@@ -371,21 +371,23 @@ class FaceBookController extends BaseController
                                         <img src="' . $page_img . '">
                                     </div>';
                     $connection_name = $value['page_name'] . '(' . $form_name . ')';
+                    $leadlist_urlId = $value['form_id'];
                 } else if ($platform_status == 5) {
 
                     $queryd = $this->db->query("SELECT COUNT(*) AS form_count
                     FROM " . $this->username . "_integration
-                    WHERE platform = 'website'");
+                    WHERE platform = 'website' AND page_id=" . $value['id']);
                     $count_lead = $queryd->getResultArray();
 
                     $count = 0;
                     if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
                         $count = $count_lead[0]['form_count'];
                     }
-                    
+
                     $connection_name = $integrationData['website_name'];
                     $page_img_div = '';
                     $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>';
+                    $leadlist_urlId = $value['id'];
                 }
 
                 $html .= '
@@ -410,7 +412,7 @@ class FaceBookController extends BaseController
                                 </div>
                             </div>
 
-                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="' . base_url() . 'leadlist?id=' . $value['form_id'] . '">
+                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="' . base_url() . 'leadlist?id=' . $leadlist_urlId . '&platform=' . $platform_status . '">
                                 <p class="d-block col-12 text-dark">' . $connection_name . '</p>
                                 <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
                                 <i class="bi bi-gear me-1"></i>
@@ -422,17 +424,17 @@ class FaceBookController extends BaseController
                             </a>';
 
 
-                $html .= '<div class="lead_list_switch d-flex align-items-center flex-wrap">
-                                <label class="switch_toggle mx-2">';
-                if ($value['status'] == 1) {
-                    $html .= ' <input type="checkbox" class="page_actiive" value="1" data-form_id=' . $value['form_id'] . ' checked>';
-                } else {
-                    $html .= ' <input type="checkbox" class="page_actiive" value="0" data-form_id=' . $value['form_id'] . ' >';
-                }
+                $html .= '<div class="lead_list_switch d-flex align-items-center flex-wrap">';
+                // <label class="switch_toggle mx-2">
+                // if ($value['status'] == 1) {
+                //     $html .= ' <input type="checkbox" class="page_actiive" value="1" data-form_id=' . $value['form_id'] . ' checked>';
+                // } else {
+                //     $html .= ' <input type="checkbox" class="page_actiive" value="0" data-form_id=' . $value['form_id'] . ' >';
+                // }
+                // <span class="check_input round"></span>
+                // </label>
 
-                $html .= '<span class="check_input round"></span>
-                                </label>
-                                <div class="dropdown">
+                $html .= '<div class="dropdown">
                                     <button class="bg-transparent border-2 rounded-2 border p-1 dropdown-toggle after-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-caret-down-fill fs-12 text-secondary-emphasis"></i>
                                     </button>
@@ -1112,6 +1114,7 @@ class FaceBookController extends BaseController
     public function lead_list()
     {
         $this->db = \Config\Database::connect('second');
+        $platform = $_POST['platform'];
         $username = session_username($_SESSION['username']);
         $html = "";
         $row_count_html = '';
@@ -1129,9 +1132,25 @@ class FaceBookController extends BaseController
         // Calculate the offset based on pagination parameters
         $offset = ($pageNumber - 1) * $perPageCount;
 
-        // Build the SQL query for data retrieval
-        $find_Array_data = "SELECT * FROM " . $username . "_integration 
-                            WHERE form_id = " . $_POST['id'] . " AND page_id != '' ";
+
+        if ($platform == 2) //for facebook
+        {
+            // Build the SQL query for data retrieval
+            $find_Array_data = "SELECT * FROM " . $username . "_integration 
+            WHERE form_id = " . $_POST['id'] . " AND page_id != '' ";
+
+            // Build the SQL query for total count
+            $find_Array_count = "SELECT COUNT(*) as total_count FROM " . $username . "_integration 
+                                WHERE form_id = " . $_POST['id'] . " AND page_id != '' ";
+
+        } else if ($platform == 5) //for website
+        {
+            $find_Array_data = "SELECT * FROM " . $username . "_integration 
+                                WHERE page_id = " . $_POST['id'] . " AND platform='website'";
+
+            $find_Array_count = "SELECT COUNT(*) as total_count FROM " . $username . "_integration 
+                                WHERE page_id = " . $_POST['id'] . " AND platform='website'";
+        }
 
         // Add search condition if ajaxsearch is provided
         if (!empty($ajaxsearch)) {
@@ -1151,10 +1170,6 @@ class FaceBookController extends BaseController
         $find_Array_data = $this->db->query($find_Array_data);
         $data = $find_Array_data->getResultArray();
 
-
-        // Build the SQL query for total count
-        $find_Array_count = "SELECT COUNT(*) as total_count FROM " . $username . "_integration 
-                         WHERE form_id = " . $_POST['id'] . " AND page_id != '' ";
 
         // Add search condition if ajaxsearch is provided
         if (!empty($ajaxsearch)) {
@@ -1181,8 +1196,16 @@ class FaceBookController extends BaseController
         if ($find_Array_data->getNumRows() > 0) {
             foreach ($data as $key => $value) {
                 $html .= '<tr onclick="viewLead(' . $value['unquie_id'] . ');">
-                <td class="p-2 text-nowrap">' . $value['created_time'] . '</td>
-                <td class="p-2 text-nowrap">' . $value['lead_id'] . '</td>
+                <td class="p-2 text-nowrap">' . $value['created_time'] . '</td>';
+                if ($platform == 2) //for facebook
+                {
+                    $html .= '<td class="p-2 text-nowrap">' . $value['lead_id'] . '</td>';
+                }
+                else if($platform == 5) //for website
+                {
+
+                }
+                $html .= '
                 <td class="p-2 text-nowrap">' . $value['full_name'] . '</td>
                 <td class="p-2 text-nowrap ">' . $value['phone_number'] . '</td>
                 <td class="p-2 text-nowrap ">' . $value['inquiry_id'] . '</td>
@@ -1229,7 +1252,20 @@ class FaceBookController extends BaseController
                             </g>
                         </svg>';
                 }
-                $html .=  '</td></tr>';
+                $html .=  '</td><td class="p-2 text-nowrap text-center">';
+                if ($value['platform'] == 'website')
+                {
+                    $html .= '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>';
+                }
+                else if ($value['platform'] == 'ig')
+                {
+                    $html .='<i class="fa-brands fa-instagram transition-5 icon1 fa-lg" style="background: -webkit-linear-gradient(#f32170, #ff6b08, #cf23cf, #eedd44);-webkit-background-clip: text;-webkit-text-fill-color: transparent;"></i>';
+                }
+                else if ($value['platform'] == 'fb')
+                {
+                    $html .= '<i class="fa-brands fa-facebook transition-5 icon2 rounded-circle fa-lg" style="color: #0b85ed;"></i>';
+                }
+                $html .='</td></tr>';
             }
         }
 
