@@ -493,6 +493,12 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.UserChatName').text('User Name');
         $('.chat_list_loader').hide();
         $('.ChatListSetHTML').html('');
+        $('.SendWhatsAppMessage').attr('data-conversion_id', '');
+        $('.SendWhatsAppMessage').attr('data-page_token', '');
+        $('.SendWhatsAppMessage').attr('data-page_id', '');
+        $('.SendWhatsAppMessage').attr('data-massage_id', '');
+        $('.SendWhatsAppMessage').attr('datasenderid', '');
+        $('.SendWhatsAppMessage').attr('dataphoneno', '');
         var id = $(this).attr('id');
         $('.SendWhatsAppMessage').attr('DataSenderId', id);
         var phoneno = $(this).attr('phoneno');
@@ -516,6 +522,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.chat_bord').html('');
         $('.UserChatName').text('User Name');
         $('.in_chat_page_name').text('');
+
+
+
 
         var contact_no = $(this).attr('contact_no');
         $('.SendWhatsAppMessage').attr('DataPhoneno', contact_no);

@@ -1514,7 +1514,7 @@ class WhatAppIntegrationController extends BaseController
         $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE contact_no = "' . $contact_no . '"';
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
-        $html = '<script>$(".massage_list_loader").hide();</script>';
+        $html = '';
         $dates = '';
 
         foreach ($GetData as $key => $value) {
@@ -1529,7 +1529,7 @@ class WhatAppIntegrationController extends BaseController
                 if($isWithinLast7Days) {
                     $dayOfWeek = $dateTime->format('l');
                 } else {
-                    $dayOfWeek = $dateTime->format('d/m/Y');
+                    $dayOfWeek = $dateTime->format('d, F Y');
                 }
                 $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">'.$dayOfWeek.'</div>';
                 $dates = $date;
@@ -1558,8 +1558,11 @@ class WhatAppIntegrationController extends BaseController
                 }
             }
         }
-
-        $html .= '<script>$(".massage_list_loader").hide();</script>';
+        if($html != ''){
+            $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide();</script>';
+        }else{
+            $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").show();</script>';
+        }
         echo $html;
     }
 
