@@ -37,7 +37,7 @@ if (isset($resultdata[0])) {
         <div class="p-2">
             <div class="d-flex align-items-center title-1">
                 <i class="bi bi-gear-fill"></i>
-                <h2>Social Media Accounts</h2>
+                <h2 class="modal_view" data-toggle="modal" data-target="#exampleModal">Social Media Accounts</h2>
             </div>
             <div class="container-fluid p-0 mt-5">
                 <h4 class="text-gray-900 text-center">Add your social accounts</h4>
@@ -404,6 +404,47 @@ if (isset($resultdata[0])) {
             </div>
         </div>
     </div>
+</div>
+
+
+
+<!-- modal box whatapp -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Contact</h5>
+        <span type="button" class="close " data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </span>
+      </div>
+      <div class="modal-body overflow-auto" style="height:350px;">
+      <div class="d-flex col-12 justify-content-center">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+        <span class="input-group-text btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></span>
+        </div>
+        </div>
+      </div>
+      
+      <div class="col-12 d-flex border-top border-dark justify-content-center align-items-center p-2">
+            <div class="col-1 d-flex align-items-center justify-content-center"><input type="checkbox" style="width:15px; height:15px;"  ></div>
+            <div class="col-2 d-flex align-items-center px-2"><div class="border-2 border border-dark rounded-circle p-1 px-2"><i class="fa-solid fa-user fs-14"></i></div></div>
+            <div class="col-9"><h5 class="fs-14">User 1</h5><div class="fs-12">user-1</div></div>
+      </div>
+      <div class="col-12 d-flex border-top border-dark border-bottom justify-content-center align-items-center p-2">
+            <div class="col-1 d-flex align-items-center justify-content-center"><input type="checkbox" style="width:15px; height:15px;"></div>
+            <div class="col-2 d-flex align-items-center px-2"><div class="border-2 border border-dark rounded-circle p-1 px-2"><i class="fa-solid fa-user fs-14"></i></div></div>
+            <div class="col-9"><h5 class="fs-14">User 2</h5><div class="fs-12">user-2</div></div>
+      </div>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
