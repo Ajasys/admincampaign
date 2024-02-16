@@ -8,6 +8,20 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 ?>
 
 <style>
+.iti {
+        width: 100%;
+    }
+
+    .ChatBackGroundClass{
+        background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png') !important;
+
+    }
+
+
+    .chatheadercolorclass{
+        background-color: #005c4b !important;
+    }
+
     body {
         background-color: #f3f3f3;
     }
@@ -102,7 +116,100 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         background-color: azure;
     }
 </style>
+<!-- View Contact modal  -->
+<div class="modal fade" id="exampleModal_mass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">view Contact</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0 m-0">
+                <div class="p-2">
+                    <div class="d-flex p-2 border rounded-2">
+                        <div>
+                            <i class="bi bi-person-circle" style="font-size: 30px;"></i>
+                        </div>
+                        <div class="d-flex align-items-center ms-2">
+                            <p>Mobile number</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3">
+                    <div class="d-flex justify-content-between border-bottom pb-2">
+                        <div>
+                            <p>+91 9499532715</p>
+                            <p>TEL</p>
+                        </div>
+                        <div class="d-flex align-items-center ms-2">
+                            <i class="bi bi-chat-left-text-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal box whatapp -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Send Contact</h5>
+                <span type="button" class="close " data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </span>
+            </div>
+            <div class="modal-body overflow-auto" style="height:350px;">
+                <div class="d-flex col-12 justify-content-center">
+                    <div class="input-group mb-3 d-none">
+                        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <span class="input-group-text btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="SetContactListHtml">
 
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary rounded-circle me-1 SendContactNumber">
+                    <i class="fa-regular fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal_view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body-secondery">
+                <div class="modal-body-card pb-1">
+                    <h5 class="mb-3 pb-2 border-bottom col-12">Add Contact Details</h5>
+                    <div class="col-12">
+                        <div class="col-12 mb-3 mt-2">
+                            <input type="text" class="form-control main-control ContactNameClass " id="business_name" name="business_name" placeholder="Enter Name" value="" required="">
+                        </div>
+                        <div class="col-12 mb-3 mt-2">
+                            <input type="number" id="mobile_code" class="form-control phone_number_div ContactNumberClass" placeholder="Enter Contact Number" name="name">
+                        </div>
+
+                        <div class="col-12 pt-3 border-top mb-2 text-end">
+                            <span class="btn btn-secondary CloseBtn" data-bs-dismiss="modal">Close</span>
+                            <span class="btn-primary AddWhatsAppContactNumber" id="" data-edit_id="" name="memberships_update1" value="memberships_update1">Add</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
@@ -136,7 +243,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         </div>
                         <div class="col-12 overflow-y-scroll ms-1" style="max-height: 100%;">
                             <div class="accordion mt-2" id="accordionExample">
-                                <div class="accordion-item border-0 border-bottom">
+                                <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button border-0 shadow-none fw-medium" type="button"
                                             data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
@@ -164,7 +271,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item border-0 border-bottom">
+                                <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed border-0 shadow-none fw-medium"
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
@@ -208,7 +315,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item border-0 border-bottom">
+                                <div class="accordion-item border-0 border-bottom WhatsAppListedMessage">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed border-0 shadow-none fw-medium"
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
@@ -229,7 +336,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                             <P class="ms-2">Whatsapp</P>
                                         </button>
                                     </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                    <div id="collapseThree" class="accordion-collapse collapse WhatsAppAccountListTab"
                                         data-bs-parent="#accordionExample">
 
                                         <?php
@@ -278,7 +385,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                     <h5 class="fs-5 w-semibold">Chats</h5>
                                 </div>
                                 <div class="">
-                                    <p class="page_name p-1 "></p>
+                                    <p class="page_name p-1 d-flex"></p>
                                 </div>
                             </div>
                         </div>
@@ -307,9 +414,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 </div>
 
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-6 transcript_box" style="height:80vh">
-                    <div class="col-12 border rounded-end-4 bg-white position-relative" style="height:80vh">
+                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass " style="height:80vh">
 
-                        <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0" style="height: 280px; width: 200px;">
+                        <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0" style="height: 200px; width: 200px; display:none;">
                             <ul class="p-1 bg-white ">
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
@@ -412,7 +519,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                         <p class="ms-2">Camera</p>
                                     </div>
                                 </li>
-                                <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
+                                <li class="nav_item_ww col-12 border ContactModelOpen rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -423,10 +530,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2">Contact</p>
+                                        <p class="ms-2" data-toggle="modal" data-target="#exampleModal">Contact</p>
                                     </div>
                                 </li>
-                                <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
+                                <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2 d-none">
                                     <div class="d-flex">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -440,7 +547,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                         <p class="ms-2">Poll</p>
                                     </div>
                                 </li>
-                                <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
+                                <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2 d-none">
                                     <div class="d-flex">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 511.523 511.523" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -463,8 +570,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             <div class="d-flex bg-white rounded-pill py-1 border">
                                 <div class="d-flex col-12 align-items-center">
                                     <div class="ps-2">
-                                        <button class="btn btn-primary btn_x rounded-5">
-                                            x
+                                        <button class="btn btn-primary btn_x documentselectionpin rounded-5">
+                                            <i class="bi bi-paperclip"></i>
                                         </button>
                                     </div>
                                     <div class="input-group  position-relative ">
@@ -485,16 +592,16 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 });
                             });
                         </script>
-                        <div class="chat-nav-search-bar p-2 mt-2 col-12">
-                            <div class="d-flex justify-content-between border-bottom align-items-center">
-                                <h5 class="fs-5 d-flex ps-2 pb-2 align-items-center">
+                        <div class="chat-nav-search-bar Setchatheadercolorclass   p-2 pt-3 col-12">
+                            <div class="d-flex justify-content-between border-bottom RemoveHeaderBorderDiv align-items-center">
+                                <h5 class="fs-5 d-flex ps-2 pb-1 profilepiccolor align-items-center">
                                     <i class="fa-solid fa-circle-user fs-3 me-2"></i>
                                     <span class="d-flex flex-wrap">
                                         <span class="username col-12 d-block UserChatName">User Name</span>
                                         <span class="in_chat_page_name fs-12 col-12 d-block"></span>
                                     </span>
                                 </h5>
-                                <button class="bg-transparent border-0">
+                                <button class="bg-transparent border-0 d-none">
                                     <i class="fa-regular fa-star"></i></button>
                             </div>
                         </div>
@@ -706,7 +813,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         });
     });
 
-    $('body').on('click', '.WA_account_listTab', function () {
+    $('body').on('click', '.WA_account_listTab', function() {
         $('.chat_bord').html('');
         $('.in_chat_page_name').text('');
         $('.UserChatName').text('User Name');
@@ -722,7 +829,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.SendWhatsAppMessage').attr('DataSenderId', id);
         var phoneno = $(this).attr('phoneno');
         var name = $(this).attr('name');
-        $('.page_name').text(name);
+        $('.page_name').html('<p class="">' + name + '</p><button class="btn-primary-rounded add AddModelContactNO  ms-2" phoneno="' + phoneno + '" conversation_id = "' + id + '"  data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Add Contact" type="button" data-bs-toggle="modal" data-bs-target="#modal_view" aria-describedby="tooltip576329" aria-controls="inquiry_all_status_update"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M28 22.5h-3.5V19a1 1 0 0 0-2 0v3.5H19a1 1 0 0 0 0 2h3.5V28a1 1 0 0 0 2 0v-3.5H28a1 1 0 0 0 0-2z" fill="#f3f3f3" opacity="1" data-original="#f3f3f3" class=""></path><path d="M16 29H6a1 1 0 0 1-1-1 11.013 11.013 0 0 1 11-11 8.025 8.025 0 1 0-4.289-1.258A13.012 13.012 0 0 0 3 28a3 3 0 0 0 3 3h10a1 1 0 0 0 0-2zM10 9a6 6 0 1 1 6 6 6.006 6.006 0 0 1-6-6z" fill="#f3f3f3" opacity="1" data-original="#f3f3f3" class=""></path></g></svg></button>');
         $.ajax({
             method: "post",
             url: "WhatsAppAccountsContactList",
@@ -731,21 +838,20 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 phoneno: phoneno,
                 name: name
             },
-            success: function (data) {
-                $('.chat_list').html(data);
+            success: function(data) {
+                var data = JSON.parse(data);
+                $('.chat_list').html(data.html);
+                $('.SetContactListHtml').html(data.htmlcontactlist);
             }
         });
     });
 
-    $('body').on('click', '.ChatClickOpenHtml', function () {
+    $('body').on('click', '.ChatClickOpenHtml', function() {
         $('.chat_bord').html('');
         $('.UserChatName').text('User Name');
         $('.in_chat_page_name').text('');
-
-
-
-
         var contact_no = $(this).attr('contact_no');
+var conversation_account_id = $(this).attr('conversation_account_id');
         $('.SendWhatsAppMessage').attr('DataPhoneno', contact_no);
         var whatsapp_name = $(this).attr('whatsapp_name');
         var account_phone_no = $(this).attr('account_phone_no');
@@ -764,17 +870,16 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             url: "WhatsAppListConverstion",
             data: {
                 contact_no: contact_no,
+conversation_account_id: conversation_account_id,
             },
-            success: function (data) {
+            success: function(data) {
                 $('.massage_list_loader').hide();
-
                 $('.chat_bord').html(data);
-
             }
         });
     });
 
-    $('body').on('click', '.SendWhatsAppMessage', function () {
+    $('body').on('click', '.SendWhatsAppMessage', function() {
         var DataSenderId = $(this).attr('DataSenderId');
         var DataPhoneno = $(this).attr('DataPhoneno');
         var massage_input = $('.massage_input').val();
@@ -787,7 +892,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     DataPhoneno: DataPhoneno,
                     massage_input: massage_input
                 },
-                success: function (data) {
+                success: function(data) {
                     $('.chat_list .active-account-box').trigger('click');
                 }
             });
@@ -795,16 +900,183 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.massage_input').val('');
     });
 
-    $('body').on('keydown', '.massage_input', function (event) {
+    $('body').on('keydown', '.massage_input', function(event) {
         if (event.which === 13) {
             $('.SendWhatsAppMessage').trigger('click');
-            console.log('wroking');
-        }
+                    }
     });
 
-    $('body').on('click', '.accordion-header', function () {
+    $('body').on('click', '.accordion-header', function() {
         $('.SendWhatsAppMessage').attr('datasenderid', '');
         $('.SendWhatsAppMessage').attr('dataphoneno', '');
 
+    });
+
+    $('body').on('click', '.SendContactNumber', function() {
+        var contactList = [];
+        var count = 0;
+        var DataSenderId = $('.SendWhatsAppMessage').attr('DataSenderId');
+        var DataPhoneno = $('.SendWhatsAppMessage').attr('DataPhoneno');
+
+        $('.ContactNoSelectionCheckbox:checked').each(function() {
+            var name = $(this).attr('name');
+            var phoneno = $(this).attr('phoneno');
+            count = count + 1;
+            contactList.push({
+                name: name,
+                phoneno: phoneno
+            });
+        });
+        var jsonString = JSON.stringify(contactList);
+        if (count > 0) {
+            if (DataSenderId != '' && DataPhoneno != "") {
+                $.ajax({
+                    method: "post",
+                    url: "SendWhatsAppContactNumber",
+                    data: {
+                        DataSenderId: DataSenderId,
+                        DataPhoneno: DataPhoneno,
+                        contactstring: jsonString
+                    },
+                    success: function(data) {
+                        $('.close').trigger('click');
+                    }
+                });
+            }
+        }
+    });
+
+
+    $('body').on('click', '.DirecttoMsg', function() {
+        var phoneno = $(this).attr('phoneno');
+        $('.' + phoneno).trigger('click');
+
+
+    });
+
+    $('body').on('click', '.AddWhatsAppContactNO', function() {
+        var connection_id = $(this).attr('connection_id');
+        var name = $(this).attr('name');
+        var phone_no = $(this).attr('phone_no');
+        var account_phone_no = '';
+        account_phone_no = $('.chat_list .active-account-box').attr('account_phone_no');
+        var activeno = $(this).attr('activeno');
+        $.ajax({
+            method: "post",
+            url: "WhatsAppInsertData",
+            data: {
+                action: 'contactadd',
+                connection_id: connection_id,
+                name: name,
+                phone_no: phone_no,
+                account_phone_no: account_phone_no,
+            },
+            success: function(data) {
+                $('.WhatsAppAccountListTab .active-account-box').trigger('click');
+                setTimeout(function() {
+                    $('.' + activeno).trigger('click');
+                }, 500);
+            }
+        });
+    });
+    $("#mobile_code").intlTelInput({
+        initialCountry: "in",
+        separateDialCode: true,
+        // utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
+    });
+
+
+    $('body').on('click', '.AddWhatsAppContactNumber', function() {
+        var ContactNameClass = $('.ContactNameClass').val();
+        var ContactNumberClass = $('.ContactNumberClass').val();
+        var countrey_code = $('.iti__selected-dial-code').text();
+        var phoneNumber1 = ContactNumberClass.toString();
+        var connection_id = $('.AddModelContactNO').attr('conversation_id');
+        var account_phone_no = $('.AddModelContactNO').attr('phoneno');
+        var finalname = countrey_code + ContactNumberClass;
+        var phoneNumber = finalname;
+        var cleanedPhoneNumber = phoneNumber.replace(/[\s\+\-\(\)]/g, '');
+
+        account_phone_no = account_phone_no.replace(/[\s\+\-\(\)]/g, '');
+        var activeno = $('.chat_list .active-account-box').attr('contact_no');
+        if(activeno != '' && activeno !== undefined && activeno !== 'undefined'){
+            activeno = activeno.replace(/[\s\+\-\(\)]/g, '');
+
+        }
+
+        if (ContactNameClass != '' && ContactNumberClass != '' && countrey_code != '' && phoneNumber1.length == "10" && connection_id != '' && account_phone_no != '') {
+            $.ajax({
+                method: "post",
+                url: "WhatsAppInsertData",
+                data: {
+                    action: 'manualcontactadd',
+                    connection_id: connection_id,
+                    name: ContactNameClass,
+                    phone_no: cleanedPhoneNumber,
+                    account_phone_no: account_phone_no,
+                },
+                success: function(data) {
+
+                    if(data == '1'){
+                        $('.WhatsAppAccountListTab .active-account-box').trigger('click');
+                        $('.CloseBtn').trigger('click');
+                        setTimeout(function() {
+                            $('.' + activeno).trigger('click');
+                            iziToast.success({
+                                title: "Added Successfully"
+                            });
+                        }, 500);
+                    }else{
+                        iziToast.error({
+                            title: "Duplicate Number"
+                        });
+                    }
+                  
+                }
+            });
+        }
+    }); 
+
+
+    $('body').on('click', '.AddModelContactNO', function(){
+        $('.ContactNameClass').val('');
+        $('.ContactNumberClass').val('');
+    });
+
+
+    $('body').on('click', '.ListedMessage', function(){
+        $('.Setchatheadercolorclass').removeClass('chatheadercolorclass');
+        $('.SetChatBackGroundClass').removeClass('ChatBackGroundClass');
+        $('.documentselectionpin').removeClass('chatheadercolorclass');
+        $('.SendWhatsAppMessage').removeClass('chatheadercolorclass');
+        $('.RemoveHeaderBorderDiv').addClass('border-bottom');
+        $('.UserChatName').removeClass('text-white');
+        $('.profilepiccolor').removeClass('text-white');
+
+        setTimeout(function() {
+            $('.UserChatName').addClass('text-dark');
+            $('.profilepiccolor').addClass('text-dark');  
+         
+        }, 500);
+       
+    });
+
+    $('body').on('click', '.WhatsAppListedMessage', function(){
+        $('.Setchatheadercolorclass').addClass('chatheadercolorclass');
+        $('.SetChatBackGroundClass').addClass('ChatBackGroundClass');
+        $('.documentselectionpin').addClass('chatheadercolorclass');
+        $('.SendWhatsAppMessage').addClass('chatheadercolorclass');
+        $('.RemoveHeaderBorderDiv').removeClass('border-bottom');
+        $('.UserChatName').removeClass('text-dark');
+        $('.profilepiccolor').removeClass('text-dark');
+        $('.UserChatName').addClass('text-white');
+        $('.profilepiccolor').addClass('text-white');
+   
+
+    });
+
+
+    $('body').on('click','.ContactModelOpen',function(){
+        $('.ContactNoSelectionCheckbox').prop('checked', false);
     })
 </script>

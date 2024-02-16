@@ -1592,7 +1592,7 @@ class WhatAppIntegrationController extends BaseController
                 
                 if ($sent_recieved_status == '2') {
                     $html .= '<div class="d-flex align-items-center pb-3">
-                    <div class="border rounded-2 ps-4 pe-4" style="width:max-content;">
+                    <div class="border rounded-2 bg-white ps-4 pe-4" style="width:max-content;">
                         <div class="d-flex p-2 border-bottom ">
                             <div>
                                 <i class="bi bi-person-circle" style="font-size: 30px;"></i>
