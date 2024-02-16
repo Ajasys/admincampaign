@@ -26,11 +26,12 @@ class CreateController extends BaseController
 
     public function SendPostDataFB()
     {
-        // Check if the request method is POST
+        
+        // Check if the request method is POST  
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Get the message and attachment from the form data
+            // Get the message and attachments from the form data
             $event_address = $_POST['event_address'];
-            $attachment = $_FILES['attachment'];
+            $attachments = $_FILES['attachment'];
 
             // Construct the URL for the Facebook Graph API endpoint
             $page_id = '196821650189891';
@@ -38,15 +39,53 @@ class CreateController extends BaseController
 
             // Initialize cURL session
             $curl = curl_init();
+            $curll = curl_init();
 
-            // Set the file as multipart/form-data
-            $file_data = array(
-                'attachment' => curl_file_create($attachment['tmp_name'], $attachment['type'], $attachment['name'])
+            // Create an array to store the attachments
+            $attachments_data = array();
+            $feed_post_array = array();
+            $attachments_data = [
+                'published' => 'false'
+            ];
+            
+            // Loop through each attachment
+            foreach ($attachments['tmp_name'] as $index => $tmp_name) {
+                // Set the file as multipart/form-data
+                $attachments_data["attachment"] = curl_file_create($tmp_name, $attachments['type'][$index], $attachments['name'][$index]);
+                // Set cURL options
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/photos',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => array_merge($attachments_data, array(
+                        'access_token' => $access_token,
+                        'caption' => $event_address // Message to be posted
+                    )),
+                ));
+
+                // pre(json_encode($attachments_data));
+                // Execute the POST request
+                $response = curl_exec($curl);
+                $data = json_decode($response);
+                // $feed_post_array['attached_media[' . $index . ']'] = array('media_fbid' => $data->id);
+                $feed_post_array['attached_media[' . $index . ']'] = '{"media_fbid":"' . $data->id . '"}';
+            }
+     
+            $post_array = array_merge(
+                array(
+                    'access_token' => $access_token,
+                    'massage' => $event_address
+                ),
+                $feed_post_array
             );
-
-            // Set cURL options
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/photos',
+           
+            curl_setopt_array($curll, array(
+                CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/feed',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -54,14 +93,16 @@ class CreateController extends BaseController
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => array_merge($file_data, array(
-                    'access_token' => $access_token,
-                    'caption' => $event_address // Message to be posted
-                )),
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json'
+                ),
+                CURLOPT_POSTFIELDS => http_build_query($post_array  ),
+                
             ));
+            $re = curl_exec($curll);
+            // $re = postSocialData($api,$post_array);
 
-            // Execute the POST request
-            $response = curl_exec($curl);
+            pre(json_decode($re));
 
             // Check for errors
             if ($response === false) {
@@ -104,35 +145,8 @@ class CreateController extends BaseController
         } else {
             $data_img = "";
         }
-        // pre('https://graph.facebook.com/v19.0/'.$pagee_idd.'/feed?access_token='.$accesss_tocken.'&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
-        // die;
-        // pre('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
-        // die;
-
-        // $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time');
         $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
-        // pre('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account    ');
-        // die();
 
-        // $curl = curl_init();
-
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_URL => 'https://graph.facebook.com/v19.0/196821650189891/feed?access_token=EAADNF4vVgk0BO8PzWEgke2AElvmkVwnN4AS5O55B9UnOjGk6iIZAmgbtjqWkM4ZB4mrqjmyjWnijAAGoccVk3xkwu9FC9jqHgFxc0SqO1ILuk7YCIrAU660mrX9Pu3fWj7o8fMa5HuGRPZCfNym8ScxR8ZAXdLBzA6ZBJpoGInPfela3vRjGs8gLsKaZCMqDZCvNbZCCjq0ZD&fields=admin_creator%2Cmessage%2Cfull_picture%2Ccreated_time',
-        //     CURLOPT_RETURNTRANSFER => true,
-        //     CURLOPT_ENCODING => '',
-        //     CURLOPT_MAXREDIRS => 10,
-        //     CURLOPT_TIMEOUT => 0,
-        //     CURLOPT_FOLLOWLOCATION => true,
-        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        //     CURLOPT_CUSTOMREQUEST => 'GET',
-        //     CURLOPT_HTTPHEADER => array(
-        //         'Cookie: ps_l=0; ps_n=0; sb=FbnFZTqFrR9iliVS0omTj1D5'
-        //     ),
-        // ));
-
-        // $response = curl_exec($curl);
-
-        // curl_close($curl);
         $fb_page_list = $response;
             
         $html = "";
