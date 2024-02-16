@@ -31,7 +31,75 @@ class WebAPIController extends BaseController
         // $email = 'foram@gmail.com';
         // $message = 'fgjdfhjgf';
         // $access_token = 'diq3xjSsIT4BHJdcxVQf2VH5XOi94amGTBCkejyXIFWIZ5NBUYmQXAGq9YR5uPFsMFbxqH3aA1649pQqU6ZQL3YYVrVhmJW2QqziHnsOa9WPvwS41sSFpRiXAlrDlvqrxi95gTbSdW3ptWdcaclAUz';
+        $access_token='';
+        $name = '';
+        $mobileno = '';
+        $email = '';
+        $message = '';
+        if(isset($_GET['access_token']))
+        {
+            $access_token = $_GET['access_token'];
+        }
+        else if(isset($_POST['access_token']))
+        {
+            $access_token = $_POST['access_token'];
+        }
+        else if(isset($_REQUEST['access_token']))
+        {
+            $access_token = $_REQUEST['access_token'];
+        }
 
+        if(isset($_GET['name']))
+        {
+            $name = $_GET['name'];
+        }
+        else if(isset($_POST['name']))
+        {
+            $name = $_POST['name'];
+        }
+        else if(isset($_REQUEST['name']))
+        {
+            $name = $_REQUEST['name'];
+        }
+
+        if(isset($_GET['mobileno']))
+        {
+            $mobileno = $_GET['mobileno'];
+        }
+        else if(isset($_POST['mobileno']))
+        {
+            $mobileno = $_POST['mobileno'];
+        }
+        else if(isset($_REQUEST['mobileno']))
+        {
+            $mobileno = $_REQUEST['mobileno'];
+        }
+
+        if(isset($_GET['email']))
+        {
+            $email = $_GET['email'];
+        }
+        else if(isset($_POST['email']))
+        {
+            $email = $_POST['email'];
+        }
+        else if(isset($_REQUEST['email']))
+        {
+            $email = $_REQUEST['email'];
+        }
+
+        if(isset($_GET['description']))
+        {
+            $message = $_GET['description'];
+        }
+        else if(isset($_POST['description']))
+        {
+            $message = $_POST['description'];
+        }
+        else if(isset($_REQUEST['description']))
+        {
+            $message = $_REQUEST['description'];
+        }
         // $access_token = isset($_GET['access_token']) ? $_GET['access_token'] : $_POST['access_token'];
         // $name = isset($_GET['name']) ? $_GET['name'] : $_POST['name'];
         // $mobileno = isset($_GET['mobileno']) ? $_GET['mobileno'] : $_POST['mobileno'];
@@ -39,11 +107,11 @@ class WebAPIController extends BaseController
         // $message = isset($_GET['description']) ? $_GET['description'] : $_POST['description'];
 
 
-        $access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : '';
-        $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
-        $mobileno = isset($_REQUEST['mobileno']) ? $_REQUEST['mobileno'] : '';
-        $email = isset($_REQUEST['email']) ? $_REQUEST['email'] : '';
-        $message = isset($_REQUEST['description']) ? $_REQUEST['description'] : '';
+        // $access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : '';
+        // $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
+        // $mobileno = isset($_REQUEST['mobileno']) ? $_REQUEST['mobileno'] : '';
+        // $email = isset($_REQUEST['email']) ? $_REQUEST['email'] : '';
+        // $message = isset($_REQUEST['description']) ? $_REQUEST['description'] : '';
 
         if (isset($access_token)) {
             if (isset($access_token) && isset($name) && isset($mobileno)) {
