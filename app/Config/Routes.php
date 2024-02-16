@@ -598,8 +598,10 @@ $routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessage
 	$routes->post('/WhatsAppAccountsContactList', 'WhatAppIntegrationController::WhatsAppAccountsContactList');
 	$routes->post('/WhatsAppListConverstion', 'WhatAppIntegrationController::WhatsAppListConverstion');
 	$routes->post('/SendWhatsAppChatMessage', 'WhatAppIntegrationController::SendWhatsAppChatMessage');
+$routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
 
 
+$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
 
 
 
