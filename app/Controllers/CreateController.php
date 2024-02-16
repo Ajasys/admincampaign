@@ -195,21 +195,24 @@ class CreateController extends BaseController
             }
 
 
-            $html .= '<div class="card-header mb-2 col-12 col-sm-5 col-md-12 col-xl-5 col-xxl-3 border rounded-4 bg-white p-3 shadow mx-2" id="post_card">
+            $html .= '<div class=" mb-2 col-12 col-sm-5 col-md-12 col-xl-5 col-xxl-4 " id="post_card" >
+                <div class="border rounded-4 bg-white p-3 shadow mx-2 card-header">
+
+                
             <div class="col-12 d-flex flex-wrap border-bottom">
                 <div class="me-2" data-bs-toggle="modal" data-bs-target="#comment-modal">
                     <img class="rounded-circle" src="' . $data_img . '" alt="#" style="width:40px;height:40px;">
                 </div>
                 <div class="col">
                     <div class="col-12 d-flex flex-wrap justify-content-between">
-                        <h5 class="col-10" data-bs-toggle="modal" data-bs-target="#comment-modal">' . $page_namee . '</h5>
-                        <div class="btn-group dropdown">
-                            <div class="col-2" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-vertical cursor-pinter"></i>
+                        <p class="col-10" data-bs-toggle="modal" data-bs-target="#comment-modal">' . $page_namee . '</p>
+                        <div class="btn-group dropstart">
+                            <div class="" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-ellipsis-vertical cursor-pinter mx-2"></i>
                             </div>
-                            <ul class="dropdown-menu border-0 bg-transparent">
+                            <ul class="dropdown-menu bg-transparent text-end border-0">
                                 <div class="d-inline-block bg-white border p-2 rounded-2">
-                                    <button class="btn btn-danger bg-danger delete_post_facebook" data-delete_id="' . $value['id'] . '">Delete</button>
+                                    <button class="bg-transparent border-0 delete_post_facebook" data-delete_id="' . $value['id'] . '"><i class="fa-solid fa-trash-can me-2"></i>Delete</button>
                                 </div>
                             </ul>
                         </div>
@@ -226,16 +229,15 @@ class CreateController extends BaseController
                     </div>
                 </div>
             </div>
+<div class="col-12" data-bs-toggle="modal" data-bs-target="#comment-modal">
             <div class="col-12 my-2">
                 <p class="fs-14">' . $fb_titile . '</p>
             </div>
-            <div class="col-12" data-bs-toggle="modal" data-bs-target="#comment-modal">
-                <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="min-height: 295px; max-height: 295px; overflow: hidden;">
-                    <img src="' . $fb_upload_img . '" alt="#" class="object-fit-content" style="width:290px; height: auto; max-height:290px;">
+            <div class="py-2 d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="min-height: 209px; max-height: 209px; overflow: hidden;">
+                    <img src="' . $fb_upload_img . '" class="" style="width:209px; height: auto; max-height:209px;object-fit:contain">
                 </div>
             </div>
-            <hr>
-            <div class="col-12 p-1 mt-2 d-flex post-btn-box">
+            <div class="col-12 p-1 mt-2 d-flex post-btn-box border-top">
                 <div class="col-6 d-flex flex-wrap rounded-3 text-muted" >
                     <button class="btn w-100 like_button border-0"><i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i>Like</button>
                 </div>
@@ -243,7 +245,9 @@ class CreateController extends BaseController
                     <div class="btn w-100 text-muted d-flex p-0 border-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto"></i><div class="my-auto"> Comment</div></div>
                 </div>
             </div>
-        </div>';
+        </div>
+        </div>
+        ';
             foreach ($comments_responce['data'] as $key => $comment_value) {
                 $timestamp_comment = $comment_value['created_time'];
                 $date_comment = new DateTime($timestamp_comment, new DateTimeZone('UTC'));

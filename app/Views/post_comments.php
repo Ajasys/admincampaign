@@ -115,254 +115,109 @@
     input {
         outline: none;
     }
+.accordion-button:not(.collapsed){
+        background-color: #724EBF;
+        color: white;
+    }
+#post_card{
+        cursor: pointer;
+    }
 </style>
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2">
-            <div class="d-flex align-items-center title-1">
-                <i class="bi bi-gear-fill"></i>
-                <h2>Create</h2>
+            <div class="d-flex align-items-center title-1 col-12 justify-content-between">
+                <div class="d-flex flex-wrap align-items-center">
+                    <i class="bi bi-gear-fill"></i>
+                    <h2>Posts</h2>
+                </div>
+                <div>
+                    <button class=" btn btn-primary-rounded border border-primary" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">+</button>
+                </div>
             </div>
             <div class="col-12 d-flex flex-wrap ">
-                <div class="col-3 p-2">
-                    <div class="col-12 border rounded-3 bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
-                        <!--  facebook page get start -->
-                        <?php
-                        $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-                        $fb_page_list = fb_insta_page_list($token);
-                        $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                        $i = 0;
-                        foreach ($fb_page_list['page_list'] as $key => $value) {
-                            $pageprofile = fb_page_img($value->id, $value->access_token);
-                            $img_decode = json_decode($pageprofile, true);
-                        ?>
+                <div class="col-3 ">
 
-                            <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
-                                <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])) : ?>
-                                    <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token; ?>" data-pagee_id="<?php echo $value->id; ?>" data-page_name="<?php echo $value->name; ?>" data-img="<?php echo $img_decode['page_img']; ?>">
-                                        <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
-                                        <div class="col">
-                                            <?php echo $value->name ?>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="col-12 d-flex flex-wrap align-items-start">
-                                <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)) : ?>
-                                    <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post" data-pagee_id="<?php if (isset($value->instagram_business_account)) {
-                                                                                                                                                                echo $value->id;
-                                                                                                                                                            } ?>" data-page_name="<?php echo $value->instagram_business_account->username; ?>" data-img="<?php echo $img_decode['page_img']; ?>" data-acess_token="<?php echo $value->access_token; ?>">
-                                        <?php if (isset($value->instagram_business_account->username)) : ?>
+                    <div class="col-12 ms-1" style="max-height: 100%;">
+                        <div class="accordion mt-2" id="accordionExample">
+                            <div class="accordion-item border-0 border-bottom">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button border-0 shadow-none fw-medium" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                        <i class="fa-brands fa-facebook fa-2xl me-2"></i>
+                                        <P>Facebook Pages</P>
+
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body account_list p-0">
+                                        <div
+                                            class="col-12 border  bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
+                                            <!--  facebook page get start -->
+                                            <?php
+                                            $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+                                            $fb_page_list = fb_insta_page_list($token);
+                                            $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                                            $i = 0;
+                                            foreach ($fb_page_list['page_list'] as $key => $value) {
+                                                $pageprofile = fb_page_img($value->id, $value->access_token);
+                                                $img_decode = json_decode($pageprofile, true);
+                                                ?>
+
+                                                <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
+                                                    <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])): ?>
+                                                        <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>"
+                                                            data-acess_token="<?php echo $value->access_token; ?>"
+                                                            data-pagee_id="<?php echo $value->id; ?>"
+                                                            data-page_name="<?php echo $value->name; ?>"
+                                                            data-img="<?php echo $img_decode['page_img']; ?>">
+                                                            <img class="rounded-circle me-2"
+                                                                src="<?php echo $img_decode['page_img']; ?>" alt="#"
+                                                                style="width:30px;height:30px;object-fit-container" />
+                                                            <div class="col">
+                                                                <?php echo $value->name ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <!-- <div class="col-12 d-flex flex-wrap align-items-start">
+                                <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)): ?>
+                                    <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post"
+                                                            data-pagee_id="<?php if (isset($value->instagram_business_account)) {
+                                                                echo $value->id;
+                                                            } ?>" data-page_name="<?php echo $value->instagram_business_account->username; ?>"
+                                                            data-img="<?php echo $img_decode['page_img']; ?>"
+                                                            data-acess_token="<?php echo $value->access_token; ?>">
+                                        <?php if (isset($value->instagram_business_account->username)): ?>
                                             <?php echo $value->instagram_business_account->username; ?>
                                         <?php endif; ?>
                                     </div>
                                 <?php endif; ?>
-                            </div>
+                            </div> -->
 
 
-                        <?php $i++;
-                        } ?>
-                        <!-- facebook page get end  -->
-
-
-
-                        <!-- <div class="col-12 my-2 text-center">
-                            <div class="d-flex flex-wrap justify-content-center">
-                                <img src="https://cdn.publer.io/on-board-social-accounts.png" alt="#">
-                                <p class="px-3 text-center col-8 fs-5 my-3">Start by adding your social accounts</p>
-                                <div class="col-12 my-2">
-                                    <a href="<?= base_url(); ?>add_account"
-                                        class="btn bg-transperent rounded-2 border"><i
-                                            class="bi bi-plus-lg me-1"></i>Add Account</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-9 p-2">
-                    <div class="card-header col-12 border rounded-3 bg-white d-flex flex-column flex-wrap justify-content-between h-100">
-                        <div class="col-12  border-bottom ">
-                            <div class="border-bottom p-3 col-12">
-                                <button class="border bg-transparent px-3 py-2 rounded-2 text-muted">Add label</button>
-                            </div>
-                            <div class="col-12">
-                                <nav class="nav">
-                                    <form class="needs-validation" id="create_form" name="create_form" method="POST"
-                                        novalidate>
-                                        <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
-                                            <li class="nav-item active" role="presentation">
-                                                <a class="nav-link bg-white text-primary create-input-toggle"
-                                                    id="pills-master-diet" data-bs-toggle="pill"
-                                                    data-bs-target="#pills-master-diet-tab" href="#">Update</a>
-                                            </li>
-                                            <li class="nav-item " role="presentation">
-                                                <a class="nav-link bg-white text-primary create-input-toggle"
-                                                    id="pills-all-diet" data-bs-toggle="pill"
-                                                    data-bs-target="#pills-master-diet-tab" href="#">Photo</a>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link bg-white text-primary" id="pills-all-event"
-                                                    data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab"
-                                                    href="#">Event</a>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link bg-white text-primary" id="pills-all-offer"
-                                                    data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab"
-                                                    href="#">Offer</a>
-                                            </li>
-                                        </ul>
-
-                                        </form>
-                                </nav>
-                                <div class="col-12">
-                                    <div class="tab-content active show" id="pills-tabContent">
-                                        <div class="tab-pane fade active show" id="pills-master-diet-tab" role="tabpanel"
-                                            aria-labelledby="update-all-tab-modal" tabindex="0">
-                                            <div class="col-12  tab-compo">
-                                                <div class="card-body p-2">
-                                                    <div id="event-input">
-                                                        <div class="col-12 my-1 p-1">
-                                                            <div class="col-12">
-                                                                <input type="text" class="form-control p-2"
-                                                                    id="event_title" placeholder="Title">
-                                                            </div>
-                                                        </div>
-                                                        <div class="d-flex">
-                                                            <div class="col-6 my-1 p-1">
-                                                                <div class="col-12">
-                                                                    <input type="text"
-                                                                        class="form-control p-2 offer_start_date"
-                                                                        id="event_start_date" placeholder="Start Date">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6 my-1 p-1">
-                                                                <div class="col-12">
-                                                                    <input type="text"
-                                                                        class="form-control p-2 event_end_date"
-                                                                        id="event_end" placeholder="End Date">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 border rounded  p-3">
-                                                        <textarea cols="30" rows="5"
-                                                            class="col-12 border-0 event_address"
-                                                            placeholder="Write something or use shortcodes, spintax..... "
-                                                            id="event_address"></textarea>
-
-                                                        <span
-                                                            class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 "
-                                                            data-bs-toggle="modal" data-bs-target="#get_file"
-                                                            type="file" style="background:#bdbaba;;">Click or Drag &
-                                                            Drop Media</span>
-                                                        <div class="row col-12" id="offer-input">
-                                                            <div class="col-md-4 my-1 ">
-                                                                <input type="text" placeholder="Coupon code (optional)"
-                                                                    class="form-control" id="coupon_event" value="">
-                                                            </div>
-                                                            <div
-                                                                class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
-                                                                <input type="text"
-                                                                    placeholder="Link to redeem offer (optional)"
-                                                                    class="form-control" value="" id="link_event">
-                                                            </div>
-                                                            <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
-                                                                <textarea rows="1"
-                                                                    placeholder="Terms and conditions (optional)"
-                                                                    class="form-control" id="terms_event"></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div id="select-box">
-                                                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                                                <div class="main-selectpicker">
-                                                                    <select id="approx_buy" name="approx_buy"
-                                                                        class="selectpicker form-control form-main"
-                                                                        data-live-search="true" required>
-                                                                        <i class="fa-solid fa-caret-down"></i>
-                                                                        <option class="dropdown-item" value="">
-                                                                            Unspecified</option>
-                                                                        <option class="dropdown-item" value="2-3 days">
-                                                                            Cover</option>
-                                                                        <option class="dropdown-item" value="week">
-                                                                            Profile</option>
-                                                                        <option class="dropdown-item" value="week">Buy
-                                                                        </option>
-                                                                        <option class="dropdown-item" value="week">Logo
-                                                                        </option>
-                                                                        <option class="dropdown-item" value="week">
-                                                                            Exteriro</option>
-                                                                        <option class="dropdown-item" value="week">
-                                                                            Interior</option>
-                                                                        <option class="dropdown-item" value="week">
-                                                                            Product</option>
-                                                                        <option class="dropdown-item" value="week">
-                                                                            At-Work</option>
-                                                                        <option class="dropdown-item" value="week">Food
-                                                                            ANd Drink</option>
-                                                                        <option class="dropdown-item" value="week">Menu
-                                                                        </option>
-                                                                        <option class="dropdown-item" value="week">
-                                                                            Comman Area</option>
-                                                                        <option class="dropdown-item" value="week">Rooms
-                                                                        </option>
-                                                                        <option class="dropdown-item" value="week">
-                                                                            Workspaces</option>
-                                                                        <option class="dropdown-item" value="week">
-                                                                            Additional</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                <?php $i++;
+                                            } ?>
                                         </div>
-                                        <div
-                                            class="card-footer border-top p-2 px-4 d-flex  align-content-center flex-wrap">
-                                            <div class="col-4">
-                                                <button class="bg-transparent border-0 text-muted">
-                                                    <i class="fa-regular fa-clone me-2 "></i>Bulk Option</button>
-                                            </div>
-                                            <div class="col-8 d-flex  flex-wrap justify-content-end ">
-                                                
-                                                <button class="btn btn-outline-secondary mx-1 draft_create"
-                                                    id="draft_create">Draft</button>
-                                                <button class="btn btn-primary mx-1 create_comment">Publish</button>
-                                                <button
-                                                    class="btn btn-secondery mx-1 Scedual_start_date">Scedual</button>
-                                                <div class="btn-group dropup btn-outline-dark mx-1">
-                                                    <button type="button" class="btn btn-outline-dark rounded-3"
-                                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa-solid fa-angle-up"></i></button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                                        <li><a class="dropdown-item" href="#">Action two</a></li>
-                                                        <li><a class="dropdown-item" href="#">Action three</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-</div> -->
-
-                    </div>
                 </div>
                 <div class="col-9 px-3  mt-2">
-                    <div class="col-12 bg-white p-3 d-flex justify-content-end mb-2 rounded-4 border">
-                        <button class=" btn btn-primary-rounded " data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-plus"></i></button>
-                    </div>
-                    <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:700px;">
+                    <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3"
+                        style="max-height:90vh;">
                         <div class="demo_list_data  d-flex flex-wrap col-12" id="demo_list_data"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade " id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" data-bs-backdrop="static">
+        <div class="modal fade " id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true"
+            role="dialog" data-bs-backdrop="static">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -383,10 +238,8 @@
                                         </div>
 
                                     </div>
-                                    <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate>
-
-                                        <input class="form-control main-control coupon_event attachment" id="attachment" name="attachment[]" multiple type="file" placeholder="">
-                                    </form>
+                                    <input class="form-control main-control coupon_event attachment" id="attachment"
+                                        name="attachment[]" multiple="" type="file" placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -404,7 +257,8 @@
             <span>Loading...</span>
             <div class="mx-auto chat_loader"></div>
         </div>
-        <div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -415,16 +269,24 @@
                             <form class="needs-validation" id="create_form" name="create_form" method="POST" novalidate>
                                 <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
                                     <li class="nav-item active" role="presentation">
-                                        <a class="nav-link bg-white text-primary create-input-toggle" id="pills-master-diet" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Update</a>
+                                        <a class="nav-link bg-white text-primary create-input-toggle"
+                                            id="pills-master-diet" data-bs-toggle="pill"
+                                            data-bs-target="#pills-master-diet-tab" href="#">Update</a>
                                     </li>
                                     <li class="nav-item " role="presentation">
-                                        <a class="nav-link bg-white text-primary create-input-toggle" id="pills-all-diet" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Photo</a>
+                                        <a class="nav-link bg-white text-primary create-input-toggle"
+                                            id="pills-all-diet" data-bs-toggle="pill"
+                                            data-bs-target="#pills-master-diet-tab" href="#">Photo</a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <a class="nav-link bg-white text-primary" id="pills-all-event" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Event</a>
+                                        <a class="nav-link bg-white text-primary" id="pills-all-event"
+                                            data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab"
+                                            href="#">Event</a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <a class="nav-link bg-white text-primary" id="pills-all-offer" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Offer</a>
+                                        <a class="nav-link bg-white text-primary" id="pills-all-offer"
+                                            data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab"
+                                            href="#">Offer</a>
                                     </li>
                                 </ul>
 
@@ -432,50 +294,65 @@
                         </nav>
                         <div class="col-12">
                             <div class="tab-content active show" id="pills-tabContent">
-                                <div class="tab-pane fade active show" id="pills-master-diet-tab" role="tabpanel" aria-labelledby="update-all-tab-modal" tabindex="0">
+                                <div class="tab-pane fade active show" id="pills-master-diet-tab" role="tabpanel"
+                                    aria-labelledby="update-all-tab-modal" tabindex="0">
                                     <div class="col-12  tab-compo">
                                         <div class="card-body p-2">
                                             <div id="event-input">
                                                 <div class="col-12 my-1 p-1">
                                                     <div class="col-12">
-                                                        <input type="text" class="form-control p-2" id="event_title" placeholder="Title">
+                                                        <input type="text" class="form-control p-2" id="event_title"
+                                                            placeholder="Title">
                                                     </div>
                                                 </div>
                                                 <div class="d-flex">
                                                     <div class="col-6 my-1 p-1">
                                                         <div class="col-12">
-                                                            <input type="text" class="form-control p-2 offer_start_date" id="event_start_date" placeholder="Start Date">
+                                                            <input type="text" class="form-control p-2 offer_start_date"
+                                                                id="event_start_date" placeholder="Start Date">
                                                         </div>
                                                     </div>
                                                     <div class="col-6 my-1 p-1">
                                                         <div class="col-12">
-                                                            <input type="text" class="form-control p-2 event_end_date" id="event_end" placeholder="End Date">
+                                                            <input type="text" class="form-control p-2 event_end_date"
+                                                                id="event_end" placeholder="End Date">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 border rounded  p-3">
-                                                <textarea cols="30" rows="5" class="col-12 border-0 event_address" placeholder="Write something or use shortcodes, spintax..... " id="event_address"></textarea>
+                                                <textarea cols="30" rows="5" class="col-12 border-0 event_address"
+                                                    placeholder="Write something or use shortcodes, spintax..... "
+                                                    id="event_address"></textarea>
                                                 <div class="img-input col-12 d-flex flex-wrap">
                                                     <div class="img-placeholder d-flex flex-wrap"></div>
                                                 </div>
-                                                <span class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 drag-and-drop-btn" data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#bdbaba;">Click or Drag &
+                                                <span
+                                                    class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 drag-and-drop-btn"
+                                                    data-bs-toggle="modal" data-bs-target="#get_file" type="file"
+                                                    style="background:#bdbaba;">Click or Drag &
                                                     Drop Media</span>
                                                 <div class="row col-12" id="offer-input">
                                                     <div class="col-md-4 my-1 ">
-                                                        <input type="text" placeholder="Coupon code (optional)" class="form-control" id="coupon_event" value="">
+                                                        <input type="text" placeholder="Coupon code (optional)"
+                                                            class="form-control" id="coupon_event" value="">
                                                     </div>
-                                                    <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
-                                                        <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="" id="link_event">
+                                                    <div
+                                                        class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
+                                                        <input type="text" placeholder="Link to redeem offer (optional)"
+                                                            class="form-control" value="" id="link_event">
                                                     </div>
                                                     <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
-                                                        <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control" id="terms_event"></textarea>
+                                                        <textarea rows="1" placeholder="Terms and conditions (optional)"
+                                                            class="form-control" id="terms_event"></textarea>
                                                     </div>
                                                 </div>
                                                 <div id="select-box">
                                                     <div class="col-lg-3 col-md-4 col-sm-6">
                                                         <div class="main-selectpicker">
-                                                            <select id="approx_buy" name="approx_buy" class="selectpicker form-control form-main" data-live-search="true" required>
+                                                            <select id="approx_buy" name="approx_buy"
+                                                                class="selectpicker form-control form-main"
+                                                                data-live-search="true" required>
                                                                 <i class="fa-solid fa-caret-down"></i>
                                                                 <option class="dropdown-item" value="">
                                                                     Unspecified</option>
@@ -527,11 +404,13 @@
                                     <i class="fa-regular fa-clone me-2 "></i>Bulk Option</button>
                             </div>
                             <div class="col-8 d-flex  flex-wrap justify-content-end ">
-                                <button class="btn btn-outline-secondary mx-1 draft_create" id="draft_create">Draft</button>
+                                <button class="btn btn-outline-secondary mx-1 draft_create"
+                                    id="draft_create">Draft</button>
                                 <button class="btn btn-primary mx-1 create_comment">Publish</button>
                                 <button class="btn btn-secondery mx-1 Scedual_start_date">Scedual</button>
                                 <div class="btn-group dropup btn-outline-dark mx-1">
-                                    <button type="button" class="btn btn-outline-dark rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button type="button" class="btn btn-outline-dark rounded-3"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-solid fa-angle-up"></i></button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#">Action</a></li>
@@ -548,13 +427,16 @@
 
 
         <!-- post comment modal -->
-        <div class="modal fade " id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade " id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header p-2 py-3">
                         <div class="col-11 d-flex flex-wrap ">
                             <div class="me-2" data-bs-toggle="modal" data-bs-target="#comment-modal">
-                                <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=0TEiKYItlngAX_Ns_i1&amp;_nc_oc=AQk3YbtUJ7KyXL-g6j6xMjQuMCdaeyYB3aG9sW1OhvdtEgz__SFpYb9nEtrPSIeyfoHYbS9eMFyqg3JEXIi77ErR&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCYEfsnxuyriahsInOArWDb4GVQEZTrhSXz_i5jFLkLXg&amp;oe=65D24B45" alt="#" style="width:40px;height:40px;">
+                                <img class="rounded-circle"
+                                    src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=0TEiKYItlngAX_Ns_i1&amp;_nc_oc=AQk3YbtUJ7KyXL-g6j6xMjQuMCdaeyYB3aG9sW1OhvdtEgz__SFpYb9nEtrPSIeyfoHYbS9eMFyqg3JEXIi77ErR&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCYEfsnxuyriahsInOArWDb4GVQEZTrhSXz_i5jFLkLXg&amp;oe=65D24B45"
+                                    alt="#" style="width:40px;height:40px;">
                             </div>
                             <div class="col">
                                 <div class="col-12 d-flex flex-wrap justify-content-between">
@@ -581,23 +463,31 @@
                                 <div class="swiper mySwiper position-relative">
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide">
-                                            <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100">
+                                            <div
+                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8"
+                                                    alt="#" class="object-fit-content w-100">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100">
+                                            <div
+                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8"
+                                                    alt="#" class="object-fit-content w-100">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100">
+                                            <div
+                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8"
+                                                    alt="#" class="object-fit-content w-100">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100">
+                                            <div
+                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8"
+                                                    alt="#" class="object-fit-content w-100">
                                             </div>
                                         </div>
                                     </div>
@@ -609,10 +499,15 @@
                             <div>
                                 <div class="col-12 p-1 mt-2 d-flex post-btn-box flex-wrap align-items-center">
                                     <span class="cursor-pointer">
-                                        <button class="btn p-0 w-100 like_button border-0">22<i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i></button>
+                                        <button class="btn p-0 w-100 like_button border-0">22<i
+                                                class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i
+                                                class="fa-solid fa-thumbs-up d-none mx-2"
+                                                id="like_icon_lite"></i></button>
                                     </span>
                                     <span class="cursor-pointer">
-                                        <div class="btn w-100 text-muted d-flex p-0 border-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto "></i>
+                                        <div class="btn w-100 text-muted d-flex p-0 border-0" data-bs-toggle="modal"
+                                            data-bs-target="#comment-modal" id="post_commnet_modal"><i
+                                                class="fa-regular fa-comment mx-2 my-auto "></i>
                                         </div>
                                     </span>
                                 </div>
@@ -648,7 +543,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
         <script>
-            $('body').on('click', '.account-box', function() {
+            $('body').on('click', '.account-box', function () {
 
                 $(this).addClass('active-account-box');
                 $(this).parent().siblings().children('.app_card_post').removeClass('active-account-box');
@@ -669,12 +564,12 @@
                 clearText: 'clear',
                 time: true,
                 date: true,
-            }).on('change', function(e, date) {
+            }).on('change', function (e, date) {
                 var startDate = moment(date, 'DD-MM-YYYY ');
                 var endDate = startDate.clone().add(7, 'days');
                 $('#event_end').val(endDate.format('DD-MM-YYYY h:m A'));
             });
-            $("body").on("click", ".Replay_btn", function() {
+            $("body").on("click", ".Replay_btn", function () {
                 $(this).closest('.replay-parent').find('.comment_box ').removeClass('d-none');
             })
 
@@ -690,17 +585,17 @@
             //     }
             // })
 
-            $('body').on('click', '.comment_btn_close', function() {
+            $('body').on('click', '.comment_btn_close', function () {
                 $(this).closest('.comment_box').addClass('d-none');
             });
 
 
-            $('.nav-item').click(function() {
+            $('.nav-item').click(function () {
                 $('.nav-item').removeClass('active');
                 $(this).addClass('active');
             });
 
-            $('body').on('click', '.comment_send', function() {
+            $('body').on('click', '.comment_send', function () {
                 var data_post_id = $(this).attr('data-post_id');
                 var input_comment = $("#comment-modal #input_comment").val();
                 $.ajax({
@@ -710,7 +605,7 @@
                         data_post_id: data_post_id,
                         'input_comment': input_comment,
                     },
-                    success: function(res) {
+                    success: function (res) {
                         var result = JSON.parse(res);
                         $('.loader').hide();
                         if (result.response == "1") {
@@ -723,7 +618,7 @@
                     }
                 });
             });
-            $('body').on('click', '.delete_post_facebook', function() {
+            $('body').on('click', '.delete_post_facebook', function () {
                 var data_delete_id = $(this).attr('data-delete_id');
 
                 $.ajax({
@@ -732,11 +627,11 @@
                     data: {
                         data_delete_id: data_delete_id,
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $('.delete_loader').show();
                         $('.noRecourdFound').hide();
                     },
-                    success: function(res) {
+                    success: function (res) {
                         $('.delete_loader').hide();
                         iziToast.delete({
                             title: 'Post Delete Successfully'
@@ -746,7 +641,7 @@
             });
             $('.delete_loader').hide();
 
-            $('body').on('click', '.app_card_post', function() {
+            $('body').on('click', '.app_card_post', function () {
                 var access_tocken = $(this).attr('data-acess_token');
                 var pagee_id = $(this).attr('data-pagee_id');
                 var page_name = $(this).attr('data-page_name');
@@ -761,11 +656,11 @@
                         page_name: page_name,
                         data_img: data_img,
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $('.massage_list_loader').show();
                         $('.noRecourdFound').hide();
                     },
-                    success: function(res) {
+                    success: function (res) {
                         var result = JSON.parse(res);
                         $('.loader').hide();
                         $('.massage_list_loader').hide();
@@ -777,11 +672,11 @@
             });
             $('.massage_list_loader').hide();
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $('.first').trigger('click');
             }, 300);
 
-            $(".draft_create").click(function(e) {
+            $(".draft_create").click(function (e) {
                 //  alert("dfe");
                 e.preventDefault();
                 var form = $("form[name='create_form']")[0];
@@ -825,7 +720,7 @@
                         data: formdata,
                         processData: false,
                         contentType: false,
-                        success: function(res) {
+                        success: function (res) {
                             if (res != "error") {
                                 list_data();
                                 $("form[name='create_form']")[0].reset();
@@ -900,10 +795,9 @@
 
             });
 
-            $('body').on('click', '.create_comment', function() {
-                var form = $("form[name='create_form']");
-                var form = $(".add_form_Email")[0];
-                // var attachment = $('.attachment').prop('files')[0];
+            $('body').on('click', '.create_comment', function () {
+                var form = $("form[name='create_form']")[0];
+                var attachment = $('.attachment').prop('files')[0];
                 var event_address = $('.event_address').val();
                 var formData = new FormData(form);
 
@@ -918,11 +812,11 @@
                     data: formData,
                     contentType: false,
                     processData: false,
-                    success: function(res) {
+                    success: function (res) {
                         // Handle success
                         console.log(res);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle errors
                         console.error(xhr.responseText);
                     }
@@ -961,7 +855,7 @@
              });
   */
 
-            $("#event-option").change(function() {
+            $("#event-option").change(function () {
                 var selectedValue = $(this).val();
                 if (selectedValue === "event") {
                     $("#event-input").removeClass("d-none");
@@ -973,14 +867,14 @@
                 }
             });
 
-            $(document).on("click", ".like_button", function() {
+            $(document).on("click", ".like_button", function () {
                 var button = $(this);
                 button.find("#like_icon").toggleClass("d-none");
                 button.find("#like_icon_lite").toggleClass("d-none");
             });
             //---------------------------- modal input ----------------------------
 
-            $("#pills-master-diet").click(function() {
+            $("#pills-master-diet").click(function () {
                 $(".card-body").show();
                 $("#select-box").hide();
                 $("#event-input").hide();
@@ -990,7 +884,7 @@
             $("#pills-master-diet").trigger("click");
 
             //photo
-            $("#pills-all-diet").click(function() {
+            $("#pills-all-diet").click(function () {
                 $("#select-box").show();
                 $("#event-input").hide();
                 $("#offer-input").hide();
@@ -998,13 +892,13 @@
             });
 
             //event
-            $("#pills-all-event").click(function() {
+            $("#pills-all-event").click(function () {
                 $("#event-input").show();
                 $("#offer-input").hide();
                 $("#select-box").show();
             });
             //offer
-            $("#pills-all-offer").click(function() {
+            $("#pills-all-offer").click(function () {
                 $("#offer-input").show();
                 $("#select-box").hide();
             });
@@ -1017,7 +911,7 @@
                         if (file.type.includes('image')) {
                             // If it's an image file, create an <img> element
                             var reader = new FileReader();
-                            reader.onload = function(e) {
+                            reader.onload = function (e) {
                                 var mediaElement = '<img src="' + e.target.result + '" alt="" class="w-100 h-100">';
                                 var imagePlaceholder = '<div class="mx-2 rounded-3 border overflow-hidden ClassImageMember" style="width:150px;height:150px">' + mediaElement + '</div>';
                                 $('.img-placeholder').append(imagePlaceholder);
@@ -1032,7 +926,7 @@
                 }
             }
 
-            $('body').on('change', '#attachment', function() {
+            $('body').on('change', '#attachment', function () {
                 $('.drag-and-drop-btn').remove();
                 var files = $(this)[0].files;
                 var a = $('.add-img-input').length;
