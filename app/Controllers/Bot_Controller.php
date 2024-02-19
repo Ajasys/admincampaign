@@ -1211,10 +1211,32 @@ class Bot_Controller extends BaseController
 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
 		$result = $db_connection->query($sql);
 		$question = $result->getRowArray();
+		if($question['type_of_question'] == 3)
+		{
+			
+			$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+    
+			// Check if the email matches the regular expression
+			if (preg_match($regex, $answer)) {
+				$etst =  1; // Valid email
+				$result50['id_validation'] = "";
+				$result50['response'] = 1;
+				
 
-		if (!empty($question) && $question['id'] == $questionId) {
+			} else {
+				$etst = 2; // Invalid email
+				$result50['id_validation'] = $question['error_text'];
+				$result50['response'] = 2;
+				$updateData = [
+					'email_val' => 1
+				];
+				$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
+			}
+		}
+		else if ($etst =  1 && !empty($question) && $question['id'] == $questionId) {
 			$updateData = [
-				'answer' => $answer
+				'answer' => $answer,
+				'email_val'=> 0,
 			];
 
 			$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
@@ -1222,6 +1244,8 @@ class Bot_Controller extends BaseController
 		} else {
 			echo "Question with sequence " . $sequence . " not found or does not match the specified question id.";
 		}
+		return json_encode($result50);
+		die();
 	}
 
 

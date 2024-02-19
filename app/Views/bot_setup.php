@@ -2914,7 +2914,11 @@ $admin_bot = json_decode($admin_bot, true);
         
         var rowData = [];
         var chatting = $('.answer_chat').val();
-    
+        var email_validation = $('.email_answer_chat').val();
+        // var row = {
+        //     chatting: chatting
+        // };
+        // var options_value = JSON.stringify(row);
 
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
@@ -2928,14 +2932,24 @@ $admin_bot = json_decode($admin_bot, true);
                     table: table,
                     action: "chat_answer",
                     answer: chatting,
+                    email_validation:email_validation,
                     bot_id: bot_id,
                     question_id: last_conversation_id, 
                     sequence: sequence
                 },
                 success: function (res) {
-                    sequence++;
-                    $('.answer_chat').val('');
-                    bot_preview_data(sequence); 
+                    var response = JSON.parse(res);
+                    if(response.response == 2)
+                    {
+                        var sdfsdf = response.id_validation;
+                        var apend_messege ='<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="1" data-sequence="1"><div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">								</div><div class="col px-2">									<div class="col-12 mb-2">										<span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="1"><p>'+sdfsdf+'</p></span></div></div></div>'
+                        $('.messege-scroll').append(apend_messege);
+                        bot_preview_data(sequence);
+                    }else if(response.response == 1){
+                        sequence++;
+                        $('.answer_chat').val('');
+                        bot_preview_data(sequence);
+                    } 
                 }
             });
         }
