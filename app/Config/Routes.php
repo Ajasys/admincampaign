@@ -541,7 +541,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('', 'Bot_Controller::get_chat_data');
 	$routes->post('bot_preview_data', 'Bot_Controller::bot_preview_data');
 	$routes->post('insert_chat_answer', 'Bot_Controller::insert_chat_answer');
-	
+
 	// massager code routes 
 	$routes->post('get_chat_data', 'Bot_Controller::get_chat_data');
 	$routes->post('send_chat', 'Bot_Controller::send_chat');
@@ -566,15 +566,15 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/fb_permission_list', 'FacebookController::fb_permission_list');
 	$routes->post('/edit_facebook_scenarious', 'FacebookController::edit_facebook_scenarious');
 	$routes->post('/delete_fb_connection', 'FacebookController::delete_fb_connection');
-
+	$routes->post('/view_integrate_lead', 'FacebookController::view_integrate_lead');
+	
 	//website connection
 	$routes->get('/website_connection', 'Home::website_connection');
 	$routes->post('/add_website_connection', 'WebController::add_website_connection');
 	$routes->post('/website_connection_list', 'WebController::website_connection_list');
 	$routes->post('/delete_website_connection', 'WebController::delete_website_connection');
 	$routes->post('/website_connectionpage', 'WebController::website_connectionpage');
-	
-	
+
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
 	$routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
@@ -588,8 +588,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/CheckWhataAppConnection', 'WhatAppIntegrationController::CheckWhataAppConnection');
 	$routes->post('/WhatsAppRTemplateDeleteRequest', 'WhatAppIntegrationController::WhatsAppRTemplateDeleteRequest');
 	$routes->post('/single_whatsapp_template_sent', 'WhatAppIntegrationController::single_whatsapp_template_sent');
-$routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessagesHistory');
-
+	$routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessagesHistory');
 
 	$routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
 	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
@@ -598,21 +597,15 @@ $routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessage
 	$routes->post('/WhatsAppAccountsContactList', 'WhatAppIntegrationController::WhatsAppAccountsContactList');
 	$routes->post('/WhatsAppListConverstion', 'WhatAppIntegrationController::WhatsAppListConverstion');
 	$routes->post('/SendWhatsAppChatMessage', 'WhatAppIntegrationController::SendWhatsAppChatMessage');
-$routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
-
-
-$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
-
-
+	$routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
+	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
 
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
 	$routes->get('/whatsapp_connections', 'Home::whatsapp_connections');
-
-
 	// $routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
 	$routes->post('/WhatsAppConnectionEntry', 'WhatAppAakashController::WhatsAppConnectionEntry');
-	});
+});
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');
 // $routes->post('/occupation_insert', 'Home::occupation_insert');
