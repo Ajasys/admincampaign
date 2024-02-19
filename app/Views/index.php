@@ -85,7 +85,7 @@ if (isset($visit_and_revisit_count)) {
       <div class="d-flex flex-wrap">
          <?php if (in_array('dashbord_today_task', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
             <div class="col-xl-4 col-lg-12 col-12 d-flex flex-wrap wel-come-flex p-0">
-               <div class="col-6 col-sm-6 col-12 p-2">
+               <!-- <div class="col-6 col-sm-6 col-12 p-2">
                   <div class="p-3 bg-white rounded-2 h-100">
                      <div class="title-1">
                         <h2>Today task</h2>
@@ -105,7 +105,7 @@ if (isset($visit_and_revisit_count)) {
                         </div>
                      </div>
                   </div>
-               </div>
+               </div> -->
                <div class="col-6 col-sm-6 col-12 p-2">
                   <div class="bg-white rounded-2 d-flex justify-content-center align-items-center flex-wrap h-100">
                      <a class="col-12 text-center p-2" href="/site_visit">
