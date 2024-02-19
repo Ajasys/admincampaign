@@ -443,7 +443,7 @@ $user_data = $user_result->getResultArray();
 
                                                 <div class="col-12 webDiv">
                                                     <label class="form-label main-label fs-14 text-nowrap">API</label>
-                                                    <textarea id="web_api"  rows="3" class="form-control form-main" placeholder="" readonly>curl -X POST -d  <br>"https://ajasys.in/web_integrate?name=<name_value>&mobileno=<mobileno_value>&email=<email_value>&description=<description_value>&access_token=<access_token_value>"</textarea>
+                                                    <textarea id="web_api"  rows="3" class="form-control form-main" placeholder="" readonly>curl -X POST -d  "https://ajasys.in/web_integrate?name=<name_value>&mobileno=<mobileno_value>&email=<email_value>&description=<description_value>&access_token=<access_token_value>"</textarea>
                                                 </div>
                                                 <div class="col-12 webDiv">
                                                     <label class="form-label main-label fs-14 text-nowrap">Access Token</label>
