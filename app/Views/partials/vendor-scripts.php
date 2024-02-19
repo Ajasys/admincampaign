@@ -23,6 +23,19 @@
 <!-- swiper-slider -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- comun-css -->
+<style>
+    .first-container {
+        width: 102px;
+    }
+    .slide-toggle {
+        width: 330px;
+    }
+    .rotate-arrow {
+        transition: all 0.5s;
+        transform: rotateY(181deg);
+    }
+</style>
 
 
 <script>
@@ -467,6 +480,7 @@
         }
 
     }
+
    
 
 </script>
