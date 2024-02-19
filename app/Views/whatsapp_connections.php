@@ -1,5 +1,26 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
+<style>
+    @media (max-width:575px) {
+        .heading{
+            order: -1;
+        }
+        .btn-pluse{
+            order: -1;
+        }
+        .title-1 h2{
+            font-size: 15px;
+        }
+        /* .list-table{
+            overflow-x: scroll;
+            min-width: 332px;
+        } */
+    }
+    .list-table{
+        overflow-x: scroll;
+        /* min-width: 632px; */
+    }
+</style>
 
 <?php
 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
@@ -11,18 +32,18 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2">
-            <div class="col-xl-12 d-flex justify-content-between">
-                <div class="title-1  d-flex align-items-center">
+            <div class="col-xl-12 d-flex justify-content-between flex-wrap">
+                <div class="title-1  d-flex align-items-center col-6 col-sm-4  col-lg-3 heading mb-1">
                     <i class="fa-solid fa-phone"></i>
                     <h2>Phone Number</h2>
                 </div>
-                <div class="col-3">
+                <div class="col-12 col-sm-6  col-lg-3">
                     <div class="input-group">
                         <input type="text" class="form-control MasterListDataSearchBar" placeholder="Search Name" aria-label="Recipient's username" aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary border MasterListDataSearchBarButton" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
                     </div>
                 </div>
-                <div class="d-flex align-items-center col-2">
+                <div class="d-flex align-items-center col-6 col-sm-2 col-lg-2 btn-pluse mb-1">
                     <div class="main-selectpicker col">
                         <select id="product_type" name="product_type"
                             class="selectpicker form-control form-main main-control d-none product_type"
@@ -38,8 +59,8 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             </div>
         </div>
     </div>
-    <div class="container-fluid p-0  bg-white border rounded-3">
-        <div class="row">
+    <div class="p-0  bg-white border rounded-3 list-table">
+        <div class="row col-12">
             <div class="p-2">
                 <div class="col-xl-12 d-flex  px-3 d-flex flex-wrap">
                     <div class="col-3">
@@ -71,7 +92,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                     </div>
                     <div class="col-12 w-100 ">
-                        <table class="table table-borderless mb-0">
+                        <table class="table table-borderless mb-0 " style="min-width:700px">
                             <thead>
                                 <tr class="border-bottom">
                                     <th scope="col"><span class="text-muted phone-header">Phone Number <span
