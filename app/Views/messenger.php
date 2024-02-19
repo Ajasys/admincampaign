@@ -52,7 +52,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     .chat_loader {
         display: block;
         --height-of-loader: 4px;
-        --loader-color: #0071e2;
+        --loader-color: #7a00ff;
         width: 130px;
         height: var(--height-of-loader);
         border-radius: 30px;
@@ -231,8 +231,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     </nav>
                 </div> -->
 
-                <div class="col-4 col-sm-5 col-md-6 col-lg-3 col-xl-2 col-xxl-3" style="height:80vh">
-                    <div class="col-12 border rounded-start-4 bg-white position-lg-relative" style="height:80vh">
+                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box" style="height:80vh">
+                    <div class="col-12 border rounded-3 bg-white position-lg-relative" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
                             <div class="d-flex justify-content-between align-items-center border-bottom">
                                 <div class="dropdown d-flex align-items-center ps-2 pb-2">
@@ -241,7 +241,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll ms-1" style="max-height: 100%;">
+                        <div class="col-12 overflow-y-scroll ms-lg-1" style="max-height: 100%;">
                             <div class="accordion mt-2" id="accordionExample">
                                 <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
@@ -376,9 +376,12 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     </div>
                 </div>
 
-                <div class="col-8 col-sm-7 col-md-6 col-lg-3 col-xl-3 col-xxl-3 chat-box" style="height:80vh">
-                    <div class="col-12 border  bg-white position-relative" style="height:80vh">
+                <div class="col-12 d-none d-lg-block d-xl-block col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3 chat-box main-box" style="height:80vh">
+                    <div class="col-12 border  bg-white position-relative rounded-3" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
+                            <div class="d-lg-none">
+                                <button class="back-button"> << back</button>
+                            </div>
                             <div class="d-flex justify-content-between border-bottom align-items-center">
                                 <div class="dropdown d-flex align-items-center ps-2 pb-2">
                                     <i class="fas fa-comment fs-5  me-2"></i>
@@ -413,9 +416,11 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-6 transcript_box" style="height:80vh">
-                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass " style="height:80vh">
-
+                <div class="d-none col-12 col-sm-12 col-md-12 col-lg-6 d-xl-block col-xxl-6 transcript_box  main-box" style="height:80vh">
+                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3" style="height:80vh">
+                        <div class="d-xl-none">
+                            <button class="back-button1 "> << back</button>
+                        </div>
                         <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0" style="height: 200px; width: 200px; display:none;">
                             <ul class="p-1 bg-white ">
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
@@ -606,7 +611,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
 
-                        <div class="main-task left-main-task mt-2 p-2 overflow-y-scroll chat_bord col-12" style="max-height:80%;">
+                        <div class=" mt-2 p-2 overflow-y-scroll chat_bord col-12" style="max-height:80%;">
                             <!-- <div class="d-flex  mb-1 col-3">
                                 <i class="me-2 bi bi-people-fill"></i>
                                 <a href="" class="ms-3">https://www.facebook.com/</a>
@@ -660,7 +665,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     </div>
 
                 </div>
-
+                
             </div>
         </div>
     </div>
@@ -712,6 +717,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     }
                 },
                 success: function (data) {
+                    // ====kjhsdhj==
                     $('.acc_loader').hide();
                     var obj = JSON.parse(data);
                     if (action == 'account_list') {
@@ -722,6 +728,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         $('.chat_list_loader').hide();
                         $('.chatNoData').hide();
                     }
+
+                    // if ($('.chat-box').css('display') !== 'none') {
+                    //     $('.common-options').removeClass('linked-page');
+                    // }
                 }
             });
         }
@@ -1079,4 +1089,41 @@ conversation_account_id: conversation_account_id,
     $('body').on('click','.ContactModelOpen',function(){
         $('.ContactNoSelectionCheckbox').prop('checked', false);
     })
+
+
+
+
+// =====mobile-jqury=======
+    $('body').on('click','.linked-page',function(){
+        $(this).closest('.main-box').addClass('d-none');
+        $('.chat-box').removeClass('d-none');
+    })
+    $('body').on('click','.linked-page1',function(){
+        $(this).closest('.main-box').addClass('d-lg-none');
+        $(this).closest('.main-box').addClass('d-none');
+        $('.transcript_box').removeClass('d-none');
+        // alert('hhsd');
+    })
+    $('body').on('click','.back-button',function(){
+        $(this).closest('.main-box').addClass('d-none');
+        $('.social-accounts').removeClass('d-none');
+    })
+    $('body').on('click','.back-button1',function(){
+        $(this).closest('.main-box').addClass('d-none');
+        $('.chat-box').removeClass('d-none');
+        $('.chat-box').removeClass('d-lg-none');
+    })
+// ======tabalate-jqury======
+    // $(document).ready(function() {
+
+        
+    // })
+    // $(window).on('load',function(){
+    //     if ($('.chat-box').css('display') !== 'none') {
+    //         // alert()
+    //         var a = $('.common-options').html();
+    //         alert(a);
+    //         $('.common-options').removeClass('linked-page');
+    //     }
+    // })
 </script>

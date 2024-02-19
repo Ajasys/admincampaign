@@ -1380,7 +1380,7 @@ class Bot_Controller extends BaseController
 				$page_data = json_decode($page_data);
 
 				$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
-										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
+										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ms-4 common-options linked-page">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 												<img src="' . $page_data->page_img . '" alt="" width="45">
 											</a>
@@ -1398,7 +1398,7 @@ class Bot_Controller extends BaseController
 			foreach ($IG_data as $IG_key => $IG_value) {
 				$IG_chat_list_html .= '
 								<div class="col-12 account-nav my-2 account-box" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
-									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
+									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4 common-options linked-page">
 										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
 										</a>
@@ -1453,7 +1453,7 @@ class Bot_Controller extends BaseController
 					}
 					$chat_list_html .= '
 							<div class=" fw-semibold fs-12 chat-nav-search-bar my-2 col-12 chat-account-box p-1 pe-3
-							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '">
+							 chat_list linked-page1" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '">
 							<div class="d-flex flex justify-content-between align-items-center col-12">
 										<div class="col-2 p-1">';
 					if ($platform == 'messenger') {
