@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MasterInformationModel;
+use App\Curl;
 
 class Home extends BaseController
 {
@@ -176,6 +177,218 @@ class Home extends BaseController
     }
     public function index()
     {
+        
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=242859072209767&ext=1708344446&hash=ATuYTw808H-Y73jaYnFrKDyRbCEUaMzY-53AvxlYlaWMGw',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        pre($response);
+        die();
+        $mediaUrl = "https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=242859072209767&ext=1708344099&hash=ATsUY5JrU9NwfHaAc1UKcWiCQllOZlkKzTjosIWoUcd_6w";
+        $accessToken = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+        $filePath = 'C:\xampp\htdocs\admincampaign\assets\admin_folder\whatsapp_media89.png';
+
+        $ch = curl_init($mediaUrl);
+
+        // Set cURL options
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+        // Set the Authorization header with the bearer token
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $accessToken,
+        ]);
+
+        // Execute cURL session and get the content
+        $fileContent = curl_exec($ch);
+
+        // Check for errors
+        if (curl_errno($ch)) {
+            echo 'Curl error: ' . curl_error($ch);
+        } else {
+            // Save the media file to your desired folder using file_put_contents
+            if (file_put_contents($filePath, $fileContent) !== false) {
+                echo 'Media file saved successfully: ' . $filePath;
+            } else {
+                echo 'Error: Unable to save media file.';
+            }
+        }
+
+        // Close cURL session
+        curl_close($ch);
+
+        die();
+        $access_token = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+        $headers = [
+            'Authorization: Bearer EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD'
+        ];
+        $ch = curl_init('https://graph.facebook.com/v19.0/751272773615493');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        pre($response);
+        die();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $jkdshjikf = shell_exec("curl  \ 'https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=751272773615493&ext=1708339648&hash=ATuB0FI32qe0DV7FaCeb_0eRGX4FXTxYRbHCmkY3-aIkbQ' \ -H 'Authorization: Bearer EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiisdfsdvsvctibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD' > media_file");
+
+        pre($jkdshjikf);
+        // die();
+        $contants = file_get_contents('C:\xampp\htdocs\admincampaign\assets\admin_folder\media_file.text');
+        $base64 = base64_encode($contants);
+        pre($base64);
+
+
+
+
+
+
+        die();
+        // $encoded_string = ('data' )
+        die();
+        // require 'vendor/autoload.php';
+
+
+        $curl = curl_init();
+
+        $url = 'https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=751272773615493&ext=170833281s2&hash=ATtCCHlLgYLp0PuMwYT--SX-_BkB6v_1y3ysE31gqmuJQQ&access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiisdfsdvsvctibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD>media_file';  // Replace 'URL' with your actual URL media_file
+        $accessToken = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiisdfsdvsvctibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';  // Replace 'ACCESS_TOKEN' with your actual access token
+
+
+        $sdfgdfgh = file_get_contents($url);
+        pre($sdfgdfgh);
+
+        // $headers = [
+        //     'Authorization: Bearer ' . $accessToken,
+        // ];
+
+        // $response = $curl->get($url, [], $headers);
+
+        // if ($curl->error) {
+        //     echo 'Error: ' . $curl->error_code . ': ' . $curl->error_message;
+        // } else {
+        //     // Save the response to a local file
+        //     file_put_contents('C:/xampp/htdocs/admincampaign/assets/admin_folder/media_file', $curl->response);
+        //     echo 'File downloaded successfully.';
+        // }
+
+        // $curl->close();
+
+        die();
+
+        $curlCommand = "curl \'https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=751272773615493&ext=170833281s2&hash=ATtCCHlLgYLp0PuMwYT--SX-_BkB6v_1y3ysE31gqmuJQQ' \ -H 'Authorization: Bearer EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiisdfsdvsvctibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD' > media_file";
+        shell_exec($curlCommand);
+        $filePath = 'C:/xampp/htdocs/admincampaign/assets/admin_folder/media_file.mp4';
+        if (file_exists($filePath)) {
+        } else {
+        }
+
+        die();
+
+        $curlCommand = "curl 'https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=751272773615493&ext=170833281s2&hash=ATtCCHlLgYLp0PuMwYT--SX-_BkB6v_1y3ysE31gqmuJQQ' -H 'Authorization: Bearer EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiisdfsdvsvctibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD' > C:/xampp/htdocs/admincampaign/assets/admin_folder/media_file.mp4";
+
+        shell_exec($curlCommand);
+
+        // Make sure the path is correct
+        $filePath = 'C:/xampp/htdocs/admincampaign/assets/admin_folder/media_file.mp4';
+
+        // Check if the file exists before attempting to read its content
+        if (file_exists($filePath)) {
+            // Read the contents directly or use it as needed
+            echo "File content: " . file_get_contents($filePath);
+        } else {
+            echo "File does not exist or there was an issue downloading it.";
+        }
+
+        die();
+        $curlCommand = "curl 'https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=751272773615493&ext=170833281s2&hash=ATtCCHlLgYLp0PuMwYT--SX-_BkB6v_1y3ysE31gqmuJQQ' -H 'Authorization: Bearer EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiisdfsdvsvctibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD' > media_file";
+        shell_exec($curlCommand);
+
+        // Make sure the path is correct
+        $filePath = 'C:/xampp/htdocs/admincampaign/assets/admin_folder/media_file.php';
+        $contents = file_get_contents($filePath);
+
+        // Now you can use $contents as needed
+
+        // Display the contents
+        echo $contents;
+
+        // For debugging purposes, you can output the HTTP response headers and body from the cURL command
+        // $curlCommand = "curl -i 'your_url_here'";
+        // echo shell_exec($curlCommand);
+        die();
+        shell_exec("curl 'https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=751272773615493&ext=170833281s2&hash=ATtCCHlLgYLp0PuMwYT--SX-_BkB6v_1y3ysE31gqmuJQQ' -H 'Authorization: Bearer EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiisdfsdvsvctibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD' > media_file");
+
+        $contants = file_get_contents('C:/xampp/htdocs/admincampaign/assets/admin_folder/dishant.mp4');
+
+        die();
+
+
+
+
+
+
+        $url = 'https://graph.facebook.com/v19.0/751272773615493/?access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+        $DataArray = getSocialData($url);
+
+        pre($DataArray);
+
+        $DataArray1 = getSocialData('https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=751272773615493&ext=1708332812&hash=ATtCCHlLgYLp0PuMwYT--SX-_BkB6v_1y3ysE31gqmuJQQ&access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD');
+        var_dump($DataArray1);
+
+        die();
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=751272773615493&ext=1708330807&hash=ATuP0M8BJvIddh1danMIOwqxH1A2MpOnqVKw_E-61LExGw',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+        die();
         $table_username = session_username($_SESSION['username']);
         $social_accounts = [
             'id int(255) primary key AUTO_INCREMENT',
@@ -492,7 +705,7 @@ class Home extends BaseController
         ];
         tableCreateAndTableUpdate2($table_username . '_messeging_bot', '', $columns_bot);
 
-    
+
 
         return view('messenger_bot');
     }
@@ -571,7 +784,7 @@ class Home extends BaseController
 
         $responseArray = json_encode($responseArray);
         $data['WhatsAppAccounts'] = $responseArray;
- 
+
         return view('messenger', $data);
     }
 

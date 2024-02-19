@@ -8,17 +8,17 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 ?>
 
 <style>
-.iti {
+    .iti {
         width: 100%;
     }
 
-    .ChatBackGroundClass{
+    .ChatBackGroundClass {
         background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png') !important;
 
     }
 
 
-    .chatheadercolorclass{
+    .chatheadercolorclass {
         background-color: #005c4b !important;
     }
 
@@ -115,7 +115,52 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         cursor: pointer;
         background-color: azure;
     }
+
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .ck-content .ck-placeholder {
+        color: red;
+    }
+
+    .file-btn {
+        border: 1px dashed var(--del-color) !important;
+        background-color: white;
+        padding: 8px 20px;
+        border-radius: 8px;
+        border: 1px dashed #c3c3c3 !important;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    .ck-editor__editable {
+        min-height: 150px;
+        max-height: 170px
+    }
+
+    .ck.ck-editor__editable>.ck-placeholder::before {
+        color: #c6c6c6;
+        font-family: Poppins;
+    }
+
+    .view-file-link {
+        background-color: #724ebf21;
+        color: #724ebf;
+    }
 </style>
+
+
+
+
 <!-- View Contact modal  -->
 <div class="modal fade" id="exampleModal_mass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -245,44 +290,28 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             <div class="accordion mt-2" id="accordionExample">
                                 <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button border-0 shadow-none fw-medium" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px"
-                                                x="0" y="0" viewBox="0 0 512 512"
-                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <button class="accordion-button border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path fill="#1877f2"
-                                                        d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z"
-                                                        opacity="1" data-original="#1877f2" class=""></path>
-                                                    <path fill="#ffffff"
-                                                        d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z"
-                                                        opacity="1" data-original="#ffffff"></path>
+                                                    <path fill="#1877f2" d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z" opacity="1" data-original="#1877f2" class=""></path>
+                                                    <path fill="#ffffff" d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z" opacity="1" data-original="#ffffff"></path>
                                                 </g>
                                             </svg>
                                             <P class="ms-2">Facebook</P>
 
                                         </button>
                                     </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show"
-                                        data-bs-parent="#accordionExample">
+                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                                         <div class="accordion-body account_list p-0">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium"
-                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                            aria-expanded="false" aria-controls="collapseTwo">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px"
-                                                x="0" y="0" viewBox="0 0 512 512"
-                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <linearGradient id="a" x1="84.679" x2="404.429" y1="427.321"
-                                                        y2="107.571" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="a" x1="84.679" x2="404.429" y1="427.321" y2="107.571" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#fee411"></stop>
                                                         <stop offset=".052" stop-color="#fedb16"></stop>
                                                         <stop offset=".138" stop-color="#fec125"></stop>
@@ -291,53 +320,35 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                         <stop offset=".5" stop-color="#fe2181"></stop>
                                                         <stop offset="1" stop-color="#9000dc"></stop>
                                                     </linearGradient>
-                                                    <circle cx="256" cy="256" r="225" fill="url(#a)" opacity="1"
-                                                        data-original="url(#a)" class=""></circle>
+                                                    <circle cx="256" cy="256" r="225" fill="url(#a)" opacity="1" data-original="url(#a)" class=""></circle>
                                                     <g fill="#fff">
-                                                        <path
-                                                            d="M303.8 131h-95.5c-42.6 0-77.2 34.6-77.2 77.2v95.5c0 42.6 34.6 77.2 77.2 77.2h95.5c42.6 0 77.2-34.6 77.2-77.2v-95.5c0-42.6-34.6-77.2-77.2-77.2zm49.3 172.8c0 27.2-22.1 49.4-49.4 49.4h-95.5c-27.2 0-49.4-22.1-49.4-49.4v-95.5c0-27.2 22.1-49.4 49.4-49.4h95.5c27.2 0 49.4 22.1 49.4 49.4z"
-                                                            fill="#ffffff" opacity="1" data-original="#ffffff"></path>
-                                                        <path
-                                                            d="M256 192.1c-35.2 0-63.9 28.7-63.9 63.9s28.7 63.9 63.9 63.9 63.9-28.7 63.9-63.9-28.7-63.9-63.9-63.9zm0 102.7c-21.4 0-38.8-17.4-38.8-38.8s17.4-38.8 38.8-38.8 38.8 17.4 38.8 38.8-17.4 38.8-38.8 38.8z"
-                                                            fill="#ffffff" opacity="1" data-original="#ffffff"></path>
-                                                        <circle cx="323.1" cy="188.4" r="10.8"
-                                                            transform="rotate(-9.25 323.353 188.804)" fill="#ffffff"
-                                                            opacity="1" data-original="#ffffff"></circle>
+                                                        <path d="M303.8 131h-95.5c-42.6 0-77.2 34.6-77.2 77.2v95.5c0 42.6 34.6 77.2 77.2 77.2h95.5c42.6 0 77.2-34.6 77.2-77.2v-95.5c0-42.6-34.6-77.2-77.2-77.2zm49.3 172.8c0 27.2-22.1 49.4-49.4 49.4h-95.5c-27.2 0-49.4-22.1-49.4-49.4v-95.5c0-27.2 22.1-49.4 49.4-49.4h95.5c27.2 0 49.4 22.1 49.4 49.4z" fill="#ffffff" opacity="1" data-original="#ffffff"></path>
+                                                        <path d="M256 192.1c-35.2 0-63.9 28.7-63.9 63.9s28.7 63.9 63.9 63.9 63.9-28.7 63.9-63.9-28.7-63.9-63.9-63.9zm0 102.7c-21.4 0-38.8-17.4-38.8-38.8s17.4-38.8 38.8-38.8 38.8 17.4 38.8 38.8-17.4 38.8-38.8 38.8z" fill="#ffffff" opacity="1" data-original="#ffffff"></path>
+                                                        <circle cx="323.1" cy="188.4" r="10.8" transform="rotate(-9.25 323.353 188.804)" fill="#ffffff" opacity="1" data-original="#ffffff"></circle>
                                                     </g>
                                                 </g>
                                             </svg>
                                             <P class="ms-2">instagram</P>
                                         </button>
                                     </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse"
-                                        data-bs-parent="#accordionExample">
+                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                         <div class="accordion-body IG_account_list p-0">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item border-0 border-bottom WhatsAppListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium"
-                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                            aria-expanded="false" aria-controls="collapseThree">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px"
-                                                x="0" y="0" viewBox="0 0 512 512"
-                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path
-                                                        d="M256.064 0h-.128C114.784 0 0 114.816 0 256c0 56 18.048 107.904 48.736 150.048l-31.904 95.104 98.4-31.456C155.712 496.512 204 512 256.064 512 397.216 512 512 397.152 512 256S397.216 0 256.064 0z"
-                                                        style="" fill="#4caf50" data-original="#4caf50" class=""></path>
-                                                    <path
-                                                        d="M405.024 361.504c-6.176 17.44-30.688 31.904-50.24 36.128-13.376 2.848-30.848 5.12-89.664-19.264-75.232-31.168-123.68-107.616-127.456-112.576-3.616-4.96-30.4-40.48-30.4-77.216s18.656-54.624 26.176-62.304c6.176-6.304 16.384-9.184 26.176-9.184 3.168 0 6.016.16 8.576.288 7.52.32 11.296.768 16.256 12.64 6.176 14.88 21.216 51.616 23.008 55.392 1.824 3.776 3.648 8.896 1.088 13.856-2.4 5.12-4.512 7.392-8.288 11.744-3.776 4.352-7.36 7.68-11.136 12.352-3.456 4.064-7.36 8.416-3.008 15.936 4.352 7.36 19.392 31.904 41.536 51.616 28.576 25.44 51.744 33.568 60.032 37.024 6.176 2.56 13.536 1.952 18.048-2.848 5.728-6.176 12.8-16.416 20-26.496 5.12-7.232 11.584-8.128 18.368-5.568 6.912 2.4 43.488 20.48 51.008 24.224 7.52 3.776 12.48 5.568 14.304 8.736 1.792 3.168 1.792 18.048-4.384 35.52z"
-                                                        style="" fill="#fafafa" data-original="#fafafa" class=""></path>
+                                                    <path d="M256.064 0h-.128C114.784 0 0 114.816 0 256c0 56 18.048 107.904 48.736 150.048l-31.904 95.104 98.4-31.456C155.712 496.512 204 512 256.064 512 397.216 512 512 397.152 512 256S397.216 0 256.064 0z" style="" fill="#4caf50" data-original="#4caf50" class=""></path>
+                                                    <path d="M405.024 361.504c-6.176 17.44-30.688 31.904-50.24 36.128-13.376 2.848-30.848 5.12-89.664-19.264-75.232-31.168-123.68-107.616-127.456-112.576-3.616-4.96-30.4-40.48-30.4-77.216s18.656-54.624 26.176-62.304c6.176-6.304 16.384-9.184 26.176-9.184 3.168 0 6.016.16 8.576.288 7.52.32 11.296.768 16.256 12.64 6.176 14.88 21.216 51.616 23.008 55.392 1.824 3.776 3.648 8.896 1.088 13.856-2.4 5.12-4.512 7.392-8.288 11.744-3.776 4.352-7.36 7.68-11.136 12.352-3.456 4.064-7.36 8.416-3.008 15.936 4.352 7.36 19.392 31.904 41.536 51.616 28.576 25.44 51.744 33.568 60.032 37.024 6.176 2.56 13.536 1.952 18.048-2.848 5.728-6.176 12.8-16.416 20-26.496 5.12-7.232 11.584-8.128 18.368-5.568 6.912 2.4 43.488 20.48 51.008 24.224 7.52 3.776 12.48 5.568 14.304 8.736 1.792 3.168 1.792 18.048-4.384 35.52z" style="" fill="#fafafa" data-original="#fafafa" class=""></path>
                                                 </g>
                                             </svg>
                                             <P class="ms-2">Whatsapp</P>
                                         </button>
                                     </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse WhatsAppAccountListTab"
-                                        data-bs-parent="#accordionExample">
+                                    <div id="collapseThree" class="accordion-collapse collapse WhatsAppAccountListTab" data-bs-parent="#accordionExample">
 
                                         <?php
 
@@ -431,7 +442,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2">Document</p>
+                                        <p class="ms-2 DocumentSelectionForSendClickEventClass" data-bs-toggle="modal" data-bs-target=".PinToDocumentSelectClass">Document</p>
+
+                                        <!-- <input type="file" hidden class="DocumentSelectionForSend" /> -->
                                     </div>
                                 </li>
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
@@ -503,7 +516,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2">Photos & Videos</p>
+                                        <p class="ms-2 SendImageAndPhotosClass" data-bs-toggle="modal" data-bs-target=".PinToDocumentSelectClass">Photos & Videos</p>
                                     </div>
                                 </li>
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
@@ -586,8 +599,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
                         <script>
-                            $(document).ready(function () {
-                                $(".btn_x").click(function () {
+                            $(document).ready(function() {
+                                $(".btn_x").click(function() {
                                     $(".accordion_item_div").toggle();
                                 });
                             });
@@ -665,7 +678,50 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         </div>
     </div>
 </div>
+<!-- document-modal -->
+<div class="modal fade data_add_div PinToDocumentSelectClass " id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title email_title_model_change">Add Document</h1>
+                <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modal-body-secondery">
+                <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate enctype="multipart/form-data">
+                    <div class="upload-btn-wrapper col-12">
+                        <div class="file-btn col-12">
+                            <div class="col-12 justify-content-center d-flex">
+                                <i class="bi bi-cloud-download"></i>
+                            </div>
+                            <div class="col-12 justify-content-center d-flex">
+                                <h4>Drop Files here or click to upload</h4>
+                            </div>
+                            <div class="col-12 justify-content-center d-flex">
+                                <p>Allowed IMAGES, VIDEOS, PDF, DOC, EXCEL, PPT, TEXT</p>
+                            </div>
+                            <div class="col-12 justify-content-center d-flex">
+                                <p>Max 5 files and max size of 3 MB</p>
+                            </div>
+                        </div>
+                        <input class="form-control main-control place attachment_email_text update_attachment_email" id="attachment" name="attachment[]" multiple="multiple" type="file" placeholder="" />
+                        
 
+                    </div>
+                    <div class="col-12 input-text">
+                        <div class="file_view_add1 file_view_add_Email  file_view_add_Email_add" id="file_view_add1">
+                        </div>
+                        <div class="file_view file_view_edit file_view_edit_add" id="file_view">
+                        </div>
+                        <div id="file_uploded" class="file_uploded file_uploded_edit file_uploded_edit_add"> </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary SendDocumentForWhatsApp email_add_model_submit" DataFileTypeStatus = "" data-edit_id="" id="save_btn_email">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -676,21 +732,20 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
 
 <script>
-    $('body').on('click', '.account-box', function () {
+    $('body').on('click', '.account-box', function() {
 
         $(this).addClass('active-account-box');
         $(this).siblings().removeClass('active-account-box');
 
     });
-    $('body').on('click', '.chat-account-box', function () {
+    $('body').on('click', '.chat-account-box', function() {
 
         $(this).addClass('chat-account-active');
         $(this).siblings().removeClass('chat-account-active');
 
     });
-</script>
-<script>
-    $(document).ready(function () {
+
+    $(document).ready(function() {
         // massage list data
         function list_data(api = false, action = 'account_list', page_id = '', page_access_token = '', platform) {
             $.ajax({
@@ -703,7 +758,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     page_access_token: page_access_token,
                     platform: platform,
                 },
-                beforeSend: function () {
+                beforeSend: function() {
                     if (action == 'account_list') {
                         $('.acc_loader').show();
                     } else if (action == 'chat_list') {
@@ -711,7 +766,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         $('.chat_list_loader').show();
                     }
                 },
-                success: function (data) {
+                success: function(data) {
                     $('.acc_loader').hide();
                     var obj = JSON.parse(data);
                     if (action == 'account_list') {
@@ -729,7 +784,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         $('.chat_list_loader').hide();
 
-        $('body').on('click', '.account-nav', function () {
+        $('body').on('click', '.account-nav', function() {
             var page_id = $(this).attr("data-page_id");
             var page_access_token = $(this).attr("data-page_access_token");
             var platform = $(this).attr("data-platform");
@@ -740,7 +795,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             list_data(false, 'chat_list', page_id, page_access_token, platform);
         });
 
-        $('body').on('click', '.chat_list', function () {
+        $('body').on('click', '.chat_list', function() {
             var conversion_id = $(this).data('conversion_id');
             var page_access_token = $(this).data('page_token');
             var page_id = $(this).data('page_id');
@@ -759,11 +814,11 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         page_id: page_id,
                         // id: massage_id,
                     },
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('.massage_list_loader').show();
                         $('.noRecourdFound').hide();
                     },
-                    success: function (data) {
+                    success: function(data) {
                         var obj = JSON.parse(data);
                         $('.massage_list_loader').hide();
                         $('.chat_bord').show();
@@ -783,7 +838,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         $('.massage_list_loader').hide();
 
-        $('body').on('click', '.send_massage', function () {
+        $('body').on('click', '.send_massage', function() {
             var massage_input = $('.massage_input').val();
             var conversion_id = $(this).attr("data-conversion_id", conversion_id);
             var page_access_token = $(this).attr("data-page_token", page_access_token);
@@ -800,7 +855,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     // page_id: page_id,
                     // id: massage_id,
                 },
-                success: function (data) {
+                success: function(data) {
                     // var obj = JSON.parse(data);
                     // $('.chat_bord').html(obj.html);
                     // $('.send_massage').attr("data-conversion_id",conversion_id);
@@ -851,7 +906,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.UserChatName').text('User Name');
         $('.in_chat_page_name').text('');
         var contact_no = $(this).attr('contact_no');
-var conversation_account_id = $(this).attr('conversation_account_id');
+        var conversation_account_id = $(this).attr('conversation_account_id');
         $('.SendWhatsAppMessage').attr('DataPhoneno', contact_no);
         var whatsapp_name = $(this).attr('whatsapp_name');
         var account_phone_no = $(this).attr('account_phone_no');
@@ -870,7 +925,7 @@ var conversation_account_id = $(this).attr('conversation_account_id');
             url: "WhatsAppListConverstion",
             data: {
                 contact_no: contact_no,
-conversation_account_id: conversation_account_id,
+                conversation_account_id: conversation_account_id,
             },
             success: function(data) {
                 $('.massage_list_loader').hide();
@@ -903,7 +958,7 @@ conversation_account_id: conversation_account_id,
     $('body').on('keydown', '.massage_input', function(event) {
         if (event.which === 13) {
             $('.SendWhatsAppMessage').trigger('click');
-                    }
+        }
     });
 
     $('body').on('click', '.accordion-header', function() {
@@ -999,7 +1054,7 @@ conversation_account_id: conversation_account_id,
 
         account_phone_no = account_phone_no.replace(/[\s\+\-\(\)]/g, '');
         var activeno = $('.chat_list .active-account-box').attr('contact_no');
-        if(activeno != '' && activeno !== undefined && activeno !== 'undefined'){
+        if (activeno != '' && activeno !== undefined && activeno !== 'undefined') {
             activeno = activeno.replace(/[\s\+\-\(\)]/g, '');
 
         }
@@ -1017,7 +1072,7 @@ conversation_account_id: conversation_account_id,
                 },
                 success: function(data) {
 
-                    if(data == '1'){
+                    if (data == '1') {
                         $('.WhatsAppAccountListTab .active-account-box').trigger('click');
                         $('.CloseBtn').trigger('click');
                         setTimeout(function() {
@@ -1026,25 +1081,25 @@ conversation_account_id: conversation_account_id,
                                 title: "Added Successfully"
                             });
                         }, 500);
-                    }else{
+                    } else {
                         iziToast.error({
                             title: "Duplicate Number"
                         });
                     }
-                  
+
                 }
             });
         }
-    }); 
+    });
 
 
-    $('body').on('click', '.AddModelContactNO', function(){
+    $('body').on('click', '.AddModelContactNO', function() {
         $('.ContactNameClass').val('');
         $('.ContactNumberClass').val('');
     });
 
 
-    $('body').on('click', '.ListedMessage', function(){
+    $('body').on('click', '.ListedMessage', function() {
         $('.Setchatheadercolorclass').removeClass('chatheadercolorclass');
         $('.SetChatBackGroundClass').removeClass('ChatBackGroundClass');
         $('.documentselectionpin').removeClass('chatheadercolorclass');
@@ -1055,13 +1110,13 @@ conversation_account_id: conversation_account_id,
 
         setTimeout(function() {
             $('.UserChatName').addClass('text-dark');
-            $('.profilepiccolor').addClass('text-dark');  
-         
+            $('.profilepiccolor').addClass('text-dark');
+
         }, 500);
-       
+
     });
 
-    $('body').on('click', '.WhatsAppListedMessage', function(){
+    $('body').on('click', '.WhatsAppListedMessage', function() {
         $('.Setchatheadercolorclass').addClass('chatheadercolorclass');
         $('.SetChatBackGroundClass').addClass('ChatBackGroundClass');
         $('.documentselectionpin').addClass('chatheadercolorclass');
@@ -1071,12 +1126,154 @@ conversation_account_id: conversation_account_id,
         $('.profilepiccolor').removeClass('text-dark');
         $('.UserChatName').addClass('text-white');
         $('.profilepiccolor').addClass('text-white');
-   
+
 
     });
 
 
-    $('body').on('click','.ContactModelOpen',function(){
+    $('body').on('click', '.ContactModelOpen', function() {
         $('.ContactNoSelectionCheckbox').prop('checked', false);
-    })
+    });
+
+    // $('body').on('click', '.DocumentSelectionForSendClickEventClass', function() {
+    //     $('.DocumentSelectionForSend').trigger('click');
+    // });
+
+
+    $('.file_view_add_Email').on('click', '#file_crodd_btn_email', function() {
+        $(this).closest('div').remove();
+    });
+
+    $('.attachment_email_text').on('change', function() {
+        var files = $(this).prop('files');
+        for (var i = 0; i < files.length; i++) {
+            var fileName = files[i].name;
+            $('.file_view_add_Email').append('<div id="u_btn" class="col-12 u_btn_Email m-1 rounded view-file-link px-2 d-flex u_btn"><p>' + fileName + '</p><span class="ms-auto" id="file_crodd_btn_email"><i class="bi bi-x-circle"></i></span></div>')
+        }
+    });
+
+   
+
+    // $('.attachment_email_text').on('change', function() {
+    //     var files = $(this).prop('files');
+    //     for (var i = 0; i < files.length; i++) {
+    //         var fileName = files[i].name;
+    //         $('.file_view_add_Email').append('<div id="u_btn" class="col-12 u_btn_Email m-1 rounded view-file-link px-2 d-flex u_btn"><p>' + fileName + '</p><span class="ms-auto" id="file_crodd_btn_email"><i class="bi bi-x-circle"></i></span></div>')
+    //     }
+    // });
+
+    // $('body').on('click', '#file_crodd_btn_email', function() {
+    //     $(this).closest('div').remove();
+    // });
+
+
+    // $('.update_attachment_email').on('change', function () {
+    //     var files = $(this).prop('files');
+    //         for (var i = 0; i < files.length; i++) {
+    //             var fileName = files[i].name;
+    //             $('.file_uploded_edit').append('<div id="u_btn" class="col-12 file_te m-1 rounded view-file-link px-2 d-flex u_btn"><p>' + fileName + '</p><span class="ms-auto" id="file_crodd_btn1"><i class="bi bi-x-circle"></i></span></div>')
+    //         }
+    // });
+    // var selectedFiles = [];
+
+    // $('.attachment_email_text').on('change', function() {
+    //     var files = $(this).prop('files');
+    //     for (var i = 0; i < files.length; i++) {
+    //         var fileName = files[i].name;
+    //         selectedFiles.push(files[i]);
+    //         $('.file_view_add_Email').append('<div class="col-12 u_btn_Email m-1 rounded view-file-link px-2 d-flex u_btn"><p>' + fileName + '</p><span class="ms-auto file_crodd_btn_email"><i class="bi bi-x-circle"></i></span></div>');
+    //     }
+    // });
+
+    // $('body').on('click', '#file_crodd_btn_email', function() {
+
+    //     // var selectedFiles = [];
+    //     var indexToRemove = $(this).closest('div').index();
+    //     $(this).closest('div').remove();
+    //     selectedFiles.splice(indexToRemove, 1);
+    //     // Update the file input with the remaining files
+    //     var fileInput = $('.attachment_email_text');
+    //     fileInput.val('');
+    //     for (var i = 0; i < selectedFiles.length; i++) {
+    //         fileInput[0].files[i] = selectedFiles[i];
+    //     }
+    // });
+
+    $('body').on('click', '.SendDocumentForWhatsApp', function() {
+        // alert();
+        //  1 For Document
+        // 2 For Image 
+        var DataFileTypeStatus = $(this).attr('DataFileTypeStatus');
+        var doctype = '';
+        var doccorrection = 0;
+        if(DataFileTypeStatus == '1'){
+            doctype = 'document';
+            doccorrection = 1;
+        }
+
+      
+        var pText_add = "";
+        var form = $("form[name='add_form_Email']")[0];
+        var DataSenderId = $('.SendWhatsAppMessage').attr('DataSenderId');
+        var DataPhoneno = $('.SendWhatsAppMessage').attr('DataPhoneno');
+        var formData = new FormData(form);
+        $(".u_btn_Email p").each(function() {
+            pText_add += $(this).text().trim() + ",";
+        });
+        var title = $(".email_whatapp_title").val();
+        pText_add = pText_add.slice(0, -1);
+        // console.log(pText_add);
+        if(DataFileTypeStatus == '2'){
+            doctype = 'image';
+            var checkimgsatus = 0;
+            var filenamesArray = pText_add.split(',');
+            for (var i = 0; i < filenamesArray.length; i++) {
+                var fileName = filenamesArray[i].trim();
+                var fileExtension = fileName.split('.').pop().toLowerCase();
+                var imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff','mp4', 'avi', 'mkv', 'mov', 'wmv'];
+                if (imageExtensions.indexOf(fileExtension) !== -1) {
+                } else {
+                    checkimgsatus = parseInt(checkimgsatus) + 1;
+                }
+            }
+            if(parseInt(checkimgsatus) > 0){
+                doccorrection = 0;
+            }else{
+                doccorrection = 1;
+            }
+        }
+
+        // console.log(doccorrection);
+
+        formData.append('attachment', pText_add);
+        formData.append('DataSenderId', DataSenderId);
+        formData.append('DataPhoneno', DataPhoneno);
+        formData.append('doctype', doctype);
+
+        if(doccorrection == '1' && DataSenderId !== undefined && DataSenderId !== "undefined" && DataSenderId != '' && DataPhoneno !== undefined && DataPhoneno !== "undefined" && DataPhoneno != ''){
+            $.ajax({
+                type: 'POST',
+                url: 'WhatsAppSendDocumentData',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    // $('.u_btn_Email').remove();
+                    // iziToast.success({
+                    //     title: 'Successfully added'
+                    // });
+                    // $(".close_btn").trigger("click");
+                    // $('.loader').hide();
+                }
+            });
+        }
+    });
+    
+
+    $('body').on('click', '.SendImageAndPhotosClass', function(){
+        $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 2);
+    });
+    $('body').on('click', '.DocumentSelectionForSendClickEventClass', function(){
+        $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 1);
+    });
 </script>

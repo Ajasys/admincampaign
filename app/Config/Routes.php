@@ -598,6 +598,9 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/WhatsAppListConverstion', 'WhatAppIntegrationController::WhatsAppListConverstion');
 	$routes->post('/SendWhatsAppChatMessage', 'WhatAppIntegrationController::SendWhatsAppChatMessage');
 	$routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
+$routes->post('/WhatsAppSendDocumentData', 'WhatAppIntegrationController::WhatsAppSendDocumentData');
+
+
 	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
 
 	// aaksh

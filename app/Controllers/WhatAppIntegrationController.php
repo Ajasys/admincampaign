@@ -299,7 +299,7 @@ class WhatAppIntegrationController extends BaseController
                                         }
 
 
-                                        if($_POST['searchtext'] ==  "" ||  strpos($Name, strtolower($_POST['searchtext'])) !== false){
+                                        if ($_POST['searchtext'] ==  "" ||  strpos($Name, strtolower($_POST['searchtext'])) !== false) {
                                             // pre('Yes');
                                             $Html .= '
                                                 <tr class="rounded-pill "  >
@@ -322,12 +322,9 @@ class WhatAppIntegrationController extends BaseController
                                                         </td>
                                                     </tr>
                                                 ';
-                                        }else{
+                                        } else {
                                             // pre('no');
                                         }
-
-
-
                                     }
                                 } else {
                                     $Html .= '<p>No Templates Found</p>';
@@ -377,7 +374,7 @@ class WhatAppIntegrationController extends BaseController
         //         $statusname = 'Failed';
         //     }
         //     $html1 .= '<tr>
-		
+
         //     <td class="whatsapp-col">' . $value['receiver_number'] . '</td>
         //     <td>' . $value['Template_name'] . '</td>
         //     <td>
@@ -387,9 +384,9 @@ class WhatAppIntegrationController extends BaseController
         //     <td>' . $statusname . '</td>
         //     <td>' . $value['WhatsApp_Response'] . '</td>
         //     <td>' . $formattedDate . '</td>
-					
-			
-		// </td>';
+
+
+        // </td>';
         //     $html1 .= '</tr>';
         //     $i++;
         // }
@@ -427,11 +424,11 @@ class WhatAppIntegrationController extends BaseController
         foreach ($GetData as $key => $value) {
             if ($value['whatsapp_name'] == '' && $value['name'] == '') {
                 $Whatsappproname = $value['whatsapp_name'];
-                if($value['name'] != ''){
+                if ($value['name'] != '') {
                     $Whatsappproname = $value['name'];
                 }
 
-                $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml '.substr($value['contact_no'], -10).' " conversation_account_id = "'.$id.'"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
+                $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
                                             <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                             <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
                                             <div class="col text-start">
@@ -443,7 +440,7 @@ class WhatAppIntegrationController extends BaseController
                 $htmlcontactlist .= '
                             <div class="col-12 d-flex border-top border-dark border-bottom justify-content-center align-items-center p-2">
                                 <div class="col-1 d-flex align-items-center justify-content-center"><input type="checkbox"
-                                        style="width:15px; height:15px;" class="ContactNoSelectionCheckbox" phoneno = "'.$value['contact_no'].'" name="'.$value['contact_no'].'"></div>
+                                        style="width:15px; height:15px;" class="ContactNoSelectionCheckbox" phoneno = "' . $value['contact_no'] . '" name="' . $value['contact_no'] . '"></div>
                                 <div class="col-2 d-flex align-items-center px-2">
                                     <div class="border-2 border border-dark rounded-circle p-1 px-2"><i class="fa-solid fa-user fs-14"></i></div>
                                 </div>
@@ -452,18 +449,15 @@ class WhatAppIntegrationController extends BaseController
                                 </div>
                             </div>
                 ';
-
-
-
             } else {
 
                 $Whatsappproname = $value['whatsapp_name'];
-                if($value['name'] != ''){
+                if ($value['name'] != '') {
                     $Whatsappproname = $value['name'];
                 }
 
 
-                $html .=    '<div class="col-12  my-2 account-box ChatClickOpenHtml '.substr($value['contact_no'], -10).' " conversation_account_id = "'.$id.'"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
+                $html .=    '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
                                         <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                         <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
                                         <div class="col text-start">
@@ -477,7 +471,7 @@ class WhatAppIntegrationController extends BaseController
                 $htmlcontactlist .= '
                             <div class="col-12 d-flex border-top border-dark justify-content-center align-items-center p-2">
                                 <div class="col-1 d-flex align-items-center justify-content-center " ><input type="checkbox"
-                                        style="width:15px; height:15px;" class="ContactNoSelectionCheckbox" phoneno = "'.$value['contact_no'].'" name="'.$Whatsappproname.'"></div>
+                                        style="width:15px; height:15px;" class="ContactNoSelectionCheckbox" phoneno = "' . $value['contact_no'] . '" name="' . $Whatsappproname . '"></div>
                                 <div class="col-2 d-flex align-items-center px-2">
                                     <div class="border-2 border border-dark rounded-circle p-1 px-2"><i class="fa-solid fa-user fs-14"></i></div>
                                 </div>
@@ -508,25 +502,22 @@ class WhatAppIntegrationController extends BaseController
         $total_dataa_userr_22 = $result->getResult();
         if (isset($total_dataa_userr_22[0])) {
             $sentmsgdisplaydata = $result->getResultArray();
-        } 
+        }
         $html1 = '';
         $i = '';
         $FilterPhoneNumber = $_POST['FilterPhoneNumber'];
         $FilterDate = $_POST['FilterDate'];
         $FilterTemplateStatus = $_POST['FilterTemplateStatus'];
         $FilterTemplateName = $_POST['FilterTemplateName'];
-        if(isset($sentmsgdisplaydata) && !empty($sentmsgdisplaydata)){
+        if (isset($sentmsgdisplaydata) && !empty($sentmsgdisplaydata)) {
             foreach ($sentmsgdisplaydata as $key => $value) {
                 // pre($value['Status']);
                 $statusname = '';
                 $formattedDate  = '';
                 if ($value['Createdat'] != '0000-00-00 00:00:00') {
-    
+
                     $formattedDate = (new \DateTime($value['Createdat']))->format('d-m-Y h:i A');
-                    $formattedDate = Utctodate('d-m-Y h:i A',timezonedata(),$formattedDate);
-                    
-
-
+                    $formattedDate = Utctodate('d-m-Y h:i A', timezonedata(), $formattedDate);
                 }
                 if ($value['Status'] == '0') {
                     $statusname = '<i class="bi bi-check2 text-dark"></i>';
@@ -549,15 +540,14 @@ class WhatAppIntegrationController extends BaseController
                 // }
 
 
-               
+
 
                 if (
                     ($FilterPhoneNumber == '' || strpos($value['receiver_number'], $FilterPhoneNumber)) &&
                     ($FilterDate == '' || date('d-m-Y', strtotime($formattedDate)) == $FilterDate) &&
                     ($FilterTemplateStatus == '' || $value['Status'] == $FilterTemplateStatus) &&
                     ($FilterTemplateName == '' || $value['Template_name'] == $FilterTemplateName)
-                ) 
-                {
+                ) {
                     $html1 .= '<tr>
                     <td class="whatsapp-col">+ ' . substr_replace($value['receiver_number'], ' ', -10, 0) . '</td>
                     <td>' . $value['Template_name'] . '</td>
@@ -571,23 +561,14 @@ class WhatAppIntegrationController extends BaseController
                     </td> </tr>';
                     $i++;
                 }
-
-
-
-
-
-
-
-
             }
         }
 
 
-        if($FilterPhoneNumber != '' || $FilterDate != '' ||  $FilterTemplateStatus != '' || $FilterTemplateName != ''){
+        if ($FilterPhoneNumber != '' || $FilterDate != '' ||  $FilterTemplateStatus != '' || $FilterTemplateName != '') {
             $html1 .= '<script>$(".FilterClearAll").show();</script>';
-        }else{
+        } else {
             $html1 .= '<script>$(".FilterClearAll").hide();</script>';
-
         }
 
 
@@ -952,7 +933,7 @@ class WhatAppIntegrationController extends BaseController
 
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
             if (isset($_POST['id']) && !empty($_POST['id'])) {
-                $url = $MetaUrl.$business_account_id.'/message_templates?hsm_id=' . $_POST['id'] . '&name=' . $_POST['name'] . '&access_token=' . $access_token;
+                $url = $MetaUrl . $business_account_id . '/message_templates?hsm_id=' . $_POST['id'] . '&name=' . $_POST['name'] . '&access_token=' . $access_token;
                 $Result = deleteSocialData($url);
                 if (isset($Result)) {
                     $DeleteStatus = 1;
@@ -1300,8 +1281,8 @@ class WhatAppIntegrationController extends BaseController
 
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
             if ($_POST['action'] == "insert") {
-           
-                $url = $MetaUrl.$business_account_id.'/message_templates?access_token=' . $access_token;
+
+                $url = $MetaUrl . $business_account_id . '/message_templates?access_token=' . $access_token;
                 // pre($url);
                 // die();
                 $Result = postSocialData($url, $_POST['jsonString']);
@@ -1309,12 +1290,12 @@ class WhatAppIntegrationController extends BaseController
                     $ReturnResult = 1;
                 }
             } else {
-    
+
                 if ($_POST['templatename'] != '' && $_POST['templateid']) {
-             
+
                     $url = $MetaUrl . $_POST['templateid'] . '/?access_token=' . $access_token;
                     $Result = postSocialData($url, $_POST['jsonString']);
-    
+
                     if (isset($Result['success'])) {
                         $ReturnResult = 1;
                     }
@@ -1342,7 +1323,7 @@ class WhatAppIntegrationController extends BaseController
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
-  
+
         $table_name = $username . '_platform_integration';
 
         $ConnectionData = get_editData2($table_name, $connectionid);
@@ -1401,7 +1382,7 @@ class WhatAppIntegrationController extends BaseController
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
-  
+
         $table_name = $username . '_platform_integration';
 
         $ConnectionData = get_editData2($table_name, $connectionid);
@@ -1419,7 +1400,7 @@ class WhatAppIntegrationController extends BaseController
 
 
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
-            $url = $MetaUrl.$business_account_id.'/message_templates?hsm_id=' . $_POST['id'] . '&name=' . strtolower($_POST['name']) . '&access_token=' . $access_token;
+            $url = $MetaUrl . $business_account_id . '/message_templates?hsm_id=' . $_POST['id'] . '&name=' . strtolower($_POST['name']) . '&access_token=' . $access_token;
             $responselistdata = getSocialData($url);
             $resposearray = array();
             if (isset($responselistdata)) {
@@ -1436,8 +1417,6 @@ class WhatAppIntegrationController extends BaseController
             }
             echo json_encode($resposearray);
         }
-
-        
     }
 
 
@@ -1456,7 +1435,6 @@ class WhatAppIntegrationController extends BaseController
         $total_dataa_userr_22 = $result->getResult();
         if (isset($total_dataa_userr_22[0])) {
             $settings_data = $result->getResultArray();
-
         } else {
             $settings_data = array();
         }
@@ -1491,13 +1469,13 @@ class WhatAppIntegrationController extends BaseController
                     $phoneNumber = $display_phone_number; // Replace with the actual phone number
                     $countryCode = substr($phoneNumber, 0, 3); // Extract the first three characters
                     $countryMapping = [
-                        '+93' => 'Afghanistan', '+355' => 'Albania', '+213' => 'Algeria', '+376' => 'Andorra', '+244' => 'Angola', '+1-268' => 'Antigua and Barbuda', '+54' => 'Argentina', '+374' => 'Armenia', '+61' => 'Australia', '+43' => 'Austria', '+994' => 'Azerbaijan', '+1-242' => 'Bahamas', '+973' => 'Bahrain', '+880' => 'Bangladesh', '+1-246' => 'Barbados', '+375' => 'Belarus', '+32' => 'Belgium', '+501' => 'Belize', '+229' => 'Benin', '+975' => 'Bhutan', '+591' => 'Bolivia', '+387' => 'Bosnia and Herzegovina', '+267' => 'Botswana', '+55' => 'Brazil', '+673' => 'Brunei', '+359' => 'Bulgaria', '+226' => 'Burkina Faso', '+257' => 'Burundi', '+855' => 'Cambodia', '+237' => 'Cameroon', '+1' => 'Canada', '+238' => 'Cape Verde', '+236' => 'Central African Republic', '+235' => 'Chad', '+56' => 'Chile', '+86' => 'China', '+57' => 'Colombia', '+269' => 'Comoros', '+243' => 'Congo (Democratic Republic of the)', '+242' => 'Congo (Republic of the)', '+506' => 'Costa Rica', '+385' => 'Croatia', '+53' => 'Cuba', '+357' => 'Cyprus', '+420' => 'Czech Republic', '+45' => 'Denmark', '+253' => 'Djibouti', '+1-767' => 'Dominica', '+1-809' => 'Dominican Republic', '+670' => 'East Timor (Timor-Leste)', '+593' => 'Ecuador', '+20' => 'Egypt', '+503' => 'El Salvador', '+240' => 'Equatorial Guinea', '+291' => 'Eritrea', '+372' => 'Estonia', '+251' => 'Ethiopia', '+679' => 'Fiji', '+358' => 'Finland', '+33' => 'France', '+241' => 'Gabon', '+220' => 'Gambia', '+995' => 'Georgia', '+49' => 'Germany', '+233' => 'Ghana', '+30' => 'Greece', '+1-473' => 'Grenada', '+502' => 'Guatemala', '+224' => 'Guinea', '+245' => 'Guinea-Bissau', '+592' => 'Guyana', '+509' => 'Haiti', '+504' => 'Honduras', '+36' => 'Hungary', '+354' => 'Iceland', '+91' => 'India', '+62' => 'Indonesia', '+98' => 'Iran', '+964' => 'Iraq', '+353' => 'Ireland', '+972' => 'Israel', '+39' => 'Italy', '+1-876' => 'Jamaica', '+81' => 'Japan', '+962' => 'Jordan', '+7' => 'Kazakhstan', '+254' => 'Kenya', '+686' => 'Kiribati', '+82' => 'Korea, South', '+965' => 'Kuwait', '+996' => 'Kyrgyzstan', '+856' => 'Laos', '+371' => 'Latvia', '+961' => 'Lebanon', '+266' => 'Lesotho', '+231' => 'Liberia', '+218' => 'Libya', '+423' => 'Liechtenstein', '+370' => 'Lithuania', '+352' => 'Luxembourg', '+261' => 'Madagascar', '+265' => 'Malawi', '+60' => 'Malaysia', '+960' => 'Maldives', '+223' => 'Mali', '+356' => 'Malta', '+692' => 'Marshall Islands', '+222' => 'Mauritania', '+230' => 'Mauritius', '+52' => 'Mexico', '+691' => 'Micronesia', '+373' => 'Moldova', '+377' => 'Monaco', '+976' => 'Mongolia', '+382' => 'Montenegro', '+212' => 'Morocco', '+258' => 'Mozambique', '+95' => 'Myanmar (Burma)', '+264' => 'Namibia', '+674' => 'Nauru', '+977' => 'Nepal', '+31' => 'Netherlands', '+64' => 'New Zealand', '+505' => 'Nicaragua', '+227' => 'Niger', '+234' => 'Nigeria', '+47' => 'Norway', '+968' => 'Oman', '+92' => 'Pakistan', '+680' => 'Palau', '+970' => 'Palestine', '+507' => 'Panama', '+675' => 'Papua New Guinea', '+595' => 'Paraguay', '+51' => 'Peru', '+63' => 'Philippines', '+48' => 'Poland', '+351' => 'Portugal', '+974' => 'Qatar', '+40' => 'Romania', '+7' => 'Russia', '+250' => 'Rwanda', '+1-869' => 'Saint Kitts and Nevis', '+1-758' => 'Saint Lucia', '+1-784' => 'Saint Vincent and the Grenadines', '+685' => 'Samoa', '+378' => 'San Marino', '+239' => 'Sao Tome and Principe', '+966' => 'Saudi Arabia', '+221' => 'Senegal', '+381' => 'Serbia', '+248' => 'Seychelles', '+232' => 'Sierra Leone', '+65' => 'Singapore', '+421' => 'Slovakia', '+386' => 'Slovenia', '+677' => 'Solomon Islands', '+252' => 'Somalia', '+27' => 'South Africa', '+211' => 'South Sudan', '+34' => 'Spain', '+94' => 'Sri Lanka', '+249' => 'Sudan', '+597' => 'Suriname', '+46' => 'Sweden', '+41' => 'Switzerland', '+963' => 'Syria', '+886' => 'Taiwan', '+992' => 'Tajikistan', '+255' => 'Tanzania', '+66' => 'Thailand', '+228' => 'Togo', '+676' => 'Tonga', '+1-868' => 'Trinidad and Tobago', '+216' => 'Tunisia', '+90' => 'Turkey', '+993' => 'Turkmenistan', '+688' => 'Tuvalu', '+256' => 'Uganda', '+380' => 'Ukraine', '+971' => 'United Arab Emirates', '+44' => 'United Kingdom', '+1' => 'United States', '+598' => 'Uruguay', '+998' => 'Uzbekistan', '+678' => 'Vanuatu', '+379' => 'Vatican City', '+58' => 'Venezuela', '+84' => 'Vietnam', '+967' => 'Yemen', '+260' => 'Zambia', '+263' => 'Zimbabwe'  
+                        '+93' => 'Afghanistan', '+355' => 'Albania', '+213' => 'Algeria', '+376' => 'Andorra', '+244' => 'Angola', '+1-268' => 'Antigua and Barbuda', '+54' => 'Argentina', '+374' => 'Armenia', '+61' => 'Australia', '+43' => 'Austria', '+994' => 'Azerbaijan', '+1-242' => 'Bahamas', '+973' => 'Bahrain', '+880' => 'Bangladesh', '+1-246' => 'Barbados', '+375' => 'Belarus', '+32' => 'Belgium', '+501' => 'Belize', '+229' => 'Benin', '+975' => 'Bhutan', '+591' => 'Bolivia', '+387' => 'Bosnia and Herzegovina', '+267' => 'Botswana', '+55' => 'Brazil', '+673' => 'Brunei', '+359' => 'Bulgaria', '+226' => 'Burkina Faso', '+257' => 'Burundi', '+855' => 'Cambodia', '+237' => 'Cameroon', '+1' => 'Canada', '+238' => 'Cape Verde', '+236' => 'Central African Republic', '+235' => 'Chad', '+56' => 'Chile', '+86' => 'China', '+57' => 'Colombia', '+269' => 'Comoros', '+243' => 'Congo (Democratic Republic of the)', '+242' => 'Congo (Republic of the)', '+506' => 'Costa Rica', '+385' => 'Croatia', '+53' => 'Cuba', '+357' => 'Cyprus', '+420' => 'Czech Republic', '+45' => 'Denmark', '+253' => 'Djibouti', '+1-767' => 'Dominica', '+1-809' => 'Dominican Republic', '+670' => 'East Timor (Timor-Leste)', '+593' => 'Ecuador', '+20' => 'Egypt', '+503' => 'El Salvador', '+240' => 'Equatorial Guinea', '+291' => 'Eritrea', '+372' => 'Estonia', '+251' => 'Ethiopia', '+679' => 'Fiji', '+358' => 'Finland', '+33' => 'France', '+241' => 'Gabon', '+220' => 'Gambia', '+995' => 'Georgia', '+49' => 'Germany', '+233' => 'Ghana', '+30' => 'Greece', '+1-473' => 'Grenada', '+502' => 'Guatemala', '+224' => 'Guinea', '+245' => 'Guinea-Bissau', '+592' => 'Guyana', '+509' => 'Haiti', '+504' => 'Honduras', '+36' => 'Hungary', '+354' => 'Iceland', '+91' => 'India', '+62' => 'Indonesia', '+98' => 'Iran', '+964' => 'Iraq', '+353' => 'Ireland', '+972' => 'Israel', '+39' => 'Italy', '+1-876' => 'Jamaica', '+81' => 'Japan', '+962' => 'Jordan', '+7' => 'Kazakhstan', '+254' => 'Kenya', '+686' => 'Kiribati', '+82' => 'Korea, South', '+965' => 'Kuwait', '+996' => 'Kyrgyzstan', '+856' => 'Laos', '+371' => 'Latvia', '+961' => 'Lebanon', '+266' => 'Lesotho', '+231' => 'Liberia', '+218' => 'Libya', '+423' => 'Liechtenstein', '+370' => 'Lithuania', '+352' => 'Luxembourg', '+261' => 'Madagascar', '+265' => 'Malawi', '+60' => 'Malaysia', '+960' => 'Maldives', '+223' => 'Mali', '+356' => 'Malta', '+692' => 'Marshall Islands', '+222' => 'Mauritania', '+230' => 'Mauritius', '+52' => 'Mexico', '+691' => 'Micronesia', '+373' => 'Moldova', '+377' => 'Monaco', '+976' => 'Mongolia', '+382' => 'Montenegro', '+212' => 'Morocco', '+258' => 'Mozambique', '+95' => 'Myanmar (Burma)', '+264' => 'Namibia', '+674' => 'Nauru', '+977' => 'Nepal', '+31' => 'Netherlands', '+64' => 'New Zealand', '+505' => 'Nicaragua', '+227' => 'Niger', '+234' => 'Nigeria', '+47' => 'Norway', '+968' => 'Oman', '+92' => 'Pakistan', '+680' => 'Palau', '+970' => 'Palestine', '+507' => 'Panama', '+675' => 'Papua New Guinea', '+595' => 'Paraguay', '+51' => 'Peru', '+63' => 'Philippines', '+48' => 'Poland', '+351' => 'Portugal', '+974' => 'Qatar', '+40' => 'Romania', '+7' => 'Russia', '+250' => 'Rwanda', '+1-869' => 'Saint Kitts and Nevis', '+1-758' => 'Saint Lucia', '+1-784' => 'Saint Vincent and the Grenadines', '+685' => 'Samoa', '+378' => 'San Marino', '+239' => 'Sao Tome and Principe', '+966' => 'Saudi Arabia', '+221' => 'Senegal', '+381' => 'Serbia', '+248' => 'Seychelles', '+232' => 'Sierra Leone', '+65' => 'Singapore', '+421' => 'Slovakia', '+386' => 'Slovenia', '+677' => 'Solomon Islands', '+252' => 'Somalia', '+27' => 'South Africa', '+211' => 'South Sudan', '+34' => 'Spain', '+94' => 'Sri Lanka', '+249' => 'Sudan', '+597' => 'Suriname', '+46' => 'Sweden', '+41' => 'Switzerland', '+963' => 'Syria', '+886' => 'Taiwan', '+992' => 'Tajikistan', '+255' => 'Tanzania', '+66' => 'Thailand', '+228' => 'Togo', '+676' => 'Tonga', '+1-868' => 'Trinidad and Tobago', '+216' => 'Tunisia', '+90' => 'Turkey', '+993' => 'Turkmenistan', '+688' => 'Tuvalu', '+256' => 'Uganda', '+380' => 'Ukraine', '+971' => 'United Arab Emirates', '+44' => 'United Kingdom', '+1' => 'United States', '+598' => 'Uruguay', '+998' => 'Uzbekistan', '+678' => 'Vanuatu', '+379' => 'Vatican City', '+58' => 'Venezuela', '+84' => 'Vietnam', '+967' => 'Yemen', '+260' => 'Zambia', '+263' => 'Zimbabwe'
                     ];
                     $countryName = $countryMapping[$countryCode] ?? 'Unknown';
-                    $count ++;
+                    $count++;
                     $html .= '
-                        <tr class="HideandShow'.$count.' HideandShowAllTr ">
-                            <td class="align-middle" scope="col-2"><sup class="fs-12"></sup><span class = "ContactNumberClassSearch" count = "'.$count.'"> '.$display_phone_number.'</span>
+                        <tr class="HideandShow' . $count . ' HideandShowAllTr ">
+                            <td class="align-middle" scope="col-2"><sup class="fs-12"></sup><span class = "ContactNumberClassSearch" count = "' . $count . '"> ' . $display_phone_number . '</span>
                             </td>
                             <td class="align-middle" scope="col-1"><span
                                     class="p-1 bg-success-subtle border border-light rounded-pill fs-10 text-success fw-bold ">Connected</span>
@@ -1505,15 +1483,15 @@ class WhatAppIntegrationController extends BaseController
                             <td class="align-middle" scope="col-1">
                                 <span class="d-inline-block bg-success border border-light rounded-circle"
                                     style="width:11px;height:11px"></span>
-                                <span Class="mx-2">'.$qualityReating.'</span>
+                                <span Class="mx-2">' . $qualityReating . '</span>
                             </td>
                             <td class="align-middle text-truncate messeging-content d-none" style="max-width: 150px;"
                                 scope="col-2">10 k customers</td>
-                            <td class="align-middle" scope="col-1">'.$countryName.'</td>
-                            <td class="align-middle" scope="col-2">'.$verified_name.'</td>
+                            <td class="align-middle" scope="col-1">' . $countryName . '</td>
+                            <td class="align-middle" scope="col-2">' . $verified_name . '</td>
                     
                             <td class="align-middle" scope="col-1">
-                                <button class="btn p-0 DelectConnection"  table="'.$table_name.'" id="'.$value['id'].'">
+                                <button class="btn p-0 DelectConnection"  table="' . $table_name . '" id="' . $value['id'] . '">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </td>
@@ -1523,16 +1501,17 @@ class WhatAppIntegrationController extends BaseController
                 }
             }
         }
-        $html .= '<script>$(".CountedNumberT").text('.$count.'); $(".CountedNumberT").attr("total","'.$count.'");  </script>';
+        $html .= '<script>$(".CountedNumberT").text(' . $count . '); $(".CountedNumberT").attr("total","' . $count . '");  </script>';
         echo $html;
     }
 
     public function WhatsAppListConverstion()
     {
         $contact_no = $_POST['contact_no'];
+        $conversation_account_id = $_POST['conversation_account_id'];
         $table_username = getMasterUsername2();
         $Database = \Config\Database::connect('second');
-        $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE contact_no = "' . $contact_no . '"';
+        $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="'.$conversation_account_id.'" AND contact_no = "' . $contact_no . '"';
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
         $html = '';
@@ -1546,18 +1525,15 @@ class WhatAppIntegrationController extends BaseController
             $today = new \DateTime();
             $date = $dateTime->format('d/m/Y');
             $isWithinLast7Days = $dateTime >= $last7DaysStart;
-            if($date != $dates) {
-                if($isWithinLast7Days) {
+            if ($date != $dates) {
+                if ($isWithinLast7Days) {
                     $dayOfWeek = $dateTime->format('l');
                 } else {
                     $dayOfWeek = $dateTime->format('d, F Y');
                 }
-                $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">'.$dayOfWeek.'</div>';
+                $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">' . $dayOfWeek . '</div>';
                 $dates = $date;
             }
-
-
-
             $formattedtime = date('h:i A', strtotime($formattedDate));
             $msgtype = $value['message_type'];
             if ($msgtype == 1) {
@@ -1565,7 +1541,7 @@ class WhatAppIntegrationController extends BaseController
                     $html .= '
                         <div class="d-flex mb-4 ">
                             <div class="col-9 text-start">
-                                <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $value['message_contant'] . ' </span> <span class="ms-2" style="font-size:12px;">'.$formattedtime.'</span>
+                                <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $value['message_contant'] . ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
                             </div>
                         </div>';
                 }
@@ -1573,23 +1549,23 @@ class WhatAppIntegrationController extends BaseController
                     $html .= '
 								<div class="d-flex mb-4 justify-content-end" >
                                 <div class="col-9 text-end">
-									<span class="me-2" style="font-size:12px;">' . $formattedtime  . '</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">'.$value['message_contant'].'</span> 
+									<span class="me-2" style="font-size:12px;">' . $formattedtime  . '</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $value['message_contant'] . '</span> 
                                 </div>
                             </div>';
                 }
-            }elseif($msgtype == '5'){
+            } elseif ($msgtype == '5') {
 
-                
+
                 $Digi10Number = substr(str_replace([' ', '+'], '', $value['assest_id']), -10);
                 $MobileNoCount = strlen((string) str_replace([' ', '+'], '', $value['assest_id']));
                 $MobileNoOutput = str_replace([' ', '+'], '', $value['assest_id']);
-                if(intval($MobileNoCount) == '10'){
-                    $MobileNoOutput = '91'.str_replace([' ', '+'], '', $value['assest_id']);
+                if (intval($MobileNoCount) == '10') {
+                    $MobileNoOutput = '91' . str_replace([' ', '+'], '', $value['assest_id']);
                 }
-                $sql2 = 'SELECT * FROM `'.$table_username.'_social_accounts` WHERE conversation_account_id = "'.$_POST['conversation_account_id'].'" AND contact_no LIKE "%'.$Digi10Number. '%"';
+                $sql2 = 'SELECT * FROM `' . $table_username . '_social_accounts` WHERE conversation_account_id = "' . $_POST['conversation_account_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
                 $Getresult = $Database->query($sql2);
-       
-                
+
+
                 if ($sent_recieved_status == '2') {
                     $html .= '<div class="d-flex align-items-center pb-3">
                     <div class="border rounded-2 bg-white ps-4 pe-4" style="width:max-content;">
@@ -1598,26 +1574,26 @@ class WhatAppIntegrationController extends BaseController
                                 <i class="bi bi-person-circle" style="font-size: 30px;"></i>
                             </div>
                             <div class="d-flex align-items-center ms-3">
-                                <p>'.$value['asset_file_name'].'</p>
+                                <p>' . $value['asset_file_name'] . '</p>
                             </div>
                         </div>';
                     if ($Getresult->getNumRows() > 0) {
                         $html .= '
                             <div class="p-2 d-flex justify-content-center">
-                                <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "'.$Digi10Number.'" style="list-style: none;">Message</p>
+                                <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "' . $Digi10Number . '" style="list-style: none;">Message</p>
                             </div>
                         ';
                     } else {
                         $html .= '
                             <div class="p-2 d-flex justify-content-center">
-                                <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "'.substr($_POST['contact_no'], -10).'" connection_id = "'.$_POST['conversation_account_id'].'" name="'.$value['asset_file_name'].'" phone_no = "'.$MobileNoOutput.'" >Add Contact</p>
+                                <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "' . substr($_POST['contact_no'], -10) . '" connection_id = "' . $_POST['conversation_account_id'] . '" name="' . $value['asset_file_name'] . '" phone_no = "' . $MobileNoOutput . '" >Add Contact</p>
                             </div>
                         ';
                     }
-                    
+
                     $html .= '
                 </div>
-                <span class="ms-2" style="font-size:12px;">'.$formattedtime.'</span>
+                <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
                 </div>
                 ';
                 }
@@ -1625,39 +1601,39 @@ class WhatAppIntegrationController extends BaseController
                 if ($sent_recieved_status == '1') {
                     $html .= '
                     <div class="d-flex justify-content-end align-items-center pb-3">
-                    <span class="me-2" style="font-size:12px;">'.$formattedtime.'</span>
+                    <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
                     <div class="border rounded-2 ps-4 pe-4 " style="width:max-content; background-color: #005c4b;">
                         <div class="d-flex p-2 border-bottom">
                             <div>
                                 <i class="bi bi-person-circle" style="font-size: 30px;"></i>
                             </div>
                             <div class="d-flex align-items-center ms-3">
-                                <p class="text-white">'.$value["asset_file_name"].'</p>
+                                <p class="text-white">' . $value["asset_file_name"] . '</p>
                             </div>
                         </div>';
-                        if ($Getresult->getNumRows() > 0) {
-                            $html .= '
-                                <div class="p-2 d-flex justify-content-center">
-                                    <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "'.$Digi10Number.'"  style="list-style: none;">Message</p>
-                                </div>
-                            ';
-                        } else {
-                            $html .= '
-                                <div class="p-2 d-flex justify-content-center">
-                                    <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "'.substr($_POST['contact_no'], -10).'" connection_id = "'.$_POST['conversation_account_id'].'" name="'.$value['asset_file_name'].'" phone_no = "'.$MobileNoOutput.'" >Add Contact</p>
-                                </div>
-                            ';
-                        }
-                        
+                    if ($Getresult->getNumRows() > 0) {
                         $html .= '
+                                <div class="p-2 d-flex justify-content-center">
+                                    <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "' . $Digi10Number . '"  style="list-style: none;">Message</p>
+                                </div>
+                            ';
+                    } else {
+                        $html .= '
+                                <div class="p-2 d-flex justify-content-center">
+                                    <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "' . substr($_POST['contact_no'], -10) . '" connection_id = "' . $_POST['conversation_account_id'] . '" name="' . $value['asset_file_name'] . '" phone_no = "' . $MobileNoOutput . '" >Add Contact</p>
+                                </div>
+                            ';
+                    }
+
+                    $html .= '
                     </div>
                 </div>';
                 }
             }
         }
-        if($html != ''){
+        if ($html != '') {
             $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide();</script>';
-        }else{
+        } else {
             $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").show();</script>';
         }
         echo $html;
@@ -1726,48 +1702,194 @@ class WhatAppIntegrationController extends BaseController
         die();
     }
 
-    public function WhatsAppInsertData(){
+    public function WhatsAppInsertData()
+    {
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
-        if(isset($_POST['action'])){
-            if($_POST['action'] == 'contactadd'){
+        if (isset($_POST['action'])) {
+            if ($_POST['action'] == 'contactadd') {
                 $insert_data['platform_status'] = 1;
                 $insert_data['whatsapp_name'] = $_POST['name'];
                 $insert_data['contact_no'] = $_POST['phone_no'];
                 $insert_data['conversation_account_id'] = $_POST['connection_id'];
                 $insert_data['account_phone_no'] = $_POST['account_phone_no'];
                 $this->MasterInformationModel->insert_entry2($insert_data, $username . '_social_accounts');
-            }elseif($_POST['action'] == 'manualcontactadd'){
+            } elseif ($_POST['action'] == 'manualcontactadd') {
                 $table_username = getMasterUsername2();
                 $Database = \Config\Database::connect('second');
                 $Digi10Number = substr($_POST['phone_no'], -10);
-                $sql2 = 'SELECT * FROM `'.$table_username.'_social_accounts` WHERE conversation_account_id = "'.$_POST['connection_id'].'" AND contact_no LIKE "%'.$Digi10Number. '%"';
+                $sql2 = 'SELECT * FROM `' . $table_username . '_social_accounts` WHERE conversation_account_id = "' . $_POST['connection_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
                 $Getresult = $Database->query($sql2);
                 $returnno = 0;
                 if ($Getresult->getNumRows() > 0) {
                     $returnno = 0;
-                }else{
-                        $insert_data['platform_status'] = 1;
-                        $insert_data['name'] = $_POST['name'];
-                        $insert_data['contact_no'] = $_POST['phone_no'];
-                        $insert_data['conversation_account_id'] = $_POST['connection_id'];
-                        $insert_data['account_phone_no'] = $_POST['account_phone_no'];
-                        $this->MasterInformationModel->insert_entry2($insert_data, $username . '_social_accounts');
-                        $returnno = 1;
+                } else {
+                    $insert_data['platform_status'] = 1;
+                    $insert_data['name'] = $_POST['name'];
+                    $insert_data['contact_no'] = $_POST['phone_no'];
+                    $insert_data['conversation_account_id'] = $_POST['connection_id'];
+                    $insert_data['account_phone_no'] = $_POST['account_phone_no'];
+                    $this->MasterInformationModel->insert_entry2($insert_data, $username . '_social_accounts');
+                    $returnno = 1;
                 }
 
-         
+
                 echo $returnno;
-
-
             }
-      
         }
-        
     }
 
-    public function SendWhatsAppContactNumber(){
+    public function WhatsAppSendDocumentData()
+    {
+
+        $DataSenderId = $_POST['DataSenderId'];
+        $DataPhoneno =  $_POST['DataPhoneno'];
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+
+        $table_name = $username . '_platform_integration';
+
+        $ConnectionData = get_editData2($table_name, $DataSenderId);
+
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
+            }
+        }
+        if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
+            $uploadDir = '';
+            $inputString = $_SESSION['username'];
+            $parts = explode("_", $inputString);
+            $username = $parts[0];
+            $files = $_FILES;
+            if (!empty($files)) {
+                $uploadDir .= 'assets/' . $username . '_folder/WhatsAppAssets/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+                $filesArr = $_FILES["attachment"];
+                $fileNames = array_filter($filesArr['name']);
+                $uploadedFile = '';
+                foreach ($filesArr['name'] as $key => $val) {
+                    $fileName = basename($filesArr['name'][$key]);
+                    $targetFilePath = $uploadDir . str_replace(' ', '', $fileName);
+                    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+                    if (move_uploaded_file(str_replace(' ', '', $filesArr["tmp_name"][$key]), $targetFilePath)) {
+                        $base_url = base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . str_replace(' ', '', $fileName);
+                        $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                        if ($_POST['doctype'] == 'document') {
+                            $jsonestring = '{
+                                "messaging_product": "whatsapp",
+                                "recipient_type": "individual",
+                                "to": "' . $_POST['DataPhoneno'] . '",
+                                "type": "document",
+                                "document": {
+                                    "link" : "' . $base_url . '"
+                                }
+                            }';
+                            $Result = postSocialData($url, $jsonestring);
+                            if (isset($Result) && !empty($Result)) {
+                                if (isset($Result['messages'][0]['id']) && isset($Result['contacts'][0]['wa_id'])) {
+                                    $insert_data['contact_no'] = $Result['contacts'][0]['wa_id'];
+                                    $insert_data['platform_account_id'] = $DataSenderId;
+                                    $insert_data['message_status'] = '0';
+                                    $insert_data['created_at'] = gmdate('Y-m-d H:i:s');
+                                    $insert_data['conversation_id'] = $Result['messages'][0]['id'];
+                                    $insert_data['platform_status'] = '1';
+                                    $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
+                                    $insert_data['message_type'] = '4';
+                                    $insert_data['sent_recieved_status'] = '1';
+                                    $insert_data['asset_file_name'] = str_replace(' ', '', $fileName);
+                                    $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
+                                }
+                            }
+                        }
+                        if ($_POST['doctype'] == 'image') {
+                            $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+                            $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff'];
+                            $videoExtensions = ['mp4', 'avi', 'mkv', 'mov', 'wmv'];
+                            if (in_array(strtolower($fileExtension), $imageExtensions)) {
+                                // $base_url = 'https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg';
+
+                                $jsonestring = '{
+                                    "messaging_product": "whatsapp",
+                                    "recipient_type": "individual",
+                                    "to": "' . $_POST['DataPhoneno'] . '",
+                                    "type": "image",
+                                    "image": {
+                                        "link" : "' . $base_url . '"
+                                    }
+                                }';
+                                $Result = postSocialData($url, $jsonestring);
+                                if (isset($Result) && !empty($Result)) {
+                                    if (isset($Result['messages'][0]['id']) && isset($Result['contacts'][0]['wa_id'])) {
+                                        $insert_data['contact_no'] = $Result['contacts'][0]['wa_id'];
+                                        $insert_data['platform_account_id'] = $DataSenderId;
+                                        $insert_data['message_status'] = '0';
+                                        $insert_data['created_at'] = gmdate('Y-m-d H:i:s');
+                                        $insert_data['conversation_id'] = $Result['messages'][0]['id'];
+                                        $insert_data['platform_status'] = '1';
+                                        $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
+                                        $insert_data['message_type'] = '3';
+                                        $insert_data['sent_recieved_status'] = '1';
+                                        $insert_data['asset_file_name'] = str_replace(' ', '', $fileName);
+                                        $insert_data['assets_type'] = $fileExtension;
+
+                                        $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
+                                    }
+                                }
+                            } elseif (in_array(strtolower($fileExtension), $videoExtensions)) {
+                                // $base_url = 'https://media.istockphoto.com/id/547356494/video/loading-symbol-loop.mp4?s=mp4-640x640-is&k=20&c=jqYgIJg1q5Sd6sTSc70gk9rQNshqbfHvoSUpB_G0lJg=';
+                                $jsonestring = '{
+                                    "messaging_product": "whatsapp",
+                                    "recipient_type": "individual",
+                                    "to": "' . $_POST['DataPhoneno'] . '",
+                                    "type": "video",
+                                    "video": {
+                                        "link" : "' . $base_url . '"
+                                    }
+                                }';
+                                $Result = postSocialData($url, $jsonestring);
+                                if (isset($Result) && !empty($Result)) {
+                                    if (isset($Result['messages'][0]['id']) && isset($Result['contacts'][0]['wa_id'])) {
+                                        $insert_data['contact_no'] = $Result['contacts'][0]['wa_id'];
+                                        $insert_data['platform_account_id'] = $DataSenderId;
+                                        $insert_data['message_status'] = '0';
+                                        $insert_data['created_at'] = gmdate('Y-m-d H:i:s');
+                                        $insert_data['conversation_id'] = $Result['messages'][0]['id'];
+                                        $insert_data['platform_status'] = '1';
+                                        $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
+                                        $insert_data['message_type'] = '3';
+                                        $insert_data['sent_recieved_status'] = '1';
+                                        $insert_data['asset_file_name'] = str_replace(' ', '', $fileName);
+                                        $insert_data['assets_type'] = $fileExtension;
+                                        $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        $uploadStatus = 0;
+                        $response['message'] = 'Sorry, there was an error uploading your file.';
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    public function SendWhatsAppContactNumber()
+    {
         $DataSenderId = $_POST['DataSenderId'];
         $MetaUrl = config('App')->metaurl;
         $inputString = $_SESSION['username'];
@@ -1789,24 +1911,24 @@ class WhatAppIntegrationController extends BaseController
 
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
             $ContactData = json_decode($_POST['contactstring'], true);
-            if(isset($ContactData) && !empty($ContactData)){
+            if (isset($ContactData) && !empty($ContactData)) {
                 foreach ($ContactData as $key => $value) {
                     $name = $value['name'];
                     $phoneno = $value['phoneno'];
                     $jsonestring = '
                     {
                         "messaging_product": "whatsapp",
-                        "to": "'.$_POST['DataPhoneno'].'",
+                        "to": "' . $_POST['DataPhoneno'] . '",
                         "type": "contacts",
                         "contacts": [
                             {
                                 "name": {
-                                    "first_name": "'.$name.'",
-                                    "formatted_name": "'.$name.'",
+                                    "first_name": "' . $name . '",
+                                    "formatted_name": "' . $name . '",
                                 },
                                 "phones": [
                                     {
-                                        "phone": "+ '.$phoneno.'",
+                                        "phone": "+ ' . $phoneno . '",
                                         "type": "MOBILE"
                                     }
                                 ],
@@ -1814,9 +1936,9 @@ class WhatAppIntegrationController extends BaseController
                         ]
                     }
                     ';
-                    $url = $MetaUrl.$phone_number_id."/messages/?access_token=".$access_token."";
+                    $url = $MetaUrl . $phone_number_id . "/messages/?access_token=" . $access_token . "";
                     $Result = postSocialData($url, $jsonestring);
-                    if(isset($Result['contacts'][0]['wa_id']) && $Result['messages'][0]['id']){
+                    if (isset($Result['contacts'][0]['wa_id']) && $Result['messages'][0]['id']) {
                         $contact = $Result['contacts'][0]['wa_id'];
                         $insert_data['contact_no'] = $contact;
                         $insert_data['platform_account_id'] = $DataSenderId;
