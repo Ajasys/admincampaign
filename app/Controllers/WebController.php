@@ -129,7 +129,7 @@ class WebController extends BaseController
         // Generate HTML for data
         if ($find_Array_data->getNumRows() > 0) {
             foreach ($data as $key => $value) {
-                $html .= '<tr>
+                $html .= '<tr class="click_tr" data-bs-toggle="modal" data-bs-target="#Modal_tabel">
                 <td class="p-2 text-nowrap">' . $value['website_name'] . '</td>
                 <td class="p-2 text-nowrap"><p style="width: 300px;overflow: hidden;text-overflow: ellipsis;">' . $value['access_token'] . '</p></td>
                 <td class="p-2 text-nowrap">';
