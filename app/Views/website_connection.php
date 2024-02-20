@@ -172,7 +172,7 @@ function generateAccessToken($length = 32)
                     <div class="row col-12">
                         <div class="add-user-input">
                             <label for="relation" class="form-label main-label fw-semibold">Access Token:</label>
-                            <div class="ps-3">
+                            <div class="ps-3 mt-1">
                                 <span id="web_access_token" style="word-wrap: break-word;"></span>
                             </div>
                         </div>
@@ -180,7 +180,7 @@ function generateAccessToken($length = 32)
                     <div class="row col-12">
                         <div class="add-user-input">
                             <label for="relation" class="form-label main-label fw-semibold mt-2">Website API Integrate:</label>
-                            <div class="ms-3">
+                            <div class="ms-3 mt-1">
                                 <span id="web_method" style="word-wrap: break-word;">
                                     <p>Method : POST</p>
                                 </span>
