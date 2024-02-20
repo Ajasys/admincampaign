@@ -218,7 +218,7 @@ if (isset($resultdata[0])) {
                                     </a>
                                 </div>
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
-                                    <a href="">
+                                <a href="<?= base_url('linkedin_connection') ?>">
                                         <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">

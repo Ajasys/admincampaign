@@ -153,6 +153,10 @@ class Home extends BaseController
     {
         return view('website_connection');
     }
+    public function linkedin_connection()
+    {
+        return view('linkedin_connection');
+    }
     public function whatsapp_connections()
     {
         return view('whatsapp_connections');

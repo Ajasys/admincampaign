@@ -575,6 +575,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/delete_website_connection', 'WebController::delete_website_connection');
 	$routes->post('/website_connectionpage', 'WebController::website_connectionpage');
 
+	//linkedin integration
+	$routes->get('/linkedin_connection', 'Home::linkedin_connection');
+	
+
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
 	$routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
