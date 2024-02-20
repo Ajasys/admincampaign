@@ -172,26 +172,40 @@ function generateAccessToken($length = 32)
                     <div class="row col-12">
                         <div class="add-user-input">
                             <label for="relation" class="form-label main-label fw-semibold">Access Token:</label>
-                            <span id="web_access_token" style="word-wrap: break-word;"></span>
+                            <div class="ps-3">
+                                <span id="web_access_token" style="word-wrap: break-word;"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="row col-12">
                         <div class="add-user-input">
-                            <label for="relation" class="form-label main-label fw-semibold">Website API Integrate:</label>
-                            <span id="web_method" style="word-wrap: break-word;"><p>Method : POST</p></span>
-                            <span id="web_url" style="word-wrap: break-word;"><p>URL : <?php echo base_url();?>web_integrate</p></span>
-                            <span id="form_data" style="word-wrap: break-word;">
-                                <p>Form Data Passing : </p>
-                                <p>name:<name_value></p>
-                                <p>mobileno:<mobileno_value></p>
-                                <p>email:<email_value></p>
-                                <p>description:<description_value></p>
-                                <p>access_token:<access_token_value></p>
-                            </span>
+                            <label for="relation" class="form-label main-label fw-semibold mt-2">Website API Integrate:</label>
+                            <div class="ms-3">
+                                <span id="web_method" style="word-wrap: break-word;">
+                                    <p>Method : POST</p>
+                                </span>
+                                <span id="web_url" style="word-wrap: break-word;">
+                                    <p>URL : <?php echo base_url(); ?>web_integrate</p>
+                                </span>
+                            </div>
+                            <div style="margin-left: 35px;">
+                                <span id="form_data" class="" style="word-wrap: break-word;">
+                                    <p style="margin-left: -18px;">Form Data Passing : </p>
+                                    <p>name:<name_value></p>
+                                    <p>mobileno:<mobileno_value>
+                                    </p>
+                                    <p>email:<email_value>
+                                    </p>
+                                    <p>description:<description_value>
+                                    </p>
+                                    <p>access_token:<access_token_value>
+                                    </p>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                    <div class="row col-12">
-                        <img src="<?php echo base_url();?>assets/images/websiteImage/webpostman.png">
+                    <div class="row col-12 mt-3">
+                        <img src="<?php echo base_url(); ?>assets/images/websiteImage/webpostman.png">
                     </div>
                 </div>
             </div>
