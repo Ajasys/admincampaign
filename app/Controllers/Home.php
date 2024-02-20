@@ -298,6 +298,8 @@ class Home extends BaseController
             'email_radio int(11)',
             'email_from varchar(200)',
             'website_name varchar(255)',
+            "linkedin_client_id text NOT NULL",
+            'linkedin_client_secret text NOT NULL',
             "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
             "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook & 3-Email & 4-Linkedin & 5-website'",
         ];

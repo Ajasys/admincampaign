@@ -95,13 +95,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         <table id="leadTable" class="table main-table w-100">
                             <thead>
                                 <tr>
-                                    <th class="p-2 text-nowrap"><span>Website Name</span></th>
-                                    <th class="p-2 text-nowrap"><span>Access Token</span></th>
+                                    <th class="p-2 text-nowrap"><span>App Name</span></th>
+                                    <th class="p-2 text-nowrap"><span>App Id</span></th>
                                     <th class="p-2 text-nowrap"><span>Status</span></th>
                                     <th class="p-2 text-nowrap text-center"><span></span></th>
                                 </tr>
                             </thead>
-                            <tbody id="fb_list_data">
+                            <tbody id="linkedin_list_data">
 
                             </tbody>
                         </table>
@@ -141,6 +141,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     <div class="col-12">
                         <h6 class="modal-body-title">Client Secret<sup class="validationn">*</sup></h6>
                         <input type="password" class="form-control main-control" id="client_secret" name="client_secret" placeholder="Enter your client secret" required>
+                    </div>
+
+                    <div class="col-12">
+                        <h6 class="modal-body-title">Access Tokenn<sup class="validationn">*</sup></h6>
+                        <input type="text" class="form-control main-control" id="access_token" name="access_token" placeholder="Enter your access token" required>
                     </div>
                 </form>
             </div>
@@ -224,7 +229,8 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     $('body').on('click', '#linkedin_cnt', function() {
         var client_id = $("#client_id").val();
         var client_secret = $("#client_secret").val();
-        if (client_secret != '' && client_id != '') {
+        var access_token = $("#access_token").val();
+        if (client_secret != '' && client_id != '' && access_token != '') {
             $('.loader').show();
             $.ajax({
                 type: "post",
@@ -233,29 +239,30 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     action: 'insert',
                     client_secret: client_secret,
                     client_id: client_id,
+                    access_token:access_token,
                 },
                 success: function(res) {
                     var result = JSON.parse(res);
-                    if (result.response == 1 || result.response == 2) {
-                        $("form[name='web_cnt']")[0].reset();
-                        $("form[name='web_cnt']").removeClass("was-validated");
-                        $("#linkedinCntModal").modal('hide');
+                    // if (result.response == 1 || result.response == 2) {
+                    //     $("form[name='web_cnt']")[0].reset();
+                    //     $("form[name='web_cnt']").removeClass("was-validated");
+                    //     $("#linkedinCntModal").modal('hide');
 
-                        list_data();
-                        if (result.response == 1) {
-                            iziToast.success({
-                                title: result.message,
-                            });
-                        } else {
-                            iziToast.warning({
-                                title: result.message,
-                            });
-                        }
-                    } else {
-                        iziToast.error({
-                            title: result.message,
-                        });
-                    }
+                    //     list_data();
+                    //     if (result.response == 1) {
+                    //         iziToast.success({
+                    //             title: result.message,
+                    //         });
+                    //     } else {
+                    //         iziToast.warning({
+                    //             title: result.message,
+                    //         });
+                    //     }
+                    // } else {
+                    //     iziToast.error({
+                    //         title: result.message,
+                    //     });
+                    // }
                 },
                 error: function(error) {
                     $('.loader').hide();
@@ -306,7 +313,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         $.ajax({
             datatype: 'json',
             method: "POST",
-            url: 'website_connection_list',
+            url: 'linkedin_connection_list',
             data: data,
             success: function(res) {
                 var result = JSON.parse(res);
@@ -317,7 +324,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         total_page = result.total_page;
                     }
                     $('#row_count').html(result.row_count_html);
-                    $('#fb_list_data').html(result.html);
+                    $('#linkedin_list_data').html(result.html);
                     $('.fb_pagination').twbsPagination({
                         totalPages: total_page,
                         visiblePages: 2,
