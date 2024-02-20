@@ -416,12 +416,64 @@ class WhatAppIntegrationController extends BaseController
         $name = $_POST['name'];
         $table_username = getMasterUsername2();
         $Database = \Config\Database::connect('second');
-        $sql = 'SELECT * FROM ' . $table_username . '_social_accounts WHERE account_phone_no = "' . $phoneno . '" AND conversation_account_id = "' . $id . '" ORDER BY `id` DESC';
+        $sql = "SELECT ".$table_username."_social_accounts.*, (SELECT MAX(id) FROM ".$table_username."_messages WHERE contact_no = ".$table_username."_social_accounts.contact_no AND platform_account_id = ".$id.") AS last_inserted_id FROM ".$table_username."_social_accounts WHERE account_phone_no = '".$phoneno."' AND conversation_account_id = '".$id."'  ORDER BY last_inserted_id DESC;
+        ";
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
         $html = '';
         $htmlcontactlist = '';
         foreach ($GetData as $key => $value) {
+$TotalUnreadMsg = 0;
+            $AutoIDNo = '';
+            $MsgReadStatus = '';
+            $MasgDateNdTime = "";
+            $sent_recieved_status = '';
+            $last_createdate = '';
+            $lastmsggetsql = 'SELECT * FROM `admin_messages` WHERE contact_no = "' . $value['contact_no'] . '" AND platform_account_id = "' . $id . '" ORDER BY id DESC LIMIT 1;';
+            $GerDataLastMsg = $Database->query($lastmsggetsql);
+            $GerDataLastMsg = $GerDataLastMsg->getResultArray();
+
+            $UnreadMsgCountSql = "SELECT COUNT(*) AS total_records, MAX(id) AS last_id, MAX(created_at) AS last_createdate, MAX(CASE WHEN id = (SELECT MAX(id) FROM ".$table_username."_messages WHERE contact_no = ".$value['contact_no']." AND platform_account_id = ".$id." AND msg_read_status = '0' ) THEN message_status END) AS last_read_status, MAX(CASE WHEN id = (SELECT MAX(id) FROM ".$table_username."_messages WHERE contact_no = ".$value['contact_no']." AND platform_account_id = ".$id." AND msg_read_status = '0') THEN sent_recieved_status END) AS sent_recieved_status FROM ".$table_username."_messages WHERE contact_no = ".$value['contact_no']." AND platform_account_id = ".$id." AND msg_read_status = '0' AND sent_recieved_status = '2';";
+
+            $UnreadmsgCount = $Database->query($UnreadMsgCountSql);
+            $UnreadmsgCountArr = $UnreadmsgCount->getResultArray();
+            if (isset($UnreadmsgCountArr) && !empty($UnreadmsgCount)) {
+                $TotalUnreadMsg = $UnreadmsgCountArr[0]['total_records'];
+                $AutoIDNo = $UnreadmsgCountArr[0]['last_id'];
+                $MsgReadStatus = $UnreadmsgCountArr[0]['last_read_status'];
+                $sent_recieved_status = $UnreadmsgCountArr[0]['sent_recieved_status'];
+                $last_createdate = $UnreadmsgCountArr[0]['last_createdate'];
+            }
+            if($last_createdate != '' && $last_createdate != '0000-00-00 00:00:00'){
+                $utcDateTime = new \DateTime($last_createdate, new \DateTimeZone('UTC'));
+                $currentUtcDateTime = new \DateTime(null, new \DateTimeZone('UTC'));
+                if ($utcDateTime->format('Y-m-d') === $currentUtcDateTime->format('Y-m-d')) {
+                    $formattedResult = $utcDateTime->format('h:i A');
+                    $last_createdate = Utctodate('h:i A', timezonedata(), $formattedResult);
+                } elseif ($utcDateTime >= $currentUtcDateTime->modify('-7 days')) {
+                    $last_createdate = $utcDateTime->format('l');
+                } else {
+                    $last_createdate = $utcDateTime->format('d-m-Y');
+                }
+            }else{
+                $last_createdate = '';
+            }
+            $lastmsg = '';
+            if (isset($GerDataLastMsg) && !empty($GerDataLastMsg) && $GerDataLastMsg[0]['message_type']) {
+                if ($GerDataLastMsg[0]['message_type'] == '1' || $GerDataLastMsg[0]['message_type'] == '2') {
+                    $lastmsg = $GerDataLastMsg[0]['message_contant'];
+                } elseif ($GerDataLastMsg[0]['message_type'] == '3') {
+                    $lastmsg = 'Image';
+                } elseif ($GerDataLastMsg[0]['message_type'] == '4') {
+                    $lastmsg = 'Document';
+                } elseif ($GerDataLastMsg[0]['message_type'] == '5') {
+                    $lastmsg = 'Contact :' . $GerDataLastMsg[0]['asset_file_name'];
+                } elseif ($GerDataLastMsg[0]['message_type'] == '6') {
+                    $lastmsg = 'Audio';
+                } elseif ($GerDataLastMsg[0]['message_type'] == '7') {
+                    $lastmsg = 'Location';
+                }
+            }
             if ($value['whatsapp_name'] == '' && $value['name'] == '') {
                 $Whatsappproname = $value['whatsapp_name'];
                 if ($value['name'] != '') {
@@ -432,11 +484,13 @@ class WhatAppIntegrationController extends BaseController
                                             <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                             <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
                                             <div class="col text-start">
-                                                <p class="fs-12 fw-medium col text-muted">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '
+                                                <span class="fs-14">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '</span>
+                                <p class="fs-12 fw-medium col text-muted">' . $lastmsg . '
                                             </div>
                                         </p>
                                     </div>
-                                </div>';
+                                </div>
+                ';
                 $htmlcontactlist .= '
                             <div class="col-12 d-flex border-top border-dark border-bottom justify-content-center align-items-center p-2">
                                 <div class="col-1 d-flex align-items-center justify-content-center"><input type="checkbox"
@@ -455,16 +509,50 @@ class WhatAppIntegrationController extends BaseController
                 if ($value['name'] != '') {
                     $Whatsappproname = $value['name'];
                 }
-
-
-                $html .=    '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
+$html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
                                         <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                         <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
-                                        <div class="col text-start">
-                                            <span class="fs-14">' . $Whatsappproname . '</span>
-                                            <p class="fs-12 fw-medium col text-muted">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '
+                                        <div class="col d-flex justify-content-between">
+                                            <div>
+                                           <span class="fs-14 fw-medium">' . $Whatsappproname . '</span>
+                                            
+                                           <p class="fs-12 fw-medium col text-muted">';
+                if ($sent_recieved_status == '1') {
+                    if ($MsgReadStatus == '0') {
+                        $html .= '
+                                                <i class="fa-solid  fa-check fa-xs align-self-end" style="color: gray;"></i>';
+                    } elseif ($MsgReadStatus == '1') {
+                        $html .= '
+                                                <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: gray;"></i>';
+                    } elseif ($MsgReadStatus == '2') {
+                        $html .= '
+                                                <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: lightgreen;"></i>';
+                    } elseif ($MsgReadStatus == '3') {
+                        $html .= '
+                                                <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
+                    }
+                }
+                $html .= '
+                                            
+                                           ' . $lastmsg . '
+                                           </p>
+                                           </div>
+                                           <div class="d-flex flex-wrap">';
+
+                $html .= '
+                                           <p class="col-12 text-end fs-12">'.$last_createdate.'</p>';
+
+
+
+
+                if ($TotalUnreadMsg > 0) {
+                    $html .= '
+                                                <span class="ms-auto badge rounded-pill text-bg-success Count' . substr($value['contact_no'], -10) . '">' . $TotalUnreadMsg . '</span>';
+                }
+                $html .= '
+
                                         </div>
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                             ';
@@ -486,6 +574,9 @@ class WhatAppIntegrationController extends BaseController
         $return_array['html'] = $html;
         return json_encode($return_array, true);
     }
+
+
+
 
 
     public function SendMessagesHistory()
@@ -1549,17 +1640,63 @@ $newbody = $post_data['newbody'];
 
     public function WhatsAppListConverstion()
     {
+$MetaUrl = config('App')->metaurl;
         $contact_no = $_POST['contact_no'];
         $conversation_account_id = $_POST['conversation_account_id'];
         $table_username = getMasterUsername2();
         $Database = \Config\Database::connect('second');
-        $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="'.$conversation_account_id.'" AND contact_no = "' . $contact_no . '"';
+        $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
         $html = '';
         $dates = '';
 
+
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+
+        $table_name = $username . '_platform_integration';
+
+        $ConnectionData = get_editData2($table_name, $conversation_account_id);
+
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
+            }
+        }
+
+
+        $counttrigger = 0;
+
         foreach ($GetData as $key => $value) {
+
+            if($value['msg_read_status'] == '0' && $value['sent_recieved_status'] == '2'){
+                if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
+                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                    $JsonDataString = '
+                        {
+                        "messaging_product": "whatsapp",
+                        "status": "read",
+                        "message_id": "'.$value['conversation_id'].'"
+                      }
+                    ';
+                    $Result = postSocialData($url, $JsonDataString);
+                      if(isset($Result['success'])){
+                        $UpdateReadsql =  'UPDATE `'.$username.'_messages` SET `read_date_time`="'.gmdate('Y-m-d H:i:s').'",`msg_read_status`="1" WHERE id = "'.$value['id'].'"';
+                        $Database->query($UpdateReadsql);
+                        $counttrigger++;
+                      }
+                }   
+            }
+
             $sent_recieved_status = $value['sent_recieved_status'];
             $formattedDate = Utctodate('Y-m-d h:i A', timezonedata(), $value['created_at']);
             $dateTime = new \DateTime($formattedDate);
@@ -1590,10 +1727,29 @@ $newbody = $post_data['newbody'];
                 if ($sent_recieved_status == '1') {
                     $html .= '
 								<div class="d-flex mb-4 justify-content-end" >
-                                <div class="col-9 text-end">
-									<span class="me-2" style="font-size:12px;">' . $formattedtime  . '</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $value['message_contant'] . '</span> 
+                                <div class="col-9 text-end position-relative">
+									<span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> <span class="ps-3 pe-1 py-2 rounded-3 text-white" style="background:#724EBF;">' . $value['message_contant'] . '
+                                    <span class="mx-1 align-self-end">';
+                    if ($value['message_status'] == '0') {
+
+                        $html .= '
+                                         <i class="fa-solid text-white fa-check fa-xs align-self-end" style="color: #fff;"></i>';
+                    } elseif ($value['message_status'] == '1') {
+                        $html .= '
+                                        <i class="fa-solid text-white fa-check-double fa-xs align-self-end" style="color: #fff;"></i>';
+                    } elseif ($value['message_status'] == '2') {
+                        $html .= '
+                                        <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: lightgreen;"></i>';
+                    } else {
+                        $html .= '
+                                        <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
+                    }
+                    $html .= '
+                                    </span>
+                                    </span> 
                                 </div>
-                            </div>';
+                            </div>
+                             ';
                 }
             } elseif ($msgtype == '5') {
 
@@ -1674,9 +1830,23 @@ $newbody = $post_data['newbody'];
             }
         }
         if ($html != '') {
-            $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide();</script>';
+            $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom();</script> ';
         } else {
-            $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").show();</script>';
+            $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
+        }
+
+
+        if($counttrigger > 0){
+            $html .= '  <script>
+                            $(".Count'.substr($_POST['contact_no'], -10).'").addClass("d-none");     
+                                var count = $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text();
+                                count = parseInt(count) - 1;
+                                if(count == "0"){
+                                    $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").addClass("d-none");
+                                }else{
+                                    $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text(count);
+                                }
+                        </script>';
         }
         echo $html;
     }

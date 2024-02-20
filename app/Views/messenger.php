@@ -200,7 +200,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     </div>
 </div>
 <!-- modal box whatapp -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -212,9 +213,11 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             <div class="modal-body overflow-auto" style="height:350px;">
                 <div class="d-flex col-12 justify-content-center">
                     <div class="input-group mb-3 d-none">
-                        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control" placeholder="Recipient's username"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <span class="input-group-text btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <span class="input-group-text btn btn-secondary"><i
+                                    class="fa-solid fa-magnifying-glass"></i></span>
                         </div>
                     </div>
                 </div>
@@ -239,15 +242,19 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     <h5 class="mb-3 pb-2 border-bottom col-12">Add Contact Details</h5>
                     <div class="col-12">
                         <div class="col-12 mb-3 mt-2">
-                            <input type="text" class="form-control main-control ContactNameClass " id="business_name" name="business_name" placeholder="Enter Name" value="" required="">
+                            <input type="text" class="form-control main-control ContactNameClass " id="business_name"
+                                name="business_name" placeholder="Enter Name" value="" required="">
                         </div>
                         <div class="col-12 mb-3 mt-2">
-                            <input type="number" id="mobile_code" class="form-control phone_number_div ContactNumberClass" placeholder="Enter Contact Number" name="name">
+                            <input type="number" id="mobile_code"
+                                class="form-control phone_number_div ContactNumberClass"
+                                placeholder="Enter Contact Number" name="name">
                         </div>
 
                         <div class="col-12 pt-3 border-top mb-2 text-end">
                             <span class="btn btn-secondary CloseBtn" data-bs-dismiss="modal">Close</span>
-                            <span class="btn-primary AddWhatsAppContactNumber" id="" data-edit_id="" name="memberships_update1" value="memberships_update1">Add</span>
+                            <span class="btn-primary AddWhatsAppContactNumber" id="" data-edit_id=""
+                                name="memberships_update1" value="memberships_update1">Add</span>
                         </div>
                     </div>
                 </div>
@@ -259,8 +266,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
         <div class="p-2">
-            <div class="d-flex align-items-center title-1">
-                <i class="fa-solid fa-message"></i>
+            <div class="d-flex align-items-center title-1 MsgTitle">
+                <i class="fa-solid fa-message "></i>
                 <h2>Messenger</h2>
             </div>
 
@@ -290,28 +297,44 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             <div class="accordion mt-2" id="accordionExample">
                                 <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <button class="accordion-button border-0 shadow-none fw-medium" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path fill="#1877f2" d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z" opacity="1" data-original="#1877f2" class=""></path>
-                                                    <path fill="#ffffff" d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z" opacity="1" data-original="#ffffff"></path>
+                                                    <path fill="#1877f2"
+                                                        d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z"
+                                                        opacity="1" data-original="#1877f2" class=""></path>
+                                                    <path fill="#ffffff"
+                                                        d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z"
+                                                        opacity="1" data-original="#ffffff"></path>
                                                 </g>
                                             </svg>
                                             <P class="ms-2">Facebook</P>
 
                                         </button>
                                     </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        data-bs-parent="#accordionExample">
                                         <div class="accordion-body account_list p-0">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <linearGradient id="a" x1="84.679" x2="404.429" y1="427.321" y2="107.571" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="a" x1="84.679" x2="404.429" y1="427.321"
+                                                        y2="107.571" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#fee411"></stop>
                                                         <stop offset=".052" stop-color="#fedb16"></stop>
                                                         <stop offset=".138" stop-color="#fec125"></stop>
@@ -320,51 +343,77 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                         <stop offset=".5" stop-color="#fe2181"></stop>
                                                         <stop offset="1" stop-color="#9000dc"></stop>
                                                     </linearGradient>
-                                                    <circle cx="256" cy="256" r="225" fill="url(#a)" opacity="1" data-original="url(#a)" class=""></circle>
+                                                    <circle cx="256" cy="256" r="225" fill="url(#a)" opacity="1"
+                                                        data-original="url(#a)" class=""></circle>
                                                     <g fill="#fff">
-                                                        <path d="M303.8 131h-95.5c-42.6 0-77.2 34.6-77.2 77.2v95.5c0 42.6 34.6 77.2 77.2 77.2h95.5c42.6 0 77.2-34.6 77.2-77.2v-95.5c0-42.6-34.6-77.2-77.2-77.2zm49.3 172.8c0 27.2-22.1 49.4-49.4 49.4h-95.5c-27.2 0-49.4-22.1-49.4-49.4v-95.5c0-27.2 22.1-49.4 49.4-49.4h95.5c27.2 0 49.4 22.1 49.4 49.4z" fill="#ffffff" opacity="1" data-original="#ffffff"></path>
-                                                        <path d="M256 192.1c-35.2 0-63.9 28.7-63.9 63.9s28.7 63.9 63.9 63.9 63.9-28.7 63.9-63.9-28.7-63.9-63.9-63.9zm0 102.7c-21.4 0-38.8-17.4-38.8-38.8s17.4-38.8 38.8-38.8 38.8 17.4 38.8 38.8-17.4 38.8-38.8 38.8z" fill="#ffffff" opacity="1" data-original="#ffffff"></path>
-                                                        <circle cx="323.1" cy="188.4" r="10.8" transform="rotate(-9.25 323.353 188.804)" fill="#ffffff" opacity="1" data-original="#ffffff"></circle>
+                                                        <path
+                                                            d="M303.8 131h-95.5c-42.6 0-77.2 34.6-77.2 77.2v95.5c0 42.6 34.6 77.2 77.2 77.2h95.5c42.6 0 77.2-34.6 77.2-77.2v-95.5c0-42.6-34.6-77.2-77.2-77.2zm49.3 172.8c0 27.2-22.1 49.4-49.4 49.4h-95.5c-27.2 0-49.4-22.1-49.4-49.4v-95.5c0-27.2 22.1-49.4 49.4-49.4h95.5c27.2 0 49.4 22.1 49.4 49.4z"
+                                                            fill="#ffffff" opacity="1" data-original="#ffffff"></path>
+                                                        <path
+                                                            d="M256 192.1c-35.2 0-63.9 28.7-63.9 63.9s28.7 63.9 63.9 63.9 63.9-28.7 63.9-63.9-28.7-63.9-63.9-63.9zm0 102.7c-21.4 0-38.8-17.4-38.8-38.8s17.4-38.8 38.8-38.8 38.8 17.4 38.8 38.8-17.4 38.8-38.8 38.8z"
+                                                            fill="#ffffff" opacity="1" data-original="#ffffff"></path>
+                                                        <circle cx="323.1" cy="188.4" r="10.8"
+                                                            transform="rotate(-9.25 323.353 188.804)" fill="#ffffff"
+                                                            opacity="1" data-original="#ffffff"></circle>
                                                     </g>
                                                 </g>
                                             </svg>
                                             <P class="ms-2">instagram</P>
                                         </button>
                                     </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
                                         <div class="accordion-body IG_account_list p-0">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="accordion-item border-0 border-bottom WhatsAppListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path d="M256.064 0h-.128C114.784 0 0 114.816 0 256c0 56 18.048 107.904 48.736 150.048l-31.904 95.104 98.4-31.456C155.712 496.512 204 512 256.064 512 397.216 512 512 397.152 512 256S397.216 0 256.064 0z" style="" fill="#4caf50" data-original="#4caf50" class=""></path>
-                                                    <path d="M405.024 361.504c-6.176 17.44-30.688 31.904-50.24 36.128-13.376 2.848-30.848 5.12-89.664-19.264-75.232-31.168-123.68-107.616-127.456-112.576-3.616-4.96-30.4-40.48-30.4-77.216s18.656-54.624 26.176-62.304c6.176-6.304 16.384-9.184 26.176-9.184 3.168 0 6.016.16 8.576.288 7.52.32 11.296.768 16.256 12.64 6.176 14.88 21.216 51.616 23.008 55.392 1.824 3.776 3.648 8.896 1.088 13.856-2.4 5.12-4.512 7.392-8.288 11.744-3.776 4.352-7.36 7.68-11.136 12.352-3.456 4.064-7.36 8.416-3.008 15.936 4.352 7.36 19.392 31.904 41.536 51.616 28.576 25.44 51.744 33.568 60.032 37.024 6.176 2.56 13.536 1.952 18.048-2.848 5.728-6.176 12.8-16.416 20-26.496 5.12-7.232 11.584-8.128 18.368-5.568 6.912 2.4 43.488 20.48 51.008 24.224 7.52 3.776 12.48 5.568 14.304 8.736 1.792 3.168 1.792 18.048-4.384 35.52z" style="" fill="#fafafa" data-original="#fafafa" class=""></path>
+                                                    <path
+                                                        d="M256.064 0h-.128C114.784 0 0 114.816 0 256c0 56 18.048 107.904 48.736 150.048l-31.904 95.104 98.4-31.456C155.712 496.512 204 512 256.064 512 397.216 512 512 397.152 512 256S397.216 0 256.064 0z"
+                                                        style="" fill="#4caf50" data-original="#4caf50" class=""></path>
+                                                    <path
+                                                        d="M405.024 361.504c-6.176 17.44-30.688 31.904-50.24 36.128-13.376 2.848-30.848 5.12-89.664-19.264-75.232-31.168-123.68-107.616-127.456-112.576-3.616-4.96-30.4-40.48-30.4-77.216s18.656-54.624 26.176-62.304c6.176-6.304 16.384-9.184 26.176-9.184 3.168 0 6.016.16 8.576.288 7.52.32 11.296.768 16.256 12.64 6.176 14.88 21.216 51.616 23.008 55.392 1.824 3.776 3.648 8.896 1.088 13.856-2.4 5.12-4.512 7.392-8.288 11.744-3.776 4.352-7.36 7.68-11.136 12.352-3.456 4.064-7.36 8.416-3.008 15.936 4.352 7.36 19.392 31.904 41.536 51.616 28.576 25.44 51.744 33.568 60.032 37.024 6.176 2.56 13.536 1.952 18.048-2.848 5.728-6.176 12.8-16.416 20-26.496 5.12-7.232 11.584-8.128 18.368-5.568 6.912 2.4 43.488 20.48 51.008 24.224 7.52 3.776 12.48 5.568 14.304 8.736 1.792 3.168 1.792 18.048-4.384 35.52z"
+                                                        style="" fill="#fafafa" data-original="#fafafa" class=""></path>
                                                 </g>
                                             </svg>
                                             <P class="ms-2">Whatsapp</P>
                                         </button>
                                     </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse WhatsAppAccountListTab" data-bs-parent="#accordionExample">
+                                    <div id="collapseThree" class="accordion-collapse collapse WhatsAppAccountListTab"
+                                        data-bs-parent="#accordionExample">
 
                                         <?php
 
                                         if (isset($WhatsAppAccountsData) && !empty($WhatsAppAccountsData)) {
                                             foreach ($WhatsAppAccountsData as $key => $value) {
+                                                $dnoneC = '';
+
+                                                if($value['count'] == '0'){
+                                                    $dnoneC = 'd-none';
+
+                                                }
                                                 echo '<div class="accordion-body  WA_account_list  WA_account_listTab p-0 account-box" id ="' . $value['id'] . '" phoneno = "' . $value['display_phone_number'] . '" name="' . $value['verified_name'] . '"> 
-                                                <div class="col-12  my-2 " data-page_id="17841457874373728" data-platform="instagram" data-page_access_token="EAADNF4vVgk0BO6ZBcyZCiZCY5FGuPPWKb7npn8YcXafmqIexQxBgMPRZAAttSOgFr6NqP2B74icpZAcvL5pJgwv4ZBdTsM4Neik41DvLdjprcNSGdIfty83qi5CkzEAyuXUeEYVQf9lNRy9GtaDhFZBYBpKKyZCkfGqAB6wcfP8cvcx8mjcXrbpYEfbq0XYucWT81gzkkywZD" data-page_name="ajasystechnologies">
-                                                    <div class="col-12 d-flex flex-wrap  align-items-center  p-2">
-                                                            <img src="https://erp.gymsmart.in/assets/image/member.png" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" alt="" height="100" width="100">
-                                                         <div class="ps-2">
-                                                            <p class="fs-6 fw-medium col">' . $value['verified_name'] . '</p>
-                                                            <span class="fs-12 text-muted">+ 91 990234523</span>
-                                                         </div>   
-                                                    </div>
-                                        </div>
-</div>';
+                                                        <div class="col-12  my-2 " data-page_id="17841457874373728" data-platform="instagram" data-page_access_token="EAADNF4vVgk0BO6ZBcyZCiZCY5FGuPPWKb7npn8YcXafmqIexQxBgMPRZAAttSOgFr6NqP2B74icpZAcvL5pJgwv4ZBdTsM4Neik41DvLdjprcNSGdIfty83qi5CkzEAyuXUeEYVQf9lNRy9GtaDhFZBYBpKKyZCkfGqAB6wcfP8cvcx8mjcXrbpYEfbq0XYucWT81gzkkywZD" data-page_name="ajasystechnologies">
+                                                            <div class="col-12 d-flex flex-wrap  align-items-center  p-2">
+                                                                    <img src="https://erp.gymsmart.in/assets/image/member.png" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" alt="" height="100" width="100">
+                                                                <div class="ps-2">
+                                                                    <p class="fs-6 fw-medium col">' . $value['verified_name'] . '</p>
+                                                                    <span class="fs-12 text-muted">+'.$value['display_phone_number'].'</span>
+                                                                </div>
+
+                                                                <span class="ms-auto badge rounded-pill text-bg-success '.$dnoneC.' CountFinalText">' . $value['count'] . '</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>';
                                             }
                                         }
 
@@ -373,8 +422,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                             </div>
                         </div>
-                        <div class="m-auto acc_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0" style="">
-                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                        <div class="m-auto acc_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0"
+                            style="">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center"
+                                style="z-index:555">
                                 <div>
                                     <span>Loading...</span>
                                     <div class="mx-auto chat_loader"></div>
@@ -407,15 +458,18 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             <span>Loading...</span>
                             <div class="mx-auto chat_loader"></div>
                         </div> -->
-                        <div class="m-auto chat_list_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0">
-                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                        <div
+                            class="m-auto chat_list_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center"
+                                style="z-index:555">
                                 <div>
                                     <span>Loading...</span>
                                     <div class="mx-auto chat_loader"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center col-12 overflow-y-scroll p-3 ChatListSetHTML chatNoData">No Chats Found!</div>
+                        <div class="text-center col-12 overflow-y-scroll p-3 ChatListSetHTML chatNoData">No Chats Found!
+                        </div>
                         <!-- <div class="col-12 overflow-y-scroll chat_list p-2" style="max-height: 100%;">
                             <div class="col-12 text-center">
                                 <p class="fs-5 fw-medium mt-5">No Record Found</p>
@@ -425,24 +479,40 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 </div>
 
                 <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-6 transcript_box" style="height:80vh">
-                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass " style="height:80vh">
+                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass "
+                        style="height:80vh">
 
-                        <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0" style="height: 200px; width: 200px; display:none;">
+                        <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0"
+                            style="height: 200px; width: 200px; display:none;">
                             <ul class="p-1 bg-white ">
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path fill="#4086f4" d="m451 135-105-30L316 0H106C81.147 0 61 20.147 61 45v422c0 24.853 20.147 45 45 45h300c24.853 0 45-20.147 45-45z" opacity="1" data-original="#4086f4" class=""></path>
-                                                    <path fill="#4175df" d="M451 135v332c0 24.853-20.147 45-45 45H256V0h60l30 105z" opacity="1" data-original="#4175df" class=""></path>
-                                                    <path fill="#80aef8" d="M451 135H346c-16.5 0-30-13.5-30-30V0c3.9 0 7.8 1.5 10.499 4.501l120 120C449.5 127.2 451 131.1 451 135z" opacity="1" data-original="#80aef8" class=""></path>
-                                                    <path fill="#fff5f5" d="M346 241H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM346 301H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM346 361H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM286 421H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h120c8.291 0 15 6.709 15 15s-6.709 15-15 15z" opacity="1" data-original="#fff5f5"></path>
-                                                    <path fill="#e3e7ea" d="M256 421h30c8.291 0 15-6.709 15-15s-6.709-15-15-15h-30zM256 361h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90zM256 301h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90zM256 241h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90z" opacity="1" data-original="#e3e7ea"></path>
+                                                    <path fill="#4086f4"
+                                                        d="m451 135-105-30L316 0H106C81.147 0 61 20.147 61 45v422c0 24.853 20.147 45 45 45h300c24.853 0 45-20.147 45-45z"
+                                                        opacity="1" data-original="#4086f4" class=""></path>
+                                                    <path fill="#4175df"
+                                                        d="M451 135v332c0 24.853-20.147 45-45 45H256V0h60l30 105z"
+                                                        opacity="1" data-original="#4175df" class=""></path>
+                                                    <path fill="#80aef8"
+                                                        d="M451 135H346c-16.5 0-30-13.5-30-30V0c3.9 0 7.8 1.5 10.499 4.501l120 120C449.5 127.2 451 131.1 451 135z"
+                                                        opacity="1" data-original="#80aef8" class=""></path>
+                                                    <path fill="#fff5f5"
+                                                        d="M346 241H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM346 301H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM346 361H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM286 421H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h120c8.291 0 15 6.709 15 15s-6.709 15-15 15z"
+                                                        opacity="1" data-original="#fff5f5"></path>
+                                                    <path fill="#e3e7ea"
+                                                        d="M256 421h30c8.291 0 15-6.709 15-15s-6.709-15-15-15h-30zM256 361h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90zM256 301h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90zM256 241h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90z"
+                                                        opacity="1" data-original="#e3e7ea"></path>
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2 DocumentSelectionForSendClickEventClass" data-bs-toggle="modal" data-bs-target=".PinToDocumentSelectClass">Document</p>
+                                        <p class="ms-2 DocumentSelectionForSendClickEventClass" data-bs-toggle="modal"
+                                            data-bs-target=".PinToDocumentSelectClass">Document</p>
 
                                         <!-- <input type="file" hidden class="DocumentSelectionForSend" /> -->
                                     </div>
@@ -450,15 +520,21 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 510 510" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 510 510"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <linearGradient id="c" x1="172.48" x2="497.848" y1="110.639" y2="436.007" gradientTransform="rotate(6.28 255.57 -277.231)" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="c" x1="172.48" x2="497.848" y1="110.639"
+                                                        y2="436.007" gradientTransform="rotate(6.28 255.57 -277.231)"
+                                                        gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#ffa936"></stop>
                                                         <stop offset=".411" stop-color="#ff8548"></stop>
                                                         <stop offset=".778" stop-color="#ff6c54"></stop>
                                                         <stop offset="1" stop-color="#ff6359"></stop>
                                                     </linearGradient>
-                                                    <linearGradient id="d" x1="490.487" x2="466.43" y1="159.015" y2="164.322" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="d" x1="490.487" x2="466.43" y1="159.015"
+                                                        y2="164.322" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#f82814" stop-opacity="0"></stop>
                                                         <stop offset="1" stop-color="#c0272d"></stop>
                                                     </linearGradient>
@@ -469,63 +545,109 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                         <stop offset=".835" stop-color="#6ee1d2"></stop>
                                                         <stop offset="1" stop-color="#65e0db"></stop>
                                                     </linearGradient>
-                                                    <linearGradient xlink:href="#a" id="e" x1="15.52" x2="340.888" y1="104.705" y2="430.073" gradientTransform="rotate(-10.66 254.843 -276.812)" gradientUnits="userSpaceOnUse"></linearGradient>
+                                                    <linearGradient xlink:href="#a" id="e" x1="15.52" x2="340.888"
+                                                        y1="104.705" y2="430.073"
+                                                        gradientTransform="rotate(-10.66 254.843 -276.812)"
+                                                        gradientUnits="userSpaceOnUse"></linearGradient>
                                                     <linearGradient id="b">
                                                         <stop offset="0" stop-color="#cdec7a" stop-opacity="0"></stop>
-                                                        <stop offset=".235" stop-color="#9ad57d" stop-opacity=".235"></stop>
-                                                        <stop offset=".604" stop-color="#51b482" stop-opacity=".604"></stop>
-                                                        <stop offset=".868" stop-color="#239f85" stop-opacity=".868"></stop>
+                                                        <stop offset=".235" stop-color="#9ad57d" stop-opacity=".235">
+                                                        </stop>
+                                                        <stop offset=".604" stop-color="#51b482" stop-opacity=".604">
+                                                        </stop>
+                                                        <stop offset=".868" stop-color="#239f85" stop-opacity=".868">
+                                                        </stop>
                                                         <stop offset="1" stop-color="#119786"></stop>
                                                     </linearGradient>
-                                                    <linearGradient xlink:href="#b" id="f" x1="491.682" x2="450.637" y1="256.546" y2="256.546" gradientUnits="userSpaceOnUse"></linearGradient>
-                                                    <linearGradient xlink:href="#b" id="g" x1="176.731" x2="176.731" y1="466.917" y2="442.601" gradientUnits="userSpaceOnUse"></linearGradient>
-                                                    <linearGradient id="h" x1="88.264" x2="413.632" y1="111.753" y2="437.121" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient xlink:href="#b" id="f" x1="491.682" x2="450.637"
+                                                        y1="256.546" y2="256.546" gradientUnits="userSpaceOnUse">
+                                                    </linearGradient>
+                                                    <linearGradient xlink:href="#b" id="g" x1="176.731" x2="176.731"
+                                                        y1="466.917" y2="442.601" gradientUnits="userSpaceOnUse">
+                                                    </linearGradient>
+                                                    <linearGradient id="h" x1="88.264" x2="413.632" y1="111.753"
+                                                        y2="437.121" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#f8f6fb"></stop>
                                                         <stop offset="1" stop-color="#efdcfb"></stop>
                                                     </linearGradient>
-                                                    <linearGradient id="i" x1="112.768" x2="430.112" y1="101.155" y2="514.021" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="i" x1="112.768" x2="430.112" y1="101.155"
+                                                        y2="514.021" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#18cefb"></stop>
                                                         <stop offset=".297" stop-color="#2bb9f9"></stop>
                                                         <stop offset=".735" stop-color="#42a0f7"></stop>
                                                         <stop offset="1" stop-color="#4a97f6"></stop>
                                                     </linearGradient>
-                                                    <linearGradient id="j" x1="75.588" x2="214.616" y1="316.53" y2="497.406" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="j" x1="75.588" x2="214.616" y1="316.53"
+                                                        y2="497.406" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#cdec7a"></stop>
-                                                        <stop offset=".215" stop-color="#b0e995" stop-opacity=".784"></stop>
-                                                        <stop offset=".56" stop-color="#87e4bb" stop-opacity=".439"></stop>
-                                                        <stop offset=".833" stop-color="#6ee1d2" stop-opacity=".165"></stop>
-                                                        <stop offset=".999" stop-color="#65e0db" stop-opacity="0"></stop>
+                                                        <stop offset=".215" stop-color="#b0e995" stop-opacity=".784">
+                                                        </stop>
+                                                        <stop offset=".56" stop-color="#87e4bb" stop-opacity=".439">
+                                                        </stop>
+                                                        <stop offset=".833" stop-color="#6ee1d2" stop-opacity=".165">
+                                                        </stop>
+                                                        <stop offset=".999" stop-color="#65e0db" stop-opacity="0">
+                                                        </stop>
                                                     </linearGradient>
-                                                    <linearGradient xlink:href="#a" id="k" x1="198.822" x2="366.499" y1="288.474" y2="506.622" gradientUnits="userSpaceOnUse"></linearGradient>
-                                                    <linearGradient id="l" x1="117.242" x2="171.618" y1="131.922" y2="202.666" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient xlink:href="#a" id="k" x1="198.822" x2="366.499"
+                                                        y1="288.474" y2="506.622" gradientUnits="userSpaceOnUse">
+                                                    </linearGradient>
+                                                    <linearGradient id="l" x1="117.242" x2="171.618" y1="131.922"
+                                                        y2="202.666" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#ffd945"></stop>
                                                         <stop offset=".304" stop-color="#ffcd3e"></stop>
                                                         <stop offset=".856" stop-color="#ffad2b"></stop>
                                                         <stop offset="1" stop-color="#ffa325"></stop>
                                                     </linearGradient>
-                                                    <path fill="url(#c)" d="M426.926 470.539 40.049 427.661C21.448 425.6 8.041 408.85 10.102 390.249L45.661 69.408c2.062-18.601 18.812-32.009 37.412-29.947L469.95 82.339c18.601 2.062 32.009 18.812 29.947 37.412l-35.559 320.841c-2.061 18.601-18.811 32.009-37.412 29.947z" opacity="1" data-original="url(#c)"></path>
-                                                    <path fill="url(#d)" d="m499.897 119.752-14.02 126.534-31.162-165.634 15.241 1.688c18.595 2.058 32 18.806 29.941 37.412z" opacity="1" data-original="url(#d)"></path>
-                                                    <path fill="url(#e)" d="M482.373 410.94 99.837 482.904c-18.392 3.46-36.107-8.645-39.567-27.037L.59 138.626c-3.46-18.392 8.645-36.107 27.037-39.567l382.536-71.964c18.392-3.46 36.107 8.645 39.567 27.037l59.68 317.241c3.46 18.393-8.645 36.108-27.037 39.567z" opacity="1" data-original="url(#e)"></path>
-                                                    <path fill="url(#f)" d="M457.896 97.546v317.999l24.476-4.605c18.392-3.46 30.497-21.175 27.037-39.567z" opacity="1" data-original="url(#f)"></path>
-                                                    <path fill="url(#g)" d="m58.45 446.187 1.821 9.68c3.46 18.392 21.175 30.497 39.567 27.037l195.175-36.717z" opacity="1" data-original="url(#g)"></path>
-                                                    <path fill="url(#h)" d="M424.01 448.166H34.765C16.05 448.166.879 432.995.879 414.28V91.474c0-18.715 15.171-33.886 33.886-33.886H424.01c18.715 0 33.886 15.171 33.886 33.886V414.28c0 18.715-15.171 33.886-33.886 33.886z" opacity="1" data-original="url(#h)"></path>
-                                                    <path fill="url(#i)" d="M392.279 416.326H66.497c-15.663 0-28.361-12.698-28.361-28.361V117.79c0-15.663 12.698-28.361 28.361-28.361h325.782c15.663 0 28.361 12.698 28.361 28.361v270.175c0 15.663-12.698 28.361-28.361 28.361z" opacity="1" data-original="url(#i)" class=""></path>
-                                                    <path fill="url(#j)" d="M252.069 416.326H66.502c-15.666 0-28.37-12.694-28.37-28.359v-44.29l47.082-57.228c15.538-18.903 44.46-18.903 60.009 0l29.315 35.64z" opacity="1" data-original="url(#j)" class=""></path>
-                                                    <path fill="url(#k)" d="M420.643 316.75v71.217c0 15.666-12.704 28.359-28.37 28.359H97.005l77.532-94.237 95.246-115.783c15.538-18.892 44.471-18.892 60.009 0z" opacity="1" data-original="url(#k)" class=""></path>
-                                                    <circle cx="137.225" cy="157.919" r="40.219" fill="url(#l)" opacity="1" data-original="url(#l)"></circle>
+                                                    <path fill="url(#c)"
+                                                        d="M426.926 470.539 40.049 427.661C21.448 425.6 8.041 408.85 10.102 390.249L45.661 69.408c2.062-18.601 18.812-32.009 37.412-29.947L469.95 82.339c18.601 2.062 32.009 18.812 29.947 37.412l-35.559 320.841c-2.061 18.601-18.811 32.009-37.412 29.947z"
+                                                        opacity="1" data-original="url(#c)"></path>
+                                                    <path fill="url(#d)"
+                                                        d="m499.897 119.752-14.02 126.534-31.162-165.634 15.241 1.688c18.595 2.058 32 18.806 29.941 37.412z"
+                                                        opacity="1" data-original="url(#d)"></path>
+                                                    <path fill="url(#e)"
+                                                        d="M482.373 410.94 99.837 482.904c-18.392 3.46-36.107-8.645-39.567-27.037L.59 138.626c-3.46-18.392 8.645-36.107 27.037-39.567l382.536-71.964c18.392-3.46 36.107 8.645 39.567 27.037l59.68 317.241c3.46 18.393-8.645 36.108-27.037 39.567z"
+                                                        opacity="1" data-original="url(#e)"></path>
+                                                    <path fill="url(#f)"
+                                                        d="M457.896 97.546v317.999l24.476-4.605c18.392-3.46 30.497-21.175 27.037-39.567z"
+                                                        opacity="1" data-original="url(#f)"></path>
+                                                    <path fill="url(#g)"
+                                                        d="m58.45 446.187 1.821 9.68c3.46 18.392 21.175 30.497 39.567 27.037l195.175-36.717z"
+                                                        opacity="1" data-original="url(#g)"></path>
+                                                    <path fill="url(#h)"
+                                                        d="M424.01 448.166H34.765C16.05 448.166.879 432.995.879 414.28V91.474c0-18.715 15.171-33.886 33.886-33.886H424.01c18.715 0 33.886 15.171 33.886 33.886V414.28c0 18.715-15.171 33.886-33.886 33.886z"
+                                                        opacity="1" data-original="url(#h)"></path>
+                                                    <path fill="url(#i)"
+                                                        d="M392.279 416.326H66.497c-15.663 0-28.361-12.698-28.361-28.361V117.79c0-15.663 12.698-28.361 28.361-28.361h325.782c15.663 0 28.361 12.698 28.361 28.361v270.175c0 15.663-12.698 28.361-28.361 28.361z"
+                                                        opacity="1" data-original="url(#i)" class=""></path>
+                                                    <path fill="url(#j)"
+                                                        d="M252.069 416.326H66.502c-15.666 0-28.37-12.694-28.37-28.359v-44.29l47.082-57.228c15.538-18.903 44.46-18.903 60.009 0l29.315 35.64z"
+                                                        opacity="1" data-original="url(#j)" class=""></path>
+                                                    <path fill="url(#k)"
+                                                        d="M420.643 316.75v71.217c0 15.666-12.704 28.359-28.37 28.359H97.005l77.532-94.237 95.246-115.783c15.538-18.892 44.471-18.892 60.009 0z"
+                                                        opacity="1" data-original="url(#k)" class=""></path>
+                                                    <circle cx="137.225" cy="157.919" r="40.219" fill="url(#l)"
+                                                        opacity="1" data-original="url(#l)"></circle>
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2 SendImageAndPhotosClass" data-bs-toggle="modal" data-bs-target=".PinToDocumentSelectClass">Photos & Videos</p>
+                                        <p class="ms-2 SendImageAndPhotosClass" data-bs-toggle="modal"
+                                            data-bs-target=".PinToDocumentSelectClass">Photos & Videos</p>
                                     </div>
                                 </li>
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <circle cx="256" cy="256" r="256" fill="#2196f3" opacity="1" data-original="#2196f3" class=""></circle>
-                                                    <path fill="#ffffff" fill-rule="evenodd" d="M256 324.817a66.12 66.12 0 1 0-66.121-66.117A66.195 66.195 0 0 0 256 324.817zm0-154.654a88.534 88.534 0 1 1-88.531 88.537A88.636 88.636 0 0 1 256 170.163zm162.5 196.308a15.421 15.421 0 0 1-15.41 15.411H108.911A15.424 15.424 0 0 1 93.5 366.471V171.286a15.424 15.424 0 0 1 15.41-15.412h74.7a5.6 5.6 0 0 0 5.232-3.6l16.045-41.92h102.225l16.048 41.92a5.585 5.585 0 0 0 5.229 3.6h74.7a15.426 15.426 0 0 1 15.41 15.412z" opacity="1" data-original="#ffffff" class=""></path>
+                                                    <circle cx="256" cy="256" r="256" fill="#2196f3" opacity="1"
+                                                        data-original="#2196f3" class=""></circle>
+                                                    <path fill="#ffffff" fill-rule="evenodd"
+                                                        d="M256 324.817a66.12 66.12 0 1 0-66.121-66.117A66.195 66.195 0 0 0 256 324.817zm0-154.654a88.534 88.534 0 1 1-88.531 88.537A88.636 88.636 0 0 1 256 170.163zm162.5 196.308a15.421 15.421 0 0 1-15.41 15.411H108.911A15.424 15.424 0 0 1 93.5 366.471V171.286a15.424 15.424 0 0 1 15.41-15.412h74.7a5.6 5.6 0 0 0 5.232-3.6l16.045-41.92h102.225l16.048 41.92a5.585 5.585 0 0 0 5.229 3.6h74.7a15.426 15.426 0 0 1 15.41 15.412z"
+                                                        opacity="1" data-original="#ffffff" class=""></path>
                                                 </g>
                                             </svg>
                                         </div>
@@ -535,11 +657,19 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 <li class="nav_item_ww col-12 border ContactModelOpen rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <circle cx="256" cy="256" r="256" style="" fill="#6aaf50" data-original="#6aaf50" class=""></circle>
-                                                    <path d="m135.693 102.206-.008.004c-29.639 15.464-42.074 51.222-28.494 81.77a454.997 454.997 0 0 0 77.468 119.423l23.939 23.939 159.073 159.073c39.82-19.335 73.863-48.69 98.876-84.783l-58.697-58.697a32.553 32.553 0 0 0-8.681-8.681L177.747 112.833c-9.294-13.695-27.382-18.283-42.054-10.627z" style="" fill="#4d8538" data-original="#4d8538" class=""></path>
-                                                    <path d="M349.593 300.614a24.052 24.052 0 0 0-27.116.071l-11.752 8.066c-13.09 8.984-30.498 8.496-43.08-1.187a402.081 402.081 0 0 1-33.924-29.283 401.742 401.742 0 0 1-29.283-33.924c-9.684-12.581-10.171-29.989-1.187-43.08l8.066-11.752a24.054 24.054 0 0 0 .071-27.116l-33.64-49.575c-9.293-13.694-27.381-18.282-42.054-10.627l-.009.004c-29.639 15.464-42.074 51.222-28.494 81.77a454.997 454.997 0 0 0 77.468 119.423l23.939 23.939a455.055 455.055 0 0 0 119.423 77.468c30.549 13.58 66.306 1.145 81.77-28.494l.004-.009c7.655-14.672 3.068-32.761-10.627-42.054l-49.575-33.64z" style="" fill="#ffffff" data-original="#ffffff" class=""></path>
+                                                    <circle cx="256" cy="256" r="256" style="" fill="#6aaf50"
+                                                        data-original="#6aaf50" class=""></circle>
+                                                    <path
+                                                        d="m135.693 102.206-.008.004c-29.639 15.464-42.074 51.222-28.494 81.77a454.997 454.997 0 0 0 77.468 119.423l23.939 23.939 159.073 159.073c39.82-19.335 73.863-48.69 98.876-84.783l-58.697-58.697a32.553 32.553 0 0 0-8.681-8.681L177.747 112.833c-9.294-13.695-27.382-18.283-42.054-10.627z"
+                                                        style="" fill="#4d8538" data-original="#4d8538" class=""></path>
+                                                    <path
+                                                        d="M349.593 300.614a24.052 24.052 0 0 0-27.116.071l-11.752 8.066c-13.09 8.984-30.498 8.496-43.08-1.187a402.081 402.081 0 0 1-33.924-29.283 401.742 401.742 0 0 1-29.283-33.924c-9.684-12.581-10.171-29.989-1.187-43.08l8.066-11.752a24.054 24.054 0 0 0 .071-27.116l-33.64-49.575c-9.293-13.694-27.381-18.282-42.054-10.627l-.009.004c-29.639 15.464-42.074 51.222-28.494 81.77a454.997 454.997 0 0 0 77.468 119.423l23.939 23.939a455.055 455.055 0 0 0 119.423 77.468c30.549 13.58 66.306 1.145 81.77-28.494l.004-.009c7.655-14.672 3.068-32.761-10.627-42.054l-49.575-33.64z"
+                                                        style="" fill="#ffffff" data-original="#ffffff" class=""></path>
                                                 </g>
                                             </svg>
                                         </div>
@@ -549,11 +679,20 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2 d-none">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path fill="#00528c" d="M341.3 92.8c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h221.3c33.2 0 60 26.8 60 60z" opacity="1" data-original="#00528c"></path>
-                                                    <path fill="#41a5ee" d="M512 256c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h392c33.1 0 60 26.9 60 60z" opacity="1" data-original="#41a5ee" class=""></path>
-                                                    <path fill="#0077cc" d="M170.7 419.2c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h50.7c33.1 0 60 26.9 60 60z" opacity="1" data-original="#0077cc"></path>
+                                                    <path fill="#00528c"
+                                                        d="M341.3 92.8c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h221.3c33.2 0 60 26.8 60 60z"
+                                                        opacity="1" data-original="#00528c"></path>
+                                                    <path fill="#41a5ee"
+                                                        d="M512 256c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h392c33.1 0 60 26.9 60 60z"
+                                                        opacity="1" data-original="#41a5ee" class=""></path>
+                                                    <path fill="#0077cc"
+                                                        d="M170.7 419.2c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h50.7c33.1 0 60 26.9 60 60z"
+                                                        opacity="1" data-original="#0077cc"></path>
                                                 </g>
                                             </svg>
                                         </div>
@@ -563,12 +702,23 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2 d-none">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 511.523 511.523" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 511.523 511.523"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path fill="#ffda2d" d="M127.261 120.739c65.515 0 128.5 49.886 128.5 135H15.072c-8.937 0-15.885-7.733-14.996-16.625 7.55-75.442 66.73-118.375 127.185-118.375z" opacity="1" data-original="#ffda2d" class=""></path>
-                                                    <path fill="#4175df" d="M384.261 390.739c-65.515 0-128.5-49.886-128.5-135H496.45c8.937 0 15.885 7.733 14.996 16.625-7.549 75.442-66.729 118.375-127.185 118.375z" opacity="1" data-original="#4175df"></path>
-                                                    <path fill="#59c36a" d="M120.739 384.261c0-65.515 49.886-128.5 135-128.5V496.45c0 8.937-7.733 15.885-16.625 14.996-75.442-7.549-118.375-66.729-118.375-127.185z" opacity="1" data-original="#59c36a"></path>
-                                                    <path fill="#f03800" d="M390.739 127.261c0 65.515-49.886 128.5-135 128.5V15.072c0-8.937 7.733-15.885 16.625-14.996 75.442 7.55 118.375 66.73 118.375 127.185z" opacity="1" data-original="#f03800"></path>
+                                                    <path fill="#ffda2d"
+                                                        d="M127.261 120.739c65.515 0 128.5 49.886 128.5 135H15.072c-8.937 0-15.885-7.733-14.996-16.625 7.55-75.442 66.73-118.375 127.185-118.375z"
+                                                        opacity="1" data-original="#ffda2d" class=""></path>
+                                                    <path fill="#4175df"
+                                                        d="M384.261 390.739c-65.515 0-128.5-49.886-128.5-135H496.45c8.937 0 15.885 7.733 14.996 16.625-7.549 75.442-66.729 118.375-127.185 118.375z"
+                                                        opacity="1" data-original="#4175df"></path>
+                                                    <path fill="#59c36a"
+                                                        d="M120.739 384.261c0-65.515 49.886-128.5 135-128.5V496.45c0 8.937-7.733 15.885-16.625 14.996-75.442-7.549-118.375-66.729-118.375-127.185z"
+                                                        opacity="1" data-original="#59c36a"></path>
+                                                    <path fill="#f03800"
+                                                        d="M390.739 127.261c0 65.515-49.886 128.5-135 128.5V15.072c0-8.937 7.733-15.885 16.625-14.996 75.442 7.55 118.375 66.73 118.375 127.185z"
+                                                        opacity="1" data-original="#f03800"></path>
                                                 </g>
                                             </svg>
                                         </div>
@@ -588,10 +738,14 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                         </button>
                                     </div>
                                     <div class="input-group  position-relative ">
-                                        <input type="text" class="form-control border rounded-pill px-4 py-2 border-0 massage_input" placeholder="Write a message...">
+                                        <input type="text"
+                                            class="form-control border rounded-pill px-4 py-2 border-0 massage_input"
+                                            placeholder="Write a message...">
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <button class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage" data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
+                                        <button
+                                            class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage"
+                                            data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
                                             <i class="fa-regular fa-paper-plane"></i>
                                         </button>
                                     </div>
@@ -599,14 +753,15 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
                         <script>
-                            $(document).ready(function() {
-                                $(".btn_x").click(function() {
+                            $(document).ready(function () {
+                                $(".btn_x").click(function () {
                                     $(".accordion_item_div").toggle();
                                 });
                             });
                         </script>
                         <div class="chat-nav-search-bar Setchatheadercolorclass   p-2 pt-3 col-12">
-                            <div class="d-flex justify-content-between border-bottom RemoveHeaderBorderDiv align-items-center">
+                            <div
+                                class="d-flex justify-content-between border-bottom RemoveHeaderBorderDiv align-items-center">
                                 <h5 class="fs-5 d-flex ps-2 pb-1 profilepiccolor align-items-center">
                                     <i class="fa-solid fa-circle-user fs-3 me-2"></i>
                                     <span class="d-flex flex-wrap">
@@ -619,7 +774,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
 
-                        <div class="main-task left-main-task mt-2 p-2 overflow-y-scroll chat_bord col-12" style="max-height:80%;">
+                        <div class="main-task left-main-task mt-2 p-2 overflow-y-scroll chat_bord  col-12"
+                            id="user_msg_send_div" style="max-height:80%;">
                             <!-- <div class="d-flex  mb-1 col-3">
                                 <i class="me-2 bi bi-people-fill"></i>
                                 <a href="" class="ms-3">https://www.facebook.com/</a>
@@ -655,8 +811,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
                             </div> -->
                         </div>
-                        <div class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0">
-                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                        <div
+                            class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center"
+                                style="z-index:555">
                                 <div>
                                     <span>Loading...</span>
                                     <div class="mx-auto chat_loader"></div>
@@ -679,7 +837,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     </div>
 </div>
 <!-- document-modal -->
-<div class="modal fade data_add_div PinToDocumentSelectClass " id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade data_add_div PinToDocumentSelectClass " id="" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -687,7 +846,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body modal-body-secondery">
-                <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate enctype="multipart/form-data">
+                <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate
+                    enctype="multipart/form-data">
                     <div class="upload-btn-wrapper col-12">
                         <div class="file-btn col-12">
                             <div class="col-12 justify-content-center d-flex">
@@ -703,8 +863,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 <p>Max 5 files and max size of 3 MB</p>
                             </div>
                         </div>
-                        <input class="form-control main-control place attachment_email_text update_attachment_email" id="attachment" name="attachment[]" multiple="multiple" type="file" placeholder="" />
-                        
+                        <input class="form-control main-control place attachment_email_text update_attachment_email"
+                            id="attachment" name="attachment[]" multiple="multiple" type="file" placeholder="" />
+
 
                     </div>
                     <div class="col-12 input-text">
@@ -717,7 +878,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-primary SendDocumentForWhatsApp email_add_model_submit" DataFileTypeStatus = "" data-edit_id="" id="save_btn_email">Send</button>
+                <button type="button" class="btn-primary SendDocumentForWhatsApp email_add_model_submit"
+                    DataFileTypeStatus="" data-edit_id="" id="save_btn_email">Send</button>
             </div>
         </div>
     </div>
@@ -732,20 +894,25 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
 
 <script>
-    $('body').on('click', '.account-box', function() {
+    $('body').on('click', '.account-box', function () {
 
         $(this).addClass('active-account-box');
         $(this).siblings().removeClass('active-account-box');
 
     });
-    $('body').on('click', '.chat-account-box', function() {
+    $('body').on('click', '.chat-account-box', function () {
 
         $(this).addClass('chat-account-active');
         $(this).siblings().removeClass('chat-account-active');
 
     });
 
-    $(document).ready(function() {
+    function scrollToBottom() {
+        const fileViewDiv = document.getElementById('user_msg_send_div');
+        fileViewDiv.scrollTop = fileViewDiv.scrollHeight;
+    }
+
+    $(document).ready(function () {
         // massage list data
         function list_data(api = false, action = 'account_list', page_id = '', page_access_token = '', platform) {
             $.ajax({
@@ -758,7 +925,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     page_access_token: page_access_token,
                     platform: platform,
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     if (action == 'account_list') {
                         $('.acc_loader').show();
                     } else if (action == 'chat_list') {
@@ -766,7 +933,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         $('.chat_list_loader').show();
                     }
                 },
-                success: function(data) {
+                success: function (data) {
                     $('.acc_loader').hide();
                     var obj = JSON.parse(data);
                     if (action == 'account_list') {
@@ -784,7 +951,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         $('.chat_list_loader').hide();
 
-        $('body').on('click', '.account-nav', function() {
+        $('body').on('click', '.account-nav', function () {
             var page_id = $(this).attr("data-page_id");
             var page_access_token = $(this).attr("data-page_access_token");
             var platform = $(this).attr("data-platform");
@@ -795,7 +962,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             list_data(false, 'chat_list', page_id, page_access_token, platform);
         });
 
-        $('body').on('click', '.chat_list', function() {
+        $('body').on('click', '.chat_list', function () {
             var conversion_id = $(this).data('conversion_id');
             var page_access_token = $(this).data('page_token');
             var page_id = $(this).data('page_id');
@@ -814,11 +981,11 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         page_id: page_id,
                         // id: massage_id,
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $('.massage_list_loader').show();
                         $('.noRecourdFound').hide();
                     },
-                    success: function(data) {
+                    success: function (data) {
                         var obj = JSON.parse(data);
                         $('.massage_list_loader').hide();
                         $('.chat_bord').show();
@@ -838,7 +1005,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         $('.massage_list_loader').hide();
 
-        $('body').on('click', '.send_massage', function() {
+        $('body').on('click', '.send_massage', function () {
             var massage_input = $('.massage_input').val();
             var conversion_id = $(this).attr("data-conversion_id", conversion_id);
             var page_access_token = $(this).attr("data-page_token", page_access_token);
@@ -855,7 +1022,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     // page_id: page_id,
                     // id: massage_id,
                 },
-                success: function(data) {
+                success: function (data) {
                     // var obj = JSON.parse(data);
                     // $('.chat_bord').html(obj.html);
                     // $('.send_massage').attr("data-conversion_id",conversion_id);
@@ -868,7 +1035,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         });
     });
 
-    $('body').on('click', '.WA_account_listTab', function() {
+    $('body').on('click', '.WA_account_listTab', function () {
         $('.chat_bord').html('');
         $('.in_chat_page_name').text('');
         $('.UserChatName').text('User Name');
@@ -893,7 +1060,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 phoneno: phoneno,
                 name: name
             },
-            success: function(data) {
+            success: function (data) {
                 var data = JSON.parse(data);
                 $('.chat_list').html(data.html);
                 $('.SetContactListHtml').html(data.htmlcontactlist);
@@ -901,7 +1068,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         });
     });
 
-    $('body').on('click', '.ChatClickOpenHtml', function() {
+    $('body').on('click', '.ChatClickOpenHtml', function () {
         $('.chat_bord').html('');
         $('.UserChatName').text('User Name');
         $('.in_chat_page_name').text('');
@@ -927,14 +1094,15 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 contact_no: contact_no,
                 conversation_account_id: conversation_account_id,
             },
-            success: function(data) {
+            success: function (data) {
                 $('.massage_list_loader').hide();
                 $('.chat_bord').html(data);
+
             }
         });
     });
 
-    $('body').on('click', '.SendWhatsAppMessage', function() {
+    $('body').on('click', '.SendWhatsAppMessage', function () {
         var DataSenderId = $(this).attr('DataSenderId');
         var DataPhoneno = $(this).attr('DataPhoneno');
         var massage_input = $('.massage_input').val();
@@ -947,7 +1115,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     DataPhoneno: DataPhoneno,
                     massage_input: massage_input
                 },
-                success: function(data) {
+                success: function (data) {
                     $('.chat_list .active-account-box').trigger('click');
                 }
             });
@@ -955,25 +1123,25 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.massage_input').val('');
     });
 
-    $('body').on('keydown', '.massage_input', function(event) {
+    $('body').on('keydown', '.massage_input', function (event) {
         if (event.which === 13) {
             $('.SendWhatsAppMessage').trigger('click');
         }
     });
 
-    $('body').on('click', '.accordion-header', function() {
+    $('body').on('click', '.accordion-header', function () {
         $('.SendWhatsAppMessage').attr('datasenderid', '');
         $('.SendWhatsAppMessage').attr('dataphoneno', '');
 
     });
 
-    $('body').on('click', '.SendContactNumber', function() {
+    $('body').on('click', '.SendContactNumber', function () {
         var contactList = [];
         var count = 0;
         var DataSenderId = $('.SendWhatsAppMessage').attr('DataSenderId');
         var DataPhoneno = $('.SendWhatsAppMessage').attr('DataPhoneno');
 
-        $('.ContactNoSelectionCheckbox:checked').each(function() {
+        $('.ContactNoSelectionCheckbox:checked').each(function () {
             var name = $(this).attr('name');
             var phoneno = $(this).attr('phoneno');
             count = count + 1;
@@ -993,7 +1161,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         DataPhoneno: DataPhoneno,
                         contactstring: jsonString
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('.close').trigger('click');
                     }
                 });
@@ -1002,14 +1170,14 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     });
 
 
-    $('body').on('click', '.DirecttoMsg', function() {
+    $('body').on('click', '.DirecttoMsg', function () {
         var phoneno = $(this).attr('phoneno');
         $('.' + phoneno).trigger('click');
 
 
     });
 
-    $('body').on('click', '.AddWhatsAppContactNO', function() {
+    $('body').on('click', '.AddWhatsAppContactNO', function () {
         var connection_id = $(this).attr('connection_id');
         var name = $(this).attr('name');
         var phone_no = $(this).attr('phone_no');
@@ -1026,9 +1194,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 phone_no: phone_no,
                 account_phone_no: account_phone_no,
             },
-            success: function(data) {
+            success: function (data) {
                 $('.WhatsAppAccountListTab .active-account-box').trigger('click');
-                setTimeout(function() {
+                setTimeout(function () {
                     $('.' + activeno).trigger('click');
                 }, 500);
             }
@@ -1041,7 +1209,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     });
 
 
-    $('body').on('click', '.AddWhatsAppContactNumber', function() {
+    $('body').on('click', '.AddWhatsAppContactNumber', function () {
         var ContactNameClass = $('.ContactNameClass').val();
         var ContactNumberClass = $('.ContactNumberClass').val();
         var countrey_code = $('.iti__selected-dial-code').text();
@@ -1070,12 +1238,12 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     phone_no: cleanedPhoneNumber,
                     account_phone_no: account_phone_no,
                 },
-                success: function(data) {
+                success: function (data) {
 
                     if (data == '1') {
                         $('.WhatsAppAccountListTab .active-account-box').trigger('click');
                         $('.CloseBtn').trigger('click');
-                        setTimeout(function() {
+                        setTimeout(function () {
                             $('.' + activeno).trigger('click');
                             iziToast.success({
                                 title: "Added Successfully"
@@ -1093,13 +1261,13 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     });
 
 
-    $('body').on('click', '.AddModelContactNO', function() {
+    $('body').on('click', '.AddModelContactNO', function () {
         $('.ContactNameClass').val('');
         $('.ContactNumberClass').val('');
     });
 
 
-    $('body').on('click', '.ListedMessage', function() {
+    $('body').on('click', '.ListedMessage', function () {
         $('.Setchatheadercolorclass').removeClass('chatheadercolorclass');
         $('.SetChatBackGroundClass').removeClass('ChatBackGroundClass');
         $('.documentselectionpin').removeClass('chatheadercolorclass');
@@ -1108,7 +1276,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.UserChatName').removeClass('text-white');
         $('.profilepiccolor').removeClass('text-white');
 
-        setTimeout(function() {
+        setTimeout(function () {
             $('.UserChatName').addClass('text-dark');
             $('.profilepiccolor').addClass('text-dark');
 
@@ -1116,7 +1284,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
     });
 
-    $('body').on('click', '.WhatsAppListedMessage', function() {
+    $('body').on('click', '.WhatsAppListedMessage', function () {
         $('.Setchatheadercolorclass').addClass('chatheadercolorclass');
         $('.SetChatBackGroundClass').addClass('ChatBackGroundClass');
         $('.documentselectionpin').addClass('chatheadercolorclass');
@@ -1131,7 +1299,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     });
 
 
-    $('body').on('click', '.ContactModelOpen', function() {
+    $('body').on('click', '.ContactModelOpen', function () {
         $('.ContactNoSelectionCheckbox').prop('checked', false);
     });
 
@@ -1140,11 +1308,11 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     // });
 
 
-    $('.file_view_add_Email').on('click', '#file_crodd_btn_email', function() {
+    $('.file_view_add_Email').on('click', '#file_crodd_btn_email', function () {
         $(this).closest('div').remove();
     });
 
-    $('.attachment_email_text').on('change', function() {
+    $('.attachment_email_text').on('change', function () {
         var files = $(this).prop('files');
         for (var i = 0; i < files.length; i++) {
             var fileName = files[i].name;
@@ -1152,7 +1320,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         }
     });
 
-   
+
 
     // $('.attachment_email_text').on('change', function() {
     //     var files = $(this).prop('files');
@@ -1199,46 +1367,46 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     //     }
     // });
 
-    $('body').on('click', '.SendDocumentForWhatsApp', function() {
+    $('body').on('click', '.SendDocumentForWhatsApp', function () {
         // alert();
         //  1 For Document
         // 2 For Image 
         var DataFileTypeStatus = $(this).attr('DataFileTypeStatus');
         var doctype = '';
         var doccorrection = 0;
-        if(DataFileTypeStatus == '1'){
+        if (DataFileTypeStatus == '1') {
             doctype = 'document';
             doccorrection = 1;
         }
 
-      
+
         var pText_add = "";
         var form = $("form[name='add_form_Email']")[0];
         var DataSenderId = $('.SendWhatsAppMessage').attr('DataSenderId');
         var DataPhoneno = $('.SendWhatsAppMessage').attr('DataPhoneno');
         var formData = new FormData(form);
-        $(".u_btn_Email p").each(function() {
+        $(".u_btn_Email p").each(function () {
             pText_add += $(this).text().trim() + ",";
         });
         var title = $(".email_whatapp_title").val();
         pText_add = pText_add.slice(0, -1);
         // console.log(pText_add);
-        if(DataFileTypeStatus == '2'){
+        if (DataFileTypeStatus == '2') {
             doctype = 'image';
             var checkimgsatus = 0;
             var filenamesArray = pText_add.split(',');
             for (var i = 0; i < filenamesArray.length; i++) {
                 var fileName = filenamesArray[i].trim();
                 var fileExtension = fileName.split('.').pop().toLowerCase();
-                var imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff','mp4', 'avi', 'mkv', 'mov', 'wmv'];
+                var imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'mp4', 'avi', 'mkv', 'mov', 'wmv'];
                 if (imageExtensions.indexOf(fileExtension) !== -1) {
                 } else {
                     checkimgsatus = parseInt(checkimgsatus) + 1;
                 }
             }
-            if(parseInt(checkimgsatus) > 0){
+            if (parseInt(checkimgsatus) > 0) {
                 doccorrection = 0;
-            }else{
+            } else {
                 doccorrection = 1;
             }
         }
@@ -1250,14 +1418,14 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         formData.append('DataPhoneno', DataPhoneno);
         formData.append('doctype', doctype);
 
-        if(doccorrection == '1' && DataSenderId !== undefined && DataSenderId !== "undefined" && DataSenderId != '' && DataPhoneno !== undefined && DataPhoneno !== "undefined" && DataPhoneno != ''){
+        if (doccorrection == '1' && DataSenderId !== undefined && DataSenderId !== "undefined" && DataSenderId != '' && DataPhoneno !== undefined && DataPhoneno !== "undefined" && DataPhoneno != '') {
             $.ajax({
                 type: 'POST',
                 url: 'WhatsAppSendDocumentData',
                 data: formData,
                 contentType: false,
                 processData: false,
-                success: function(data) {
+                success: function (data) {
                     // $('.u_btn_Email').remove();
                     // iziToast.success({
                     //     title: 'Successfully added'
@@ -1268,12 +1436,15 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             });
         }
     });
-    
 
-    $('body').on('click', '.SendImageAndPhotosClass', function(){
+
+    $('body').on('click', '.SendImageAndPhotosClass', function () {
         $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 2);
     });
-    $('body').on('click', '.DocumentSelectionForSendClickEventClass', function(){
+    $('body').on('click', '.DocumentSelectionForSendClickEventClass', function () {
         $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 1);
     });
+
+
+
 </script>
