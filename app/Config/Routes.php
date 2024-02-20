@@ -577,6 +577,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 	//linkedin integration
 	$routes->get('/linkedin_connection', 'Home::linkedin_connection');
+	$routes->post('/add_linkedin_connection', 'LinkedinController::add_linkedin_connection');
+	
 	
 
 	// whatsapp integration 
