@@ -1362,7 +1362,11 @@ class Bot_Controller extends BaseController
 	public function get_chat_data()
 	{
 		if ($_POST['action'] == 'account_list') {
+			
+			// pre($userdata);
+			// die();
 			// $token = 'edrftgyhjk,l.;/'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+			$cache = \Config\Services::cache();
 			$this->db = \Config\Database::connect('second');
 			$get_token = "SELECT access_token FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
@@ -1373,14 +1377,21 @@ class Bot_Controller extends BaseController
 				$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
 				// $fb_page_list = fb_page_list($token);
 				// $fb_page_list = get_object_vars(json_decode($fb_page_list));
-				$fb_page_list = getSocialData($url);
 				// pre($url);
-	
+				$cache_data = $cache->get($_SESSION['id'].'_fb_data');
+				if(!empty($cache_data)) {
+					$fb_page_list = $cache->get($_SESSION['id'].'_fb_data');
+					// echo 'yes';
+				} else {
+					$fb_page_list = getSocialData($url);
+					// echo 'no';
+				}
+				// pre($fb_page_list['data']);
+				// die();
 				$fb_chat_list_html = '';
 				$IG_chat_list_html = '';
 				$return_result = array();
 				$IG_data = array();
-				
 				foreach ($fb_page_list['data'] as $key => $value) {
 					// pre($value);
 					$url = 'https://graph.facebook.com/' . $value['id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
@@ -1388,20 +1399,25 @@ class Bot_Controller extends BaseController
 					$unread_msg = 0;
 					$con_data = getSocialData($url);
 					// pre($con_data);
-					if(isset($con_data['data'])) {
-						foreach ($con_data['data'] as $con_key => $con_value) {
-							// pre($value);
-							$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
+					if(!empty($cache_data)) {
+						$unread_msg = $value['unread_count'];
+						$page_img = $value['page_img'];
+					} else {
+						if(isset($con_data['data'])) {
+							foreach ($con_data['data'] as $con_key => $con_value) {
+								// pre($value);
+								$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
+							}
 						}
+						$page_data = fb_page_img($value['id'], $value['access_token']);
+						$page_data = json_decode($page_data);
+						$page_img = $page_data->page_img;
 					}
-					// pre($unread_msg);
-					$page_data = fb_page_img($value['id'], $value['access_token']);
-					$page_data = json_decode($page_data);
 	
 					$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
 											<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 												<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
-													<img src="' . $page_data->page_img . '" alt="" width="45">
+													<img src="' . $page_img . '" alt="" width="45">
 												</a>
 												<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
 												</p>';
@@ -1414,6 +1430,11 @@ class Bot_Controller extends BaseController
 						$value['instagram_business_account']['access_token'] = $value['access_token'];
 						$value['instagram_business_account']['fb_page_id'] = $value['id'];
 						$IG_data[] = $value['instagram_business_account'];
+					}
+
+					if(empty($cache_data)) {
+						$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
+						$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
 					}
 				}
 	
@@ -1430,7 +1451,7 @@ class Bot_Controller extends BaseController
 									</div>
 										';
 				}
-	
+				$cache->save($_SESSION['id'].'_fb_data', $fb_page_list,3600);
 				// pre($IG_data);
 			} else {
 				$fb_chat_list_html = '';
@@ -1576,14 +1597,14 @@ class Bot_Controller extends BaseController
 						$html .= '
 								<div class="d-flex mb-4 justify-content-end" >
                                 <div class="col-9 text-end">
-									<span class="me-2" style="font-size:12px;">' . $time . '</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $message . ' </span> 
+									<span class="me-2" style="font-size:12px;">' . $time . '</span> <span class="px-3 py-2 rounded-pill text-white" style="background:rgb(10, 124, 255);">' . $message . ' </span> 
                                 </div>
                             </div>';
 					} else {
 						$html .= '
 							<div class="d-flex mb-4 ">
 								<div class="col-9 text-start">
-									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $message . ' </span> <span class="ms-2" style="font-size:12px;">' . $time . '</span>
+									<span class="px-3 py-2 rounded-pill  " style="background:#f3f3f3;">' . $message . ' </span> <span class="ms-2" style="font-size:12px;">' . $time . '</span>
 								</div>
 							</div>';
 					}
