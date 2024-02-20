@@ -1312,6 +1312,9 @@ class WhatAppIntegrationController extends BaseController
         $template_name = $post_data['template_name'];
         $phone_no = $post_data['phone_no'];
         $countrey_code = $post_data['countrey_code'];
+$newbody = $post_data['newbody'];
+        $originalHTML = $post_data['originalHTML'];
+        
 
         $language = $post_data['language'];
         $template_id = $post_data['template_id'];
@@ -1342,6 +1345,23 @@ class WhatAppIntegrationController extends BaseController
 
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
             $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+
+            if (isset($post_data['bodydivvalues']) && !empty($post_data['bodydivvalues'])) {
+                $bodydivvalues = $post_data['bodydivvalues'];
+                $modified_body = $originalHTML;
+                foreach ($bodydivvalues as $index => $value) {
+                    $placeholder = '{{' . ($index + 1) . '}}'; 
+                    $modified_body = str_replace($placeholder, $value, $modified_body);
+                }
+            
+                $parameters = [];
+                foreach ($bodydivvalues as $value) {
+                    $parameters[] = [
+                        "type" => "text",
+                        "text" => $value
+                    ];
+                }
+            
             $postData = json_encode([
                 "messaging_product" => "whatsapp",
                 "recipient_type" => "individual",
@@ -1351,9 +1371,31 @@ class WhatAppIntegrationController extends BaseController
                     "name" => $template_name,
                     "language" => [
                         "code" => $language
+],
+                        "components" => [
+                            [
+                                "type" => "body",
+                                "parameters" => $parameters
+                            ]
                     ]
                 ]
             ]);
+}else {
+                // If $bodydivvalues is empty
+                $postData = json_encode([
+                    "messaging_product" => "whatsapp",
+                    "recipient_type" => "individual",
+                    "to" =>  $countrey_code . $phone_no,
+                    "type" => "template",
+                    "template" => [
+                        "name" => $template_name,
+                        "language" => [
+                            "code" => $language
+                        ],
+                    ]
+                ]);
+            }
+            
             $Result = postSocialData($url, $postData);
             if (isset($Result['error_data'])) {
             } elseif (isset($Result['contacts'])) {
@@ -1957,4 +1999,27 @@ class WhatAppIntegrationController extends BaseController
             }
         }
     }
+
+    public function Bracket_whatsapp_insert_data() {
+        $post_data = $_POST;
+        $inputId = $post_data['inputId'];
+        $originalHTML = $post_data['originalHTML']; 
+        $regex = $post_data['regex'];
+        $updatedHTML ='';
+        $oldHTML = $originalHTML;
+        foreach($post_data as $key => $value) {
+            if(preg_match('/{{/',$key) && preg_match('/}}/',$key)) {
+                // $updatedHTML = preg_replace($regex, $bodyText1, $originalHTML);
+                if(!empty($value)) {
+                    $updatedHTML = str_replace($key, $value, $oldHTML);
+                } else {
+                    $updatedHTML = str_replace($key, $key, $oldHTML);
+                }
+                $oldHTML = $updatedHTML;
+            }
+        }
+        
+        echo $updatedHTML;
+    }
+    
 }
