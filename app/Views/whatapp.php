@@ -774,9 +774,7 @@ if (!empty($connections)) {
 
 
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-ex-single-tab" role="tabpanel" aria-labelledby="pills-ex-single" tabindex="0" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
-                    
-                    >
+                    <div class="tab-pane fade show active" id="pills-ex-single-tab" role="tabpanel" aria-labelledby="pills-ex-single" tabindex="0" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class=" p-2 main-check-class bg-white p-2 rounded-3 border col-12 col-sm-8 col-md-12  mx-auto mx-md-0">
 
                             <div class="col-12 p-0 ms-0">
@@ -800,11 +798,13 @@ if (!empty($connections)) {
                                     <div class="col-12 hello">
                                         <div class="d-flex flex-wrap align-items-start  p-lg-3  justify-content-center justify-content-xl-between">
                                             <div class="col-12 col-md-12 col-lg-10 col-xl-6 col-xxl-4 my-2 my-lg-0">
+
                                                 <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
                                                     <div class="modal-content">
                                                         <div class="modal-body-secondery">
                                                             <div class="modal-body-card pb-1">
                                                                 <h5 class="mb-3 pb-2 border-bottom col-12">Template</h5>
+
                                                                 <div class="col-12">
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <select class="form-control main-control templatesnamelistddclass header_div" id="header" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
@@ -815,7 +815,7 @@ if (!empty($connections)) {
                                                                     </div>
                                                                     <div class="col-12 mb-3 mt-2">
 
-                                                                        <input type="text" id="mobile_code" class="form-control phone_number_div" placeholder="Enter Your Phone Number" name="name">
+                                                                        <input type="number" id="mobile_code" class="form-control phone_number_div" minlength="10" maxlength="10" onkeyup="if (/D/g.test(this.value)) this.value = this.value.replace(/D/g,'')" placeholder="Enter Your Phone Number" name="name" required>
                                                                     </div>
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <select class="form-control main-control language_div" id="language" name="language" disabled required>
@@ -1007,14 +1007,17 @@ if (!empty($connections)) {
                                                                         <!-- <span class="btn-primary Template_send" data-edit_id="">Send</span>     -->
                                                                     </div>
                                                                     <div class="col-12 pt-3 border-top mb-2 text-end">
-                                                                        <span class="btn-primary Template_send" id="memberships_add_btn" data-edit_id="" name="memberships_update1" value="memberships_update1">Send</sp>
+                                                                        <span class="btn-primary Template_send" id="memberships_add_btn" name="memberships_update1" value="memberships_update1">Preview</sp>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </form>
+
+
                                             </div>
+
                                             <div class="col-12 col-xl-6 d-flex px-0 px-lg-4 my-2  my-2 my-xxl-0 justify-content-center">
                                                 <!-- whatsapp   .. -->
                                                 <div class="">
@@ -1358,9 +1361,9 @@ if (!empty($connections)) {
                                             Name
                                             can
                                             only contain lowercase alphanumeric characters and underscores ( _ )</p>
-                                            <p class="emptyname text-danger fs-12"> Template name cannot be empty</p>
+                                        <p class="emptyname text-danger fs-12"> Template name cannot be empty</p>
 
-                                           
+
                                     </div>
 
                                     <div class="col-12 mb-3 ">
@@ -1492,8 +1495,8 @@ if (!empty($connections)) {
                                         <textarea class="form-control main-control TemplateBodyClass body_div" id="body_id" placeholder="Type Your Body Text Here..." name="" required></textarea>
                                         <!-- <p class="fs-12 BODYvalidation" style="display:none;">Template body can not be empty max limit 1024 characters</p> -->
                                         <p class="fs-10 limitvalue">Body character limit is 1024 characters</p>
-                                        
-                                        
+
+
                                     </div>
 
                                     <div class="col-12 mb-3">
@@ -1561,7 +1564,7 @@ if (!empty($connections)) {
                                                     <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header preview-header-paragraph message msg  m-0 p-l-10 p-r-5 ng-binding fw-bold ng-scope" style=""></div>
                                                     <!-- end ngIf: media_footer_text.length > 0 -->
                                                     <!-- </div> -->
-                                                    <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
+                                                    <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message bodymsg msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
                                                     </div>
                                                     <!-- <div class="preview-footer-paragraph refreshit p-1" ng-if="submitParamDetails"
                                                     class="ng-scope" style=""> -->
@@ -1602,96 +1605,113 @@ if (!empty($connections)) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary CloseBtnModelAdd" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary d-none " data-bs-target="#view_modal" data-bs-toggle="modal">Preview and Submit</button>
-                        <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid="" action="insert">Submit</button>
+                        <button type="button" class="btn btn-primary previewbutton ">Preview and Submit</button>
+                        <!-- <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid="" action="insert">Submit</button> -->
                     </div>
                 </div>
         </div>
     </div>
     <!-- last-modal -->
-    <div class="modal fade  " id="view_modal" aria-hidden="true" aria-labelledby="view_modal" tabindex="-1">
+    <!-- last-modal -->
+    <div class="modal fade  modal-lg" id="view_modal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="view_modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="view_modal" name="view_modal">Template</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body modal-body-secondery d-flex flex-wrap p-0">
+                <div class="modal-body modal-body-secondery d-flex flex-wrap">
 
-                    <div class="col-12 hello">
-                        <div class=" justify-content-center h-100">
-                            <!-- whatsapp   .. -->
-                            <div class="wa-preview-main-div-cont">
-                                <div class="preview-chat-section rounded-0">
-                                    <div class="preview-header-main-cont">
-                                        <div class="header-image">
-                                            <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
-                                        </div>
-                                        <div class="preview-header-text">
-                                            <span class="company-name user ng-binding">appo</span>
-                                        </div>
-                                        <div class="wa-phone-header">
-                                            <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
-                                            <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
-                                            <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
-                                        </div>
+
+
+
+                    <div class="col-6">
+                        <div class="modal-body-card justify-content-center">
+                        <div id="" class="col-12 mb-3 mt-2">
+
+                            <form id="dynamicInputsContainer1" name="filds"></form>
+                            </div>
+
+                            <div id="" class="col-12 mb-3 mt-2">
+                                <form id="dynamicInputsContainer" name="filds"></form>
+                            </div>
+
+
+                            <div ng-if="!headerTextLength && !urlParam && !bodyTextLength" class="cwt-info-facebook ng-scope">
+                                <p class="font-size-12 text-center">You haven't used any variable in your text.</p>
+                            </div>
+
+
+
+                            <div class="cwt-info-facebook">
+                                <p class="font-size-12">The provided example values will be submitted to Facebook as part of the template submission process. If no relevant examples are provided, templates may be rejected by Facebook.</p>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="preview-chat-section rounded-0">
+                            <div class="preview-header-main-cont">
+                                <div class="header-image">
+                                    <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png">
+                                </div>
+                                <div class="preview-header-text">
+                                    <span class="company-name user ng-binding">appo</span>
+                                </div>
+                                <div class="wa-phone-header">
+                                    <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
+                                    <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
+                                    <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <div class="preview-chat-section-chat overflow-y-scroll">
+                                <div class="preview-chat-paragraph bg-white p-3 col-10">
+                                    <div class="preview-header-paragraph" ng-if="submitParamDetails" class="ng-scope" style="">
+                                        <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                     </div>
 
-                                    <div class="preview-chat-section-chat overflow-y-scroll">
-                                        <div class="preview-chat-paragraph bg-white p-3 col-10">
-                                            <div class="preview-header-paragraph" ng-if="submitParamDetails" class="ng-scope" style="">
-                                                <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
-                                            </div>
+                                    <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
 
-                                            <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
-                                            <!-- <div class="preview-header-paragraph" ng-if="submitParamDetails"
-                                            class="ng-scope" style="">
-                                            <div ng-if="media_footer_text.length > 0 "
-                                                class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope"
-                                                contenteditable="false" style=""></div>
-                                            end ngIf: media_footer_text.length > 0
-                                        </div> -->
-                                            <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
-                                            </div>
-                                            <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
-                                                <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
-                                                <!-- end ngIf: media_footer_text.length > 0 -->
-                                            </div>
-                                            <!-- <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
-                                                        <a href="#" ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></a>
-                                                        end ngIf: media_footer_text.length > 0
-                                                    </div> -->
-                                        </div>
-                                        <div class="single-t-call-button">
-                                            <button class="single-button-whatsapp-template1"></button>
-                                            <button class="single-button-whatsapp-template2" data-template="2"></button>
-                                            <button class="single-button-whatsapp-template3" data-template="3"></button>
-
-                                        </div>
+                                    <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
                                     </div>
-                                    <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
-                                        <div class="preview-whatsapp-footer">
-                                            <div class="whatsapp-footer d-flex flex-wrap align-items-center">
-
-                                                <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
-                                                <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
-                                                <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
-                                                <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
-                                                <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
-                                            </div>
-                                        </div>
+                                    <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
+                                        <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                     </div>
 
                                 </div>
+                                <div class="single-t-call-button">
+                                    <button class="single-button-whatsapp-template1"></button>
+                                    <button class="single-button-whatsapp-template2" data-template="2"></button>
+                                    <button class="single-button-whatsapp-template3" data-template="3"></button>
 
+                                </div>
+                            </div>
+                            <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
+                                <div class="preview-whatsapp-footer">
+                                    <div class="whatsapp-footer d-flex flex-wrap align-items-center">
+
+                                        <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
+                                        <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                        <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
+                                        <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
+                                        <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary TemplateDeleteBtnDiv" id="" name="">Delete</button>
+                    <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid="" action="insert">Submit</button>
                     <button class="btn  btn-primary   Elbtn EditTemplateButtonClass" name="" id=""><i class="bi bi-pencil"></i></button>
+                    <button type="button" class="btn btn-primary TemplateDeleteBtnDiv" id="" name="">Delete</button>
+                    <!-- <button type="button" class="btn btn-secondary CloseBtnModelAdd" data-bs-dismiss="modal">Close</button> -->
+                    <span class="btn-primary Template_send_whatsapp" id="sendbtn" name="" value="Send">Send</span>
+
+
                 </div>
 
             </div>
@@ -1700,32 +1720,31 @@ if (!empty($connections)) {
     <!-- view sent msg -->
     <?= $this->include('partials/footer') ?>
     <script>
+        $('#Template_nameId').on('input', function() {
+            var templateName = $(this).val();
+            var maxLength = 512;
+            var regex = /^[a-z0-9_]+$/;
 
-    $('#Template_nameId').on('input', function(){
-        var templateName = $(this).val();
-        var maxLength = 512;
-        var regex = /^[a-z0-9_]+$/;
-        
-        if (templateName.length === 0) {
-            $('.CheckTemplateNameAlertPTag').hide(); 
-        } else if (templateName.length > maxLength) {
-            $(this).val(templateName.substring(0, maxLength));
-            $('.CheckTemplateNameAlertPTag').text('Maximum 512 lowercase characters allowed').show();
-        } else if (!regex.test(templateName)) {
-            $('.CheckTemplateNameAlertPTag').show();
-        } else {
-            $('.CheckTemplateNameAlertPTag').hide();
-            $('.emptyname').hide();
+            if (templateName.length === 0) {
+                $('.CheckTemplateNameAlertPTag').hide();
+            } else if (templateName.length > maxLength) {
+                $(this).val(templateName.substring(0, maxLength));
+                $('.CheckTemplateNameAlertPTag').text('Maximum 512 lowercase characters allowed').show();
+            } else if (!regex.test(templateName)) {
+                $('.CheckTemplateNameAlertPTag').show();
+            } else {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').hide();
 
-        }
-    });
-
+            }
+        });
 
 
 
-        
 
-    
+
+
+
 
         $('.FilterDatePicker').bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY',
@@ -1801,6 +1820,16 @@ if (!empty($connections)) {
 
         $('body').on('click', '.WhatsAppTemplateModelViewBtn', function() {
             // $('#view_modal').modal('show');
+
+            $('.EditTemplateButtonClass').removeClass('d-none');
+            $('.inputypeBody').val('');
+            $('.emptyname').addClass('d-none')
+            $('.CheckTemplateNameAlertPTag').addClass('d-none')
+            $('.Add_editModelTitle').addClass('d-none')
+            $('#sendbtn').addClass('d-none')
+            $('.inputypeBody').addClass('d-none')
+
+
             var Body = $(this).attr('Bodytext');
             var footer = $(this).attr('footertext');
             var header = $(this).attr('headertext');
@@ -2005,6 +2034,11 @@ if (!empty($connections)) {
 
     <script>
         $('body').on('click', '.previewbutton', function() {
+            $('.Add_editModelTitle').removeClass('d-none');
+            $('.EditTemplateButtonClass').addClass('d-none');
+            $('.inputypeBody').removeClass('d-none')
+            $('#sendbtn').addClass('d-none')
+
 
             var body = $('.body_div').val();
             var regex = /{{\d+}}/g;
@@ -2014,17 +2048,13 @@ if (!empty($connections)) {
 
                 $('#dynamicInputsContainer').empty();
 
-                for (var i = 0; i < matches.length; i++) {
-                    var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" Dataid="' + i + '"  placeholder="Body' + i + '" name="body_' + i + '" required>';
+                for (var i = 1; i <= matches.length; i++) {
+                    var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-2" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
                     $('#dynamicInputsContainer').append(inputField);
-                    // $('.msg-text-chat').append(body);
-
                 }
             }
 
-            function getValue(match) {
-                return match.replace(/[{}]/g, '');
-            }
+
 
 
 
@@ -2120,7 +2150,9 @@ if (!empty($connections)) {
                         $('#header').change(function() {
                             var selectDropdown = $(this).val();
                             var languageDropdown = templatelanguage[selectDropdown];
+                            var body1 = bodyvalue[selectDropdown];
                             var body = bodyvalue[selectDropdown];
+
                             var header = headervalue[selectDropdown];
                             var footer = footervalue[selectDropdown];
                             var button = buttonvalue[selectDropdown];
@@ -2128,7 +2160,26 @@ if (!empty($connections)) {
                             $('.preview-chat-section-chat').slideUp(100);
                             $('.preview-chat-section-chat').slideDown(1000);
 
-                            $('.BodyValue').text(body);
+
+                            var body = $('.BodyValue').text(body);
+
+                            var regex = /{{\d+}}/g;
+                            var matches = body1.match(regex);
+                            console.log(matches);
+                            $('.inputypeBody').hide();
+
+                            if (matches) {
+                                $('#dynamicInputsContainer1').empty();
+
+                                for (var i = 1; i <= matches.length; i++) {
+                                    var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-1" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
+                                    $('#dynamicInputsContainer1').append(inputField);
+                                    $('.inputypeBody').show();
+
+
+                                }
+                            }
+
                             $('.footervalue').text(footer);
                             $('.language_div').val(languageDropdown);
                             $('.single-button-whatsapp-template').text(button);
@@ -2525,11 +2576,57 @@ if (!empty($connections)) {
 
         // ButtonSelctionDropDown
 
+        $('body').on('click', '.previewbutton', function() {
+            var name = $('.Template_name').val();
+            var category = $('select.TemplateCategorySelectionDiv option:selected').val();
+            var language = $('select.TemplateLanguageDDList option:selected').val();
+            var headertype = $('select.HeaderSelectionDD option:selected').val();
+            var headerfile = '';
+            var body = $('.TemplateBodyClass').val();
+            var action = $(this).attr('action');
+            var templatename = $(this).attr('templatename');
+            var templateid = $(this).attr('templateid');
+
+            var regex = /^[a-z0-9_]+$/;
+            if (name.trim() === '') {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').show();
+                return;
+            } else if (!regex.test(name)) {
+                $('.emptyname').hide();
+                $('.CheckTemplateNameAlertPTag').show();
+                return;
+            } else {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').hide();
+            }
+
+            // Perform validation
+            if (name != '' && category != '' && language != '' && body != '') {
+                $('#view_modal').modal('show');
+                $('#whatsapp_template_add_edit').modal('hide');
 
 
+            } else {
+                // Add validation classes and handle invalid inputs
+                $(".membershipDiv").addClass("was-validated");
+                $("form[name='whatsapp_template_add_edit']").find('.selectpicker').each(function() {
+                    var selectpicker_valid = $(this).attr('required') === 'required' ? 1 : 0;
+
+                    if (selectpicker_valid === 1) {
+                        if ($(this).val() == 0 || $(this).val() == '') {
+                            $(this).closest("div").addClass('selectpicker-validation');
+                        } else {
+                            $(this).closest("div").removeClass('selectpicker-validation');
+                        }
+                    } else {
+                        $(this).closest("div").removeClass('selectpicker-validation');
+                    }
+                });
+            }
+        });
 
 
-     
 
 
 
@@ -2549,7 +2646,7 @@ if (!empty($connections)) {
             if (name.trim() === '') {
                 $('.CheckTemplateNameAlertPTag').hide();
                 $('.emptyname').show();
-                return; 
+                return;
             } else if (!regex.test(name)) {
                 $('.emptyname').hide();
                 $('.CheckTemplateNameAlertPTag').show();
@@ -2577,9 +2674,23 @@ if (!empty($connections)) {
                             processData: false,
                             contentType: false,
                             success: function(data) {
+                                $('#view_modal').modal('hide');
+
                                 headerfile = data;
                                 var headertext = $('.ClassHeaderTEXT').val();
                                 var footer = $('.FotterTextDIvClass').val();
+
+                                var bodydivvalues = [];
+
+                                $('.inputypeBody').each(function() {
+                                    var bodydivvalue = $(this).val();
+                                    bodydivvalues.push(bodydivvalue);
+                                });
+
+                                console.log(bodydivvalues);
+
+                                // var bodydivvalue = $('.inputypeBody').val();
+                                // console.log(bodydivvalue);
                                 var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
                                 var QuickArray = [];
                                 if (buttontype == '1') {} else if (buttontype == '2') {
@@ -2683,12 +2794,41 @@ if (!empty($connections)) {
                                         });
                                     }
                                 }
-                                if (body) {
+                                // if (body) {
+                                //     templateArray.components.push({
+                                //         'type': 'BODY',
+                                //         'text': body
+                                //     });
+                                // }
+
+
+
+                                if (/{{(\d+)}}/g.test(body)) {
                                     templateArray.components.push({
-                                        'type': 'BODY',
-                                        'text': body
+                                        "type": "BODY",
+                                        "text": body,
+                                        "example": {
+                                            "body_text": [
+
+                                                bodydivvalues
+
+                                            ]
+                                        }
+                                    });
+                                } else {
+                                    templateArray.components.push({
+                                        "type": "BODY",
+                                        "text": body
                                     });
                                 }
+
+
+
+
+
+
+
+
                                 if (footer) {
                                     templateArray.components.push({
                                         'type': 'FOOTER',
@@ -2723,15 +2863,21 @@ if (!empty($connections)) {
                                                 iziToast.error({
                                                     title: "Failed to add template"
                                                 });
+                                                $('#view_modal').modal('hide');
+
                                             } else {
                                                 if (action = "update") {
                                                     iziToast.success({
                                                         title: "Updated Successfully"
                                                     });
+                                                    $('#view_modal').modal('hide');
+
                                                 } else {
                                                     iziToast.success({
                                                         title: "Added Successfully"
                                                     });
+                                                    $('#view_modal').modal('hide');
+
                                                 }
 
                                             }
@@ -2752,6 +2898,15 @@ if (!empty($connections)) {
                     var headertext = $('.ClassHeaderTEXT').val();
                     var body = $('.TemplateBodyClass').val();
                     var footer = $('.FotterTextDIvClass').val();
+                    var bodydivvalues = []; // Array to store values of all inputypeBody elements
+
+                    $('.inputypeBody').each(function() {
+                        var bodydivvalue = $(this).val();
+                        bodydivvalues.push(bodydivvalue);
+                    });
+
+                    console.log(bodydivvalues);
+
                     var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
                     var QuickArray = [];
                     if (buttontype == '1') {} else if (buttontype == '2') {
@@ -2855,12 +3010,28 @@ if (!empty($connections)) {
                         }
                     }
 
-                    if (body) {
+
+                    if (/{{(\d+)}}/g.test(body)) {
                         templateArray.components.push({
-                            'type': 'BODY',
-                            'text': body
+                            "type": "BODY",
+                            "text": body,
+                            "example": {
+                                "body_text": [
+                                    bodydivvalues
+                                ]
+                            }
+                        });
+                    } else {
+                        templateArray.components.push({
+                            "type": "BODY",
+                            "text": body
                         });
                     }
+
+
+
+
+
 
                     if (footer) {
                         templateArray.components.push({
@@ -2895,15 +3066,21 @@ if (!empty($connections)) {
                                 iziToast.error({
                                     title: "Failed to add template"
                                 });
+                                $('#view_modal').modal('hide');
+
                             } else {
                                 if (action = "update") {
                                     iziToast.success({
                                         title: "Updated Successfully"
                                     });
+                                    $('#view_modal').modal('hide');
+
                                 } else {
                                     iziToast.success({
                                         title: "Added Successfully"
                                     });
+                                    $('#view_modal').modal('hide');
+
                                 }
                             }
                             $(".close_btn").trigger("click");
@@ -2912,7 +3089,7 @@ if (!empty($connections)) {
                     });
                     // console.log(jsonString);
                 }
-        }else{
+            } else {
                 $(".membershipDiv").addClass("was-validated");
                 $("form[name='whatsapp_template_add_edit']").find('.selectpicker').each(function() {
                     var selectpicker_valid = $(this).attr('required') === 'required' ? 1 : 0;
@@ -2950,65 +3127,116 @@ if (!empty($connections)) {
         // --------------------------------------------------------------
 
         $('body').on('click', '.Template_send', function() {
-            // alert();
+            var bodydivvalues = [];
+            $('.inputypeBody').each(function() {
+                var bodydivvalue = $(this).val();
+                bodydivvalues.push(bodydivvalue);
+            });
 
+            if (!originalHTML) {
+                originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+            }
+
+            var body = $('.preview-chat-paragraph .BodyValue').html();
+            $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
+            var fullmsg = $('.preview-chat-paragraph').html();
+            var newbody = JSON.stringify(body);
             var header = $('.header_div').val();
             var template_id = $('.header_div option:selected').attr('DataMNo');
             var phone_no = $('.phone_number_div').val();
             var language = $('.language_div').val();
             var countrey_code = $('.iti__selected-dial-code').text();
-
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
+            $('.preview-chat-paragraph').html(fullmsg);
+
+            if (header !== "" && phone_no !== "" && language !== "" && WhatsAppConnectionsDropDown !== '') {
+                $('#view_modal').modal('show');
+                $('.EditTemplateButtonClass').addClass('d-none');
+                $('.Add_editModelTitle').addClass('d-none');
+                $('.TemplateDeleteBtnDiv').addClass('d-none');
+                $('.preview-header-paragraphVIDEO').hide();
 
 
 
-
-
-            if (header !== "" && phone_no !== "" && language !== "" && WhatsAppConnectionsDropDown != '') {
-                $.ajax({
-                    dataType: 'json',
-                    method: "POST",
-                    url: "<?= site_url('single_whatsapp_template_sent'); ?>",
-                    data: {
-                        'template_name': header,
-                        'phone_no': phone_no,
-                        'language': language,
-                        'template_id': template_id,
-                        'countrey_code': countrey_code,
-                        'action': true,
-                        'connectionid': WhatsAppConnectionsDropDown,
-                    },
-                    success: function(res) {
-                        $('#mobile_code').val('');
-                        $('.header_div').html('');
-                        $('.language_div').val('refresh');
-                        list_data();
-
-                        $('.loader').hide();
-                        if (res == '1') {
-                            iziToast.success({
-                                title: "Template sent successfully"
-                            });
-                            // $('.viewdata').trigger('click');
-
-                            var viewdataElement = document.querySelector('.viewdata');
-                            if (viewdataElement) {
-                                viewdataElement.click();
-                            }
-                            list_data();
-                        } else {
-                            iziToast.error({
-                                title: 'Something went wrong!'
-                            });
-
-                        }
-                    },
-
-                });
             } else {
                 $(".membershipDiv").addClass("was-validated");
+
             }
         });
+
+
+
+
+
+        $('body').on('click', '#sendbtn', function() {
+            var bodydivvalues = [];
+            $('.inputypeBody').each(function() {
+                var bodydivvalue = $(this).val();
+                bodydivvalues.push(bodydivvalue);
+            });
+            if (!originalHTML) {
+                originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+            }
+            var body = $('.preview-chat-paragraph .BodyValue').html();
+            $('.preview-chat-paragraph .msg-text-chat').html(body);
+
+            $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
+            var newbody = JSON.stringify(body);
+            var header = $('.header_div').val();
+            var template_id = $('.header_div option:selected').attr('DataMNo');
+            var phone_no = $('.phone_number_div').val();
+            var language = $('.language_div').val();
+            var countrey_code = $('.iti__selected-dial-code').text();
+            var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
+            $.ajax({
+                dataType: 'json',
+                method: "POST",
+                url: "<?= site_url('single_whatsapp_template_sent'); ?>",
+                data: {
+                    'template_name': header,
+                    'phone_no': phone_no,
+                    'language': language,
+                    'template_id': template_id,
+                    'countrey_code': countrey_code,
+                    'action': true,
+                    'connectionid': WhatsAppConnectionsDropDown,
+                    'newbody': newbody,
+                    'bodydivvalues': bodydivvalues,
+                    'originalHTML': originalHTML,
+                },
+                success: function(res) {
+                    $('#view_modal').modal('hide');
+
+                    $('#mobile_code').val('');
+                    $('.header_div').html('');
+                    $('.language_div').val('refresh');
+                    list_data();
+
+                    $('.loader').hide();
+                    if (res == '1') {
+                        iziToast.success({
+                            title: "Template sent successfully"
+                        });
+
+                        var viewdataElement = document.querySelector('.viewdata');
+                        if (viewdataElement) {
+                            viewdataElement.click();
+                        }
+                        list_data();
+                    } else {
+                        iziToast.error({
+                            title: 'Something went wrong!'
+                        });
+
+                    }
+                },
+
+            });
+
+        });
+
+
+
 
         $('body').on('change', '.ButtonSelctionDropDown', function() {
             $('.SetButtonHTMLClass').html('');
@@ -3178,6 +3406,21 @@ if (!empty($connections)) {
             $('.loader').show();
 
             var name = $(this).attr('name');
+            var regex = /^[a-z0-9_]+$/;
+            if (name.trim() === '') {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').show();
+                return;
+            } else if (!regex.test(name)) {
+                $('.emptyname').hide();
+                $('.CheckTemplateNameAlertPTag').show();
+                return;
+            } else {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').hide();
+            }
+
+
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
 
             var id = $(this).attr('id');
@@ -3201,14 +3444,59 @@ if (!empty($connections)) {
                     var language = data.language;
                     var body = '';
                     var footer = '';
+                    var bodydivvalues = [];
+
+                    $('.inputypeBody').each(function() {
+                        var bodydivvalue = $(this).val();
+                        bodydivvalues.push(bodydivvalue);
+                    });
+
+                    console.log(bodydivvalues);
                     data.components.forEach(component => {
 
                         var type = component.type;
+                        // if (type == 'BODY') {
+                        //     if (component.text) {
+                        //         body = component.text;
+                        //     }
+                        // }
+
+                        // if (type == 'BODY' && /{{(\d+)}}/g.test(component.text)) {
+
+                        //     body = component.text;
+                        //     $('.body_div').val(body);
+
+                        //     var body_text = [
+                        //         bodydivvalues
+                        //     ];
+                        //     var example = {
+                        //         "body_text": body_text
+                        //     };
+
+                        // } else {
+                        //     body = component.text;
+                        //     $('.body_div').val(body);
+
+                        // }
                         if (type == 'BODY') {
-                            if (component.text) {
-                                body = component.text;
+                            var body = component.text;
+                            $('.body_div').val(body);
+                            $('.msg-text-chat').text(body);
+
+                        }
+
+                        if (type == 'BODY') {
+                            var body = component.text;
+                            if (/{{(\d+)}}/g.test(component.text)) {
+                                $('.body_div').val(body);
+                                $('.msg-text-chat').text(body);
+
                             }
                         }
+
+
+
+
                         if (type == 'FOOTER') {
                             if (component.text) {
                                 footer = component.text;
@@ -3230,6 +3518,7 @@ if (!empty($connections)) {
                                     $('select.HeaderSelectionDD').closest('.header-jqury').children('.file_upload').removeClass('d-none');
                                     $('select.HeaderSelectionDD').closest('.header-jqury').children('.text-comment').addClass('d-none');
                                 }
+
                                 if (headerformat == 'TEXT') {
                                     if (component.text) {
                                         $('.ClassHeaderTEXT').val(component.text);
@@ -3290,9 +3579,8 @@ if (!empty($connections)) {
                     $('.TemplateCategorySelectionDiv').selectpicker('refresh');
                     $('.TemplateLanguageDDList').val(language);
                     $('.TemplateLanguageDDList').selectpicker('refresh');
-                    $('.TemplateBodyClass').val(body);
+                    // $('.TemplateBodyClass').val(body);
                     $('.FotterTextDIvClass').val(footer);
-                    $('.msg-text-chat').text(body);
                     $('.preview-footer-paragraph').text(footer);
                     $('.loader').hide();
                     $('.Template_name_varification').prop("disabled", false);
@@ -3356,5 +3644,87 @@ if (!empty($connections)) {
         });
         $('body').on('click', '.refresh-btn', function() {
             $(this).toggleClass('rounded-btn');
+        });
+
+
+
+        var originalHTML = '';
+        $('#dynamicInputsContainer1').on('input', '.inputypeBody', function() {
+
+            var inputId = $(this).attr('Dataid');
+            if (!originalHTML) {
+                originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+
+                // originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+
+            }
+            // var originalHTML = $('.preview-chat-paragraph ').html();
+            // var bodyText1 = $(this).val();
+            var regex = new RegExp("{{[" + inputId + "]}}");
+            var form = $('#dynamicInputsContainer1')[0];
+            var formdata = new FormData(form);
+            formdata.append('regex', regex);
+            formdata.append('inputId', inputId);
+            formdata.append('originalHTML', originalHTML);
+            formdata.append('action', true);
+
+            $.ajax({
+                datatype: 'json',
+                method: "post",
+                url: "<?= site_url('Bracket_whatsapp_insert_data'); ?>",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    $('.preview-chat-paragraph .BodyValue').html(res);
+
+
+                    // $('.preview-chat-paragraph .BodyValue').html(res);
+                    $('.loader').hide();
+                }
+            });
+
+        });
+
+
+        var originalHTML = '';
+        $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
+
+            var inputId = $(this).attr('Dataid');
+            if (!originalHTML) {
+                originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
+            }
+            // var originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
+            // var bodyText1 = $(this).val();
+            var regex = new RegExp("{{[" + inputId + "]}}");
+            var form = $('#dynamicInputsContainer')[0];
+            var formdata = new FormData(form);
+            formdata.append('regex', regex);
+            formdata.append('inputId', inputId);
+            formdata.append('originalHTML', originalHTML);
+            formdata.append('action', true);
+
+            $.ajax({
+                datatype: 'json',
+                method: "post",
+                url: "<?= site_url('Bracket_whatsapp_insert_data'); ?>",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+
+                    $('.preview-chat-paragraph .msg-text-chat').html(res);
+                    $('.loader').hide();
+                }
+            });
+
+        });
+        $('body').on('click', '.btn-close', function() {
+            $('#mobile_code').val('');
+            $('.header_div').html('');
+            $('.language_div').val('refresh');
+            // $('.refreshit').html('');
+            list_data();
+
         });
     </script>
