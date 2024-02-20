@@ -29,7 +29,7 @@
         <div class="col-12">
           <div class="logo">
             <a href="https://realtosmart.com/">
-              <img src="<?= site_url('assets/images/RealtoSmart Logo.png') ?>" alt="" class="w-75">
+              <img src="<?= site_url('assets/images/aja-logo.png') ?>" alt="" class="w-75">
             </a>
           </div>
         </div>
