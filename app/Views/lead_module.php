@@ -400,7 +400,7 @@ $user_data = $user_result->getResultArray();
                                                 </div>
 
                                                 <div class="col-12 webDiv">
-                                                    <label class="form-label main-label fs-14 text-nowrap d-flex justify-content-between"><span>API</span><a class="btn-primary rounded-circle border border-secondary fs-10 p-1 px-2" data-toggle="tooltip" data-placement="top" title="API Document" href="joomdev.com" download><i class="fa-solid fa-arrow-down"></i></a></label>
+                                                    <label class="form-label main-label fs-14 text-nowrap d-flex justify-content-between"><span>API</span><a class="btn-primary rounded-circle border border-secondary fs-10 p-1 px-2" data-toggle="tooltip" data-placement="top" title="API Document" href="<?php echo base_url();?>assets/document/WebsiteAPIDocument.pdf" download><i class="fa-solid fa-arrow-down"></i></a></label>
                                                     <textarea id="web_api" rows="3" class="form-control form-main" placeholder="" readonly>curl -X POST -d  "https://ajasys.in/web_integrate?name=<name_value>&mobileno=<mobileno_value>&email=<email_value>&description=<description_value>&access_token=<access_token_value>"</textarea>
                                                 </div>
                                                 <div class="col-12 webDiv">
