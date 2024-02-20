@@ -57,26 +57,6 @@ function generateAccessToken($length = 32)
 ?>
 <div class="main-dashbord p-3">
 
-    <div class="modal fade" id="Modal_tabel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
     <div class="container-fluid p-0">
         <div>
             <div class="col-xl-12 d-flex justify-content-between">
@@ -180,12 +160,59 @@ function generateAccessToken($length = 32)
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="Modal_tabel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">API Documentation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-card">
+                    <div class="row col-12">
+                        <div class="add-user-input">
+                            <label for="relation" class="form-label main-label fw-semibold">Access Token:</label>
+                            <span id="web_access_token" style="word-wrap: break-word;"></span>
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <div class="add-user-input">
+                            <label for="relation" class="form-label main-label fw-semibold">Website API Integrate:</label>
+                            <span id="web_method" style="word-wrap: break-word;"><p>Method : POST</p></span>
+                            <span id="web_url" style="word-wrap: break-word;"><p>URL : <?php echo base_url();?>web_integrate</p></span>
+                            <span id="form_data" style="word-wrap: break-word;">
+                                <p>Form Data Passing : </p>
+                                <p>name:<name_value></p>
+                                <p>mobileno:<mobileno_value></p>
+                                <p>email:<email_value></p>
+                                <p>description:<description_value></p>
+                                <p>access_token:<access_token_value></p>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <img src="<?php echo base_url();?>assets/images/websiteImage/webpostman.png">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
     $(document).ready(function() {
         list_data();
+    });
+
+    $('body').on('click', '.click_tr', function() {
+        var website_name = $(this).attr('data-name');
+        var access_token = $(this).attr('data-token');
+        $('#web_access_token').text(access_token);
+
     });
 
     //website connection
