@@ -12,7 +12,6 @@ class Bot_Controller extends BaseController
 		helper('custom');
 		helper('custom1');
 		$db = db_connect();
-		$this->db = \Config\Database::connect();
 		$this->MasterInformationModel = new MasterInformationModel($db);
 		$this->username = session_username($_SESSION['username']);
 		$this->admin = 0;
@@ -590,29 +589,35 @@ class Bot_Controller extends BaseController
 			$integrations_type = implode(',', $integration_type2);
 		}
 
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if (isset($_FILES['menu_message'])) {
-				$targetDir = "C:/xampp/htdocs/GymSmart/assets/image/";
-				$file_name = $_FILES['menu_message']['name'];
-				$targetFile = $targetDir . basename($file_name);
-
-				if (!file_exists($targetDir)) {
-					mkdir($targetDir, 0777, true);
-				}
-
-				if (move_uploaded_file($_FILES['menu_message']['tmp_name'], $targetFile)) {
-					$image_name = basename($file_name);
-					$update_data['menu_message'] = $image_name;
-					// pre($update_data['menu_message']);
-					$departmentUpdatedata = $this->MasterInformationModel->update_entry2($update_id, $update_data, $table_name);
-					echo "Image uploaded successfully.";
-				}
-			} else {
-				echo "No image uploaded.";
+		
+		$files= $_FILES;
+		if(!empty($files)){
+			$uploadDir = 'assets/bot_image/';
+			if (!is_dir($uploadDir)) {
+				mkdir($uploadDir, 0777, true);
 			}
-		} else {
-			echo "Invalid request method.";
+			$filesArr = $_FILES["images"];
+			$fileNames = array_filter($filesArr['name']);
+			$uploadedFile = '';
+			foreach ($filesArr['name'] as $key => $val) {
+				$fileName = basename($filesArr['name'][$key]);
+				$targetFilePath = $uploadDir . $fileName;
+				$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+				if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
+					if($fileName !== ""){
+						if(strlen($fileName) == 1){
+							$uploadedFile .= $fileName;
+						}else{
+							$uploadedFile .= $fileName;
+						}
+					}
+				} else {
+					$uploadStatus = 0;
+					$response['message'] = 'Sorry, there was an error uploading your file.';
+				}
+			}
 		}
+
 		$response = 0;
 		if ($this->request->getPost("action") == "update") {
 			//print_r($_POST);
@@ -1000,6 +1005,450 @@ class Bot_Controller extends BaseController
 										</div>
 									</div>
 								</div>';
+
+					}  else if ($value['type_of_question'] == "8") {
+						$datepickerData = json_decode($value['menu_message'], true);
+						
+						
+						$html .= '<div class="col">
+									<div class="col-12 mb-2">
+										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
+										</span>
+									</div>';
+
+									if (
+										isset($datepickerData['date_range']) &&
+										isset($datepickerData['period']) &&
+										isset($datepickerData['weekdays']) &&
+										isset($datepickerData['date_output_format'])
+									) {
+										$dateRange = $datepickerData['date_range'];
+										$period = $datepickerData['period'];
+										$weekdays = json_encode($datepickerData['weekdays']);
+										list($start_date_str, $end_date_str) = $dateRange;
+									
+										// Check if period is empty
+										if (empty($period)) {
+											// Set future_days and past_days to 0
+											$future_days = 0;
+											$past_days = 0;
+										} else {
+											$future_days = $period[0];
+											$past_days = $period[1];
+										}
+									
+										$start_date = \DateTime::createFromFormat('d-m-Y', $start_date_str);
+										$end_date = \DateTime::createFromFormat('d-m-Y', $end_date_str);
+									
+										if ($start_date === false || $end_date === false) {
+											echo "Error: Unable to parse date strings.";
+										} else {
+											$start_date->modify("-$future_days days");
+											$end_date->modify("+$past_days days");
+									
+											$start_date_iso = $start_date->format('Y-m-d');
+											$end_date_iso = $end_date->format('Y-m-d');
+									
+											$interval = $start_date->diff($end_date);
+											$num_days = $interval->days;
+
+						$html .= ' <div class="container">
+									<div class="row d-flex justify-content" style="position: relative; box-shadow:rgba(70, 93, 239, 0.34) 0px 3px 15px; width:400px" >
+									  <div class="col-12 d-flex overflow-hidden" id="calender-month" style="padding:0px !important">
+									  									    <div class="col-12 month-content active" id="january-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">January <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="january"></ul>
+									    </div>
+								   									    <div class="col-12 month-content" id="february-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">February<div class="month-cal" id="year-date"> &nbsp;2024	</div></h4>
+										 <ul class="days" id="february"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="march-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">March <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="march"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="april-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">April<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="april"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="may-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">May <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="may"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="june-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">June <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="june"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="july-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">July <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="july"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="august-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">August <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="august"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="september-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">September<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="september"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="october-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">October <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="october"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="november-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">November<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="november"></ul>
+									    </div>
+								   
+									    <div class="col-12 month-content" id="december-content">
+										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">December <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+										 <ul class="days" id="december"></ul>
+									    </div>
+									  </div>
+									  
+										<div class="col-12" style="margin-top:30px;">
+											<ul id="yearSelect" style="display:none;">
+											</ul>
+									</div>
+
+									
+										<button class="btn btn-primary d-flex justify-content-center align-items-center prev-btn" style="position:absolute; top:0px; left0px; width:33px; height:33px;"><</button>
+										<button class="btn btn-primary d-flex justify-content-center align-items-center next-btn" style="position:absolute; top:0px; right:0px; width:33px; height:33px;">></button>
+								   </div>
+								   </div>';
+
+										
+										
+		
+								   $html .= '<script>
+								   $(document).ready(function() {
+
+									 function daysInMonth(month, year) {
+									   return new Date(year, month + 1, 0).getDate();
+									 }
+								  
+var weekdays = '.$weekdays.';
+							
+									 function generateDays(monthId, month, year) {
+									   const daysCount = daysInMonth(month, year);
+									   const firstDay = new Date(year, month, 1).getDay();
+									   const ul = $("#" + monthId);
+									   ul.empty();
+								  
+									   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+									   daysOfWeek.forEach(function(day) {
+										ul.append("<li>" + day + "</li>");
+								  
+									   });
+								  
+									   for (let i = 0; i < firstDay; i++) {
+										ul.append("<li></li>");
+									   }
+
+										const startDate = new Date("<?php echo $start_date_iso; ?>");
+										const endDate = new Date("<?php echo $end_date_iso; ?>");
+								  
+									   for (let i = 1; i <= daysCount; i++) {
+										const currentDate = new Date(year, month, i);
+											const currentDay = currentDate.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
+							
+											// Check if period is empty
+											if (<?php echo empty($period) ? "true" : "false"; ?>) {
+												// Only consider dates within the range of start_date and end_date
+												if (currentDate >= startDate && currentDate <= endDate) {
+													ul.append("<li class=\"day-time\">" + i + "</li>");
+									   } else {
+													ul.append("<li class=\"disabled\">" + i + "</li>");
+												}
+											} else {
+												// Consider weekdays and the range of start_date and end_date
+												if (weekdays.includes(currentDay)) {
+													if (currentDate >= startDate && currentDate <= endDate) {
+														ul.append("<li class=\"day-time\">" + i + "</li>");
+													} else {
+														ul.append("<li class=\"disabled\">" + i + "</li>");
+													}
+												} else {
+													ul.append("<li class=\"disabled\">" + i + "</li>");
+												}
+											}
+										}
+									}
+									
+									function generateCalendar(year) {
+										for (let i = 0; i < 12; i++) {
+											generateDays(getMonthId(i), i, year);
+										}
+									}
+								
+									function getMonthId(monthIndex) {
+										const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+										return months[monthIndex];
+									}
+								
+									function populateYearSelect() {
+										const startYear = 2001;
+										const endYear = 2090;
+										const select = $("#yearSelect");
+									
+										for (let year = startYear; year <= endYear; year++) {
+											select.append("<li>" + year + "</li>");
+										}
+									}
+								
+									populateYearSelect();
+									generateCalendar(new Date().getFullYear());
+								  
+									 $(".month-content").not("#january-content").hide();
+
+									$(".month-cal").click(function() {
+										$(".month-content").addClass("d-none");
+										$("#yearSelect").show();
+									});
+								  
+									 $(".prev-btn").click(function() {
+									   const currentMonth = $(".month-content:visible");
+									   currentMonth.hide();
+									   const prevMonth = currentMonth.prev().length ? currentMonth.prev() : $(".month-content").last();
+									   prevMonth.show();
+									 });
+								  
+									 $(".next-btn").click(function() {
+									   const currentMonth = $(".month-content:visible");
+									   currentMonth.hide();
+									   const nextMonth = currentMonth.next().length ? currentMonth.next() : $(".month-content").first();
+									   nextMonth.show();
+									 });
+								  
+									 $(document).on("click", "#yearSelect li", function() {
+										const selectedYear = $(this).text();
+										generateCalendar(selectedYear);
+										$("#yearSelect").hide();
+										$(".month-cal").text(selectedYear);
+										$(".month-content").removeClass("d-none");
+									});
+								
+									$(document).on("click", ".days li", function() {
+									   $(this).addClass("color");
+									   $(this).siblings("li").removeClass("color");
+									 });
+								  
+									$(document).on("click", ".day-time", function () {
+									var day = $(this).text();
+									var month = $(this).closest(".month-content").attr("id").split("-")[0];
+									var year = $("#year-date").text();
+								   
+									$(".answer_chat").val(day + " " + month + year);
+								   });
+
+									$(document).on("click", "#yearSelect li", function() {
+										const selectedYear = $(this).text();
+										generateCalendar(selectedYear);
+										$("#yearSelect").hide();
+										$(".month").text($(".month").text().replace(/\d{4}/, ""));
+										$(".month-content").removeClass("d-none");
+									});
+								});
+
+
+								   
+								  </script>';
+}
+						}
+					} else if($value['type_of_question'] == "23"){
+
+						$html .= '<div class="col">
+										
+										<div class="shadow-lg rounded-4 border p-4 bg-white d-flex justify-content-center">
+											<div class="col-10">
+												<div>
+													<span>' . $value['question'] . '</span>
+												</div>';
+							
+												$urlnavigatroData = json_decode($value['menu_message'], true);
+
+												if (isset($urlnavigatroData[0]['url_navigator_select'])) {									
+												
+													$html .= '<div class="d-flex flex-wrap mt-2">';
+													foreach ($urlnavigatroData as $data) {
+														$imageName = $data['url_navigator_select'];
+														if($imageName == "Facebook"){
+															$imageSrc = "https://www.page.smatbot.com/assets/facebook-b1c48260.svg";
+														}else if($imageName == "Instagram"){
+															$imageSrc = "https://www.page.smatbot.com/assets/instagram-b79de51b.svg";
+														}else if($imageName == "Twitter"){
+															$imageSrc = "https://www.page.smatbot.com/assets/twiter-5c5e8b47.svg";
+														}else if($imageName == "Linkedin"){
+														
+														}else if($imageName == "Youtube"){
+														
+														}else if($imageName == "Messenger"){
+															$imageSrc = "https://www.page.smatbot.com/assets/messanger-a053b50d.svg";
+														}else if($imageName == "Google_Plus"){
+															$imageSrc = "https://www.page.smatbot.com/assets/twiter-5c5e8b47.svg";
+														}else if($imageName == "Call"){
+															$imageSrc = "https://www.page.smatbot.com/assets/call-cb6467cb.svg";
+														}else if($imageName == "Whatsapp"){
+															
+														}else if($imageName == "URL"){
+															$imageSrc = "https://www.page.smatbot.com/assets/link-4ffb5844.svg";
+														}else if($imageName == "Refresh_chat"){
+															$imageSrc = "https://www.page.smatbot.com/assets/reload-ec94a148.svg";
+														}else if($imageName == "close_Chat"){
+															$imageSrc = "https://www.page.smatbot.com/assets/delete-0612a90c.svg";
+														}
+														
+														$html .= '<div class="me-2 text-center">
+																	<a href="' . $data['url_link'] . '" class="d-block">
+																		<img src="' . $imageSrc . '" alt="#" style="width:30px;height:30px" class="rounded-circle">
+																		<p class="text-dark">' . $data['url_text'] . '</p>
+																	</a>
+																</div>';
+													}
+												
+													$html .= '</div></div></div>';
+												}												
+
+							$html .= '<div class="shadow-lg"></div>';
+							
+						// }
+					} else if($value['type_of_question'] == "24"){
+						$formData = json_decode($value['menu_message'], true);
+						$html .= '<div class="col">
+									<div class="col-12 mb-2">
+										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
+										</span>
+									</div>';
+						
+						$product_image = isset($formData[0]['product_image']) ? base_url('') . '/assets/images/' . $formData[0]['product_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
+						$product_title = isset($formData[0]['product_title']) ? $formData[0]['product_title'] : '';
+						$product_button_text = isset($formData[0]['product_button_text']) ? $formData[0]['product_button_text'] : '';
+						$product_description = isset($formData[0]['product_description']) ? $formData[0]['product_description'] : '';
+						$product_button_url = isset($formData[0]['product_button_url']) ? $formData[0]['product_button_url'] : '';
+						$product_url = isset($formData[0]['product_url']) ? $formData[0]['product_url'] : '';
+
+						if(isset($formData[0]['product_image']) && isset($formData[0]['product_button_text'])){
+							$html .= '
+										<div class="col-12 text-center">
+											<div class="position-relative bg-white border rounded-3 overflow-hidden" style="width:200px;height:200px">
+												<img src="' . $product_image . '" alt="" class="w-100 h-100 opacity-50">
+												<div class="position-absolute bottom-0 start-50 translate-middle  col-12 px-3">
+													<a href="'.$product_url.'" class="d-block text-start ms-4 text-dark">' . $product_title . '</a>
+													<a href="'.$product_url.'" class="d-block mb-2 text-start ms-4 text-dark">' . $product_description . '</a>
+													<a href="'.$product_button_url.'" class="btn-primary col-12">' . $product_button_text . '</a>
+												</div>
+											</div>
+										</div>
+									</div>';
+						}
+					}else if($value['type_of_question'] == "25"){
+						$html .= '<div class="col">
+									<div class="col-12 mb-2">
+										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
+										</span>
+									</div>';
+
+						$carouselData = json_decode($value['menu_message'], true);
+						$carousel_image = isset($carouselData[0]['carousel_image']) ? base_url('') . '/assets/images/' . $carouselData[0]['carousel_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
+						if(isset($carouselData[0]['carousel_image'])){
+							$html .= '<div class="col-12 text-center">
+											<div class="position-relative bg-white border rounded-3 overflow-hidden" style="width:200px;height:200px">
+												<img src="' . $carousel_image . '" alt="" class="w-100 h-100 opacity-50 skip_questioned">
+											</div>
+										</div>
+									</div>';
+						}	
+					}else if ($value['type_of_question'] == "27") {
+						$contactsData = json_decode($value['menu_message'], true);
+						$html .= '<div class="bg-white p-2 position-absolute tabel_div top-0 bottom-0 start-0 end-0 m-auto rounded-2 overflow-x-scroll d-none" style="width: max-content; height: 200px;">
+									<div class="d-flex justify-content-end close_btn">
+										<i class="bi bi-x fs-3 m-0 p-0" style="cursor: pointer;"></i>
+									</div>
+									<table class="w-100">
+										<tr class="border p-2 rounded-2">
+											<th class="border p-2">Name</th>
+											<th class="border p-2">Contact(s)</th>
+										</tr>';
+					
+						foreach ($contactsData as $contact) {
+							$html .= '<tr class="border p-2 rounded-2">
+										<td class="border p-2">' . $contact['contact_name'] . '</td>
+										<td class="border p-2">' . $contact['contact_number'] . '</td>
+									</tr>';
+						}
+							
+						$html .= '</table>
+								</div> 
+								<div class="col ">
+									<div class="col-12 mb-2">
+										<span class="p-2 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
+											<div class="col-12 text-center my-1">
+											<button type="button" class="btn btn-primary enter_show" >
+												Show Contacts
+											</button>
+											</div>
+										</span>
+									</div>';
+
+					}else if ($value['type_of_question'] == "29") {
+						$html .= '<div class="col">
+										<div class="col-12 mb-2">
+											<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+												' . $value['question'] . '
+											</span>
+										';
+							$fileData = json_decode($value['menu_message'], true);
+							if(isset($fileData['file_upload'])){
+								$html .= '<a href="'.$fileData['file_upload'].'">' . $fileData['file_upload'] . '</a>
+								</div>';
+							}
+					}
+					else if($value['type_of_question'] == "30"){
+						$url_redirect_Data = json_decode($value['menu_message'], true);
+						$url_reditrect = isset($url_redirect_Data['redirect_url']) ? $url_redirect_Data['redirect_url'] : '';
+					
+						$html .= '<div class="col">
+												<div class="col-12 mb-2">
+													<a href="'.$url_reditrect.'" class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id text-dark" data-conversation-id="' . $value['id'] . '">
+														' . $value['question'] . '
+													</a>
+												</div>';
+					}else if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
+						$html .= '<div class="col">
+										<div class="col-12 mb-2">
+											<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+												' . $value['question'] . '
+											</span>
+										';
+
+							$menu_list_Data = json_decode($value['menu_message'], true);
+							// pre($menu_list_Data);
+							
+							if(isset($menu_list_Data['options'])){
+								$optionsArray = explode(';', $menu_list_Data['options']);
+								foreach ($optionsArray as $option) {
+									$html .= '
+									<div class="col-12">
+										<button class="btn bg-primary rounded-3 text-white col-6 my-1"  onclick="selectOption(this, \'' . $option . '\')">
+										'.$option.'
+										</button>
+									</div>';
+								}
+							}
+	
 					}
 					else {
 						$html .= '<div class="col">
@@ -1023,30 +1472,29 @@ class Bot_Controller extends BaseController
 					if (isset($menuOptions['rating_type']) && $menuOptions['rating_type'] === "smilies") {
 						// Output the HTML snippet for smilies
 						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
-													<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
-													<div class="text-center pt-4">Please rate</div>
-													<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
-												
-														<div class="col-2 mb-2 option-wrapper">
-															<button class="bg-transparent fs-14" onclick="rating(this, \'Great\')" style="border:none !important; font-size:25px !important">😍</button>
-														</div>
-														<div class="col-2 mb-2 option-wrapper">
-															<button class="bg-transparent fs-14" onclick="rating(this, \'Good\')" style="border:none !important; font-size:25px !important">😃</button>
-														</div>
-														<div class="col-2 mb-2 option-wrapper">
-															<button class="bg-transparent fs-14" onclick="rating(this, \'Okay\')" style="border:none !important; font-size:25px !important">😊</button>
-														</div>
-														<div class="col-2 mb-2 option-wrapper">
-															<button class="bg-transparent fs-14" onclick="rating(this, \'Sad\')" style="border:none !important; font-size:25px !important">😞</button>
-														</div>
-														<div class="col-2 mb-2 option-wrapper">
-															<button class="bg-transparent fs-14" onclick="rating(this, \'Bad\')" style="border:none !important; font-size:25px !important">😪</button>
-														</div>
-
+										<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+											<div class="text-center pt-4">Please rate</div>
+												<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+										
+													<div class="col-2 mb-2 option-wrapper">
+														<button class="bg-transparent fs-14" onclick="rating(this, \'Great\')" style="border:none !important; font-size:25px !important">😍</button>
 													</div>
+													<div class="col-2 mb-2 option-wrapper">
+														<button class="bg-transparent fs-14" onclick="rating(this, \'Good\')" style="border:none !important; font-size:25px !important">😃</button>
+													</div>
+													<div class="col-2 mb-2 option-wrapper">
+														<button class="bg-transparent fs-14" onclick="rating(this, \'Okay\')" style="border:none !important; font-size:25px !important">😊</button>
+													</div>
+													<div class="col-2 mb-2 option-wrapper">
+														<button class="bg-transparent fs-14" onclick="rating(this, \'Sad\')" style="border:none !important; font-size:25px !important">😞</button>
+													</div>
+													<div class="col-2 mb-2 option-wrapper">
+														<button class="bg-transparent fs-14" onclick="rating(this, \'Bad\')" style="border:none !important; font-size:25px !important">😪</button>
 													</div>
 												</div>
-												</div>';
+											</div>
+										</div>
+									</div>';
 					} else if (isset($menuOptions['rating_type']) == "stars") {
 						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 											<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
@@ -1095,8 +1543,8 @@ class Bot_Controller extends BaseController
 							$options = explode(';', $menuOptions['options']);
 							foreach ($options as $option) {
 								$html .= '<div class="col-12 mb-2 option-wrapper">
-															<button class="btn bg-primary rounded-3 text-white option-button" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
-														</div>';
+												<button class="btn bg-primary rounded-3 text-white option-button" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
+											</div>';
 							}
 						}
 					}
@@ -1125,38 +1573,39 @@ class Bot_Controller extends BaseController
 
 					$html .= '</div>';
 					$html .= '<script>
-												function selectOption(button, value) {
-													$(".answer_chat").val(value); 
-													insertAnswer();
-												}
-												function submitOptions() {
-													var selectedOptions = [];
-													$(".option-check:checked").each(function() {
-														selectedOptions.push($(this).val());
-													});
-													var selectedOptionsString = selectedOptions.join(" , "); 
-													$(".answer_chat").val(selectedOptionsString);
-													insertAnswer();
-												}
-												function rating(button, value) {
-													$(".answer_chat").val(value);
-													insertAnswer();
-												}
-												function formvalue() {
-													var textareaValue = $(".text_value").val();
-													var selectedOption = $(".address_value").val();
-													$(".answer_chat").val(textareaValue);
-													insertAnswer();
-													$(".answer_chat").val(selectedOption);
-													insertAnswer();
-												}
-												function choose_item(button, value){
-													$(".answer_chat").val(value); 
-													insertAnswer();
-												}
-												</script>';
+								function selectOption(button, value) {
+									$(".answer_chat").val(value); 
+									insertAnswer();
+								}
+								function submitOptions() {
+									var selectedOptions = [];
+									$(".option-check:checked").each(function() {
+										selectedOptions.push($(this).val());
+									});
+									var selectedOptionsString = selectedOptions.join(" , "); 
+									$(".answer_chat").val(selectedOptionsString);
+									insertAnswer();
+								}
+								function rating(button, value) {
+									$(".answer_chat").val(value);
+									insertAnswer();
+								}
+								function formvalue() {
+									var textareaValue = $(".text_value").val();
+									var selectedOption = $(".address_value").val();
+									$(".answer_chat").val(textareaValue);
+									insertAnswer();
+									$(".answer_chat").val(selectedOption);
+									insertAnswer();
+								}
+								function choose_item(button, value){
+									$(".answer_chat").val(value); 
+									insertAnswer();
+								}
+							</script>';
+
 					$html .= '</div>
-								<div class="messege2 d-flex flex-wrap">
+								<div class="messege2 d-flex flex-wrap mt-2">
 									<div class="col ">';
 
 
@@ -1212,32 +1661,10 @@ class Bot_Controller extends BaseController
 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
 		$result = $db_connection->query($sql);
 		$question = $result->getRowArray();
-		if($question['type_of_question'] == 3)
-		{
-			
-			$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-    
-			// Check if the email matches the regular expression
-			if (preg_match($regex, $answer)) {
-				$etst =  1; // Valid email
-				$result50['id_validation'] = "";
-				$result50['response'] = 1;
-				
 
-			} else {
-				$etst = 2; // Invalid email
-				$result50['id_validation'] = $question['error_text'];
-				$result50['response'] = 2;
-				$updateData = [
-					'email_val' => 1
-				];
-				$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
-			}
-		}
-		else if ($etst =  1 && !empty($question) && $question['id'] == $questionId) {
+		if (!empty($question) && $question['id'] == $questionId) {
 			$updateData = [
-				'answer' => $answer,
-				'email_val'=> 0,
+				'answer' => $answer
 			];
 
 			$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
@@ -1245,8 +1672,6 @@ class Bot_Controller extends BaseController
 		} else {
 			echo "Question with sequence " . $sequence . " not found or does not match the specified question id.";
 		}
-		return json_encode($result50);
-		die();
 	}
 
 
@@ -1304,10 +1729,26 @@ class Bot_Controller extends BaseController
 									<div
 										class="card-body d-flex flex-wrap py-1 px-2 justify-content-between align-items-center">
 										<div class="form-check form-switch">
-											<input class="form-check-input bot_active" type="checkbox" role="switch" id="is_active"
+											<input class="form-check-input bot_active dfg toggle-switch" type="checkbox" role="switch" id="is_active"
 												' . ($value['active'] == 1 ? 'checked' : '') . ' data-update_id="' . $value['id'] . '">
-											<label class="form-check-label" for="is_active">Active</label>
+											<label class="form-check-label toggle-label" id="toggleStatus" for="is_active">Inactive</label>
 										</div>
+
+										<script>
+										$(document).ready(function() {
+											$(".toggle-switch").each(function() {
+												const $checkbox = $(this);
+												const $label = $checkbox.siblings(".toggle-label");
+												
+												$label.html($checkbox.prop("checked") ? "Active" : "Inactive");
+										
+												$checkbox.click(function() {
+													$label.html($(this).prop("checked") ? "Active" : "Inactive");
+												});
+											});
+										});
+
+										</script>
 										<div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted bot_delete"
                                             data-toggle="tooltip" data-placement="top" title="Delete" data-delete_id="' . $value['id'] . '">
                                             <i class="fa-solid fa-trash"></i>
@@ -1362,103 +1803,55 @@ class Bot_Controller extends BaseController
 	public function get_chat_data()
 	{
 		if ($_POST['action'] == 'account_list') {
-			
-			// pre($userdata);
-			// die();
-			// $token = 'edrftgyhjk,l.;/'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-			$cache = \Config\Services::cache();
-			$this->db = \Config\Database::connect('second');
-			$get_token = "SELECT access_token FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
-			$get_access_token_array = $this->db->query($get_token);
-			$data_count = $get_access_token_array->getNumRows();
-			if($data_count > 0) {
-				$token = $get_access_token_array->getResultArray()[0]['access_token'];
-				$fileds = 'instagram_business_account{id,username,profile_picture_url},profile_picture_url,access_token,name,id';
-				$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
-				// $fb_page_list = fb_page_list($token);
-				// $fb_page_list = get_object_vars(json_decode($fb_page_list));
-				// pre($url);
-				$cache_data = $cache->get($_SESSION['id'].'_fb_data');
-				if(!empty($cache_data)) {
-					$fb_page_list = $cache->get($_SESSION['id'].'_fb_data');
-					// echo 'yes';
-				} else {
-					$fb_page_list = getSocialData($url);
-					// echo 'no';
-				}
-				// pre($fb_page_list['data']);
-				// die();
-				$fb_chat_list_html = '';
-				$IG_chat_list_html = '';
-				$return_result = array();
-				$IG_data = array();
-				foreach ($fb_page_list['data'] as $key => $value) {
-					// pre($value);
-					$url = 'https://graph.facebook.com/' . $value['id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
-					// echo $url;
-					$unread_msg = 0;
-					$con_data = getSocialData($url);
-					// pre($con_data);
-					if(!empty($cache_data)) {
-						$unread_msg = $value['unread_count'];
-						$page_img = $value['page_img'];
-					} else {
-						if(isset($con_data['data'])) {
-							foreach ($con_data['data'] as $con_key => $con_value) {
-								// pre($value);
-								$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
-							}
-						}
-						$page_data = fb_page_img($value['id'], $value['access_token']);
-						$page_data = json_decode($page_data);
-						$page_img = $page_data->page_img;
-					}
-	
-					$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
-											<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
-												<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
-													<img src="' . $page_img . '" alt="" width="45">
-												</a>
-												<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
-												</p>';
-							if($unread_msg  != 0){
-								$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">'.$unread_msg.'</span>';
-							}
-					$fb_chat_list_html .= '</div>
-										</div>';
-					if (isset($value['instagram_business_account'])) {
-						$value['instagram_business_account']['access_token'] = $value['access_token'];
-						$value['instagram_business_account']['fb_page_id'] = $value['id'];
-						$IG_data[] = $value['instagram_business_account'];
-					}
+			$token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+			$fileds = 'instagram_business_account{id,username,profile_picture_url},profile_picture_url,access_token,name,id';
+			$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
+			// $fb_page_list = fb_page_list($token);
+			// $fb_page_list = get_object_vars(json_decode($fb_page_list));
+			$fb_page_list = getSocialData($url);
+			// pre($fb_page_list);
 
-					if(empty($cache_data)) {
-						$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
-						$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
-					}
-				}
-	
-				foreach ($IG_data as $IG_key => $IG_value) {
-					$IG_chat_list_html .= '
-									<div class="col-12 account-nav my-2 account-box" data-page_id="' . $IG_value['fb_page_id'] . '" data-IG_id="'.$IG_value['id'].'" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
-										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
+			$fb_chat_list_html = '';
+			$IG_chat_list_html = '';
+			$return_result = array();
+			$IG_data = array();
+
+			foreach ($fb_page_list['data'] as $key => $value) {
+				// pre($value);
+				$page_data = fb_page_img($value['id'], $value['access_token']);
+				$page_data = json_decode($page_data);
+
+				$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
+										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
-												<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
+												<img src="' . $page_data->page_img . '" alt="" width="45">
 											</a>
-											<p class="fs-6 fw-medium col ps-2">' . $IG_value['username'] . '
+											<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
 											</p>
 										</div>
-									</div>
-										';
+									</div>';
+				if (isset($value['instagram_business_account'])) {
+					$value['instagram_business_account']['access_token'] = $value['access_token'];
+					$value['instagram_business_account']['fb_page_id'] = $value['id'];
+					$IG_data[] = $value['instagram_business_account'];
 				}
-				$cache->save($_SESSION['id'].'_fb_data', $fb_page_list,3600);
-				// pre($IG_data);
-			} else {
-				$fb_chat_list_html = '';
-				$fb_chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
-				$IG_chat_list_html = '';
-				$IG_chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
 			}
+
+			foreach ($IG_data as $IG_key => $IG_value) {
+				$IG_chat_list_html .= '
+								<div class="col-12 account-nav my-2 account-box" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
+									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
+										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
+											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
+										</a>
+										<p class="fs-6 fw-medium col ps-2">' . $IG_value['username'] . '
+										</p>
+									</div>
+								</div>
+									';
+			}
+
+			// pre($IG_data);
 			$return_result['chat_list_html'] = $fb_chat_list_html;
 			$return_result['IG_chat_list_html'] = $IG_chat_list_html;
 			return json_encode($return_result);
@@ -1471,16 +1864,15 @@ class Bot_Controller extends BaseController
 			$platform = $_POST['platform'];
 
 			// if ($_POST['api'] === true) {
-			$url = 'https://graph.facebook.com/' . $page_id . '/conversations?platform=' . $platform . '&fields=id,participants,messages.limit(1).fields(id,message,created_time,from),unread_count&pretty=0&access_token=' . $page_access_token;
+			$url = 'https://graph.facebook.com/' . $page_id . '/conversations?platform=' . $platform . '&fields=id,participants,messages.limit(1).fields(id,message,created_time,from)&pretty=0&access_token=' . $page_access_token;
 			// echo $url;
 			$data = getSocialData($url);
 			// pre($data);
 			$chat_list_html = '';
-			$chat_count = isset($data['data']) ? count($data['data']) : 0;
+			$chat_count = count($data['data']);
 			if ($chat_count > 0) {
+
 				foreach ($data['data'] as $conversion_value) {
-					$unread_msg = 0;
-					$unread_msg += $conversion_value['unread_count'];
 					$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
 					// pre($conversion_value);
 					if ($times['days'] >= 30) {
@@ -1528,14 +1920,9 @@ class Bot_Controller extends BaseController
 					}
 					$chat_list_html .= '</div>
 									<div class="col-10 d-flex flex-wrap justify-content-between align-items-center">
-										<div class="w-75">
-											<p class="col-12 ps-2" style="font-size:16px;">' . $conversion_value['participants']['data'][$key][$name] . '</p>
-											<p class="col-10 ps-2 d-flex fs-12 text-secondary-emphasis"><span class="text-truncate">' . $conversion_value['messages']['data'][0]['message'] . '</span> <span class="col-3 ms-2">' . $time_count_text . '</span> </p>
-										</div>';
-						if($unread_msg != 0) {
-							$chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">'.$unread_msg.'</span>';
-						}
-					$chat_list_html .= '</div>
+									<p class="col-12 ps-2" style="font-size:16px;">' . $conversion_value['participants']['data'][$key][$name] . '</p>
+										<p class="col-10 ps-2 d-flex fs-12 text-secondary-emphasis"><span class="text-truncate">' . $conversion_value['messages']['data'][0]['message'] . '</span> <span class="col-3 ms-2">' . $time_count_text . '</span> </p>
+									</div>
 									
 							</div>
 						</div>
@@ -1554,10 +1941,9 @@ class Bot_Controller extends BaseController
 			$page_access_token = $_POST['page_access_token'];
 			// $massage_id = $_POST['id'];
 
-			$url = "https://graph.facebook.com/v19.0/$conversion_id/messages?access_token=$page_access_token&fields=id,message,created_time,from,full_picture";
+			$url = "https://graph.facebook.com/$conversion_id/messages?access_token=$page_access_token&fields=id,message,created_time,from,full_picture";
 			// $response = file_get_contents($url);
 			$massage_data = getSocialData($url);
-			// pre($url);
 			// pre($massage_data);
 			// $massage_data = json_decode($response);
 			$html = '';
@@ -1569,14 +1955,11 @@ class Bot_Controller extends BaseController
 			$count = count($massage_array);
 			$i = 0;
 			$dates = '';
-			$timezone = new \DateTimeZone(date_default_timezone_get());
-			$last7DaysStart = new \DateTime('-7 days');
 			foreach ($massage_array as $massage_key => $massage_value) {
-				// Specify your timezone
-				// pre(date_default_timezone_get());
-				$dateTime = new \DateTime($massage_value['created_time'],$timezone);
+				$dateTime = new \DateTime($massage_value['created_time']);
+				$last7DaysStart = new \DateTime('-7 days');
 				$today = new \DateTime();
-				// pre($dateTime);
+				// pre($today);
 				$date = $dateTime->format('d/m/Y');
 				$isWithinLast7Days = $dateTime >= $last7DaysStart;
 				if ($date != $dates) {
@@ -1597,14 +1980,14 @@ class Bot_Controller extends BaseController
 						$html .= '
 								<div class="d-flex mb-4 justify-content-end" >
                                 <div class="col-9 text-end">
-									<span class="me-2" style="font-size:12px;">' . $time . '</span> <span class="px-3 py-2 rounded-pill text-white" style="background:rgb(10, 124, 255);">' . $message . ' </span> 
+									<span class="me-2" style="font-size:12px;">' . $time . '</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $message . ' </span> 
                                 </div>
                             </div>';
 					} else {
 						$html .= '
 							<div class="d-flex mb-4 ">
 								<div class="col-9 text-start">
-									<span class="px-3 py-2 rounded-pill  " style="background:#f3f3f3;">' . $message . ' </span> <span class="ms-2" style="font-size:12px;">' . $time . '</span>
+									<span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $message . ' </span> <span class="ms-2" style="font-size:12px;">' . $time . '</span>
 								</div>
 							</div>';
 					}
@@ -1621,7 +2004,5 @@ class Bot_Controller extends BaseController
 
 	public function send_massage()
 	{
-
-
 	}
 }

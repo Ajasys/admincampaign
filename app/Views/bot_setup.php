@@ -2307,23 +2307,23 @@ $admin_bot = json_decode($admin_bot, true);
                     </div>
                     <div class="col-8">
                         <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
-                        <select class="form-select question_select" aria-label="Default select example">
+                       
+                        <select id="occupation" name="" class="selectpicker OccupationInputClass question_select form-control form-main occupation_add" data-live-search="true">
+                                <option value="No Jump">No Jump</option>
+                                <?php
+                                    if (isset($admin_bot_setup)) {
+                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                        
+                                            if ($type_value['bot_id'] == $botId) {
+                                                // pre($type_value['question']);
 
-                            <option value="No Jump">No Jump</option>
-
-                            <?php
-                            if (isset($admin_bot_setup)) {
-                                foreach ($admin_bot_setup as $type_key => $type_value) {
-                                    // pre($type_value);
-
-                                    if ($type_value['bot_id'] == $botId) {
-
-                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                            }
+                                        }
                                     }
-                                }
-                            }
-                            ?>
+                                ?>
                         </select>
+
                     </div>
                 </div>
             </div>
@@ -2869,7 +2869,7 @@ $admin_bot = json_decode($admin_bot, true);
     // });
 
     $('body').on('click', '#modal_refresh', function (e) {
-        window.location.reload();
+        // window.location.reload();
     });
 
 
@@ -4287,6 +4287,7 @@ $admin_bot = json_decode($admin_bot, true);
 
         var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
         var next_question_id = $('.question_select').val();
+        console.log(next_question_id);
         var error_text = $('#Question_error_message').val();
 
         if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
@@ -4800,6 +4801,8 @@ $admin_bot = json_decode($admin_bot, true);
 
                     $("#formGroupExampleInput").val(response[0].question);
                     $(".conditional_flow_update").attr('data-id', response[0].id);
+                    $(".OccupationInputClass").val(response[0].next_question_id);
+                    $('.selectpicker').selectpicker('refresh');
                 },
                 error: function(error) {
                     $('.loader').hide();
@@ -4819,7 +4822,9 @@ $admin_bot = json_decode($admin_bot, true);
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
-        var next_question_id = $('.question_select').val();
+        // var next_question_id = $('.OccupationInputClass ').val();
+        var next_question_id = $('select.OccupationInputClass option:selected').val();
+    
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
             var formdata = new FormData(form);
@@ -5065,12 +5070,12 @@ $admin_bot = json_decode($admin_bot, true);
                                         </td>
                                         <td class="col-4">
                                             <select class="form-select question_select" aria-label="Default select example">
-                                                <option selected>No Jump</option>
+                                                <option>No Jump</option>
                     
                                                 <?php
                                                 if (isset($admin_bot_setup)) {
                                                     foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                        // pre($type_value);
+                                                       
 
                                                         if ($type_value['bot_id'] == $botId) {
 
