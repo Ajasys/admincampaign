@@ -823,6 +823,7 @@ $dnoneC = '';
                                         <input type="text" class="form-control border rounded-pill px-4 py-2 border-0 massage_input" textval = "" placeholder="Write a message...">
                                     </div>
                                     <div class="d-flex justify-content-center">
+                                    <div class="border rounded-circle d-flex justify-content-center align-items-center text-end mic" style="width:50px; height:50px; margin-left:auto;" data-toggle="modal" data-target="#audiorecorder"><i class="fa-solid fa-microphone"></i></div>
                                         <button
                                             class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage WhatsApp24HourButton"
                                             data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
@@ -929,83 +930,80 @@ $dnoneC = '';
 </div>
 
 
-
+<div class="modal fade" id="audiorecorder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Audio recorder</h5>
+            <button type="button" class="close btn btn-transparent fs-5" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" >X</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="d-flex">
+            <button class="btn btn-secondary m-2 start-rec" id="startButton">start recording</button>
+            <button class="btn btn-secondary m-2 end-rec" id="stopButton" disabled>stop recording</button>
+            </div>
+            <div class="rounded-pill mt-2 pt-2 d-flex p-2 border">
+            <audio id="audioPlayer" controls></audio>
+            <!-- <div class="d-flex  p-1 px-2">
+            <i class="fa-solid fa-play"></i>
+            <i class="fa-solid fa-pause d-none"></i>
+            </div>
+            <div id="audioPlayer">0:00</div>
+            <div class="mt-2 mx-1" style="width:250px; height:4px; background:#d3d3d378;" id="audioPlayer" controls></div> -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary send">send</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 
 
 <?= $this->include('partials/footer') ?>
-<script src="script.js"></script>
-<script>
-    const startButton = document.getElementById('startButton');
-    const stopButton = document.getElementById('stopButton');
-    const audioPlayer = document.getElementById('audioPlayer');
+<!-- <script>
+  $(document).ready(function() {
+    var timerInterval;
+    var totalSeconds = 0;
+    var audioPlayer = $('#audioPlayer');
 
-    let mediaRecorder;
-    let audioChunks = [];
-
-    startButton.addEventListener('click', startRecording);
-    stopButton.addEventListener('click', stopRecording);
-
-    async function startRecording() {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream)
-;
-
-        mediaRecorder.addEventListener('dataavailable', event => {
-            audioChunks.push(event.data);
-        });
-
-        mediaRecorder.addEventListener('stop', () => {
-            const audioBlob = new Blob(audioChunks, { 'type': 'audio/mp3' });
-            const audioUrl = URL.createObjectURL(audioBlob);
-            audioPlayer.src = audioUrl;
-
-            // Send the audio data to the server
-            saveAudio(audioBlob);
-        });
-
-        startButton.disabled = true;
-        stopButton.disabled = false;
-
-        mediaRecorder.start();
+    function startTimer() {
+      timerInterval = setInterval(function () {
+        totalSeconds++;
+        var minutes = Math.floor(totalSeconds / 60);
+        var remainingSeconds = totalSeconds % 60;
+        var formattedTime = pad(minutes) + ":" + pad(remainingSeconds);
+        audioPlayer.text(formattedTime);
+      }, 1000);
     }
 
-    function stopRecording() {
-        mediaRecorder.stop();
-        startButton.disabled = false;
-        stopButton.disabled = true;
+    function stopTimer() {
+      clearInterval(timerInterval);
     }
 
-    function saveAudio(audioBlob) {
-          const formData = new FormData();
-          formData.append('audio', audioBlob);
-          $.ajax({
-               method: "POST",
-               url: "<?= site_url('audio_file'); ?>",
-               data: formData,
-               processData: false, // Set processData to false to prevent jQuery from automatically processing the data
-               contentType: false, // Set contentType to false to prevent jQuery from automatically setting the Content-Type header
-               success: function(res) {
-                    // Handle success response here
-                    console.log('Audio uploaded successfully:', res);
-                    $('.loader').hide();
-               },
-               error: function(xhr, status, error) {
-                    // Handle error response here
-                    console.error('Error:', error);
-                    $('.loader').hide();
-               }
-          });
-     }
-     $('.send').click(function() {
-        if (audioChunks.length > 0) {
-            const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
-            saveAudio(audioBlob);
-        } else {
-            console.error('No audio recorded.');
-        }
+    function pad(val) {
+      var valString = val + "";
+      if (valString.length < 2) {
+        return "0" + valString;
+      } else {
+        return valString;
+      }
+    }
+
+    $('.start-rec').click(function () {
+      startTimer();
     });
-</script>
+
+    $('.end-rec').click(function () {
+      stopTimer();
+    });
+  });
+</script> -->
+<script src="script.js"></script>
 
 <script>
     $('body').on('click', '.account-box', function () {
@@ -1720,4 +1718,74 @@ conversation_account_id: conversation_account_id,
                                 });
                             });
 
+</script>
+<script>
+    const startButton = document.getElementById('startButton');
+    const stopButton = document.getElementById('stopButton');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    let mediaRecorder;
+    let audioChunks = [];
+
+    startButton.addEventListener('click', startRecording);
+    stopButton.addEventListener('click', stopRecording);
+
+    async function startRecording() {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.addEventListener('dataavailable', event => {
+            audioChunks.push(event.data);
+        });
+
+        mediaRecorder.addEventListener('stop', () => {
+            const audioBlob = new Blob(audioChunks, { 'type': 'audio/mp3' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            audioPlayer.src = audioUrl;
+
+            // Send the audio data to the server
+            saveAudio(audioBlob);
+        });
+
+        startButton.disabled = true;
+        stopButton.disabled = false;
+
+        mediaRecorder.start();
+    }
+
+    function stopRecording() {
+        mediaRecorder.stop();
+        startButton.disabled = false;
+        stopButton.disabled = true;
+    }
+
+    function saveAudio(audioBlob) {
+          const formData = new FormData();
+          formData.append('audio', audioBlob);
+          $.ajax({
+               method: "POST",
+               url: "<?= site_url('audio_file'); ?>",
+               data: formData,
+               processData: false, // Set processData to false to prevent jQuery from automatically processing the data
+               contentType: false, // Set contentType to false to prevent jQuery from automatically setting the Content-Type header
+               success: function(res) {
+                    // Handle success response here
+                    console.log('Audio uploaded successfully:', res);
+                    $('.loader').hide();
+               },
+               error: function(xhr, status, error) {
+                    // Handle error response here
+                    console.error('Error:', error);
+                    $('.loader').hide();
+               }
+          });
+     }
+     $('.send').click(function() {
+        if (audioChunks.length > 0) {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+            saveAudio(audioBlob);
+        } else {
+            console.error('No audio recorded.');
+        }
+    });
 </script>

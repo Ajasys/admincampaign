@@ -264,6 +264,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 	$routes->post('edit_data_audience', 'AudianceController::edit_data_audience');
 	$routes->post('update_data_audience', 'AudianceController::update_data_audience');
+    $routes->post('audio_file', 'AudianceController::audio_file');
 
 
 
