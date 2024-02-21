@@ -167,7 +167,6 @@ function generateAccessToken($length = 32) {
                     <div class="row col-12">
                         <div class="add-user-input">
                             <label for="relation" class="form-label main-label fw-semibold">Website API Integrate:</label>
-                            <label for="relation" class="form-label main-label fw-semibold mt-2">Website API Integrate:</label>
                             <div class="ms-3">
                                 <span id="web_method" style="word-wrap: break-word;">
                                     <p>Method : POST</p>
