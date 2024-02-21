@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MasterInformationModel;
+use App\Curl;
 
 class Home extends BaseController
 {
@@ -152,6 +153,10 @@ class Home extends BaseController
     {
         return view('website_connection');
     }
+    public function linkedin_connection()
+    {
+        return view('linkedin_connection');
+    }
     public function whatsapp_connections()
     {
         return view('whatsapp_connections');
@@ -176,6 +181,8 @@ class Home extends BaseController
     }
     public function index()
     {
+        
+        
         $table_username = session_username($_SESSION['username']);
         $social_accounts = [
             'id int(255) primary key AUTO_INCREMENT',
@@ -215,7 +222,6 @@ class Home extends BaseController
             'timestamp varchar(400)',
             'latitude longtext',
             'longitude longtext',
-'msg_read_status int(255) NOT NULL DEFAULT 0 COMMENT "0-unread & 1-read"',
         ];
         $table = tableCreateAndTableUpdate2($table_username . '_messages', '', $messages);
 
@@ -493,7 +499,7 @@ class Home extends BaseController
         ];
         tableCreateAndTableUpdate2($table_username . '_messeging_bot', '', $columns_bot);
 
-    
+
 
         return view('messenger_bot');
     }
@@ -559,40 +565,11 @@ class Home extends BaseController
                     }
                     $phoneNumber = $display_phone_number;
                     if ($display_phone_number != '' && $value['id'] != '' && $verified_name != '') {
-$connection_ids = $value['id'];
-                        $id = $value['id'];
-                        $phoneno = str_replace([' ', '+'], '', $display_phone_number);
-                        $inputString = $_SESSION['username'];
-                        $parts = explode("_", $inputString);
-                        $table_username = $parts[0];
-                        $Database = \Config\Database::connect('second');
-                        $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . ") AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE account_phone_no = '" . $phoneno . "' AND conversation_account_id = '" . $id . "' ORDER BY last_inserted_id DESC;
-                        ";
-                        $Getresult = $Database->query($sql);
-                        $GetData = $Getresult->getResultArray();
-                        $counts = 0;
-
-                        foreach ($GetData as $key => $value) {
-                            $UnreadMsgCountSql = "SELECT COUNT(*) AS total_records, MAX(id) AS last_id, MAX(created_at) AS last_createdate, MAX(CASE WHEN id = (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $value['contact_no'] . " AND platform_account_id = " . $id . " AND msg_read_status = '0' ) THEN message_status END) AS last_read_status, MAX(CASE WHEN id = (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $value['contact_no'] . " AND platform_account_id = " . $id . " AND msg_read_status = '0') THEN sent_recieved_status END) AS sent_recieved_status FROM " . $table_username . "_messages WHERE contact_no = " . $value['contact_no'] . " AND platform_account_id = " . $id . " AND msg_read_status = '0' AND sent_recieved_status = '2';";
-
-                            $UnreadmsgCount = $Database->query($UnreadMsgCountSql);
-                            $UnreadmsgCountArr = $UnreadmsgCount->getResultArray();
-                            // pre($UnreadmsgCountArr);
-                            if (isset($UnreadmsgCountArr) && !empty($UnreadmsgCount)) {
-                                $TotalUnreadMsg = $UnreadmsgCountArr[0]['total_records'];
-                                if ($TotalUnreadMsg > 0) {
-                                    $counts++;
-                                }
-                            }
-                        }
-                 
                         $responseArray[] = array(
-                            'display_phone_number' => $phoneno,
-                            'id' => $connection_ids,
+                            'display_phone_number' => $display_phone_number,
+                            'id' => $value['id'],
                             'verified_name' => $verified_name,
-'count' => $counts,
                         );
-
                     }
                 }
             }
@@ -601,7 +578,7 @@ $connection_ids = $value['id'];
 
         $responseArray = json_encode($responseArray);
         $data['WhatsAppAccounts'] = $responseArray;
- 
+
         return view('messenger', $data);
     }
 

@@ -83,8 +83,6 @@ $routes->post('template_delete_data', 'Templates_Controller::template_delete_dat
 $routes->get('email_history', 'Home::email_fetch');
 $routes->get('email_track', 'Home::email_track');
 $routes->post('show_data_email', 'Templates_Controller::show_data_email');
-$routes->post('mail_get', 'EmailController::mail_get');
-
 $routes->get('email_history_show', 'Home::email_history_show');
 $routes->post('fetch_email_track_data', 'Templates_Controller::fetch_email_track_data');
 $routes->post('/allinqsmssend', 'Templates_Controller::allinq_sms_send');
@@ -577,6 +575,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/delete_website_connection', 'WebController::delete_website_connection');
 	$routes->post('/website_connectionpage', 'WebController::website_connectionpage');
 
+	//linkedin integration
+	$routes->get('/linkedin_connection', 'Home::linkedin_connection');
+	
+
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
 	$routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
@@ -599,13 +601,12 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/WhatsAppAccountsContactList', 'WhatAppIntegrationController::WhatsAppAccountsContactList');
 	$routes->post('/WhatsAppListConverstion', 'WhatAppIntegrationController::WhatsAppListConverstion');
 	$routes->post('/SendWhatsAppChatMessage', 'WhatAppIntegrationController::SendWhatsAppChatMessage');
-$routes->post('/Bracket_whatsapp_insert_data', 'WhatAppIntegrationController::Bracket_whatsapp_insert_data');
+	$routes->post('/Bracket_whatsapp_insert_data', 'WhatAppIntegrationController::Bracket_whatsapp_insert_data');
 	$routes->post('/WhatsAppSendDocumentData', 'WhatAppIntegrationController::WhatsAppSendDocumentData');
-	$routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
-	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
-	
-	$routes->post('/bulk_whatsapp_template_send', 'WhatAppIntegrationController::bulk_whatsapp_template_send');
+    $routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
 
+
+	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
 
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
