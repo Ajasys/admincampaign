@@ -271,6 +271,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     .emoji_div span {
         cursor: pointer;
     }
+
+    
 </style>
 
 
@@ -739,6 +741,68 @@ $dnoneC = '';
                             </ul>
                         </div>
 
+                        <div class="emoji_div_man border rounded-2 position-absolute start-0 bottom-0 overflow-x-scroll" style="height: 200px; width: 200px; display:none;">
+                            <div class="emoji_div">
+                                <span class="intercom-emoji-picker-emoji" title="thumbs_up">&#x1F44D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="-1">&#x1F44E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="confused">&#x1F615;</span>
+                                <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
+                                <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="smile">&#x1F604;</span>
+                                <span class="intercom-emoji-picker-emoji" title="smiley">&#x1F603;</span>
+                                <span class="intercom-emoji-picker-emoji" title="grinning">&#x1F600;</span>
+                                <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="wink">&#x1F609;</span>
+                                <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing_heart">&#x1F618;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing_closed_eyes">&#x1F61A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing">&#x1F617;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing_smiling_eyes">&#x1F619;</span>
+                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_winking_eye">&#x1F61C;</span>
+                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_closed_eyes">&#x1F61D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue">&#x1F61B;</span>
+                                <span class="intercom-emoji-picker-emoji" title="flushed">&#x1F633;</span>
+                                <span class="intercom-emoji-picker-emoji" title="grin">&#x1F601;</span>
+                                <span class="intercom-emoji-picker-emoji" title="pensive">&#x1F614;</span>
+                                <span class="intercom-emoji-picker-emoji" title="relieved">&#x1F60C;</span>
+                                <span class="intercom-emoji-picker-emoji" title="unamused">&#x1F612;</span>
+                                <span class="intercom-emoji-picker-emoji" title="disappointed">&#x1F61E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="persevere">&#x1F623;</span>
+                                <span class="intercom-emoji-picker-emoji" title="cry">&#x1F622;</span>
+                                <span class="intercom-emoji-picker-emoji" title="joy">&#x1F602;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sleepy">&#x1F62A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="disappointed_relieved">&#x1F625;</span>
+                                <span class="intercom-emoji-picker-emoji" title="cold_sweat">&#x1F630;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sweat_smile">&#x1F605;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sweat">&#x1F613;</span>
+                                <span class="intercom-emoji-picker-emoji" title="weary">&#x1F629;</span>
+                                <span class="intercom-emoji-picker-emoji" title="tired_face">&#x1F62B;</span>
+                                <span class="intercom-emoji-picker-emoji" title="fearful">&#x1F628;</span>
+                                <span class="intercom-emoji-picker-emoji" title="scream">&#x1F631;</span>
+                                <span class="intercom-emoji-picker-emoji" title="angry">&#x1F620;</span>
+                                <span class="intercom-emoji-picker-emoji" title="rage">&#x1F621;</span>
+                                <span class="intercom-emoji-picker-emoji" title="triumph">&#x1F624;</span>
+                                <span class="intercom-emoji-picker-emoji" title="confounded">&#x1F616;</span>
+                                <span class="intercom-emoji-picker-emoji" title="laughing">&#x1F606;</span>
+                                <span class="intercom-emoji-picker-emoji" title="yum">&#x1F60B;</span>
+                                <span class="intercom-emoji-picker-emoji" title="mask">&#x1F637;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sunglasses">&#x1F60E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sleeping">&#x1F634;</span>
+                                <span class="intercom-emoji-picker-emoji" title="dizzy_face">&#x1F635;</span>
+                                <span class="intercom-emoji-picker-emoji" title="astonished">&#x1F632;</span>
+                                <span class="intercom-emoji-picker-emoji" title="worried">&#x1F61F;</span>
+                                <span class="intercom-emoji-picker-emoji" title="frowning">&#x1F626;</span>
+                                <span class="intercom-emoji-picker-emoji" title="anguished">&#x1F627;</span>
+                                <span class="intercom-emoji-picker-emoji" title="imp">&#x1F47F;</span>
+                                <span class="intercom-emoji-picker-emoji" title="open_mouth">&#x1F62E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="grimacing">&#x1F62C;</span>
+                                <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
+                            </div>
+                        </div>
+
                         <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3">
                             <div class="d-flex bg-white rounded-pill py-1 border">
                                 <div class="d-flex col-12 align-items-center">
@@ -747,9 +811,16 @@ $dnoneC = '';
                                             class="btn btn-primary btn_x documentselectionpin rounded-5 WhatsApp24HourButton">
                                             <i class="bi bi-paperclip"></i>
                                         </button>
+
+                                    </div>
+                                    <div class="ps-2">
+                                        <button class="btn btn-primary documentselectionpin emoji_btn rounded-5">
+                                        <i class="bi bi-emoji-smile-fill"></i>
+
+                                        </button>
                                     </div>
                                     <div class="input-group  position-relative ">
-                                        <input type="text" class="form-control border rounded-pill px-4 py-2 border-0 massage_input" placeholder="Write a message...">
+                                        <input type="text" class="form-control border rounded-pill px-4 py-2 border-0 massage_input" textval = "" placeholder="Write a message...">
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <button
@@ -783,40 +854,7 @@ $dnoneC = '';
                         </div>
 
                         <div class=" mt-2 p-2 overflow-y-scroll chat_bord col-12" id="user_msg_send_div"style="max-height:80%;">
-                            <!-- <div class="d-flex  mb-1 col-3">
-                                <i class="me-2 bi bi-people-fill"></i>
-                                <a href="" class="ms-3">https://www.facebook.com/</a>
-                            </div>
-                            <div class="d-flex  mb-1 col-3">
-                                <i class="me-2 bi bi-telephone-fill"></i>
-                                <p class="ms-3">9780567980</p>
-                            </div>
-                            <div class="d-flex  mb-1 col-3">
-                                <i class="me-2 bi bi-whatsapp"></i>
-                                <p class="ms-3">urvi Test</p>
-                            </div>
-                            <div class="mt-4">
-                                <div class="d-flex mb-4 justify-content-end">
-                                    <div class="col-6 text-end">
-                                        <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">Hello</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex mb-4">
-                                    <div class="col-6 text-start">
-                                        <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">undefined, This is an
-                                            <b>appointment booking</b> demo bot🙂.</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex mb-4">
-                                    <div class="col-6 text-start">
-                                        <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">What is your full
-                                            name ?</span>
-                                    </div>
-                                </div>
-
-                            </div> -->
+                         
                         </div>
                         <div class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0">
                             <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
@@ -896,7 +934,78 @@ $dnoneC = '';
 
 
 <?= $this->include('partials/footer') ?>
+<script src="script.js"></script>
+<script>
+    const startButton = document.getElementById('startButton');
+    const stopButton = document.getElementById('stopButton');
+    const audioPlayer = document.getElementById('audioPlayer');
 
+    let mediaRecorder;
+    let audioChunks = [];
+
+    startButton.addEventListener('click', startRecording);
+    stopButton.addEventListener('click', stopRecording);
+
+    async function startRecording() {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream)
+;
+
+        mediaRecorder.addEventListener('dataavailable', event => {
+            audioChunks.push(event.data);
+        });
+
+        mediaRecorder.addEventListener('stop', () => {
+            const audioBlob = new Blob(audioChunks, { 'type': 'audio/mp3' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            audioPlayer.src = audioUrl;
+
+            // Send the audio data to the server
+            saveAudio(audioBlob);
+        });
+
+        startButton.disabled = true;
+        stopButton.disabled = false;
+
+        mediaRecorder.start();
+    }
+
+    function stopRecording() {
+        mediaRecorder.stop();
+        startButton.disabled = false;
+        stopButton.disabled = true;
+    }
+
+    function saveAudio(audioBlob) {
+          const formData = new FormData();
+          formData.append('audio', audioBlob);
+          $.ajax({
+               method: "POST",
+               url: "<?= site_url('audio_file'); ?>",
+               data: formData,
+               processData: false, // Set processData to false to prevent jQuery from automatically processing the data
+               contentType: false, // Set contentType to false to prevent jQuery from automatically setting the Content-Type header
+               success: function(res) {
+                    // Handle success response here
+                    console.log('Audio uploaded successfully:', res);
+                    $('.loader').hide();
+               },
+               error: function(xhr, status, error) {
+                    // Handle error response here
+                    console.error('Error:', error);
+                    $('.loader').hide();
+               }
+          });
+     }
+     $('.send').click(function() {
+        if (audioChunks.length > 0) {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+            saveAudio(audioBlob);
+        } else {
+            console.error('No audio recorded.');
+        }
+    });
+</script>
 
 <script>
     $('body').on('click', '.account-box', function () {
@@ -1133,6 +1242,10 @@ conversation_account_id: conversation_account_id,
     });
 
     $('body').on('keydown', '.massage_input', function(event) {
+        var text = $(this).val();
+        // console.log(text);
+        $(this).attr('textval',text);
+
         if (event.which === 13) {
             $('.SendWhatsAppMessage').trigger('click');
                     }
@@ -1439,151 +1552,172 @@ conversation_account_id: conversation_account_id,
 
 
 
-    $(document).ready(function () {
-        const audioWrapper = $(".c-wa-audio");
-        const playPause = $(".c-wa-audio__control-play");
-        const playpauseBtn = $(".c-wa-audio__control-play");
-        const progress = $(".c-wa-audio__time-progress");
-        const sliders = $(".c-wa-audio__time-slider");
-        const player = $("audio");
-        const currentTime = $(".c-wa-audio__time-current");
-        const totalTime = $(".c-wa-audio__time-total");
+    // $(document).ready(function () {
+    //     const audioWrapper = $(".c-wa-audio");
+    //     const playPause = $(".c-wa-audio__control-play");
+    //     const playpauseBtn = $(".c-wa-audio__control-play");
+    //     const progress = $(".c-wa-audio__time-progress");
+    //     const sliders = $(".c-wa-audio__time-slider");
+    //     const player = $("audio");
+    //     const currentTime = $(".c-wa-audio__time-current");
+    //     const totalTime = $(".c-wa-audio__time-total");
 
-        let draggableClasses = ["c-wa-audio__time-pin"];
-        let currentlyDragged = null;
+    //     let draggableClasses = ["c-wa-audio__time-pin"];
+    //     let currentlyDragged = null;
 
-        $(document).on("mousedown", function (event) {
-            if (!isDraggable($(event.target))) return false;
+    //     $(document).on("mousedown", function (event) {
+    //         if (!isDraggable($(event.target))) return false;
 
-            currentlyDragged = event.target;
-            let handleMethod = $(currentlyDragged).data("method");
+    //         currentlyDragged = event.target;
+    //         let handleMethod = $(currentlyDragged).data("method");
 
-            $(document).on("mousemove", window[handleMethod]);
+    //         $(document).on("mousemove", window[handleMethod]);
 
-            $(document).on("mouseup", function () {
-                currentlyDragged = false;
-                $(document).off("mousemove", window[handleMethod]);
-            });
-        });
+    //         $(document).on("mouseup", function () {
+    //             currentlyDragged = false;
+    //             $(document).off("mousemove", window[handleMethod]);
+    //         });
+    //     });
 
-        playpauseBtn.on("click", togglePlay);
-        player.on("timeupdate", updateProgress);
-        player.on("loadedmetadata", function () {
-            totalTime.text(formatTime(player.duration));
-        });
-        player.on("canplay", makePlay);
-        player.on("ended", function () {
-            changePlayPauseIcon(true);
-            player.currentTime = 0;
-        });
+    //     playpauseBtn.on("click", togglePlay);
+    //     player.on("timeupdate", updateProgress);
+    //     player.on("loadedmetadata", function () {
+    //         totalTime.text(formatTime(player.duration));
+    //     });
+    //     player.on("canplay", makePlay);
+    //     player.on("ended", function () {
+    //         changePlayPauseIcon(true);
+    //         player.currentTime = 0;
+    //     });
 
-        sliders.each(function () {
-            let pin = $(this).find(".c-wa-audio__time-pin");
-            $(this).on("click", window[pin.data("method")]);
-        });
+    //     sliders.each(function () {
+    //         let pin = $(this).find(".c-wa-audio__time-pin");
+    //         $(this).on("click", window[pin.data("method")]);
+    //     });
 
-        function isDraggable(el) {
-            let canDrag = false;
-            let classes = Array.from($(el).attr("class").split(" "));
-            draggableClasses.forEach(function (draggable) {
-                if (classes.indexOf(draggable) !== -1) canDrag = true;
-            });
+    //     function isDraggable(el) {
+    //         let canDrag = false;
+    //         let classes = Array.from($(el).attr("class").split(" "));
+    //         draggableClasses.forEach(function (draggable) {
+    //             if (classes.indexOf(draggable) !== -1) canDrag = true;
+    //         });
 
-            return canDrag;
-        }
+    //         return canDrag;
+    //     }
 
-        function inRange(event) {
-            let rangeBox = getRangeBox(event);
-            let rect = rangeBox.getBoundingClientRect();
-            let direction = $(rangeBox).data("direction");
+    //     function inRange(event) {
+    //         let rangeBox = getRangeBox(event);
+    //         let rect = rangeBox.getBoundingClientRect();
+    //         let direction = $(rangeBox).data("direction");
 
-            if (direction == "horizontal") {
-                const min = 0;
-                const max = rect.width;
-                const clientX = event.clientX - rect.left;
+    //         if (direction == "horizontal") {
+    //             const min = 0;
+    //             const max = rect.width;
+    //             const clientX = event.clientX - rect.left;
 
-                if (clientX < min || clientX > max) return false;
-            } else {
-                var min = rect.top;
-                var max = min + rangeBox.offsetHeight;
-                if (event.clientY < min || event.clientY > max) return false;
-            }
-            return true;
-        }
+    //             if (clientX < min || clientX > max) return false;
+    //         } else {
+    //             var min = rect.top;
+    //             var max = min + rangeBox.offsetHeight;
+    //             if (event.clientY < min || event.clientY > max) return false;
+    //         }
+    //         return true;
+    //     }
 
-        function updateProgress() {
-            const current = player.currentTime;
-            const percent = (current / player.duration) * 100;
-            progress.css("width", percent + "%");
+    //     function updateProgress() {
+    //         const current = player.currentTime;
+    //         const percent = (current / player.duration) * 100;
+    //         progress.css("width", percent + "%");
 
-            currentTime.text(formatTime(current));
-        }
+    //         currentTime.text(formatTime(current));
+    //     }
 
-        function getRangeBox(event) {
-            let rangeBox = event.target;
-            let el = currentlyDragged;
-            if (event.type == "click" && isDraggable(event.target)) {
-                rangeBox = $(event.target).parent().parent();
-            }
-            if (event.type == "mousemove") {
-                rangeBox = $(el).parent().parent();
-            }
-            return rangeBox;
-        }
+    //     function getRangeBox(event) {
+    //         let rangeBox = event.target;
+    //         let el = currentlyDragged;
+    //         if (event.type == "click" && isDraggable(event.target)) {
+    //             rangeBox = $(event.target).parent().parent();
+    //         }
+    //         if (event.type == "mousemove") {
+    //             rangeBox = $(el).parent().parent();
+    //         }
+    //         return rangeBox;
+    //     }
 
-        function getCoefficient(event) {
-            let slider = getRangeBox(event);
-            let rect = slider.getBoundingClientRect();
-            let K = 0;
-            if ($(slider).data("direction") == "horizontal") {
-                const offsetX = event.clientX - rect.left;
-                let width = slider.clientWidth;
-                K = offsetX / width;
-            } else if ($(slider).data("direction") == "vertical") {
-                let height = slider.clientHeight;
-                var offsetY = event.clientY - rect.top;
-                K = 1 - offsetY / height;
-            }
+    //     function getCoefficient(event) {
+    //         let slider = getRangeBox(event);
+    //         let rect = slider.getBoundingClientRect();
+    //         let K = 0;
+    //         if ($(slider).data("direction") == "horizontal") {
+    //             const offsetX = event.clientX - rect.left;
+    //             let width = slider.clientWidth;
+    //             K = offsetX / width;
+    //         } else if ($(slider).data("direction") == "vertical") {
+    //             let height = slider.clientHeight;
+    //             var offsetY = event.clientY - rect.top;
+    //             K = 1 - offsetY / height;
+    //         }
 
-            return K;
-        }
+    //         return K;
+    //     }
 
-        function rewind(event) {
-            console.warn("a");
-            if (inRange(event)) {
-                player.currentTime = player.duration * getCoefficient(event);
-            }
-        }
+    //     function rewind(event) {
+    //         console.warn("a");
+    //         if (inRange(event)) {
+    //             player.currentTime = player.duration * getCoefficient(event);
+    //         }
+    //     }
 
-        function formatTime(time) {
-            var min = Math.floor(time / 60);
-            var sec = Math.floor(time % 60);
-            return min + ":" + (sec < 10 ? "0" + sec : sec);
-        }
+    //     function formatTime(time) {
+    //         var min = Math.floor(time / 60);
+    //         var sec = Math.floor(time % 60);
+    //         return min + ":" + (sec < 10 ? "0" + sec : sec);
+    //     }
 
-        function togglePlay() {
-            if (player.paused) {
-                changePlayPauseIcon(false);
-                player.play();
-            } else {
-                changePlayPauseIcon(true);
-                player.pause();
-            }
-        }
+    //     function togglePlay() {
+    //         if (player.paused) {
+    //             changePlayPauseIcon(false);
+    //             player.play();
+    //         } else {
+    //             changePlayPauseIcon(true);
+    //             player.pause();
+    //         }
+    //     }
 
-        function makePlay() {
-            playpauseBtn.css("display", "block");
-        }
+    //     function makePlay() {
+    //         playpauseBtn.css("display", "block");
+    //     }
 
-        function changePlayPauseIcon(play = false) {
-            if (play) {
-                playPause.removeClass("fa-pause").addClass("fa-play");
-            } else {
-                playPause.removeClass("fa-play").addClass("fa-pause");
-            }
-        }
-    });
+    //     function changePlayPauseIcon(play = false) {
+    //         if (play) {
+    //             playPause.removeClass("fa-pause").addClass("fa-play");
+    //         } else {
+    //             playPause.removeClass("fa-play").addClass("fa-pause");
+    //         }
+    //     }
+    // });
+
+    function emojiToCode(emoji) {
+                                let code = emoji.codePointAt(0).toString(16);
+                                return '&#x' + code + ';';
+                            }
+
+                            $(document).ready(function() {
+                                $(".emoji_btn").click(function() {
+                                    $(".emoji_div_man").toggle();
+                                });
+
+                                $("body").on("click", ".intercom-emoji-picker-emoji", function() {
+                                    let emoji = $(this).html();
+                                    let htmlCode = emojiToCode(emoji);
+                                    currentInput = $('.massage_input').val();
+
+                                    $(".massage_input").val(emoji);
 
 
+                                    $('.massage_input').val(currentInput + emoji);
+
+                                });
+                            });
 
 </script>

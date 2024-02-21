@@ -299,7 +299,7 @@ class WhatAppIntegrationController extends BaseController
                                         }
 
 
-                                        if ($_POST['searchtext'] ==  "" ||  strpos($Name, strtolower($_POST['searchtext'])) !== false) {
+                                        if ($_POST['searchtext'] == "" || strpos($Name, strtolower($_POST['searchtext'])) !== false) {
                                             // pre('Yes');
                                             $Html .= '
                                                 <tr class="rounded-pill "  >
@@ -423,7 +423,7 @@ class WhatAppIntegrationController extends BaseController
         $html = '';
         $htmlcontactlist = '';
         foreach ($GetData as $key => $value) {
-$TotalUnreadMsg = 0;
+            $TotalUnreadMsg = 0;
             $AutoIDNo = '';
             $MsgReadStatus = '';
             $MasgDateNdTime = "";
@@ -509,7 +509,7 @@ $TotalUnreadMsg = 0;
                 if ($value['name'] != '') {
                     $Whatsappproname = $value['name'];
                 }
-$html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
+                $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
                                         <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                         <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
                                         <div class="col d-flex justify-content-between">
@@ -604,7 +604,7 @@ $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($val
             foreach ($sentmsgdisplaydata as $key => $value) {
                 // pre($value['Status']);
                 $statusname = '';
-                $formattedDate  = '';
+                $formattedDate = '';
                 if ($value['Createdat'] != '0000-00-00 00:00:00') {
 
                     $formattedDate = (new \DateTime($value['Createdat']))->format('d-m-Y h:i A');
@@ -656,7 +656,7 @@ $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($val
         }
 
 
-        if ($FilterPhoneNumber != '' || $FilterDate != '' ||  $FilterTemplateStatus != '' || $FilterTemplateName != '') {
+        if ($FilterPhoneNumber != '' || $FilterDate != '' || $FilterTemplateStatus != '' || $FilterTemplateName != '') {
             $html1 .= '<script>$(".FilterClearAll").show();</script>';
         } else {
             $html1 .= '<script>$(".FilterClearAll").hide();</script>';
@@ -1456,7 +1456,7 @@ $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($val
                 $postData = json_encode([
                     "messaging_product" => "whatsapp",
                     "recipient_type" => "individual",
-                    "to" =>  $countrey_code . $phone_no,
+                    "to" => $countrey_code . $phone_no,
                     "type" => "template",
                     "template" => [
                         "name" => $template_name,
@@ -1476,7 +1476,7 @@ $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($val
                 $postData = json_encode([
                     "messaging_product" => "whatsapp",
                     "recipient_type" => "individual",
-                    "to" =>  $countrey_code . $phone_no,
+                    "to" => $countrey_code . $phone_no,
                     "type" => "template",
                     "template" => [
                         "name" => $template_name,
@@ -1602,7 +1602,198 @@ $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($val
                     $phoneNumber = $display_phone_number; // Replace with the actual phone number
                     $countryCode = substr($phoneNumber, 0, 3); // Extract the first three characters
                     $countryMapping = [
-                        '+93' => 'Afghanistan', '+355' => 'Albania', '+213' => 'Algeria', '+376' => 'Andorra', '+244' => 'Angola', '+1-268' => 'Antigua and Barbuda', '+54' => 'Argentina', '+374' => 'Armenia', '+61' => 'Australia', '+43' => 'Austria', '+994' => 'Azerbaijan', '+1-242' => 'Bahamas', '+973' => 'Bahrain', '+880' => 'Bangladesh', '+1-246' => 'Barbados', '+375' => 'Belarus', '+32' => 'Belgium', '+501' => 'Belize', '+229' => 'Benin', '+975' => 'Bhutan', '+591' => 'Bolivia', '+387' => 'Bosnia and Herzegovina', '+267' => 'Botswana', '+55' => 'Brazil', '+673' => 'Brunei', '+359' => 'Bulgaria', '+226' => 'Burkina Faso', '+257' => 'Burundi', '+855' => 'Cambodia', '+237' => 'Cameroon', '+1' => 'Canada', '+238' => 'Cape Verde', '+236' => 'Central African Republic', '+235' => 'Chad', '+56' => 'Chile', '+86' => 'China', '+57' => 'Colombia', '+269' => 'Comoros', '+243' => 'Congo (Democratic Republic of the)', '+242' => 'Congo (Republic of the)', '+506' => 'Costa Rica', '+385' => 'Croatia', '+53' => 'Cuba', '+357' => 'Cyprus', '+420' => 'Czech Republic', '+45' => 'Denmark', '+253' => 'Djibouti', '+1-767' => 'Dominica', '+1-809' => 'Dominican Republic', '+670' => 'East Timor (Timor-Leste)', '+593' => 'Ecuador', '+20' => 'Egypt', '+503' => 'El Salvador', '+240' => 'Equatorial Guinea', '+291' => 'Eritrea', '+372' => 'Estonia', '+251' => 'Ethiopia', '+679' => 'Fiji', '+358' => 'Finland', '+33' => 'France', '+241' => 'Gabon', '+220' => 'Gambia', '+995' => 'Georgia', '+49' => 'Germany', '+233' => 'Ghana', '+30' => 'Greece', '+1-473' => 'Grenada', '+502' => 'Guatemala', '+224' => 'Guinea', '+245' => 'Guinea-Bissau', '+592' => 'Guyana', '+509' => 'Haiti', '+504' => 'Honduras', '+36' => 'Hungary', '+354' => 'Iceland', '+91' => 'India', '+62' => 'Indonesia', '+98' => 'Iran', '+964' => 'Iraq', '+353' => 'Ireland', '+972' => 'Israel', '+39' => 'Italy', '+1-876' => 'Jamaica', '+81' => 'Japan', '+962' => 'Jordan', '+7' => 'Kazakhstan', '+254' => 'Kenya', '+686' => 'Kiribati', '+82' => 'Korea, South', '+965' => 'Kuwait', '+996' => 'Kyrgyzstan', '+856' => 'Laos', '+371' => 'Latvia', '+961' => 'Lebanon', '+266' => 'Lesotho', '+231' => 'Liberia', '+218' => 'Libya', '+423' => 'Liechtenstein', '+370' => 'Lithuania', '+352' => 'Luxembourg', '+261' => 'Madagascar', '+265' => 'Malawi', '+60' => 'Malaysia', '+960' => 'Maldives', '+223' => 'Mali', '+356' => 'Malta', '+692' => 'Marshall Islands', '+222' => 'Mauritania', '+230' => 'Mauritius', '+52' => 'Mexico', '+691' => 'Micronesia', '+373' => 'Moldova', '+377' => 'Monaco', '+976' => 'Mongolia', '+382' => 'Montenegro', '+212' => 'Morocco', '+258' => 'Mozambique', '+95' => 'Myanmar (Burma)', '+264' => 'Namibia', '+674' => 'Nauru', '+977' => 'Nepal', '+31' => 'Netherlands', '+64' => 'New Zealand', '+505' => 'Nicaragua', '+227' => 'Niger', '+234' => 'Nigeria', '+47' => 'Norway', '+968' => 'Oman', '+92' => 'Pakistan', '+680' => 'Palau', '+970' => 'Palestine', '+507' => 'Panama', '+675' => 'Papua New Guinea', '+595' => 'Paraguay', '+51' => 'Peru', '+63' => 'Philippines', '+48' => 'Poland', '+351' => 'Portugal', '+974' => 'Qatar', '+40' => 'Romania', '+7' => 'Russia', '+250' => 'Rwanda', '+1-869' => 'Saint Kitts and Nevis', '+1-758' => 'Saint Lucia', '+1-784' => 'Saint Vincent and the Grenadines', '+685' => 'Samoa', '+378' => 'San Marino', '+239' => 'Sao Tome and Principe', '+966' => 'Saudi Arabia', '+221' => 'Senegal', '+381' => 'Serbia', '+248' => 'Seychelles', '+232' => 'Sierra Leone', '+65' => 'Singapore', '+421' => 'Slovakia', '+386' => 'Slovenia', '+677' => 'Solomon Islands', '+252' => 'Somalia', '+27' => 'South Africa', '+211' => 'South Sudan', '+34' => 'Spain', '+94' => 'Sri Lanka', '+249' => 'Sudan', '+597' => 'Suriname', '+46' => 'Sweden', '+41' => 'Switzerland', '+963' => 'Syria', '+886' => 'Taiwan', '+992' => 'Tajikistan', '+255' => 'Tanzania', '+66' => 'Thailand', '+228' => 'Togo', '+676' => 'Tonga', '+1-868' => 'Trinidad and Tobago', '+216' => 'Tunisia', '+90' => 'Turkey', '+993' => 'Turkmenistan', '+688' => 'Tuvalu', '+256' => 'Uganda', '+380' => 'Ukraine', '+971' => 'United Arab Emirates', '+44' => 'United Kingdom', '+1' => 'United States', '+598' => 'Uruguay', '+998' => 'Uzbekistan', '+678' => 'Vanuatu', '+379' => 'Vatican City', '+58' => 'Venezuela', '+84' => 'Vietnam', '+967' => 'Yemen', '+260' => 'Zambia', '+263' => 'Zimbabwe'
+                        '+93' => 'Afghanistan',
+                        '+355' => 'Albania',
+                        '+213' => 'Algeria',
+                        '+376' => 'Andorra',
+                        '+244' => 'Angola',
+                        '+1-268' => 'Antigua and Barbuda',
+                        '+54' => 'Argentina',
+                        '+374' => 'Armenia',
+                        '+61' => 'Australia',
+                        '+43' => 'Austria',
+                        '+994' => 'Azerbaijan',
+                        '+1-242' => 'Bahamas',
+                        '+973' => 'Bahrain',
+                        '+880' => 'Bangladesh',
+                        '+1-246' => 'Barbados',
+                        '+375' => 'Belarus',
+                        '+32' => 'Belgium',
+                        '+501' => 'Belize',
+                        '+229' => 'Benin',
+                        '+975' => 'Bhutan',
+                        '+591' => 'Bolivia',
+                        '+387' => 'Bosnia and Herzegovina',
+                        '+267' => 'Botswana',
+                        '+55' => 'Brazil',
+                        '+673' => 'Brunei',
+                        '+359' => 'Bulgaria',
+                        '+226' => 'Burkina Faso',
+                        '+257' => 'Burundi',
+                        '+855' => 'Cambodia',
+                        '+237' => 'Cameroon',
+                        '+1' => 'Canada',
+                        '+238' => 'Cape Verde',
+                        '+236' => 'Central African Republic',
+                        '+235' => 'Chad',
+                        '+56' => 'Chile',
+                        '+86' => 'China',
+                        '+57' => 'Colombia',
+                        '+269' => 'Comoros',
+                        '+243' => 'Congo (Democratic Republic of the)',
+                        '+242' => 'Congo (Republic of the)',
+                        '+506' => 'Costa Rica',
+                        '+385' => 'Croatia',
+                        '+53' => 'Cuba',
+                        '+357' => 'Cyprus',
+                        '+420' => 'Czech Republic',
+                        '+45' => 'Denmark',
+                        '+253' => 'Djibouti',
+                        '+1-767' => 'Dominica',
+                        '+1-809' => 'Dominican Republic',
+                        '+670' => 'East Timor (Timor-Leste)',
+                        '+593' => 'Ecuador',
+                        '+20' => 'Egypt',
+                        '+503' => 'El Salvador',
+                        '+240' => 'Equatorial Guinea',
+                        '+291' => 'Eritrea',
+                        '+372' => 'Estonia',
+                        '+251' => 'Ethiopia',
+                        '+679' => 'Fiji',
+                        '+358' => 'Finland',
+                        '+33' => 'France',
+                        '+241' => 'Gabon',
+                        '+220' => 'Gambia',
+                        '+995' => 'Georgia',
+                        '+49' => 'Germany',
+                        '+233' => 'Ghana',
+                        '+30' => 'Greece',
+                        '+1-473' => 'Grenada',
+                        '+502' => 'Guatemala',
+                        '+224' => 'Guinea',
+                        '+245' => 'Guinea-Bissau',
+                        '+592' => 'Guyana',
+                        '+509' => 'Haiti',
+                        '+504' => 'Honduras',
+                        '+36' => 'Hungary',
+                        '+354' => 'Iceland',
+                        '+91' => 'India',
+                        '+62' => 'Indonesia',
+                        '+98' => 'Iran',
+                        '+964' => 'Iraq',
+                        '+353' => 'Ireland',
+                        '+972' => 'Israel',
+                        '+39' => 'Italy',
+                        '+1-876' => 'Jamaica',
+                        '+81' => 'Japan',
+                        '+962' => 'Jordan',
+                        '+7' => 'Kazakhstan',
+                        '+254' => 'Kenya',
+                        '+686' => 'Kiribati',
+                        '+82' => 'Korea, South',
+                        '+965' => 'Kuwait',
+                        '+996' => 'Kyrgyzstan',
+                        '+856' => 'Laos',
+                        '+371' => 'Latvia',
+                        '+961' => 'Lebanon',
+                        '+266' => 'Lesotho',
+                        '+231' => 'Liberia',
+                        '+218' => 'Libya',
+                        '+423' => 'Liechtenstein',
+                        '+370' => 'Lithuania',
+                        '+352' => 'Luxembourg',
+                        '+261' => 'Madagascar',
+                        '+265' => 'Malawi',
+                        '+60' => 'Malaysia',
+                        '+960' => 'Maldives',
+                        '+223' => 'Mali',
+                        '+356' => 'Malta',
+                        '+692' => 'Marshall Islands',
+                        '+222' => 'Mauritania',
+                        '+230' => 'Mauritius',
+                        '+52' => 'Mexico',
+                        '+691' => 'Micronesia',
+                        '+373' => 'Moldova',
+                        '+377' => 'Monaco',
+                        '+976' => 'Mongolia',
+                        '+382' => 'Montenegro',
+                        '+212' => 'Morocco',
+                        '+258' => 'Mozambique',
+                        '+95' => 'Myanmar (Burma)',
+                        '+264' => 'Namibia',
+                        '+674' => 'Nauru',
+                        '+977' => 'Nepal',
+                        '+31' => 'Netherlands',
+                        '+64' => 'New Zealand',
+                        '+505' => 'Nicaragua',
+                        '+227' => 'Niger',
+                        '+234' => 'Nigeria',
+                        '+47' => 'Norway',
+                        '+968' => 'Oman',
+                        '+92' => 'Pakistan',
+                        '+680' => 'Palau',
+                        '+970' => 'Palestine',
+                        '+507' => 'Panama',
+                        '+675' => 'Papua New Guinea',
+                        '+595' => 'Paraguay',
+                        '+51' => 'Peru',
+                        '+63' => 'Philippines',
+                        '+48' => 'Poland',
+                        '+351' => 'Portugal',
+                        '+974' => 'Qatar',
+                        '+40' => 'Romania',
+                        '+7' => 'Russia',
+                        '+250' => 'Rwanda',
+                        '+1-869' => 'Saint Kitts and Nevis',
+                        '+1-758' => 'Saint Lucia',
+                        '+1-784' => 'Saint Vincent and the Grenadines',
+                        '+685' => 'Samoa',
+                        '+378' => 'San Marino',
+                        '+239' => 'Sao Tome and Principe',
+                        '+966' => 'Saudi Arabia',
+                        '+221' => 'Senegal',
+                        '+381' => 'Serbia',
+                        '+248' => 'Seychelles',
+                        '+232' => 'Sierra Leone',
+                        '+65' => 'Singapore',
+                        '+421' => 'Slovakia',
+                        '+386' => 'Slovenia',
+                        '+677' => 'Solomon Islands',
+                        '+252' => 'Somalia',
+                        '+27' => 'South Africa',
+                        '+211' => 'South Sudan',
+                        '+34' => 'Spain',
+                        '+94' => 'Sri Lanka',
+                        '+249' => 'Sudan',
+                        '+597' => 'Suriname',
+                        '+46' => 'Sweden',
+                        '+41' => 'Switzerland',
+                        '+963' => 'Syria',
+                        '+886' => 'Taiwan',
+                        '+992' => 'Tajikistan',
+                        '+255' => 'Tanzania',
+                        '+66' => 'Thailand',
+                        '+228' => 'Togo',
+                        '+676' => 'Tonga',
+                        '+1-868' => 'Trinidad and Tobago',
+                        '+216' => 'Tunisia',
+                        '+90' => 'Turkey',
+                        '+993' => 'Turkmenistan',
+                        '+688' => 'Tuvalu',
+                        '+256' => 'Uganda',
+                        '+380' => 'Ukraine',
+                        '+971' => 'United Arab Emirates',
+                        '+44' => 'United Kingdom',
+                        '+1' => 'United States',
+                        '+598' => 'Uruguay',
+                        '+998' => 'Uzbekistan',
+                        '+678' => 'Vanuatu',
+                        '+379' => 'Vatican City',
+                        '+58' => 'Venezuela',
+                        '+84' => 'Vietnam',
+                        '+967' => 'Yemen',
+                        '+260' => 'Zambia',
+                        '+263' => 'Zimbabwe'
                     ];
                     $countryName = $countryMapping[$countryCode] ?? 'Unknown';
                     $count++;
@@ -1640,35 +1831,70 @@ $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($val
 
     public function WhatsAppListConverstion()
     {
-$MetaUrl = config('App')->metaurl;
+        // require_once 'vendor/autoload.php';
+
+        // use voku\helper\Emoji;
+        
+        // $string = "ud83dudc4du2728ud83dudc4f Hiiii ud83dude4fud83dude4fud83dude4fud83dude4f";
+        
+        // $emoji = Emoji::getAll();
+        
+        // // Split the string into an array of emojis and text
+        // $parts = preg_split('//u', $string, -1, PREG_SPLIT_NO_EMPTY);
+        
+        // // Separate emojis and text
+        // $emojis = '';
+        // $text = '';
+        
+        // foreach ($parts as $part) {
+        //     if (in_array($part, $emoji, true)) {
+        //         $emojis .= $part;
+        //     } else {
+        //         $text .= $part;
+        //     }
+        // }
+        
+        // echo "Text: $text\n";
+        // echo "Emojis: $emojis\n";
+
+        
+// die();
+        $MetaUrl = config('App')->metaurl;
         $contact_no = $_POST['contact_no'];
-$conversation_account_id = $_POST['conversation_account_id'];
+        $conversation_account_id = $_POST['conversation_account_id'];
         $table_username = getMasterUsername2();
         $Database = \Config\Database::connect('second');
         $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
+
+
+        // pre($sql);
+
+
+        // pre(json_decode("ud83dudc4du2728ud83dudc4f Hiiii ud83dude4fud83dude4fud83dude4fud83dude4f"));
+        // die();
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
         $html = '';
         $dates = '';
-$HourStatus = '';
+        $HourStatus = '';
         $MsgSendStatus = 0;
-        $HourSql = 'SELECT * FROM `'.$table_username.'_messages` WHERE platform_account_id = '.$conversation_account_id.' AND contact_no = '.$contact_no.' AND sent_recieved_status = 2 ORDER BY created_at DESC LIMIT 1;
+        $HourSql = 'SELECT * FROM `' . $table_username . '_messages` WHERE platform_account_id = ' . $conversation_account_id . ' AND contact_no = ' . $contact_no . ' AND sent_recieved_status = 2 ORDER BY created_at DESC LIMIT 1;
         ';
         $HourData = $Database->query($HourSql);
         $HourData = $HourData->getResultArray();
-        if(isset($HourData) && !empty($HourData)){
-            if(isset($HourData[0]['created_at'])){
-                $dateStr1 = gmdate('Y-m-d H:i:s'); 
+        if (isset($HourData) && !empty($HourData)) {
+            if (isset($HourData[0]['created_at'])) {
+                $dateStr1 = gmdate('Y-m-d H:i:s');
                 $dateStr2 = $HourData[0]['created_at'];
                 $datetime1 = new \DateTime($dateStr1);
                 $datetime2 = new \DateTime($dateStr2);
-                $timeDifferenceHours = ($datetime1->getTimestamp() - $datetime2->getTimestamp()) / 3600;    
+                $timeDifferenceHours = ($datetime1->getTimestamp() - $datetime2->getTimestamp()) / 3600;
                 if ($timeDifferenceHours >= 0 && $timeDifferenceHours <= 24) {
                     $MsgSendStatus = 1;
-                }else{
+                } else {
                 }
             }
-        }   
+        }
         $MetaUrl = config('App')->metaurl;
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
@@ -1690,6 +1916,8 @@ $HourStatus = '';
             }
         }
         $counttrigger = 0;
+
+        // pre($GetData);
         foreach ($GetData as $key => $value) {
 
             if ($value['msg_read_status'] == '0' && $value['sent_recieved_status'] == '2') {
@@ -1728,7 +1956,21 @@ $HourStatus = '';
                 $dates = $date;
             }
 
+            $readrecieptsymbole = "";
+            if ($value['message_status'] == '0') {
 
+                $readrecieptsymbole .= '
+                                 <i class="fa-solid text-white fa-check fa-xs align-self-end" style="color: #fff;"></i>';
+            } elseif ($value['message_status'] == '1') {
+                $readrecieptsymbole .= '
+                                <i class="fa-solid text-white fa-check-double fa-xs align-self-end" style="color: #fff;"></i>';
+            } elseif ($value['message_status'] == '2') {
+                $readrecieptsymbole .= '
+                                <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: lightgreen;"></i>';
+            } else {
+                $readrecieptsymbole .= '
+                                <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
+            }
 
             $formattedtime = date('h:i A', strtotime($formattedDate));
             $msgtype = $value['message_type'];
@@ -1742,31 +1984,20 @@ $HourStatus = '';
                         </div>';
                 }
                 if ($sent_recieved_status == '1') {
+                    // Convert emojis to HTML entities
+                    // pre(json_decode('"' . $value['message_contant'] . '"'));
+                    $message_contant = htmlspecialchars($value['message_contant'], ENT_QUOTES, 'UTF-8');
+                    
                     $html .= '
-								<div class="d-flex mb-4 justify-content-end" >
-<div class="col-9 text-end position-relative">
-									<span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> <span class="ps-3 pe-1 py-2 rounded-3 text-white" style="background:#005c4b;">' . $value['message_contant'] . '
-                                    <span class="mx-1 align-self-end">';
-                    if ($value['message_status'] == '0') {
-
-                        $html .= '
-                                         <i class="fa-solid text-white fa-check fa-xs align-self-end" style="color: #fff;"></i>';
-                    } elseif ($value['message_status'] == '1') {
-                        $html .= '
-                                        <i class="fa-solid text-white fa-check-double fa-xs align-self-end" style="color: #fff;"></i>';
-                    } elseif ($value['message_status'] == '2') {
-                        $html .= '
-                                        <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: lightgreen;"></i>';
-                    } else {
-                        $html .= '
-                                        <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
-                    }
-                    $html .= '
-                                    </span>
-                                    </span> 
-                                </div>
+                        <div class="d-flex mb-4 justify-content-end">
+                            <div class="col-9 text-end position-relative">
+                                <span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> 
+                                <span class="ps-3 pe-1 py-2 rounded-3 text-white container" style="background:#005c4b;">' . $message_contant . '
+                                    <span class="mx-1 align-self-end">' . $readrecieptsymbole . '</span>
+                                </span>
                             </div>
-                             ';
+                        </div>
+                    ';
                 }
             } elseif ($msgtype == '3') {
                 if ($sent_recieved_status == '2') {
@@ -1793,7 +2024,6 @@ $HourStatus = '';
                                     <video controls src="https://www.shutterstock.com/shutterstock/videos/1082503873/preview/stock-footage-loading-wheel-animation-animated-spinning-load-icon-with-alpha-layer-transparent-background.webm" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
                                 </span>
                                 <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-
                             </div>
                         </div>';
                         }
@@ -1808,20 +2038,19 @@ $HourStatus = '';
                 
                                 <span class="px-3 py-2  rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; overflow: hidden;">
                                     <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
-                                    <i class="fa-solid  fa-check-double fa-xs align-self-end " style="color: lightgreen;"></i> 
-                                </span> 
+                                    ' . $readrecieptsymbole . '
+                                    </span> 
 
                                 </div>
                             </div>';
-                }
-if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type']) == 'avi' || strtolower($value['assets_type']) == 'mkv' || strtolower($value['assets_type']) == 'mov' || strtolower($value['assets_type']) == 'wmv') {
+                        }
+                        if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type']) == 'avi' || strtolower($value['assets_type']) == 'mkv' || strtolower($value['assets_type']) == 'mov' || strtolower($value['assets_type']) == 'wmv') {
                             $html .= '   <div class="d-flex mb-4 justify-content-end">
                             <div class="col-9 text-end">
                                 <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
                                 <span class="px-2 py-2 rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; ">
                                     <video controls src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
-                                    <i class="fa-solid  fa-check-double fa-xs align-self-end " style="color: lightgreen;"></i> 
-
+                                        ' . $readrecieptsymbole . '
                                 </span>
                             </div>
                         </div>';
@@ -1867,7 +2096,7 @@ if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type
                                 </div>
                                 <div class="border-light border rounded-circle d-flex justify-content-center align-items-center px-3"
                                     style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
-                                    <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: lightgreen;"></i> 
+                                    ' . $readrecieptsymbole . '
                             </div>
                         </span>
                     </div>
@@ -1917,7 +2146,7 @@ if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type
                 <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
                 </div>
                 ';
-}elseif($msgtype == '6'){
+                } elseif ($msgtype == '6') {
                     if ($sent_recieved_status == '2') {
                         $html .= ' <div class="d-flex mb-4 justify-content-start">
                         <div class="col-9 text-start">
@@ -1985,6 +2214,7 @@ if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type
                                         </div>
                                     </div>                                            
                             </span>
+                            ' . $readrecieptsymbole . '
                         </div>
                     </div>
             ';
@@ -1995,7 +2225,7 @@ if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type
                     $html .= '
                     <div class="d-flex justify-content-end align-items-center pb-3">
                     <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                    <div class="border rounded-2 ps-4 pe-4 " style="width:max-content; background-color: #005c4b;">
+                    <div class="border rounded-2 ps-4 pe-4 position-relative " style="width:max-content; background-color: #005c4b;">
                         <div class="d-flex p-2 border-bottom">
                             <div>
                                 <i class="bi bi-person-circle" style="font-size: 30px;"></i>
@@ -2019,10 +2249,8 @@ if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type
                     }
 
                     $html .= '
-<i class="fa-solid  fa-check-double fa-xs align-self-end d-flex justify-content-end" style="color: lightgreen; padding-right:-10px !important; padding-bottom : 10px;"></i>
-
+                        <span class="justify-contant-end position-absolute bottom-0 end-0 pe-2 " style="">' . $readrecieptsymbole . '</span>
                     </div>
-
                 </div>';
                 }
             }
@@ -2032,14 +2260,48 @@ if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type
 
 
 
+    //     <div class="d-flex mb-4 justify-content-end mx-2">
+    //     <div class="col-9 text-end d-flex justify-content-end">
+    //         <span class="me-2 mt-auto text-nowrap" style="font-size:10px;">9:00 PM</span>
+    //         <div class="px-3 py-2 rounded-3"
+    //             style="background:#724EBF; width:fit-content; position:relative;">
+    //             <span class="text-white user-message"
+    //                 style="position: relative; display: inline-block;">
+    //                 <a href="https://www.google.com/maps" target="_blank">
+    //                     <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
+    //                 </a>
+    //                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+    //                     alt="#" class="img-circle rounded-circle"style="width:50px; height:50px; position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    //                 <div class="d-flex p-2 rounded" style="background:#2e224654">
+    //                 <i class="fa-solid fa-location-dot"></i> &nbsp; Live until 01:30 PM</div>
+    //             </span>
+    //         </div>
+    //     </div>
+    // </div>
+
+    // <div class="d-flex mb-4 mt-2 mt-md-0 mx-2">
+    //     <div class="col-9 text-start d-flex justify-content-start">
+    //         <div class="px-3 py-2 rounded-3 border border-2"
+    //             style="background:#f3f3f3; width:fit-content; position:relative;">
+    //             <span class="user-message" style="position: relative; display: inline-block;">
+    //                 <a href="https://www.google.com/maps" target="_blank">
+    //                     <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
+    //                 </a>
+    //                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+    //                     alt="#" class="img-circle rounded-circle"style="width:50px; height:50px; position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    //                 <div class="d-flex p-2 rounded" style="background:#2e224654"><i class="fa-solid fa-location-dot"></i> &nbsp; Live until 01:30 PM</div>
+    //             </span>
+    //         </div>
+    //         <span class="ms-2 text-nowrap mt-auto" style="font-size:10px;">9:00 PM</span>
+    //     </div>
+    // </div> 
+     
 
 
 
         if ($html != '') {
             $html .= '
         
-        
-         
        
           
         <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom();</script> ';
@@ -2048,9 +2310,9 @@ if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type
         }
 
         // pre($MsgSendStatus);
-        if($MsgSendStatus  == '0'){
+        if ($MsgSendStatus == '0') {
             $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", true);</script>';
-        }else{
+        } else {
             $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false);</script>';
         }
 
@@ -2073,7 +2335,7 @@ if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type
     public function SendWhatsAppChatMessage()
     {
         $DataSenderId = $_POST['DataSenderId'];
-        $DataPhoneno =  $_POST['DataPhoneno'];
+        $DataPhoneno = $_POST['DataPhoneno'];
         $massage_input = $_POST['massage_input'];
         $MetaUrl = config('App')->metaurl;
         $inputString = $_SESSION['username'];
