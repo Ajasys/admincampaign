@@ -743,7 +743,8 @@ $dnoneC = '';
                             <div class="d-flex bg-white rounded-pill py-1 border">
                                 <div class="d-flex col-12 align-items-center">
                                     <div class="ps-2">
-                                        <button class="btn btn-primary btn_x documentselectionpin rounded-5">
+                                        <button
+                                            class="btn btn-primary btn_x documentselectionpin rounded-5 WhatsApp24HourButton">
                                             <i class="bi bi-paperclip"></i>
                                         </button>
                                     </div>
@@ -751,7 +752,9 @@ $dnoneC = '';
                                         <input type="text" class="form-control border rounded-pill px-4 py-2 border-0 massage_input" placeholder="Write a message...">
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <button class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage" data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
+                                        <button
+                                            class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage WhatsApp24HourButton"
+                                            data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
                                             <i class="fa-regular fa-paper-plane"></i>
                                         </button>
                                     </div>
