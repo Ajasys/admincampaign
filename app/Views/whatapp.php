@@ -690,7 +690,7 @@ if (!empty($connections)) {
                                 </li> -->
 
                             <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle bg-body-secondary nav-item Tab1Class" role="presentation">
-                                <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" type="button" role="tab" aria-controls="#pills-ex-single-tab" aria-selected="true">
+                                <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-toggle="modal" data-bs-target="#pills-ex-single-tab" type="button" role="tab" aria-controls="#pills-ex-single-tab" aria-selected="true">
                                     <p>
                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                             <g>
@@ -700,7 +700,7 @@ if (!empty($connections)) {
                                             </g>
                                         </svg>
                                     </p>
-                                    <span class="ms-3 first-container-text">Send Template Messages</span>
+                                    <span class="ms-3 first-container-text singletabactive">Send Template Messages</span>
                                 </div>
                             </li>
                             <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class" role="presentation">
@@ -745,39 +745,33 @@ if (!empty($connections)) {
             </div>
             <div class="col-12 col-md ps-1">
 
-                <!-- <div class="Activeclass p-2  d-none">
-                    <div class="container p-0 ms-0">
-                        <div class="px-3 py-2 bg-white rounded-2 m-2">
-                            <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
-
-                                <li class="nav-item  " role="presentation">
-                                    <button class="nav-link active" id="single" data-table="single" DataStatus='3'
-                                        data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab"
-                                        data-bs-toggle="modal" type="button" role="tab"
-                                        aria-controls="pills-ex-single-tab" aria-selected="true">Single
-                                        Template</button>
-                                </li>
 
 
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="schedule" DataStatus='1' data-table="exercise_type"
-                                        data-bs-toggle="pill" data-bs-target="#pills-ex-schedule-tab" type="button"
-                                        role="tab" aria-controls="pills-ex-schedule-tab" aria-selected="false">schedule
-                                    </button>
-                                </li>
+
+                <div class="tab-content bg-white rounded-3 border" id="pills-tabContent">
+                    <div class="Activeclass p-1">
+                        <div class="container p-0 ms-0">
+                            <div class="px-3 py-0 rounded-2 mx-2">
+                                <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
+
+                                    <li class="nav-item  " role="presentation">
+                                        <button class="nav-link active" id="single" data-table="single" DataStatus='3' data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" data-bs-toggle="modal" type="button" role="tab" aria-controls="pills-ex-single-tab" aria-selected="true">Single
+                                            Template</button>
+                                    </li>
 
 
-                            </ul>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="schedule" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-schedule-tab" type="button" role="tab" aria-controls="pills-ex-schedule-tab" aria-selected="false">schedule
+                                        </button>
+                                    </li>
+
+
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div> -->
-
-
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-ex-single-tab" role="tabpanel" aria-labelledby="pills-ex-single" tabindex="0" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
-                    
-                    >
-                        <div class=" p-2 main-check-class bg-white p-2 rounded-3 border col-12 col-sm-8 col-md-12  mx-auto mx-md-0">
+                    <div class="tab-pane fade show active" id="pills-ex-single-tab" role="tabpanel" aria-labelledby="pills-ex-single" tabindex="0" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class=" p-2 main-check-class bg-white p-2 col-12 col-sm-8 col-md-12  mx-auto mx-md-0">
 
                             <div class="col-12 p-0 ms-0">
                                 <!-- <div class="px-3 py-2 bg-white rounded-2 mx-2">
@@ -800,11 +794,13 @@ if (!empty($connections)) {
                                     <div class="col-12 hello">
                                         <div class="d-flex flex-wrap align-items-start  p-lg-3  justify-content-center justify-content-xl-between">
                                             <div class="col-12 col-md-12 col-lg-10 col-xl-6 col-xxl-4 my-2 my-lg-0">
+
                                                 <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
                                                     <div class="modal-content">
                                                         <div class="modal-body-secondery">
                                                             <div class="modal-body-card pb-1">
                                                                 <h5 class="mb-3 pb-2 border-bottom col-12">Template</h5>
+
                                                                 <div class="col-12">
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <select class="form-control main-control templatesnamelistddclass header_div" id="header" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
@@ -815,7 +811,7 @@ if (!empty($connections)) {
                                                                     </div>
                                                                     <div class="col-12 mb-3 mt-2">
 
-                                                                        <input type="text" id="mobile_code" class="form-control phone_number_div" placeholder="Enter Your Phone Number" name="name">
+                                                                        <input type="number" id="mobile_code" class="form-control phone_number_div" minlength="10" maxlength="10" onkeyup="if (/D/g.test(this.value)) this.value = this.value.replace(/D/g,'')" placeholder="Enter Your Phone Number" name="name" required>
                                                                     </div>
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <select class="form-control main-control language_div" id="language" name="language" disabled required>
@@ -1007,14 +1003,17 @@ if (!empty($connections)) {
                                                                         <!-- <span class="btn-primary Template_send" data-edit_id="">Send</span>     -->
                                                                     </div>
                                                                     <div class="col-12 pt-3 border-top mb-2 text-end">
-                                                                        <span class="btn-primary Template_send" id="memberships_add_btn" data-edit_id="" name="memberships_update1" value="memberships_update1">Send</sp>
+                                                                        <span class="btn-primary Template_send" id="memberships_add_btn" name="memberships_update1" value="memberships_update1">Preview</sp>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </form>
+
+
                                             </div>
+
                                             <div class="col-12 col-xl-6 d-flex px-0 px-lg-4 my-2  my-2 my-xxl-0 justify-content-center">
                                                 <!-- whatsapp   .. -->
                                                 <div class="">
@@ -1081,126 +1080,339 @@ if (!empty($connections)) {
                             </div>
                         </div>
                     </div>
-                </div>
-
-
-                <!-- shedual modal -->
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show " id="pills-ex-schedule-tab" role="tabpanel" aria-labelledby="pills-ex-schedule" tabindex="0">
-                        <div class="main-dashbord p-2 main-check-class">
-                            <div class="container p-0 ms-0">
-                                <div class="px-3 py-2 bg-white rounded-2 mx-2">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="title-1">
-                                            <h2>Template</h2>
-                                        </div>
-                                        <div class="title-side-icons">
-                                            <div class="deleted-all" data-delete_id="">
-                                                <span class="btn-primary-rounded" hidden>
-                                                    <i class="bi bi-trash3 fs-14" hidden></i>
-                                                </span>
+                    <div class="tab-content bg-white" id="pills-tabContent">
+                        <div class="tab-pane fade show " id="pills-ex-schedule-tab" role="tabpanel" aria-labelledby="pills-ex-schedule" tabindex="0">
+                            <div class="p-2 main-check-class">
+                                <div class="container p-0 ms-0">
+                                    <div class="py-1 bg-white rounded-2">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <div class="title-1 ms-4">
+                                                <h5 class="col-12">Template</h5>
                                             </div>
+                                            <div class="title-side-icons">
+                                                <div class="deleted-all" data-delete_id="">
+                                                    <span class="btn-primary-rounded" hidden>
+                                                        <i class="bi bi-trash3 fs-14" hidden></i>
+                                                    </span>
+                                                </div>
 
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12 justify-content-center container" style="width: 100%;">
-                                    <div class="col-12 hello">
-                                        <div class="d-flex flex-wrap align-items-start border p-3 justify-content-center">
-                                            <div class="col-6">
-                                                <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
-                                                    <div class="modal-content">
+                                    <div class="col-12 justify-content-center container" style="width: 100%;">
+                                        <div class="col-12 hello">
+                                            <div class="d-flex flex-wrap align-items-start p-3 justify-content-center">
+                                                <div class="col-6">
+                                                    <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
+                                                        <div class="modal-content">
 
-                                                        <div class="modal-body-secondery justify-content-center">
-                                                            <div class="modal-body-card justify-content-center">
-                                                                <label class=" pull-left full-width text-left m-b-15"><b>Note:
-                                                                    </b> follow <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' target="_blank">csv</a>
-                                                                    format for
-                                                                    reference</label>
+                                                            <div class="modal-body-secondery justify-content-center">
+                                                                <div class="modal-body-card justify-content-center">
+                                                                    <label class=" pull-left full-width text-left m-b-15"><b>Note:
+                                                                        </b> follow <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' target="_blank">csv</a>
+                                                                        format for
+                                                                        reference</label>
 
 
-                                                                <div class="col-12 mb-3 justify-content-center mt-2">
-                                                                    <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' class="text-secondary mx-1 mb-1 add_property_js add_user_role_css add_user-role-pdf">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="28" height="28" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                                                            <g>
-                                                                                <path d="M496 432.011H272c-8.832 0-16-7.168-16-16v-320c0-8.832 7.168-16 16-16h224c8.832 0 16 7.168 16 16v320c0 8.832-7.168 16-16 16z" style="" fill="#eceff1" data-original="#eceff1"></path>
-                                                                                <path d="M336 176.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM336 240.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM336 304.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM336 368.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 176.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 240.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 304.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 368.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16z" style="" fill="#388e3c" data-original="#388e3c"></path>
-                                                                                <path d="M282.208 19.691c-3.648-3.04-8.544-4.352-13.152-3.392l-256 48A15.955 15.955 0 0 0 0 80.011v352c0 7.68 5.472 14.304 13.056 15.712l256 48c.96.192 1.952.288 2.944.288 3.712 0 7.328-1.28 10.208-3.68a16.006 16.006 0 0 0 5.792-12.32v-448c0-4.768-2.112-9.28-5.792-12.32z" style="" fill="#2e7d32" data-original="#2e7d32" class="">
-                                                                                </path>
-                                                                                <path d="m220.032 309.483-50.592-57.824 51.168-65.792c5.44-6.976 4.16-17.024-2.784-22.464-6.944-5.44-16.992-4.16-22.464 2.784l-47.392 60.928-39.936-45.632c-5.856-6.72-15.968-7.328-22.56-1.504-6.656 5.824-7.328 15.936-1.504 22.56l44 50.304-44.608 57.344c-5.44 6.976-4.16 17.024 2.784 22.464a16.104 16.104 0 0 0 9.856 3.36c4.768 0 9.472-2.112 12.64-6.176l40.8-52.48 46.528 53.152A15.874 15.874 0 0 0 208 336.011c3.744 0 7.488-1.312 10.528-3.968 6.656-5.824 7.328-15.936 1.504-22.56z" style="" fill="#fafafa" data-original="#fafafa"></path>
-                                                                            </g>
-                                                                        </svg>
-                                                                    </a>
+                                                                    <div class="col-12 mb-3 justify-content-center">
 
-                                                                </div>
-                                                                <div class="col-12 mb-3">
+                                                                        <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' class="text-secondary mx-1 mb-1 add_property_js add_user_role_css add_user-role-pdf">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="28" height="28" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                                                <g>
+                                                                                    <path d="M496 432.011H272c-8.832 0-16-7.168-16-16v-320c0-8.832 7.168-16 16-16h224c8.832 0 16 7.168 16 16v320c0 8.832-7.168 16-16 16z" style="" fill="#eceff1" data-original="#eceff1"></path>
+                                                                                    <path d="M336 176.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM336 240.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM336 304.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM336 368.011h-64c-8.832 0-16-7.168-16-16s7.168-16 16-16h64c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 176.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 240.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 304.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16zM432 368.011h-32c-8.832 0-16-7.168-16-16s7.168-16 16-16h32c8.832 0 16 7.168 16 16s-7.168 16-16 16z" style="" fill="#388e3c" data-original="#388e3c"></path>
+                                                                                    <path d="M282.208 19.691c-3.648-3.04-8.544-4.352-13.152-3.392l-256 48A15.955 15.955 0 0 0 0 80.011v352c0 7.68 5.472 14.304 13.056 15.712l256 48c.96.192 1.952.288 2.944.288 3.712 0 7.328-1.28 10.208-3.68a16.006 16.006 0 0 0 5.792-12.32v-448c0-4.768-2.112-9.28-5.792-12.32z" style="" fill="#2e7d32" data-original="#2e7d32" class="">
+                                                                                    </path>
+                                                                                    <path d="m220.032 309.483-50.592-57.824 51.168-65.792c5.44-6.976 4.16-17.024-2.784-22.464-6.944-5.44-16.992-4.16-22.464 2.784l-47.392 60.928-39.936-45.632c-5.856-6.72-15.968-7.328-22.56-1.504-6.656 5.824-7.328 15.936-1.504 22.56l44 50.304-44.608 57.344c-5.44 6.976-4.16 17.024 2.784 22.464a16.104 16.104 0 0 0 9.856 3.36c4.768 0 9.472-2.112 12.64-6.176l40.8-52.48 46.528 53.152A15.874 15.874 0 0 0 208 336.011c3.744 0 7.488-1.312 10.528-3.968 6.656-5.824 7.328-15.936 1.504-22.56z" style="" fill="#fafafa" data-original="#fafafa"></path>
+                                                                                </g>
+                                                                            </svg>
+                                                                        </a>
+
+                                                                    </div>
+                                                                    <div class="col-6 mb-3 justify-content-center text-center">
+                                                                        <label for="" class="main-label main-label ">Upload<sup class="validationn">*</sup></label>
+                                                                        <input type="file" class="form-control main-control" id="import_file" name="import_file" placeholder="Details" required="">
+                                                                    </div>
+
+
+                                                                    <div class="col-12">
+                                                                        <div class="col-12 mb-3 mt-2">
+                                                                            <select class="form-control main-control templatesnamelistddclass header_div" id="header12" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                                                <option value="" selected disabled>Please
+                                                                                    Select
+                                                                                    Template</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="col-12 mb-3 mt-2">
+                                                                            <select class="form-control main-control language_div" id="language" name="language" disabled required>
+                                                                                <option class="fs-12" label="Language" value=""></option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="en_US" ng-repeat="lang in template_lang">
+                                                                                    English US
+                                                                                    (en_US)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">
+                                                                                    English
+                                                                                    (en)</option>
+
+                                                                                <option class="fs-12 ng-binding ng-scope" value="af" ng-repeat="lang in template_lang">
+                                                                                    Afrikaans
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="sq" ng-repeat="lang in template_lang">
+                                                                                    Albanian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ar" ng-repeat="lang in template_lang">Arabic
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="az" ng-repeat="lang in template_lang">
+                                                                                    Azerbaijani</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="bn" ng-repeat="lang in template_lang">
+                                                                                    Bengali
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="bg" ng-repeat="lang in template_lang">
+                                                                                    Bulgarian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ca" ng-repeat="lang in template_lang">
+                                                                                    Catalan
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="zh_CN" ng-repeat="lang in template_lang">
+                                                                                    Chinese
+                                                                                    (CHN)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="zh_HK" ng-repeat="lang in template_lang">
+                                                                                    Chinese
+                                                                                    (HKG)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="zh_TW" ng-repeat="lang in template_lang">
+                                                                                    Chinese
+                                                                                    (TAI)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="hr" ng-repeat="lang in template_lang">
+                                                                                    Croatian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="cs" ng-repeat="lang in template_lang">Czech
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="da" ng-repeat="lang in template_lang">Danish
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="nl" ng-repeat="lang in template_lang">Dutch
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="en_GB" ng-repeat="lang in template_lang">
+                                                                                    English
+                                                                                    (UK)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="et" ng-repeat="lang in template_lang">
+                                                                                    Estonian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="fil" ng-repeat="lang in template_lang">
+                                                                                    Filipino
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="fi" ng-repeat="lang in template_lang">
+                                                                                    Finnish
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="fr" ng-repeat="lang in template_lang">French
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="de" ng-repeat="lang in template_lang">German
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="el" ng-repeat="lang in template_lang">Greek
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="gu" ng-repeat="lang in template_lang">
+                                                                                    Gujarati
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ha" ng-repeat="lang in template_lang">Hausa
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="he" ng-repeat="lang in template_lang">Hebrew
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="hi" ng-repeat="lang in template_lang">Hindi
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="hu" ng-repeat="lang in template_lang">
+                                                                                    Hungarian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="id" ng-repeat="lang in template_lang">
+                                                                                    Indonesian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ga" ng-repeat="lang in template_lang">Irish
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="it" ng-repeat="lang in template_lang">
+                                                                                    Italian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ja" ng-repeat="lang in template_lang">
+                                                                                    Japanese
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="kn" ng-repeat="lang in template_lang">
+                                                                                    Kannada
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="kk" ng-repeat="lang in template_lang">Kazakh
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ko" ng-repeat="lang in template_lang">Korean
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="lo" ng-repeat="lang in template_lang">Lao
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="lv" ng-repeat="lang in template_lang">
+                                                                                    Latvian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="lt" ng-repeat="lang in template_lang">
+                                                                                    Lithuanian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="mk" ng-repeat="lang in template_lang">
+                                                                                    Macedonian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ms" ng-repeat="lang in template_lang">Malay
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ml" ng-repeat="lang in template_lang">
+                                                                                    Malayalam
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="mr" ng-repeat="lang in template_lang">
+                                                                                    Marathi
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="nb" ng-repeat="lang in template_lang">
+                                                                                    Norwegian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="fa" ng-repeat="lang in template_lang">
+                                                                                    Persian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="pl" ng-repeat="lang in template_lang">Polish
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="pt_BR" ng-repeat="lang in template_lang">
+                                                                                    Portuguese
+                                                                                    (BR)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="pt_PT" ng-repeat="lang in template_lang">
+                                                                                    Portuguese
+                                                                                    (POR)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="pa" ng-repeat="lang in template_lang">
+                                                                                    Punjabi
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ro" ng-repeat="lang in template_lang">
+                                                                                    Romanian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ru" ng-repeat="lang in template_lang">
+                                                                                    Russian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="sr" ng-repeat="lang in template_lang">
+                                                                                    Serbian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="sk" ng-repeat="lang in template_lang">Slovak
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="sl" ng-repeat="lang in template_lang">
+                                                                                    Slovenian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="es" ng-repeat="lang in template_lang">
+                                                                                    Spanish
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="es_AR" ng-repeat="lang in template_lang">
+                                                                                    Spanish
+                                                                                    (ARG)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="es_ES" ng-repeat="lang in template_lang">
+                                                                                    Spanish
+                                                                                    (SPA)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="es_MX" ng-repeat="lang in template_lang">
+                                                                                    Spanish
+                                                                                    (MEX)</option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="sw" ng-repeat="lang in template_lang">
+                                                                                    Swahili
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="sv" ng-repeat="lang in template_lang">
+                                                                                    Swedish
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ta" ng-repeat="lang in template_lang">Tamil
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="te" ng-repeat="lang in template_lang">Telugu
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="th" ng-repeat="lang in template_lang">Thai
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="tr" ng-repeat="lang in template_lang">
+                                                                                    Turkish
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="uk" ng-repeat="lang in template_lang">
+                                                                                    Ukrainian
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="ur" ng-repeat="lang in template_lang">Urdu
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="uz" ng-repeat="lang in template_lang">Uzbek
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="vi" ng-repeat="lang in template_lang">
+                                                                                    Vietnamese
+                                                                                </option>
+                                                                                <option class="fs-12 ng-binding ng-scope" value="zu" ng-repeat="lang in template_lang">Zulu
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+
+
+                                                                    </div>
+
+                                                                    <!-- <div class="col-12 mb-3">
                                                                     <input type="text" class="form-control main-control campaign_name_div" id="campaign_name" placeholder="campaign name..." name="" required>
-                                                                </div>
-                                                                <div class=" col-6 mb-3 ">
-                                                                    <input type="text" name="" id="fromDate_edit" class="date-picker form-control main-control " placeholder="DD-MM-YYYY">
-                                                                </div>
-                                                                <div class="col-6 mb-3">
-                                                                    <input type="text" name="daily_time" id="daily_time" class="form-control main-control dailyinputfields daily-time" placeholder="Select Time" required>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="modal-footer justify-content-center mt-2">
-                                                            <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" name="memberships_update1" value="memberships_update1">Send</button>
-                                                        </div>
-
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="col-6">
-                                                <!-- whatsapp   .. -->
-                                                <div class="wa-preview-main-div-cont">
-                                                    <div class="preview-chat-section">
-                                                        <div class="preview-header-main-cont">
-                                                            <div class="header-image">
-                                                                <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png">
-                                                            </div>
-                                                            <div class="preview-header-text">
-                                                                <span class="company-name user ng-binding">appo</span>
-                                                            </div>
-                                                            <div class="wa-phone-header">
-                                                                <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
-                                                                <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
-                                                                <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="preview-chat-section-chat overflow-y-scroll">
-
-                                                            <div class="preview-chat-paragraph bg-white p-3 col-7">
-                                                                <p class="single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 word-wrap">
-                                                                    Message Header Section</p>
-                                                                <p contenteditable="false" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue" id="bodytextvalue">
-                                                                    Message Body Section</p>
-                                                                <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5" contenteditable="false">Message Footer Section
-                                                                </p>
-                                                            </div>
-                                                            <div class="single-t-call-button">
-                                                                <button class="single-button-whatsapp-template word-wrap">Ok</button>
-                                                                <button class="single-button-whatsapp-template word-wrap">Cancel</button>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
-                                                            <div class="preview-whatsapp-footer">
-                                                                <div class="whatsapp-footer d-flex flex-wrap align-items-center">
-
-                                                                    <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
-                                                                    <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
-                                                                    <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
-                                                                    <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
-                                                                    <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
+                                                                </div> -->
+                                                                    <div class=" col-6 mb-3 d-none">
+                                                                        <input type="text" name="" id="fromDate_edit" class="date-picker form-control main-control " placeholder="DD-MM-YYYY">
+                                                                    </div>
+                                                                    <div class="col-6 mb-3 d-none">
+                                                                        <input type="text" name="daily_time" id="daily_time" class="form-control main-control dailyinputfields daily-time" placeholder="Select Time" required>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-end my-1">
+                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" name="memberships_update1" value="memberships_update1">Preview</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="col-12 col-xl-6 d-flex px-0 px-lg-4 my-2  my-2 my-xxl-0 justify-content-center">
+                                                    <!-- whatsapp   .. -->
+                                                    <div class="">
+                                                        <div class="wa-preview-main-div-cont d-flex justify-content-center ">
+                                                            <div class="preview-chat-section mobile-whatapp" style="border:10px solid #9a9a9a;">
+                                                                <div class="preview-header-main-cont">
+                                                                    <div class="header-image">
+                                                                        <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png">
+                                                                    </div>
+                                                                    <div class="preview-header-text">
+                                                                        <span class="company-name user ng-binding">appo</span>
+                                                                    </div>
+                                                                    <div class="wa-phone-header d-flex">
+                                                                        <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
+                                                                        <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
+                                                                        <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="preview-chat-section-chat overflow-y-scroll mobile-whatapp-body">
+
+                                                                    <div class="preview-chat-paragraph bg-white p-3 col-10">
+                                                                        <p class="word-wrap single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue text-break">
+                                                                            Message Header Section</p>
+                                                                        <img class="rounded-3 preview-header-VIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
+
+                                                                        <p contenteditable="false" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break">
+                                                                            Message Body Section</p>
+                                                                        <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue text-break" contenteditable="false">Message Footer Section
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="single-t-call-button">
+                                                                        <button class="single-button-whatsapp-template word-wrap">Ok</button>
+                                                                        <button class="single-button-whatsapp-template13 word-wrap" hidden>Cancel</button>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
+                                                                    <div class="preview-whatsapp-footer">
+                                                                        <div class="whatsapp-footer d-flex flex-wrap align-items-center">
+
+                                                                            <!-- <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i> -->
+                                                                            <i class="fa-regular fa-face-smile d-none"></i>
+                                                                            <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                                                            <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
+                                                                            <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
+                                                                            <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 d-flex  flex-wrap mobile-footer py-2">
+                                                                    <div class="col-4 text-center"><i class="fa-solid fa-bars"></i></div>
+                                                                    <div class="col-4 text-center"><i class="fa-regular fa-square"></i></div>
+                                                                    <div class="col-4 text-center"><i class="fa-solid fa-chevron-right"></i></div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1211,6 +1423,10 @@ if (!empty($connections)) {
                         </div>
                     </div>
                 </div>
+
+
+                <!-- shedual modal -->
+
 
 
                 <div class="tab-content">
@@ -1358,9 +1574,9 @@ if (!empty($connections)) {
                                             Name
                                             can
                                             only contain lowercase alphanumeric characters and underscores ( _ )</p>
-                                            <p class="emptyname text-danger fs-12"> Template name cannot be empty</p>
+                                        <p class="emptyname text-danger fs-12"> Template name cannot be empty</p>
 
-                                           
+
                                     </div>
 
                                     <div class="col-12 mb-3 ">
@@ -1492,8 +1708,8 @@ if (!empty($connections)) {
                                         <textarea class="form-control main-control TemplateBodyClass body_div" id="body_id" placeholder="Type Your Body Text Here..." name="" required></textarea>
                                         <!-- <p class="fs-12 BODYvalidation" style="display:none;">Template body can not be empty max limit 1024 characters</p> -->
                                         <p class="fs-10 limitvalue">Body character limit is 1024 characters</p>
-                                        
-                                        
+
+
                                     </div>
 
                                     <div class="col-12 mb-3">
@@ -1561,7 +1777,7 @@ if (!empty($connections)) {
                                                     <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header preview-header-paragraph message msg  m-0 p-l-10 p-r-5 ng-binding fw-bold ng-scope" style=""></div>
                                                     <!-- end ngIf: media_footer_text.length > 0 -->
                                                     <!-- </div> -->
-                                                    <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
+                                                    <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message bodymsg msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
                                                     </div>
                                                     <!-- <div class="preview-footer-paragraph refreshit p-1" ng-if="submitParamDetails"
                                                     class="ng-scope" style=""> -->
@@ -1602,96 +1818,114 @@ if (!empty($connections)) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary CloseBtnModelAdd" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary d-none " data-bs-target="#view_modal" data-bs-toggle="modal">Preview and Submit</button>
-                        <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid="" action="insert">Submit</button>
+                        <button type="button" class="btn btn-primary previewbutton ">Preview and Submit</button>
+                        <!-- <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid="" action="insert">Submit</button> -->
                     </div>
                 </div>
         </div>
     </div>
     <!-- last-modal -->
-    <div class="modal fade  " id="view_modal" aria-hidden="true" aria-labelledby="view_modal" tabindex="-1">
+    <!-- last-modal -->
+    <div class="modal fade  modal-lg" id="view_modal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="view_modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="view_modal" name="view_modal">Template</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body modal-body-secondery d-flex flex-wrap p-0">
+                <div class="modal-body modal-body-secondery d-flex flex-wrap">
 
-                    <div class="col-12 hello">
-                        <div class=" justify-content-center h-100">
-                            <!-- whatsapp   .. -->
-                            <div class="wa-preview-main-div-cont">
-                                <div class="preview-chat-section rounded-0">
-                                    <div class="preview-header-main-cont">
-                                        <div class="header-image">
-                                            <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png"><!-- end ngIf: !company_photo || company_photo.length == 0 -->
-                                        </div>
-                                        <div class="preview-header-text">
-                                            <span class="company-name user ng-binding">appo</span>
-                                        </div>
-                                        <div class="wa-phone-header">
-                                            <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
-                                            <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
-                                            <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
-                                        </div>
+
+
+
+                    <div class="col-6">
+                        <div class="modal-body-card justify-content-center">
+                            <div id="" class="col-12 mb-3 mt-2">
+
+                                <form id="dynamicInputsContainer1" name="filds"></form>
+                            </div>
+
+                            <div id="" class="col-12 mb-3 mt-2">
+                                <form id="dynamicInputsContainer" name="filds"></form>
+                            </div>
+
+
+                            <div ng-if="!headerTextLength && !urlParam && !bodyTextLength" class="cwt-info-facebook ng-scope">
+                                <p class="font-size-12 text-center">You haven't used any variable in your text.</p>
+                            </div>
+
+
+
+                            <div class="cwt-info-facebook">
+                                <p class="font-size-12">The provided example values will be submitted to Facebook as part of the template submission process. If no relevant examples are provided, templates may be rejected by Facebook.</p>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="preview-chat-section rounded-0">
+                            <div class="preview-header-main-cont">
+                                <div class="header-image">
+                                    <img class="profile-img ng-scope" ng-if="!company_photo || company_photo.length == 0" ng-src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png" alt="logo" src="https://custpostimages.s3.ap-south-1.amazonaws.com/885/206875.png">
+                                </div>
+                                <div class="preview-header-text">
+                                    <span class="company-name user ng-binding">appo</span>
+                                </div>
+                                <div class="wa-phone-header">
+                                    <i class="fa fa-video-camera wa-phone-header-video-icon" aria-hidden="true"></i>
+                                    <i class="fa fa-phone wa-phone-header-call-icon" aria-hidden="true"></i>
+                                    <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
+                                </div>
+                            </div>
+
+                            <div class="preview-chat-section-chat overflow-y-scroll">
+                                <div class="preview-chat-paragraph bg-white p-3 col-10">
+                                    <div class="preview-header-paragraph" ng-if="submitParamDetails" class="ng-scope" style="">
+                                        <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                     </div>
 
-                                    <div class="preview-chat-section-chat overflow-y-scroll">
-                                        <div class="preview-chat-paragraph bg-white p-3 col-10">
-                                            <div class="preview-header-paragraph" ng-if="submitParamDetails" class="ng-scope" style="">
-                                                <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
-                                            </div>
+                                    <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
 
-                                            <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
-                                            <!-- <div class="preview-header-paragraph" ng-if="submitParamDetails"
-                                            class="ng-scope" style="">
-                                            <div ng-if="media_footer_text.length > 0 "
-                                                class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope"
-                                                contenteditable="false" style=""></div>
-                                            end ngIf: media_footer_text.length > 0
-                                        </div> -->
-                                            <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
-                                            </div>
-                                            <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
-                                                <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
-                                                <!-- end ngIf: media_footer_text.length > 0 -->
-                                            </div>
-                                            <!-- <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
-                                                        <a href="#" ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></a>
-                                                        end ngIf: media_footer_text.length > 0
-                                                    </div> -->
-                                        </div>
-                                        <div class="single-t-call-button">
-                                            <button class="single-button-whatsapp-template1"></button>
-                                            <button class="single-button-whatsapp-template2" data-template="2"></button>
-                                            <button class="single-button-whatsapp-template3" data-template="3"></button>
-
-                                        </div>
+                                    <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
                                     </div>
-                                    <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
-                                        <div class="preview-whatsapp-footer">
-                                            <div class="whatsapp-footer d-flex flex-wrap align-items-center">
-
-                                                <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
-                                                <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
-                                                <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
-                                                <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
-                                                <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
-                                            </div>
-                                        </div>
+                                    <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
+                                        <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                     </div>
 
                                 </div>
+                                <div class="single-t-call-button">
+                                    <button class="single-button-whatsapp-template1"></button>
+                                    <button class="single-button-whatsapp-template2" data-template="2"></button>
+                                    <button class="single-button-whatsapp-template3" data-template="3"></button>
 
+                                </div>
+                            </div>
+                            <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
+                                <div class="preview-whatsapp-footer">
+                                    <div class="whatsapp-footer d-flex flex-wrap align-items-center">
+
+                                        <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
+                                        <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
+                                        <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
+                                        <i class="fa fa-camera whatsapp-footer-3" aria-hidden="true"></i>
+                                        <p class="audio-icon-tem"><i class="fa fa-microphone icon-tem-micro" aria-hidden="true"></i></p>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary TemplateDeleteBtnDiv" id="" name="">Delete</button>
+                    <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid="" action="insert">Submit</button>
                     <button class="btn  btn-primary   Elbtn EditTemplateButtonClass" name="" id=""><i class="bi bi-pencil"></i></button>
+                    <button type="button" class="btn btn-primary TemplateDeleteBtnDiv" id="" name="">Delete</button>
+                    <!-- <button type="button" class="btn btn-secondary CloseBtnModelAdd" data-bs-dismiss="modal">Close</button> -->
+
+                    <span class="btn-primary Template_send_whatsapp" id="sendbtn" datastatus="" name="" value="Send">Send</span>
+
+
                 </div>
 
             </div>
@@ -1700,32 +1934,47 @@ if (!empty($connections)) {
     <!-- view sent msg -->
     <?= $this->include('partials/footer') ?>
     <script>
+        $('#Template_nameId').on('input', function() {
+            var templateName = $(this).val();
+            var maxLength = 512;
+            var regex = /^[a-z0-9_]+$/;
 
-    $('#Template_nameId').on('input', function(){
-        var templateName = $(this).val();
-        var maxLength = 512;
-        var regex = /^[a-z0-9_]+$/;
-        
-        if (templateName.length === 0) {
-            $('.CheckTemplateNameAlertPTag').hide(); 
-        } else if (templateName.length > maxLength) {
-            $(this).val(templateName.substring(0, maxLength));
-            $('.CheckTemplateNameAlertPTag').text('Maximum 512 lowercase characters allowed').show();
-        } else if (!regex.test(templateName)) {
-            $('.CheckTemplateNameAlertPTag').show();
-        } else {
-            $('.CheckTemplateNameAlertPTag').hide();
-            $('.emptyname').hide();
+            if (templateName.length === 0) {
+                $('.CheckTemplateNameAlertPTag').hide();
+            } else if (templateName.length > maxLength) {
+                $(this).val(templateName.substring(0, maxLength));
+                $('.CheckTemplateNameAlertPTag').text('Maximum 512 lowercase characters allowed').show();
+            } else if (!regex.test(templateName)) {
+                $('.CheckTemplateNameAlertPTag').show();
+            } else {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').hide();
 
-        }
-    });
-
+            }
+        });
 
 
 
-        
 
-    
+
+
+        $('.dailyinputfields').bootstrapMaterialDatePicker({
+            format: 'hh:mm A',
+            cancelText: 'ANNULER',
+            nowButton: true,
+            switchOnClick: true,
+            time: true,
+            date: false
+        });
+
+
+        $('#fromDate_edit').bootstrapMaterialDatePicker({
+            format: 'DD-MM-YYYY',
+            cancelText: 'ANNULER',
+            nowButton: true,
+            switchOnClick: true,
+            time: false
+        });
 
         $('.FilterDatePicker').bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY',
@@ -1801,6 +2050,16 @@ if (!empty($connections)) {
 
         $('body').on('click', '.WhatsAppTemplateModelViewBtn', function() {
             // $('#view_modal').modal('show');
+
+            $('.EditTemplateButtonClass').removeClass('d-none');
+            $('.inputypeBody').val('');
+            $('.emptyname').addClass('d-none')
+            $('.CheckTemplateNameAlertPTag').addClass('d-none')
+            $('.Add_editModelTitle').addClass('d-none')
+            $('#sendbtn').addClass('d-none')
+            $('.inputypeBody').addClass('d-none')
+
+
             var Body = $(this).attr('Bodytext');
             var footer = $(this).attr('footertext');
             var header = $(this).attr('headertext');
@@ -1986,12 +2245,15 @@ if (!empty($connections)) {
 
 
         });
+        $('body').on('click', '.singletabactive', function() {
+            $('#single').click();
+        });
+
         $('body').on('click', '.Tab2Class', function() {
 
             $('.Activeclass').addClass('d-none');
             $('#pills-ex-schedule-tab').addClass('d-none');
             $('#pills-ex-single-tab').addClass('d-none');
-
 
         });
         $('body').on('click', '.Tab3Class', function() {
@@ -2001,10 +2263,27 @@ if (!empty($connections)) {
             $('#pills-ex-single-tab').addClass('d-none');
 
         });
+        $('body').on('click', '#schedule', function() {
+            list_data();
+            $('#mobile_code').val('');
+            $('.header_div').html('');
+            $('.language_div').val('');
+        });
+        $('body').on('click', '#single', function() {
+            list_data();
+            $('#mobile_code').val('');
+            $('.header_div').html('');
+            $('.language_div').val('');
+        });
     </script>
 
     <script>
         $('body').on('click', '.previewbutton', function() {
+            $('.Add_editModelTitle').removeClass('d-none');
+            $('.EditTemplateButtonClass').addClass('d-none');
+            $('.inputypeBody').removeClass('d-none')
+            $('#sendbtn').addClass('d-none')
+
 
             var body = $('.body_div').val();
             var regex = /{{\d+}}/g;
@@ -2014,17 +2293,13 @@ if (!empty($connections)) {
 
                 $('#dynamicInputsContainer').empty();
 
-                for (var i = 0; i < matches.length; i++) {
-                    var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" Dataid="' + i + '"  placeholder="Body' + i + '" name="body_' + i + '" required>';
+                for (var i = 1; i <= matches.length; i++) {
+                    var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-2" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
                     $('#dynamicInputsContainer').append(inputField);
-                    // $('.msg-text-chat').append(body);
-
                 }
             }
 
-            function getValue(match) {
-                return match.replace(/[{}]/g, '');
-            }
+
 
 
 
@@ -2039,6 +2314,8 @@ if (!empty($connections)) {
             if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== 'undefined' && WhatsAppConnectionsDropDown !== undefined) {
                 var table = 'master_whatsapp_template';
                 show_val = '<?= json_encode(array('Template_name', 'category_types', 'language', 'header', 'body', 'footer')); ?>';
+                $('.loader').show();
+
                 $.ajax({
                     datatype: 'json',
                     method: "post",
@@ -2065,27 +2342,7 @@ if (!empty($connections)) {
 
 
 
-                        // var selectDropdown = document.getElementById("header");
-                        // selectDropdown.innerHTML = "";
-                        // var defaultOption = document.createElement("option");
-                        // defaultOption.text = "Please select template";
-                        // defaultOption.value = "";
-                        // defaultOption.disabled = true;
-                        // defaultOption.selected = true;
-                        // selectDropdown.add(defaultOption);
 
-                        // for (var key in template_name) {
-                        //     if (template_name.hasOwnProperty(key)) {
-                        //         var option = document.createElement("option");
-                        //         option.text = template_name[key];
-                        //         option.value = template_name[key];
-                        //         option.setAttribute('DataMNo', key);
-
-                        //         selectDropdown.add(option);
-
-
-                        //     }
-                        // }
 
 
                         var selectDropdowns = document.getElementsByClassName("templatesnamelistddclass");
@@ -2117,10 +2374,13 @@ if (!empty($connections)) {
 
                         $('.preview-header-VIDEO').addClass('d-none');
 
-                        $('#header').change(function() {
+                        $('.header_div').change(function() {
+
                             var selectDropdown = $(this).val();
                             var languageDropdown = templatelanguage[selectDropdown];
+                            var body1 = bodyvalue[selectDropdown];
                             var body = bodyvalue[selectDropdown];
+
                             var header = headervalue[selectDropdown];
                             var footer = footervalue[selectDropdown];
                             var button = buttonvalue[selectDropdown];
@@ -2128,9 +2388,30 @@ if (!empty($connections)) {
                             $('.preview-chat-section-chat').slideUp(100);
                             $('.preview-chat-section-chat').slideDown(1000);
 
-                            $('.BodyValue').text(body);
-                            $('.footervalue').text(footer);
                             $('.language_div').val(languageDropdown);
+
+                            var body = $('.BodyValue').text(body);
+
+                            var regex = /{{\d+}}/g;
+                            var matches = body1.match(regex);
+                            console.log(matches);
+                            $('.inputypeBody').hide();
+
+                            if (matches) {
+                                $('#dynamicInputsContainer1').empty();
+
+                                for (var i = 1; i <= matches.length; i++) {
+                                    var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-1" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
+                                    $('#dynamicInputsContainer1').append(inputField);
+                                    $('.inputypeBody').show();
+
+
+                                }
+                            }
+
+                            $('.footervalue').text(footer);
+                            // $('.language_div1').val(languageDropdown);
+
                             $('.single-button-whatsapp-template').text(button);
 
 
@@ -2274,91 +2555,6 @@ if (!empty($connections)) {
             SendMessagesHistory();
 
 
-
-        });
-
-        $('.SaveBtnDiv').on('click', function(e) {
-            e.preventDefault();
-
-
-            var Template_name = $('.Template_name').val();
-            var category_types = $('#category_types').val();
-            var language = $('#languageid').val();
-            var header = $('#Template_header').val();
-            var footer = $('.footer_div').val();
-            var header_text = $('.MemberAddressClass').val();
-            var table = 'master_whatsapp_template';
-            var uploade_file = $('#insert_image').prop('files')[0];
-            var body = $('.body_div').val();
-
-            // 07-02-2024
-
-            var form = $("form[name='master_membership_update_form']")[0];
-            var formData = new FormData(form);
-            formData.append('Template_name', Template_name);
-            formData.append('category_types', category_types);
-            formData.append('language', language);
-            formData.append('header', header);
-            formData.append('body', body);
-            formData.append('footer', footer);
-            formData.append('table', table);
-            formData.append('uploade_file', uploade_file);
-            formData.append('header_text', header_text);
-            formData.append('action', 'insert');
-
-
-            if (Template_name != "" && footer != "" && category_types != "" && language != "") {
-
-                // if (matches) {
-
-                //     $('#dynamicInputsContainer').empty();
-
-                //     for (var i = 0; i < matches.length; i++) {
-                //         var inputField = '<input type="text" id="inputbody" class="form-control main-control body_div mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
-                //         $('#dynamicInputsContainer').append(inputField);
-                //     }
-                // } 
-                // function getValue(match) {
-                //     return match.replace(/[{}]/g, '');
-                // }
-
-
-                $.ajax({
-                    method: "post",
-                    url: "<?= site_url('whatsapp_template_insert'); ?>",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-
-                    success: function(data) {
-                        if (data == 0) {
-                            list_data();
-                            $(".membershipDiv")[0].reset();
-                            $(".membershipDiv").removeClass("was-validated");
-                            $(".close_btn").trigger("click");
-                            iziToast.success({
-                                title: 'Added Successfully'
-                            });
-
-
-                            list_data();
-                        } else {
-                            $('.loader').hide();
-                            $(".membershipDiv")[0].reset();
-                            $(".close_btn").trigger("click");
-                            iziToast.error({
-                                title: 'Duplicate package'
-                            });
-                            $(".membershipDiv").addClass("was-validated");
-                        }
-                    },
-                    error: function(error) {
-                        console.error(error);
-                    }
-                });
-            } else {
-                $(".membershipDiv").addClass("was-validated");
-            }
 
         });
 
@@ -2525,11 +2721,57 @@ if (!empty($connections)) {
 
         // ButtonSelctionDropDown
 
+        $('body').on('click', '.previewbutton', function() {
+            var name = $('.Template_name').val();
+            var category = $('select.TemplateCategorySelectionDiv option:selected').val();
+            var language = $('select.TemplateLanguageDDList option:selected').val();
+            var headertype = $('select.HeaderSelectionDD option:selected').val();
+            var headerfile = '';
+            var body = $('.TemplateBodyClass').val();
+            var action = $(this).attr('action');
+            var templatename = $(this).attr('templatename');
+            var templateid = $(this).attr('templateid');
+
+            var regex = /^[a-z0-9_]+$/;
+            if (name.trim() === '') {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').show();
+                return;
+            } else if (!regex.test(name)) {
+                $('.emptyname').hide();
+                $('.CheckTemplateNameAlertPTag').show();
+                return;
+            } else {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').hide();
+            }
+
+            // Perform validation
+            if (name != '' && category != '' && language != '' && body != '') {
+                $('#view_modal').modal('show');
+                $('#whatsapp_template_add_edit').modal('hide');
 
 
+            } else {
+                // Add validation classes and handle invalid inputs
+                $(".membershipDiv").addClass("was-validated");
+                $("form[name='whatsapp_template_add_edit']").find('.selectpicker').each(function() {
+                    var selectpicker_valid = $(this).attr('required') === 'required' ? 1 : 0;
+
+                    if (selectpicker_valid === 1) {
+                        if ($(this).val() == 0 || $(this).val() == '') {
+                            $(this).closest("div").addClass('selectpicker-validation');
+                        } else {
+                            $(this).closest("div").removeClass('selectpicker-validation');
+                        }
+                    } else {
+                        $(this).closest("div").removeClass('selectpicker-validation');
+                    }
+                });
+            }
+        });
 
 
-     
 
 
 
@@ -2549,7 +2791,7 @@ if (!empty($connections)) {
             if (name.trim() === '') {
                 $('.CheckTemplateNameAlertPTag').hide();
                 $('.emptyname').show();
-                return; 
+                return;
             } else if (!regex.test(name)) {
                 $('.emptyname').hide();
                 $('.CheckTemplateNameAlertPTag').show();
@@ -2577,9 +2819,23 @@ if (!empty($connections)) {
                             processData: false,
                             contentType: false,
                             success: function(data) {
+                                $('#view_modal').modal('hide');
+
                                 headerfile = data;
                                 var headertext = $('.ClassHeaderTEXT').val();
                                 var footer = $('.FotterTextDIvClass').val();
+
+                                var bodydivvalues = [];
+
+                                $('.inputypeBody').each(function() {
+                                    var bodydivvalue = $(this).val();
+                                    bodydivvalues.push(bodydivvalue);
+                                });
+
+                                console.log(bodydivvalues);
+
+                                // var bodydivvalue = $('.inputypeBody').val();
+                                // console.log(bodydivvalue);
                                 var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
                                 var QuickArray = [];
                                 if (buttontype == '1') {} else if (buttontype == '2') {
@@ -2683,12 +2939,41 @@ if (!empty($connections)) {
                                         });
                                     }
                                 }
-                                if (body) {
+                                // if (body) {
+                                //     templateArray.components.push({
+                                //         'type': 'BODY',
+                                //         'text': body
+                                //     });
+                                // }
+
+
+
+                                if (/{{(\d+)}}/g.test(body)) {
                                     templateArray.components.push({
-                                        'type': 'BODY',
-                                        'text': body
+                                        "type": "BODY",
+                                        "text": body,
+                                        "example": {
+                                            "body_text": [
+
+                                                bodydivvalues
+
+                                            ]
+                                        }
+                                    });
+                                } else {
+                                    templateArray.components.push({
+                                        "type": "BODY",
+                                        "text": body
                                     });
                                 }
+
+
+
+
+
+
+
+
                                 if (footer) {
                                     templateArray.components.push({
                                         'type': 'FOOTER',
@@ -2723,15 +3008,21 @@ if (!empty($connections)) {
                                                 iziToast.error({
                                                     title: "Failed to add template"
                                                 });
+                                                $('#view_modal').modal('hide');
+
                                             } else {
                                                 if (action = "update") {
                                                     iziToast.success({
                                                         title: "Updated Successfully"
                                                     });
+                                                    $('#view_modal').modal('hide');
+
                                                 } else {
                                                     iziToast.success({
                                                         title: "Added Successfully"
                                                     });
+                                                    $('#view_modal').modal('hide');
+
                                                 }
 
                                             }
@@ -2752,6 +3043,15 @@ if (!empty($connections)) {
                     var headertext = $('.ClassHeaderTEXT').val();
                     var body = $('.TemplateBodyClass').val();
                     var footer = $('.FotterTextDIvClass').val();
+                    var bodydivvalues = []; // Array to store values of all inputypeBody elements
+
+                    $('.inputypeBody').each(function() {
+                        var bodydivvalue = $(this).val();
+                        bodydivvalues.push(bodydivvalue);
+                    });
+
+                    console.log(bodydivvalues);
+
                     var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
                     var QuickArray = [];
                     if (buttontype == '1') {} else if (buttontype == '2') {
@@ -2855,12 +3155,28 @@ if (!empty($connections)) {
                         }
                     }
 
-                    if (body) {
+
+                    if (/{{(\d+)}}/g.test(body)) {
                         templateArray.components.push({
-                            'type': 'BODY',
-                            'text': body
+                            "type": "BODY",
+                            "text": body,
+                            "example": {
+                                "body_text": [
+                                    bodydivvalues
+                                ]
+                            }
+                        });
+                    } else {
+                        templateArray.components.push({
+                            "type": "BODY",
+                            "text": body
                         });
                     }
+
+
+
+
+
 
                     if (footer) {
                         templateArray.components.push({
@@ -2895,15 +3211,21 @@ if (!empty($connections)) {
                                 iziToast.error({
                                     title: "Failed to add template"
                                 });
+                                $('#view_modal').modal('hide');
+
                             } else {
                                 if (action = "update") {
                                     iziToast.success({
                                         title: "Updated Successfully"
                                     });
+                                    $('#view_modal').modal('hide');
+
                                 } else {
                                     iziToast.success({
                                         title: "Added Successfully"
                                     });
+                                    $('#view_modal').modal('hide');
+
                                 }
                             }
                             $(".close_btn").trigger("click");
@@ -2912,7 +3234,7 @@ if (!empty($connections)) {
                     });
                     // console.log(jsonString);
                 }
-        }else{
+            } else {
                 $(".membershipDiv").addClass("was-validated");
                 $("form[name='whatsapp_template_add_edit']").find('.selectpicker').each(function() {
                     var selectpicker_valid = $(this).attr('required') === 'required' ? 1 : 0;
@@ -2950,25 +3272,113 @@ if (!empty($connections)) {
         // --------------------------------------------------------------
 
         $('body').on('click', '.Template_send', function() {
-            // alert();
+            var bodydivvalues = [];
+            $('.inputypeBody').each(function() {
+                var bodydivvalue = $(this).val();
+                bodydivvalues.push(bodydivvalue);
+            });
 
+            if (!originalHTML) {
+                originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+            }
+
+            var body = $('.preview-chat-paragraph .BodyValue').html();
+            $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
+            var fullmsg = $('.preview-chat-paragraph').html();
+            var newbody = JSON.stringify(body);
             var header = $('.header_div').val();
             var template_id = $('.header_div option:selected').attr('DataMNo');
             var phone_no = $('.phone_number_div').val();
             var language = $('.language_div').val();
             var countrey_code = $('.iti__selected-dial-code').text();
-
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
+            $('.preview-chat-paragraph').html(fullmsg);
+
+            if (header !== "" && phone_no !== "" && language !== "" && WhatsAppConnectionsDropDown !== '') {
+                $('#view_modal').modal('show');
+                $('.EditTemplateButtonClass').addClass('d-none');
+                $('.Add_editModelTitle').addClass('d-none');
+                $('.TemplateDeleteBtnDiv').addClass('d-none');
+                $('.preview-header-paragraphVIDEO').hide();
 
 
 
+            } else {
+                $(".membershipDiv").addClass("was-validated");
+
+            }
+        });
 
 
-            if (header !== "" && phone_no !== "" && language !== "" && WhatsAppConnectionsDropDown != '') {
+
+        $('.SaveBtnDiv').on('click', function(e) {
+            e.preventDefault();
+
+
+            var Template_name = $('#header12').val();
+            var language = $('.language_div').val();
+            var shedualdate = $('#fromDate_edit').val();
+            var shedualtime = $('.dailyinputfields').val();
+            var uploade_file = $('#import_file').prop('files')[0];
+
+            var fullmsg = $('.preview-chat-paragraph').html();
+            $('.preview-chat-paragraph').html(fullmsg);
+
+            var form = $("form[name='master_membership_update_form']")[0];
+            var formData = new FormData(form);
+            formData.append('Template_name', Template_name);
+            formData.append('language', language);
+            formData.append('uploade_file', uploade_file);
+            formData.append('shedualdate', shedualdate);
+            formData.append('shedualtime', shedualtime);
+            formData.append('action', true);
+
+
+            if (Template_name != "" && uploade_file != "" && language != "") {
+
+                $('#view_modal').modal('show');
+                $('.EditTemplateButtonClass').addClass('d-none');
+                $('.Add_editModelTitle').addClass('d-none');
+                $('.TemplateDeleteBtnDiv').addClass('d-none');
+                $('.preview-header-paragraphVIDEO').hide();
+
+
+            } else {
+                $(".membershipDiv").addClass("was-validated");
+            }
+
+        });
+
+
+        var SendURL;
+
+        $('.Template_send_whatsapp').on('click', function() {
+            var DataStatus = $('#pills-tab .nav-link.active').attr('DataStatus');
+
+            if (DataStatus === '3') {
+                var bodydivvalues = [];
+                $('.inputypeBody').each(function() {
+                    var bodydivvalue = $(this).val();
+                    bodydivvalues.push(bodydivvalue);
+                });
+                if (!originalHTML) {
+                    originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+                }
+                var body = $('.preview-chat-paragraph .BodyValue').html();
+                $('.preview-chat-paragraph .msg-text-chat').html(body);
+
+                $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
+                var newbody = JSON.stringify(body);
+                var header = $('.header_div').val();
+                var template_id = $('.header_div option:selected').attr('DataMNo');
+                var phone_no = $('.phone_number_div').val();
+                var language = $('.language_div').val();
+                var countrey_code = $('.iti__selected-dial-code').text();
+                var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
                 $.ajax({
                     dataType: 'json',
                     method: "POST",
-                    url: "<?= site_url('single_whatsapp_template_sent'); ?>",
+                    url: "single_whatsapp_template_sent",
                     data: {
                         'template_name': header,
                         'phone_no': phone_no,
@@ -2977,19 +3387,23 @@ if (!empty($connections)) {
                         'countrey_code': countrey_code,
                         'action': true,
                         'connectionid': WhatsAppConnectionsDropDown,
+                        'newbody': newbody,
+                        'bodydivvalues': bodydivvalues,
+                        'originalHTML': originalHTML,
                     },
                     success: function(res) {
+                        $('#view_modal').modal('hide');
+
                         $('#mobile_code').val('');
                         $('.header_div').html('');
-                        $('.language_div').val('refresh');
+                        $('.language_div').val('');
                         list_data();
 
                         $('.loader').hide();
                         if (res == '1') {
                             iziToast.success({
-                                title: "Template sent successfully"
+                                title: 'Messagae Sent Successfully'
                             });
-                            // $('.viewdata').trigger('click');
 
                             var viewdataElement = document.querySelector('.viewdata');
                             if (viewdataElement) {
@@ -3006,9 +3420,217 @@ if (!empty($connections)) {
 
                 });
             } else {
-                $(".membershipDiv").addClass("was-validated");
-            }
+                var bodydivvalues = [];
+                $('.inputypeBody').each(function() {
+                    var bodydivvalue = $(this).val();
+                    bodydivvalues.push(bodydivvalue);
+                });
+                var template_id = $('#header12 option:selected').attr('DataMNo');
+                console.log(template_id);
+
+                var Template_name = $('#header12').val();
+                var language = $('.language_div').val();
+                var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
+                if (!originalHTML) {
+                    originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+                }
+                // var shedualdate = $('#fromDate_edit').val();
+                // var shedualtime = $('.dailyinputfields').val();
+                var uploade_file = $('#import_file').prop('files')[0];
+
+                var fullmsg = $('.preview-chat-paragraph').html();
+                $('.preview-chat-paragraph').html(fullmsg);
+
+                var form = $("form[name='master_membership_update_form']")[0];
+                var formData = new FormData(form);
+                formData.append('Template_name', Template_name);
+                formData.append('language', language);
+                formData.append('uploade_file', uploade_file);
+                formData.append('connectionid', WhatsAppConnectionsDropDown);
+                formData.append('originalHTML', originalHTML);
+                formData.append('bodydivvalues', bodydivvalues);
+                formData.append('template_id', template_id);
+
+
+
+
+                // formData.append('shedualdate', shedualdate);
+                // formData.append('shedualtime', shedualtime);
+                formData.append('action', true);
+
+                $.ajax({
+                    method: "post",
+                    url: "bulk_whatsapp_template_send",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+
+                    success: function(data) {
+                        $('#view_modal').modal('hide');
+                        $('.header_div').html('');
+                        $('.language_div').val('');
+                        $('#import_file').val('');
+
+                        if (data == 1) {
+                            list_data();
+                            $(".membershipDiv")[0].reset();
+                            $(".membershipDiv").removeClass("was-validated");
+                            $(".close_btn").trigger("click");
+                            iziToast.success({
+                                title: 'Messagae Sent Successfully'
+                            });
+                            var viewdataElement = document.querySelector('.viewdata');
+                            if (viewdataElement) {
+                                viewdataElement.click();
+                            }
+                            list_data();
+
+                        } else {
+                            $('.loader').hide();
+                            $(".membershipDiv")[0].reset();
+                            $(".close_btn").trigger("click");
+                            iziToast.error({
+                                title: 'Something went wrong!'
+                            });
+                            $(".membershipDiv").addClass("was-validated");
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            };
         });
+
+
+
+        // $('body').on('click', '#sendbtn', function() {
+
+        //     var Template_name = $('#header12').val();
+        //     var language = $('.language_div').val();
+        //     var shedualdate = $('#fromDate_edit').val();
+        //     var shedualtime = $('.dailyinputfields').val();
+        //     var uploade_file = $('#import_file').prop('files')[0];
+
+        //     var fullmsg = $('.preview-chat-paragraph').html();
+        //     $('.preview-chat-paragraph').html(fullmsg);
+
+        //     var form = $("form[name='master_membership_update_form']")[0];
+        //     var formData = new FormData(form);
+        //     formData.append('Template_name', Template_name);
+        //     formData.append('language', language);
+        //     formData.append('uploade_file', uploade_file);
+        //     formData.append('shedualdate', shedualdate);
+        //     formData.append('shedualtime', shedualtime);
+        //     formData.append('action', true);
+
+        //     $.ajax({
+        //         method: "post",
+        //         url: "bulk_whatsapp_template_send",
+        //         data: formData,
+        //         processData: false,
+        //         contentType: false,
+
+        //         success: function(data) {
+        //             if (data == 0) {
+        //                 list_data();
+        //                 $(".membershipDiv")[0].reset();
+        //                 $(".membershipDiv").removeClass("was-validated");
+        //                 $(".close_btn").trigger("click");
+        //                 iziToast.success({
+        //                     title: 'Messagae Sent Successfully'
+        //                 });
+
+
+        //                 list_data();
+        //             } else {
+        //                 $('.loader').hide();
+        //                 $(".membershipDiv")[0].reset();
+        //                 $(".close_btn").trigger("click");
+        //                 iziToast.error({
+        //                     title: 'Duplicate package'
+        //                 });
+        //                 $(".membershipDiv").addClass("was-validated");
+        //             }
+        //         },
+        //         error: function(error) {
+        //             console.error(error);
+        //         }
+        //     });
+        // });
+
+        // $('body').on('click', '#sendbtn', function() {
+
+
+
+        //     var bodydivvalues = [];
+        //     $('.inputypeBody').each(function() {
+        //         var bodydivvalue = $(this).val();
+        //         bodydivvalues.push(bodydivvalue);
+        //     });
+        //     if (!originalHTML) {
+        //         originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+        //     }
+        //     var body = $('.preview-chat-paragraph .BodyValue').html();
+        //     $('.preview-chat-paragraph .msg-text-chat').html(body);
+
+        //     $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
+        //     var newbody = JSON.stringify(body);
+        //     var header = $('.header_div').val();
+        //     var template_id = $('.header_div option:selected').attr('DataMNo');
+        //     var phone_no = $('.phone_number_div').val();
+        //     var language = $('.language_div').val();
+        //     var countrey_code = $('.iti__selected-dial-code').text();
+        //     var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
+        //     $.ajax({
+        //         dataType: 'json',
+        //         method: "POST",
+        //         url: "single_whatsapp_template_sent",
+        //         data: {
+        //             'template_name': header,
+        //             'phone_no': phone_no,
+        //             'language': language,
+        //             'template_id': template_id,
+        //             'countrey_code': countrey_code,
+        //             'action': true,
+        //             'connectionid': WhatsAppConnectionsDropDown,
+        //             'newbody': newbody,
+        //             'bodydivvalues': bodydivvalues,
+        //             'originalHTML': originalHTML,
+        //         },
+        //         success: function(res) {
+        //             $('#view_modal').modal('hide');
+
+        //             $('#mobile_code').val('');
+        //             $('.header_div').html('');
+        //             $('.language_div').val('refresh');
+        //             list_data();
+
+        //             $('.loader').hide();
+        //             if (res == '1') {
+        //                 iziToast.success({
+        //                     title: "Template sent successfully"
+        //                 });
+
+        //                 var viewdataElement = document.querySelector('.viewdata');
+        //                 if (viewdataElement) {
+        //                     viewdataElement.click();
+        //                 }
+        //                 list_data();
+        //             } else {
+        //                 iziToast.error({
+        //                     title: 'Something went wrong!'
+        //                 });
+
+        //             }
+        //         },
+
+        //     });
+
+        // });
+
+
+
 
         $('body').on('change', '.ButtonSelctionDropDown', function() {
             $('.SetButtonHTMLClass').html('');
@@ -3178,6 +3800,21 @@ if (!empty($connections)) {
             $('.loader').show();
 
             var name = $(this).attr('name');
+            var regex = /^[a-z0-9_]+$/;
+            if (name.trim() === '') {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').show();
+                return;
+            } else if (!regex.test(name)) {
+                $('.emptyname').hide();
+                $('.CheckTemplateNameAlertPTag').show();
+                return;
+            } else {
+                $('.CheckTemplateNameAlertPTag').hide();
+                $('.emptyname').hide();
+            }
+
+
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
 
             var id = $(this).attr('id');
@@ -3201,14 +3838,59 @@ if (!empty($connections)) {
                     var language = data.language;
                     var body = '';
                     var footer = '';
+                    var bodydivvalues = [];
+
+                    $('.inputypeBody').each(function() {
+                        var bodydivvalue = $(this).val();
+                        bodydivvalues.push(bodydivvalue);
+                    });
+
+                    console.log(bodydivvalues);
                     data.components.forEach(component => {
 
                         var type = component.type;
+                        // if (type == 'BODY') {
+                        //     if (component.text) {
+                        //         body = component.text;
+                        //     }
+                        // }
+
+                        // if (type == 'BODY' && /{{(\d+)}}/g.test(component.text)) {
+
+                        //     body = component.text;
+                        //     $('.body_div').val(body);
+
+                        //     var body_text = [
+                        //         bodydivvalues
+                        //     ];
+                        //     var example = {
+                        //         "body_text": body_text
+                        //     };
+
+                        // } else {
+                        //     body = component.text;
+                        //     $('.body_div').val(body);
+
+                        // }
                         if (type == 'BODY') {
-                            if (component.text) {
-                                body = component.text;
+                            var body = component.text;
+                            $('.body_div').val(body);
+                            $('.msg-text-chat').text(body);
+
+                        }
+
+                        if (type == 'BODY') {
+                            var body = component.text;
+                            if (/{{(\d+)}}/g.test(component.text)) {
+                                $('.body_div').val(body);
+                                $('.msg-text-chat').text(body);
+
                             }
                         }
+
+
+
+
                         if (type == 'FOOTER') {
                             if (component.text) {
                                 footer = component.text;
@@ -3230,6 +3912,7 @@ if (!empty($connections)) {
                                     $('select.HeaderSelectionDD').closest('.header-jqury').children('.file_upload').removeClass('d-none');
                                     $('select.HeaderSelectionDD').closest('.header-jqury').children('.text-comment').addClass('d-none');
                                 }
+
                                 if (headerformat == 'TEXT') {
                                     if (component.text) {
                                         $('.ClassHeaderTEXT').val(component.text);
@@ -3290,9 +3973,8 @@ if (!empty($connections)) {
                     $('.TemplateCategorySelectionDiv').selectpicker('refresh');
                     $('.TemplateLanguageDDList').val(language);
                     $('.TemplateLanguageDDList').selectpicker('refresh');
-                    $('.TemplateBodyClass').val(body);
+                    // $('.TemplateBodyClass').val(body);
                     $('.FotterTextDIvClass').val(footer);
-                    $('.msg-text-chat').text(body);
                     $('.preview-footer-paragraph').text(footer);
                     $('.loader').hide();
                     $('.Template_name_varification').prop("disabled", false);
@@ -3356,5 +4038,89 @@ if (!empty($connections)) {
         });
         $('body').on('click', '.refresh-btn', function() {
             $(this).toggleClass('rounded-btn');
+        });
+
+
+
+        var originalHTML = '';
+        $('#dynamicInputsContainer1').on('input', '.inputypeBody', function() {
+
+            var inputId = $(this).attr('Dataid');
+            if (!originalHTML) {
+                originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+
+                // originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+
+            }
+            // var originalHTML = $('.preview-chat-paragraph ').html();
+            // var bodyText1 = $(this).val();
+            var regex = new RegExp("{{[" + inputId + "]}}");
+            var form = $('#dynamicInputsContainer1')[0];
+            var formdata = new FormData(form);
+            formdata.append('regex', regex);
+            formdata.append('inputId', inputId);
+            formdata.append('originalHTML', originalHTML);
+            formdata.append('action', true);
+
+            $.ajax({
+                datatype: 'json',
+                method: "post",
+                url: "<?= site_url('Bracket_whatsapp_insert_data'); ?>",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    $('.preview-chat-paragraph .BodyValue').html(res);
+
+
+                    // $('.preview-chat-paragraph .BodyValue').html(res);
+                    $('.loader').hide();
+                }
+            });
+
+        });
+
+
+        var originalHTML = '';
+        $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
+
+            var inputId = $(this).attr('Dataid');
+            if (!originalHTML) {
+                originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
+            }
+            // var originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
+            // var bodyText1 = $(this).val();
+            var regex = new RegExp("{{[" + inputId + "]}}");
+            var form = $('#dynamicInputsContainer')[0];
+            var formdata = new FormData(form);
+            formdata.append('regex', regex);
+            formdata.append('inputId', inputId);
+            formdata.append('originalHTML', originalHTML);
+            formdata.append('action', true);
+
+            $.ajax({
+                datatype: 'json',
+                method: "post",
+                url: "<?= site_url('Bracket_whatsapp_insert_data'); ?>",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+
+                    $('.preview-chat-paragraph .msg-text-chat').html(res);
+                    $('.loader').hide();
+                }
+            });
+
+        });
+        $('body').on('click', '.btn-close', function() {
+            $('#mobile_code').val('');
+            $('.header_div').html('');
+            $('.language_div').val('');
+            $('#import_file').val('');
+
+            // $('.refreshit').html('');
+            list_data();
+
         });
     </script>
