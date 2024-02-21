@@ -1381,7 +1381,7 @@ if (!empty($connections)) {
                                                                             Message Header Section</p>
                                                                         <img class="rounded-3 preview-header-VIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
 
-                                                                        <p contenteditable="false" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break">
+                                                                        <p contenteditable="false" id="sdf" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break">
                                                                             Message Body Section</p>
                                                                         <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue text-break" contenteditable="false">Message Footer Section
                                                                         </p>
@@ -2268,12 +2268,24 @@ if (!empty($connections)) {
             $('#mobile_code').val('');
             $('.header_div').html('');
             $('.language_div').val('');
+            $('.preview-chat-paragraph .headervalue').html('Message Header Section');
+            $('.preview-chat-paragraph .BodyValue').html('Message Body Section');
+           $('.preview-chat-paragraph .footervalue').html('Message Footer Section');
+           $(".selectpicker-validation").removeClass("selectpicker-validation");
+           $("form[name='master_membership_update_form']").removeClass("was-validated");
+
         });
         $('body').on('click', '#single', function() {
             list_data();
             $('#mobile_code').val('');
             $('.header_div').html('');
             $('.language_div').val('');
+            $('.preview-chat-paragraph .headervalue').html('Message Header Section');
+            $('.preview-chat-paragraph .BodyValue').html('Message Body Section');
+           $('.preview-chat-paragraph .footervalue').html('Message Footer Section');
+           $(".selectpicker-validation").removeClass("selectpicker-validation");
+           $("form[name='master_membership_update_form']").removeClass("was-validated");
+
         });
     </script>
 
@@ -4118,7 +4130,8 @@ if (!empty($connections)) {
             $('.header_div').html('');
             $('.language_div').val('');
             $('#import_file').val('');
-
+            $(".selectpicker-validation").removeClass("selectpicker-validation");
+            $("form[name='master_membership_update_form']").removeClass("was-validated");
             // $('.refreshit').html('');
             list_data();
 
