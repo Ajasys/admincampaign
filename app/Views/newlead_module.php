@@ -633,9 +633,9 @@ $data = $find_Array_all->getResultArray();
 <script>
     window.fbAsyncInit = function() {
         FB.init({
-            appId: '692703766025178',
+            appId: '225501013967437',
             xfbml: true,
-            version: 'v17.0'
+            version: 'v19.0'
         });
     };
 
@@ -751,8 +751,8 @@ $data = $find_Array_all->getResultArray();
                 // Exchange short-lived token for a long-lived token
                 FB.api('/oauth/access_token', 'GET', {
                     "grant_type": "fb_exchange_token",
-                    "client_id": "692703766025178",
-                    "client_secret": "67e1dc6e799ae0ea2af3b38a0fa6face",
+                    "client_id": "225501013967437",
+                    "client_secret": "ce8e76fd079722356c9122f4e92bb150",
                     "fb_exchange_token": response.authResponse.accessToken
                 }, function(tokenResponse) {
                     var longLivedToken = tokenResponse.access_token;

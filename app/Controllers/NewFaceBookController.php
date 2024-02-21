@@ -27,9 +27,9 @@ class FaceBookController extends BaseController
         }
 
         $this->fb = new Facebook([
-            'app_id' => '692703766025178',
+            'app_id' => '225501013967437',
             'app_secret' => '67e1dc6e799ae0ea2af3b38a0fa6face',
-            'default_graph_version' => 'v17.0',
+            'default_graph_version' => 'v19.0',
         ]);
         	$this->timezone = timezonedata();
     }
@@ -79,7 +79,7 @@ class FaceBookController extends BaseController
         curl_setopt_array(
             $curl,
             array(
-                CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $response['userID'] . '/picture?redirect=false&&access_token=' . $longLivedToken . '',
+                CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $response['userID'] . '/picture?redirect=false&&access_token=' . $longLivedToken . '',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -140,7 +140,7 @@ class FaceBookController extends BaseController
                     curl_setopt_array(
                         $curl,
                         array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v17.0/oauth/access_token?grant_type=fb_exchange_token&client_id=692703766025178&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
+                            CURLOPT_URL => 'https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id=225501013967437&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -202,7 +202,7 @@ class FaceBookController extends BaseController
                     curl_setopt_array(
                         $curl,
                         array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v17.0/oauth/access_token?grant_type=fb_exchange_token&client_id=692703766025178&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
+                            CURLOPT_URL => 'https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id=225501013967437&client_secret=67e1dc6e799ae0ea2af3b38a0fa6face&fb_exchange_token=' . $aa_value['access_token'] . '',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -257,7 +257,7 @@ class FaceBookController extends BaseController
             curl_setopt_array(
                 $curl,
                 array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $page_id . '/leadgen_forms?access_token=' . $access_token . '',
+                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/leadgen_forms?access_token=' . $access_token . '',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -346,7 +346,7 @@ class FaceBookController extends BaseController
                 curl_setopt_array(
                     $curl,
                     array(
-                        CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
+                        CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => '',
                         CURLOPT_MAXREDIRS => 10,
@@ -403,7 +403,7 @@ class FaceBookController extends BaseController
                     curl_setopt_array(
                         $curl,
                         array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
+                            CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -860,7 +860,7 @@ class FaceBookController extends BaseController
             foreach ($count_lead as $aa_key => $row) {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v17.0/' . $row['lead_id'] . '?access_token=' . $row['page_access_token'] . '',
+                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $row['lead_id'] . '?access_token=' . $row['page_access_token'] . '',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
