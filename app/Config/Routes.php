@@ -547,6 +547,20 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('send_chat', 'Bot_Controller::send_chat');
 	$routes->post('send_massage', 'Bot_Controller::send_massage');
 	$routes->post('delete_record', 'Bot_Controller::delete_record');
+	//new facebook
+
+	//facebook 
+	$routes->get('/newlead_module', 'Home::newlead_module');
+	$routes->post('/new_facebook_user', 'NewFaceBookController::facebook_user');
+	$routes->post('/new_facebook_page', 'NewFaceBookController::facebook_page');
+	$routes->post('/new_pages_list_data', 'NewFaceBookController::pages_list_data');
+	$routes->post('/new_deleted_pages_list_data', 'NewFaceBookController::deleted_pages_list_data');
+	$routes->post('/new_updated_pages_list_data', 'NewFaceBookController::updated_pages_list_data');
+	$routes->post('/new_draft_pages_list_data', 'NewFaceBookController::draft_pages_list_data');
+	$routes->post('/new_delete_pages_fb', 'NewFaceBookController::delete_pages_fb');
+	$routes->post('/new_facebook_form', 'NewFaceBookController::facebook_form');
+	$routes->post('/new_queue_list_add', 'NewFaceBookController::queue_list_add');
+	$routes->post('/lead_list', 'NewFaceBookController::lead_list');
 
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');

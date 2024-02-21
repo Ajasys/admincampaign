@@ -1024,6 +1024,13 @@ class Home extends BaseController
         $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
         return view('lead_module', $data);
     }
+    public function newlead_module()
+    {
+        $username = session_username($_SESSION['username']);
+        $this->db = \Config\Database::connect('second');
+        $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
+        return view('newlead_module', $data);
+    }
     public function leadlist()
     {
         return view('leadlist');
