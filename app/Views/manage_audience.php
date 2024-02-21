@@ -635,7 +635,7 @@
    
    
    
-   // view data audience
+   // view data audience 
    $('body').on('click', '.audiance_view', function (e) {
        // alert("fd");
        var edit_value = $(this).attr("data-view_id");
@@ -700,6 +700,7 @@
            console.log("Selected Value: " + selectedValue);
        });
    });
+   //create audience
    $("button[id='create_audiences']").click(function (e) {
        e.preventDefault();
    
