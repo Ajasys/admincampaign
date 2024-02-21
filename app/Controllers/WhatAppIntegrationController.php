@@ -2650,7 +2650,86 @@ class WhatAppIntegrationController extends BaseController
             }
         }
     }
+    public function sendwhatsappcamera(){
+        if ($_POST['SendUrl'] != '') {
+            $ImgeName  = 'CEMERA'.gmdate('YmdHis').'.png';
+			$PhotoNname = $ImgeName;
+			$imageData = file_get_contents($_POST['SendUrl']);
+			$basePath = base_url();
+            $DataSenderId = $_POST['DataSenderId'];
+            $DataPhoneno = $_POST['DataPhoneno'];
+			if ($imageData !== false) {
+                $inputString = $_SESSION['username'];
+                $parts = explode("_", $inputString);
+                $username = $parts[0];
+                $uploadDir = 'assets/' . $username . '_folder/WhatsAppAssets/';
+                $targetDirectory = 'assets/' . $username . '_folder/WhatsAppAssets/';
+				if (!is_dir($targetDirectory)) {
+					mkdir($targetDirectory, 0755, true);
+				}
+				$targetFile = $targetDirectory . $ImgeName;
+				$PhotoNname = $ImgeName;
+				if (file_put_contents($targetFile, $imageData) !== false) {
+                    $MetaUrl = config('App')->metaurl;
+                    $inputString = $_SESSION['username'];
+                    $parts = explode("_", $inputString);
+                    $username = $parts[0];
+            
+                    $table_name = $username . '_platform_integration';
+            
+                    $ConnectionData = get_editData2($table_name, $DataSenderId);
+            
+                    $access_token = '';
+                    $business_account_id = '';
+                    $phone_number_id = '';
+                    if (isset($ConnectionData) && !empty($ConnectionData)) {
+            
+                        if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                            $access_token = $ConnectionData['access_token'];
+                            $business_account_id = $ConnectionData['business_account_id'];
+                            $phone_number_id = $ConnectionData['phone_number_id'];
+                        }
+                    }
 
+                    if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
+                        $base_url = base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $ImgeName;
+                        $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                        $jsonestring = '{
+                            "messaging_product": "whatsapp",
+                            "recipient_type": "individual",
+                            "to": "' . $_POST['DataPhoneno'] . '",
+                            "type": "image",
+                            "image": {
+                                "link" : "' . $base_url . '"
+                            }
+                        }';
+                        $Result = postSocialData($url, $jsonestring);
+                        if (isset($Result) && !empty($Result)) {
+                            if (isset($Result['messages'][0]['id']) && isset($Result['contacts'][0]['wa_id'])) {
+                                $insert_data['contact_no'] = $Result['contacts'][0]['wa_id'];
+                                $insert_data['platform_account_id'] = $DataSenderId;
+                                $insert_data['message_status'] = '0';
+                                $insert_data['created_at'] = gmdate('Y-m-d H:i:s');
+                                $insert_data['conversation_id'] = $Result['messages'][0]['id'];
+                                $insert_data['platform_status'] = '1';
+                                $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
+                                $insert_data['message_type'] = '3';
+                                $insert_data['sent_recieved_status'] = '1';
+                                $insert_data['asset_file_name'] = $ImgeName;
+                                $insert_data['assets_type'] = 'png';
+                                $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
+                            }
+                        }
+                    }
+
+				} else {
+					echo 'Failed to save the image';
+				}
+			} else {
+				echo 'Failed to fetch image data from the URL';
+            }
+        }
+    }
     public function Bracket_whatsapp_insert_data()
     {
         $post_data = $_POST;

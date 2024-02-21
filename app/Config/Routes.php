@@ -619,6 +619,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/Bracket_whatsapp_insert_data', 'WhatAppIntegrationController::Bracket_whatsapp_insert_data');
 	$routes->post('/WhatsAppSendDocumentData', 'WhatAppIntegrationController::WhatsAppSendDocumentData');
     $routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
+    $routes->post('/sendwhatsappcamera', 'WhatAppIntegrationController::sendwhatsappcamera');
 
 
 	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
