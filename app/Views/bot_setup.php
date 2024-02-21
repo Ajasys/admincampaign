@@ -2307,23 +2307,23 @@ $admin_bot = json_decode($admin_bot, true);
                     </div>
                     <div class="col-8">
                         <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
-                        <select class="form-select question_select" aria-label="Default select example">
+                       
+                        <select id="occupation" name="" class="selectpicker OccupationInputClass question_select form-control form-main occupation_add" data-live-search="true">
+                                <option value="No Jump">No Jump</option>
+                                <?php
+                                    if (isset($admin_bot_setup)) {
+                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                        
+                                            if ($type_value['bot_id'] == $botId) {
+                                                // pre($type_value['question']);
 
-                            <option value="No Jump">No Jump</option>
-
-                            <?php
-                            if (isset($admin_bot_setup)) {
-                                foreach ($admin_bot_setup as $type_key => $type_value) {
-                                    // pre($type_value);
-
-                                    if ($type_value['bot_id'] == $botId) {
-
-                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                            }
+                                        }
                                     }
-                                }
-                            }
-                            ?>
+                                ?>
                         </select>
+
                     </div>
                 </div>
             </div>
@@ -2771,6 +2771,8 @@ $admin_bot = json_decode($admin_bot, true);
                                         </div> -->
 
                             <div class="bot_preview_html"></div>
+
+                           
                             <!-- <div class="messege1 d-flex flex-wrap  ">
                             <div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
                                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
@@ -2835,9 +2837,10 @@ $admin_bot = json_decode($admin_bot, true);
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
         var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
-        var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id',conversion_id); 
-        var chatting_sequence = $(".chatting_data").attr('data-sequence',sequence); 
-        // console.log(chatting_sequence);
+        var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id', conversion_id); 
+
+        var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id'); 
+
         $.ajax({
             method: "post",
             url: "<?= site_url('bot_preview_data'); ?>",
@@ -2845,7 +2848,8 @@ $admin_bot = json_decode($admin_bot, true);
                 action: 'init_chat',
                 table: table,
                 bot_id: bot_id,
-                sequence: sequence
+                sequence: sequence,
+                next_question_id: next_question_id
             },
             success: function(data) {
                 var response = JSON.parse(data);
@@ -2858,13 +2862,7 @@ $admin_bot = json_decode($admin_bot, true);
         
     }
 
-    // bot_preview_data(1);
-    $('body').on('click', '.chat_continue', function (e) {
-        // bot_preview_data(1);
-    });
-
     // $('body').on('click', '.chat_start_again', function (e) {
-
     //     bot_preview_data(1, true); 
     // });
 
@@ -2910,20 +2908,18 @@ $admin_bot = json_decode($admin_bot, true);
 
     //insert chat answer
     var sequence = 1;
+
     function insertAnswer() {
-        
         var rowData = [];
         var chatting = $('.answer_chat').val();
         var email_validation = $('.email_answer_chat').val();
-        // var row = {
-        //     chatting: chatting
-        // };
-        // var options_value = JSON.stringify(row);
-
+    
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
         var last_conversation_id = $(".bot_preview_html .messege1:last").attr('data-conversation-id'); 
-  
+
+        var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id'); 
+     
         if (chatting !== "") {
             $.ajax({
                 method: "post",
@@ -2932,28 +2928,29 @@ $admin_bot = json_decode($admin_bot, true);
                     table: table,
                     action: "chat_answer",
                     answer: chatting,
-                    email_validation:email_validation,
+                    email_validation: email_validation,
                     bot_id: bot_id,
-                    question_id: last_conversation_id, 
-                    sequence: sequence
+                    question_id: last_conversation_id,
+                    sequence: sequence,
+                    next_question_id: next_question_id
                 },
                 success: function (res) {
                     var response = JSON.parse(res);
-                    if(response.response == 2)
-                    {
-                        var sdfsdf = response.id_validation;
-                        var apend_messege ='<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="1" data-sequence="1"><div class="border rounded-circle overflow-hidden" style="width:35px;height:35px">									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">								</div><div class="col px-2">									<div class="col-12 mb-2">										<span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="1"><p>'+sdfsdf+'</p></span></div></div></div>'
-                        $('.messege-scroll').append(apend_messege);
-                        bot_preview_data(sequence);
-                    }else if(response.response == 1){
+                    if (response.response == 3 || response.response == 1) { 
                         sequence++;
                         $('.answer_chat').val('');
                         bot_preview_data(sequence);
-                    } 
+                    } else if (response.response == 2) {
+                        var sdfsdf = response.id_validation;
+                        var apend_messege = '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="1" data-sequence="' + sequence + '"><div class="border rounded-circle overflow-hidden" style="width:35px;height:35px"> <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle"> </div><div class="col px-2"> <div class="col-12 mb-2"> <span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="1"><p>' + sdfsdf + '</p></span></div></div></div>';
+                        $('.messege-scroll').append(apend_messege);
+                        bot_preview_data(sequence);
+                    }
                 }
             });
         }
     }
+
     $('body').on('click', '.chatting_data', function (e) {
         insertAnswer();
     });
@@ -3044,7 +3041,7 @@ $admin_bot = json_decode($admin_bot, true);
     $(document).ready(function() {
 
         //Question-1
-        $('#Question-1').change(function() {
+        $('body').on('change', '.toggle_text', function() {
             if ($(this).prop('checked')) {
                 $('.Question-1').text('Remove Menu Message (For Whatsapp)');
             } else {
@@ -3053,16 +3050,16 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Question-2
-        $('#Question-2').change(function() {
+        $('body').on('change', '.skip_question', function() {
             if ($(this).prop('checked')) {
-                $('.Question-2').text('Give Skip OptionEnter');
+                $('.Question-2').text('Give Skip Option');
             } else {
                 $('.Question-2').text('Do Not Give Skip Option');
             }
         });
 
         //Email-1
-        $('#Email-1').change(function() {
+        $('body').on('change', '#Email-1', function() {
             if ($(this).prop('checked')) {
                 $('.Email-1').text('Remove Menu Message (For Whatsapp)');
             } else {
@@ -3071,7 +3068,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Email-2
-        $('#Email-2').change(function() {
+        $('body').on('change', '#Email-2', function() {
             if ($(this).prop('checked')) {
                 $('.Email-2').text('Restrict to Company Emails');
             } else {
@@ -3080,7 +3077,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Email-3
-        $('#Email-3').change(function() {
+        $('body').on('change', '#Email-3', function() {
             if ($(this).prop('checked')) {
                 $('.Email-3').text('Strict Validation');
             } else {
@@ -3089,7 +3086,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Mobile-3
-        $('#Mobile-3').change(function() {
+        $('body').on('change', '#Mobile-3', function() {
             if ($(this).prop('checked')) {
                 $('.Mobile-3').text('Remove Menu Message (For WhatsApp)');
             } else {
@@ -3098,7 +3095,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Number-1
-        $('#Number-1').change(function() {
+        $('body').on('change', '#Number-1', function() {  
             if ($(this).prop('checked')) {
                 $('.Number-1').text('Give Skip Option');
             } else {
@@ -3108,7 +3105,7 @@ $admin_bot = json_decode($admin_bot, true);
 
 
         //Location-1
-        $('#Location-1').change(function() {
+        $('body').on('change', '#Location-1', function() {  
             if ($(this).prop('checked')) {
                 $('.Location-1').text('Give Skip Option');
             } else {
@@ -3117,7 +3114,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Website-1
-        $('#Website-1').change(function() {
+        $('body').on('change', '#Website-1', function() {  
             if ($(this).prop('checked')) {
                 $('.Website-1').text('Give Skip Option');
             } else {
@@ -3126,7 +3123,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Ask_Contact-1
-        $('#Ask_Contact-1').change(function() {
+        $('body').on('change', '#Ask_Contact-1', function() {  
             if ($(this).prop('checked')) {
                 $('.Ask_Contact-1').text('Give Skip Option');
             } else {
@@ -3135,7 +3132,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Appointment
-        $('#Appointment-1').change(function() {
+        $('body').on('change', '#Appointment-1', function() {  
             if ($(this).prop('checked')) {
                 $('.Appointment-1').text('Enable Timezone Selection');
             } else {
@@ -3144,7 +3141,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //proudect
-        $('#proudect-1').change(function() {
+        $('body').on('change', '#proudect-1', function() {  
             if ($(this).prop('checked')) {
                 $('.proudect-1').text('Auto Slide');
                 $('.proudect-corousel-sec-input').removeClass('second-remove');
@@ -3156,8 +3153,7 @@ $admin_bot = json_decode($admin_bot, true);
             }
         });
 
-
-        $('#send_params').change(function() {
+        $('body').on('change', '#send_params', function() { 
             if ($(this).prop('checked')) {
                 $('.send_params').text('Send in Params');
             } else {
@@ -4287,6 +4283,7 @@ $admin_bot = json_decode($admin_bot, true);
 
         var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
         var next_question_id = $('.question_select').val();
+        console.log(next_question_id);
         var error_text = $('#Question_error_message').val();
 
         if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
@@ -4800,6 +4797,8 @@ $admin_bot = json_decode($admin_bot, true);
 
                     $("#formGroupExampleInput").val(response[0].question);
                     $(".conditional_flow_update").attr('data-id', response[0].id);
+                    $(".OccupationInputClass").val(response[0].next_question_id);
+                    $('.selectpicker').selectpicker('refresh');
                 },
                 error: function(error) {
                     $('.loader').hide();
@@ -4819,7 +4818,9 @@ $admin_bot = json_decode($admin_bot, true);
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
-        var next_question_id = $('.question_select').val();
+        // var next_question_id = $('.OccupationInputClass ').val();
+        var next_question_id = $('select.OccupationInputClass option:selected').val();
+    
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
             var formdata = new FormData(form);
@@ -4998,7 +4999,7 @@ $admin_bot = json_decode($admin_bot, true);
                         <div class="col-12">
                             <div class="ps-0 form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
                                 <label class="switch_toggle_primary">
-                                    <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 menu_message opacity-0" value="1" type="checkbox" id="Question-1">
+                                    <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 menu_message opacity-0 toggle_text" value="1" type="checkbox" id="Question-1">
                                     <div class="check_input_primary round" ></div>
                                 </label>
                                     
@@ -5065,12 +5066,12 @@ $admin_bot = json_decode($admin_bot, true);
                                         </td>
                                         <td class="col-4">
                                             <select class="form-select question_select" aria-label="Default select example">
-                                                <option selected>No Jump</option>
+                                                <option>No Jump</option>
                     
                                                 <?php
                                                 if (isset($admin_bot_setup)) {
                                                     foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                        // pre($type_value);
+                                                       
 
                                                         if ($type_value['bot_id'] == $botId) {
 

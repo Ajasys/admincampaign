@@ -79,9 +79,8 @@
                                 <div class="main-selectpicker">
                                     <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control product_type" data-live-search="true" required="" tabindex="-98">
                                         <option class="dropdown-item" selected>Open this select</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <option value="1">Lead Generation Bot</option>
+                                        <option value="2">Customer Support Bot</option>
                                     </select>
                                 </div>
                             </div>
@@ -102,7 +101,7 @@
                 <!-- card start -->
                 <!--new card-->
 
-                <div class="col-12 d-flex flex-wrap justify-content-center justify-content-xl-start justify-content-xxl-start">
+                <!-- <div class="col-12 d-flex flex-wrap justify-content-center justify-content-xl-start justify-content-xxl-start">
                     <div class="card mb-3 rounded-4 m-3 shadow bot-card" style="width: 310px;">
                         <div class="row g-0">
                             <div class="d-flex align-items-center">
@@ -153,7 +152,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
 
                 <!--new card end-->
                 <!-- <div class="col-3 p-2">
@@ -417,10 +416,17 @@
                         table: table,
                         bot: '',
                     },
-                    success: function(data) {
-                        iziToast.error({
-                            title: 'Deleted Successfully'
-                        });
+                    success: function(response) {
+                        if(response == 0){
+                            iziToast.error({
+                                title: 'Bot can not be deleted because conversion are start'
+                            });
+                        }else{
+                            iziToast.error({
+                                title: 'Bot can be deleted successfully'
+                            });
+                        }
+                       
                         // $(".close_btn").trigger("click");
                         list_data();
                     }
