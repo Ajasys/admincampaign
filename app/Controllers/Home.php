@@ -1059,6 +1059,9 @@ $connection_ids = $value['id'];
         $username = session_username($_SESSION['username']);
         $this->db = \Config\Database::connect('second');
         $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
+        $find_Array_all = "SELECT * FROM " . $username . "_fb_account  where master_id='" . $_SESSION['master'] . "' ";
+        $find_Array_all = $this->db->query($find_Array_all);
+		$data['fb_account'] = $find_Array_all->getResultArray();
         return view('newlead_module', $data);
     }
     public function leadlist()

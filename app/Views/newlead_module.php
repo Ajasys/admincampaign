@@ -149,9 +149,10 @@ $user_get = "SELECT * FROM " . $table_username . "_user WHERE switcher_active = 
 $user_result = $this->db->query($user_get);
 $user = $user_result->getResultArray();
 
-$find_Array_all = "SELECT * FROM " . $table_username . "_fb_account  Where master_id=" . $_SESSION['master'];
+$find_Array_all = "SELECT * FROM " . $table_username . "_fb_account Where master_id=" . $_SESSION['master'];
 $find_Array_all = $this->db->query($find_Array_all);
 $data = $find_Array_all->getResultArray();
+
 ?>
 <div class="main-dashbord p-2">
     <div class="container-fluid">
@@ -169,7 +170,7 @@ $data = $find_Array_all->getResultArray();
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade" id="Connection-name" role="tabpanel" aria-labelledby="pills-General-tab" tabindex="0">
-                    <?php if (isset($data[0])) { ?>
+                    <?php if (isset($data[0]) && $data[0]) { ?>
                         <div class="p-2 bg-white rounded-2 mx-2 ">
                             <div class="lead_list p-2 rounded-2">
                                 <div class="d-flex align-items-center justify-content-end">
@@ -274,15 +275,16 @@ $data = $find_Array_all->getResultArray();
                                                         Name</label>
                                                     <div class="main-selectpicker">
                                                         <select id="user_agent" class="selectpicker form-control form-main user_agent" data-live-search="true">
-                                                            <?php foreach ($fb_account as $key => $value) {
+                                                            <?php 
+                                                            foreach ($fb_account as $key => $value) {
                                                                 echo "<option value=" . $value['accessToken'] . " data-user_id=" . $value['userid'] . " data-username='" . $value['username'] . "'>" . $value['username'] . "</option>";
                                                             }
                                                             ?>
                                                         </select>
                                                     </div>
                                                     <div class="text-end mt-3 fb_user_next">
-                                                        <button class="btn-primary big_falcebook_circle_sbt" data-master_id=<?php if (isset($fb_account[0]['master_id'])) {
-                                                                                                                                echo $fb_account[0]['master_id'];
+                                                        <button class="btn-primary big_falcebook_circle_sbt" data-master_id=<?php if (isset($data[0]['master_id'])) {
+                                                                                                                                echo $data[0]['master_id'];
                                                                                                                             } ?>>Next</button>
                                                     </div>
                                                 <?php } else { ?>
@@ -739,10 +741,10 @@ $data = $find_Array_all->getResultArray();
         });
     }
 
-    new_pages_list_data();
-    new_deleted_pages_list_data();
-    new_updated_pages_list_data();
-    new_draft_pages_list_data();
+    // new_pages_list_data();
+    // new_deleted_pages_list_data();
+    // new_updated_pages_list_data();
+    // new_draft_pages_list_data();
 
     function myFacebookLogin() {
         FB.login(function(response) {

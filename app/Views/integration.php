@@ -70,7 +70,7 @@ if (isset($resultdata[0])) {
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['fbcount'])) {
@@ -114,7 +114,7 @@ if (isset($resultdata[0])) {
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['whatsappcount'])) {
@@ -168,7 +168,7 @@ if (isset($resultdata[0])) {
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
                                                         </span>
@@ -201,7 +201,7 @@ if (isset($resultdata[0])) {
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                         <?php
                                                             if (isset($result['emailcount'])) {
@@ -239,7 +239,7 @@ if (isset($resultdata[0])) {
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
                                                         </span>
@@ -279,7 +279,7 @@ if (isset($resultdata[0])) {
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
                                                         </span>
@@ -328,7 +328,7 @@ if (isset($resultdata[0])) {
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
                                                         </span>
@@ -356,7 +356,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
                                            
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
                                                         </span>
@@ -380,7 +380,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
                                            
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                         <?php
                                                             if (isset($result['websitecount'])) {
@@ -425,7 +425,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
 
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['justdailcount'])) {
@@ -454,7 +454,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
 
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['indiamartcount'])) {
@@ -483,7 +483,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
 
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['magicbrickcount'])) {
@@ -512,7 +512,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
 
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['softwaresuggestcount'])) {
@@ -541,7 +541,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
 
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['99acrescount'])) {
@@ -570,7 +570,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
 
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['wordpresscount'])) {
@@ -599,7 +599,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
 
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['tradeindiacount'])) {
@@ -628,7 +628,7 @@ if (isset($resultdata[0])) {
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
 
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
-                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                    <span class="fw-bold  text-success rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
                                                             if (isset($result['googleadscount'])) {
