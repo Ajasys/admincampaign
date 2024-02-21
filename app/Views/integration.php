@@ -203,7 +203,7 @@ if (isset($resultdata[0])) {
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
                                                     <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
-                                                        <?php
+                                                            <?php
                                                             if (isset($result['emailcount'])) {
                                                                 echo $result['emailcount'];
                                                             } else {
@@ -354,7 +354,7 @@ if (isset($resultdata[0])) {
 
                                             </div>
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
-                                           
+
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
                                                     <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
@@ -373,18 +373,270 @@ if (isset($resultdata[0])) {
                                         <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 508 508" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                    <g>
+                                                        <path d="M254 0C146.7 0 0 81.1 0 254c0 168.5 141.1 254 254 254 193.7 0 254-169.7 254-254C508 129.6 412.8 0 254 0zm-58.9 23.9c-26.5 22.6-48.5 60-62.7 106.4-18.4-10.9-35.3-24.4-50.3-40.1 31-32.5 70.2-55.3 113-66.3zM71.2 102.4c16.8 17.5 35.9 32.4 56.7 44.2-7.8 30.3-12.4 63.9-13 99.2H16.6c1.8-52.7 21-103 54.6-143.4zm0 303.2c-33.7-40.4-52.8-90.7-54.6-143.4h98.3c.6 35.4 5.2 68.9 13 99.2-20.7 11.9-39.8 26.7-56.7 44.2zm10.9 12.3c15-15.7 31.9-29.2 50.3-40.1 14.2 46.3 36.2 83.8 62.7 106.4-42.8-11.1-82-33.9-113-66.3zM245.8 491c-42.6-5.4-79.3-53-99.1-121.2 30.6-15.5 64.4-24.2 99.1-25.5V491zm0-163c-36.2 1.2-71.4 10.1-103.3 25.7-6.7-28-10.7-58.9-11.3-91.5h114.6V328zm0-82.2H131.2c.6-32.6 4.6-63.5 11.3-91.5 32 15.6 67.2 24.5 103.3 25.7v65.8zm0-82.1c-34.8-1.2-68.5-10-99.1-25.5C166.5 69.9 203.2 22.4 245.8 17v146.7zm191-61.3c33.6 40.4 52.8 90.7 54.6 143.4h-98.2c-.6-35.4-5.2-68.9-13-99.2 20.7-11.9 39.8-26.7 56.6-44.2zm-10.9-12.3c-15 15.7-31.9 29.2-50.3 40.1-14.2-46.3-36.2-83.7-62.7-106.4 42.8 11.1 82 33.9 113 66.3zM262.2 17c42.6 5.4 79.3 53 99.1 121.2-30.6 15.5-64.3 24.2-99.1 25.5V17zm0 163c36.2-1.2 71.4-10.1 103.3-25.7 6.7 28 10.7 58.9 11.3 91.5H262.2V180zm0 82.2h114.6c-.6 32.6-4.6 63.5-11.3 91.5A251.24 251.24 0 0 0 262.2 328v-65.8zm0 228.8V344.3c34.8 1.2 68.5 10 99.1 25.5-19.8 68.3-56.5 115.8-99.1 121.2zm50.7-6.9c26.5-22.6 48.5-60 62.7-106.4 18.4 10.9 35.3 24.4 50.3 40.1-31 32.5-70.2 55.3-113 66.3zm123.9-78.5c-16.8-17.5-35.9-32.3-56.6-44.2 7.8-30.3 12.4-63.9 13-99.2h98.2c-1.8 52.7-21 103-54.6 143.4z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                                                    </g>
+                                                </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Website</h5>
 
                                             </div>
                                             <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
-                                           
+
                                                 <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
                                                     <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
-                                                        <?php
+                                                            <?php
                                                             if (isset($result['websitecount'])) {
                                                                 echo $result['websitecount'];
+                                                            } else {
+                                                                echo 0;
+                                                            } ?>
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+                                    <a href="<?= base_url('justdail_connection') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
+                                            <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 588 154" style="height: 20px;width: 80px;" xml:space="preserve">
+                                                    <style type="text/css">
+                                                        .st0 {
+                                                            fill: #1274C0;
+                                                        }
+
+                                                        .st1 {
+                                                            fill: #FF6C00;
+                                                        }
+                                                    </style>
+                                                    <g id="Guides_For_Artboard">
+                                                    </g>
+                                                    <g id="Layer_1">
+                                                        <path class="st0" d="M267.4,136c0,9.1,5.8,15.2,14,15.2c8.2,0,14-6.1,14-15.2V59.1h8c7.2,0,13.4-3.4,13.4-12c0-8.7-6.2-12-13.4-12   h-8V18.8c0-9.1-5.8-15.2-14-15.2c-8.2,0-14,6.1-14,15.2v16.3h-6.2c-7,0-12.3,5.1-12.3,12c0,7.4,4.7,12,12.3,12h6.2V136L267.4,136z    M77.1,18.5c0-9.5-6.2-14.8-14.6-14.8c-8.4,0-14.6,5.3-14.6,14.8v91.7c0,6.1,0,16-10.9,16c-8.8,0-15.6-7-23.4-7   c-6.4,0-10.9,6.5-10.9,11.6c0,16.5,22.4,21.7,35.9,21.7c17.7,0,38.6-8.4,38.6-40.3V18.5L77.1,18.5z M84.9,112.4   c0,24.3,16.6,39.9,46.2,39.9c29.6,0,46.2-15.6,46.2-39.9V63c0-9.1-5.8-15.2-14-15.2c-8.2,0-14,6.1-14,15.2v48.8   c0,11.4-8.8,17.7-18.1,17.7c-9.4,0-18.1-6.3-18.1-17.7V63c0-9.1-5.8-15.2-14-15.2c-8.2,0-14,6.1-14,15.2V112.4L84.9,112.4z    M255.9,66.5c0,6.3-4.9,12.2-11.5,12.2c-5.3,0-16-8-25.1-8c-5.1,0-9.5,2.3-9.5,7.6c0,12.7,48.7,10.8,48.7,42   c0,18.2-15.8,32.2-39.9,32.2c-15.8,0-39.2-8.8-39.2-21.1c0-4.2,4.3-12.2,12.1-12.2c10.9,0,15.8,9.3,29,9.3c8.6,0,11.1-2.7,11.1-7.8   c0-12.5-48.7-10.6-48.7-42c0-19,15.8-31.9,38-31.9C234.7,46.7,255.9,53,255.9,66.5z"></path>
+                                                        <path class="st1" d="M558.7,134.9c0,9.1,5.9,15.2,14.2,15.2c8.3,0,14.2-6.1,14.2-15.2V17.8c0-9.1-5.9-15.2-14.2-15.2   c-8.3,0-14.2,6.1-14.2,15.2V134.9L558.7,134.9z M409.9,17.8c0-9.1-5.9-15.2-14.2-15.2c-8.3,0-14.2,6.1-14.2,15.2V55   c-7.5-6.3-17.1-9.5-27-9.5c-30.5,0-45.7,27.6-45.7,54.2c0,25.8,18.1,51.5,46.7,51.5c9.7,0,20.7-4.2,26-12.6   c1.8,7.2,6.3,11.4,14.2,11.4c8.3,0,14.2-6.1,14.2-15.2V17.8L409.9,17.8z M381.5,97.6c0,13.3-6.7,28.5-22.3,28.5   c-14.8,0-22.1-14.8-22.1-27.6c0-12.9,7.3-27.9,22.1-27.9C374.4,70.6,381.5,84.3,381.5,97.6L381.5,97.6z M417.7,134.9   c0,9.1,5.9,15.2,14.2,15.2c8.3,0,14.2-6.1,14.2-15.2v-73c0-9.1-5.9-15.2-14.2-15.2c-8.3,0-14.2,6.1-14.2,15.2V134.9L417.7,134.9z    M431.9,5.6c-8.5,0-16,7.2-16,15c0,8.4,7.5,15.8,16,15.8c8.9,0,16-7.2,16-15.8C447.9,12.7,440.4,5.6,431.9,5.6L431.9,5.6z    M550.9,64.5c0-7,0-17.9-13.6-17.9c-6.9,0-12.8,4.8-13.6,11.4c-6.3-8.6-16.6-12.5-27-12.5c-26,0-46.9,23-46.9,53   c0,30.8,20.3,52.7,46.9,52.7c10.8,0,19.7-4.4,27-12.8c2,7.2,5.3,11.6,13.6,11.6c13.6,0,13.6-10.9,13.6-17.9V64.5L550.9,64.5z    M478.2,98.6c0-13.1,6.9-27.9,22.5-27.9c15,0,21.9,14.8,21.9,27.9s-7.1,27.6-21.9,27.6C485.3,126.1,478.2,111.7,478.2,98.6z"></path>
+                                                    </g>
+                                                </svg>
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">Justdail</h5>
+
+                                            </div>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            <?php
+                                                            if (isset($result['justdailcount'])) {
+                                                                echo $result['justdailcount'];
+                                                            } else {
+                                                                echo 0;
+                                                            } ?>
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+                                    <a href="<?= base_url('indiamart_connection') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
+                                            <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                                
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">IndiaMart</h5>
+
+                                            </div>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            <?php
+                                                            if (isset($result['indiamartcount'])) {
+                                                                echo $result['indiamartcount'];
+                                                            } else {
+                                                                echo 0;
+                                                            } ?>
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+                                    <a href="<?= base_url('magicbrick_connection') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
+                                            <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                                
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">MagicBricks</h5>
+
+                                            </div>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            <?php
+                                                            if (isset($result['magicbrickcount'])) {
+                                                                echo $result['magicbrickcount'];
+                                                            } else {
+                                                                echo 0;
+                                                            } ?>
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+                                    <a href="<?= base_url('softwaresuggest_connection') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
+                                            <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                                
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">Software Suggest</h5>
+
+                                            </div>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            <?php
+                                                            if (isset($result['softwaresuggestcount'])) {
+                                                                echo $result['softwaresuggestcount'];
+                                                            } else {
+                                                                echo 0;
+                                                            } ?>
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+                                    <a href="<?= base_url('99acres_connection') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
+                                            <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                                
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">99 acres</h5>
+
+                                            </div>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            <?php
+                                                            if (isset($result['99acrescount'])) {
+                                                                echo $result['99acrescount'];
+                                                            } else {
+                                                                echo 0;
+                                                            } ?>
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+                                    <a href="<?= base_url('wordpress_connection') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
+                                            <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                                
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">Wordpress</h5>
+
+                                            </div>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            <?php
+                                                            if (isset($result['wordpresscount'])) {
+                                                                echo $result['wordpresscount'];
+                                                            } else {
+                                                                echo 0;
+                                                            } ?>
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+                                    <a href="<?= base_url('tradeindia_connection') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
+                                            <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                                
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">Trade India.</h5>
+
+                                            </div>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            <?php
+                                                            if (isset($result['tradeindiacount'])) {
+                                                                echo $result['tradeindiacount'];
+                                                            } else {
+                                                                echo 0;
+                                                            } ?>
+                                                        </span>
+                                                        connections
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
+                                    <a href="<?= base_url('googleads_connection') ?>">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                            <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
+                                            <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
+                                                
+                                                <h5 class="text-center col-12 text-dark text-center mt-2">Google Ads</h5>
+
+                                            </div>
+                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                    <span class="fw-bold  text-success  px-2 py-1 rounded-pill">
+                                                        <span class="badge rounded-pill inqq_cunt bg-success mx-1">
+                                                            <?php
+                                                            if (isset($result['googleadscount'])) {
+                                                                echo $result['googleadscount'];
                                                             } else {
                                                                 echo 0;
                                                             } ?>

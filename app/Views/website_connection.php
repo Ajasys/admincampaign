@@ -147,13 +147,76 @@ function generateAccessToken($length = 32) {
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="Modal_tabel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">API Documentation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body-card">
+                    <div class="row col-12">
+                        <div class="add-user-input">
+                            <label for="relation" class="form-label main-label fw-semibold">Access Token:</label>
+                            <div class="ps-3">
+                                <span id="web_access_token" style="word-wrap: break-word;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <div class="add-user-input">
+                            <label for="relation" class="form-label main-label fw-semibold">Website API Integrate:</label>
+                            <label for="relation" class="form-label main-label fw-semibold mt-2">Website API Integrate:</label>
+                            <div class="ms-3">
+                                <span id="web_method" style="word-wrap: break-word;">
+                                    <p>Method : POST</p>
+                                </span>
+                                <span id="web_url" style="word-wrap: break-word;">
+                                    <p>URL : <?php echo base_url(); ?>web_integrate</p>
+                                </span>
+                            </div>
+                            <div style="margin-left: 35px;">
+                                <span id="form_data" class="" style="word-wrap: break-word;">
+                                    <p style="margin-left: -18px;">Form Data Passing : </p>
+                                    <p>name:&lt;name_value&gt;</p>
+                                    <p>mobileno:&lt;mobileno_value&gt;
+                                    </p>
+                                    <p>email:&lt;email_value&gt;
+                                    </p>
+                                    <p>description:&lt;description_value&gt;
+                                    </p>
+                                    <p>access_token:&lt;access_token_value&gt;
+                                    </p>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-12 mt-3">
+                        <img src="<?php echo base_url(); ?>assets/images/websiteImage/webpostman.png">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
     $(document).ready(function() {
         list_data();
     });
+
+    $('body').on('click', '.click_tr', function() {
+        var website_name = $(this).attr('data-name');
+        var access_token = $(this).attr('data-token');
+        $('#web_access_token').text(access_token);
+
+    });
+
 
     //website connection
     $('body').on('click', '#website_cnt', function() {
