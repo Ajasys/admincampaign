@@ -671,11 +671,31 @@ class Bot_Controller extends BaseController
 		} else {
 			$response = 0;
 		}
+
 		echo $response;
 		die();
 	}
 
+	public function bot_question_delete_data()
+	{
+		$delete_id = $this->request->getPost('id');
+		
+		if ($this->request->getPost("action") == "delete") {
+			$delete_id = $this->request->getPost('id');
+			$table_name = $this->request->getPost('table');
+			$bot_id = $this->request->getPost('bot_id'); 
+			$delete_sequence = $this->MasterInformationModel->get_sequence_by_id($table_name, $delete_id); 
+			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id); 
 
+			if (!isset($_POST['bot'])) {
+				$this->MasterInformationModel->delete_question_sequence($table_name, $bot_id, $delete_sequence);
+			}
+			$response = 1; 
+		}
+
+		echo $response;
+		die();
+	}
 
 
 	//bot list question
@@ -890,32 +910,30 @@ class Bot_Controller extends BaseController
 		$bot_id = $_POST['bot_id'];
 		$sequence = $_POST['sequence'];
 
-		if(isset($_POST['next_question_id'])){
+		if (isset($_POST['next_question_id'])) {
 			$next_question_id = $_POST['next_question_id'];
 		}
-		
+	
 		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
 			$result = $db_connection->query($sql);
 			$bot_chat_data = $result->getResultArray();
-		}
-
-		else{ 
+		} else {
 			$sequence = isset($result) ? 1 : $sequence;
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 			
-
-			$sql_prent_child = 'SELECT parent.id AS parent_id, child.id AS child_id, child.question, parent.answer
-			FROM admin_bot_setup AS child
-			JOIN admin_bot_setup AS parent ON child.type_of_question = parent.next_question_id
-			WHERE parent.bot_id = ' . $bot_id . '
-			ORDER BY parent.sequence;';
-			
+			// Retrieve parent-child data
+			$sql_parent_child = 'SELECT parent.id AS parent_id, child.id AS child_id, child.question, parent.answer
+				FROM admin_bot_setup AS child
+				JOIN admin_bot_setup AS parent ON child.type_of_question = parent.next_question_id
+				WHERE parent.bot_id = ' . $bot_id . '
+				ORDER BY parent.sequence;';
+	
 			$resultss = $db_connection->query($sql);
 			$bot_chat_data = $resultss->getResultArray();
-			$resultss_ss = $db_connection->query($sql_prent_child);
+			$resultss_ss = $db_connection->query($sql_parent_child);
 			$bot_chat_data_ss = $resultss_ss->getResultArray();
 		}
 
@@ -1064,7 +1082,7 @@ class Bot_Controller extends BaseController
 
 					} else if ($value['type_of_question'] == "18") {
 						$formData = json_decode($value['menu_message'], true);
-						$imageSrc = isset($formData[0]['fileInput']) ? base_url('') . '/assets/images/' . $formData[0]['fileInput'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
+						$imageSrc = isset($formData[0]['fileInput']) ? base_url('') . '/assets/bot_image/' . $formData[0]['fileInput'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
 						$questionText = isset($formData[0]['questionText']) ? $formData[0]['questionText'] : '';
 						$html .= '<div class="col">
 									<div class="col-12 mb-2">
@@ -1082,266 +1100,267 @@ class Bot_Controller extends BaseController
 									</div>
 								</div>';
 
-					}  else if ($value['type_of_question'] == "8") {
-						$datepickerData = json_decode($value['menu_message'], true);
-						
-						
-						$html .= '<div class="col">
-									<div class="col-12 mb-2">
-										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
-											' . $value['question'] . '
-										</span>
-									</div>';
-
-									if (
-										isset($datepickerData['date_range']) &&
-										isset($datepickerData['period']) &&
-										isset($datepickerData['weekdays']) &&
-										isset($datepickerData['date_output_format'])
-									) {
-										$dateRange = $datepickerData['date_range'];
-										$period = $datepickerData['period'];
-										$weekdays = json_encode($datepickerData['weekdays']);
-										list($start_date_str, $end_date_str) = $dateRange;
-									
-										// Check if period is empty
-										if (empty($period)) {
-											// Set future_days and past_days to 0
-											$future_days = 0;
-											$past_days = 0;
-										} else {
-											$future_days = $period[0];
-											$past_days = $period[1];
-										}
-									
-										$start_date = \DateTime::createFromFormat('d-m-Y', $start_date_str);
-										$end_date = \DateTime::createFromFormat('d-m-Y', $end_date_str);
-									
-										if ($start_date === false || $end_date === false) {
-											echo "Error: Unable to parse date strings.";
-										} else {
-											$start_date->modify("-$future_days days");
-											$end_date->modify("+$past_days days");
-									
-											$start_date_iso = $start_date->format('Y-m-d');
-											$end_date_iso = $end_date->format('Y-m-d');
-									
-											$interval = $start_date->diff($end_date);
-											$num_days = $interval->days;
-
-						$html .= ' <div class="container">
-									<div class="row d-flex justify-content" style="position: relative; box-shadow:rgba(70, 93, 239, 0.34) 0px 3px 15px; width:400px" >
-									  <div class="col-12 d-flex overflow-hidden" id="calender-month" style="padding:0px !important">
-									  									    <div class="col-12 month-content active" id="january-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">January <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="january"></ul>
-									    </div>
-								   									    <div class="col-12 month-content" id="february-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">February<div class="month-cal" id="year-date"> &nbsp;2024	</div></h4>
-										 <ul class="days" id="february"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="march-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">March <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="march"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="april-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">April<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="april"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="may-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">May <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="may"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="june-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">June <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="june"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="july-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">July <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="july"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="august-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">August <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="august"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="september-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">September<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="september"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="october-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">October <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="october"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="november-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">November<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="november"></ul>
-									    </div>
-								   
-									    <div class="col-12 month-content" id="december-content">
-										 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">December <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-										 <ul class="days" id="december"></ul>
-									    </div>
-									  </div>
-									  
-										<div class="col-12" style="margin-top:30px;">
-											<ul id="yearSelect" style="display:none;">
-											</ul>
-									</div>
-
-									
-										<button class="btn btn-primary d-flex justify-content-center align-items-center prev-btn" style="position:absolute; top:0px; left0px; width:33px; height:33px;"><</button>
-										<button class="btn btn-primary d-flex justify-content-center align-items-center next-btn" style="position:absolute; top:0px; right:0px; width:33px; height:33px;">></button>
-								   </div>
-								   </div>';
-
-										
-										
+							}  else if ($value['type_of_question'] == "8") {
+								$datepickerData = json_decode($value['menu_message'], true);
+								// pre($value['type_of_question'] == "8");
+								
+								$html .= '<div class="col">
+											<div class="col-12 mb-2">
+												<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+													' . $value['question'] . '
+												</span>
+											</div>';
 		
-								   $html .= '<script>
-								   $(document).ready(function() {
-
-									 function daysInMonth(month, year) {
-									   return new Date(year, month + 1, 0).getDate();
-									 }
-								  
-var weekdays = '.$weekdays.';
-							
-									 function generateDays(monthId, month, year) {
-									   const daysCount = daysInMonth(month, year);
-									   const firstDay = new Date(year, month, 1).getDay();
-									   const ul = $("#" + monthId);
-									   ul.empty();
-								  
-									   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-									   daysOfWeek.forEach(function(day) {
-										ul.append("<li>" + day + "</li>");
-								  
-									   });
-								  
-									   for (let i = 0; i < firstDay; i++) {
-										ul.append("<li></li>");
-									   }
-
-										const startDate = new Date("<?php echo $start_date_iso; ?>");
-										const endDate = new Date("<?php echo $end_date_iso; ?>");
-								  
-									   for (let i = 1; i <= daysCount; i++) {
-										const currentDate = new Date(year, month, i);
-											const currentDay = currentDate.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
-							
-											// Check if period is empty
-											if (<?php echo empty($period) ? "true" : "false"; ?>) {
-												// Only consider dates within the range of start_date and end_date
-												if (currentDate >= startDate && currentDate <= endDate) {
-													ul.append("<li class=\"day-time\">" + i + "</li>");
-									   } else {
-													ul.append("<li class=\"disabled\">" + i + "</li>");
-												}
-											} else {
-												// Consider weekdays and the range of start_date and end_date
-												if (weekdays.includes(currentDay)) {
-													if (currentDate >= startDate && currentDate <= endDate) {
-														ul.append("<li class=\"day-time\">" + i + "</li>");
-													} else {
-														ul.append("<li class=\"disabled\">" + i + "</li>");
-													}
+											if (
+												isset($datepickerData['date_range']) &&
+												isset($datepickerData['period']) &&
+												isset($datepickerData['weekdays']) &&
+												isset($datepickerData['date_output_format'])
+											) {
+												$dateRange = $datepickerData['date_range'];
+												$period = $datepickerData['period'];
+												$weekdays = json_encode($datepickerData['weekdays']);
+												list($start_date_str, $end_date_str) = $dateRange;
+											
+												// Check if period is empty
+												if (empty($period)) {
+													// Set future_days and past_days to 0
+													$future_days = 0;
+													$past_days = 0;
 												} else {
-													ul.append("<li class=\"disabled\">" + i + "</li>");
+													$future_days = $period[0];
+													$past_days = $period[1];
+												}
+												
+												
+												$start_date = \DateTime::createFromFormat('Y-m-d', $start_date_str);
+												$end_date = \DateTime::createFromFormat('Y-m-d', $end_date_str);
+												// pre($start_date);
+												if ($start_date === false || $end_date === false) {
+													echo "Error: Unable to parse date strings.";
+												} else {
+													$start_date->modify("-$future_days days");
+													$end_date->modify("+$past_days days");
+											
+													$start_date_iso = $start_date->format('Y-m-d');
+													$end_date_iso = $end_date->format('Y-m-d');
+											
+													$interval = $start_date->diff($end_date);
+													$num_days = $interval->days;
+		
+								$html .= ' <div class="container">
+											<div class="row d-flex justify-content" style="position: relative; box-shadow:rgba(70, 93, 239, 0.34) 0px 3px 15px; width:400px" >
+											<div class="col-12 d-flex overflow-hidden" id="calender-month" style="padding:0px !important">
+												<div class="col-12 month-content active" id="january-content">
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">January <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="january"></ul>
+												</div>
+												<div class="col-12 month-content" id="february-content">
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">February<div class="month-cal" id="year-date"> &nbsp;2024	</div></h4>
+												<ul class="days" id="february"></ul>
+												</div>
+																		
+												<div class="col-12 month-content" id="march-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">March <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="march"></ul>
+												</div>
+										   
+												<div class="col-12 month-content" id="april-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">April<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="april"></ul>
+												</div>
+										   
+												<div class="col-12 month-content" id="may-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">May <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="may"></ul>
+												</div>
+										   
+												<div class="col-12 month-content" id="june-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">June <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="june"></ul>
+												</div>
+										   
+												<div class="col-12 month-content" id="july-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">July <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="july"></ul>
+												</div>
+										   
+												<div class="col-12 month-content" id="august-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">August <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="august"></ul>
+												</div>
+										   
+												<div class="col-12 month-content" id="september-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">September<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="september"></ul>
+												</div>
+										   
+												<div class="col-12 month-content" id="october-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">October <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="october"></ul>
+												</div>
+										   
+												<div class="col-12 month-content" id="november-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">November<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="november"></ul>
+												</div>
+										   
+												<div class="col-12 month-content" id="december-content">
+												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">December <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												 <ul class="days" id="december"></ul>
+												</div>
+												</div>
+												
+												<div class="col-12" style="margin-top:30px;">
+													<ul id="yearSelect" style="display:none;">
+													</ul>
+												</div>
+												
+											
+												<button class="btn btn-primary d-flex justify-content-center align-items-center prev-btn" style="position:absolute; top:0px; left0px; width:33px; height:33px;"><</button>
+												<button class="btn btn-primary d-flex justify-content-center align-items-center next-btn" style="position:absolute; top:0px; right:0px; width:33px; height:33px;">></button>
+												</div>
+												</div>';
+		
+												
+												
+				
+										   $html .= '<script>
+										   $(document).ready(function() {
+		
+											function daysInMonth(month, year) {
+												return new Date(year, month + 1, 0).getDate();
+											}
+										
+											var weekdays = '.$weekdays.';
+									
+											function generateDays(monthId, month, year) {
+												const daysCount = daysInMonth(month, year);
+												const firstDay = new Date(year, month, 1).getDay();
+												const ul = $("#" + monthId);
+												ul.empty();
+									
+												const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+												daysOfWeek.forEach(function(day) {
+													ul.append("<li>" + day + "</li>");
+												});
+									
+												for (let i = 0; i < firstDay; i++) {
+													ul.append("<li></li>");
+												}
+									
+												const startDate = new Date("'. $start_date_iso .'");
+												const endDate = new Date("'. $end_date_iso .'");
+									
+												for (let i = 1; i <= daysCount; i++) {
+													const currentDate = new Date(year, month, i);
+													const currentDay = currentDate.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
+									
+													// Check if period is empty
+													if (' . (empty($period) ? "true" : "false") . ') {
+														// Only consider dates within the range of start_date and end_date
+														if (currentDate >= startDate && currentDate <= endDate) {
+															ul.append("<li class=\"day-time\">" + i + "</li>");
+														} else {
+															ul.append("<li class=\"disabled\">" + i + "</li>");
+														}
+													} else {
+														// Consider weekdays and the range of start_date and end_date
+														if (weekdays.includes(currentDay)) {
+															if (currentDate >= startDate && currentDate <= endDate) {
+																ul.append("<li class=\"day-time\">" + i + "</li>");
+															} else {
+																ul.append("<li class=\"disabled\">" + i + "</li>");
+															}
+														} else {
+															ul.append("<li class=\"disabled\">" + i + "</li>");
+														}
+													}
+
 												}
 											}
-										}
+											
+											function generateCalendar(year) {
+												for (let i = 0; i < 12; i++) {
+													generateDays(getMonthId(i), i, year);
+												}
+											}
+										
+											function getMonthId(monthIndex) {
+												const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+												return months[monthIndex];
+											}
+										
+											function populateYearSelect() {
+												const startYear = 2001;
+												const endYear = 2090;
+												const select = $("#yearSelect");
+											
+												for (let year = startYear; year <= endYear; year++) {
+													select.append("<li>" + year + "</li>");
+												}
+											}
+										
+											populateYearSelect();
+											generateCalendar(new Date().getFullYear());
+										
+											$(".month-content").not("#january-content").hide();
+										
+											$(".month-cal").click(function() {
+												$(".month-content").addClass("d-none");
+												$("#yearSelect").show();
+											});
+										
+											$(".prev-btn").click(function() {
+												const currentMonth = $(".month-content:visible");
+												currentMonth.hide();
+												const prevMonth = currentMonth.prev().length ? currentMonth.prev() : $(".month-content").last();
+												prevMonth.show();
+											});
+										
+											$(".next-btn").click(function() {
+												const currentMonth = $(".month-content:visible");
+												currentMonth.hide();
+												const nextMonth = currentMonth.next().length ? currentMonth.next() : $(".month-content").first();
+												nextMonth.show();
+											});
+										
+											$(document).on("click", "#yearSelect li", function() {
+												const selectedYear = $(this).text();
+												generateCalendar(selectedYear);
+												$("#yearSelect").hide();
+												$(".month-cal").text(selectedYear);
+												$(".month-content").removeClass("d-none");
+											});
+										
+											$(document).on("click", ".days li", function() {
+												$(this).addClass("color");
+												$(this).siblings("li").removeClass("color");
+											});
+											
+											$(document).on("click", ".day-time", function () {
+												var day = $(this).text();
+												var month = $(this).closest(".month-content").attr("id").split("-")[0];
+												var year = $("#year-date").text();
+		
+												$(".answer_chat").val(day + " " + month + year);
+											});
+										
+											$(document).on("click", "#yearSelect li", function() {
+												const selectedYear = $(this).text();
+												generateCalendar(selectedYear);
+												$("#yearSelect").hide();
+												$(".month").text($(".month").text().replace(/\d{4}/, ""));
+												$(".month-content").removeClass("d-none");
+											});
+										});
+		
+		
+										   
+										</script>';
 									}
-									
-									function generateCalendar(year) {
-										for (let i = 0; i < 12; i++) {
-											generateDays(getMonthId(i), i, year);
-										}
-									}
-								
-									function getMonthId(monthIndex) {
-										const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
-										return months[monthIndex];
-									}
-								
-									function populateYearSelect() {
-										const startYear = 2001;
-										const endYear = 2090;
-										const select = $("#yearSelect");
-									
-										for (let year = startYear; year <= endYear; year++) {
-											select.append("<li>" + year + "</li>");
-										}
-									}
-								
-									populateYearSelect();
-									generateCalendar(new Date().getFullYear());
-								  
-									 $(".month-content").not("#january-content").hide();
-
-									$(".month-cal").click(function() {
-										$(".month-content").addClass("d-none");
-										$("#yearSelect").show();
-									});
-								  
-									 $(".prev-btn").click(function() {
-									   const currentMonth = $(".month-content:visible");
-									   currentMonth.hide();
-									   const prevMonth = currentMonth.prev().length ? currentMonth.prev() : $(".month-content").last();
-									   prevMonth.show();
-									 });
-								  
-									 $(".next-btn").click(function() {
-									   const currentMonth = $(".month-content:visible");
-									   currentMonth.hide();
-									   const nextMonth = currentMonth.next().length ? currentMonth.next() : $(".month-content").first();
-									   nextMonth.show();
-									 });
-								  
-									 $(document).on("click", "#yearSelect li", function() {
-										const selectedYear = $(this).text();
-										generateCalendar(selectedYear);
-										$("#yearSelect").hide();
-										$(".month-cal").text(selectedYear);
-										$(".month-content").removeClass("d-none");
-									});
-								
-									$(document).on("click", ".days li", function() {
-									   $(this).addClass("color");
-									   $(this).siblings("li").removeClass("color");
-									 });
-								  
-									$(document).on("click", ".day-time", function () {
-									var day = $(this).text();
-									var month = $(this).closest(".month-content").attr("id").split("-")[0];
-									var year = $("#year-date").text();
-								   
-									$(".answer_chat").val(day + " " + month + year);
-								   });
-
-									$(document).on("click", "#yearSelect li", function() {
-										const selectedYear = $(this).text();
-										generateCalendar(selectedYear);
-										$("#yearSelect").hide();
-										$(".month").text($(".month").text().replace(/\d{4}/, ""));
-										$(".month-content").removeClass("d-none");
-									});
-								});
-
-
-								   
-								  </script>';
-}
-						}
-					} else if($value['type_of_question'] == "23"){
+								}
+							} else if($value['type_of_question'] == "23"){
 
 						$html .= '<div class="col">
 										
@@ -1407,14 +1426,14 @@ var weekdays = '.$weekdays.';
 										</span>
 									</div>';
 						
-						$product_image = isset($formData[0]['product_image']) ? base_url('') . '/assets/images/' . $formData[0]['product_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
+						$product_image = isset($formData[0]['product_image']) ? base_url('') . '/assets/bot_image/' . $formData[0]['product_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
 						$product_title = isset($formData[0]['product_title']) ? $formData[0]['product_title'] : '';
 						$product_button_text = isset($formData[0]['product_button_text']) ? $formData[0]['product_button_text'] : '';
 						$product_description = isset($formData[0]['product_description']) ? $formData[0]['product_description'] : '';
 						$product_button_url = isset($formData[0]['product_button_url']) ? $formData[0]['product_button_url'] : '';
 						$product_url = isset($formData[0]['product_url']) ? $formData[0]['product_url'] : '';
 
-						if(isset($formData[0]['product_image']) && isset($formData[0]['product_button_text'])){
+						if(isset($formData[0]['product_image']) || isset($formData[0]['product_button_text'])){
 							$html .= '
 										<div class="col-12 text-center">
 											<div class="position-relative bg-white border rounded-3 overflow-hidden" style="width:200px;height:200px">
@@ -1437,7 +1456,7 @@ var weekdays = '.$weekdays.';
 									</div>';
 
 						$carouselData = json_decode($value['menu_message'], true);
-						$carousel_image = isset($carouselData[0]['carousel_image']) ? base_url('') . '/assets/images/' . $carouselData[0]['carousel_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
+						$carousel_image = isset($carouselData[0]['carousel_image']) ? base_url('') . '/assets/bot_image/' . $carouselData[0]['carousel_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
 						if(isset($carouselData[0]['carousel_image'])){
 							$html .= '<div class="col-12 text-center">
 											<div class="position-relative bg-white border rounded-3 overflow-hidden" style="width:200px;height:200px">
@@ -1795,7 +1814,7 @@ var weekdays = '.$weekdays.';
 		$html = "";
 
 		foreach ($botdisplaydata as $key => $value) {
-			$bot_img = empty($value['bot_img']) ? base_url('') . 'assets/images/account.png' : /* bot img uploading path */ base_url('') . 'assets/images/bot_img/bot-1.png';
+			$bot_img = empty($value['bot_img']) ? base_url('') . 'assets/bot_image/account.png' : /* bot img uploading path */ base_url('') . 'assets/bot_image/bot_img/bot-1.png';
 			$html .= '
 			<div class="col-3 p-2">
 			<div class="card mb-3 bg-white shadow">
@@ -2024,7 +2043,7 @@ var weekdays = '.$weekdays.';
 											</g>
 										</svg>';
 					} else if ($platform == 'instagram') {
-						$chat_list_html .= '<img src="' . base_url() . 'assets/images/instagram.svg' . '" style="width:40px;height:40px">';
+						$chat_list_html .= '<img src="' . base_url() . 'assets/bot_image/instagram.svg' . '" style="width:40px;height:40px">';
 					}
 					$chat_list_html .= '</div>
 									<div class="col-10 d-flex flex-wrap justify-content-between align-items-center">

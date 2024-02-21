@@ -150,6 +150,55 @@ $admin_bot = json_decode($admin_bot, true);
     width: 100%!important;
 }
 
+.emoji_div_man {
+        margin-top: 30px;
+        margin-right: 10px;
+
+    }
+
+/* calender */
+.month-calendar {
+      margin-bottom: 30px;
+    }
+    .month-calendar h3 {
+      margin-top: 20px;
+    }
+    .days {
+  list-style: none;
+  padding: 0px;
+  display: flex;
+ margin-left: 15px;
+  flex-wrap: wrap;
+}
+
+.days li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:2px 5px;
+  width:10%;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #d8d7ff;
+  font-size: 10px;
+
+}
+.days li:hover{
+  background: #724ebf;
+  color: white;
+}
+
+.intercom-emoji-picker-emoji{
+    cursor:pointer;
+}
+
+.days li:nth-child(7n) {
+  border-right: none;
+}
+.color{
+  background: #724ebf!important;
+  color: #e5efff !important;
+}
 </style>
 
 
@@ -1318,22 +1367,93 @@ $admin_bot = json_decode($admin_bot, true);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="col-12 d-flex flex-wrap">
-                    <div class="col-10 d-flex align-items-center">
-                        <span>
-                            <p>Note : Please press "Enter" for Paragraph break</p>
-                        </span>
+            <div class="col-12 d-flex flex-wrap position-relative">
 
-                    </div>
-                    <div class="col-2 d-flex justify-content-end align-items-center px-2">
-                        <i class="fa-regular fa-face-smile fa-lg"></i>
-                    </div>
-                    <div class="col-12 p-2 border my-3">
-                        <form class="needs-validation add_form_Email col-12" id="add_form_Email" name="add_form_Email" novalidate>
-                            <div id="editor_add" class="Email_Add_Ckeditor" style="border:1px solid red"></div>
-                        </form>
-                    </div>
-                </div>
+<div>
+    <div class="emoji_div_man border rounded-2 position-absolute top-0 end-0 overflow-x-scroll" style="height: 200px; width: 200px; z-index: 20; display: none;">
+        <div class="emoji_div p-2 bg-white">
+            <span class="intercom-emoji-picker-emoji" title="thumbs_up">&#x1F44D;</span>
+            <span class="intercom-emoji-picker-emoji" title="-1">&#x1F44E;</span>
+            <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
+            <span class="intercom-emoji-picker-emoji" title="confused">&#x1F615;</span>
+            <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
+            <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
+            <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
+            <span class="intercom-emoji-picker-emoji" title="smile">&#x1F604;</span>
+            <span class="intercom-emoji-picker-emoji" title="smiley">&#x1F603;</span>
+            <span class="intercom-emoji-picker-emoji" title="grinning">&#x1F600;</span>
+            <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
+            <span class="intercom-emoji-picker-emoji" title="wink">&#x1F609;</span>
+            <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
+            <span class="intercom-emoji-picker-emoji" title="kissing_heart">&#x1F618;</span>
+            <span class="intercom-emoji-picker-emoji" title="kissing_closed_eyes">&#x1F61A;</span>
+            <span class="intercom-emoji-picker-emoji" title="kissing">&#x1F617;</span>
+            <span class="intercom-emoji-picker-emoji" title="kissing_smiling_eyes">&#x1F619;</span>
+            <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_winking_eye">&#x1F61C;</span>
+            <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_closed_eyes">&#x1F61D;</span>
+            <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue">&#x1F61B;</span>
+            <span class="intercom-emoji-picker-emoji" title="flushed">&#x1F633;</span>
+            <span class="intercom-emoji-picker-emoji" title="grin">&#x1F601;</span>
+            <span class="intercom-emoji-picker-emoji" title="pensive">&#x1F614;</span>
+            <span class="intercom-emoji-picker-emoji" title="relieved">&#x1F60C;</span>
+            <span class="intercom-emoji-picker-emoji" title="unamused">&#x1F612;</span>
+            <span class="intercom-emoji-picker-emoji" title="disappointed">&#x1F61E;</span>
+            <span class="intercom-emoji-picker-emoji" title="persevere">&#x1F623;</span>
+            <span class="intercom-emoji-picker-emoji" title="cry">&#x1F622;</span>
+            <span class="intercom-emoji-picker-emoji" title="joy">&#x1F602;</span>
+            <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
+            <span class="intercom-emoji-picker-emoji" title="sleepy">&#x1F62A;</span>
+            <span class="intercom-emoji-picker-emoji" title="disappointed_relieved">&#x1F625;</span>
+            <span class="intercom-emoji-picker-emoji" title="cold_sweat">&#x1F630;</span>
+            <span class="intercom-emoji-picker-emoji" title="sweat_smile">&#x1F605;</span>
+            <span class="intercom-emoji-picker-emoji" title="sweat">&#x1F613;</span>
+            <span class="intercom-emoji-picker-emoji" title="weary">&#x1F629;</span>
+            <span class="intercom-emoji-picker-emoji" title="tired_face">&#x1F62B;</span>
+            <span class="intercom-emoji-picker-emoji" title="fearful">&#x1F628;</span>
+            <span class="intercom-emoji-picker-emoji" title="scream">&#x1F631;</span>
+            <span class="intercom-emoji-picker-emoji" title="angry">&#x1F620;</span>
+            <span class="intercom-emoji-picker-emoji" title="rage">&#x1F621;</span>
+            <span class="intercom-emoji-picker-emoji" title="triumph">&#x1F624;</span>
+            <span class="intercom-emoji-picker-emoji" title="confounded">&#x1F616;</span>
+            <span class="intercom-emoji-picker-emoji" title="laughing">&#x1F606;</span>
+            <span class="intercom-emoji-picker-emoji" title="yum">&#x1F60B;</span>
+            <span class="intercom-emoji-picker-emoji" title="mask">&#x1F637;</span>
+            <span class="intercom-emoji-picker-emoji" title="sunglasses">&#x1F60E;</span>
+            <span class="intercom-emoji-picker-emoji" title="sleeping">&#x1F634;</span>
+            <span class="intercom-emoji-picker-emoji" title="dizzy_face">&#x1F635;</span>
+            <span class="intercom-emoji-picker-emoji" title="astonished">&#x1F632;</span>
+            <span class="intercom-emoji-picker-emoji" title="worried">&#x1F61F;</span>
+            <span class="intercom-emoji-picker-emoji" title="frowning">&#x1F626;</span>
+            <span class="intercom-emoji-picker-emoji" title="anguished">&#x1F627;</span>
+            <span class="intercom-emoji-picker-emoji" title="imp">&#x1F47F;</span>
+            <span class="intercom-emoji-picker-emoji" title="open_mouth">&#x1F62E;</span>
+            <span class="intercom-emoji-picker-emoji" title="grimacing">&#x1F62C;</span>
+            <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
+        </div>
+    </div>
+</div>
+<div class="col-10 d-flex align-items-center">
+    <span>
+        <p>Note : Please press "Enter" for Paragraph break</p>
+    </span>
+
+
+</div>
+<div class="col-2 d-flex smile_btn justify-content-end align-items-center px-2">
+    <i class="fa-regular fa-face-smile fa-lg"></i>
+</div>
+
+<script>
+    $("body").on("click", ".smile_btn", function() {
+        $(".emoji_div_man").toggle()
+    })
+</script>
+<div class="col-12 p-2 border my-3">
+    <form class="needs-validation add_form_Email col-12" id="add_form_Email" name="add_form_Email" novalidate>
+        <div id="editor_add" class="Email_Add_Ckeditor" style="border:1px solid red"></div>
+    </form>
+</div>
+</div>
 
                 <div class="col-12 d-flex flex-wrap">
                     <ul class="nav nav-tabs col-12 " id="myTab" role="tablist">
@@ -2102,10 +2222,11 @@ $admin_bot = json_decode($admin_bot, true);
                                         <div class="accordion-body">
                                             <div class="col-12 d-flex flex-wrap">
                                                 <div class="col-8">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Coppy Text Hear" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                                        <button class="btn-primary" type="button" id="button-addon2">Coppy</button>
-                                                    </div>
+                                                <div class="input-group mb-3">
+                                                    <input id="textToCopy" type="text" class="form-control" value="{{time_based_greeting}}" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                                                    <button class="btn-primary" type="button" id="button-addon2">Copy</button>
+                                                </div>
+                                                
                                                 </div>
                                             </div>
                                         </div>
@@ -3873,7 +3994,6 @@ $admin_bot = json_decode($admin_bot, true);
                             }
                         }
                     
-
                         if (menu_message.remove_question === "true") {
                             $(".remove_question").prop("checked", true);
                         } else {
@@ -3910,6 +4030,19 @@ $admin_bot = json_decode($admin_bot, true);
                             // $(".is_strict_validation").prop("checked", true);
                         } else {
                             $(".is_strict_validation").prop("checked", false);
+                        }
+
+                        if(type_of_question == 8){
+                            var weekdays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+                            weekdays.forEach(function(day) {
+                                var checkbox = $("." + day.toLowerCase() + "_val");
+                                
+                                if (menu_message.weekdays.includes(day)) {
+                                    checkbox.prop("checked", true);
+                                } else {
+                                    checkbox.prop("checked", false);
+                                }
+                            });
                         }
 
                         if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
@@ -4906,7 +5039,7 @@ $admin_bot = json_decode($admin_bot, true);
             if (result.value) {
                 $.ajax({
                     method: "post",
-                    url: "<?= site_url('bot_delete_data'); ?>",
+                    url: "<?= site_url('bot_question_delete_data'); ?>",
                     data: {
                         action: 'delete',
                         id: questionId,
@@ -6526,4 +6659,33 @@ $admin_bot = json_decode($admin_bot, true);
         }
       }
     });
+
+    document.getElementById("button-addon2").addEventListener("click", function() {
+        var textToCopy = document.getElementById("textToCopy");
+        textToCopy.removeAttribute("disabled"); 
+        textToCopy.select();
+        document.execCommand("copy");
+        textToCopy.setAttribute("disabled", "disabled"); 
+        iziToast.success({
+            title: 'Copied to clipboard'
+        });
+    });
+
+    let spans = document.querySelectorAll('.intercom-emoji-picker-emoji');
+    spans.forEach(span => {
+        span.addEventListener('click', () => {
+
+            const range = document.createRange();
+            range.selectNode(span);
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(range);
+            document.execCommand('copy');
+            document.getSelection().removeAllRanges();
+
+            iziToast.success({
+                title: 'Copied to clipboard'
+            });
+        });
+        }
+    )
 </script>

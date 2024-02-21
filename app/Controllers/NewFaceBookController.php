@@ -10,7 +10,7 @@ use Facebook\Exceptions\FacebookSDKException;
 
 use Facebook\GraphNodes\GraphNodeFactory;
 
-class FaceBookController extends BaseController
+class NewFaceBookController extends BaseController
 {
     //private $db;
 
@@ -18,7 +18,7 @@ class FaceBookController extends BaseController
     {
         helper("custom");
         $db = db_connect();
-        $this->db = \Config\Database::connect();
+        $this->db = \Config\Database::connect('second');
         $this->MasterInformationModel = new MasterInformationModel($db);
         $this->username = session_username($_SESSION["username"]);
         $this->admin = 0;
@@ -44,6 +44,7 @@ class FaceBookController extends BaseController
             $delete_id = $this->request->getPost('delete_id');
             $username = session_username($_SESSION['username']);
             $table_name = $this->request->getPost('table');
+       
             if ($table_name == 'fb_account') {
                 $departmentdisplaydata = $this->MasterInformationModel->delete_entry($table_name, $delete_id);
                 $find_Array_all = "DELETE FROM fb_pages where master_id='" . $_SESSION['master'] . "'";
@@ -64,7 +65,7 @@ class FaceBookController extends BaseController
         }
         die();
     }
-    function facebook_user()
+    function new_facebook_user()
     {
 
         $action = $this->request->getPost("action");
@@ -74,6 +75,8 @@ class FaceBookController extends BaseController
         $userinformation = $this->request->getPost("userinformation");
         $resultff = array();
         $html = "";
+
+
 
         $curl = curl_init();
         curl_setopt_array(
@@ -94,16 +97,15 @@ class FaceBookController extends BaseController
         );
         $response_picture = curl_exec($curl);
         $response_pictures = json_decode($response_picture);
-
-        echo $response_pictures->data->url;
         curl_close($curl);
 
         if ($action == "user") {
-            $query = $this->db->query('SELECT * FROM fb_account  WHERE userid = "' . $response['userID'] . '"');
+           
+            $query = $this->db->query('SELECT * FROM '.$this->username.'_fb_account  WHERE userid = "' . $response['userID'] . '"');
             $count_num = $query->getNumRows();
             if ($count_num > 0) {
                 $result_facebook_data = $query->getResultArray()[0];
-                $query = $this->db->query("UPDATE fb_account  SET accessToken = '" . $longLivedToken . "'  WHERE userid = '" . $response['userID'] . "'");
+                $query = $this->db->query("UPDATE ".$this->username."_fb_account  SET accessToken = '" . $longLivedToken . "'  WHERE userid = '" . $response['userID'] . "'");
             } else {
 
                 $insert_data['accessToken'] = $longLivedToken;
@@ -111,7 +113,7 @@ class FaceBookController extends BaseController
                 $insert_data['master_id'] = $_SESSION['master'];
                 $insert_data['username'] = $userinformation['name'];
                 $insert_data['user_profile'] = $response_pictures->data->url;
-                $response_status_log = $this->MasterInformationModel->insert_entry($insert_data, 'fb_account');
+                $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_account');
             }
 
 
@@ -307,7 +309,7 @@ class FaceBookController extends BaseController
     function facebook_page()
     {
         // pre($_POST);
-        $this->db = \Config\Database::connect();
+        $this->db = \Config\Database::connect('second');
         $action = $this->request->getPost("action");
         $page_id = $this->request->getPost("page_id");
         $access_token = $this->request->getPost("access_token");
@@ -365,7 +367,7 @@ class FaceBookController extends BaseController
                 curl_close($curl);
 
                 $insert_data['page_img'] = $response_pictures->data->url;
-                $response_status_log = $this->MasterInformationModel->insert_entry($insert_data, 'fb_pages');
+                $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
                 $result_array['id'] = $response_status_log;
                 $result_array['page_profile'] = $response_pictures->data->url;
                 // $result_array['respoance'] = 1;
@@ -373,19 +375,19 @@ class FaceBookController extends BaseController
             } else {
                 if ($result_facebook_data[0]['is_status'] == 1) {
                     //is_status==0-for delete to connection
-                    $this->db->query('UPDATE `fb_pages` SET `is_status`=0 WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=0 WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Re-connect successfully";
                 } else if ($result_facebook_data[0]['is_status'] == 3) {
                     //is_status==0-for draft to connection
-                    $this->db->query('UPDATE `fb_pages` SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_site`=' . $int_site . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_site`=' . $int_site . ',`user_id`=' . $assign_to . ',`is_status`=' . $is_status . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form connection successfully";
                 } else if ($this->request->getPost("edit_id") == $result_facebook_data[0]['id'] && ($form_id != $result_facebook_data[0]['form_id'] || $is_status == 3)) {
                     //is_status == 2//old to new
-                    $this->db->query('UPDATE `fb_pages` SET `is_status`=2 WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `is_status`=2 WHERE form_id=' . $form_id . '');
 
                     $insert_data['master_id'] = $_SESSION['master'];
                     $insert_data['page_access_token'] = $access_token;
@@ -424,12 +426,12 @@ class FaceBookController extends BaseController
 
                     $insert_data['page_img'] = $response_pictures->data->url;
 
-                    $response_status_log = $this->MasterInformationModel->insert_entry($insert_data, 'fb_pages');
+                    $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username.'_fb_pages');
                     $result_array['page_profile'] = $response_pictures->data->url;
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Connected successfully";
                 } else if ($this->request->getPost("edit_id")) {
-                    $this->db->query('UPDATE `fb_pages` SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_site`=' . $int_site . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
+                    $this->db->query('UPDATE '.$this->username.'_fb_pages SET `intrested_area`=' . $area . ',`property_sub_type`=' . $sub_type . ',`intrested_site`=' . $int_site . ',`user_id`=' . $assign_to . ' WHERE form_id=' . $form_id . '');
                     $result_array['page_profile'] = $result_facebook_data[0]['page_img'];
                     $result_array['respoance'] = 1;
                     $result_array['msg'] = "Form Updated successfully";
@@ -441,7 +443,7 @@ class FaceBookController extends BaseController
             }
         } else {
             $status = $this->request->getPost("status");
-            $this->db->query('UPDATE `fb_pages` SET `status`=' . $status . ' WHERE form_id=' . $form_id . '');
+            $this->db->query('UPDATE '.$this->username.'_fb_pages SET `status`=' . $status . ' WHERE form_id=' . $form_id . '');
             $result_array['respoance'] = 1;
         }
         echo json_encode($result_array, true);
@@ -452,7 +454,7 @@ class FaceBookController extends BaseController
         $html = "";
         $query = $this->db->query("SELECT * , p.id AS page_ids
                 FROM fb_pages AS p
-                JOIN fb_account AS a ON p.master_id = a.master_id
+                JOIN ".$this->username."_fb_account AS a ON p.master_id = a.master_id
                 WHERE p.master_id = '" . $_SESSION['master'] . "' AND is_status=0");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
@@ -844,7 +846,7 @@ class FaceBookController extends BaseController
 
     function queue_list_add()
     {
-        $db_connection = \Config\Database::connect();
+        $db_connection = \Config\Database::connect('second');
         $form_id = $this->request->getPost("form_id");
         $result_res = array();
         $queryd = $this->db->query("SELECT *,i.id AS inte_id
@@ -1016,7 +1018,7 @@ class FaceBookController extends BaseController
 
                 if ($isduplicate == 0) {
                     //pre($mobile_nffo);
-                    $response = $this->MasterInformationModel->insert_entry($insert_data, $this->username . "_" . $table_name);
+                    $response = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . "_" . $table_name);
                     $departmentdisplaydata = $this->MasterInformationModel->display_all_records($this->username . "_" . $table_name);
                     $departmentdisplaydata = json_decode($departmentdisplaydata, true);
                     $result_res['response'] = 1;
@@ -1058,7 +1060,7 @@ class FaceBookController extends BaseController
                     if ($repo == 0) {
 
                         $inquiry_log_data = array();
-                        $response = $this->MasterInformationModel->insert_entry($insert_data, $this->username . "_" . $table_name);
+                        $response = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . "_" . $table_name);
                         if ($response) {
                             $inquiry_log_data['inquiry_id'] = $response;
                             $user_data =  $this->user_id_to_full_user_data($next);
@@ -1072,7 +1074,7 @@ class FaceBookController extends BaseController
                                 $log_content .= 'Auto Generated  Lead by Facebook And assign By ' . $user_data['firstname'];
                             }
                             $inquiry_log_data['inquiry_log'] = $log_content;
-                            $response_log = $this->MasterInformationModel->insert_entry($inquiry_log_data, $this->username . "_inquiry_log");
+                            $response_log = $this->MasterInformationModel->insert_entry2($inquiry_log_data, $this->username . "_inquiry_log");
                             $result_res['response'] = 1;
                             $result_res['message'] = 'Queue process succesfully !';
                             $update_data['full_name'] = isset($fulll_name) ? $fulll_name : '';
@@ -1105,7 +1107,7 @@ class FaceBookController extends BaseController
 
     public function duplicate_data_check_mobile_number($table, $mobileno, $field = "")
     {
-        $this->db = \Config\Database::connect();
+        $this->db = \Config\Database::connect('second');
         $i = 0;
         if (!empty($field)) {
             $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $field . ' =' . $mobileno;
@@ -1123,7 +1125,7 @@ class FaceBookController extends BaseController
 
     public function view_integrate_lead()
     {
-        $this->db = \Config\Database::connect();
+        $this->db = \Config\Database::connect('second');
         $id = $this->request->getPost("unquie_id");
         $result_res = array();
         $queryd = $this->db->query("SELECT * FROM " . $this->username . "_integration WHERE unquie_id = " . $id);
@@ -1134,7 +1136,7 @@ class FaceBookController extends BaseController
 
     public function lead_list()
     {
-        $this->db = \Config\Database::connect();
+        $this->db = \Config\Database::connect('second');
         $username = session_username($_SESSION['username']);
         $html = "";
         $row_count_html = '';
