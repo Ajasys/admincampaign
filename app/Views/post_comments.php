@@ -238,8 +238,10 @@
                                         </div>
 
                                     </div>
-                                    <input class="form-control main-control coupon_event attachment" id="attachment"
-                                        name="attachment[]" multiple="" type="file" placeholder="">
+                                    <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate>
+
+                                        <input class="form-control main-control coupon_event attachment" id="attachment" name="attachment[]" multiple type="file" placeholder="">
+</form>     
                                 </div>
                             </div>
                         </div>
@@ -797,7 +799,9 @@
 
             $('body').on('click', '.create_comment', function () {
                 var form = $("form[name='create_form']")[0];
-                var attachment = $('.attachment').prop('files')[0];
+                var form = $(".add_form_Email")[0];
+
+                var attachment = $('.attachment').prop('files');
                 var event_address = $('.event_address').val();
                 var formData = new FormData(form);
 
