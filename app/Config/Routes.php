@@ -599,8 +599,13 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/WhatsAppAccountsContactList', 'WhatAppIntegrationController::WhatsAppAccountsContactList');
 	$routes->post('/WhatsAppListConverstion', 'WhatAppIntegrationController::WhatsAppListConverstion');
 	$routes->post('/SendWhatsAppChatMessage', 'WhatAppIntegrationController::SendWhatsAppChatMessage');
+$routes->post('/Bracket_whatsapp_insert_data', 'WhatAppIntegrationController::Bracket_whatsapp_insert_data');
+	$routes->post('/WhatsAppSendDocumentData', 'WhatAppIntegrationController::WhatsAppSendDocumentData');
 	$routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
 	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
+	
+	$routes->post('/bulk_whatsapp_template_send', 'WhatAppIntegrationController::bulk_whatsapp_template_send');
+
 
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');

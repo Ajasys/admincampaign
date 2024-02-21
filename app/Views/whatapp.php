@@ -730,7 +730,7 @@ if (!empty($connections)) {
                                                 <path d="M221.317 247.584H47.91v161.203h173.407zm-46.736 67.683h-24.968v58.838h-30v-58.838H94.646v-30h79.936v30z" fill="#724ebf" opacity="1" data-original="#000000" class=""></path>
                                             </g>
                                         </svg></p>
-                                    <span class="ms-3 first-container-text">Templates</span>
+                                    <span class="ms-3 first-container-text templatelist">Templates</span>
                                 </div>
                             </li>
 
@@ -2544,6 +2544,13 @@ if (!empty($connections)) {
             list_data();
 
         });
+        
+        $('body').on('click', '.templatelist', function(e) {
+            e.preventDefault();
+            list_data();
+
+        });
+        
 
         $('body').on('change', '.WhatsAppConnectionsDropDown', function() {
             list_data();
