@@ -635,7 +635,7 @@
    
    
    
-   // view data 
+   // view data audience
    $('body').on('click', '.audiance_view', function (e) {
        // alert("fd");
        var edit_value = $(this).attr("data-view_id");
