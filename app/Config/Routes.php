@@ -533,6 +533,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('bot_list_data', 'Bot_Controller::bot_list_data');
 	$routes->post('duplicate_Question', 'Bot_Controller::duplicate_Question');
 	$routes->post('bot_delete_data', 'Bot_Controller::bot_delete_data');
+	$routes->post('bot_question_delete_data', 'Bot_Controller::bot_question_delete_data');
 	$routes->post('update_sequence', 'Bot_Controller::update_sequence');
 	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
