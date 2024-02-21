@@ -8,7 +8,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 ?>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap");
 
     * {
         box-sizing: border-box;
@@ -114,7 +114,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.32);
     }
 
-.iti {
+    .iti {
         width: 100%;
     }
 
@@ -124,7 +124,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     }
 
 
-    .chatheadercolorclass{
+    .chatheadercolorclass {
         background-color: #005c4b !important;
     }
 
@@ -272,10 +272,184 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         cursor: pointer;
     }
 
-    
+    /* ===========  camera css ====== */
+    .video-btn-sec {
+        position: absolute;
+        bottom: 25px;
+        left: 50%;
+        right: auto;
+        transform: translate(-10%, 0);
+        width: 100%;
+    }
+
+    .video-btn-sec button {
+        width: 35px;
+        height: 35px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--first-color);
+        background-color: var(--first-color);
+        margin-right: 5px;
+    }
+
+    .video-btn-sec button i {
+        color: #fff;
+    }
+
+    .video-btn-sec .switch-btn {
+        width: fit-content;
+        padding: 15px 15px;
+        height: 40px;
+        color: #fff;
+    }
+
+    .profile-div {
+        width: 130px;
+        height: 130px;
+        overflow: hidden;
+    }
+
+    .profile-btn-photo2 {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    .profile-btn-photo3 {
+        position: absolute;
+        bottom: 0;
+        right: 30px;
+    }
+
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .upload-btn {
+        width: 30px;
+        height: 30px;
+        border: 2px solid gray;
+        color: gray;
+        background-color: white;
+        padding: 5px 5px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: normal;
+    }
+
+    .upload-btn i {
+        line-height: 0;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    @media (max-width:575px) {
+        .title-1 h2 {
+            font-size: 19px;
+        }
+    }
+
+    .hover-text {
+        overflow: hidden;
+    }
+
+    .hover-text:hover {
+        overflow: visible;
+        white-space: wrap !important;
+    }
+
+    .hover-text {
+        overflow: hidden;
+    }
+
+    .hover-text:hover {
+        overflow: visible;
+        white-space: wrap !important;
+    }
+
+    .modal-body-1 {
+        background-color: var(--white-color);
+        border: 1px solid var(--all-light);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: start;
+        justify-content: start;
+        padding: 16px 8px;
+        border-radius: 6px;
+    }
 </style>
 
 
+<!-- camera modal -->
+
+<div id="camera_modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close CloseButtonCamera" data-bs-toggle="modal"
+                    data-bs-target="#Adduser" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12 canvas">
+                    <canvas id="canvas" hidden></canvas>
+                    <div class="position-relative">
+                        <video autoplay id="video" class="m-auto d-flex w-100 h-100"></video>
+                        <div class="video-btn-sec d-flex align-items-center">
+                            <button class="button is-hidden " id="btnPlay" hidden>
+                                <span class="icon is-small">
+                                    <i class="fas fa-play"></i>
+                                </span>
+                            </button>
+                            <button class="button is-hidden " id="btnPause" hidden>
+                                <span class="icon is-small">
+                                    <i class="fas fa-pause"></i>
+                                </span>
+                            </button>
+                            <button class="button is-success firstBtn TakePic" id="btnScreenshot">
+                                <span class="icon is-small">
+                                    <i class="fas fa-camera"></i>
+                                </span>
+                            </button>
+                            <button class="button is-success firstBtn" id="btnChangeCamera">
+                                <span class="icon is-small">
+                                    <i class="fas fa-sync-alt"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="video-btn-sec d-flex align-items-center">
+                            <button class="button switch-btn SecoundButton SendImage" imagebase64="" id="YesBtn">
+                                <span class="icon">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                            </button>
+                            <button class="button switch-btn SecoundButton NoBtn" id="NoBtn">
+                                <span class="icon">
+                                    <i class="fa-solid fa-x"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- View Contact modal  -->
@@ -317,7 +491,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     </div>
 </div>
 <!-- modal box whatapp -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -329,9 +504,11 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             <div class="modal-body overflow-auto" style="height:350px;">
                 <div class="d-flex col-12 justify-content-center">
                     <div class="input-group mb-3 d-none">
-                        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control" placeholder="Recipient's username"
+                            aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <span class="input-group-text btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <span class="input-group-text btn btn-secondary"><i
+                                    class="fa-solid fa-magnifying-glass"></i></span>
                         </div>
                     </div>
                 </div>
@@ -356,15 +533,19 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     <h5 class="mb-3 pb-2 border-bottom col-12">Add Contact Details</h5>
                     <div class="col-12">
                         <div class="col-12 mb-3 mt-2">
-                            <input type="text" class="form-control main-control ContactNameClass " id="business_name" name="business_name" placeholder="Enter Name" value="" required="">
+                            <input type="text" class="form-control main-control ContactNameClass " id="business_name"
+                                name="business_name" placeholder="Enter Name" value="" required="">
                         </div>
                         <div class="col-12 mb-3 mt-2">
-                            <input type="number" id="mobile_code" class="form-control phone_number_div ContactNumberClass" placeholder="Enter Contact Number" name="name">
+                            <input type="number" id="mobile_code"
+                                class="form-control phone_number_div ContactNumberClass"
+                                placeholder="Enter Contact Number" name="name">
                         </div>
 
                         <div class="col-12 pt-3 border-top mb-2 text-end">
                             <span class="btn btn-secondary CloseBtn" data-bs-dismiss="modal">Close</span>
-                            <span class="btn-primary AddWhatsAppContactNumber" id="" data-edit_id="" name="memberships_update1" value="memberships_update1">Add</span>
+                            <span class="btn-primary AddWhatsAppContactNumber" id="" data-edit_id=""
+                                name="memberships_update1" value="memberships_update1">Add</span>
                         </div>
                     </div>
                 </div>
@@ -393,7 +574,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     </nav>
                 </div> -->
 
-                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box" style="height:80vh">
+                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box"
+                    style="height:80vh">
                     <div class="col-12 border rounded-3 bg-white position-lg-relative" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
                             <div class="d-flex justify-content-between align-items-center border-bottom">
@@ -505,7 +687,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
                                         if (isset($WhatsAppAccountsData) && !empty($WhatsAppAccountsData)) {
                                             foreach ($WhatsAppAccountsData as $key => $value) {
-$dnoneC = '';
+                                                $dnoneC = '';
 
                                                 if ($value['count'] == '0') {
                                                     $dnoneC = 'd-none';
@@ -532,8 +714,10 @@ $dnoneC = '';
                                 </div>
                             </div>
                         </div>
-                        <div class="m-auto acc_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0" style="">
-                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                        <div class="m-auto acc_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0"
+                            style="">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center"
+                                style="z-index:555">
                                 <div>
                                     <span>Loading...</span>
                                     <div class="mx-auto chat_loader"></div>
@@ -546,11 +730,13 @@ $dnoneC = '';
                     </div>
                 </div>
 
-                <div class="col-12 d-none d-lg-block d-xl-block col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3 chat-box main-box" style="height:80vh">
+                <div class="col-12 d-none d-lg-block d-xl-block col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3 chat-box main-box"
+                    style="height:80vh">
                     <div class="col-12 border  bg-white position-relative rounded-3" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 mt-2">
                             <div class="d-lg-none">
-                                <button class="back-button"> << back</button>
+                                <button class="back-button">
+                                    << back</button>
                             </div>
                             <div class="d-flex justify-content-between border-bottom align-items-center">
                                 <div class="dropdown d-flex align-items-center ps-2 pb-2">
@@ -569,15 +755,18 @@ $dnoneC = '';
                             <span>Loading...</span>
                             <div class="mx-auto chat_loader"></div>
                         </div> -->
-                        <div class="m-auto chat_list_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0">
-                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                        <div
+                            class="m-auto chat_list_loader text-center text-center position-absolute top-0 end-0 bottom-0 start-0">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center"
+                                style="z-index:555">
                                 <div>
                                     <span>Loading...</span>
                                     <div class="mx-auto chat_loader"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center col-12 overflow-y-scroll p-3 ChatListSetHTML chatNoData">No Chats Found!</div>
+                        <div class="text-center col-12 overflow-y-scroll p-3 ChatListSetHTML chatNoData">No Chats Found!
+                        </div>
                         <!-- <div class="col-12 overflow-y-scroll chat_list p-2" style="max-height: 100%;">
                             <div class="col-12 text-center">
                                 <p class="fs-5 fw-medium mt-5">No Record Found</p>
@@ -586,23 +775,40 @@ $dnoneC = '';
                     </div>
                 </div>
 
-                <div class="d-none col-12 col-sm-12 col-md-12 col-lg-6 d-xl-block col-xxl-6 transcript_box  main-box" style="height:80vh">
-                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3" style="height:80vh">
+                <div class="d-none col-12 col-sm-12 col-md-12 col-lg-6 d-xl-block col-xxl-6 transcript_box  main-box"
+                    style="height:80vh">
+                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3"
+                        style="height:80vh">
                         <div class="d-xl-none">
-                            <button class="back-button1 "> << back</button>
+                            <button class="back-button1 ">
+                                << back</button>
                         </div>
-                        <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0" style="height: 200px; width: 200px; display:none;">
+                        <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0"
+                            style="height: 200px; width: 200px; display:none;">
                             <ul class="p-1 bg-white ">
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path fill="#4086f4" d="m451 135-105-30L316 0H106C81.147 0 61 20.147 61 45v422c0 24.853 20.147 45 45 45h300c24.853 0 45-20.147 45-45z" opacity="1" data-original="#4086f4" class=""></path>
-                                                    <path fill="#4175df" d="M451 135v332c0 24.853-20.147 45-45 45H256V0h60l30 105z" opacity="1" data-original="#4175df" class=""></path>
-                                                    <path fill="#80aef8" d="M451 135H346c-16.5 0-30-13.5-30-30V0c3.9 0 7.8 1.5 10.499 4.501l120 120C449.5 127.2 451 131.1 451 135z" opacity="1" data-original="#80aef8" class=""></path>
-                                                    <path fill="#fff5f5" d="M346 241H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM346 301H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM346 361H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM286 421H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h120c8.291 0 15 6.709 15 15s-6.709 15-15 15z" opacity="1" data-original="#fff5f5"></path>
-                                                    <path fill="#e3e7ea" d="M256 421h30c8.291 0 15-6.709 15-15s-6.709-15-15-15h-30zM256 361h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90zM256 301h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90zM256 241h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90z" opacity="1" data-original="#e3e7ea"></path>
+                                                    <path fill="#4086f4"
+                                                        d="m451 135-105-30L316 0H106C81.147 0 61 20.147 61 45v422c0 24.853 20.147 45 45 45h300c24.853 0 45-20.147 45-45z"
+                                                        opacity="1" data-original="#4086f4" class=""></path>
+                                                    <path fill="#4175df"
+                                                        d="M451 135v332c0 24.853-20.147 45-45 45H256V0h60l30 105z"
+                                                        opacity="1" data-original="#4175df" class=""></path>
+                                                    <path fill="#80aef8"
+                                                        d="M451 135H346c-16.5 0-30-13.5-30-30V0c3.9 0 7.8 1.5 10.499 4.501l120 120C449.5 127.2 451 131.1 451 135z"
+                                                        opacity="1" data-original="#80aef8" class=""></path>
+                                                    <path fill="#fff5f5"
+                                                        d="M346 241H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM346 301H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM346 361H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h180c8.291 0 15 6.709 15 15s-6.709 15-15 15zM286 421H166c-8.291 0-15-6.709-15-15s6.709-15 15-15h120c8.291 0 15 6.709 15 15s-6.709 15-15 15z"
+                                                        opacity="1" data-original="#fff5f5"></path>
+                                                    <path fill="#e3e7ea"
+                                                        d="M256 421h30c8.291 0 15-6.709 15-15s-6.709-15-15-15h-30zM256 361h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90zM256 301h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90zM256 241h90c8.291 0 15-6.709 15-15s-6.709-15-15-15h-90z"
+                                                        opacity="1" data-original="#e3e7ea"></path>
                                                 </g>
                                             </svg>
                                         </div>
@@ -612,15 +818,21 @@ $dnoneC = '';
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 510 510" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 510 510"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <linearGradient id="c" x1="172.48" x2="497.848" y1="110.639" y2="436.007" gradientTransform="rotate(6.28 255.57 -277.231)" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="c" x1="172.48" x2="497.848" y1="110.639"
+                                                        y2="436.007" gradientTransform="rotate(6.28 255.57 -277.231)"
+                                                        gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#ffa936"></stop>
                                                         <stop offset=".411" stop-color="#ff8548"></stop>
                                                         <stop offset=".778" stop-color="#ff6c54"></stop>
                                                         <stop offset="1" stop-color="#ff6359"></stop>
                                                     </linearGradient>
-                                                    <linearGradient id="d" x1="490.487" x2="466.43" y1="159.015" y2="164.322" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="d" x1="490.487" x2="466.43" y1="159.015"
+                                                        y2="164.322" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#f82814" stop-opacity="0"></stop>
                                                         <stop offset="1" stop-color="#c0272d"></stop>
                                                     </linearGradient>
@@ -631,50 +843,89 @@ $dnoneC = '';
                                                         <stop offset=".835" stop-color="#6ee1d2"></stop>
                                                         <stop offset="1" stop-color="#65e0db"></stop>
                                                     </linearGradient>
-                                                    <linearGradient xlink:href="#a" id="e" x1="15.52" x2="340.888" y1="104.705" y2="430.073" gradientTransform="rotate(-10.66 254.843 -276.812)" gradientUnits="userSpaceOnUse"></linearGradient>
+                                                    <linearGradient xlink:href="#a" id="e" x1="15.52" x2="340.888"
+                                                        y1="104.705" y2="430.073"
+                                                        gradientTransform="rotate(-10.66 254.843 -276.812)"
+                                                        gradientUnits="userSpaceOnUse"></linearGradient>
                                                     <linearGradient id="b">
                                                         <stop offset="0" stop-color="#cdec7a" stop-opacity="0"></stop>
-                                                        <stop offset=".235" stop-color="#9ad57d" stop-opacity=".235"></stop>
-                                                        <stop offset=".604" stop-color="#51b482" stop-opacity=".604"></stop>
-                                                        <stop offset=".868" stop-color="#239f85" stop-opacity=".868"></stop>
+                                                        <stop offset=".235" stop-color="#9ad57d" stop-opacity=".235">
+                                                        </stop>
+                                                        <stop offset=".604" stop-color="#51b482" stop-opacity=".604">
+                                                        </stop>
+                                                        <stop offset=".868" stop-color="#239f85" stop-opacity=".868">
+                                                        </stop>
                                                         <stop offset="1" stop-color="#119786"></stop>
                                                     </linearGradient>
-                                                    <linearGradient xlink:href="#b" id="f" x1="491.682" x2="450.637" y1="256.546" y2="256.546" gradientUnits="userSpaceOnUse"></linearGradient>
-                                                    <linearGradient xlink:href="#b" id="g" x1="176.731" x2="176.731" y1="466.917" y2="442.601" gradientUnits="userSpaceOnUse"></linearGradient>
-                                                    <linearGradient id="h" x1="88.264" x2="413.632" y1="111.753" y2="437.121" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient xlink:href="#b" id="f" x1="491.682" x2="450.637"
+                                                        y1="256.546" y2="256.546" gradientUnits="userSpaceOnUse">
+                                                    </linearGradient>
+                                                    <linearGradient xlink:href="#b" id="g" x1="176.731" x2="176.731"
+                                                        y1="466.917" y2="442.601" gradientUnits="userSpaceOnUse">
+                                                    </linearGradient>
+                                                    <linearGradient id="h" x1="88.264" x2="413.632" y1="111.753"
+                                                        y2="437.121" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#f8f6fb"></stop>
                                                         <stop offset="1" stop-color="#efdcfb"></stop>
                                                     </linearGradient>
-                                                    <linearGradient id="i" x1="112.768" x2="430.112" y1="101.155" y2="514.021" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="i" x1="112.768" x2="430.112" y1="101.155"
+                                                        y2="514.021" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#18cefb"></stop>
                                                         <stop offset=".297" stop-color="#2bb9f9"></stop>
                                                         <stop offset=".735" stop-color="#42a0f7"></stop>
                                                         <stop offset="1" stop-color="#4a97f6"></stop>
                                                     </linearGradient>
-                                                    <linearGradient id="j" x1="75.588" x2="214.616" y1="316.53" y2="497.406" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient id="j" x1="75.588" x2="214.616" y1="316.53"
+                                                        y2="497.406" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#cdec7a"></stop>
-                                                        <stop offset=".215" stop-color="#b0e995" stop-opacity=".784"></stop>
-                                                        <stop offset=".56" stop-color="#87e4bb" stop-opacity=".439"></stop>
-                                                        <stop offset=".833" stop-color="#6ee1d2" stop-opacity=".165"></stop>
-                                                        <stop offset=".999" stop-color="#65e0db" stop-opacity="0"></stop>
+                                                        <stop offset=".215" stop-color="#b0e995" stop-opacity=".784">
+                                                        </stop>
+                                                        <stop offset=".56" stop-color="#87e4bb" stop-opacity=".439">
+                                                        </stop>
+                                                        <stop offset=".833" stop-color="#6ee1d2" stop-opacity=".165">
+                                                        </stop>
+                                                        <stop offset=".999" stop-color="#65e0db" stop-opacity="0">
+                                                        </stop>
                                                     </linearGradient>
-                                                    <linearGradient xlink:href="#a" id="k" x1="198.822" x2="366.499" y1="288.474" y2="506.622" gradientUnits="userSpaceOnUse"></linearGradient>
-                                                    <linearGradient id="l" x1="117.242" x2="171.618" y1="131.922" y2="202.666" gradientUnits="userSpaceOnUse">
+                                                    <linearGradient xlink:href="#a" id="k" x1="198.822" x2="366.499"
+                                                        y1="288.474" y2="506.622" gradientUnits="userSpaceOnUse">
+                                                    </linearGradient>
+                                                    <linearGradient id="l" x1="117.242" x2="171.618" y1="131.922"
+                                                        y2="202.666" gradientUnits="userSpaceOnUse">
                                                         <stop offset="0" stop-color="#ffd945"></stop>
                                                         <stop offset=".304" stop-color="#ffcd3e"></stop>
                                                         <stop offset=".856" stop-color="#ffad2b"></stop>
                                                         <stop offset="1" stop-color="#ffa325"></stop>
                                                     </linearGradient>
-                                                    <path fill="url(#c)" d="M426.926 470.539 40.049 427.661C21.448 425.6 8.041 408.85 10.102 390.249L45.661 69.408c2.062-18.601 18.812-32.009 37.412-29.947L469.95 82.339c18.601 2.062 32.009 18.812 29.947 37.412l-35.559 320.841c-2.061 18.601-18.811 32.009-37.412 29.947z" opacity="1" data-original="url(#c)"></path>
-                                                    <path fill="url(#d)" d="m499.897 119.752-14.02 126.534-31.162-165.634 15.241 1.688c18.595 2.058 32 18.806 29.941 37.412z" opacity="1" data-original="url(#d)"></path>
-                                                    <path fill="url(#e)" d="M482.373 410.94 99.837 482.904c-18.392 3.46-36.107-8.645-39.567-27.037L.59 138.626c-3.46-18.392 8.645-36.107 27.037-39.567l382.536-71.964c18.392-3.46 36.107 8.645 39.567 27.037l59.68 317.241c3.46 18.393-8.645 36.108-27.037 39.567z" opacity="1" data-original="url(#e)"></path>
-                                                    <path fill="url(#f)" d="M457.896 97.546v317.999l24.476-4.605c18.392-3.46 30.497-21.175 27.037-39.567z" opacity="1" data-original="url(#f)"></path>
-                                                    <path fill="url(#g)" d="m58.45 446.187 1.821 9.68c3.46 18.392 21.175 30.497 39.567 27.037l195.175-36.717z" opacity="1" data-original="url(#g)"></path>
-                                                    <path fill="url(#h)" d="M424.01 448.166H34.765C16.05 448.166.879 432.995.879 414.28V91.474c0-18.715 15.171-33.886 33.886-33.886H424.01c18.715 0 33.886 15.171 33.886 33.886V414.28c0 18.715-15.171 33.886-33.886 33.886z" opacity="1" data-original="url(#h)"></path>
-                                                    <path fill="url(#i)" d="M392.279 416.326H66.497c-15.663 0-28.361-12.698-28.361-28.361V117.79c0-15.663 12.698-28.361 28.361-28.361h325.782c15.663 0 28.361 12.698 28.361 28.361v270.175c0 15.663-12.698 28.361-28.361 28.361z" opacity="1" data-original="url(#i)" class=""></path>
-                                                    <path fill="url(#j)" d="M252.069 416.326H66.502c-15.666 0-28.37-12.694-28.37-28.359v-44.29l47.082-57.228c15.538-18.903 44.46-18.903 60.009 0l29.315 35.64z" opacity="1" data-original="url(#j)" class=""></path>
-                                                    <path fill="url(#k)" d="M420.643 316.75v71.217c0 15.666-12.704 28.359-28.37 28.359H97.005l77.532-94.237 95.246-115.783c15.538-18.892 44.471-18.892 60.009 0z" opacity="1" data-original="url(#k)" class=""></path>
-                                                    <circle cx="137.225" cy="157.919" r="40.219" fill="url(#l)" opacity="1" data-original="url(#l)"></circle>
+                                                    <path fill="url(#c)"
+                                                        d="M426.926 470.539 40.049 427.661C21.448 425.6 8.041 408.85 10.102 390.249L45.661 69.408c2.062-18.601 18.812-32.009 37.412-29.947L469.95 82.339c18.601 2.062 32.009 18.812 29.947 37.412l-35.559 320.841c-2.061 18.601-18.811 32.009-37.412 29.947z"
+                                                        opacity="1" data-original="url(#c)"></path>
+                                                    <path fill="url(#d)"
+                                                        d="m499.897 119.752-14.02 126.534-31.162-165.634 15.241 1.688c18.595 2.058 32 18.806 29.941 37.412z"
+                                                        opacity="1" data-original="url(#d)"></path>
+                                                    <path fill="url(#e)"
+                                                        d="M482.373 410.94 99.837 482.904c-18.392 3.46-36.107-8.645-39.567-27.037L.59 138.626c-3.46-18.392 8.645-36.107 27.037-39.567l382.536-71.964c18.392-3.46 36.107 8.645 39.567 27.037l59.68 317.241c3.46 18.393-8.645 36.108-27.037 39.567z"
+                                                        opacity="1" data-original="url(#e)"></path>
+                                                    <path fill="url(#f)"
+                                                        d="M457.896 97.546v317.999l24.476-4.605c18.392-3.46 30.497-21.175 27.037-39.567z"
+                                                        opacity="1" data-original="url(#f)"></path>
+                                                    <path fill="url(#g)"
+                                                        d="m58.45 446.187 1.821 9.68c3.46 18.392 21.175 30.497 39.567 27.037l195.175-36.717z"
+                                                        opacity="1" data-original="url(#g)"></path>
+                                                    <path fill="url(#h)"
+                                                        d="M424.01 448.166H34.765C16.05 448.166.879 432.995.879 414.28V91.474c0-18.715 15.171-33.886 33.886-33.886H424.01c18.715 0 33.886 15.171 33.886 33.886V414.28c0 18.715-15.171 33.886-33.886 33.886z"
+                                                        opacity="1" data-original="url(#h)"></path>
+                                                    <path fill="url(#i)"
+                                                        d="M392.279 416.326H66.497c-15.663 0-28.361-12.698-28.361-28.361V117.79c0-15.663 12.698-28.361 28.361-28.361h325.782c15.663 0 28.361 12.698 28.361 28.361v270.175c0 15.663-12.698 28.361-28.361 28.361z"
+                                                        opacity="1" data-original="url(#i)" class=""></path>
+                                                    <path fill="url(#j)"
+                                                        d="M252.069 416.326H66.502c-15.666 0-28.37-12.694-28.37-28.359v-44.29l47.082-57.228c15.538-18.903 44.46-18.903 60.009 0l29.315 35.64z"
+                                                        opacity="1" data-original="url(#j)" class=""></path>
+                                                    <path fill="url(#k)"
+                                                        d="M420.643 316.75v71.217c0 15.666-12.704 28.359-28.37 28.359H97.005l77.532-94.237 95.246-115.783c15.538-18.892 44.471-18.892 60.009 0z"
+                                                        opacity="1" data-original="url(#k)" class=""></path>
+                                                    <circle cx="137.225" cy="157.919" r="40.219" fill="url(#l)"
+                                                        opacity="1" data-original="url(#l)"></circle>
                                                 </g>
                                             </svg>
                                         </div>
@@ -684,24 +935,39 @@ $dnoneC = '';
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <circle cx="256" cy="256" r="256" fill="#2196f3" opacity="1" data-original="#2196f3" class=""></circle>
-                                                    <path fill="#ffffff" fill-rule="evenodd" d="M256 324.817a66.12 66.12 0 1 0-66.121-66.117A66.195 66.195 0 0 0 256 324.817zm0-154.654a88.534 88.534 0 1 1-88.531 88.537A88.636 88.636 0 0 1 256 170.163zm162.5 196.308a15.421 15.421 0 0 1-15.41 15.411H108.911A15.424 15.424 0 0 1 93.5 366.471V171.286a15.424 15.424 0 0 1 15.41-15.412h74.7a5.6 5.6 0 0 0 5.232-3.6l16.045-41.92h102.225l16.048 41.92a5.585 5.585 0 0 0 5.229 3.6h74.7a15.426 15.426 0 0 1 15.41 15.412z" opacity="1" data-original="#ffffff" class=""></path>
+                                                    <circle cx="256" cy="256" r="256" fill="#2196f3" opacity="1"
+                                                        data-original="#2196f3" class=""></circle>
+                                                    <path fill="#ffffff" fill-rule="evenodd"
+                                                        d="M256 324.817a66.12 66.12 0 1 0-66.121-66.117A66.195 66.195 0 0 0 256 324.817zm0-154.654a88.534 88.534 0 1 1-88.531 88.537A88.636 88.636 0 0 1 256 170.163zm162.5 196.308a15.421 15.421 0 0 1-15.41 15.411H108.911A15.424 15.424 0 0 1 93.5 366.471V171.286a15.424 15.424 0 0 1 15.41-15.412h74.7a5.6 5.6 0 0 0 5.232-3.6l16.045-41.92h102.225l16.048 41.92a5.585 5.585 0 0 0 5.229 3.6h74.7a15.426 15.426 0 0 1 15.41 15.412z"
+                                                        opacity="1" data-original="#ffffff" class=""></path>
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2">Camera</p>
+                                        <div class="ms-2 CameraOpenModelBtn modal_hide" id="opencemera"
+                                            data-bs-toggle="modal" data-bs-target="#camera_modal">Camera</div>
                                     </div>
                                 </li>
                                 <li class="nav_item_ww col-12 border ContactModelOpen rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <circle cx="256" cy="256" r="256" style="" fill="#6aaf50" data-original="#6aaf50" class=""></circle>
-                                                    <path d="m135.693 102.206-.008.004c-29.639 15.464-42.074 51.222-28.494 81.77a454.997 454.997 0 0 0 77.468 119.423l23.939 23.939 159.073 159.073c39.82-19.335 73.863-48.69 98.876-84.783l-58.697-58.697a32.553 32.553 0 0 0-8.681-8.681L177.747 112.833c-9.294-13.695-27.382-18.283-42.054-10.627z" style="" fill="#4d8538" data-original="#4d8538" class=""></path>
-                                                    <path d="M349.593 300.614a24.052 24.052 0 0 0-27.116.071l-11.752 8.066c-13.09 8.984-30.498 8.496-43.08-1.187a402.081 402.081 0 0 1-33.924-29.283 401.742 401.742 0 0 1-29.283-33.924c-9.684-12.581-10.171-29.989-1.187-43.08l8.066-11.752a24.054 24.054 0 0 0 .071-27.116l-33.64-49.575c-9.293-13.694-27.381-18.282-42.054-10.627l-.009.004c-29.639 15.464-42.074 51.222-28.494 81.77a454.997 454.997 0 0 0 77.468 119.423l23.939 23.939a455.055 455.055 0 0 0 119.423 77.468c30.549 13.58 66.306 1.145 81.77-28.494l.004-.009c7.655-14.672 3.068-32.761-10.627-42.054l-49.575-33.64z" style="" fill="#ffffff" data-original="#ffffff" class=""></path>
+                                                    <circle cx="256" cy="256" r="256" style="" fill="#6aaf50"
+                                                        data-original="#6aaf50" class=""></circle>
+                                                    <path
+                                                        d="m135.693 102.206-.008.004c-29.639 15.464-42.074 51.222-28.494 81.77a454.997 454.997 0 0 0 77.468 119.423l23.939 23.939 159.073 159.073c39.82-19.335 73.863-48.69 98.876-84.783l-58.697-58.697a32.553 32.553 0 0 0-8.681-8.681L177.747 112.833c-9.294-13.695-27.382-18.283-42.054-10.627z"
+                                                        style="" fill="#4d8538" data-original="#4d8538" class=""></path>
+                                                    <path
+                                                        d="M349.593 300.614a24.052 24.052 0 0 0-27.116.071l-11.752 8.066c-13.09 8.984-30.498 8.496-43.08-1.187a402.081 402.081 0 0 1-33.924-29.283 401.742 401.742 0 0 1-29.283-33.924c-9.684-12.581-10.171-29.989-1.187-43.08l8.066-11.752a24.054 24.054 0 0 0 .071-27.116l-33.64-49.575c-9.293-13.694-27.381-18.282-42.054-10.627l-.009.004c-29.639 15.464-42.074 51.222-28.494 81.77a454.997 454.997 0 0 0 77.468 119.423l23.939 23.939a455.055 455.055 0 0 0 119.423 77.468c30.549 13.58 66.306 1.145 81.77-28.494l.004-.009c7.655-14.672 3.068-32.761-10.627-42.054l-49.575-33.64z"
+                                                        style="" fill="#ffffff" data-original="#ffffff" class=""></path>
                                                 </g>
                                             </svg>
                                         </div>
@@ -711,11 +977,20 @@ $dnoneC = '';
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2 d-none">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 512 512"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path fill="#00528c" d="M341.3 92.8c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h221.3c33.2 0 60 26.8 60 60z" opacity="1" data-original="#00528c"></path>
-                                                    <path fill="#41a5ee" d="M512 256c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h392c33.1 0 60 26.9 60 60z" opacity="1" data-original="#41a5ee" class=""></path>
-                                                    <path fill="#0077cc" d="M170.7 419.2c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h50.7c33.1 0 60 26.9 60 60z" opacity="1" data-original="#0077cc"></path>
+                                                    <path fill="#00528c"
+                                                        d="M341.3 92.8c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h221.3c33.2 0 60 26.8 60 60z"
+                                                        opacity="1" data-original="#00528c"></path>
+                                                    <path fill="#41a5ee"
+                                                        d="M512 256c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h392c33.1 0 60 26.9 60 60z"
+                                                        opacity="1" data-original="#41a5ee" class=""></path>
+                                                    <path fill="#0077cc"
+                                                        d="M170.7 419.2c0 33.1-26.9 60-60 60H60c-33.1 0-60-26.9-60-60s26.9-60 60-60h50.7c33.1 0 60 26.9 60 60z"
+                                                        opacity="1" data-original="#0077cc"></path>
                                                 </g>
                                             </svg>
                                         </div>
@@ -725,12 +1000,23 @@ $dnoneC = '';
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2 d-none">
                                     <div class="d-flex">
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" x="0" y="0" viewBox="0 0 511.523 511.523" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px"
+                                                x="0" y="0" viewBox="0 0 511.523 511.523"
+                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path fill="#ffda2d" d="M127.261 120.739c65.515 0 128.5 49.886 128.5 135H15.072c-8.937 0-15.885-7.733-14.996-16.625 7.55-75.442 66.73-118.375 127.185-118.375z" opacity="1" data-original="#ffda2d" class=""></path>
-                                                    <path fill="#4175df" d="M384.261 390.739c-65.515 0-128.5-49.886-128.5-135H496.45c8.937 0 15.885 7.733 14.996 16.625-7.549 75.442-66.729 118.375-127.185 118.375z" opacity="1" data-original="#4175df"></path>
-                                                    <path fill="#59c36a" d="M120.739 384.261c0-65.515 49.886-128.5 135-128.5V496.45c0 8.937-7.733 15.885-16.625 14.996-75.442-7.549-118.375-66.729-118.375-127.185z" opacity="1" data-original="#59c36a"></path>
-                                                    <path fill="#f03800" d="M390.739 127.261c0 65.515-49.886 128.5-135 128.5V15.072c0-8.937 7.733-15.885 16.625-14.996 75.442 7.55 118.375 66.73 118.375 127.185z" opacity="1" data-original="#f03800"></path>
+                                                    <path fill="#ffda2d"
+                                                        d="M127.261 120.739c65.515 0 128.5 49.886 128.5 135H15.072c-8.937 0-15.885-7.733-14.996-16.625 7.55-75.442 66.73-118.375 127.185-118.375z"
+                                                        opacity="1" data-original="#ffda2d" class=""></path>
+                                                    <path fill="#4175df"
+                                                        d="M384.261 390.739c-65.515 0-128.5-49.886-128.5-135H496.45c8.937 0 15.885 7.733 14.996 16.625-7.549 75.442-66.729 118.375-127.185 118.375z"
+                                                        opacity="1" data-original="#4175df"></path>
+                                                    <path fill="#59c36a"
+                                                        d="M120.739 384.261c0-65.515 49.886-128.5 135-128.5V496.45c0 8.937-7.733 15.885-16.625 14.996-75.442-7.549-118.375-66.729-118.375-127.185z"
+                                                        opacity="1" data-original="#59c36a"></path>
+                                                    <path fill="#f03800"
+                                                        d="M390.739 127.261c0 65.515-49.886 128.5-135 128.5V15.072c0-8.937 7.733-15.885 16.625-14.996 75.442 7.55 118.375 66.73 118.375 127.185z"
+                                                        opacity="1" data-original="#f03800"></path>
                                                 </g>
                                             </svg>
                                         </div>
@@ -741,7 +1027,8 @@ $dnoneC = '';
                             </ul>
                         </div>
 
-                        <div class="emoji_div_man border rounded-2 position-absolute start-0 bottom-0 overflow-x-scroll" style="height: 200px; width: 200px; display:none;">
+                        <div class="emoji_div_man border rounded-2 position-absolute start-0 bottom-0 overflow-x-scroll"
+                            style="height: 200px; width: 200px; display:none;">
                             <div class="emoji_div">
                                 <span class="intercom-emoji-picker-emoji" title="thumbs_up">&#x1F44D;</span>
                                 <span class="intercom-emoji-picker-emoji" title="-1">&#x1F44E;</span>
@@ -760,8 +1047,10 @@ $dnoneC = '';
                                 <span class="intercom-emoji-picker-emoji" title="kissing_closed_eyes">&#x1F61A;</span>
                                 <span class="intercom-emoji-picker-emoji" title="kissing">&#x1F617;</span>
                                 <span class="intercom-emoji-picker-emoji" title="kissing_smiling_eyes">&#x1F619;</span>
-                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_winking_eye">&#x1F61C;</span>
-                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_closed_eyes">&#x1F61D;</span>
+                                <span class="intercom-emoji-picker-emoji"
+                                    title="stuck_out_tongue_winking_eye">&#x1F61C;</span>
+                                <span class="intercom-emoji-picker-emoji"
+                                    title="stuck_out_tongue_closed_eyes">&#x1F61D;</span>
                                 <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue">&#x1F61B;</span>
                                 <span class="intercom-emoji-picker-emoji" title="flushed">&#x1F633;</span>
                                 <span class="intercom-emoji-picker-emoji" title="grin">&#x1F601;</span>
@@ -815,15 +1104,19 @@ $dnoneC = '';
                                     </div>
                                     <div class="ps-2">
                                         <button class="btn btn-primary documentselectionpin emoji_btn rounded-5">
-                                        <i class="bi bi-emoji-smile-fill"></i>
+                                            <i class="bi bi-emoji-smile-fill"></i>
 
                                         </button>
                                     </div>
                                     <div class="input-group  position-relative ">
-                                        <input type="text" class="form-control border rounded-pill px-4 py-2 border-0 massage_input" textval = "" placeholder="Write a message...">
+                                        <input type="text"
+                                            class="form-control border rounded-pill px-4 py-2 border-0 massage_input"
+                                            textval="" placeholder="Write a message...">
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                    <div class="border rounded-circle d-flex justify-content-center align-items-center text-end mic" style="width:50px; height:50px; margin-left:auto;" data-toggle="modal" data-target="#audiorecorder"><i class="fa-solid fa-microphone"></i></div>
+                                        <div class="border rounded-circle d-flex justify-content-center align-items-center text-end mic"
+                                            style="width:50px; height:50px; margin-left:auto;" data-toggle="modal"
+                                            data-target="#audiorecorder"><i class="fa-solid fa-microphone"></i></div>
                                         <button
                                             class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage WhatsApp24HourButton"
                                             data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
@@ -841,7 +1134,8 @@ $dnoneC = '';
                             });
                         </script>
                         <div class="chat-nav-search-bar Setchatheadercolorclass   p-2 pt-3 col-12">
-                            <div class="d-flex justify-content-between border-bottom RemoveHeaderBorderDiv align-items-center">
+                            <div
+                                class="d-flex justify-content-between border-bottom RemoveHeaderBorderDiv align-items-center">
                                 <h5 class="fs-5 d-flex ps-2 pb-1 profilepiccolor align-items-center">
                                     <i class="fa-solid fa-circle-user fs-3 me-2"></i>
                                     <span class="d-flex flex-wrap">
@@ -854,11 +1148,14 @@ $dnoneC = '';
                             </div>
                         </div>
 
-                        <div class=" mt-2 p-2 overflow-y-scroll chat_bord col-12" id="user_msg_send_div"style="max-height:80%;">
-                         
+                        <div class=" mt-2 p-2 overflow-y-scroll chat_bord col-12" id="user_msg_send_div"
+                            style="max-height:80%;">
+
                         </div>
-                        <div class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0">
-                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                        <div
+                            class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center"
+                                style="z-index:555">
                                 <div>
                                     <span>Loading...</span>
                                     <div class="mx-auto chat_loader"></div>
@@ -875,7 +1172,7 @@ $dnoneC = '';
                     </div>
 
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -930,34 +1227,35 @@ $dnoneC = '';
 </div>
 
 
-<div class="modal fade" id="audiorecorder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="audiorecorder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Audio recorder</h5>
-            <button type="button" class="close btn btn-transparent fs-5" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true" >X</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="d-flex">
-            <button class="btn btn-secondary m-2 start-rec" id="startButton">start recording</button>
-            <button class="btn btn-secondary m-2 end-rec" id="stopButton" disabled>stop recording</button>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Audio recorder</h5>
+                <button type="button" class="close btn btn-transparent fs-5" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
             </div>
-            <div class="rounded-pill mt-2 pt-2 d-flex p-2 border">
-            <audio id="audioPlayer" controls></audio>
-            <!-- <div class="d-flex  p-1 px-2">
+            <div class="modal-body">
+                <div class="d-flex">
+                    <button class="btn btn-secondary m-2 start-rec" id="startButton">start recording</button>
+                    <button class="btn btn-secondary m-2 end-rec" id="stopButton" disabled>stop recording</button>
+                </div>
+                <div class="rounded-pill mt-2 pt-2 d-flex p-2 border">
+                    <audio id="audioPlayer" controls></audio>
+                    <!-- <div class="d-flex  p-1 px-2">
             <i class="fa-solid fa-play"></i>
             <i class="fa-solid fa-pause d-none"></i>
             </div>
             <div id="audioPlayer">0:00</div>
             <div class="mt-2 mx-1" style="width:250px; height:4px; background:#d3d3d378;" id="audioPlayer" controls></div> -->
+                </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary send">send</button>
-        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary send">send</button>
+            </div>
         </div>
     </div>
 </div>
@@ -965,6 +1263,238 @@ $dnoneC = '';
 
 
 <?= $this->include('partials/footer') ?>
+<script>
+    document.getElementById('btnPause').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('canvas').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        console.log('dishant');
+    });
+    document.getElementById('update_image').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('im-image').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('insert_image').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('preview-image').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+<script>
+    (function () {
+        if (
+            !"mediaDevices" in navigator ||
+            !"getUserMedia" in navigator.mediaDevices
+        ) {
+            return;
+        }
+        const video = document.querySelector("#video");
+        const btnPlay = document.querySelector("#btnPlay");
+        const btnScreenshot = document.querySelector("#btnScreenshot");
+        const btnChangeCamera = document.querySelector("#btnChangeCamera");
+        const screenshotsContainer = document.querySelector("#screenshots");
+        const canvas = document.querySelector("#canvas");
+        const devicesSelect = document.querySelector("#devicesSelect");
+        const constraints = {
+            video: {
+                width: {
+                    min: 300,
+                    ideal: 1080,
+                    max: 750,
+                },
+                height: {
+                    min: 300,
+                    ideal: 1080,
+                    max: 500,
+                },
+            },
+        };
+
+        let useFrontCamera = true;
+        let videoStream;
+        btnPlay.addEventListener("click", function () {
+            video.play();
+            btnPlay.classList.add("is-hidden");
+            btnPause.classList.remove("is-hidden");
+        });
+        let imageSequenceCounter = 1;
+        let capturedImageUrl;
+        let imageFile;
+        let uploadedFilename;
+        btnPause.addEventListener("click", function () {
+            video.pause();
+            btnPause.classList.add("is-hidden");
+            btnPlay.classList.remove("is-hidden");
+            const canvas = document.querySelector("#canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            const uniqueFilename = "image_" + imageSequenceCounter + ".png";
+            imageSequenceCounter++;
+            const dataUrl = canvas.toDataURL("image/png");
+            console.log(dataUrl);
+            $('.SendImage').attr('imagebase64', dataUrl);
+            const blob = dataURLToBlob(dataUrl);
+            // console.log(blob);
+            const timeZone = 'Asia/Kolkata';
+            const now = new Date().toLocaleString('en-US', {
+                timeZone,
+                timeZoneName: 'short'
+            });
+            const formattedDateTime = now.replace(/[^0-9]/g, '');
+            const updatedFilename = 'camera' + formattedDateTime + '.png';
+            imageFile = new File([blob], updatedFilename);
+            localStorage.setItem(updatedFilename, imageFile);
+            btnPause.setAttribute('uniqueFilename', updatedFilename);
+            uploadImageToPath(imageFile, function (uploadedFileName) {
+                uploadedFilename = uploadedFileName;
+            });
+            $('#preview-image').attr('src', dataUrl);
+            console.log(dataUrl);
+            $('#preview-image').attr('ImageStatus', 1);
+            $('#preview-image').attr('PhoToName', updatedFilename)
+        });
+
+        function dataURLToBlob(dataURL) {
+            const byteString = atob(dataURL.split(',')[1]);
+            const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], {
+                type: mimeString
+            });
+        }
+
+        // function uploadImageToPath(imageFile) {}
+        // let imageSequenceCounte = 1;
+        // let capturedImageUr;
+        // let imageFil;
+        // SendWhatsAppMessage.addEventListener("click", function() {
+        //     alert();
+        //     video.pause();
+        //     SendWhatsAppMessage.classList.add("is-hidden");
+        //     btnPlay.classList.remove("is-hidden");
+        //     const canvas = document.querySelector("#canvas");
+        //     canvas.width = video.videoWidth;
+        //     canvas.height = video.videoHeight;
+        //     canvas.getContext("2d").drawImage(video, 0, 0);
+        //     const uniqueFilename = "image_" + imageSequenceCounte + ".png";
+        //     imageSequenceCounte++;
+        //     const dataUrl = canvas.toDataURL("image/png");
+        //     const blob = dataURLToBlob(dataUrl);
+        //     imageFil = new File([blob], uniqueFilename);
+        //     localStorage.setItem(uniqueFilename, imageFil);
+        //     SendWhatsAppMessage.setAttribute('uniqueFilename', uniqueFilename);
+        //     uploadImageToPath(imageFil);
+        // });
+
+        function dataURLToBlob(dataURL) {
+            const byteString = atob(dataURL.split(',')[1]);
+            const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], {
+                type: mimeString
+            });
+        }
+        btnScreenshot.addEventListener("click", function () {
+            const img = document.createElement("img");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            img.src = canvas.toDataURL("image/png");
+        });
+        btnChangeCamera.addEventListener("click", function () {
+            useFrontCamera = !useFrontCamera;
+            initializeCamera();
+        });
+
+
+        function stopVideoStream() {
+            if (videoStream) {
+                videoStream.getTracks().forEach((track) => {
+                    track.stop();
+                });
+            }
+        }
+        async function initializeCamera() {
+            stopVideoStream();
+            constraints.video.facingMode = useFrontCamera ? "user" : "environment";
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = videoStream;
+                $('#camera_modal').modal('show');
+                const cameraButton = document.querySelector(".modal_hide");
+                cameraButton.setAttribute("data-bs-target", "#camera_modal");
+            } catch (err) {
+                iziToast.error({
+                    title: 'Could not access the camera'
+                });
+                setTimeout(function () {
+                    $('#camera_modal').modal('hide');
+                }, 500);
+            }
+        }
+        $('body').on('click', '.documentselectionpin', function () {
+            // alert();
+            const cameraButton = document.querySelector(".modal_hide");
+            cameraButton.setAttribute("data-bs-target", "");
+            iziToast.hide({
+                id: iziToast
+            });
+            initializeCamera();
+        });
+        $('body').on('click', '.CameraOpenModelBtn', function () {
+            const cameraButton = document.querySelector(".modal_hide");
+            cameraButton.setAttribute("data-bs-target", "#camera_modal");
+            initializeCamera();
+        });
+        $('body').on('click', '.NoBtn', function () {
+            initializeCamera();
+        });
+        $('body').on('click', '.SecoundButton', function () {
+            stopVideoStream();
+        });
+        $('body').on('click', '.CloseButtonCamera', function () {
+            stopVideoStream();
+        });
+        $('body').on('click', '.CameraOpenModelBtn', function () {
+
+            $('.firstBtn').show();
+            $('.SecoundButton').hide();
+            $('#btnPlay').trigger('click');
+        });
+        $('body').on('click', '.TakePic', function () {
+            $('#btnPause').trigger('click');
+            $('.firstBtn').hide();
+            $('.SecoundButton').show();
+        });
+
+        $('body').on('click', '.NoBtn', function () {
+            $('#btnPlay').trigger('click');
+            $('.firstBtn').show();
+            $('.SecoundButton').hide();
+        });
+
+    })();
+</script>
 <!-- <script>
   $(document).ready(function() {
     var timerInterval;
@@ -1152,7 +1682,7 @@ $dnoneC = '';
         });
     });
 
-    $('body').on('click', '.WA_account_listTab', function() {
+    $('body').on('click', '.WA_account_listTab', function () {
         $('.chat_bord').html('');
         $('.in_chat_page_name').text('');
         $('.UserChatName').text('User Name');
@@ -1177,7 +1707,7 @@ $dnoneC = '';
                 phoneno: phoneno,
                 name: name
             },
-            success: function(data) {
+            success: function (data) {
                 var data = JSON.parse(data);
                 $('.chat_list').html(data.html);
                 $('.SetContactListHtml').html(data.htmlcontactlist);
@@ -1185,12 +1715,12 @@ $dnoneC = '';
         });
     });
 
-    $('body').on('click', '.ChatClickOpenHtml', function() {
+    $('body').on('click', '.ChatClickOpenHtml', function () {
         $('.chat_bord').html('');
         $('.UserChatName').text('User Name');
         $('.in_chat_page_name').text('');
         var contact_no = $(this).attr('contact_no');
-var conversation_account_id = $(this).attr('conversation_account_id');
+        var conversation_account_id = $(this).attr('conversation_account_id');
         $('.SendWhatsAppMessage').attr('DataPhoneno', contact_no);
         var whatsapp_name = $(this).attr('whatsapp_name');
         var account_phone_no = $(this).attr('account_phone_no');
@@ -1209,16 +1739,16 @@ var conversation_account_id = $(this).attr('conversation_account_id');
             url: "WhatsAppListConverstion",
             data: {
                 contact_no: contact_no,
-conversation_account_id: conversation_account_id,
+                conversation_account_id: conversation_account_id,
             },
-            success: function(data) {
+            success: function (data) {
                 $('.massage_list_loader').hide();
                 $('.chat_bord').html(data);
             }
         });
     });
 
-    $('body').on('click', '.SendWhatsAppMessage', function() {
+    $('body').on('click', '.SendWhatsAppMessage', function () {
         var DataSenderId = $(this).attr('DataSenderId');
         var DataPhoneno = $(this).attr('DataPhoneno');
         var massage_input = $('.massage_input').val();
@@ -1231,7 +1761,7 @@ conversation_account_id: conversation_account_id,
                     DataPhoneno: DataPhoneno,
                     massage_input: massage_input
                 },
-                success: function(data) {
+                success: function (data) {
                     $('.chat_list .active-account-box').trigger('click');
                 }
             });
@@ -1239,29 +1769,29 @@ conversation_account_id: conversation_account_id,
         $('.massage_input').val('');
     });
 
-    $('body').on('keydown', '.massage_input', function(event) {
+    $('body').on('keydown', '.massage_input', function (event) {
         var text = $(this).val();
         // console.log(text);
-        $(this).attr('textval',text);
+        $(this).attr('textval', text);
 
         if (event.which === 13) {
             $('.SendWhatsAppMessage').trigger('click');
-                    }
+        }
     });
 
-    $('body').on('click', '.accordion-header', function() {
+    $('body').on('click', '.accordion-header', function () {
         $('.SendWhatsAppMessage').attr('datasenderid', '');
         $('.SendWhatsAppMessage').attr('dataphoneno', '');
 
     });
 
-    $('body').on('click', '.SendContactNumber', function() {
+    $('body').on('click', '.SendContactNumber', function () {
         var contactList = [];
         var count = 0;
         var DataSenderId = $('.SendWhatsAppMessage').attr('DataSenderId');
         var DataPhoneno = $('.SendWhatsAppMessage').attr('DataPhoneno');
 
-        $('.ContactNoSelectionCheckbox:checked').each(function() {
+        $('.ContactNoSelectionCheckbox:checked').each(function () {
             var name = $(this).attr('name');
             var phoneno = $(this).attr('phoneno');
             count = count + 1;
@@ -1281,7 +1811,7 @@ conversation_account_id: conversation_account_id,
                         DataPhoneno: DataPhoneno,
                         contactstring: jsonString
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $('.close').trigger('click');
                     }
                 });
@@ -1290,14 +1820,14 @@ conversation_account_id: conversation_account_id,
     });
 
 
-    $('body').on('click', '.DirecttoMsg', function() {
+    $('body').on('click', '.DirecttoMsg', function () {
         var phoneno = $(this).attr('phoneno');
         $('.' + phoneno).trigger('click');
 
 
     });
 
-    $('body').on('click', '.AddWhatsAppContactNO', function() {
+    $('body').on('click', '.AddWhatsAppContactNO', function () {
         var connection_id = $(this).attr('connection_id');
         var name = $(this).attr('name');
         var phone_no = $(this).attr('phone_no');
@@ -1314,9 +1844,9 @@ conversation_account_id: conversation_account_id,
                 phone_no: phone_no,
                 account_phone_no: account_phone_no,
             },
-            success: function(data) {
+            success: function (data) {
                 $('.WhatsAppAccountListTab .active-account-box').trigger('click');
-                setTimeout(function() {
+                setTimeout(function () {
                     $('.' + activeno).trigger('click');
                 }, 500);
             }
@@ -1329,7 +1859,7 @@ conversation_account_id: conversation_account_id,
     });
 
 
-    $('body').on('click', '.AddWhatsAppContactNumber', function() {
+    $('body').on('click', '.AddWhatsAppContactNumber', function () {
         var ContactNameClass = $('.ContactNameClass').val();
         var ContactNumberClass = $('.ContactNumberClass').val();
         var countrey_code = $('.iti__selected-dial-code').text();
@@ -1342,7 +1872,7 @@ conversation_account_id: conversation_account_id,
 
         account_phone_no = account_phone_no.replace(/[\s\+\-\(\)]/g, '');
         var activeno = $('.chat_list .active-account-box').attr('contact_no');
-        if(activeno != '' && activeno !== undefined && activeno !== 'undefined'){
+        if (activeno != '' && activeno !== undefined && activeno !== 'undefined') {
             activeno = activeno.replace(/[\s\+\-\(\)]/g, '');
 
         }
@@ -1358,36 +1888,36 @@ conversation_account_id: conversation_account_id,
                     phone_no: cleanedPhoneNumber,
                     account_phone_no: account_phone_no,
                 },
-                success: function(data) {
+                success: function (data) {
 
-                    if(data == '1'){
+                    if (data == '1') {
                         $('.WhatsAppAccountListTab .active-account-box').trigger('click');
                         $('.CloseBtn').trigger('click');
-                        setTimeout(function() {
+                        setTimeout(function () {
                             $('.' + activeno).trigger('click');
                             iziToast.success({
                                 title: "Added Successfully"
                             });
                         }, 500);
-                    }else{
+                    } else {
                         iziToast.error({
                             title: "Duplicate Number"
                         });
                     }
-                  
+
                 }
             });
         }
-    }); 
+    });
 
 
-    $('body').on('click', '.AddModelContactNO', function(){
+    $('body').on('click', '.AddModelContactNO', function () {
         $('.ContactNameClass').val('');
         $('.ContactNumberClass').val('');
     });
 
 
-    $('body').on('click', '.ListedMessage', function(){
+    $('body').on('click', '.ListedMessage', function () {
         $('.Setchatheadercolorclass').removeClass('chatheadercolorclass');
         $('.SetChatBackGroundClass').removeClass('ChatBackGroundClass');
         $('.documentselectionpin').removeClass('chatheadercolorclass');
@@ -1396,15 +1926,15 @@ conversation_account_id: conversation_account_id,
         $('.UserChatName').removeClass('text-white');
         $('.profilepiccolor').removeClass('text-white');
 
-        setTimeout(function() {
+        setTimeout(function () {
             $('.UserChatName').addClass('text-dark');
-            $('.profilepiccolor').addClass('text-dark');  
-         
+            $('.profilepiccolor').addClass('text-dark');
+
         }, 500);
-       
+
     });
 
-    $('body').on('click', '.WhatsAppListedMessage', function(){
+    $('body').on('click', '.WhatsAppListedMessage', function () {
         $('.Setchatheadercolorclass').addClass('chatheadercolorclass');
         $('.SetChatBackGroundClass').addClass('ChatBackGroundClass');
         $('.documentselectionpin').addClass('chatheadercolorclass');
@@ -1414,20 +1944,20 @@ conversation_account_id: conversation_account_id,
         $('.profilepiccolor').removeClass('text-dark');
         $('.UserChatName').addClass('text-white');
         $('.profilepiccolor').addClass('text-white');
-   
+
 
     });
 
 
-    $('body').on('click','.ContactModelOpen',function(){
+    $('body').on('click', '.ContactModelOpen', function () {
         $('.ContactNoSelectionCheckbox').prop('checked', false);
     })
 
 
 
 
-// =====mobile-jqury=======
-    $('body').on('click','.linked-page',function(){
+    // =====mobile-jqury=======
+    $('body').on('click', '.linked-page', function () {
         $(this).closest('.main-box').addClass('d-none');
         $('.chat-box').removeClass('d-none');
     })
@@ -1441,25 +1971,25 @@ conversation_account_id: conversation_account_id,
             var fileName = files[i].name;
             $('.file_view_add_Email').append('<div id="u_btn" class="col-12 u_btn_Email m-1 rounded view-file-link px-2 d-flex u_btn"><p>' + fileName + '</p><span class="ms-auto" id="file_crodd_btn_email"><i class="bi bi-x-circle"></i></span></div>')
         }
-    });    $('body').on('click','.linked-page1',function(){
+    }); $('body').on('click', '.linked-page1', function () {
         $(this).closest('.main-box').addClass('d-lg-none');
         $(this).closest('.main-box').addClass('d-none');
         $('.transcript_box').removeClass('d-none');
         // alert('hhsd');
     })
-    $('body').on('click','.back-button',function(){
+    $('body').on('click', '.back-button', function () {
         $(this).closest('.main-box').addClass('d-none');
         $('.social-accounts').removeClass('d-none');
     })
-    $('body').on('click','.back-button1',function(){
+    $('body').on('click', '.back-button1', function () {
         $(this).closest('.main-box').addClass('d-none');
         $('.chat-box').removeClass('d-none');
         $('.chat-box').removeClass('d-lg-none');
     })
-// ======tabalate-jqury======
+    // ======tabalate-jqury======
     // $(document).ready(function() {
 
-        
+
     // })
     // $(window).on('load',function(){
     //     if ($('.chat-box').css('display') !== 'none') {
@@ -1548,244 +2078,265 @@ conversation_account_id: conversation_account_id,
     });
 
 
+    $('body').on('click', '.SendImage', function () {
+        // alert();
+        var imagebase64 = $(this).attr('imagebase64');
+        var DataSenderId = $('.SendWhatsAppMessage').attr('DataSenderId');
+        var DataPhoneno = $('.SendWhatsAppMessage').attr('DataPhoneno');
+        if (imagebase64 != '' && DataSenderId != '' && DataPhoneno != '') {
+            $.ajax({
+                type: 'POST',
+                url: 'sendwhatsappcamera',
+                data: {
+                    'SendUrl': imagebase64,
+                    DataSenderId: DataSenderId,
+                    DataPhoneno: DataPhoneno,
+                },
+
+                success: function (data) {
+
+                }
+            });
+        }
+        // console.log(imagebase64);  
+    })
 
 
-    // $(document).ready(function () {
-    //     const audioWrapper = $(".c-wa-audio");
-    //     const playPause = $(".c-wa-audio__control-play");
-    //     const playpauseBtn = $(".c-wa-audio__control-play");
-    //     const progress = $(".c-wa-audio__time-progress");
-    //     const sliders = $(".c-wa-audio__time-slider");
-    //     const player = $("audio");
-    //     const currentTime = $(".c-wa-audio__time-current");
-    //     const totalTime = $(".c-wa-audio__time-total");
+    $(document).ready(function () {
+        const audioWrapper = $(".c-wa-audio");
+        const playPause = $(".c-wa-audio__control-play");
+        const playpauseBtn = $(".c-wa-audio__control-play");
+        const progress = $(".c-wa-audio__time-progress");
+        const sliders = $(".c-wa-audio__time-slider");
+        const player = $("audio");
+        const currentTime = $(".c-wa-audio__time-current");
+        const totalTime = $(".c-wa-audio__time-total");
 
-    //     let draggableClasses = ["c-wa-audio__time-pin"];
-    //     let currentlyDragged = null;
+        //     let draggableClasses = ["c-wa-audio__time-pin"];
+        //     let currentlyDragged = null;
 
-    //     $(document).on("mousedown", function (event) {
-    //         if (!isDraggable($(event.target))) return false;
+        //     $(document).on("mousedown", function (event) {
+        //         if (!isDraggable($(event.target))) return false;
 
-    //         currentlyDragged = event.target;
-    //         let handleMethod = $(currentlyDragged).data("method");
+        //         currentlyDragged = event.target;
+        //         let handleMethod = $(currentlyDragged).data("method");
 
-    //         $(document).on("mousemove", window[handleMethod]);
+        //         $(document).on("mousemove", window[handleMethod]);
 
-    //         $(document).on("mouseup", function () {
-    //             currentlyDragged = false;
-    //             $(document).off("mousemove", window[handleMethod]);
-    //         });
-    //     });
+        //         $(document).on("mouseup", function () {
+        //             currentlyDragged = false;
+        //             $(document).off("mousemove", window[handleMethod]);
+        //         });
+        //     });
 
-    //     playpauseBtn.on("click", togglePlay);
-    //     player.on("timeupdate", updateProgress);
-    //     player.on("loadedmetadata", function () {
-    //         totalTime.text(formatTime(player.duration));
-    //     });
-    //     player.on("canplay", makePlay);
-    //     player.on("ended", function () {
-    //         changePlayPauseIcon(true);
-    //         player.currentTime = 0;
-    //     });
+        //     playpauseBtn.on("click", togglePlay);
+        //     player.on("timeupdate", updateProgress);
+        //     player.on("loadedmetadata", function () {
+        //         totalTime.text(formatTime(player.duration));
+        //     });
+        //     player.on("canplay", makePlay);
+        //     player.on("ended", function () {
+        //         changePlayPauseIcon(true);
+        //         player.currentTime = 0;
+        //     });
 
-    //     sliders.each(function () {
-    //         let pin = $(this).find(".c-wa-audio__time-pin");
-    //         $(this).on("click", window[pin.data("method")]);
-    //     });
+        //     sliders.each(function () {
+        //         let pin = $(this).find(".c-wa-audio__time-pin");
+        //         $(this).on("click", window[pin.data("method")]);
+        //     });
 
-    //     function isDraggable(el) {
-    //         let canDrag = false;
-    //         let classes = Array.from($(el).attr("class").split(" "));
-    //         draggableClasses.forEach(function (draggable) {
-    //             if (classes.indexOf(draggable) !== -1) canDrag = true;
-    //         });
+        //     function isDraggable(el) {
+        //         let canDrag = false;
+        //         let classes = Array.from($(el).attr("class").split(" "));
+        //         draggableClasses.forEach(function (draggable) {
+        //             if (classes.indexOf(draggable) !== -1) canDrag = true;
+        //         });
 
-    //         return canDrag;
-    //     }
+        //         return canDrag;
+        //     }
 
-    //     function inRange(event) {
-    //         let rangeBox = getRangeBox(event);
-    //         let rect = rangeBox.getBoundingClientRect();
-    //         let direction = $(rangeBox).data("direction");
+        //     function inRange(event) {
+        //         let rangeBox = getRangeBox(event);
+        //         let rect = rangeBox.getBoundingClientRect();
+        //         let direction = $(rangeBox).data("direction");
 
-    //         if (direction == "horizontal") {
-    //             const min = 0;
-    //             const max = rect.width;
-    //             const clientX = event.clientX - rect.left;
+        //         if (direction == "horizontal") {
+        //             const min = 0;
+        //             const max = rect.width;
+        //             const clientX = event.clientX - rect.left;
 
-    //             if (clientX < min || clientX > max) return false;
-    //         } else {
-    //             var min = rect.top;
-    //             var max = min + rangeBox.offsetHeight;
-    //             if (event.clientY < min || event.clientY > max) return false;
-    //         }
-    //         return true;
-    //     }
+        //             if (clientX < min || clientX > max) return false;
+        //         } else {
+        //             var min = rect.top;
+        //             var max = min + rangeBox.offsetHeight;
+        //             if (event.clientY < min || event.clientY > max) return false;
+        //         }
+        //         return true;
+        //     }
 
-    //     function updateProgress() {
-    //         const current = player.currentTime;
-    //         const percent = (current / player.duration) * 100;
-    //         progress.css("width", percent + "%");
+        //     function updateProgress() {
+        //         const current = player.currentTime;
+        //         const percent = (current / player.duration) * 100;
+        //         progress.css("width", percent + "%");
 
-    //         currentTime.text(formatTime(current));
-    //     }
+        //         currentTime.text(formatTime(current));
+        //     }
 
-    //     function getRangeBox(event) {
-    //         let rangeBox = event.target;
-    //         let el = currentlyDragged;
-    //         if (event.type == "click" && isDraggable(event.target)) {
-    //             rangeBox = $(event.target).parent().parent();
-    //         }
-    //         if (event.type == "mousemove") {
-    //             rangeBox = $(el).parent().parent();
-    //         }
-    //         return rangeBox;
-    //     }
+        //     function getRangeBox(event) {
+        //         let rangeBox = event.target;
+        //         let el = currentlyDragged;
+        //         if (event.type == "click" && isDraggable(event.target)) {
+        //             rangeBox = $(event.target).parent().parent();
+        //         }
+        //         if (event.type == "mousemove") {
+        //             rangeBox = $(el).parent().parent();
+        //         }
+        //         return rangeBox;
+        //     }
 
-    //     function getCoefficient(event) {
-    //         let slider = getRangeBox(event);
-    //         let rect = slider.getBoundingClientRect();
-    //         let K = 0;
-    //         if ($(slider).data("direction") == "horizontal") {
-    //             const offsetX = event.clientX - rect.left;
-    //             let width = slider.clientWidth;
-    //             K = offsetX / width;
-    //         } else if ($(slider).data("direction") == "vertical") {
-    //             let height = slider.clientHeight;
-    //             var offsetY = event.clientY - rect.top;
-    //             K = 1 - offsetY / height;
-    //         }
+        //     function getCoefficient(event) {
+        //         let slider = getRangeBox(event);
+        //         let rect = slider.getBoundingClientRect();
+        //         let K = 0;
+        //         if ($(slider).data("direction") == "horizontal") {
+        //             const offsetX = event.clientX - rect.left;
+        //             let width = slider.clientWidth;
+        //             K = offsetX / width;
+        //         } else if ($(slider).data("direction") == "vertical") {
+        //             let height = slider.clientHeight;
+        //             var offsetY = event.clientY - rect.top;
+        //             K = 1 - offsetY / height;
+        //         }
 
-    //         return K;
-    //     }
+        //         return K;
+        //     }
 
-    //     function rewind(event) {
-    //         console.warn("a");
-    //         if (inRange(event)) {
-    //             player.currentTime = player.duration * getCoefficient(event);
-    //         }
-    //     }
+        //     function rewind(event) {
+        //         console.warn("a");
+        //         if (inRange(event)) {
+        //             player.currentTime = player.duration * getCoefficient(event);
+        //         }
+        //     }
 
-    //     function formatTime(time) {
-    //         var min = Math.floor(time / 60);
-    //         var sec = Math.floor(time % 60);
-    //         return min + ":" + (sec < 10 ? "0" + sec : sec);
-    //     }
+        //     function formatTime(time) {
+        //         var min = Math.floor(time / 60);
+        //         var sec = Math.floor(time % 60);
+        //         return min + ":" + (sec < 10 ? "0" + sec : sec);
+        //     }
 
-    //     function togglePlay() {
-    //         if (player.paused) {
-    //             changePlayPauseIcon(false);
-    //             player.play();
-    //         } else {
-    //             changePlayPauseIcon(true);
-    //             player.pause();
-    //         }
-    //     }
+        //     function togglePlay() {
+        //         if (player.paused) {
+        //             changePlayPauseIcon(false);
+        //             player.play();
+        //         } else {
+        //             changePlayPauseIcon(true);
+        //             player.pause();
+        //         }
+        //     }
 
-    //     function makePlay() {
-    //         playpauseBtn.css("display", "block");
-    //     }
+        //     function makePlay() {
+        //         playpauseBtn.css("display", "block");
+        //     }
 
-    //     function changePlayPauseIcon(play = false) {
-    //         if (play) {
-    //             playPause.removeClass("fa-pause").addClass("fa-play");
-    //         } else {
-    //             playPause.removeClass("fa-play").addClass("fa-pause");
-    //         }
-    //     }
-    // });
+        //     function changePlayPauseIcon(play = false) {
+        //         if (play) {
+        //             playPause.removeClass("fa-pause").addClass("fa-play");
+        //         } else {
+        //             playPause.removeClass("fa-play").addClass("fa-pause");
+        //         }
+        //     }
+        // });
 
-    function emojiToCode(emoji) {
-                                let code = emoji.codePointAt(0).toString(16);
-                                return '&#x' + code + ';';
-                            }
+        function emojiToCode(emoji) {
+            let code = emoji.codePointAt(0).toString(16);
+            return '&#x' + code + ';';
+        }
 
-                            $(document).ready(function() {
-                                $(".emoji_btn").click(function() {
-                                    $(".emoji_div_man").toggle();
-                                });
+        $(document).ready(function () {
+            $(".emoji_btn").click(function () {
+                $(".emoji_div_man").toggle();
+            });
 
-                                $("body").on("click", ".intercom-emoji-picker-emoji", function() {
-                                    let emoji = $(this).html();
-                                    let htmlCode = emojiToCode(emoji);
-                                    currentInput = $('.massage_input').val();
+            $("body").on("click", ".intercom-emoji-picker-emoji", function () {
+                let emoji = $(this).html();
+                let htmlCode = emojiToCode(emoji);
+                currentInput = $('.massage_input').val();
 
-                                    $(".massage_input").val(emoji);
+                $(".massage_input").val(emoji);
 
 
-                                    $('.massage_input').val(currentInput + emoji);
+                $('.massage_input').val(currentInput + emoji);
 
-                                });
-                            });
-
-</script>
-<script>
-    const startButton = document.getElementById('startButton');
-    const stopButton = document.getElementById('stopButton');
-    const audioPlayer = document.getElementById('audioPlayer');
-
-    let mediaRecorder;
-    let audioChunks = [];
-
-    startButton.addEventListener('click', startRecording);
-    stopButton.addEventListener('click', stopRecording);
-
-    async function startRecording() {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
-
-        mediaRecorder.addEventListener('dataavailable', event => {
-            audioChunks.push(event.data);
+            });
         });
 
-        mediaRecorder.addEventListener('stop', () => {
-            const audioBlob = new Blob(audioChunks, { 'type': 'audio/mp3' });
-            const audioUrl = URL.createObjectURL(audioBlob);
-            audioPlayer.src = audioUrl;
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const audioPlayer = document.getElementById('audioPlayer');
 
-            // Send the audio data to the server
-            saveAudio(audioBlob);
-        });
+        let mediaRecorder;
+        let audioChunks = [];
 
-        startButton.disabled = true;
-        stopButton.disabled = false;
+        startButton.addEventListener('click', startRecording);
+        stopButton.addEventListener('click', stopRecording);
 
-        mediaRecorder.start();
-    }
+        async function startRecording() {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
 
-    function stopRecording() {
-        mediaRecorder.stop();
-        startButton.disabled = false;
-        stopButton.disabled = true;
-    }
+            mediaRecorder.addEventListener('dataavailable', event => {
+                audioChunks.push(event.data);
+            });
 
-    function saveAudio(audioBlob) {
-          const formData = new FormData();
-          formData.append('audio', audioBlob);
-          $.ajax({
-               method: "POST",
-               url: "<?= site_url('audio_file'); ?>",
-               data: formData,
-               processData: false, // Set processData to false to prevent jQuery from automatically processing the data
-               contentType: false, // Set contentType to false to prevent jQuery from automatically setting the Content-Type header
-               success: function(res) {
+            mediaRecorder.addEventListener('stop', () => {
+                const audioBlob = new Blob(audioChunks, { 'type': 'audio/mp3' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+                audioPlayer.src = audioUrl;
+
+                // Send the audio data to the server
+                saveAudio(audioBlob);
+            });
+
+            startButton.disabled = true;
+            stopButton.disabled = false;
+
+            mediaRecorder.start();
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            startButton.disabled = false;
+            stopButton.disabled = true;
+        }
+
+        function saveAudio(audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob);
+            $.ajax({
+                method: "POST",
+                url: "<?= site_url('audio_file'); ?>",
+                data: formData,
+                processData: false, // Set processData to false to prevent jQuery from automatically processing the data
+                contentType: false, // Set contentType to false to prevent jQuery from automatically setting the Content-Type header
+                success: function (res) {
                     // Handle success response here
                     console.log('Audio uploaded successfully:', res);
                     $('.loader').hide();
-               },
-               error: function(xhr, status, error) {
+                },
+                error: function (xhr, status, error) {
                     // Handle error response here
                     console.error('Error:', error);
                     $('.loader').hide();
-               }
-          });
-     }
-     $('.send').click(function() {
-        if (audioChunks.length > 0) {
-            const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
-            saveAudio(audioBlob);
-        } else {
-            console.error('No audio recorded.');
+                }
+            });
         }
+        $('.send').click(function () {
+            if (audioChunks.length > 0) {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+                saveAudio(audioBlob);
+            } else {
+                console.error('No audio recorded.');
+            }
+        });
     });
 </script>
