@@ -8,11 +8,117 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 ?>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+    * {
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+    }
+
+    .c-wa-message {
+        padding: 7px 14px 6px;
+        background-color: #724EBF;
+        border-radius: 0px 8px 8px;
+
+    }
+
+    .c-wa-message:before {
+        position: absolute;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAMAAADp2asXAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACQUExURUxpccPDw9ra2m9vbwAAAAAAADExMf///wAAABoaGk9PT7q6uqurqwsLCycnJz4+PtDQ0JycnIyMjPf3915eXvz8/E9PT/39/RMTE4CAgAAAAJqamv////////r6+u/v7yUlJeXl5f///5ycnOXl5XNzc/Hx8f///xUVFf///+zs7P///+bm5gAAAM7Ozv///2fVensAAAAvdFJOUwCow1cBCCnqAhNAnY0WIDW2f2/hSeo99g1lBYT87vDXG8/6d8oL4sgM5szrkgl660OiZwAAAHRJREFUKM/ty7cSggAABNFVUQFzwizmjPz/39k4YuFWtm55bw7eHR6ny63+alnswT3/rIDzUSC7CrAziPYCJCsB+gbVkgDtVIDh+DsE9OTBpCtAbSBAZSEQNgWIygJ0RgJMDWYNAdYbAeKtAHODlkHIv997AkLqIVOXVU84AAAAAElFTkSuQmCC);
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: "";
+        top: 0px;
+        left: -12px;
+        width: 12px;
+        height: 19px;
+    }
+
+    .c-wa-audio__wrapper {
+        display: flex;
+        align-items: center;
+        width: 400px;
+    }
+
+    .c-wa-audio__photo {
+        background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4xLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPgo8c3ZnIHdpZHRoPSI0MDFweCIgaGVpZ2h0PSI0MDFweCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAzMTIuODA5IDAgNDAxIDQwMSIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIzMTIuODA5IDAgNDAxIDQwMSIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgdHJhbnNmb3JtPSJtYXRyaXgoMS4yMjMgMCAwIDEuMjIzIC00NjcuNSAtODQzLjQ0KSI+Cgk8cmVjdCB4PSI2MDEuNDUiIHk9IjY1My4wNyIgd2lkdGg9IjQwMSIgaGVpZ2h0PSI0MDEiIGZpbGw9IiNFNEU2RTciLz4KCTxwYXRoIGQ9Im04MDIuMzggOTA4LjA4Yy04NC41MTUgMC0xNTMuNTIgNDguMTg1LTE1Ny4zOCAxMDguNjJoMzE0Ljc5Yy0zLjg3LTYwLjQ0LTcyLjktMTA4LjYyLTE1Ny40MS0xMDguNjJ6IiBmaWxsPSIjRkZGRkZGIi8+Cgk8cGF0aCBkPSJtODgxLjM3IDgxOC44NmMwIDQ2Ljc0Ni0zNS4xMDYgODQuNjQxLTc4LjQxIDg0LjY0MXMtNzguNDEtMzcuODk1LTc4LjQxLTg0LjY0MSAzNS4xMDYtODQuNjQxIDc4LjQxLTg0LjY0MWM0My4zMSAwIDc4LjQxIDM3LjkgNzguNDEgODQuNjR6IiBmaWxsPSIjRkZGRkZGIi8+CjwvZz4KPC9zdmc+Cg==);
+        background-position: center;
+        background-size: cover;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+    }
+
+    .c-wa-audio__photo-container {
+        position: relative;
+    }
+
+    .c-wa-audio__photo-mic {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        font-size: 1.1rem;
+        color: #999999;
+        filter: drop-shadow(1px 1px 0 white) drop-shadow(-1px -1px 0 white);
+    }
+
+    .c-wa-audio__control-play {
+        color: #999999;
+        margin-left: 20px;
+        cursor: pointer;
+        font-size: 1.1rem;
+    }
+
+    .c-wa-audio__time-container {
+        font-size: 16px;
+        line-height: 18px;
+        color: #55606e;
+        display: flex;
+        flex-grow: 1;
+
+        align-items: center;
+        margin-left: 24px;
+        margin-right: 24px;
+    }
+
+    .c-wa-audio__time-slider {
+        width: 155px;
+        background-color: #d8d8d8;
+        cursor: pointer;
+        position: relative;
+        margin-left: 16px;
+        margin-right: 16px;
+        border-radius: 2px;
+        height: 4px;
+    }
+
+    .c-wa-audio__time-progress {
+        background-color: #2ab5eb;
+        border-radius: inherit;
+        position: absolute;
+        pointer-events: none;
+        height: 4px;
+    }
+
+    .c-wa-audio__time-pin {
+        height: 13px;
+        width: 13px;
+        border-radius: 50%;
+        background-color: #2ab5eb;
+        position: absolute;
+        pointer-events: all;
+        top: -4px;
+        right: -10px;
+        box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.32);
+    }
+
 .iti {
         width: 100%;
     }
 
-    .ChatBackGroundClass{
+    .ChatBackGroundClass {
         background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png') !important;
 
     }
@@ -115,7 +221,61 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         cursor: pointer;
         background-color: azure;
     }
+
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .ck-content .ck-placeholder {
+        color: red;
+    }
+
+    .file-btn {
+        border: 1px dashed var(--del-color) !important;
+        background-color: white;
+        padding: 8px 20px;
+        border-radius: 8px;
+        border: 1px dashed #c3c3c3 !important;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    .ck-editor__editable {
+        min-height: 150px;
+        max-height: 170px
+    }
+
+    .ck.ck-editor__editable>.ck-placeholder::before {
+        color: #c6c6c6;
+        font-family: Poppins;
+    }
+
+    .view-file-link {
+        background-color: #724ebf21;
+        color: #724ebf;
+    }
+
+    .emoji_div_man {
+        margin-left: 50px;
+        margin-bottom: 50px;
+    }
+
+    .emoji_div span {
+        cursor: pointer;
+    }
 </style>
+
+
+
+
 <!-- View Contact modal  -->
 <div class="modal fade" id="exampleModal_mass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -343,14 +503,22 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
                                         if (isset($WhatsAppAccountsData) && !empty($WhatsAppAccountsData)) {
                                             foreach ($WhatsAppAccountsData as $key => $value) {
+$dnoneC = '';
+
+                                                if ($value['count'] == '0') {
+                                                    $dnoneC = 'd-none';
+
+                                                }
                                                 echo '<div class="accordion-body  WA_account_list  WA_account_listTab p-0 account-box" id ="' . $value['id'] . '" phoneno = "' . $value['display_phone_number'] . '" name="' . $value['verified_name'] . '"> 
                                                 <div class="col-12  my-2 " data-page_id="17841457874373728" data-platform="instagram" data-page_access_token="EAADNF4vVgk0BO6ZBcyZCiZCY5FGuPPWKb7npn8YcXafmqIexQxBgMPRZAAttSOgFr6NqP2B74icpZAcvL5pJgwv4ZBdTsM4Neik41DvLdjprcNSGdIfty83qi5CkzEAyuXUeEYVQf9lNRy9GtaDhFZBYBpKKyZCkfGqAB6wcfP8cvcx8mjcXrbpYEfbq0XYucWT81gzkkywZD" data-page_name="ajasystechnologies">
                                                     <div class="col-12 d-flex flex-wrap  align-items-center  p-2">
                                                             <img src="https://erp.gymsmart.in/assets/image/member.png" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" alt="" height="100" width="100">
                                                          <div class="ps-2">
                                                             <p class="fs-6 fw-medium col">' . $value['verified_name'] . '</p>
-                                                            <span class="fs-12 text-muted">+ 91 990234523</span>
+                                                            <span class="fs-12 text-muted">+' . $value['display_phone_number'] . '</span>
                                                          </div>   
+
+                                                                <span class="ms-auto badge rounded-pill text-bg-success ' . $dnoneC . ' CountFinalText">' . $value['count'] . '</span>
                                                     </div>
                                         </div>
 </div>';
@@ -611,7 +779,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
 
-                        <div class=" mt-2 p-2 overflow-y-scroll chat_bord col-12" style="max-height:80%;">
+                        <div class=" mt-2 p-2 overflow-y-scroll chat_bord col-12" id="user_msg_send_div"style="max-height:80%;">
                             <!-- <div class="d-flex  mb-1 col-3">
                                 <i class="me-2 bi bi-people-fill"></i>
                                 <a href="" class="ms-3">https://www.facebook.com/</a>
@@ -670,7 +838,54 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         </div>
     </div>
 </div>
+<!-- document-modal -->
+<div class="modal fade data_add_div PinToDocumentSelectClass " id="" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title email_title_model_change">Add Document</h1>
+                <button type="button" class="btn-close close_btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modal-body-secondery">
+                <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate
+                    enctype="multipart/form-data">
+                    <div class="upload-btn-wrapper col-12">
+                        <div class="file-btn col-12">
+                            <div class="col-12 justify-content-center d-flex">
+                                <i class="bi bi-cloud-download"></i>
+                            </div>
+                            <div class="col-12 justify-content-center d-flex">
+                                <h4>Drop Files here or click to upload</h4>
+                            </div>
+                            <div class="col-12 justify-content-center d-flex">
+                                <p>Allowed IMAGES, VIDEOS, PDF, DOC, EXCEL, PPT, TEXT</p>
+                            </div>
+                            <div class="col-12 justify-content-center d-flex">
+                                <p>Max 5 files and max size of 3 MB</p>
+                            </div>
+                        </div>
+                        <input class="form-control main-control place attachment_email_text update_attachment_email"
+                            id="attachment" name="attachment[]" multiple="multiple" type="file" placeholder="" />
 
+
+                    </div>
+                    <div class="col-12 input-text">
+                        <div class="file_view_add1 file_view_add_Email  file_view_add_Email_add" id="file_view_add1">
+                        </div>
+                        <div class="file_view file_view_edit file_view_edit_add" id="file_view">
+                        </div>
+                        <div id="file_uploded" class="file_uploded file_uploded_edit file_uploded_edit_add"> </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary SendDocumentForWhatsApp email_add_model_submit"
+                    DataFileTypeStatus="" data-edit_id="" id="save_btn_email">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -693,8 +908,12 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $(this).siblings().removeClass('chat-account-active');
 
     });
-</script>
-<script>
+
+    function scrollToBottom() {
+        const fileViewDiv = document.getElementById('user_msg_send_div');
+        fileViewDiv.scrollTop = fileViewDiv.scrollHeight;
+    }
+
     $(document).ready(function () {
         // massage list data
         function list_data(api = false, action = 'account_list', page_id = '', page_access_token = '', platform) {
@@ -1098,7 +1317,17 @@ conversation_account_id: conversation_account_id,
         $(this).closest('.main-box').addClass('d-none');
         $('.chat-box').removeClass('d-none');
     })
-    $('body').on('click','.linked-page1',function(){
+    $('.file_view_add_Email').on('click', '#file_crodd_btn_email', function () {
+        $(this).closest('div').remove();
+    });
+
+    $('.attachment_email_text').on('change', function () {
+        var files = $(this).prop('files');
+        for (var i = 0; i < files.length; i++) {
+            var fileName = files[i].name;
+            $('.file_view_add_Email').append('<div id="u_btn" class="col-12 u_btn_Email m-1 rounded view-file-link px-2 d-flex u_btn"><p>' + fileName + '</p><span class="ms-auto" id="file_crodd_btn_email"><i class="bi bi-x-circle"></i></span></div>')
+        }
+    });    $('body').on('click','.linked-page1',function(){
         $(this).closest('.main-box').addClass('d-lg-none');
         $(this).closest('.main-box').addClass('d-none');
         $('.transcript_box').removeClass('d-none');
@@ -1126,4 +1355,232 @@ conversation_account_id: conversation_account_id,
     //         $('.common-options').removeClass('linked-page');
     //     }
     // })
+    $('body').on('click', '.SendDocumentForWhatsApp', function () {
+        // alert();
+        //  1 For Document
+        // 2 For Image 
+        var DataFileTypeStatus = $(this).attr('DataFileTypeStatus');
+        var doctype = '';
+        var doccorrection = 0;
+        if (DataFileTypeStatus == '1') {
+            doctype = 'document';
+            doccorrection = 1;
+        }
+
+
+        var pText_add = "";
+        var form = $("form[name='add_form_Email']")[0];
+        var DataSenderId = $('.SendWhatsAppMessage').attr('DataSenderId');
+        var DataPhoneno = $('.SendWhatsAppMessage').attr('DataPhoneno');
+        var formData = new FormData(form);
+        $(".u_btn_Email p").each(function () {
+            pText_add += $(this).text().trim() + ",";
+        });
+        var title = $(".email_whatapp_title").val();
+        pText_add = pText_add.slice(0, -1);
+        // console.log(pText_add);
+        if (DataFileTypeStatus == '2') {
+            doctype = 'image';
+            var checkimgsatus = 0;
+            var filenamesArray = pText_add.split(',');
+            for (var i = 0; i < filenamesArray.length; i++) {
+                var fileName = filenamesArray[i].trim();
+                var fileExtension = fileName.split('.').pop().toLowerCase();
+                var imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'mp4', 'avi', 'mkv', 'mov', 'wmv'];
+                if (imageExtensions.indexOf(fileExtension) !== -1) {
+                } else {
+                    checkimgsatus = parseInt(checkimgsatus) + 1;
+                }
+            }
+            if (parseInt(checkimgsatus) > 0) {
+                doccorrection = 0;
+            } else {
+                doccorrection = 1;
+            }
+        }
+
+        // console.log(doccorrection);
+
+        formData.append('attachment', pText_add);
+        formData.append('DataSenderId', DataSenderId);
+        formData.append('DataPhoneno', DataPhoneno);
+        formData.append('doctype', doctype);
+
+        if (doccorrection == '1' && DataSenderId !== undefined && DataSenderId !== "undefined" && DataSenderId != '' && DataPhoneno !== undefined && DataPhoneno !== "undefined" && DataPhoneno != '') {
+            $.ajax({
+                type: 'POST',
+                url: 'WhatsAppSendDocumentData',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    // $('.u_btn_Email').remove();
+                    // iziToast.success({
+                    //     title: 'Successfully added'
+                    // });
+                    // $(".close_btn").trigger("click");
+                    // $('.loader').hide();
+                }
+            });
+        }
+    });
+
+
+    $('body').on('click', '.SendImageAndPhotosClass', function () {
+        $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 2);
+    });
+    $('body').on('click', '.DocumentSelectionForSendClickEventClass', function () {
+        $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 1);
+    });
+
+
+
+
+    $(document).ready(function () {
+        const audioWrapper = $(".c-wa-audio");
+        const playPause = $(".c-wa-audio__control-play");
+        const playpauseBtn = $(".c-wa-audio__control-play");
+        const progress = $(".c-wa-audio__time-progress");
+        const sliders = $(".c-wa-audio__time-slider");
+        const player = $("audio");
+        const currentTime = $(".c-wa-audio__time-current");
+        const totalTime = $(".c-wa-audio__time-total");
+
+        let draggableClasses = ["c-wa-audio__time-pin"];
+        let currentlyDragged = null;
+
+        $(document).on("mousedown", function (event) {
+            if (!isDraggable($(event.target))) return false;
+
+            currentlyDragged = event.target;
+            let handleMethod = $(currentlyDragged).data("method");
+
+            $(document).on("mousemove", window[handleMethod]);
+
+            $(document).on("mouseup", function () {
+                currentlyDragged = false;
+                $(document).off("mousemove", window[handleMethod]);
+            });
+        });
+
+        playpauseBtn.on("click", togglePlay);
+        player.on("timeupdate", updateProgress);
+        player.on("loadedmetadata", function () {
+            totalTime.text(formatTime(player.duration));
+        });
+        player.on("canplay", makePlay);
+        player.on("ended", function () {
+            changePlayPauseIcon(true);
+            player.currentTime = 0;
+        });
+
+        sliders.each(function () {
+            let pin = $(this).find(".c-wa-audio__time-pin");
+            $(this).on("click", window[pin.data("method")]);
+        });
+
+        function isDraggable(el) {
+            let canDrag = false;
+            let classes = Array.from($(el).attr("class").split(" "));
+            draggableClasses.forEach(function (draggable) {
+                if (classes.indexOf(draggable) !== -1) canDrag = true;
+            });
+
+            return canDrag;
+        }
+
+        function inRange(event) {
+            let rangeBox = getRangeBox(event);
+            let rect = rangeBox.getBoundingClientRect();
+            let direction = $(rangeBox).data("direction");
+
+            if (direction == "horizontal") {
+                const min = 0;
+                const max = rect.width;
+                const clientX = event.clientX - rect.left;
+
+                if (clientX < min || clientX > max) return false;
+            } else {
+                var min = rect.top;
+                var max = min + rangeBox.offsetHeight;
+                if (event.clientY < min || event.clientY > max) return false;
+            }
+            return true;
+        }
+
+        function updateProgress() {
+            const current = player.currentTime;
+            const percent = (current / player.duration) * 100;
+            progress.css("width", percent + "%");
+
+            currentTime.text(formatTime(current));
+        }
+
+        function getRangeBox(event) {
+            let rangeBox = event.target;
+            let el = currentlyDragged;
+            if (event.type == "click" && isDraggable(event.target)) {
+                rangeBox = $(event.target).parent().parent();
+            }
+            if (event.type == "mousemove") {
+                rangeBox = $(el).parent().parent();
+            }
+            return rangeBox;
+        }
+
+        function getCoefficient(event) {
+            let slider = getRangeBox(event);
+            let rect = slider.getBoundingClientRect();
+            let K = 0;
+            if ($(slider).data("direction") == "horizontal") {
+                const offsetX = event.clientX - rect.left;
+                let width = slider.clientWidth;
+                K = offsetX / width;
+            } else if ($(slider).data("direction") == "vertical") {
+                let height = slider.clientHeight;
+                var offsetY = event.clientY - rect.top;
+                K = 1 - offsetY / height;
+            }
+
+            return K;
+        }
+
+        function rewind(event) {
+            console.warn("a");
+            if (inRange(event)) {
+                player.currentTime = player.duration * getCoefficient(event);
+            }
+        }
+
+        function formatTime(time) {
+            var min = Math.floor(time / 60);
+            var sec = Math.floor(time % 60);
+            return min + ":" + (sec < 10 ? "0" + sec : sec);
+        }
+
+        function togglePlay() {
+            if (player.paused) {
+                changePlayPauseIcon(false);
+                player.play();
+            } else {
+                changePlayPauseIcon(true);
+                player.pause();
+            }
+        }
+
+        function makePlay() {
+            playpauseBtn.css("display", "block");
+        }
+
+        function changePlayPauseIcon(play = false) {
+            if (play) {
+                playPause.removeClass("fa-pause").addClass("fa-play");
+            } else {
+                playPause.removeClass("fa-play").addClass("fa-pause");
+            }
+        }
+    });
+
+
+
 </script>

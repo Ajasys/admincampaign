@@ -416,12 +416,64 @@ class WhatAppIntegrationController extends BaseController
         $name = $_POST['name'];
         $table_username = getMasterUsername2();
         $Database = \Config\Database::connect('second');
-        $sql = 'SELECT * FROM ' . $table_username . '_social_accounts WHERE account_phone_no = "' . $phoneno . '" AND conversation_account_id = "' . $id . '" ORDER BY `id` DESC';
+        $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . ") AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE account_phone_no = '" . $phoneno . "' AND conversation_account_id = '" . $id . "'  ORDER BY last_inserted_id DESC;
+        ";
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
         $html = '';
         $htmlcontactlist = '';
         foreach ($GetData as $key => $value) {
+$TotalUnreadMsg = 0;
+            $AutoIDNo = '';
+            $MsgReadStatus = '';
+            $MasgDateNdTime = "";
+            $sent_recieved_status = '';
+            $last_createdate = '';
+            $lastmsggetsql = 'SELECT * FROM `admin_messages` WHERE contact_no = "' . $value['contact_no'] . '" AND platform_account_id = "' . $id . '" ORDER BY id DESC LIMIT 1;';
+            $GerDataLastMsg = $Database->query($lastmsggetsql);
+            $GerDataLastMsg = $GerDataLastMsg->getResultArray();
+
+            $UnreadMsgCountSql = "SELECT COUNT(*) AS total_records, MAX(id) AS last_id, MAX(created_at) AS last_createdate, MAX(CASE WHEN id = (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $value['contact_no'] . " AND platform_account_id = " . $id . " AND msg_read_status = '0' ) THEN message_status END) AS last_read_status, MAX(CASE WHEN id = (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $value['contact_no'] . " AND platform_account_id = " . $id . " AND msg_read_status = '0') THEN sent_recieved_status END) AS sent_recieved_status FROM " . $table_username . "_messages WHERE contact_no = " . $value['contact_no'] . " AND platform_account_id = " . $id . " AND msg_read_status = '0' AND sent_recieved_status = '2';";
+
+            $UnreadmsgCount = $Database->query($UnreadMsgCountSql);
+            $UnreadmsgCountArr = $UnreadmsgCount->getResultArray();
+            if (isset($UnreadmsgCountArr) && !empty($UnreadmsgCount)) {
+                $TotalUnreadMsg = $UnreadmsgCountArr[0]['total_records'];
+                $AutoIDNo = $UnreadmsgCountArr[0]['last_id'];
+                $MsgReadStatus = $UnreadmsgCountArr[0]['last_read_status'];
+                $sent_recieved_status = $UnreadmsgCountArr[0]['sent_recieved_status'];
+                $last_createdate = $UnreadmsgCountArr[0]['last_createdate'];
+            }
+            if ($last_createdate != '' && $last_createdate != '0000-00-00 00:00:00') {
+                $utcDateTime = new \DateTime($last_createdate, new \DateTimeZone('UTC'));
+                $currentUtcDateTime = new \DateTime(null, new \DateTimeZone('UTC'));
+                if ($utcDateTime->format('Y-m-d') === $currentUtcDateTime->format('Y-m-d')) {
+                    $formattedResult = $utcDateTime->format('h:i A');
+                    $last_createdate = Utctodate('h:i A', timezonedata(), $formattedResult);
+                } elseif ($utcDateTime >= $currentUtcDateTime->modify('-7 days')) {
+                    $last_createdate = $utcDateTime->format('l');
+                } else {
+                    $last_createdate = $utcDateTime->format('d-m-Y');
+                }
+            } else {
+                $last_createdate = '';
+            }
+            $lastmsg = '';
+            if (isset($GerDataLastMsg) && !empty($GerDataLastMsg) && $GerDataLastMsg[0]['message_type']) {
+                if ($GerDataLastMsg[0]['message_type'] == '1' || $GerDataLastMsg[0]['message_type'] == '2') {
+                    $lastmsg = $GerDataLastMsg[0]['message_contant'];
+                } elseif ($GerDataLastMsg[0]['message_type'] == '3') {
+                    $lastmsg = 'Image';
+                } elseif ($GerDataLastMsg[0]['message_type'] == '4') {
+                    $lastmsg = 'Document';
+                } elseif ($GerDataLastMsg[0]['message_type'] == '5') {
+                    $lastmsg = 'Contact :' . $GerDataLastMsg[0]['asset_file_name'];
+                } elseif ($GerDataLastMsg[0]['message_type'] == '6') {
+                    $lastmsg = 'Audio';
+                } elseif ($GerDataLastMsg[0]['message_type'] == '7') {
+                    $lastmsg = 'Location';
+                }
+            }
             if ($value['whatsapp_name'] == '' && $value['name'] == '') {
                 $Whatsappproname = $value['whatsapp_name'];
                 if ($value['name'] != '') {
@@ -432,11 +484,13 @@ class WhatAppIntegrationController extends BaseController
                                             <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                             <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
                                             <div class="col text-start">
-                                                <p class="fs-12 fw-medium col text-muted">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '
+                                                <span class="fs-14">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '</span>
+                                <p class="fs-12 fw-medium col text-muted">' . $lastmsg . '
                                             </div>
                                         </p>
                                     </div>
-                                </div>';
+                                </div>
+                ';
                 $htmlcontactlist .= '
                             <div class="col-12 d-flex border-top border-dark border-bottom justify-content-center align-items-center p-2">
                                 <div class="col-1 d-flex align-items-center justify-content-center"><input type="checkbox"
@@ -455,16 +509,50 @@ class WhatAppIntegrationController extends BaseController
                 if ($value['name'] != '') {
                     $Whatsappproname = $value['name'];
                 }
-
-
-                $html .=    '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
+$html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
                                         <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                         <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
-                                        <div class="col text-start">
-                                            <span class="fs-14">' . $Whatsappproname . '</span>
-                                            <p class="fs-12 fw-medium col text-muted">+' . substr_replace($value['contact_no'], ' ', -10, 0) . '
+                                        <div class="col d-flex justify-content-between">
+                                            <div>
+                                           <span class="fs-14 fw-medium">' . $Whatsappproname . '</span>
+                                            
+                                           <p class="fs-12 fw-medium col text-muted">';
+                if ($sent_recieved_status == '1') {
+                    if ($MsgReadStatus == '0') {
+                        $html .= '
+                                                <i class="fa-solid  fa-check fa-xs align-self-end" style="color: gray;"></i>';
+                    } elseif ($MsgReadStatus == '1') {
+                        $html .= '
+                                                <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: gray;"></i>';
+                    } elseif ($MsgReadStatus == '2') {
+                        $html .= '
+                                                <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: lightgreen;"></i>';
+                    } elseif ($MsgReadStatus == '3') {
+                        $html .= '
+                                                <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
+                    }
+                }
+                $html .= '
+                                            
+                                           ' . $lastmsg . '
+                                           </p>
+                                           </div>
+                                           <div class="d-flex flex-wrap">';
+
+                $html .= '
+                                           <p class="col-12 text-end fs-12">' . $last_createdate . '</p>';
+
+
+
+
+                if ($TotalUnreadMsg > 0) {
+                    $html .= '
+                                                <span class="ms-auto badge rounded-pill text-bg-success Count' . substr($value['contact_no'], -10) . '">' . $TotalUnreadMsg . '</span>';
+                }
+                $html .= '
+
                                         </div>
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                             ';
@@ -486,6 +574,9 @@ class WhatAppIntegrationController extends BaseController
         $return_array['html'] = $html;
         return json_encode($return_array, true);
     }
+
+
+
 
 
     public function SendMessagesHistory()
@@ -1549,16 +1640,77 @@ class WhatAppIntegrationController extends BaseController
 
     public function WhatsAppListConverstion()
     {
+$MetaUrl = config('App')->metaurl;
         $contact_no = $_POST['contact_no'];
+$conversation_account_id = $_POST['conversation_account_id'];
         $table_username = getMasterUsername2();
         $Database = \Config\Database::connect('second');
-        $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE contact_no = "' . $contact_no . '"';
+        $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
         $html = '';
         $dates = '';
+$HourStatus = '';
+        $MsgSendStatus = 0;
+        $HourSql = 'SELECT * FROM `'.$table_username.'_messages` WHERE platform_account_id = '.$conversation_account_id.' AND contact_no = '.$contact_no.' AND sent_recieved_status = 2 ORDER BY created_at DESC LIMIT 1;
+        ';
+        $HourData = $Database->query($HourSql);
+        $HourData = $HourData->getResultArray();
+        if(isset($HourData) && !empty($HourData)){
+            if(isset($HourData[0]['created_at'])){
+                $dateStr1 = gmdate('Y-m-d H:i:s'); 
+                $dateStr2 = $HourData[0]['created_at'];
+                $datetime1 = new \DateTime($dateStr1);
+                $datetime2 = new \DateTime($dateStr2);
+                $timeDifferenceHours = ($datetime1->getTimestamp() - $datetime2->getTimestamp()) / 3600;    
+                if ($timeDifferenceHours >= 0 && $timeDifferenceHours <= 24) {
+                    $MsgSendStatus = 1;
+                }else{
+                }
+            }
+        }   
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
 
+        $table_name = $username . '_platform_integration';
+
+        $ConnectionData = get_editData2($table_name, $conversation_account_id);
+
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
+            }
+        }
+        $counttrigger = 0;
         foreach ($GetData as $key => $value) {
+
+            if ($value['msg_read_status'] == '0' && $value['sent_recieved_status'] == '2') {
+                if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
+                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                    $JsonDataString = '
+                        {
+                        "messaging_product": "whatsapp",
+                        "status": "read",
+                        "message_id": "' . $value['conversation_id'] . '"
+                      }
+                    ';
+                    $Result = postSocialData($url, $JsonDataString);
+                    if (isset($Result['success'])) {
+                        $UpdateReadsql = 'UPDATE `' . $username . '_messages` SET `read_date_time`="' . gmdate('Y-m-d H:i:s') . '",`msg_read_status`="1" WHERE id = "' . $value['id'] . '"';
+                        $Database->query($UpdateReadsql);
+                        $counttrigger++;
+                    }
+                }
+            }
+
             $sent_recieved_status = $value['sent_recieved_status'];
             $formattedDate = Utctodate('Y-m-d h:i A', timezonedata(), $value['created_at']);
             $dateTime = new \DateTime($formattedDate);
@@ -1592,11 +1744,136 @@ class WhatAppIntegrationController extends BaseController
                 if ($sent_recieved_status == '1') {
                     $html .= '
 								<div class="d-flex mb-4 justify-content-end" >
+<div class="col-9 text-end position-relative">
+									<span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> <span class="ps-3 pe-1 py-2 rounded-3 text-white" style="background:#005c4b;">' . $value['message_contant'] . '
+                                    <span class="mx-1 align-self-end">';
+                    if ($value['message_status'] == '0') {
+
+                        $html .= '
+                                         <i class="fa-solid text-white fa-check fa-xs align-self-end" style="color: #fff;"></i>';
+                    } elseif ($value['message_status'] == '1') {
+                        $html .= '
+                                        <i class="fa-solid text-white fa-check-double fa-xs align-self-end" style="color: #fff;"></i>';
+                    } elseif ($value['message_status'] == '2') {
+                        $html .= '
+                                        <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: lightgreen;"></i>';
+                    } else {
+                        $html .= '
+                                        <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
+                    }
+                    $html .= '
+                                    </span>
+                                    </span> 
+                                </div>
+                            </div>
+                             ';
+                }
+            } elseif ($msgtype == '3') {
+                if ($sent_recieved_status == '2') {
+                    // assets_type	  if();                 var imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'mp4', 'avi', 'mkv', 'mov', 'wmv'];
+                    //21022024                  $uploadDir .= 'assets/' . $username . '_folder/WhatsAppAssets/'; base_url()
+                    if ($value['assets_type'] != '') {
+                        if (strpos(strtolower($value['assets_type']), 'image') !== false) {
+                            $html .= ' <div class="d-flex mb-4 ">
+                            <div class="col-9 text-start">
+                                <span class="px-3 py-2 rounded-3 text-white" style="background:#f3f3f3; display: inline-block; width:200px; overflow: hidden;">
+                                    <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
+                                </span>
+                                <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                    
+                            </div>
+                        </div>';
+                        }
+                        if (strpos(strtolower($value['assets_type']), 'video') !== false) {
+
+
+                            $html .= '                                <div class="d-flex mb-4 justify-content-start">
+                            <div class="col-9 text-start">
+                                <span class="px-2 py-2 rounded-3 text-white bg-white" style="background:white; display: inline-block; width:200px; ">
+                                    <video controls src="https://www.shutterstock.com/shutterstock/videos/1082503873/preview/stock-footage-loading-wheel-animation-animated-spinning-load-icon-with-alpha-layer-transparent-background.webm" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
+                                </span>
+                                <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+
+                            </div>
+                        </div>';
+                        }
+                    }
+                }
+                if ($sent_recieved_status == '1') {
+                    if ($value['assets_type'] != '' && $value['asset_file_name'] != '') {
+                        if (strtolower($value['assets_type']) == 'jpg' || strtolower($value['assets_type']) == 'jpeg' || strtolower($value['assets_type']) == 'png' || strtolower($value['assets_type']) == 'gif' || strtolower($value['assets_type']) == 'bmp' || strtolower($value['assets_type']) == 'tiff') {
+                            $html .= '  <div class="d-flex mb-4 justify-content-end ">
                                 <div class="col-9 text-end">
-									<span class="me-2" style="font-size:12px;">' . $formattedtime  . '</span> <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">' . $value['message_contant'] . '</span> 
+									<span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                
+                                <span class="px-3 py-2  rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; overflow: hidden;">
+                                    <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
+                                    <i class="fa-solid  fa-check-double fa-xs align-self-end " style="color: lightgreen;"></i> 
+                                </span> 
+
                                 </div>
                             </div>';
                 }
+if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type']) == 'avi' || strtolower($value['assets_type']) == 'mkv' || strtolower($value['assets_type']) == 'mov' || strtolower($value['assets_type']) == 'wmv') {
+                            $html .= '   <div class="d-flex mb-4 justify-content-end">
+                            <div class="col-9 text-end">
+                                <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                                <span class="px-2 py-2 rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; ">
+                                    <video controls src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
+                                    <i class="fa-solid  fa-check-double fa-xs align-self-end " style="color: lightgreen;"></i> 
+
+                                </span>
+                            </div>
+                        </div>';
+                        }
+                    }
+                }
+            } elseif ($msgtype == '4') {
+                if ($sent_recieved_status == '2') {
+                    $html .= '
+                    <div class=" mb-4 justify-content-start">
+                    <div class="col-9 text-start">
+                        <span class="p-2 pb-3 rounded-3 bg-white text-white"
+                            style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
+                            <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
+                                style="width:100%; height:auto;">
+                                <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+                                <div class="col-5 mx-4">
+                                    <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+                                    <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+                                </div>
+                                <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+                                    style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                            </div>
+                        </span>
+                        <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+        
+                    </div>
+                </div>    
+                    ';
+                }
+                if ($sent_recieved_status == '1') {
+                    $html .= '<div class="d-flex mb-4 justify-content-end">
+                    <div class="col-9 text-end">
+                        <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                        <span class="p-2 pb-3 rounded-3 text-white"
+                            style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
+                            <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
+                                style="width:100%; height:auto;">
+                                <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path></g></svg></div>
+                                <div class="col-5 mx-4">
+                                    <div class="text-start">' . $value['asset_file_name'] . '</div>
+                                    <div class="fs-10  text-start" style="color:lightgray">PNG . 11KB</div>
+                                </div>
+                                <div class="border-light border rounded-circle d-flex justify-content-center align-items-center px-3"
+                                    style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                                    <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: lightgreen;"></i> 
+                            </div>
+                        </span>
+                    </div>
+                </div>';
+                }
+
             } elseif ($msgtype == '5') {
 
 
@@ -1640,6 +1917,78 @@ class WhatAppIntegrationController extends BaseController
                 <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
                 </div>
                 ';
+}elseif($msgtype == '6'){
+                    if ($sent_recieved_status == '2') {
+                        $html .= ' <div class="d-flex mb-4 justify-content-start">
+                        <div class="col-9 text-start">
+                            <span class="px-1 rounded-3 text-white" style="background: #ffffff; display: inline-block; width: 350px; height: 60px;">
+                                
+                                    <div class="c-wa-message bg-white">
+                                        <div class="c-wa-audio">
+                                            <div class="c-wa-audio__wrapper">
+                                                <div class="c-wa-audio__photo-container">
+                                                    <div class="c-wa-audio__photo"></div>
+                                                    <i class="c-wa-audio__photo-mic fas fa-microphone"></i>
+                                                </div>
+                                                <div class="c-wa-audio__control-container">
+                                                    <i class="c-wa-audio__control-play fas fa-play"></i>
+                                                </div>
+                                                <div class="c-wa-audio__time-container">
+                                                    <span class="c-wa-audio__time-current text-gray">0:00</span>
+                                                    <div class="c-wa-audio__time-slider" data-direction="horizontal">
+                                                        <div class="c-wa-audio__time-progress">
+                                                            <div class="c-wa-audio__time-pin" id="progress-pin" data-method="rewind"></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <audio crossorigin>
+                                                <source src="https://ajasys.in/assets/smpleaudio.mp3" type="audio/mpeg">
+                                            </audio>
+                                        </div>
+                                    </div>                                            
+                            </span>
+                            <span class="me-2" style="font-size: 12px;">12:30 PM</span>
+                        </div>
+                    </div>';
+                    }
+                    if ($sent_recieved_status == '1') {
+                        $html .= '   <div class="d-flex mb-4 justify-content-end">
+                        <div class="col-9 text-end">
+                            <span class="me-2" style="font-size: 12px;">12:30 PM</span>
+                            <span class="px-1 rounded-3 text-white" style="background: #005c4b; display: inline-block; width: 350px; height: 60px;">
+                                
+                                    <div class="c-wa-message" style="background: #005c4b; ">
+                                        <div class="c-wa-audio">
+                                            <div class="c-wa-audio__wrapper">
+                                                <div class="c-wa-audio__photo-container">
+                                                    <div class="c-wa-audio__photo"></div>
+                                                    <i class="c-wa-audio__photo-mic fas fa-microphone"></i>
+                                                </div>
+                                                <div class="c-wa-audio__control-container">
+                                                    <i class="c-wa-audio__control-play fas fa-play"></i>
+                                                </div>
+                                                <div class="c-wa-audio__time-container">
+                                                    <span class="c-wa-audio__time-current text-light">0:00</span>
+                                                    <div class="c-wa-audio__time-slider" data-direction="horizontal">
+                                                        <div class="c-wa-audio__time-progress">
+                                                            <div class="c-wa-audio__time-pin" id="progress-pin" data-method="rewind"></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <audio crossorigin>
+                                                <source src="https://ajasys.in/assets/smpleaudio.mp3" type="audio/mpeg">
+                                            </audio>
+                                        </div>
+                                    </div>                                            
+                            </span>
+                        </div>
+                    </div>
+            ';
+                    }
                 }
 
                 if ($sent_recieved_status == '1') {
@@ -1670,15 +2019,53 @@ class WhatAppIntegrationController extends BaseController
                     }
 
                     $html .= '
+<i class="fa-solid  fa-check-double fa-xs align-self-end d-flex justify-content-end" style="color: lightgreen; padding-right:-10px !important; padding-bottom : 10px;"></i>
+
                     </div>
+
                 </div>';
                 }
             }
         }
+
+
+
+
+
+
+
+
         if ($html != '') {
-            $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide();</script>';
+            $html .= '
+        
+        
+         
+       
+          
+        <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom();</script> ';
         } else {
-            $html .= '<script>$(".massage_list_loader").hide(); $(".noRecourdFound").show();</script>';
+            $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
+        }
+
+        // pre($MsgSendStatus);
+        if($MsgSendStatus  == '0'){
+            $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", true);</script>';
+        }else{
+            $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false);</script>';
+        }
+
+
+        if ($counttrigger > 0) {
+            $html .= '  <script>
+                            $(".Count' . substr($_POST['contact_no'], -10) . '").addClass("d-none");     
+                                var count = $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text();
+                                count = parseInt(count) - 1;
+                                if(count == "0"){
+                                    $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").addClass("d-none");
+                                }else{
+                                    $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text(count);
+                                }
+                        </script>';
         }
         echo $html;
     }
@@ -1783,6 +2170,154 @@ class WhatAppIntegrationController extends BaseController
             }
         }
     }
+
+    public function WhatsAppSendDocumentData()
+    {
+
+        $DataSenderId = $_POST['DataSenderId'];
+        $DataPhoneno = $_POST['DataPhoneno'];
+        $MetaUrl = config('App')->metaurl;
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+
+        $table_name = $username . '_platform_integration';
+
+        $ConnectionData = get_editData2($table_name, $DataSenderId);
+
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+        if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+                $access_token = $ConnectionData['access_token'];
+                $business_account_id = $ConnectionData['business_account_id'];
+                $phone_number_id = $ConnectionData['phone_number_id'];
+            }
+        }
+        if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
+            $uploadDir = '';
+            $inputString = $_SESSION['username'];
+            $parts = explode("_", $inputString);
+            $username = $parts[0];
+            $files = $_FILES;
+            if (!empty($files)) {
+                $uploadDir .= 'assets/' . $username . '_folder/WhatsAppAssets/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+                $filesArr = $_FILES["attachment"];
+                $fileNames = array_filter($filesArr['name']);
+                $uploadedFile = '';
+                foreach ($filesArr['name'] as $key => $val) {
+                    $fileName = basename($filesArr['name'][$key]);
+                    $targetFilePath = $uploadDir . str_replace(' ', '', $fileName);
+                    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+                    if (move_uploaded_file(str_replace(' ', '', $filesArr["tmp_name"][$key]), $targetFilePath)) {
+                        $base_url = base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . str_replace(' ', '', $fileName);
+                        $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                        if ($_POST['doctype'] == 'document') {
+                            $jsonestring = '{
+                                "messaging_product": "whatsapp",
+                                "recipient_type": "individual",
+                                "to": "' . $_POST['DataPhoneno'] . '",
+                                "type": "document",
+                                "document": {
+                                    "link" : "' . $base_url . '"
+                                }
+                            }';
+                            $Result = postSocialData($url, $jsonestring);
+                            if (isset($Result) && !empty($Result)) {
+                                if (isset($Result['messages'][0]['id']) && isset($Result['contacts'][0]['wa_id'])) {
+                                    $insert_data['contact_no'] = $Result['contacts'][0]['wa_id'];
+                                    $insert_data['platform_account_id'] = $DataSenderId;
+                                    $insert_data['message_status'] = '0';
+                                    $insert_data['created_at'] = gmdate('Y-m-d H:i:s');
+                                    $insert_data['conversation_id'] = $Result['messages'][0]['id'];
+                                    $insert_data['platform_status'] = '1';
+                                    $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
+                                    $insert_data['message_type'] = '4';
+                                    $insert_data['sent_recieved_status'] = '1';
+                                    $insert_data['asset_file_name'] = str_replace(' ', '', $fileName);
+                                    $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
+                                }
+                            }
+                        }
+                        if ($_POST['doctype'] == 'image') {
+                            $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+                            $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff'];
+                            $videoExtensions = ['mp4', 'avi', 'mkv', 'mov', 'wmv'];
+                            if (in_array(strtolower($fileExtension), $imageExtensions)) {
+                                // $base_url = 'https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg';
+
+                                $jsonestring = '{
+                                    "messaging_product": "whatsapp",
+                                    "recipient_type": "individual",
+                                    "to": "' . $_POST['DataPhoneno'] . '",
+                                    "type": "image",
+                                    "image": {
+                                        "link" : "' . $base_url . '"
+                                    }
+                                }';
+                                $Result = postSocialData($url, $jsonestring);
+                                if (isset($Result) && !empty($Result)) {
+                                    if (isset($Result['messages'][0]['id']) && isset($Result['contacts'][0]['wa_id'])) {
+                                        $insert_data['contact_no'] = $Result['contacts'][0]['wa_id'];
+                                        $insert_data['platform_account_id'] = $DataSenderId;
+                                        $insert_data['message_status'] = '0';
+                                        $insert_data['created_at'] = gmdate('Y-m-d H:i:s');
+                                        $insert_data['conversation_id'] = $Result['messages'][0]['id'];
+                                        $insert_data['platform_status'] = '1';
+                                        $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
+                                        $insert_data['message_type'] = '3';
+                                        $insert_data['sent_recieved_status'] = '1';
+                                        $insert_data['asset_file_name'] = str_replace(' ', '', $fileName);
+                                        $insert_data['assets_type'] = $fileExtension;
+
+                                        $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
+                                    }
+                                }
+                            } elseif (in_array(strtolower($fileExtension), $videoExtensions)) {
+                                // $base_url = 'https://media.istockphoto.com/id/547356494/video/loading-symbol-loop.mp4?s=mp4-640x640-is&k=20&c=jqYgIJg1q5Sd6sTSc70gk9rQNshqbfHvoSUpB_G0lJg=';
+                                $jsonestring = '{
+                                    "messaging_product": "whatsapp",
+                                    "recipient_type": "individual",
+                                    "to": "' . $_POST['DataPhoneno'] . '",
+                                    "type": "video",
+                                    "video": {
+                                        "link" : "' . $base_url . '"
+                                    }
+                                }';
+                                $Result = postSocialData($url, $jsonestring);
+                                if (isset($Result) && !empty($Result)) {
+                                    if (isset($Result['messages'][0]['id']) && isset($Result['contacts'][0]['wa_id'])) {
+                                        $insert_data['contact_no'] = $Result['contacts'][0]['wa_id'];
+                                        $insert_data['platform_account_id'] = $DataSenderId;
+                                        $insert_data['message_status'] = '0';
+                                        $insert_data['created_at'] = gmdate('Y-m-d H:i:s');
+                                        $insert_data['conversation_id'] = $Result['messages'][0]['id'];
+                                        $insert_data['platform_status'] = '1';
+                                        $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
+                                        $insert_data['message_type'] = '3';
+                                        $insert_data['sent_recieved_status'] = '1';
+                                        $insert_data['asset_file_name'] = str_replace(' ', '', $fileName);
+                                        $insert_data['assets_type'] = $fileExtension;
+                                        $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        $uploadStatus = 0;
+                        $response['message'] = 'Sorry, there was an error uploading your file.';
+                    }
+                }
+            }
+        }
+    }
+
+
 
     public function SendWhatsAppContactNumber()
     {
