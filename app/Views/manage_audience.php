@@ -73,7 +73,7 @@
          </div>
       </div>
       <div class="row starting-page ps-3 flex-nowrap">
-         <div class="px-3 py-2  bg-white rounded-2 col-12 border first-container">
+         <div class="px-3 py-2  bg-white rounded-2 col-12 border first-view">
             <div class="bg-white rounded-2 rounded-2 p-3">
                <div class="row align-items-center justify-content-between">
                   <div class="col-lg-4 col-md-4 col-sm-6 px-2">
@@ -503,82 +503,82 @@
 <!-- edit-modal -->
 <div class="modal  modal-lg" id="Edit_custom" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="fw-bold mb-2 mian fs-5">Update your customer list custom audience</h5>
-            <button type="button" class="btn-close close_container" data-bs-dismiss="modal" aria-label="Close"></button>
-         </div>
-         <div class="modal-body">
-            <p id="active" class="fs-14">Changing your customer list custom audience will also update any ad sets or
-               lookalike audiences that use it. This won't reset your campaign learning phase.
-            </p>
-            <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
-               <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
-                  class="fa-regular fa-circle-user fs-1"></i></div>
-               <div class="mt-2 write-div">
-                  <div class="fw-bold" id="active">Replace customers</div>
-                  <div id="active" class="fs-14">Upload a new list that will replace the users in your existing audience.
-                  </div>
-               </div>
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="fw-bold mb-2 mian fs-5">Update your customer list custom audience</h5>
+               <button type="button" class="btn-close close_container" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-----------------add customer--------------->
-            <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
-               <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
-                  class="fa-solid fa-circle-plus fs-1"></i></div>
-               <div class="mt-2 write-div">
-                  <div class="fw-bold" id="active">Add Customer</div>
-                  <div id="active" class="fs-14">Upload a new list that will replace the users in your existing audience.
-                  </div>
-               </div>
-            </div>
-            <!-------------------remove customer----------------------------->
-            <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
-               <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
-                  class="fa-solid fa-circle-minus fs-1"></i></div>
-               <div class="mt-2 write-div">
-                  <div class="fw-bold" id="active">Remove Customer</div>
-                  <div id="active" class="fs-14">Upload a new list that will replace the users in your existing audience.
-                  </div>
-               </div>
-            </div>
-            <!---------------------- edit audience name----------------------------->
-            <form class="needs-validation" name="audience_edit" method="POST" novalidate="">
-               <div class="fw-bold mt-4">Edit audience name</div>
-               <div class="d-flex m-0 mt-2 m-lg-3">
-                  <div class="input-group">
-                     <input type="text" class="form-control w-50 w-lg-75 p-2 name_audience" id="new_name" placeholder="ANB visit.sv">
-                     <span class="input-group-text bg-transparent">13/50</span>
-                  </div>
-               </div>
-               <div class="col-12 mt-3">
-                  <div class="main-selectpicker">
-                  <div class="fw-bold mt-4">Edit inquiry audience<sup class="validationn">*</sup></div>
-                     <div class="col-12 d-flex align-items-center">
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                           <input type="radio" id="static_data" name="option1" value="1" checked>
-                           <label for="static_data" style="margin-right: 10px;">Static Data</label>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                           <input type="radio" id="increase_data" name="option1" value="2">
-                           <label for="increase_data" style="margin-right: 10px;">Increase Data</label>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                           <input type="radio" id="live_data" name="option1" value="3">
-                           <label for="live_data">Live Data</label>
-                        </div>
+            <div class="modal-body">
+               <p id="active" class="fs-14">Changing your customer list custom audience will also update any ad sets or
+                  lookalike audiences that use it. This won't reset your campaign learning phase.
+               </p>
+               <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+                  <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
+                     class="fa-regular fa-circle-user fs-1"></i></div>
+                  <div class="mt-2 write-div">
+                     <div class="fw-bold" id="active">Replace customers</div>
+                     <div id="active" class="fs-14">Upload a new list that will replace the users in your existing audience.
                      </div>
                   </div>
                </div>
-            </form>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary close_container" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary update_btn page_reload" data-edit_id>Update</button>
+               <!----add customer--->
+               <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+                  <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
+                     class="fa-solid fa-circle-plus fs-1"></i></div>
+                  <div class="mt-2 write-div">
+                     <div class="fw-bold" id="active">Add Customer</div>
+                         <div id="active" class="fs-14">Upload a new list that will replace the users in your existing audience.
+                         </div>
+                  </div>
+               </div>
+               <!---------remove customer-------------->
+               <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+                  <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
+                     class="fa-solid fa-circle-minus fs-1"></i></div>
+                  <div class="mt-2 write-div">
+                     <div class="fw-bold" id="active">Remove Customer</div>
+                     <div id="active" class="fs-14">Upload a new list that will replace the users in your existing audience.
+                     </div>
+                  </div>
+               </div>
+               <!-------- edit audience name---------->
+               <form class="needs-validation" name="audience_edit" method="POST" novalidate="">
+                  <div class="fw-bold mt-4">Edit audience name</div>
+                  <div class="d-flex m-0 mt-2 m-lg-3">
+                     <div class="input-group">
+                        <input type="text" class="form-control w-50 w-lg-75 p-2 name_audience" id="new_name" placeholder="ANB visit.sv">
+                        <span class="input-group-text bg-transparent">13/50</span>
+                     </div>
+                  </div>
+                  <div class="col-12 mt-3">
+                     <div class="main-selectpicker">
+                     <div class="fw-bold mt-4">Edit inquiry audience<sup class="validationn">*</sup></div>
+                        <div class="col-12 d-flex align-items-center">
+                           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                              <input type="radio" id="static_data" name="option1" value="1" checked>
+                              <label for="static_data" style="margin-right: 10px;">Static Data</label>
+                           </div>
+                           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                              <input type="radio" id="increase_data" name="option1" value="2">
+                              <label for="increase_data" style="margin-right: 10px;">Increase Data</label>
+                           </div>
+                           <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                              <input type="radio" id="live_data" name="option1" value="3">
+                              <label for="live_data">Live Data</label>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </form>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary close_container" data-bs-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary update_btn page_reload" data-edit_id>Update</button>
+            </div>
          </div>
       </div>
    </div>
-</div>
 </div>
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
@@ -635,7 +635,7 @@
    
    
    
-   // view data audience 
+   // view data 
    $('body').on('click', '.audiance_view', function (e) {
        // alert("fd");
        var edit_value = $(this).attr("data-view_id");
@@ -700,7 +700,6 @@
            console.log("Selected Value: " + selectedValue);
        });
    });
-   //create audience
    $("button[id='create_audiences']").click(function (e) {
        e.preventDefault();
    
@@ -884,12 +883,12 @@
        $('.second-page').hide();
    })
    $('body').on('click', '.audiance_show_data', function () {
-       $('.first-container').addClass('col-6');
-       $('.first-container').removeClass('col-12');
+       $('.first-view').addClass('col-6');
+       $('.first-view').removeClass('col-12');
    })
    $('body').on('click', '.close_container', function () {
-       $('.first-container').addClass('col-12');
-       $('.first-container').removeClass('col-6');
+       $('.first-view').addClass('col-12');
+       $('.first-view').removeClass('col-6');
    })
    $('body').on('change', '.get_exel_file', function () {
        // alert('LKJC');
