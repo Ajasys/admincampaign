@@ -26,19 +26,102 @@ class CreateController extends BaseController
 
     public function SendPostDataFB()
     {
+        $edit = $_POST['action'];
         // Check if the request method is POST  
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Get the message and attachments from the form data
-            $event_address = $_POST['event_address'];
-            $attachments = $_FILES['attachment'];
 
-            // Construct the URL for the Facebook Graph API endpoint
             $page_id = '196821650189891';
             $access_token = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
-
+            $event_address = $_POST['event_address'];
+            $attachments = $_FILES['attachment'];
             // Initialize cURL session
             $curl = curl_init();
             $curll = curl_init();
+            // $videoFilePath = FCPATH . 'assets/video/test.mp4';
+            // $url = 'https://rupload.facebook.com/video-upload/v19.0/1137914687106817';
+
+
+            // // Set the data to be sent
+            // $data = array(
+            //     'access_token' => $access_token,
+            //     'media_type' => 'VIDEO',
+            //     'media_url' => $videoFilePath,
+            //     'caption' => $event_address
+            // );
+
+            // // Initialize cURL
+            // $ch = curl_init($url);
+
+            // // Set cURL options
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // curl_setopt($ch, CURLOPT_POST, true);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+            // // Execute the request
+            // $response = curl_exec($ch);
+            // pre($response);
+            // die();
+            // // Close cURL session
+            // curl_close($ch);
+
+            // // Decode the response
+            // $response_data = json_decode($response, true);
+
+            // // Check for errors
+            // if (isset($response_data['error'])) {
+            //     echo 'Error: ' . $response_data['error']['message'];
+            // } else {
+            //     echo 'Reel published successfully!';
+            // }
+            //end
+            // $videoFilePath = FCPATH . 'assets/video/test.mp4';// Adjust the file path as needed
+            // foreach ($attachments['tmp_name'] as $index => $tmp_name) {
+            //     // Set the file as multipart/form-data
+            //     $attachments_data["attachment"] = curl_file_create($tmp_name, $attachments['type'][$index], $attachments['name'][$index]);
+            // }
+
+            // // Define endpoint URL
+            // $endpointUrl = 'https://graph.facebook.com/' . $page_id . '/videos';
+
+            // // Initialize cURL session
+            // $ch = curl_init();
+
+            // // Set cURL options
+            // curl_setopt($ch, CURLOPT_URL, $endpointUrl);
+            // curl_setopt($ch, CURLOPT_POST, true);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, array_merge($attachments_data, array(
+            //     'access_token' => $access_token,
+            //     'caption' => $event_address // Message to be posted
+            // )));
+
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+
+
+            // // Execute cURL session
+            // $response = curl_exec($ch);
+
+            // // Close cURL session
+            // curl_close($ch);
+
+            // // Check if upload was successful
+            // if ($response === false) {
+            //     echo 'Error uploading video: ' . curl_error($ch);
+            // } else {
+            //     // Decode the JSON response
+            //     $responseData = json_decode($response, true);
+
+            //     // Check if there's an error in the response
+            //     if (isset($responseData['error'])) {
+            //         echo 'Error uploading video: ' . $responseData['error']['message'];
+            //     } else {
+            //         // Video uploaded successfully
+            //         echo 'Video uploaded successfully! Video ID: ' . $responseData['id'];
+            //     }
+            // }
+
+            // die();
+
 
             // Create an array to store the attachments
             $attachments_data = array();
@@ -46,15 +129,14 @@ class CreateController extends BaseController
             $attachments_data = [
                 'published' => 'false'
             ];
-            
+
             // Loop through each attachment
             foreach ($attachments['tmp_name'] as $index => $tmp_name) {
                 // Set the file as multipart/form-data
                 $attachments_data["attachment"] = curl_file_create($tmp_name, $attachments['type'][$index], $attachments['name'][$index]);
                 // Set cURL options
                 curl_setopt_array($curl, array(
-                    // CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/photos',
-                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/videos',
+                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/photos',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -71,14 +153,13 @@ class CreateController extends BaseController
                 // pre(json_encode($attachments_data));
                 // Execute the POST request
                 $response = curl_exec($curl);
-               
+
                 $data = json_decode($response);
-           
+
                 // $feed_post_array['attached_media[' . $index . ']'] = array('media_fbid' => $data->id);
                 $feed_post_array['attached_media[' . $index . ']'] = '{"media_fbid":"' . $data->id . '"}';
-              
             }
-     
+
             $post_array = array_merge(
                 array(
                     'access_token' => $access_token,
@@ -86,7 +167,7 @@ class CreateController extends BaseController
                 ),
                 $feed_post_array
             );
-          
+
             curl_setopt_array($curll, array(
                 CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/feed',
                 CURLOPT_RETURNTRANSFER => true,
@@ -99,14 +180,12 @@ class CreateController extends BaseController
                 CURLOPT_HTTPHEADER => array(
                     'Content-Type: application/json'
                 ),
-                CURLOPT_POSTFIELDS => http_build_query($post_array  ),
-                
+                CURLOPT_POSTFIELDS => http_build_query($post_array),
+
             ));
             $re = curl_exec($curll);
             // $re = postSocialData($api,$post_array);
 
-            pre(json_decode($re));
-            die();
             // Check for errors
             if ($response === false) {
                 // Handle cURL error
@@ -119,14 +198,85 @@ class CreateController extends BaseController
 
             // Close cURL session
             curl_close($curl);
-        } else {
-            // Handle non-POST requests
-            // You might want to return an error response or handle it according to your application's logic
         }
+    }
+    public function UpdatePostDataFB()
+    {
+        if (isset($_POST['edit_value']) && !empty($_POST['edit_value'])) {
+            $edit_post_id = $_POST['edit_value'];
+        } else {
+            $edit_post_id = '';
+        }
+
+        // if(isset($_POST['data_access_id']) && !empty($_POST['data_access_id']))
+        // {
+        //     $accesss_tocken = $_POST['data_access_id'];
+        // }else{
+        //     $accesss_tocken = ''; 
+        // }
+        $attachments = $_FILES['attachment'];
+
+        $access_token = "EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD";
+        if (isset($_POST['event_address']) && !empty($_POST['event_address'])) {
+            $message = $_POST['event_address'];
+        } else {
+            $message = '';
+        }
+        $response = postSocialData('https://graph.facebook.com/v19.0/' . $edit_post_id . '?message=' . $message . '&access_token=' . $access_token . '', '');
+
+        // $attached_media = array();
+        // foreach ($attachments['tmp_name'] as $index => $tmp_name) {
+        //     // Create a cURL file object for each attachment
+        //     $attachments_data["attachment"] = curl_file_create($tmp_name, $attachments['type'][$index], $attachments['name'][$index]);
+
+        //     // Add the attachment data to the attached_media array
+        //     // $attached_media = $attachment_data;
+        // }
+
+        // // Graph API endpoint for updating a post
+        // $graph_api_url = "https://graph.facebook.com/v13.0/{$edit_post_id}";
+
+        // // Encode attached_media as JSON string
+        // // $attached_media_json = json_encode($attachments_data);
+
+        // // Data to be sent in the request
+        // // $data = array(
+        // //     'message' => $message,
+        // //     'attached_media' => $attached_media_json,
+        // //     'access_token' => $access_token,
+        // // );
+        // $data = array_merge($attachments_data, array(
+        //     'access_token' => $access_token,
+        //     'caption' => $message // Message to be posted
+        // ));
+
+
+        // // Initialize cURL session
+        // $ch = curl_init();
+
+        // // Set cURL options
+        // curl_setopt($ch, CURLOPT_URL, $graph_api_url);
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // // Execute cURL session
+        // $response = curl_exec($ch);
+
+        // // Check for errors
+        // if ($response === false) {
+        //     echo 'Error: ' . curl_error($ch);
+        // } else {
+        //     echo 'Post updated successfully!';
+        // }
+
+        // // Close cURL session
+        // curl_close($ch);
     }
 
     public function list_post_pagewise()
     {
+        // 2024-02-17T10:00:00+0000
 
         if (isset($_POST['access_tocken'])) {
             $accesss_tocken = $_POST['access_tocken'];
@@ -148,15 +298,30 @@ class CreateController extends BaseController
         } else {
             $data_img = "";
         }
+
         $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
 
         $fb_page_list = $response;
-            
+
         $html = "";
         $comments_html = "";
-        // $comments_responce = getSocialData('https://graph.facebook.com/196821650189891_122116834772192565/comments?fields=from,message&access_token='.$accesss_tocken);
 
         foreach ($fb_page_list['data'] as $key => $value) {
+            // pre($value);
+            $url = getSocialData('https://graph.facebook.com/v19.0/196821650189891_122121898676192565?fields=comments.limit(0).summary(true),likes.limit(0).summary(true)&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD','');
+            
+            // Decode JSON response
+            // $data = json_decode($url, true);
+
+            // Extract comment and like counts
+            $commentCount = $url['comments']['summary']['total_count'];
+            $likeCount = $url['likes']['summary']['total_count'];
+
+            // Output comment and like counts
+            // echo "Comment Count: " . $commentCount . "<br>";
+            // echo "Like Count: " . $likeCount . "<br>";
+            // die();
+            // pre($test);
             $comments_responce = getSocialData('https://graph.facebook.com/' . $value['id'] . '/comments??fields=from,message&access_token=' . $accesss_tocken);
             if (isset($value['full_picture'])) {
                 $fb_upload_img = ($value['full_picture']);
@@ -211,8 +376,13 @@ class CreateController extends BaseController
                                 <i class="fa-solid fa-ellipsis-vertical cursor-pinter mx-2"></i>
                             </div>
                             <ul class="dropdown-menu bg-transparent text-end border-0">
-                                <div class="d-inline-block bg-white border p-2 rounded-2">
-                                    <button class="bg-transparent border-0 delete_post_facebook" data-delete_id="' . $value['id'] . '"><i class="fa-solid fa-trash-can me-2"></i>Delete</button>
+                                <div class="d-flex flex-wrap bg-white border p-1 rounded-2">
+                                <div class="col-12 d-flex justify-content-start">
+                                    <button class="bg-transparent text-start ps-1 col-12 border-0 delete_post_facebook" data-delete_id="' . $value['id'] . '"><i class="fa-solid fa-trash-can me-2"></i>Delete</button>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-start">
+                                    <button class="bg-transparent text-start ps-1 col-12 border-0 edit_post_facebook" data-edit_id="' . $value['id'] . '" data-page_id="' . $pagee_idd . '" data-access_token="' . $accesss_tocken . '" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash-can me-2"></i>Edit</button>
+                                    </div>
                                 </div>
                             </ul>
                         </div>
@@ -405,6 +575,40 @@ class CreateController extends BaseController
         die();
     }
 
+    public function edit_post()
+    {
+
+        // $comments_responce = getSocialData('https://graph.facebook.com/' . $value['id'] . '/comments??fields=from,message&access_token=' . $accesss_tocken);
+        if (isset($_POST['post_id'])) {
+            $data_edit_id = ($_POST['post_id']);
+        } else {
+            $data_edit_id =  "";
+        }
+
+        if (isset($_POST['page_id'])) {
+            $data_page_id = ($_POST['page_id']);
+        } else {
+            $data_page_id =  "";
+        }
+        if (isset($_POST['access_token'])) {
+            $accesss_tocken = $_POST['access_token'];
+        } else {
+            $accesss_tocken = "";
+        }
+        $response = getSocialData('https://graph.facebook.com/v19.0/' . $data_edit_id . '?message=testing&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD');
+        if (isset($response['message']) && !empty($response['message'])) {
+            $message_return = $response['message'];
+        } else {
+            $message_return = "";
+        }
+        // pre($response);
+        // die();
+
+        $return_array['message_return'] = $message_return;
+
+        echo json_encode($return_array, true);
+        die();
+    }
     public function comment_replay_send()
     {
         if (isset($_POST['data_post_id'])) {
@@ -465,7 +669,7 @@ class CreateController extends BaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://graph.facebook.com/v19.0/'.$delete_post_id.'',
+            CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $delete_post_id . '',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -482,7 +686,6 @@ class CreateController extends BaseController
         $response = curl_exec($curl);
         curl_close($curl);
         echo $response;
-
     }
 
     // public function SendPostDataFB(){

@@ -132,7 +132,7 @@
                     <h2>Posts</h2>
                 </div>
                 <div>
-                    <button class=" btn btn-primary-rounded border border-primary" data-bs-toggle="modal"
+                    <button class=" btn btn-primary-rounded border border-primary add_buttonn" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">+</button>
                 </div>
             </div>
@@ -269,16 +269,16 @@
                     <div class="modal-body">
                         <nav class="nav">
                             <form class="needs-validation" id="create_form" name="create_form" method="POST" novalidate>
-                                <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
+                                <ul class="nav nav-pills navtab_primary_sm postt_tab" id="pills-tab" role="tablist">
                                     <li class="nav-item active" role="presentation">
-                                        <a class="nav-link bg-white text-primary create-input-toggle"
-                                            id="pills-master-diet" data-bs-toggle="pill"
-                                            data-bs-target="#pills-master-diet-tab" href="#">Update</a>
+                                        <a class="nav-link bg-white text-primary create-input-toggle "
+                                            id="pills-master-diet" data-tabb_id="1" data-bs-toggle="pill"
+                                            data-bs-target="#pills-master-diet-tab" href="#">Photo/Video</a>
                                     </li>
                                     <li class="nav-item " role="presentation">
                                         <a class="nav-link bg-white text-primary create-input-toggle"
-                                            id="pills-all-diet" data-bs-toggle="pill"
-                                            data-bs-target="#pills-master-diet-tab" href="#">Photo</a>
+                                            id="pills-all-diet" data-tabb_id="2" data-bs-toggle="pill"
+                                            data-bs-target="#pills-master-diet-tab" href="#">Reels</a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link bg-white text-primary" id="pills-all-event"
@@ -295,108 +295,110 @@
                             </form>
                         </nav>
                         <div class="col-12">
-                            <div class="tab-content active show" id="pills-tabContent">
-                                <div class="tab-pane fade active show" id="pills-master-diet-tab" role="tabpanel"
-                                    aria-labelledby="update-all-tab-modal" tabindex="0">
-                                    <div class="col-12  tab-compo">
-                                        <div class="card-body p-2">
-                                            <div id="event-input">
-                                                <div class="col-12 my-1 p-1">
-                                                    <div class="col-12">
-                                                        <input type="text" class="form-control p-2" id="event_title"
-                                                            placeholder="Title">
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="col-6 my-1 p-1">
+                            <form class="needs-validation" id="create_form_clear" name="create_form_clear" method="POST" novalidate>
+                                <div class="tab-content active show" id="pills-tabContent">
+                                    <div class="tab-pane fade active show" id="pills-master-diet-tab" role="tabpanel"
+                                        aria-labelledby="update-all-tab-modal" tabindex="0">
+                                        <div class="col-12  tab-compo">
+                                            <div class="card-body p-2">
+                                                <div id="event-input">
+                                                    <div class="col-12 my-1 p-1">
                                                         <div class="col-12">
-                                                            <input type="text" class="form-control p-2 offer_start_date"
-                                                                id="event_start_date" placeholder="Start Date">
+                                                            <input type="text" class="form-control p-2" id="event_title"
+                                                                placeholder="Title">
                                                         </div>
                                                     </div>
-                                                    <div class="col-6 my-1 p-1">
-                                                        <div class="col-12">
-                                                            <input type="text" class="form-control p-2 event_end_date"
-                                                                id="event_end" placeholder="End Date">
+                                                    <div class="d-flex">
+                                                        <div class="col-6 my-1 p-1">
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control p-2 offer_start_date"
+                                                                    id="event_start_date" placeholder="Start Date">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 my-1 p-1">
+                                                            <div class="col-12">
+                                                                <input type="text" class="form-control p-2 event_end_date"
+                                                                    id="event_end" placeholder="End Date">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-12 border rounded  p-3">
-                                                <textarea cols="30" rows="5" class="col-12 border-0 event_address"
-                                                    placeholder="Write something or use shortcodes, spintax..... "
-                                                    id="event_address"></textarea>
-                                                <div class="img-input col-12 d-flex flex-wrap">
-                                                    <div class="img-placeholder d-flex flex-wrap"></div>
-                                                </div>
-                                                <span
-                                                    class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 drag-and-drop-btn"
-                                                    data-bs-toggle="modal" data-bs-target="#get_file" type="file"
-                                                    style="background:#bdbaba;">Click or Drag &
-                                                    Drop Media</span>
-                                                <div class="row col-12" id="offer-input">
-                                                    <div class="col-md-4 my-1 ">
-                                                        <input type="text" placeholder="Coupon code (optional)"
-                                                            class="form-control" id="coupon_event" value="">
+                                                <div class="col-12 border rounded  p-3">
+                                                    <textarea cols="30" rows="5" class="col-12 border-0 event_address"
+                                                        placeholder="Write something or use shortcodes, spintax..... "
+                                                        id="event_address"></textarea>
+                                                    <div class="img-input col-12 d-flex flex-wrap">
+                                                        <div class="img-placeholder d-flex flex-wrap"></div>
                                                     </div>
-                                                    <div
-                                                        class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
-                                                        <input type="text" placeholder="Link to redeem offer (optional)"
-                                                            class="form-control" value="" id="link_event">
-                                                    </div>
-                                                    <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
-                                                        <textarea rows="1" placeholder="Terms and conditions (optional)"
-                                                            class="form-control" id="terms_event"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div id="select-box">
-                                                    <div class="col-lg-3 col-md-4 col-sm-6">
-                                                        <div class="main-selectpicker">
-                                                            <select id="approx_buy" name="approx_buy"
-                                                                class="selectpicker form-control form-main"
-                                                                data-live-search="true" required>
-                                                                <i class="fa-solid fa-caret-down"></i>
-                                                                <option class="dropdown-item" value="">
-                                                                    Unspecified</option>
-                                                                <option class="dropdown-item" value="2-3 days">
-                                                                    Cover</option>
-                                                                <option class="dropdown-item" value="week">
-                                                                    Profile</option>
-                                                                <option class="dropdown-item" value="week">Buy
-                                                                </option>
-                                                                <option class="dropdown-item" value="week">Logo
-                                                                </option>
-                                                                <option class="dropdown-item" value="week">
-                                                                    Exteriro</option>
-                                                                <option class="dropdown-item" value="week">
-                                                                    Interior</option>
-                                                                <option class="dropdown-item" value="week">
-                                                                    Product</option>
-                                                                <option class="dropdown-item" value="week">
-                                                                    At-Work</option>
-                                                                <option class="dropdown-item" value="week">Food
-                                                                    ANd Drink</option>
-                                                                <option class="dropdown-item" value="week">Menu
-                                                                </option>
-                                                                <option class="dropdown-item" value="week">
-                                                                    Comman Area</option>
-                                                                <option class="dropdown-item" value="week">Rooms
-                                                                </option>
-                                                                <option class="dropdown-item" value="week">
-                                                                    Workspaces</option>
-                                                                <option class="dropdown-item" value="week">
-                                                                    Additional</option>
-                                                            </select>
+                                                    <span
+                                                        class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 drag-and-drop-btn"
+                                                        data-bs-toggle="modal" data-bs-target="#get_file" type="file"
+                                                        style="background:#bdbaba;">Click or Drag &
+                                                        Drop Media</span>
+                                                    <div class="row col-12" id="offer-input">
+                                                        <div class="col-md-4 my-1 ">
+                                                            <input type="text" placeholder="Coupon code (optional)"
+                                                                class="form-control" id="coupon_event" value="">
+                                                        </div>
+                                                        <div
+                                                            class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
+                                                            <input type="text" placeholder="Link to redeem offer (optional)"
+                                                                class="form-control" value="" id="link_event">
+                                                        </div>
+                                                        <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
+                                                            <textarea rows="1" placeholder="Terms and conditions (optional)"
+                                                                class="form-control" id="terms_event"></textarea>
                                                         </div>
                                                     </div>
+                                                    <!-- <div id="select-box">
+                                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                                            <div class="main-selectpicker">
+                                                                <select id="approx_buy" name="approx_buy"
+                                                                    class="selectpicker form-control form-main"
+                                                                    data-live-search="true" required>
+                                                                    <i class="fa-solid fa-caret-down"></i>
+                                                                    <option class="dropdown-item" value="">
+                                                                        Unspecified</option>
+                                                                    <option class="dropdown-item" value="2-3 days">
+                                                                        Cover</option>
+                                                                    <option class="dropdown-item" value="week">
+                                                                        Profile</option>
+                                                                    <option class="dropdown-item" value="week">Buy
+                                                                    </option>
+                                                                    <option class="dropdown-item" value="week">Logo
+                                                                    </option>
+                                                                    <option class="dropdown-item" value="week">
+                                                                        Exteriro</option>
+                                                                    <option class="dropdown-item" value="week">
+                                                                        Interior</option>
+                                                                    <option class="dropdown-item" value="week">
+                                                                        Product</option>
+                                                                    <option class="dropdown-item" value="week">
+                                                                        At-Work</option>
+                                                                    <option class="dropdown-item" value="week">Food
+                                                                        ANd Drink</option>
+                                                                    <option class="dropdown-item" value="week">Menu
+                                                                    </option>
+                                                                    <option class="dropdown-item" value="week">
+                                                                        Comman Area</option>
+                                                                    <option class="dropdown-item" value="week">Rooms
+                                                                    </option>
+                                                                    <option class="dropdown-item" value="week">
+                                                                        Workspaces</option>
+                                                                    <option class="dropdown-item" value="week">
+                                                                        Additional</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+
                                 </div>
-
-
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -408,7 +410,7 @@
                             <div class="col-8 d-flex  flex-wrap justify-content-end ">
                                 <button class="btn btn-outline-secondary mx-1 draft_create"
                                     id="draft_create">Draft</button>
-                                <button class="btn btn-primary mx-1 create_comment">Publish</button>
+                                <button class="btn btn-primary mx-1 create_comment" data-access_id="" data-publish_id="">Publish</button>
                                 <button class="btn btn-secondery mx-1 Scedual_start_date">Scedual</button>
                                 <div class="btn-group dropup btn-outline-dark mx-1">
                                     <button type="button" class="btn btn-outline-dark rounded-3"
@@ -587,16 +589,19 @@
             //     }
             // })
 
+            $('#staticBackdrop').on('click', '.btn-close', function () {
+                $('form[name="create_form_clear"]')[0].reset();
+                $('.img-placeholder').empty();
+            });
+
             $('body').on('click', '.comment_btn_close', function () {
                 $(this).closest('.comment_box').addClass('d-none');
             });
-
-
             $('.nav-item').click(function () {
                 $('.nav-item').removeClass('active');
                 $(this).addClass('active');
             });
-
+           
             $('body').on('click', '.comment_send', function () {
                 var data_post_id = $(this).attr('data-post_id');
                 var input_comment = $("#comment-modal #input_comment").val();
@@ -617,6 +622,35 @@
                             });
                         }
 
+                    }
+                });
+            });
+            $('body').on('click', '.add_buttonn', function () {
+                $('.create_comment').attr('data-publish_id','');
+                $('.create_comment').attr('data-access_id','');
+                
+            });
+            $('body').on('click', '.edit_post_facebook', function () {
+                var data_edit_id = $(this).attr('data-edit_id');
+                var data_page_id = $(this).attr('data-page_id');
+                var data_access_token = $(this).attr('data-access_token');
+                
+                $.ajax({
+                    type: 'post',
+                    url: '<?= base_url('edit_post') ?>',
+                    data: {
+                        'post_id': data_edit_id,
+                        'page_id':data_page_id,
+                        'access_token':data_access_token,
+                    },
+                  
+                    success: function (res) {
+                        var response =JSON.parse(res);
+                        $('.create_comment').attr('data-publish_id', data_edit_id);
+                        $('.create_comment').attr('data-access_id', data_access_token);
+                        $('#event_address').val(response.message_return);
+
+                        
                     }
                 });
             });
@@ -798,6 +832,9 @@
             });
 
             $('body').on('click', '.create_comment', function () {
+                var edit_value = $(this).attr("data-publish_id");
+                var data_access_id = $(this).attr("data-access_id");
+                var tabb_attr = $('.postt_tab .active ').attr("data-tabb_id");
                 var form = $("form[name='create_form']")[0];
                 var form = $(".add_form_Email")[0];
 
@@ -809,22 +846,51 @@
                 formData.append('action', 'post');
                 formData.append('attachment', attachment);
                 formData.append('event_address', event_address);
+                formData.append('edit_value', edit_value);
+                formData.append('data_access_id', data_access_id);
+                formData.append('tabb_attr', tabb_attr);
 
-                $.ajax({
-                    method: "post",
-                    url: "<?= site_url('SendPostDataFB'); ?>",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (res) {
-                        // Handle success
-                        console.log(res);
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                        console.error(xhr.responseText);
-                    }
-                });
+
+                if (edit_value == "") {
+                    $.ajax({
+                        method: "post",
+                        url: "<?= site_url('SendPostDataFB'); ?>",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (res) {
+                            // Handle success
+                            iziToast.success({
+                                title: 'Post Successfully'
+                            });
+                            $('.btn-close').trigger('click');
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle errors
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }else if(edit_value != "")
+                {
+                    $.ajax({
+                        method: "post",
+                        url: "<?= site_url('UpdatePostDataFB'); ?>",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (res) {
+                            iziToast.success({
+                                title: 'Update Successfully'
+                            });
+                            $('.btn-close').trigger('click');
+                            
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle errors
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
             });
 
             /*  ---------------------------- modal input ----------------------------
