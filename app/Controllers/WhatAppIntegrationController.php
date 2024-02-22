@@ -1834,18 +1834,18 @@ class WhatAppIntegrationController extends BaseController
         // require_once 'vendor/autoload.php';
 
         // use voku\helper\Emoji;
-        
+
         // $string = "ud83dudc4du2728ud83dudc4f Hiiii ud83dude4fud83dude4fud83dude4fud83dude4f";
-        
+
         // $emoji = Emoji::getAll();
-        
+
         // // Split the string into an array of emojis and text
         // $parts = preg_split('//u', $string, -1, PREG_SPLIT_NO_EMPTY);
-        
+
         // // Separate emojis and text
         // $emojis = '';
         // $text = '';
-        
+
         // foreach ($parts as $part) {
         //     if (in_array($part, $emoji, true)) {
         //         $emojis .= $part;
@@ -1853,12 +1853,12 @@ class WhatAppIntegrationController extends BaseController
         //         $text .= $part;
         //     }
         // }
-        
+
         // echo "Text: $text\n";
         // echo "Emojis: $emojis\n";
 
-        
-// die();
+
+        // die();
         $MetaUrl = config('App')->metaurl;
         $contact_no = $_POST['contact_no'];
         $conversation_account_id = $_POST['conversation_account_id'];
@@ -1987,7 +1987,7 @@ class WhatAppIntegrationController extends BaseController
                     // Convert emojis to HTML entities
                     // pre(json_decode('"' . $value['message_contant'] . '"'));
                     $message_contant = htmlspecialchars($value['message_contant'], ENT_QUOTES, 'UTF-8');
-                    
+
                     $html .= '
                         <div class="d-flex mb-4 justify-content-end">
                             <div class="col-9 text-end position-relative">
@@ -2220,7 +2220,6 @@ class WhatAppIntegrationController extends BaseController
             ';
                     }
                 }
-
                 if ($sent_recieved_status == '1') {
                     $html .= '
                     <div class="d-flex justify-content-end align-items-center pb-3">
@@ -2253,57 +2252,31 @@ class WhatAppIntegrationController extends BaseController
                     </div>
                 </div>';
                 }
-            }
+            }elseif ($msgtype == '7') {
+                // pre('dishant');
+                if ($sent_recieved_status == '2') {
+                    if($value['latitude'] != '' && $value['longitude'] != ''){
+                        $html .= '        <div class="d-flex mb-4 mt-2 mt-md-0 mx-2">
+                        <div class="col-9 text-start d-flex justify-content-start">
+                            <div class="px-3 py-2 rounded-3 border border-2"
+                                style="background:#f3f3f3; width:fit-content; position:relative;">
+                                <span class="user-message" style="position: relative; display: inline-block;">
+                                    <a href="https://www.google.com/maps?q='.$value['latitude'].','.$value['longitude'].'" target="_blank">
+                                        <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
+                                    </a>
+                                </span>
+                            </div>
+                            <span class="ms-2 text-nowrap mt-auto" style="font-size:10px;">'.$formattedtime.'</span>
+                        </div>
+                    </div> ';
+                    } 
+                }
+            } 
         }
-
-
-
-
-
-    //     <div class="d-flex mb-4 justify-content-end mx-2">
-    //     <div class="col-9 text-end d-flex justify-content-end">
-    //         <span class="me-2 mt-auto text-nowrap" style="font-size:10px;">9:00 PM</span>
-    //         <div class="px-3 py-2 rounded-3"
-    //             style="background:#724EBF; width:fit-content; position:relative;">
-    //             <span class="text-white user-message"
-    //                 style="position: relative; display: inline-block;">
-    //                 <a href="https://www.google.com/maps" target="_blank">
-    //                     <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
-    //                 </a>
-    //                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
-    //                     alt="#" class="img-circle rounded-circle"style="width:50px; height:50px; position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-    //                 <div class="d-flex p-2 rounded" style="background:#2e224654">
-    //                 <i class="fa-solid fa-location-dot"></i> &nbsp; Live until 01:30 PM</div>
-    //             </span>
-    //         </div>
-    //     </div>
-    // </div>
-
-    // <div class="d-flex mb-4 mt-2 mt-md-0 mx-2">
-    //     <div class="col-9 text-start d-flex justify-content-start">
-    //         <div class="px-3 py-2 rounded-3 border border-2"
-    //             style="background:#f3f3f3; width:fit-content; position:relative;">
-    //             <span class="user-message" style="position: relative; display: inline-block;">
-    //                 <a href="https://www.google.com/maps" target="_blank">
-    //                     <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
-    //                 </a>
-    //                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
-    //                     alt="#" class="img-circle rounded-circle"style="width:50px; height:50px; position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-    //                 <div class="d-flex p-2 rounded" style="background:#2e224654"><i class="fa-solid fa-location-dot"></i> &nbsp; Live until 01:30 PM</div>
-    //             </span>
-    //         </div>
-    //         <span class="ms-2 text-nowrap mt-auto" style="font-size:10px;">9:00 PM</span>
-    //     </div>
-    // </div> 
-     
-
-
 
         if ($html != '') {
             $html .= '
         
-       
-          
         <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom();</script> ';
         } else {
             $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
@@ -2311,7 +2284,8 @@ class WhatAppIntegrationController extends BaseController
 
         // pre($MsgSendStatus);
         if ($MsgSendStatus == '0') {
-            $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", true);</script>';
+            $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">You cannot continue a conversation if the receiver`s response time is up to 24 hours.</div>
+            <script>$(".WhatsApp24HourButton").prop("disabled", true);</script>';
         } else {
             $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false);</script>';
         }
@@ -2650,40 +2624,41 @@ class WhatAppIntegrationController extends BaseController
             }
         }
     }
-    public function sendwhatsappcamera(){
+    public function sendwhatsappcamera()
+    {
         if ($_POST['SendUrl'] != '') {
-            $ImgeName  = 'CEMERA'.gmdate('YmdHis').'.png';
-			$PhotoNname = $ImgeName;
-			$imageData = file_get_contents($_POST['SendUrl']);
-			$basePath = base_url();
+            $ImgeName = 'CEMERA' . gmdate('YmdHis') . '.png';
+            $PhotoNname = $ImgeName;
+            $imageData = file_get_contents($_POST['SendUrl']);
+            $basePath = base_url();
             $DataSenderId = $_POST['DataSenderId'];
             $DataPhoneno = $_POST['DataPhoneno'];
-			if ($imageData !== false) {
+            if ($imageData !== false) {
                 $inputString = $_SESSION['username'];
                 $parts = explode("_", $inputString);
                 $username = $parts[0];
                 $uploadDir = 'assets/' . $username . '_folder/WhatsAppAssets/';
                 $targetDirectory = 'assets/' . $username . '_folder/WhatsAppAssets/';
-				if (!is_dir($targetDirectory)) {
-					mkdir($targetDirectory, 0755, true);
-				}
-				$targetFile = $targetDirectory . $ImgeName;
-				$PhotoNname = $ImgeName;
-				if (file_put_contents($targetFile, $imageData) !== false) {
+                if (!is_dir($targetDirectory)) {
+                    mkdir($targetDirectory, 0755, true);
+                }
+                $targetFile = $targetDirectory . $ImgeName;
+                $PhotoNname = $ImgeName;
+                if (file_put_contents($targetFile, $imageData) !== false) {
                     $MetaUrl = config('App')->metaurl;
                     $inputString = $_SESSION['username'];
                     $parts = explode("_", $inputString);
                     $username = $parts[0];
-            
+
                     $table_name = $username . '_platform_integration';
-            
+
                     $ConnectionData = get_editData2($table_name, $DataSenderId);
-            
+
                     $access_token = '';
                     $business_account_id = '';
                     $phone_number_id = '';
                     if (isset($ConnectionData) && !empty($ConnectionData)) {
-            
+
                         if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
                             $access_token = $ConnectionData['access_token'];
                             $business_account_id = $ConnectionData['business_account_id'];
@@ -2722,11 +2697,11 @@ class WhatAppIntegrationController extends BaseController
                         }
                     }
 
-				} else {
-					echo 'Failed to save the image';
-				}
-			} else {
-				echo 'Failed to fetch image data from the URL';
+                } else {
+                    echo 'Failed to save the image';
+                }
+            } else {
+                echo 'Failed to fetch image data from the URL';
             }
         }
     }
