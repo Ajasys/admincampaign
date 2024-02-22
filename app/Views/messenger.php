@@ -128,6 +128,12 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         background-color: #005c4b !important;
     }
 
+
+    .chatheadercolorclasswithheader {
+        background-color: #005c4b !important;
+        border-color: #005c4b !important;
+    }
+
     body {
         background-color: #f3f3f3;
     }
@@ -739,7 +745,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                     << back</button>
                             </div>
                             <div class="d-flex justify-content-between border-bottom align-items-center">
-                                <div class="dropdown d-flex align-items-center ps-2 pb-2">
+                                <div class="dropdown d-flex align-items-center ChatNameHeader ps-2 pb-2">
                                     <i class="fas fa-comment fs-5  me-2"></i>
                                     <h5 class="fs-5 w-semibold">Chats</h5>
                                 </div>
@@ -812,7 +818,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2 DocumentSelectionForSendClickEventClass" data-bs-toggle="modal" data-bs-target=".PinToDocumentSelectClass">Document</p>                                    </div>
+                                        <p class="ms-2 DocumentSelectionForSendClickEventClass" data-bs-toggle="modal"
+                                            data-bs-target=".PinToDocumentSelectClass">Document</p>
+                                    </div>
                                 </li>
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
@@ -928,7 +936,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2 SendImageAndPhotosClass" data-bs-toggle="modal" data-bs-target=".PinToDocumentSelectClass">Photos & Videos</p>                                    </div>
+                                        <p class="ms-2 SendImageAndPhotosClass" data-bs-toggle="modal"
+                                            data-bs-target=".PinToDocumentSelectClass">Photos & Videos</p>
+                                    </div>
                                 </li>
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
@@ -1025,7 +1035,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </ul>
                         </div>
 
-                        <div class="emoji_div_man border rounded-2 position-absolute start-0 bottom-0 overflow-x-scroll"
+                        <div class="emoji_div_man bg-white border rounded-3 p-2 position-absolute start-0 bottom-0 overflow-x-scroll"
                             style="height: 200px; width: 200px; display:none;">
                             <div class="emoji_div">
                                 <span class="intercom-emoji-picker-emoji" title="thumbs_up">&#x1F44D;</span>
@@ -1095,13 +1105,14 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 <div class="d-flex col-12 align-items-center">
                                     <div class="ps-2">
                                         <button
-                                            class="btn btn-primary btn_x documentselectionpin rounded-5 WhatsApp24HourButton">
+                                            class="btn btn-primary text-white btn_x documentselectionpin rounded-5 WhatsApp24HourButton">
                                             <i class="bi bi-paperclip"></i>
                                         </button>
 
                                     </div>
                                     <div class="ps-2">
-                                        <button class="btn btn-primary documentselectionpin emoji_btn rounded-5">
+                                        <button
+                                            class="btn btn-primary text-white documentselectionpin emoji_btn WhatsApp24HourButton rounded-5">
                                             <i class="bi bi-emoji-smile-fill"></i>
 
                                         </button>
@@ -1112,9 +1123,15 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                             textval="" placeholder="Write a message...">
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <div class="border rounded-circle d-flex justify-content-center align-items-center text-end mic"
+                                        <!-- <div class="border rounded-circle d-flex bg-primary text-white justify-content-center WhatsApp24HourButton align-items-center text-end mic "
                                             style="width:50px; height:50px; margin-left:auto;" data-toggle="modal"
-                                            data-target="#audiorecorder"><i class="fa-solid fa-microphone"></i></div>
+                                            data-target="#audiorecorder"><i class="fa-solid fa-microphone"></i>
+                                        </div> -->
+                                        <button
+                                            class="btn btn-primary rounded-circle me-1 documentselectionpin mic WhatsApp24HourButton"
+                                            data-toggle="modal" data-target="#audiorecorder">
+                                            <i class="fa-solid fa-microphone"></i>
+                                        </button>
                                         <button
                                             class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage WhatsApp24HourButton"
                                             data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
@@ -1124,13 +1141,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                             </div>
                         </div>
-                        <script>
-                            $(document).ready(function () {
-                                $(".btn_x").click(function () {
-                                    $(".accordion_item_div").toggle();
-                                });
-                            });
-                        </script>
+
                         <div class="chat-nav-search-bar Setchatheadercolorclass   p-2 pt-3 col-12">
                             <div
                                 class="d-flex justify-content-between border-bottom RemoveHeaderBorderDiv align-items-center">
@@ -1287,6 +1298,43 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             document.getElementById('preview-image').src = e.target.result;
         };
         reader.readAsDataURL(file);
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        function emojiToCode(emoji) {
+            let code = emoji.codePointAt(0).toString(16);
+            return '&#x' + code + ';';
+        }
+
+        $(".btn_x").click(function (e) {
+            e.stopPropagation();
+            $(".emoji_div_man").hide();
+            $(".accordion_item_div").toggle();
+        });
+
+        $(".emoji_btn").click(function (e) {
+            e.stopPropagation();
+            $(".accordion_item_div").hide();
+            $(".emoji_div_man").toggle();
+        });
+
+
+
+
+        $("body").on("click", ".intercom-emoji-picker-emoji", function (e) {
+            e.stopPropagation();
+            let emoji = $(this).html();
+            let htmlCode = emojiToCode(emoji);
+            currentInput = $('.massage_input').val();
+            $(".massage_input").val(currentInput + emoji);
+        });
+
+
+        
+
+
+
     });
 </script>
 <script>
@@ -1923,12 +1971,15 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.RemoveHeaderBorderDiv').addClass('border-bottom');
         $('.UserChatName').removeClass('text-white');
         $('.profilepiccolor').removeClass('text-white');
-
+        $('.chat_bord').html('');
         setTimeout(function () {
             $('.UserChatName').addClass('text-dark');
             $('.profilepiccolor').addClass('text-dark');
 
         }, 500);
+
+        $(".WhatsApp24HourButton").prop("disabled", false);
+        $('.AddModelContactNO').removeClass('chatheadercolorclasswithheader');
 
     });
 
@@ -1942,8 +1993,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.profilepiccolor').removeClass('text-dark');
         $('.UserChatName').addClass('text-white');
         $('.profilepiccolor').addClass('text-white');
-
-
+        $('.massage_input').val('');
+        $('.chat_bord').html('');
+        $('.AddModelContactNO').addClass('chatheadercolorclasswithheader');
     });
 
 
@@ -2064,7 +2116,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         }
     });
 
-    
+
     $('body').on('click', '.SendImageAndPhotosClass', function () {
         $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 2);
         $('.u_btn_Email').html('');
@@ -2245,29 +2297,6 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         //         }
         //     }
         // });
-
-        function emojiToCode(emoji) {
-            let code = emoji.codePointAt(0).toString(16);
-            return '&#x' + code + ';';
-        }
-
-        $(document).ready(function () {
-            $(".emoji_btn").click(function () {
-                $(".emoji_div_man").toggle();
-            });
-
-            $("body").on("click", ".intercom-emoji-picker-emoji", function () {
-                let emoji = $(this).html();
-                let htmlCode = emojiToCode(emoji);
-                currentInput = $('.massage_input').val();
-
-                $(".massage_input").val(emoji);
-
-
-                $('.massage_input').val(currentInput + emoji);
-
-            });
-        });
 
         const startButton = document.getElementById('startButton');
         const stopButton = document.getElementById('stopButton');

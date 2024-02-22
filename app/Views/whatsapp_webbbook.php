@@ -8,6 +8,7 @@ function writeToFile($data)
     $filename = 'whatsappwebhook_process_info.txt';
     $currentDateTime = date('Y-m-d H:i:s');
     $content = $currentDateTime . ': ' . $data . PHP_EOL;
+    // $content = $currentDateTime . ': ' . json_encode($data) . PHP_EOL; // Encode the data before writing
     file_put_contents($filename, $content, FILE_APPEND);
 }
 
@@ -42,7 +43,7 @@ if ($conn) {
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 writeToFile(json_encode($data));
-writeToFile($input);
+// writeToFile($input);
 
 $response = json_decode(json_encode($data), true);
 $servername = "rudrram.com";
@@ -120,15 +121,69 @@ if (isset($response['entry'][0])) {
                                                         $checkphonostatus = 1;
                                                     }
                                                 }
+
+                                                
                                                 if ($checkphonostatus == '1') {
                                                     if (isset($RecievedMessageArray['messages'][0]['type'])) {
                                                         $message_type = $RecievedMessageArray['messages'][0]['type'];
                                                         if ($message_type == 'text') {
+                                                       
+                                                            // if (isset($RecievedMessageArray['messages'][0]['context'])) {
+
+                                                            //     $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `replay_message_id`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '2','2', '" . $escapedJsonString . "', '" . $RecievedMessageArray['messages'][0]['context']['id'] . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
+                                                            // } else {
+                                                            //     $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','2', '" . $escapedJsonString . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
+                                                            // }
 
                                                             if (isset($RecievedMessageArray['messages'][0]['context'])) {
-                                                                $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `replay_message_id`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '2','2', '" . $RecievedMessageArray['messages'][0]['text']['body'] . "', '" . $RecievedMessageArray['messages'][0]['context']['id'] . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
+                                                                $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `replay_message_id`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '2','2', '" . json_encode($RecievedMessageArray['messages'][0]['text']) . "', '" . $RecievedMessageArray['messages'][0]['context']['id'] . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
                                                             } else {
-                                                                $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','2', '" . $RecievedMessageArray['messages'][0]['text']['body'] . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
+
+                                                                $jsonString = json_encode($RecievedMessageArray['messages'][0]['text']);
+                                                                $escapedJsonString = addslashes($jsonString);
+     
+                                                                $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','2', '" . $escapedJsonString . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
+
+                                                            }
+                                                            $MetaUrl = 'https://graph.facebook.com/v19.0/';
+                                                            if($RecievedMessageArray['messages'][0]['text']['body'] == 'Hello' ) {
+                                                                writeToFile($RecievedMessageArray['messages'][0]['text']['body']);
+                                                                $bot_result_data = $bot_result->fetch_assoc();
+                                                                // api send data
+                                                                $JsonDataString = '{
+                                                                    "messaging_product": "whatsapp",
+                                                                    "recipient_type": "individual",
+                                                                    "to": "' . $sendercontact . '",
+                                                                    "type": "text",
+                                                                    "text": { 
+                                                                        "preview_url": false,
+                                                                        "body": "Hello Dear,Welcome to realtosmart.."
+                                                                    }
+                                                                }';
+                                                                
+                                                                $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                writeToFile($url);
+                                                                $curl = curl_init();
+                                                                curl_setopt_array(
+                                                                    $curl,
+                                                                    array(
+                                                                        CURLOPT_URL => $url,
+                                                                        CURLOPT_RETURNTRANSFER => true,
+                                                                        CURLOPT_ENCODING => '',
+                                                                        CURLOPT_MAXREDIRS => 10,
+                                                                        CURLOPT_TIMEOUT => 0,
+                                                                        CURLOPT_FOLLOWLOCATION => true,
+                                                                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                                                        CURLOPT_CUSTOMREQUEST => 'POST',
+                                                                        CURLOPT_POSTFIELDS => $JsonDataString,
+                                                                        CURLOPT_HTTPHEADER => array(
+                                                                            'Content-Type: application/json'
+                                                                        ),
+                                                                    )
+                                                                );
+                                                                $response = curl_exec($curl);
+                                                                curl_close($curl);
+                                                                writeToFile($response);
                                                             }
                                                         } elseif ($message_type == 'image') {
                                                             $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `assets_type`, `sha_id`, `assest_id`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '3','2', '" . $RecievedMessageArray['messages'][0]['image']['mime_type'] . "', '" . $RecievedMessageArray['messages'][0]['image']['sha256'] . "', '" . $RecievedMessageArray['messages'][0]['image']['id'] . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
