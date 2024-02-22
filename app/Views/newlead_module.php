@@ -363,18 +363,16 @@ $data = $find_Array_all->getResultArray();
                                             </div>
                                             <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
                                               
-                                                <label class="form-label main-label fs-14 text-nowrap mt-3">Select Int Site <sup class="validationn">*</sup></label>
+                                                <label class="form-label main-label fs-14 text-nowrap mt-3">Select Int Product <sup class="validationn">*</sup></label>
                                                 <div class="main-selectpicker">
-                                                    <select id="int_site" class="selectpicker form-control form-main int_site" data-live-search="true" required>
-                                                        <option value="0">Select Int Site</option>
+                                                    <select id="int_product" class="selectpicker form-control form-main int_product" data-live-search="true" required>
+                                                    <option value="0">Select Interested Product</option>
                                                         <?php
-                                                        // if (isset($project)) {
-                                                        //     foreach ($project as $area_key => $type_value) {
-                                                        //         if ($type_value['is_inactive'] == 0) {
-                                                        //             echo '<option value="' . $type_value["id"] . '" data-intersted_site_id="' . $type_value["project_name"] . '" >' . $type_value["project_name"] . '</option>';
-                                                        //         }
-                                                        //     }
-                                                        // }
+                                                        if (isset($product)) {
+                                                            foreach ($product as $product_key => $product_value) {
+                                                                echo '<option data-product_option_id="' . $product_value["id"] . '" value="' . $product_value["id"] . '">' . $product_value["product_name"] . '</option>';
+                                                            }
+                                                        }
                                                         ?>
                                                     </select>
                                                 </div>
@@ -614,7 +612,7 @@ $data = $find_Array_all->getResultArray();
 
 
         $('body').on('click', '.big_falcebook_circle_4_sbt .btn-primary', function() {
-            if ($(this).closest(".big_circle_fb_list").find("#area").val() != "" && $(this).closest(".big_circle_fb_list").find("#int_site").val() != ""  && $(this).closest(".big_circle_fb_list").find("#assign_to").val() != "") {
+            if ($(this).closest(".big_circle_fb_list").find("#area").val() != "" && $(this).closest(".big_circle_fb_list").find("#int_product").val() != ""  && $(this).closest(".big_circle_fb_list").find("#assign_to").val() != "") {
                 $(this).closest(".big_circle_fb_outer").find(".big_circle_fb_list").hide();
             } else {
                 $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
@@ -741,7 +739,7 @@ $data = $find_Array_all->getResultArray();
         });
     }
 
-    // new_pages_list_data();
+    new_pages_list_data();
     // new_deleted_pages_list_data();
     // new_updated_pages_list_data();
     // new_draft_pages_list_data();
@@ -912,7 +910,7 @@ $data = $find_Array_all->getResultArray();
         setTimeout(hgdfchduchdshcha, 1);
     });
 
-    $('body').on('click', '.area .dropdown-menu.inner.show , .int_site .dropdown-menu.inner.show , .dropdown-menu.inner.show , .assign_to .dropdown-menu.inner.show', function() {
+    $('body').on('click', '.area .dropdown-menu.inner.show , .int_product .dropdown-menu.inner.show , .dropdown-menu.inner.show , .assign_to .dropdown-menu.inner.show', function() {
         function hgdfchduchdshcha() {
             $("#big_falcebook_circle_4").click();
         }
@@ -957,7 +955,7 @@ $data = $find_Array_all->getResultArray();
     //for save connection and all functionality...
     $('body').on('click', '.big_falcebook_circle_4_sbt', function() {
         var area = $(".area option:selected").val();
-        var int_site = $(".int_site option:selected").val();
+        var int_product = $(".int_product option:selected").val();
         var assign_to = $(".assign_to option:selected").val();
         var staff_to = $("#staff_to").val();
         var staff_to = staff_to.join(',');
@@ -968,7 +966,7 @@ $data = $find_Array_all->getResultArray();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
         
-        if (int_site > 0 && assign_to != "" && area > 0) {
+        if (int_product > 0 && assign_to != "" ) {
             $.ajax({
                 type: "post",
                 url: "<?= site_url('new_facebook_page'); ?>",
@@ -978,7 +976,7 @@ $data = $find_Array_all->getResultArray();
                     access_token: access_token,
                     page_name: page_name,
                     area: area,
-                    int_site: int_site,
+                    int_product: int_product,
                     assign_to: assign_to,
                     staff_to:staff_to,
                     form_name: form_name,
@@ -1038,7 +1036,7 @@ $data = $find_Array_all->getResultArray();
     $('body').on('click', '.big_falcebook_circle_2_sbt', function() {
         $(this).closest(".big_list_add_outer_main").find(".add_next_big_plus_outer").hide();
         var area = $(".area option:selected").val();
-        var int_site = $(".int_site option:selected").val();
+        var int_product = $(".int_product option:selected").val();
         var assign_to = $(".assign_to option:selected").val();
         var page_id = $("#facebookpages option:selected").val();
         var access_token = $("#facebookpages").find("option:selected").attr("data-access_token");
@@ -1046,7 +1044,7 @@ $data = $find_Array_all->getResultArray();
         var form_id = $("#facebookform option:selected").val();
         var form_name = $("#facebookform option:selected").text();
         var edit_id = $(this).attr('edit_id');
-        if(int_site > 0 && assign_to != ""  && area > 0 && page_id != "" && form_id != ""){
+        if(int_product > 0 && assign_to != "" && page_id != "" && form_id != ""){
             var draft_status = 0;
         }
         else{
@@ -1063,7 +1061,7 @@ $data = $find_Array_all->getResultArray();
                     access_token: access_token,
                     page_name: page_name,
                     area: area,
-                    int_site: int_site,
+                    int_product: int_product,
                     assign_to: assign_to,
                     form_name: form_name,
                     form_id: form_id,
@@ -1327,7 +1325,7 @@ $data = $find_Array_all->getResultArray();
         });
                  
         $('#area').val(intrested_area);
-        $('#int_site').val(intrested_site);
+        $('#int_product').val(intrested_site);
         $('#assign_to').val(setassign_id);
         if(setassign_id==0)
         {
