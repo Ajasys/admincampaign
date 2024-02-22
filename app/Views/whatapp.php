@@ -761,7 +761,7 @@ if (!empty($connections)) {
 
 
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="schedule" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-schedule-tab" type="button" role="tab" aria-controls="pills-ex-schedule-tab" aria-selected="false">schedule
+                                        <button class="nav-link" id="schedule" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-schedule-tab" type="button" role="tab" aria-controls="pills-ex-schedule-tab" aria-selected="false">Bulk Template
                                         </button>
                                     </li>
 
@@ -1850,7 +1850,7 @@ if (!empty($connections)) {
                             </div>
 
 
-                            <div ng-if="!headerTextLength && !urlParam && !bodyTextLength" class="cwt-info-facebook ng-scope">
+                            <!-- <div ng-if="!headerTextLength && !urlParam && !bodyTextLength" class="cwt-info-facebook ng-scope">
                                 <p class="font-size-12 text-center">You haven't used any variable in your text.</p>
                             </div>
 
@@ -1858,7 +1858,7 @@ if (!empty($connections)) {
 
                             <div class="cwt-info-facebook">
                                 <p class="font-size-12">The provided example values will be submitted to Facebook as part of the template submission process. If no relevant examples are provided, templates may be rejected by Facebook.</p>
-                            </div>
+                            </div> -->
 
 
                         </div>
@@ -1885,7 +1885,7 @@ if (!empty($connections)) {
                                         <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                     </div>
 
-                                    <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
+                                        <!-- <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;"> -->
 
                                     <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
                                     </div>
@@ -2247,6 +2247,13 @@ if (!empty($connections)) {
         });
         $('body').on('click', '.singletabactive', function() {
             $('#single').click();
+            $('#sendbtn ').removeClass('d-none');
+            location.reload();
+            // $('.inputypeBody ').addClass('d-none');
+            // $('.inputypeBody ').hide();
+
+
+            
         });
 
         $('body').on('click', '.Tab2Class', function() {
@@ -2342,9 +2349,11 @@ if (!empty($connections)) {
                     success: function(res) {
                         $('.loader').hide();
                         var response = JSON.parse(res);
-
+                        
                         var template_name = response.template_name;
                         //12-02-2024
+                        var templateBracketvalue = response.templateBracketvalue;
+                
                         var templatelanguage = response.templatelanguage;
                         var bodyvalue = response.templatebody;
                         var headervalue = response.templateheader;
@@ -2548,6 +2557,9 @@ if (!empty($connections)) {
         $('body').on('click', '.templatelist', function(e) {
             e.preventDefault();
             list_data();
+            $('.TemplateDeleteBtnDiv').removeClass('d-none');
+            $('.inputypeBody ').hide();
+
 
         });
         
@@ -3680,7 +3692,7 @@ if (!empty($connections)) {
             $('.ButtonSelctionDropDown').selectpicker('refresh');
             $('.message').html('');
             $('.refreshit').html('');
-            $('.selectpicker').selectpicker('refresh');
+            // $('.selectpicker').selectpicker('refresh');
             $("form[name='whatsapp_template_add_edit']").removeClass("was-validated");
             $(".selectpicker-validation").removeClass("selectpicker-validation");
             $('.emptyname').hide();
@@ -4139,6 +4151,7 @@ if (!empty($connections)) {
             $('#import_file').val('');
             $(".selectpicker-validation").removeClass("selectpicker-validation");
             $("form[name='master_membership_update_form']").removeClass("was-validated");
+
             // $('.refreshit').html('');
             list_data();
 
