@@ -111,6 +111,7 @@ $routes->post('/comment_replay_send', 'CreateController::comment_replay_send');
 $routes->post('/delete_post', 'CreateController::delete_post');
 $routes->post('/edit_post', 'CreateController::edit_post');
 $routes->post('/UpdatePostDataFB', 'CreateController::UpdatePostDataFB');
+$routes->post('/comment_show', 'CreateController::comment_show');
 
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');
 $routes->post('/update_data_2DB', 'MasterInformation::update_data_2DB');
