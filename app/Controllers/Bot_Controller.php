@@ -684,12 +684,12 @@ class Bot_Controller extends BaseController
 			$delete_id = $this->request->getPost('id');
 			$table_name = $this->request->getPost('table');
 			$bot_id = $this->request->getPost('bot_id'); 
+
 			$delete_sequence = $this->MasterInformationModel->get_sequence_by_id($table_name, $delete_id); 
 			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id); 
 
-			if (!isset($_POST['bot'])) {
-				$this->MasterInformationModel->delete_question_sequence($table_name, $bot_id, $delete_sequence);
-			}
+			$this->MasterInformationModel->delete_question_sequence($table_name, $bot_id, $delete_sequence);
+			
 			$response = 1; 
 		}
 
@@ -820,17 +820,17 @@ class Bot_Controller extends BaseController
 							</label>
 						</div>
 						<div class="col-2 d-flex flex-wrap align-items-center">';
-				$html .= '<div class="col-3 p-1">';
+				$html .= '<div class="col-4 p-1">';
 				if ($value['type_of_question'] != 31 && $value['type_of_question'] != 32 && $value['type_of_question'] != 33 && $value['type_of_question'] != 45) {
 					$html .= '<i class="fa fa-pencil cursor-pointer question_edit" data-id=' . $value['id'] . ' data-type_of_question=' . $value['type_of_question'] . ' data-bs-toggle="modal" data-bs-target="#add-email"></i>';
 				}
 				$html .= '</div>';
 
-				if ($value['type_of_question'] != 36) {
-					$html .= '<div class="col-3 p-1">';
-					$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
-					$html .= '	</div>';
-				}
+				// if ($value['type_of_question'] != 36) {
+				// 	$html .= '<div class="col-3 p-1">';
+				// 	$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
+				// 	$html .= '	</div>';
+				// }
 
 				$html .= '	<div class="col-3 p-1">
 								<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question=' . $value['id'] . '></i>
@@ -910,6 +910,16 @@ class Bot_Controller extends BaseController
 		$bot_id = $_POST['bot_id'];
 		$sequence = $_POST['sequence'];
 
+		if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
+			$nextQuestion = $_POST['nextQuestion'];
+			// pre($nextQuestion);
+		}
+
+		
+		if (isset($_POST['next_question_id'])) {
+			$next_questions = $_POST['next_questions'];
+		}
+
 		if (isset($_POST['next_question_id'])) {
 			$next_question_id = $_POST['next_question_id'];
 		}
@@ -922,17 +932,29 @@ class Bot_Controller extends BaseController
 		} else {
 			$sequence = isset($result) ? 1 : $sequence;
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
-			
+
+			if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
+				$nextQuestion = $_POST['nextQuestion'];
+				pre($nextQuestion);
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
+			} else {
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
+			}
+
+			// Execute query
+			$db_connection = \Config\Database::connect('second');
+			$result = $db_connection->query($sql);
+			$bot_chat_data = $result->getResultArray();
+		
 			// Retrieve parent-child data
 			$sql_parent_child = 'SELECT parent.id AS parent_id, child.id AS child_id, child.question, parent.answer
 				FROM admin_bot_setup AS child
 				JOIN admin_bot_setup AS parent ON child.type_of_question = parent.next_question_id
 				WHERE parent.bot_id = ' . $bot_id . '
-				ORDER BY parent.sequence;';
-	
-			$resultss = $db_connection->query($sql);
-			$bot_chat_data = $resultss->getResultArray();
+				ORDER BY parent.sequence LIMIT 1;';
+			// pre($sql_parent_child);
+			// $resultss = $db_connection->query($sql);
+			// $bot_chat_data = $resultss->getResultArray();
 			$resultss_ss = $db_connection->query($sql_parent_child);
 			$bot_chat_data_ss = $resultss_ss->getResultArray();
 		}
@@ -960,7 +982,7 @@ class Bot_Controller extends BaseController
 				$last_que_id = $value['id'];
 				// continue;
 				if (isset($test_pr_que) && !empty($test_pr_que)) {
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $asasasf[0]['id'] . '" data-sequence="' . $asasasf[0]['sequence'] . '">
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $asasasf[0]['id'] . '" data-sequence="' . $asasasf[0]['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
@@ -989,7 +1011,7 @@ class Bot_Controller extends BaseController
 				}
 
 				if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
@@ -1018,7 +1040,7 @@ class Bot_Controller extends BaseController
 					';
 				} else {
 
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
@@ -1537,7 +1559,7 @@ class Bot_Controller extends BaseController
 								foreach ($optionsArray as $option) {
 									$html .= '
 									<div class="col-12">
-										<button class="btn bg-primary rounded-3 text-white col-6 my-1"  onclick="selectOption(this, \'' . $option . '\')">
+										<button class="btn bg-primary rounded-3 text-white col-6 my-1" onclick="selectOption(this, \'' . $option . '\')">
 										'.$option.'
 										</button>
 									</div>';
@@ -1630,19 +1652,23 @@ class Bot_Controller extends BaseController
 					} else {
 					}
 
-
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 						$menuOptions = json_decode($value['menu_message'], true);
-
+						
 						if (isset($menuOptions['options'])) {
 							$options = explode(';', $menuOptions['options']);
-							foreach ($options as $option) {
+							$nextQuestionsArray = explode(',', $value['next_questions']);
+		
+							foreach ($options as $index => $option) {
+								$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
+					
 								$html .= '<div class="col-12 mb-2 option-wrapper">
-												<button class="btn bg-primary rounded-3 text-white option-button" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
-											</div>';
+											  <button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="'.$nextQuestion.'" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
+										  </div>';
 							}
 						}
 					}
+					
 
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
 						$menuOptions = json_decode($value['menu_message'], true);
@@ -1668,10 +1694,15 @@ class Bot_Controller extends BaseController
 
 					$html .= '</div>';
 					$html .= '<script>
+								
 								function selectOption(button, value) {
 									$(".answer_chat").val(value); 
-									insertAnswer();
+									var nextQuestion = $(button).data("next_questions");
+									console.log("Next Question:", nextQuestion); 
+									bot_preview_data(sequence, nextQuestion); 
+									insertAnswer(nextQuestion);
 								}
+
 								function submitOptions() {
 									var selectedOptions = [];
 									$(".option-check:checked").each(function() {
@@ -1706,7 +1737,7 @@ class Bot_Controller extends BaseController
 								
 					if ($value['answer'] != '') {
 						$html .= '<div class="col-12 mb-2 text-end">
-													<span class="p-2 rounded-3 ghjhg text-white d-inline-block bg-secondary px-3">
+													<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
 													' . $value['answer'] . '
 													</span>
 												</div>

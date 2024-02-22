@@ -496,30 +496,24 @@ class MasterInformationModel extends Model
         $result = $query->getRow();
         return $result ? $result->max_sequence : null;
     }
-    
+
     public function delete_question_sequence($table_name, $bot_id, $delete_sequence)
     {
         $secondDb = \Config\Database::connect('second');
-        $questions = $secondDb->table($table_name)
-            ->where('bot_id', $bot_id) // Filter questions by bot_id
-            ->orderBy('sequence') // Ensure questions are ordered by sequence
-            ->get()
-            ->getResultArray();
-        
-        $sequence = 1;
-        foreach ($questions as $question) {
-            // Skip the deleted question
-            if ($question['sequence'] == $delete_sequence) {
-                continue;
-            }
 
-            // Update the sequence number
+        $query = $secondDb->table($table_name)
+                ->select('*')
+                ->where('bot_id', $bot_id)
+                ->where('sequence >', $delete_sequence)
+                ->orderBy('sequence')
+                ->get();
+
+        $queryResult = $query->getResultArray();
+
+        foreach ($queryResult as $question) {
             $secondDb->table($table_name)
                 ->where('id', $question['id'])
-                ->update(['sequence' => $sequence]);
-
-            // Increment the sequence
-            $sequence++;
+                ->update(['sequence' => $question['sequence'] - 1]);
         }
     }
 
