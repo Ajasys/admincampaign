@@ -1499,6 +1499,7 @@ $admin_bot = json_decode($admin_bot, true);
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyonequestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentythreequestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyfourquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentysixquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentysevenquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyeightquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="thirtyethquestion"></div>
@@ -3920,7 +3921,24 @@ $admin_bot = json_decode($admin_bot, true);
                         } else {
 
                         }
+                        
+                        if (menu_message != '') {
+                            var menu_message = JSON.parse(response[0].menu_message);
 
+                            // Extract audio file name from menu_message
+                            var audioFileName = menu_message.audioFileName;
+
+                            // Check if audioFileName exists
+                            if (audioFileName) {
+                                
+                                // Set the source of the audio player to play the selected audio
+                                var audioPlayer = document.getElementById('audioPlayer');
+                                audioPlayer.src = 'assets/bot_audio/' + audioFileName; // Adjust the path as needed
+                                audioPlayer.style.display = 'block'; // Show the audio player
+                            }
+                            
+                            // Other code to populate form fields...
+                        }
                         $(".button_text").val(menu_message.button_text);
                         $(".button_url").val(menu_message.button_url);
 
@@ -4795,6 +4813,16 @@ $admin_bot = json_decode($admin_bot, true);
             var options_value = $('.carousel_img_input').prop('files')[0];
         }
 
+        if (type_of_question == "26") {
+            var audioFile = document.getElementById('audioFile').files[0];
+            var audioFileName = document.getElementById('audioFileName').value;
+            var row = {
+                audioFile: audioFile,
+                audioFileName: audioFileName
+            };
+            var options_value = JSON.stringify(row);
+        }
+
         if (type_of_question == "27") {
             var rowData = [];
             $(".contact_div_in").each(function(index) {
@@ -5132,6 +5160,7 @@ $admin_bot = json_decode($admin_bot, true);
             23: "#twentythreequestion",
             24: "#twentyfourquestion",
             25: "#twentyfivequestion",
+            26: "#twentysixquestion",
             27: "#twentysevenquestion",
             28: "#twentyeightquestion",
             30: "#thirtyethquestion",
@@ -5144,7 +5173,7 @@ $admin_bot = json_decode($admin_bot, true);
     });
 
     function clearQuestions() {
-        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion, #twentythreequestion, #twentyfourquestion ,#twentysevenquestion, #twentyeightquestion, #thirtyethquestion, #fourythreequestion, #fouryfourquestion, #twentyfivequestion, #fourtyonequestion").html("");
+        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion, #twentythreequestion, #twentyfourquestion ,#twentysevenquestion, #twentyeightquestion, #thirtyethquestion, #fourythreequestion, #fouryfourquestion, #twentyfivequestion,#twentysixquestion, #fourtyonequestion").html("");
     }
 
     function getQuestionHTML(type_of_question) {
@@ -6439,6 +6468,42 @@ $admin_bot = json_decode($admin_bot, true);
 
                     
             `;
+            case "26":
+            return `
+            <form name="question_update_form" enctype="multipart/form-data" method="post">
+            <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box" id="filePicker">
+                <input type="file" id="audioFile" name="audioFile" class="audioFile">
+                <input type="hidden" id="audioFileName" name="audioFileName" class="audioFileName">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                </svg>
+                <div class="col-12 text-center">Choose an audio file</div>
+                <audio controls id="audioPlayer" style="display: none;"></audio>
+            </div>
+            </form>
+            <script>
+                $('#filePicker').on('click', function() {
+                    $('.audioFile').click();
+                });
+
+                $('.audioFile').on('change', function() {
+                    const file = this.files[0];
+                    const textCenterElement = document.querySelector('.media-upload-box .text-center'); // Get the text center element
+                    const audioPlayer = document.getElementById('audioPlayer'); // Get the audio player element
+                    if (file && file.type.startsWith('audio/')) {
+                        console.log('Audio file selected:', file.name);
+                        textCenterElement.textContent = 'Selected audio file: ' + file.name; // Update the text content
+                        document.getElementById('audioFileName').value = file.name;
+                        audioPlayer.src = URL.createObjectURL(file); // Set the audio player's src to the URL of the selected file
+                        audioPlayer.style.display = 'block'; // Show the audio player
+                    } else {
+                        textCenterElement.textContent = 'Choose an audio file'; // Reset the text content
+                        console.log('Please select an audio file.');
+                        audioPlayer.src = ''; // Reset the audio player's src
+                        audioPlayer.style.display = 'none'; // Hide the audio player
+                    }
+                });
+            `;
+
             case "27":
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
@@ -6713,4 +6778,38 @@ $admin_bot = json_decode($admin_bot, true);
         });
         }
     )
+
+     // Function to handle file picker click
+                                    // document.getElementById('filePicker').addEventListener('click', function() {
+                                    //     document.getElementById('audioFile').click();
+                                    // });
+
+                                    // document.getElementById('audioFile').addEventListener('change', function() {
+                                    //     const file = this.files[0];
+                                    //     const textCenterElement = document.querySelector('.media-upload-box .text-center'); // Get the text center element
+                                    //     const audioPlayer = document.getElementById('audioPlayer'); // Get the audio player element
+
+                                    //     if (file && file.type.startsWith('audio/')) {
+                                    //         console.log('Audio file selected:', file.name);
+                                    //         textCenterElement.textContent = 'Selected audio file: ' + file.name; // Update the text content
+                                    //         document.getElementById('audioFileName').value = file.name;
+                                    //         audioPlayer.src = URL.createObjectURL(file); // Set the audio player's src to the URL of the selected file
+                                    //         audioPlayer.style.display = 'block'; // Show the audio player
+                                    //         // alert('Audio file selected: ' + file.name); // Add this line to display a message
+                                    //     } else {
+                                    //         textCenterElement.textContent = 'Choose an audio file'; // Reset the text content
+                                    //         console.log('Please select an audio file.');
+                                    //         audioPlayer.src = ''; // Reset the audio player's src
+                                    //         audioPlayer.style.display = 'none'; // Hide the audio player
+                                    //     }
+                                    // });
+                                    // document.getElementById('audioFile').addEventListener('change', function() {
+                                    //     const file = this.files[0];
+                                    //     if (file && file.type.startsWith('audio/')) {
+                                    //         console.log('Audio file selected:', file.name);
+                                    //         document.getElementById('audioFileName').value = file.name; // Update the hidden input with file name
+                                    //     } else {
+                                    //         console.log('Please select an audio file.');
+                                    //     }
+                                    // });
 </script>
