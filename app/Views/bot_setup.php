@@ -85,9 +85,10 @@ $admin_bot = json_decode($admin_bot, true);
     }
 
     .form-check-input:checked {
-    background-color: var(--second-color);
-    border-color: var(--all-light);
-}
+        background-color: var(--second-color);
+        border-color: var(--all-light);
+    }
+
     .second-add {
         display: block !important;
     }
@@ -97,108 +98,122 @@ $admin_bot = json_decode($admin_bot, true);
     }
 
     .user-table .nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
-  color: var(--first-color) !important;
-}
+    .nav-tabs .nav-link.active {
+        color: var(--first-color) !important;
+    }
 
-.list-group-item.active {
-    z-index: 2;
-    color: var(--bs-list-group-active-color);
-    background-color: var(--first-color) !important;
-    border-color:1px solid var(--all-light);
-}
+    .list-group-item.active {
+        z-index: 2;
+        color: var(--bs-list-group-active-color);
+        background-color: var(--first-color) !important;
+        border-color: 1px solid var(--all-light);
+    }
 
-.main-task{
-    font-size: 15px;
-}
-.user_reply{
-    font-size: 15px;
-}
-.modal{
-    font-size: 15px;
-    padding: 0px !important;
-}
-.modal button{
-    font-size: 15px;
-}
-.modal select{
-    font-size: 15px;
-}
+    .main-task {
+        font-size: 15px;
+    }
 
-@media  (max-width:600px){
-.main-task{
-    font-size: 13px;
-} 
-.user_reply{
-    font-size: 13px;
-}
-.modal{
-    font-size: 12px;
-}
-.modal button{
-    font-size: 12px;
-}
-.modal select{
-    font-size: 12px;
-}
+    .user_reply {
+        font-size: 15px;
+    }
 
-}
-.messege1{
-    width: 100%!important;
-}
-.messege2{
-    width: 100%!important;
-}
+    .modal {
+        font-size: 15px;
+        padding: 0px !important;
+    }
 
-.emoji_div_man {
+    .modal button {
+        font-size: 15px;
+    }
+
+    .modal select {
+        font-size: 15px;
+    }
+
+    @media (max-width:600px) {
+        .main-task {
+            font-size: 13px;
+        }
+
+        .user_reply {
+            font-size: 13px;
+        }
+
+        .modal {
+            font-size: 12px;
+        }
+
+        .modal button {
+            font-size: 12px;
+        }
+
+        .modal select {
+            font-size: 12px;
+        }
+
+    }
+
+    .messege1 {
+        width: 100% !important;
+    }
+
+    .messege2 {
+        width: 100% !important;
+    }
+
+    .emoji_div_man {
         margin-top: 30px;
         margin-right: 10px;
 
     }
 
-/* calender */
-.month-calendar {
-      margin-bottom: 30px;
+    /* calender */
+    .month-calendar {
+        margin-bottom: 30px;
     }
+
     .month-calendar h3 {
-      margin-top: 20px;
+        margin-top: 20px;
     }
+
     .days {
-  list-style: none;
-  padding: 0px;
-  display: flex;
- margin-left: 15px;
-  flex-wrap: wrap;
-}
+        list-style: none;
+        padding: 0px;
+        display: flex;
+        margin-left: 15px;
+        flex-wrap: wrap;
+    }
 
-.days li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin:2px 5px;
-  width:10%;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #d8d7ff;
-  font-size: 10px;
+    .days li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2px 5px;
+        width: 10%;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #d8d7ff;
+        font-size: 10px;
 
-}
-.days li:hover{
-  background: #724ebf;
-  color: white;
-}
+    }
 
-.intercom-emoji-picker-emoji{
-    cursor:pointer;
-}
+    .days li:hover {
+        background: #724ebf;
+        color: white;
+    }
 
-.days li:nth-child(7n) {
-  border-right: none;
-}
-.color{
-  background: #724ebf!important;
-  color: #e5efff !important;
-}
+    .intercom-emoji-picker-emoji {
+        cursor: pointer;
+    }
+
+    .days li:nth-child(7n) {
+        border-right: none;
+    }
+
+    .color {
+        background: #724ebf !important;
+        color: #e5efff !important;
+    }
 </style>
 
 
@@ -238,7 +253,7 @@ $admin_bot = json_decode($admin_bot, true);
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="bot_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                            <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="What is Your Name?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="What is Your Name?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-question icon"></i>
@@ -1367,93 +1382,93 @@ $admin_bot = json_decode($admin_bot, true);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <div class="col-12 d-flex flex-wrap position-relative">
+                <div class="col-12 d-flex flex-wrap position-relative">
 
-<div>
-    <div class="emoji_div_man border rounded-2 position-absolute top-0 end-0 overflow-x-scroll" style="height: 200px; width: 200px; z-index: 20; display: none;">
-        <div class="emoji_div p-2 bg-white">
-            <span class="intercom-emoji-picker-emoji" title="thumbs_up">&#x1F44D;</span>
-            <span class="intercom-emoji-picker-emoji" title="-1">&#x1F44E;</span>
-            <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
-            <span class="intercom-emoji-picker-emoji" title="confused">&#x1F615;</span>
-            <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
-            <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
-            <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
-            <span class="intercom-emoji-picker-emoji" title="smile">&#x1F604;</span>
-            <span class="intercom-emoji-picker-emoji" title="smiley">&#x1F603;</span>
-            <span class="intercom-emoji-picker-emoji" title="grinning">&#x1F600;</span>
-            <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
-            <span class="intercom-emoji-picker-emoji" title="wink">&#x1F609;</span>
-            <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
-            <span class="intercom-emoji-picker-emoji" title="kissing_heart">&#x1F618;</span>
-            <span class="intercom-emoji-picker-emoji" title="kissing_closed_eyes">&#x1F61A;</span>
-            <span class="intercom-emoji-picker-emoji" title="kissing">&#x1F617;</span>
-            <span class="intercom-emoji-picker-emoji" title="kissing_smiling_eyes">&#x1F619;</span>
-            <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_winking_eye">&#x1F61C;</span>
-            <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_closed_eyes">&#x1F61D;</span>
-            <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue">&#x1F61B;</span>
-            <span class="intercom-emoji-picker-emoji" title="flushed">&#x1F633;</span>
-            <span class="intercom-emoji-picker-emoji" title="grin">&#x1F601;</span>
-            <span class="intercom-emoji-picker-emoji" title="pensive">&#x1F614;</span>
-            <span class="intercom-emoji-picker-emoji" title="relieved">&#x1F60C;</span>
-            <span class="intercom-emoji-picker-emoji" title="unamused">&#x1F612;</span>
-            <span class="intercom-emoji-picker-emoji" title="disappointed">&#x1F61E;</span>
-            <span class="intercom-emoji-picker-emoji" title="persevere">&#x1F623;</span>
-            <span class="intercom-emoji-picker-emoji" title="cry">&#x1F622;</span>
-            <span class="intercom-emoji-picker-emoji" title="joy">&#x1F602;</span>
-            <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
-            <span class="intercom-emoji-picker-emoji" title="sleepy">&#x1F62A;</span>
-            <span class="intercom-emoji-picker-emoji" title="disappointed_relieved">&#x1F625;</span>
-            <span class="intercom-emoji-picker-emoji" title="cold_sweat">&#x1F630;</span>
-            <span class="intercom-emoji-picker-emoji" title="sweat_smile">&#x1F605;</span>
-            <span class="intercom-emoji-picker-emoji" title="sweat">&#x1F613;</span>
-            <span class="intercom-emoji-picker-emoji" title="weary">&#x1F629;</span>
-            <span class="intercom-emoji-picker-emoji" title="tired_face">&#x1F62B;</span>
-            <span class="intercom-emoji-picker-emoji" title="fearful">&#x1F628;</span>
-            <span class="intercom-emoji-picker-emoji" title="scream">&#x1F631;</span>
-            <span class="intercom-emoji-picker-emoji" title="angry">&#x1F620;</span>
-            <span class="intercom-emoji-picker-emoji" title="rage">&#x1F621;</span>
-            <span class="intercom-emoji-picker-emoji" title="triumph">&#x1F624;</span>
-            <span class="intercom-emoji-picker-emoji" title="confounded">&#x1F616;</span>
-            <span class="intercom-emoji-picker-emoji" title="laughing">&#x1F606;</span>
-            <span class="intercom-emoji-picker-emoji" title="yum">&#x1F60B;</span>
-            <span class="intercom-emoji-picker-emoji" title="mask">&#x1F637;</span>
-            <span class="intercom-emoji-picker-emoji" title="sunglasses">&#x1F60E;</span>
-            <span class="intercom-emoji-picker-emoji" title="sleeping">&#x1F634;</span>
-            <span class="intercom-emoji-picker-emoji" title="dizzy_face">&#x1F635;</span>
-            <span class="intercom-emoji-picker-emoji" title="astonished">&#x1F632;</span>
-            <span class="intercom-emoji-picker-emoji" title="worried">&#x1F61F;</span>
-            <span class="intercom-emoji-picker-emoji" title="frowning">&#x1F626;</span>
-            <span class="intercom-emoji-picker-emoji" title="anguished">&#x1F627;</span>
-            <span class="intercom-emoji-picker-emoji" title="imp">&#x1F47F;</span>
-            <span class="intercom-emoji-picker-emoji" title="open_mouth">&#x1F62E;</span>
-            <span class="intercom-emoji-picker-emoji" title="grimacing">&#x1F62C;</span>
-            <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
-        </div>
-    </div>
-</div>
-<div class="col-10 d-flex align-items-center">
-    <span>
-        <p>Note : Please press "Enter" for Paragraph break</p>
-    </span>
+                    <div>
+                        <div class="emoji_div_man border rounded-2 position-absolute top-0 end-0 overflow-x-scroll" style="height: 200px; width: 200px; z-index: 20; display: none;">
+                            <div class="emoji_div p-2 bg-white">
+                                <span class="intercom-emoji-picker-emoji" title="thumbs_up">&#x1F44D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="-1">&#x1F44E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="confused">&#x1F615;</span>
+                                <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
+                                <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="smile">&#x1F604;</span>
+                                <span class="intercom-emoji-picker-emoji" title="smiley">&#x1F603;</span>
+                                <span class="intercom-emoji-picker-emoji" title="grinning">&#x1F600;</span>
+                                <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="wink">&#x1F609;</span>
+                                <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing_heart">&#x1F618;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing_closed_eyes">&#x1F61A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing">&#x1F617;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing_smiling_eyes">&#x1F619;</span>
+                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_winking_eye">&#x1F61C;</span>
+                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_closed_eyes">&#x1F61D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue">&#x1F61B;</span>
+                                <span class="intercom-emoji-picker-emoji" title="flushed">&#x1F633;</span>
+                                <span class="intercom-emoji-picker-emoji" title="grin">&#x1F601;</span>
+                                <span class="intercom-emoji-picker-emoji" title="pensive">&#x1F614;</span>
+                                <span class="intercom-emoji-picker-emoji" title="relieved">&#x1F60C;</span>
+                                <span class="intercom-emoji-picker-emoji" title="unamused">&#x1F612;</span>
+                                <span class="intercom-emoji-picker-emoji" title="disappointed">&#x1F61E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="persevere">&#x1F623;</span>
+                                <span class="intercom-emoji-picker-emoji" title="cry">&#x1F622;</span>
+                                <span class="intercom-emoji-picker-emoji" title="joy">&#x1F602;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sleepy">&#x1F62A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="disappointed_relieved">&#x1F625;</span>
+                                <span class="intercom-emoji-picker-emoji" title="cold_sweat">&#x1F630;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sweat_smile">&#x1F605;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sweat">&#x1F613;</span>
+                                <span class="intercom-emoji-picker-emoji" title="weary">&#x1F629;</span>
+                                <span class="intercom-emoji-picker-emoji" title="tired_face">&#x1F62B;</span>
+                                <span class="intercom-emoji-picker-emoji" title="fearful">&#x1F628;</span>
+                                <span class="intercom-emoji-picker-emoji" title="scream">&#x1F631;</span>
+                                <span class="intercom-emoji-picker-emoji" title="angry">&#x1F620;</span>
+                                <span class="intercom-emoji-picker-emoji" title="rage">&#x1F621;</span>
+                                <span class="intercom-emoji-picker-emoji" title="triumph">&#x1F624;</span>
+                                <span class="intercom-emoji-picker-emoji" title="confounded">&#x1F616;</span>
+                                <span class="intercom-emoji-picker-emoji" title="laughing">&#x1F606;</span>
+                                <span class="intercom-emoji-picker-emoji" title="yum">&#x1F60B;</span>
+                                <span class="intercom-emoji-picker-emoji" title="mask">&#x1F637;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sunglasses">&#x1F60E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sleeping">&#x1F634;</span>
+                                <span class="intercom-emoji-picker-emoji" title="dizzy_face">&#x1F635;</span>
+                                <span class="intercom-emoji-picker-emoji" title="astonished">&#x1F632;</span>
+                                <span class="intercom-emoji-picker-emoji" title="worried">&#x1F61F;</span>
+                                <span class="intercom-emoji-picker-emoji" title="frowning">&#x1F626;</span>
+                                <span class="intercom-emoji-picker-emoji" title="anguished">&#x1F627;</span>
+                                <span class="intercom-emoji-picker-emoji" title="imp">&#x1F47F;</span>
+                                <span class="intercom-emoji-picker-emoji" title="open_mouth">&#x1F62E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="grimacing">&#x1F62C;</span>
+                                <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 d-flex align-items-center">
+                        <span>
+                            <p>Note : Please press "Enter" for Paragraph break</p>
+                        </span>
 
 
-</div>
-<div class="col-2 d-flex smile_btn justify-content-end align-items-center px-2">
-    <i class="fa-regular fa-face-smile fa-lg"></i>
-</div>
+                    </div>
+                    <div class="col-2 d-flex smile_btn justify-content-end align-items-center px-2">
+                        <i class="fa-regular fa-face-smile fa-lg"></i>
+                    </div>
 
-<script>
-    $("body").on("click", ".smile_btn", function() {
-        $(".emoji_div_man").toggle()
-    })
-</script>
-<div class="col-12 p-2 border my-3">
-    <form class="needs-validation add_form_Email col-12" id="add_form_Email" name="add_form_Email" novalidate>
-        <div id="editor_add" class="Email_Add_Ckeditor" style="border:1px solid red"></div>
-    </form>
-</div>
-</div>
+                    <script>
+                        $("body").on("click", ".smile_btn", function() {
+                            $(".emoji_div_man").toggle()
+                        })
+                    </script>
+                    <div class="col-12 p-2 border my-3">
+                        <form class="needs-validation add_form_Email col-12" id="add_form_Email" name="add_form_Email" novalidate>
+                            <div id="editor_add" class="Email_Add_Ckeditor" style="border:1px solid red"></div>
+                        </form>
+                    </div>
+                </div>
 
                 <div class="col-12 d-flex flex-wrap">
                     <ul class="nav nav-tabs col-12 " id="myTab" role="tablist">
@@ -1481,6 +1496,51 @@ $admin_bot = json_decode($admin_bot, true);
                                         <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1" for="flexSwitchCheckDefault">Do Not Remove Menu Message (For Whatsapp)</label>
                                     </div>
                                 </div> -->
+
+                                <!--audio-->
+                                <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box" id="filePicker">
+                                    <input type="file" id="fileInput" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <g>
+                                            <path fill="#0296e5" d="M120 464H74a18 18 0 0 1-18-18V338a18 18 0 0 1 18-18h46z" opacity="1" data-original="#0296e5" class=""></path>
+                                            <path fill="#026ca2" d="m56 440-.186-.047A42 42 0 0 1 24 399.207v-14.414a42 42 0 0 1 31.814-40.746L56 344z" opacity="1" data-original="#026ca2" class=""></path>
+                                            <path fill="#0bafea" d="M88 360a8 8 0 0 1-8-8v-32a8 8 0 0 1 16 0v32a8 8 0 0 1-8 8zM80 464v-80a8 8 0 0 1 16 0v80z" opacity="1" data-original="#0bafea"></path>
+                                            <path fill="#026ca2" d="M138.733 446.633 120 456V328l18.733 9.367A24 24 0 0 1 152 358.833v66.334a24 24 0 0 1-13.267 21.466zM72 272h32v48H72z" opacity="1" data-original="#026ca2" class=""></path>
+                                            <path fill="#0296e5" d="M392 464h46a18 18 0 0 0 18-18V338a18 18 0 0 0-18-18h-46z" opacity="1" data-original="#0296e5" class=""></path>
+                                            <path fill="#026ca2" d="m456 440 .186-.047A42 42 0 0 0 488 399.207v-14.414a42 42 0 0 0-31.814-40.746L456 344z" opacity="1" data-original="#026ca2" class=""></path>
+                                            <path fill="#0bafea" d="M424 360a8 8 0 0 1-8-8v-24a8 8 0 0 1 16 0v24a8 8 0 0 1-8 8zM416 464v-80a8 8 0 0 1 16 0v80z" opacity="1" data-original="#0bafea"></path>
+                                            <path fill="#026ca2" d="M373.267 446.633 392 456V328l-18.733 9.367A24 24 0 0 0 360 358.833v66.334a24 24 0 0 0 13.267 21.466z" opacity="1" data-original="#026ca2" class=""></path>
+                                            <path fill="#0296e5" d="M256 48C149.961 48 64 133.961 64 240v32h48v-32A144 144 0 0 1 256 96a144 144 0 0 1 144 144v32h48v-32c0-106.039-85.961-192-192-192z" opacity="1" data-original="#0296e5" class=""></path>
+                                            <path fill="#026ca2" d="M408 272h32v48h-32z" opacity="1" data-original="#026ca2" class=""></path>
+                                            <path fill="#02a437" d="M256 456a8 8 0 0 1-7.644-5.647L223.015 368l-7.587 18.969A8 8 0 0 1 208 392h-24a8 8 0 0 1 0-16h18.584l13.988-34.971a8 8 0 0 1 15.074.618l23.105 75.093 25.439-114.475a8 8 0 0 1 15.473-.564L317.952 376H328a8 8 0 0 1 0 16h-16a8 8 0 0 1-7.663-5.7l-15.183-50.612-25.344 114.047a8 8 0 0 1-7.491 6.259q-.162.006-.319.006z" opacity="1" data-original="#02a437"></path>
+                                            <path fill="#fbb540" d="M192 240a8 8 0 0 1-8-8v-24a8 8 0 0 1 16 0v24a8 8 0 0 1-8 8z" opacity="1" data-original="#fbb540"></path>
+                                            <path fill="#ea9d2d" d="M224 264a8 8 0 0 1-8-8v-64a8 8 0 0 1 16 0v64a8 8 0 0 1-8 8z" opacity="1" data-original="#ea9d2d" class=""></path>
+                                            <path fill="#fbb540" d="M256 280a8 8 0 0 1-8-8v-96a8 8 0 0 1 16 0v96a8 8 0 0 1-8 8z" opacity="1" data-original="#fbb540"></path>
+                                            <path fill="#ea9d2d" d="M288 264a8 8 0 0 1-8-8v-64a8 8 0 0 1 16 0v64a8 8 0 0 1-8 8z" opacity="1" data-original="#ea9d2d" class=""></path>
+                                            <path fill="#fbb540" d="M320 240a8 8 0 0 1-8-8v-24a8 8 0 0 1 16 0v24a8 8 0 0 1-8 8z" opacity="1" data-original="#fbb540"></path>
+                                            <g fill="#ea9d2d">
+                                                <path d="M352 232a8 8 0 0 1-8-8v-8a8 8 0 0 1 16 0v8a8 8 0 0 1-8 8zM160 232a8 8 0 0 1-8-8v-8a8 8 0 0 1 16 0v8a8 8 0 0 1-8 8z" fill="#ea9d2d" opacity="1" data-original="#ea9d2d" class=""></path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <div class="col-12 text-center">Choose a audio file</div>
+                                </div>
+
+                                <script>
+                                    document.getElementById('filePicker').addEventListener('click', function() {
+                                        document.getElementById('fileInput').click();
+                                    });
+
+                                    document.getElementById('fileInput').addEventListener('change', function() {
+                                        const file = this.files[0];
+                                        if (file && file.type === 'audio/mpeg') {
+                                            console.log('MP3 file selected:', file.name);
+                                        } else {
+                                            console.log('Please select an MP3 file.');
+                                        }
+                                    });
+                                </script>
+
 
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="firstquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="secondquestion"></div>
@@ -2184,14 +2244,14 @@ $admin_bot = json_decode($admin_bot, true);
                                                     </div>
                                                 </div>
                                                 <div class="col-6 p-2">
-                                                <div class="main-selectpicker">
-                                                    <select class="selectpicker form-control form-main main-control" aria-label="Default select example" data-live-search="true" required="" tabindex="-98">
-                                                        <option selected>Open this select menu</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
-                                                </div>
+                                                    <div class="main-selectpicker">
+                                                        <select class="selectpicker form-control form-main main-control" aria-label="Default select example" data-live-search="true" required="" tabindex="-98">
+                                                            <option selected>Open this select menu</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex flex-wrap my-2 px-2 fw-medium">
@@ -2222,11 +2282,11 @@ $admin_bot = json_decode($admin_bot, true);
                                         <div class="accordion-body">
                                             <div class="col-12 d-flex flex-wrap">
                                                 <div class="col-8">
-                                                <div class="input-group mb-3">
-                                                    <input id="textToCopy" type="text" class="form-control" value="{{time_based_greeting}}" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                                    <button class="btn-primary" type="button" id="button-addon2">Copy</button>
-                                                </div>
-                                                
+                                                    <div class="input-group mb-3">
+                                                        <input id="textToCopy" type="text" class="form-control" value="{{time_based_greeting}}" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                                                        <button class="btn-primary" type="button" id="button-addon2">Copy</button>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -2428,21 +2488,21 @@ $admin_bot = json_decode($admin_bot, true);
                     </div>
                     <div class="col-8">
                         <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
-                       
-                        <select id="occupation" name="" class="selectpicker OccupationInputClass question_select form-control form-main occupation_add" data-live-search="true">
-                                <option value="No Jump">No Jump</option>
-                                <?php
-                                    if (isset($admin_bot_setup)) {
-                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                        
-                                            if ($type_value['bot_id'] == $botId) {
-                                                // pre($type_value['question']);
 
-                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                            }
-                                        }
+                        <select id="occupation" name="" class="selectpicker OccupationInputClass question_select form-control form-main occupation_add" data-live-search="true">
+                            <option value="No Jump">No Jump</option>
+                            <?php
+                            if (isset($admin_bot_setup)) {
+                                foreach ($admin_bot_setup as $type_key => $type_value) {
+
+                                    if ($type_value['bot_id'] == $botId) {
+                                        // pre($type_value['question']);
+
+                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                     }
-                                ?>
+                                }
+                            }
+                            ?>
                         </select>
 
                     </div>
@@ -2853,16 +2913,16 @@ $admin_bot = json_decode($admin_bot, true);
                                 </div>
                                 <h6 class="mx-2">
                                     <?php
-                                        if (isset($admin_bot)) {                                                      
-                                            foreach ($admin_bot as $type_key => $type_value) {
-                                                if ($type_value['id'] == $botId) {
-                                                    echo '' . $type_value["name"] . '';
-                                                }
+                                    if (isset($admin_bot)) {
+                                        foreach ($admin_bot as $type_key => $type_value) {
+                                            if ($type_value['id'] == $botId) {
+                                                echo '' . $type_value["name"] . '';
                                             }
                                         }
+                                    }
                                     ?>
                                 </h6>
-                           </div>
+                            </div>
                             <div class="d-flex flex-wrap">
                                 <button class="btn bg-primary mx-2 px-3 text-white" id="sound-icon">
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -2876,7 +2936,7 @@ $admin_bot = json_decode($admin_bot, true);
                     </div>
                     <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
                         <div class="overflow-y-scroll col-8 py-3 messege-scroll" style="min-height:400px; max-height:400px">
-                                        <!-- <div class="col-12 d-flex flex-wrap align-items-end chat_again_continue">
+                            <!-- <div class="col-12 d-flex flex-wrap align-items-end chat_again_continue">
                                             <div class="border  rounded-circle overflow-hidden" style="width:35px;height:35px">
                                                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
                                             </div>
@@ -2893,7 +2953,7 @@ $admin_bot = json_decode($admin_bot, true);
 
                             <div class="bot_preview_html"></div>
 
-                           
+
                             <!-- <div class="messege1 d-flex flex-wrap  ">
                             <div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
                                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
@@ -2953,14 +3013,14 @@ $admin_bot = json_decode($admin_bot, true);
 <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> -->
 
 <script>
-   //bot chat list into preview
-   function bot_preview_data(sequence) {
+    //bot chat list into preview
+    function bot_preview_data(sequence) {
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
-        var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
-        var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id', conversion_id); 
+        var conversion_id = $(".conversion_id").attr('data-conversation-id');
+        var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id', conversion_id);
 
-        var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id'); 
+        var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id');
 
         $.ajax({
             method: "post",
@@ -2980,20 +3040,20 @@ $admin_bot = json_decode($admin_bot, true);
                 $(".bot_preview_html").html(response.html);
             }
         });
-        
+
     }
 
     // $('body').on('click', '.chat_start_again', function (e) {
     //     bot_preview_data(1, true); 
     // });
 
-    $('body').on('click', '#modal_refresh', function (e) {
+    $('body').on('click', '#modal_refresh', function(e) {
         window.location.reload();
     });
 
 
-    $('body').on('click', '.bot_preview', function (e) {
-        
+    $('body').on('click', '.bot_preview', function(e) {
+
         $.ajax({
             type: 'POST',
             url: 'delete_record',
@@ -3034,13 +3094,13 @@ $admin_bot = json_decode($admin_bot, true);
         var rowData = [];
         var chatting = $('.answer_chat').val();
         var email_validation = $('.email_answer_chat').val();
-    
+
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
-        var last_conversation_id = $(".bot_preview_html .messege1:last").attr('data-conversation-id'); 
+        var last_conversation_id = $(".bot_preview_html .messege1:last").attr('data-conversation-id');
 
-        var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id'); 
-     
+        var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id');
+
         if (chatting !== "") {
             $.ajax({
                 method: "post",
@@ -3055,9 +3115,9 @@ $admin_bot = json_decode($admin_bot, true);
                     sequence: sequence,
                     next_question_id: next_question_id
                 },
-                success: function (res) {
+                success: function(res) {
                     var response = JSON.parse(res);
-                    if (response.response == 3 || response.response == 1) { 
+                    if (response.response == 3 || response.response == 1) {
                         sequence++;
                         $('.answer_chat').val('');
                         bot_preview_data(sequence);
@@ -3072,15 +3132,15 @@ $admin_bot = json_decode($admin_bot, true);
         }
     }
 
-    $('body').on('click', '.chatting_data', function (e) {
+    $('body').on('click', '.chatting_data', function(e) {
         insertAnswer();
     });
 
 
     //enter chat answer insert
-    $('.answer_chat').keypress(function (e) {
+    $('.answer_chat').keypress(function(e) {
         if (e.which == 13) {
-            insertAnswer(); 
+            insertAnswer();
         }
     });
 
@@ -3095,7 +3155,7 @@ $admin_bot = json_decode($admin_bot, true);
         bot_preview_data(sequence);
     });
 
-    
+
 
     //page js for drag and drop
     $(".question_add").on("dragstart", function(e) {
@@ -3216,7 +3276,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Number-1
-        $('body').on('change', '#Number-1', function() {  
+        $('body').on('change', '#Number-1', function() {
             if ($(this).prop('checked')) {
                 $('.Number-1').text('Give Skip Option');
             } else {
@@ -3226,7 +3286,7 @@ $admin_bot = json_decode($admin_bot, true);
 
 
         //Location-1
-        $('body').on('change', '#Location-1', function() {  
+        $('body').on('change', '#Location-1', function() {
             if ($(this).prop('checked')) {
                 $('.Location-1').text('Give Skip Option');
             } else {
@@ -3235,7 +3295,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Website-1
-        $('body').on('change', '#Website-1', function() {  
+        $('body').on('change', '#Website-1', function() {
             if ($(this).prop('checked')) {
                 $('.Website-1').text('Give Skip Option');
             } else {
@@ -3244,7 +3304,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Ask_Contact-1
-        $('body').on('change', '#Ask_Contact-1', function() {  
+        $('body').on('change', '#Ask_Contact-1', function() {
             if ($(this).prop('checked')) {
                 $('.Ask_Contact-1').text('Give Skip Option');
             } else {
@@ -3253,7 +3313,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //Appointment
-        $('body').on('change', '#Appointment-1', function() {  
+        $('body').on('change', '#Appointment-1', function() {
             if ($(this).prop('checked')) {
                 $('.Appointment-1').text('Enable Timezone Selection');
             } else {
@@ -3262,7 +3322,7 @@ $admin_bot = json_decode($admin_bot, true);
         });
 
         //proudect
-        $('body').on('change', '#proudect-1', function() {  
+        $('body').on('change', '#proudect-1', function() {
             if ($(this).prop('checked')) {
                 $('.proudect-1').text('Auto Slide');
                 $('.proudect-corousel-sec-input').removeClass('second-remove');
@@ -3274,7 +3334,7 @@ $admin_bot = json_decode($admin_bot, true);
             }
         });
 
-        $('body').on('change', '#send_params', function() { 
+        $('body').on('change', '#send_params', function() {
             if ($(this).prop('checked')) {
                 $('.send_params').text('Send in Params');
             } else {
@@ -3682,7 +3742,7 @@ $admin_bot = json_decode($admin_bot, true);
 
     $("body").on("change", ".carousel_img_input", function() {
         let carousel_img_input = this.files[0];
-        
+
         if (carousel_img_input) {
             let reader = new FileReader();
             reader.onload = function(e) {
@@ -3700,8 +3760,6 @@ $admin_bot = json_decode($admin_bot, true);
     $("body").on("click", ".img_carousel_clo_btn", function() {
         $(".img_carousel").addClass("d-none");
     });
-
-
 </script>
 
 <script>
@@ -3986,14 +4044,14 @@ $admin_bot = json_decode($admin_bot, true);
                             $(".appointment_period:eq(1)").val(appointment_period[1]);
                         }
 
-                        if(type_of_question == "18" || type_of_question == "24"){
+                        if (type_of_question == "18" || type_of_question == "24") {
                             if (menu_message[0].auto_slide_carousel === "1") {
                                 $(".auto_slide_carousel").prop("checked", true);
                             } else {
                                 $(".auto_slide_carousel").prop("checked", false);
                             }
                         }
-                    
+
                         if (menu_message.remove_question === "true") {
                             $(".remove_question").prop("checked", true);
                         } else {
@@ -4032,11 +4090,11 @@ $admin_bot = json_decode($admin_bot, true);
                             $(".is_strict_validation").prop("checked", false);
                         }
 
-                        if(type_of_question == 8){
+                        if (type_of_question == 8) {
                             var weekdays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
                             weekdays.forEach(function(day) {
                                 var checkbox = $("." + day.toLowerCase() + "_val");
-                                
+
                                 if (menu_message.weekdays.includes(day)) {
                                     checkbox.prop("checked", true);
                                 } else {
@@ -4239,7 +4297,7 @@ $admin_bot = json_decode($admin_bot, true);
                         }
 
                         // console.log(menu_message);
-                      
+
                         if (type_of_question == 24) {
                             let corousel_table_html = '';
 
@@ -4356,7 +4414,7 @@ $admin_bot = json_decode($admin_bot, true);
                             }
                             $(".proudect-table-body").append(corousel_table_html);
                         }
-                       
+
 
                         if (type_of_question == 27) {
                             var contact_table_html = '';
@@ -4526,13 +4584,13 @@ $admin_bot = json_decode($admin_bot, true);
             var rating_type = {};
 
             var selectedList = $('.list-group-item.active').attr('value');
-           
+
             var reactionArray = [Terrible, Bad, Okay, Good, Great];
 
             var valuesArray = {
                 reaction: reactionArray,
                 rating_type: selectedList
-                
+
             };
             var options_value = JSON.stringify(valuesArray);
             if (options_value === 'undefined') {
@@ -4541,7 +4599,7 @@ $admin_bot = json_decode($admin_bot, true);
         }
 
 
-       
+
 
         if (type_of_question == "8") {
             var checkedDays = $('.days_val:checked').map(function() {
@@ -4824,7 +4882,7 @@ $admin_bot = json_decode($admin_bot, true);
             var edit_quantity_button = $(".edit_quantity_button").val();
             var row = {
                 add_more_button: add_more_button,
-                add_more_button_jump:add_more_button_jump,
+                add_more_button_jump: add_more_button_jump,
                 submit_button: submit_button,
                 quantity_button_jump: quantity_button_jump,
                 edit_quantity_button: edit_quantity_button
@@ -4873,14 +4931,14 @@ $admin_bot = json_decode($admin_bot, true);
                 contentType: false,
                 success: function(res) {
                     // if (res == true) {
-                        $('.loader').hide();
-                        // $("form[name='question_update_form']")[0].reset();
-                        $("form[name='question_update_form']").removeClass("was-validated");
-                        $(".btn-close").trigger("click");
-                        iziToast.success({
-                            title: 'Update Successfully'
-                        });
-                        bot_list_data();
+                    $('.loader').hide();
+                    // $("form[name='question_update_form']")[0].reset();
+                    $("form[name='question_update_form']").removeClass("was-validated");
+                    $(".btn-close").trigger("click");
+                    iziToast.success({
+                        title: 'Update Successfully'
+                    });
+                    bot_list_data();
                     // } else {
                     //     $('.loader').hide();
                     //     $(".btn-close").trigger("click");
@@ -4953,7 +5011,7 @@ $admin_bot = json_decode($admin_bot, true);
 
         // var next_question_id = $('.OccupationInputClass ').val();
         var next_question_id = $('select.OccupationInputClass option:selected').val();
-    
+
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
             var formdata = new FormData(form);
@@ -5204,7 +5262,7 @@ $admin_bot = json_decode($admin_bot, true);
                                                 <?php
                                                 if (isset($admin_bot_setup)) {
                                                     foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                       
+
 
                                                         if ($type_value['bot_id'] == $botId) {
 
@@ -6546,16 +6604,16 @@ $admin_bot = json_decode($admin_bot, true);
                                 <select class="form-select add_more_button_jump" aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                     <?php
-                                        if (isset($admin_bot_setup)) {
-                                            foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                // pre($type_value);
+                                    if (isset($admin_bot_setup)) {
+                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                            // pre($type_value);
 
-                                                if ($type_value['bot_id'] == $botId) {
+                                            if ($type_value['bot_id'] == $botId) {
 
-                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                }
+                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                             }
                                         }
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -6574,16 +6632,16 @@ $admin_bot = json_decode($admin_bot, true);
                             <div class="col-5">
                                 <select class="form-select quantity_button_jump" aria-label="Default select example">
                                     <?php
-                                        if (isset($admin_bot_setup)) {
-                                            foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                // pre($type_value);
+                                    if (isset($admin_bot_setup)) {
+                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                            // pre($type_value);
 
-                                                if ($type_value['bot_id'] == $botId) {
+                                            if ($type_value['bot_id'] == $botId) {
 
-                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                }
+                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                             }
                                         }
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -6596,27 +6654,27 @@ $admin_bot = json_decode($admin_bot, true);
                 </form>
             `;
             default:
-            return "";
+                return "";
         }
     }
 </script>
 
 <script>
     $(document).ready(function() {
-        $(document).on("click","#sound-icon",function(){
+        $(document).on("click", "#sound-icon", function() {
             $(".sound-icon-lite").toggleClass("d-none");
         })
-        
+
     })
-    
-    $('body').on('click','.start_date_range',function(){
+
+    $('body').on('click', '.start_date_range', function() {
         $(this).bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY',
             time: false,
             clearButton: true
         });
     })
-    $('body').on('click','.end_date_range',function(){
+    $('body').on('click', '.end_date_range', function() {
         $(this).bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY',
             time: false,
@@ -6629,7 +6687,7 @@ $admin_bot = json_decode($admin_bot, true);
     //     time: false,
     //     clearButton: true
     // });
-    
+
     // $('.date_range2').bootstrapMaterialDatePicker({
     //     format: 'DD-MM-YYYY',
     //     time: false,
@@ -6638,34 +6696,34 @@ $admin_bot = json_decode($admin_bot, true);
     const progressCircle = document.querySelector(".autoplay-progress svg");
     const progressContent = document.querySelector(".autoplay-progress span");
     var swiper = new Swiper(".mySwiper", {
-      spaceBetween: 30,
-      centeredSlides: true,
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-      },
-      on: {
-        autoplayTimeLeft(s, time, progress) {
-          progressCircle.style.setProperty("--progress", 1 - progress);
-          progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        },
+        on: {
+            autoplayTimeLeft(s, time, progress) {
+                progressCircle.style.setProperty("--progress", 1 - progress);
+                progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+            }
         }
-      }
     });
 
     document.getElementById("button-addon2").addEventListener("click", function() {
         var textToCopy = document.getElementById("textToCopy");
-        textToCopy.removeAttribute("disabled"); 
+        textToCopy.removeAttribute("disabled");
         textToCopy.select();
         document.execCommand("copy");
-        textToCopy.setAttribute("disabled", "disabled"); 
+        textToCopy.setAttribute("disabled", "disabled");
         iziToast.success({
             title: 'Copied to clipboard'
         });
@@ -6686,6 +6744,5 @@ $admin_bot = json_decode($admin_bot, true);
                 title: 'Copied to clipboard'
             });
         });
-        }
-    )
+    })
 </script>
