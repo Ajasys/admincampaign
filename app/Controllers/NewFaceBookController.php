@@ -65,7 +65,7 @@ class NewFaceBookController extends BaseController
         }
         die();
     }
-    function new_facebook_user()
+    function facebook_user()
     {
 
         $action = $this->request->getPost("action");
