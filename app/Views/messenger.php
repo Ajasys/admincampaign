@@ -812,8 +812,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2">Document</p>
-                                    </div>
+                                        <p class="ms-2 DocumentSelectionForSendClickEventClass" data-bs-toggle="modal" data-bs-target=".PinToDocumentSelectClass">Document</p>                                    </div>
                                 </li>
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
@@ -929,8 +928,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 </g>
                                             </svg>
                                         </div>
-                                        <p class="ms-2">Photos & Videos</p>
-                                    </div>
+                                        <p class="ms-2 SendImageAndPhotosClass" data-bs-toggle="modal" data-bs-target=".PinToDocumentSelectClass">Photos & Videos</p>                                    </div>
                                 </li>
                                 <li class="nav_item_ww col-12 border rounded-2 mt-1 mb-1 p-2">
                                     <div class="d-flex">
@@ -2058,24 +2056,25 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    // $('.u_btn_Email').remove();
-                    // iziToast.success({
-                    //     title: 'Successfully added'
-                    // });
-                    // $(".close_btn").trigger("click");
-                    // $('.loader').hide();
+                    $(".close_btn").trigger("click");
+                    $('.chat_list .active-account-box').trigger('click');
+
                 }
             });
         }
     });
 
-
+    
     $('body').on('click', '.SendImageAndPhotosClass', function () {
         $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 2);
+        $('.u_btn_Email').html('');
+
     });
     $('body').on('click', '.DocumentSelectionForSendClickEventClass', function () {
         $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 1);
+        $('.u_btn_Email').html('');
     });
+
 
 
     $('body').on('click', '.SendImage', function () {

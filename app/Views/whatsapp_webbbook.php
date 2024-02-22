@@ -1,65 +1,65 @@
 <?php
-    error_reporting(-1);
-    $verifyToken = 'AWA1235454406';
-    $access_token = 'your_page_access_token';
+error_reporting(-1);
+$verifyToken = 'AWA1235454406';
+$access_token = 'your_page_access_token';
 
-    function writeToFile($data)
-    {
-        $filename = 'whatsappwebhook_process_info.txt';
-        $currentDateTime = date('Y-m-d H:i:s');
-        $content = $currentDateTime . ': ' . $data . PHP_EOL;
-        // $content = $currentDateTime . ': ' . json_encode($data) . PHP_EOL; // Encode the data before writing
-        file_put_contents($filename, $content, FILE_APPEND);
+function writeToFile($data)
+{
+    $filename = 'whatsappwebhook_process_info.txt';
+    $currentDateTime = date('Y-m-d H:i:s');
+    $content = $currentDateTime . ': ' . $data . PHP_EOL;
+    file_put_contents($filename, $content, FILE_APPEND);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['hub_mode']) && $_GET['hub_mode'] === 'subscribe') {
+    if ($_GET['hub_verify_token'] === $verifyToken) {
+        echo $_GET['hub_challenge'];
+    } else {
+        header('HTTP/1.1 403 Forbidden');
     }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['hub_mode']) && $_GET['hub_mode'] === 'subscribe') {
-        if ($_GET['hub_verify_token'] === $verifyToken) {
-            echo $_GET['hub_challenge'];
-        } else {
-            header('HTTP/1.1 403 Forbidden');
-        }
-        exit;
-    }
+    exit;
+}
 
 
-    $servername = "rudrram.com";
-    $username = "rudrramc_campaign";
-    $password = "mMzAx-ftZ^!%";
-    $databasename = "rudrramc_campaign";
-    // Create connection
-    $conn = mysqli_connect(
-        $servername,
-        $username,
-        $password,
-        $databasename
-    );
-    $check = 'not connected..';
+$servername = "rudrram.com";
+$username = "rudrramc_campaign";
+$password = "mMzAx-ftZ^!%";
+$databasename = "rudrramc_campaign";
+// Create connection
+$conn = mysqli_connect(
+    $servername,
+    $username,
+    $password,
+    $databasename
+);
+$check = 'not connected..';
 
-    if ($conn) {
-        $check = "connection successfully..";
-    }
+if ($conn) {
+    $check = "connection successfully..";
+}
 
 
-    $input = file_get_contents('php://input');
-    $data = json_decode($input, true);
-    writeToFile(json_encode($data));
-    writeToFile($input);
+$input = file_get_contents('php://input');
+$data = json_decode($input, true);
+writeToFile(json_encode($data));
+writeToFile($input);
 
-    $response = json_decode(json_encode($data), true);
-    $servername = "rudrram.com";
-    $username = "rudrramc_campaign";
-    $password = "mMzAx-ftZ^!%";
-    $databasename = "rudrramc_campaign";
-    $db_connection = mysqli_connect(
-        $servername,
-        $username,
-        $password,
-        $databasename
-    );
-    $messaging_product = '';
-    $recipient_id = '';
-    $id = '';
-    if (isset($response['entry'][0])) {
+$response = json_decode(json_encode($data), true);
+$servername = "rudrram.com";
+$username = "rudrramc_campaign";
+$password = "mMzAx-ftZ^!%";
+$databasename = "rudrramc_campaign";
+$db_connection = mysqli_connect(
+    $servername,
+    $username,
+    $password,
+    $databasename
+);
+$messaging_product = '';
+$recipient_id = '';
+$id = '';
+// writeToFile($data)
+if (isset($response['entry'][0])) {
     $WhatsAppID = '';
     $WhatsAppStatus = '';
     if (isset($response['entry'][0]['changes'][0]['value']['statuses'][0]['id'])) {
@@ -106,7 +106,7 @@
                                             $checkphonnoidresultarray = $checkphonnoidresult->fetch_assoc();
                                             if (isset($checkphonnoidresultarray['id'])) {
                                                 $conversation_account_id = $checkphonnoidresultarray['id'];
-                                                $checksenderinfo_result = $db_connection->query("SELECT * FROM " . $result_value['username'] . "_social_accounts WHERE contact_no = '" . $sendercontact . "'");
+                                                $checksenderinfo_result = $db_connection->query("SELECT * FROM " . $result_value['username'] . "_social_accounts WHERE contact_no = '" . $sendercontact . "' AND conversation_account_id = '".$conversation_account_id."'");
                                                 $checkcounts = $checksenderinfo_result->num_rows;
                                                 $checkphonostatus = 0;
                                                 if ($checkcounts == '0') {
@@ -132,6 +132,8 @@
                                                             }
                                                         } elseif ($message_type == 'image') {
                                                             $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `assets_type`, `sha_id`, `assest_id`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '3','2', '" . $RecievedMessageArray['messages'][0]['image']['mime_type'] . "', '" . $RecievedMessageArray['messages'][0]['image']['sha256'] . "', '" . $RecievedMessageArray['messages'][0]['image']['id'] . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
+                                                        } elseif ($message_type == 'video') {
+                                                            $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `assets_type`, `sha_id`, `assest_id`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '3','2', '" . $RecievedMessageArray['messages'][0]['video']['mime_type'] . "', '" . $RecievedMessageArray['messages'][0]['video']['sha256'] . "', '" . $RecievedMessageArray['messages'][0]['video']['id'] . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
                                                         } elseif ($message_type == 'document') {
                                                             $db_connection->query("INSERT INTO `admin_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `assets_type`, `sha_id`, `assest_id`, `asset_file_name`, `timestamp`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $RecievedMessageArray['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '4','2', '" . $RecievedMessageArray['messages'][0]['document']['mime_type'] . "', '" . $RecievedMessageArray['messages'][0]['document']['sha256'] . "', '" . $RecievedMessageArray['messages'][0]['document']['id'] . "', '" . $RecievedMessageArray['messages'][0]['document']['filename'] . "', '" . $RecievedMessageArray['messages'][0]['timestamp'] . "')");
                                                         } elseif ($message_type == 'contacts') {
@@ -172,7 +174,8 @@
             }
 
             $resultsssss = $rows;
-
+            
+            
 
             if (isset($resultsssss) && !empty($resultsssss)) {
                 foreach ($resultsssss as $key => $result_value) {
@@ -183,24 +186,34 @@
                         $tablestatus = 1;
                         if ($tablestatus == '1') {
                             $subsqls = '';
+                            $subsqls2 = '';
+
                             if ($WhatsAppStatus == "delivered") {
                                 $status = 1;
-                                $subsqls = "UPDATE `" . $tablename . "` SET `Status`='1', delivertimedate = '" . gmdate('Y-m-d H:i:s') . " WHERE Whatsapp_Message_id = '" . $WhatsAppID . "''";
+                                $subsqls = "UPDATE `" . $tablename . "` SET `Status`='1', delivertimedate = '" . gmdate('Y-m-d H:i:s') . "' WHERE Whatsapp_Message_id = '" . $WhatsAppID . "' ";
+                                $subsqls2 = "UPDATE `" . $result_value['username'] . "_messages` SET `message_status`='1', delivered_date_time = '" . gmdate('Y-m-d H:i:s') . "' WHERE conversation_id = '" . $WhatsAppID . "' ";
                             }
                             if ($WhatsAppStatus == "sent") {
                                 $status = 0;
                                 $subsqls = "UPDATE `" . $tablename . "` SET `Status`='0' WHERE Whatsapp_Message_id = '" . $WhatsAppID . "'";
+                                $subsqls2 = "UPDATE `" . $result_value['username'] . "_messages` SET `message_status`='0', sent_date_time		 = '" . gmdate('Y-m-d H:i:s') . "	 WHERE conversation_id	 = '" . $WhatsAppID . "'";
+
                             }
                             if ($WhatsAppStatus == "failed") {
                                 $status = 3;
                                 $subsqls = "UPDATE `" . $tablename . "` SET `Status`='3' WHERE Whatsapp_Message_id = '" . $WhatsAppID . "'";
+                                $subsqls2 = "UPDATE `" . $result_value['username'] . "_messages` SET `message_status`='3', failed_date_time	 = '" . gmdate('Y-m-d H:i:s') . "	 WHERE conversation_id	 = '" . $WhatsAppID . "'";
+
                             }
                             if ($WhatsAppStatus == "read") {
                                 $status = 2;
                                 $subsqls = "UPDATE `" . $tablename . "` SET `Status`='2', readtimedate = '" . gmdate('Y-m-d H:i:s') . "' WHERE Whatsapp_Message_id = '" . $WhatsAppID . "' ";
+                                $subsqls2 = "UPDATE `" . $result_value['username'] . "_messages` SET `message_status`='2', read_date_time = '" . gmdate('Y-m-d H:i:s') . "' WHERE conversation_id = '" . $WhatsAppID . "' ";
                             }
 
-
+                            if ($subsqls2 != '') {
+                                $db_connection->query($subsqls2);
+                            }
 
                             if ($subsqls != '') {
                                 $updatedata = $db_connection->query($subsqls);
