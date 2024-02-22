@@ -46,6 +46,37 @@ class AudianceController extends BaseController
         }
         return $array;
     }
+    public function audio_file() {
+        // Check if an audio file was received
+        if(isset($_FILES['audio']) && $_FILES['audio']['error'] === UPLOAD_ERR_OK) {
+            // Specify the directory where you want to save the audio files
+            $uploadDirectory = './assets/audio/'; // Adjust the path as needed
+    
+            // Make sure the directory exists; create it if it doesn't
+            if (!file_exists($uploadDirectory)) {
+                mkdir($uploadDirectory, 0777, true);
+            }
+    
+            // Get the temporary location of the uploaded audio file
+            $audioTmpFile = $_FILES['audio']['tmp_name'];
+    
+            // Generate a unique filename for the audio file
+            $audioFileName = uniqid('audio_') . '.mp3'; // or '.aac'
+    
+            // Move the uploaded audio file to the specified directory
+            if (move_uploaded_file($audioTmpFile, $uploadDirectory . $audioFileName)) {
+                // Send a response indicating the success of the operation
+                echo 'Audio recorded successfully. File saved as: ' . $audioFileName;
+            } else {
+                // Send an error response if the file move operation failed
+                echo 'Error: Failed to save audio file.';
+            }
+        } else {
+            // Send an error response if no audio file was received or if there was an upload error
+            echo 'Error: No audio file received or upload error occurred.';
+        }
+    }
+
     public function edit_data_audience()
     {
         if ($this->request->getPost("action") == "edit") {
