@@ -462,6 +462,23 @@ class WhatAppIntegrationController extends BaseController
             if (isset($GerDataLastMsg) && !empty($GerDataLastMsg) && $GerDataLastMsg[0]['message_type']) {
                 if ($GerDataLastMsg[0]['message_type'] == '1' || $GerDataLastMsg[0]['message_type'] == '2') {
                     $lastmsg = $GerDataLastMsg[0]['message_contant'];
+                    $msgtext = '';
+                    if (!function_exists('\App\Controllers\is_json')) {
+                        function is_json($string) {
+                            json_decode($string);
+                            return (json_last_error() == JSON_ERROR_NONE);
+                        }
+                    }
+                    
+                    if (is_json($GerDataLastMsg[0]['message_contant'])) {
+                        $data1 = json_decode($GerDataLastMsg[0]['message_contant'], true);
+                        if (isset($data1['body'])) {
+                            $msgtext = $data1['body'];
+                        }
+                    } else {
+                        $msgtext = $GerDataLastMsg[0]['message_contant'];
+                    }
+                    $lastmsg = $msgtext;
                 } elseif ($GerDataLastMsg[0]['message_type'] == '3') {
                     $lastmsg = 'Image';
                 } elseif ($GerDataLastMsg[0]['message_type'] == '4') {
@@ -1918,6 +1935,7 @@ class WhatAppIntegrationController extends BaseController
         $counttrigger = 0;
 
         // pre($GetData);
+        // die();
         foreach ($GetData as $key => $value) {
 
             if ($value['msg_read_status'] == '0' && $value['sent_recieved_status'] == '2') {
@@ -1975,24 +1993,39 @@ class WhatAppIntegrationController extends BaseController
             $formattedtime = date('h:i A', strtotime($formattedDate));
             $msgtype = $value['message_type'];
             if ($msgtype == 1) {
+                $msgtext = '';
+
+                if (!function_exists('\App\Controllers\is_json')) {
+                    // Function to check if a string is JSON
+                    function is_json($string) {
+                        json_decode($string);
+                        return (json_last_error() == JSON_ERROR_NONE);
+                    }
+                }
+                
+                // Your code snippet
+                if (is_json($value['message_contant'])) {
+                    $data1 = json_decode($value['message_contant'], true);
+                    if (isset($data1['body'])) {
+                        $msgtext = $data1['body'];
+                    }
+                } else {
+                    $msgtext = $value['message_contant'];
+                }
                 if ($sent_recieved_status == '2') {
                     $html .= '
                         <div class="d-flex mb-4 ">
                             <div class="col-9 text-start">
-                                <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $value['message_contant'] . ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
+                                <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $msgtext. ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
                             </div>
                         </div>';
                 }
                 if ($sent_recieved_status == '1') {
-                    // Convert emojis to HTML entities
-                    // pre(json_decode('"' . $value['message_contant'] . '"'));
-                    $message_contant = htmlspecialchars($value['message_contant'], ENT_QUOTES, 'UTF-8');
-
                     $html .= '
                         <div class="d-flex mb-4 justify-content-end">
                             <div class="col-9 text-end position-relative">
                                 <span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> 
-                                <span class="ps-3 pe-1 py-2 rounded-3 text-white container" style="background:#005c4b;">' . $message_contant . '
+                                <span class="ps-3 pe-1 py-2 rounded-3 text-white container" style="background:#005c4b;">' . $msgtext . '
                                     <span class="mx-1 align-self-end">' . $readrecieptsymbole . '</span>
                                 </span>
                             </div>
@@ -2277,14 +2310,14 @@ class WhatAppIntegrationController extends BaseController
         if ($html != '') {
             $html .= '
         
-        <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom();</script> ';
+        <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom(); $(".massage_input").val("");</script> ';
         } else {
             $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
         }
 
         // pre($MsgSendStatus);
         if ($MsgSendStatus == '0') {
-            $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">You cannot continue a conversation if the receiver`s response time is up to 24 hours.</div>
+            $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
             <script>$(".WhatsApp24HourButton").prop("disabled", true);</script>';
         } else {
             $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false);</script>';
@@ -2360,12 +2393,13 @@ class WhatAppIntegrationController extends BaseController
                     $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
                     $insert_data['message_type'] = '1';
                     $insert_data['sent_recieved_status'] = '1';
-                    $insert_data['message_contant'] = $massage_input;
+                                $jsonmsg = '{"body":'.json_encode($massage_input).'}';
+
+                    $insert_data['message_contant'] = $jsonmsg;
                     $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
                 }
             }
         }
-        // pre($Result);
         die();
     }
 
