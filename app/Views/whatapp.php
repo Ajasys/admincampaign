@@ -646,7 +646,7 @@ if (!empty($connections)) {
     <div class="col-12 d-flex justify-content-between">
         <div class="title-1 d-flex align-items-center">
             <i class="fa-brands fa-whatsapp"></i>
-            <h2>WhatsApp Message Template</h2>
+            <h2>WhatsApp Manager</h2>
         </div>
         <div class="col-6 col-lg-2">
             <div class="main-selectpicker">
@@ -3313,7 +3313,7 @@ if (!empty($connections)) {
                 originalHTML = $('.preview-chat-paragraph .BodyValue').html();
             }
 
-            var body = $('.preview-chat-paragraph .BodyValue').html();
+            var body = $('.preview-chat-paragraph .BodyValue').text();
             $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
             var fullmsg = $('.preview-chat-paragraph').html();
             var newbody = JSON.stringify(body);
