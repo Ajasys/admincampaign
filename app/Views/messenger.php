@@ -22,6 +22,15 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
     }
 
+   
+    .chat_bordClass {
+        max-height:90% !important;
+    }
+
+
+
+    
+
     .c-wa-message:before {
         position: absolute;
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAMAAADp2asXAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACQUExURUxpccPDw9ra2m9vbwAAAAAAADExMf///wAAABoaGk9PT7q6uqurqwsLCycnJz4+PtDQ0JycnIyMjPf3915eXvz8/E9PT/39/RMTE4CAgAAAAJqamv////////r6+u/v7yUlJeXl5f///5ycnOXl5XNzc/Hx8f///xUVFf///+zs7P///+bm5gAAAM7Ozv///2fVensAAAAvdFJOUwCow1cBCCnqAhNAnY0WIDW2f2/hSeo99g1lBYT87vDXG8/6d8oL4sgM5szrkgl660OiZwAAAHRJREFUKM/ty7cSggAABNFVUQFzwizmjPz/39k4YuFWtm55bw7eHR6ny63+alnswT3/rIDzUSC7CrAziPYCJCsB+gbVkgDtVIDh+DsE9OTBpCtAbSBAZSEQNgWIygJ0RgJMDWYNAdYbAeKtAHODlkHIv997AkLqIVOXVU84AAAAAElFTkSuQmCC);
@@ -1100,7 +1109,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
 
-                        <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3">
+                        <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3 TextInputTastbar">
                             <div class="d-flex bg-white rounded-pill py-1 border">
                                 <div class="d-flex col-12 align-items-center">
                                     <div class="ps-2">
@@ -1980,7 +1989,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         $(".WhatsApp24HourButton").prop("disabled", false);
         $('.AddModelContactNO').removeClass('chatheadercolorclasswithheader');
-
+        $(".TextInputTastbar").removeClass("d-none"); 
+        $(".chat_bord").removeClass("chat_bordClass");
     });
 
     $('body').on('click', '.WhatsAppListedMessage', function () {

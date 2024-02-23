@@ -1848,34 +1848,8 @@ class WhatAppIntegrationController extends BaseController
 
     public function WhatsAppListConverstion()
     {
-        // require_once 'vendor/autoload.php';
-
-        // use voku\helper\Emoji;
-
-        // $string = "ud83dudc4du2728ud83dudc4f Hiiii ud83dude4fud83dude4fud83dude4fud83dude4f";
-
-        // $emoji = Emoji::getAll();
-
-        // // Split the string into an array of emojis and text
-        // $parts = preg_split('//u', $string, -1, PREG_SPLIT_NO_EMPTY);
-
-        // // Separate emojis and text
-        // $emojis = '';
-        // $text = '';
-
-        // foreach ($parts as $part) {
-        //     if (in_array($part, $emoji, true)) {
-        //         $emojis .= $part;
-        //     } else {
-        //         $text .= $part;
-        //     }
-        // }
-
-        // echo "Text: $text\n";
-        // echo "Emojis: $emojis\n";
 
 
-        // die();
         $MetaUrl = config('App')->metaurl;
         $contact_no = $_POST['contact_no'];
         $conversation_account_id = $_POST['conversation_account_id'];
@@ -2318,9 +2292,9 @@ class WhatAppIntegrationController extends BaseController
         // pre($MsgSendStatus);
         if ($MsgSendStatus == '0') {
             $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
-            <script>$(".WhatsApp24HourButton").prop("disabled", true);</script>';
+            <script>$(".WhatsApp24HourButton").prop("disabled", true); $(".TextInputTastbar").addClass("d-none"); $(".chat_bord").addClass("chat_bordClass");</script>';
         } else {
-            $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false);</script>';
+            $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false); $(".TextInputTastbar").removeClass("d-none"); $(".chat_bord").removeClass("chat_bordClass");</script>';
         }
 
 
