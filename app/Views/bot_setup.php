@@ -33,6 +33,10 @@ $admin_bot = json_decode($admin_bot, true);
         cursor: move;
     }
 
+    #image_container {
+        text-align: center; /* Center content horizontally */
+    }
+
     .bot-box:hover {
         box-shadow: 0 0 5px 2px #0000004d;
     }
@@ -1509,6 +1513,7 @@ $admin_bot = json_decode($admin_bot, true);
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourythreequestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fouryfourquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyfivequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentysixquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourtyonequestion"></div>
                                 <!--Question-->
                                 <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
@@ -3330,16 +3335,17 @@ $admin_bot = json_decode($admin_bot, true);
         //Single Choile Table Row Add
         function table_html() {
             var row_numbers = $('.main-plan').length;
-            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select question_select" aria-label="Default select example">';
+            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select question_select" aria-label="Default select example"><option selected>No Jump</option><td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td>';
 
             var options = <?php echo $encoded_options; ?>;
 
             options.forEach(function(option) {
                 main_table_html += '<option value="' + option.id + '">' + option.question + '</option>';
             });
-            main_table_html += '<td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td></select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
+            main_table_html += '</select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".tbody").append(main_table_html);
         }
+
         table_html();
 
         $('body').on('click', '.single-choice-add-tabal', function() {
@@ -3715,13 +3721,15 @@ $admin_bot = json_decode($admin_bot, true);
             let reader = new FileReader();
             reader.onload = function(e) {
                 $('.img_carousel img').attr('src', e.target.result);
-            }
+            };
             reader.readAsDataURL(carousel_img_input);
+            $(".img_carousel").removeClass("d-none");
+            $('.image_svg').addClass('d-none');
+            // $(this).closest('.input-change').siblings('.img_carousel').removeClass('d-none');
+            // $(this).closest('.input-change').addClass('d-none');
 
-            $(this).closest('.input-change').siblings('.img_carousel').removeClass('d-none');
-            $(this).closest('.input-change').addClass('d-none');
-        } else {
-            $(this).closest('.input-change').siblings('.img_carousel').addClass('d-none');
+            // Store the selected image file for later use
+            $(this).data('imageFile', carousel_img_input);
         }
     });
 
@@ -3943,6 +3951,29 @@ $admin_bot = json_decode($admin_bot, true);
                             $(".great").val(fifthReaction.reaction);
                         } else {
 
+                        }
+                        if (menu_message != '') {
+                            var menu_message = JSON.parse(response[0].menu_message);
+
+                            // Extract image file name from menu_message
+                            var imageFileName = menu_message.imageFileName;
+
+                            // Check if imageFileName exists
+                            if (imageFileName) {
+                                // Display the image
+                                var imageElement = document.createElement('img');
+                                imageElement.src = 'assets/bot_image/' + imageFileName; // Update with your image directory path
+                                imageElement.style.display = "block"; // Ensure image is displayed as block element
+                                imageElement.style.marginBottom = "10px"; // Add margin at bottom for spacing
+                                imageElement.setAttribute('height', '100px'); // Set height
+                                imageElement.setAttribute('width', '100px'); // Set width
+                                document.getElementById('image_container').appendChild(imageElement);
+
+                                // Display the image file name
+                                var fileNameElement = document.createElement('div');
+                                fileNameElement.textContent = imageFileName;
+                                document.getElementById('image_container').appendChild(fileNameElement);
+                            }
                         }
 
                         if (menu_message != '') {
@@ -4915,6 +4946,18 @@ $admin_bot = json_decode($admin_bot, true);
                 header_text: header_text,
                 footer_text: footer_text
             };
+            var options_value = JSON.stringify(row);
+        }
+        if (type_of_question == "25") {
+            var imageFileInput = document.getElementById('carousel_img_input');
+            var imageFile = imageFileInput.files[0];
+            var imageFileName = imageFileInput.value.split('\\').pop(); // Extract file name from file path
+
+            var row = {
+                imageFile: imageFile,
+                imageFileName: imageFileName,
+            };
+
             var options_value = JSON.stringify(row);
         }
 
@@ -6529,7 +6572,7 @@ $admin_bot = json_decode($admin_bot, true);
             `;
             case "25":
                 return `
-               
+                <form class="col-12" name="question_update_form" enctype="multipart/form-data" method="post">
                     <div class="d-flex flex-wrap col-12">
                         <div class="col-12 d-flex flex-wrap my-3">
                             <div class="d-flex flex-wrap align-items-center col-4 m-2" style="height: 69px;">
@@ -6550,18 +6593,14 @@ $admin_bot = json_decode($admin_bot, true);
                             </div>
                         </div>
                     </div>
-                    <div class="img_carousel mt-3 d-none">
-                        <div class="position-relative">
-                            <img src="https://th.bing.com/th/id/OIP.IhiqRWFamp-enjV2csKdzwHaE8?rs=1&pid=ImgDetMain" height="200px" width="200px" class="position-relative" alt="">
-
-                            <button class="border-0 position-absolute bg-white rounded-5 img_carousel_clo_btn top-0 end-0" style="height: 20px; width: 20px;  "><i class="bi bi-x"></i></button>
-                        </div>
-                    </div>
+                   
                     <div class="col-12 d-flex flex-wrap px-3 input-change">
                         <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box">
-                            <input type="file" class="position-absolute carousel_img_input col-12" style="height: 200px; opacity: 0;" name="" id="">
+                        <input type="file" class="position-absolute carousel_img_input imageFile col-12" style="height: 200px; opacity: 0;" name="imageFile" id="carousel_img_input" accept="image/*">
+                        <div id="image_container" style="position:relative;"><div style="position:absolute; right:0px; top:0px;"><i class="fa-solid fa-xmark remove_image"></i></div></div>
+                        <div id="image_file_name"></div>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                            <svg class="image_svg d-none" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                         <g>
                                             <defs>
                                                 <clipPath id="a" clipPathUnits="userSpaceOnUse">
@@ -6644,10 +6683,16 @@ $admin_bot = json_decode($admin_bot, true);
                                             </g>
                                         </g>
                                     </svg>
-                        
+                                    <div class="img_carousel mt-3 col-12 text-center d-none">
+                        <div class="position-relative">
+                            <img src="https://th.bing.com/th/id/OIP.IhiqRWFamp-enjV2csKdzwHaE8?rs=1&pid=ImgDetMain" height="150px" width="150px" class="position-relative" alt="">
+
+                            <div class="image_close" style="position:absolute; top:0px; right:0px;"><i class="fa-solid fa-xmark fs-3"></i></div>
                         </div>
                     </div>
-
+                        </div>
+                    </div>
+                 </form>
                     
             `;
             case "26":
@@ -6894,6 +6939,10 @@ $admin_bot = json_decode($admin_bot, true);
 </script>
 
 <script>
+    $('body').on('click','.remove_image',function(){
+        $('.image_svg').removeClass('d-none');
+        $('#image_container').addClass('d-none');
+    })
     $(document).ready(function() {
         $(document).on("click","#sound-icon",function(){
             $(".sound-icon-lite").toggleClass("d-none");

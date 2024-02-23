@@ -618,34 +618,63 @@ class Bot_Controller extends BaseController
 				}
 			}
 		}
-		// $files= $_FILES;
-		// if(!empty($files)){
-		// 	$uploadDir = 'assets/bot_image/';
-		// 	if (!is_dir($uploadDir)) {
-		// 		mkdir($uploadDir, 0777, true);
-		// 	}
-		// 	$filesArr = $_FILES["images"];
-		// 	$fileNames = array_filter($filesArr['name']);
-		// 	$uploadedFile = '';
-		// 	foreach ($filesArr['name'] as $key => $val) {
-		// 		$fileName = basename($filesArr['name'][$key]);
-		// 		$targetFilePath = $uploadDir . $fileName;
-		// 		$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-		// 		if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
-		// 			if($fileName !== ""){
-		// 				if(strlen($fileName) == 1){
-		// 					$uploadedFile .= $fileName;
-		// 				}else{
-		// 					$uploadedFile .= $fileName;
-		// 				}
-		// 			}
-		// 		} else {
-		// 			$uploadStatus = 0;
-		// 			$response['message'] = 'Sorry, there was an error uploading your file.';
-		// 		}
-		// 	}
-		// }
-
+		// pre($_FILES);
+		// 		die();
+		if (isset($_POST['menu_message'])) {
+			$menu_message = json_decode($_POST['menu_message'], true); // Decode JSON string to array
+			if (isset($menu_message['imageFileName'])) {
+				// Extract image file name
+				$imageFileName = $menu_message['imageFileName'];
+				// pre($imageFileName);
+				// Specify the directory where you want to save the image files
+				$uploadDirectory = 'assets/bot_image/'; // Adjust the path as needed
+				
+				// Create the upload directory if it doesn't exist
+				if (!is_dir($uploadDirectory)) {
+					mkdir($uploadDirectory, 0777, true);
+				}
+				// Move the uploaded image file to the specified directory
+				$sourceFilePath = $_FILES['imageFile']['tmp_name'];
+				$targetFilePath = $uploadDirectory . $imageFileName;
+				
+				if (move_uploaded_file($sourceFilePath, $targetFilePath)) {
+					// File copied successfully
+					$response['status'] = 'success';
+					$response['message'] = 'Image file saved successfully.';
+				} else {
+					// Error handling if file copy operation failed
+					$response['status'] = 'error';
+					$response['message'] = 'Error: Failed to save image file.';
+				}
+			}
+		}
+		$files = $_FILES;
+			if (!empty($files) && isset($_FILES["images"]["name"])) {
+				$uploadDir = 'assets/bot_image/';
+				if (!is_dir($uploadDir)) {
+					mkdir($uploadDir, 0777, true);
+				}
+				$filesArr = $_FILES["images"];
+				if (is_array($filesArr['name'])) {
+					$fileNames = array_filter($filesArr['name']);
+				} else {
+					$fileNames = array($filesArr['name']); // Convert the string to an array
+				}
+				$uploadedFile = '';
+				foreach ($fileNames as $key => $fileName) {
+					$fileName = basename($fileName);
+					if (!empty($fileName)) {
+						$targetFilePath = $uploadDir . $fileName;
+						$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+						if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
+							$uploadedFile .= $fileName;
+						} else {
+							$uploadStatus = 0;
+							$response['message'] = 'Sorry, there was an error uploading your file.';
+						}
+					}
+				}
+			}
 		
 		if ($this->request->getPost("action") == "update") {
 			//print_r($_POST);
