@@ -850,17 +850,17 @@ class Bot_Controller extends BaseController
 							</label>
 						</div>
 						<div class="col-2 d-flex flex-wrap align-items-center">';
-				$html .= '<div class="col-4 p-1">';
+				$html .= '<div class="col-3 p-1">';
 				if ($value['type_of_question'] != 31 && $value['type_of_question'] != 32 && $value['type_of_question'] != 33 && $value['type_of_question'] != 45) {
 					$html .= '<i class="fa fa-pencil cursor-pointer question_edit" data-id=' . $value['id'] . ' data-type_of_question=' . $value['type_of_question'] . ' data-bs-toggle="modal" data-bs-target="#add-email"></i>';
 				}
 				$html .= '</div>';
 
-				// if ($value['type_of_question'] != 36) {
-				// 	$html .= '<div class="col-3 p-1">';
-				// 	$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
-				// 	$html .= '	</div>';
-				// }
+				if ($value['type_of_question'] != 36) {
+				$html .= '<div class="col-3 p-1">';
+				$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
+				$html .= '	</div>';
+				}
 
 				$html .= '	<div class="col-3 p-1">
 								<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question=' . $value['id'] . '></i>
@@ -962,14 +962,14 @@ class Bot_Controller extends BaseController
 		} else {
 			$sequence = isset($result) ? 1 : $sequence;
 			$db_connection = \Config\Database::connect('second');
-
-			if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
+if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true" && $_POST['nextQuestion'] != "") {
 				$nextQuestion = $_POST['nextQuestion'];
-				pre($nextQuestion);
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
+				// pre($nextQuestion);
+				$sql = 'SELECT * FROM ' . $table . ' WHERE id = ' . $nextQuestion . '';
 			} else {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 			}
+// pre($sql);
 
 			// Execute query
 			$db_connection = \Config\Database::connect('second');
@@ -1846,6 +1846,23 @@ class Bot_Controller extends BaseController
 		$response = []; 
 
 		if (!empty($question)) {
+
+			if(isset($question) && $question['next_questions'] != "" && $question['next_questions'] != "undefined"){
+				$menu_message = explode(';',json_decode($question['menu_message'])->options);
+				$next_questions = explode(',',$question['next_questions']);
+				// pre($menu_message);
+				foreach($menu_message as $key => $value) {
+					if($value == $answer && isset($next_questions[$key])){
+						$response['sequence'] = $next_questions[$key];
+						break;
+					} else {
+						$response['sequence'] = $question['sequence'] + 1;
+					}
+				}
+			} else {
+				$response['sequence'] = $question['sequence'] + 1;
+			}
+
 			if ($question['type_of_question'] == 3 && $question['error_text']) {
 				// Validate email if the question type is 3
 				$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';

@@ -1499,13 +1499,13 @@ $admin_bot = json_decode($admin_bot, true);
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyonequestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentythreequestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyfourquestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentysixquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentysevenquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyeightquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="thirtyethquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourythreequestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fouryfourquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyfivequestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentysixquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourtyonequestion"></div>
                                 <!--Question-->
                                 <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
@@ -2431,7 +2431,7 @@ $admin_bot = json_decode($admin_bot, true);
                         <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
                        
                         <select id="occupation" name="" class="selectpicker OccupationInputClass question_select form-control form-main occupation_add" data-live-search="true">
-                                <option value="No Jump">No Jump</option>
+                                <!-- <option value="No Jump">No Jump</option> -->
                                 <?php
                                     if (isset($admin_bot_setup)) {
                                         foreach ($admin_bot_setup as $type_key => $type_value) {
@@ -2439,7 +2439,7 @@ $admin_bot = json_decode($admin_bot, true);
                                             if ($type_value['bot_id'] == $botId) {
                                                 // pre($type_value['question']);
 
-                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                echo '<option value="' . $type_value["sequence"] . '">' . $type_value["question"] . '</option>';
                                             }
                                         }
                                     }
@@ -3062,9 +3062,9 @@ $admin_bot = json_decode($admin_bot, true);
                 success: function (res) {
                     var response = JSON.parse(res);
                     if (response.response == 3 || response.response == 1) {
-                        sequence++;
+                        // sequence++;
                         $('.answer_chat').val('');
-                        bot_preview_data(sequence, nextQuestion);
+                        bot_preview_data(response.sequence, nextQuestion);
                     } else if (response.response == 2) {
                         var sdfsdf = response.id_validation;
                         var apend_messege = '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="1" data-sequence="' + sequence + '"><div class="border rounded-circle overflow-hidden" style="width:35px;height:35px"> <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle"> </div><div class="col px-2"> <div class="col-12 mb-2"> <span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="1"><p>' + sdfsdf + '</p></span></div></div></div>';
@@ -3899,6 +3899,7 @@ $admin_bot = json_decode($admin_bot, true);
                     }
 
                     $("#Question_error_message").val(response[0].error_text);
+                    // $("#Question_error_message").val(response[0].error_text);
 
                     var menu_message = response[0].menu_message;
 
@@ -3921,7 +3922,7 @@ $admin_bot = json_decode($admin_bot, true);
                         } else {
 
                         }
-                        
+
                         if (menu_message != '') {
                             var menu_message = JSON.parse(response[0].menu_message);
 
@@ -3939,6 +3940,7 @@ $admin_bot = json_decode($admin_bot, true);
                             
                             // Other code to populate form fields...
                         }
+
                         $(".button_text").val(menu_message.button_text);
                         $(".button_url").val(menu_message.button_url);
 
@@ -4073,6 +4075,10 @@ $admin_bot = json_decode($admin_bot, true);
                                 $(".main-plan").remove();
                                 optionsArray.forEach(function(option, index) {
                                     var row_numbers = index === 0 ? '' : $('.main-plan').length;
+                                    var nextQuestions = response[0].next_questions.split(',');
+                                    console.log(nextQuestions);
+                                    
+
                                     var main_table_html =
                                         '<tr class="col-12 main-plan">' +
                                         '<td class="col-3">' +
@@ -4085,6 +4091,8 @@ $admin_bot = json_decode($admin_bot, true);
                                         '</td>' +
                                         '<td class="col-4">' +
                                         '<select class="form-select question_select_second" aria-label="Default select example">' +
+                                        '<option></option>' +
+                                        
                                         '<?php
                                             if (isset($admin_bot_setup)) {
                                                 foreach ($admin_bot_setup as $type_key => $type_value) {
@@ -4092,11 +4100,12 @@ $admin_bot = json_decode($admin_bot, true);
 
                                                     if ($type_value['bot_id'] == $botId) {
 
-                                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                        echo '<option value="' . $type_value["sequence"] . '">' . $type_value["question"] . '</option>';
                                                     }
                                                 }
                                             }
                                         ?>'
+                                        
                                         '</select>' +
                                         '</td>' +
                                         '<td class="col-2">' +
@@ -4444,14 +4453,17 @@ $admin_bot = json_decode($admin_bot, true);
         }
 
         var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
+
         var selectedOptions = $('.question_select_second').map(function() {
             return $(this).val();
         }).get();
 
-        if (!Array.isArray(selectedOptions)) {
-            selectedOptions = [selectedOptions];
+        if (!Array.isArray(selectedOptions) || selectedOptions.length > 1) {
+            selectedOptions = selectedOptions.join(','); 
+        } else {
+            selectedOptions = selectedOptions[0];
         }
-
+        console.log(selectedOptions);
         var error_text = $('#Question_error_message').val();
 
         if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
@@ -4908,7 +4920,12 @@ $admin_bot = json_decode($admin_bot, true);
             }
             formdata.append('skip_question', skip_question);
             formdata.append('error_text', error_text);
-            formdata.append('next_questions', selectedOptions);
+
+            if (selectedOptions == "undefined") {
+                formdata.append('next_questions', '');
+            }else{
+                formdata.append('next_questions', selectedOptions);
+            }   
             
             $('.loader').show();
             $.ajax({
@@ -4997,21 +5014,20 @@ $admin_bot = json_decode($admin_bot, true);
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
-        var selectedOptions = $('.OccupationInputClass').map(function() {
-            return $(this).val();
-        }).get();
-
-        if (!Array.isArray(selectedOptions)) {
-            selectedOptions = [selectedOptions];
-        }
-
+        var next_questions = $('select.OccupationInputClass option:selected').val();
+        
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
             var formdata = new FormData(form);
             formdata.append('action', 'update');
             formdata.append('edit_id', update_id);
             formdata.append('table', table);
-            formdata.append('next_questions', selectedOptions);
+
+            if (next_questions == "undefined") {
+                formdata.append('next_questions', '');
+            }else{
+                formdata.append('next_questions', next_questions);
+            }   
 
             $('.loader').show();
             $.ajax({
@@ -5173,7 +5189,7 @@ $admin_bot = json_decode($admin_bot, true);
     });
 
     function clearQuestions() {
-        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion, #twentythreequestion, #twentyfourquestion ,#twentysevenquestion, #twentyeightquestion, #thirtyethquestion, #fourythreequestion, #fouryfourquestion, #twentyfivequestion,#twentysixquestion, #fourtyonequestion").html("");
+        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion, #twentythreequestion, #twentyfourquestion ,#twentysevenquestion, #twentyeightquestion, #thirtyethquestion, #fourythreequestion, #fouryfourquestion,#twentysixquestion, #twentyfivequestion, #fourtyonequestion").html("");
     }
 
     function getQuestionHTML(type_of_question) {
@@ -6462,6 +6478,7 @@ $admin_bot = json_decode($admin_bot, true);
                                             </g>
                                         </g>
                                     </svg>
+                        
                         </div>
                     </div>
 
@@ -6523,7 +6540,6 @@ $admin_bot = json_decode($admin_bot, true);
                     }
                 });
             `;
-
             case "27":
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
@@ -6798,38 +6814,4 @@ $admin_bot = json_decode($admin_bot, true);
         });
         }
     )
-
-     // Function to handle file picker click
-                                    // document.getElementById('filePicker').addEventListener('click', function() {
-                                    //     document.getElementById('audioFile').click();
-                                    // });
-
-                                    // document.getElementById('audioFile').addEventListener('change', function() {
-                                    //     const file = this.files[0];
-                                    //     const textCenterElement = document.querySelector('.media-upload-box .text-center'); // Get the text center element
-                                    //     const audioPlayer = document.getElementById('audioPlayer'); // Get the audio player element
-
-                                    //     if (file && file.type.startsWith('audio/')) {
-                                    //         console.log('Audio file selected:', file.name);
-                                    //         textCenterElement.textContent = 'Selected audio file: ' + file.name; // Update the text content
-                                    //         document.getElementById('audioFileName').value = file.name;
-                                    //         audioPlayer.src = URL.createObjectURL(file); // Set the audio player's src to the URL of the selected file
-                                    //         audioPlayer.style.display = 'block'; // Show the audio player
-                                    //         // alert('Audio file selected: ' + file.name); // Add this line to display a message
-                                    //     } else {
-                                    //         textCenterElement.textContent = 'Choose an audio file'; // Reset the text content
-                                    //         console.log('Please select an audio file.');
-                                    //         audioPlayer.src = ''; // Reset the audio player's src
-                                    //         audioPlayer.style.display = 'none'; // Hide the audio player
-                                    //     }
-                                    // });
-                                    // document.getElementById('audioFile').addEventListener('change', function() {
-                                    //     const file = this.files[0];
-                                    //     if (file && file.type.startsWith('audio/')) {
-                                    //         console.log('Audio file selected:', file.name);
-                                    //         document.getElementById('audioFileName').value = file.name; // Update the hidden input with file name
-                                    //     } else {
-                                    //         console.log('Please select an audio file.');
-                                    //     }
-                                    // });
 </script>
