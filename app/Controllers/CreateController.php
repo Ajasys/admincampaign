@@ -395,7 +395,7 @@ class CreateController extends BaseController
             <div class="col-12 my-2">
                 <p class="fs-14">' . $fb_titile . '</p>
             </div>
-            <div class="py-2 d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="height: -webkit-fill-available;width: -webkit-fill-available;overflow: hidden;">';
+            <div class="py-2 d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="min-height: 209px; max-height: 209px; overflow: hidden;">';
             if (isset($data['attachments']['data']) && !empty($data['attachments']['data'])) {
                 $attachments = $data['attachments']['data'];
                 // Display all images
@@ -406,13 +406,13 @@ class CreateController extends BaseController
                         $subattachments = $attachment['subattachments']['data'];
                         foreach ($subattachments as $subattachment) {
                             $image_url = $subattachment['media']['image']['src'];
-                            $html .= "<img src='$image_url' alt='Image' style='height: -webkit-fill-available;width: -webkit-fill-available;object-fit:contain'>";
+                            $html .= "<img src='$image_url' alt='Image' style='width:100%;height:300px;'>";
                         }
                     } else {
                         // No subattachments, display the main attachment image
                         if (isset($attachment['media']['image']['src']) && !empty($attachment['media']['image']['src'])) {
                             $image_url = $attachment['media']['image']['src'];
-                            $html .= "<img src='$image_url' alt='Image' style='height: -webkit-fill-available;width: -webkit-fill-available;object-fit:contain'>";
+                            $html .= "<img src='$image_url' alt='Image' style='width:100%;height:300px;'>";
                         }
                     }
                 }
@@ -422,14 +422,11 @@ class CreateController extends BaseController
                 </div>
             </div>
             <div class="col-12 p-1 mt-2 d-flex post-btn-box border-top">
-                <div class="col-4 d-flex flex-wrap rounded-3 text-muted" >
+                <div class="col-6 d-flex flex-wrap rounded-3 text-muted" >
                     <button class="btn w-100 like_button border-0"><i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i>Like</button>
                 </div>
-                <div class="col-4 d-flex flex-wrap rounded-3 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                <div class="col-6 d-flex flex-wrap rounded-3 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
                     <div class="btn w-100 text-muted d-flex p-0 border-0 " data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto"></i><div class="my-auto"> Comment</div></div>
-                </div>
-                <div class="col-4 d-flex flex-wrap rounded-3" data-toggle="modal" data-target="#sharemodal" >
-                    <div class="btn w-100 text-muted d-flex p-0 border-0" data-toggle="modal"  data-attachment_post="'  .$fb_upload_img .'" data-target="#sharemodal"  id="post_commnet_modal"><i class="fa-solid fa-share mx-2 my-auto"></i><div class="my-auto">share</div></div>
                 </div>
             </div>
         </div>

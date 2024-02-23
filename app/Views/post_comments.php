@@ -280,11 +280,8 @@
         <div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
                     <div class="modal-body">
-                        <nav class="nav">
+                        <nav class="nav d-flex justify-content-between">
                             <form class="needs-validation" id="create_form" name="create_form" method="POST" novalidate>
                                 <ul class="nav nav-pills navtab_primary_sm postt_tab" id="pills-tab" role="tablist">
                                     <li class="nav-item active" role="presentation">
@@ -300,8 +297,10 @@
                                         <a class="nav-link bg-white text-primary" id="pills-all-offer" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Offer</a>
                                     </li>
                                 </ul>
-
                             </form>
+                            <div class="d-flex justify-content-end align-items-center">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
                         </nav>
                         <div class="col-12">
                             <form class="needs-validation" id="create_form_clear" name="create_form_clear" method="POST" novalidate>
@@ -331,13 +330,12 @@
                                                 <div class="col-12 border rounded  p-3">
                                                     <textarea cols="30" rows="5" class="col-12 border-0 event_address" placeholder="Write something or use shortcodes, spintax..... " id="event_address"></textarea>
                                                     <div class="img-input col-12 d-flex flex-wrap">
-
+                                                    <div class="img-placeholder d-flex flex-wrap"></div>
                                                         <div class="mx-3 rounded-3 filePicker overflow-hidden position-relative d-flex justify-content-center align-items-center" style="width:150px;height:150px;border:1px dashed gray">
                                                             <div class="w-100 h-100 position-absolute add-img-input"></div>
                                                             <p class="fs-1">+</p>
                                                             <input class="form-control fileInput position-absolute opacity-0 h-100 attachment" id="attachment" name="attachment[]" multiple type="file" type="file"  style=>
                                                         </div>
-                                                        <div class="img-placeholder d-flex flex-wrap"></div>
                                                     </div>
                                                     <!-- <span class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 drag-and-drop-btn" data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#bdbaba;">Add Photo</span>
                                                     <div class="row col-12" id="offer-input">
@@ -431,7 +429,7 @@
 
         <!-- post comment modal -->
         <div class="modal fade " id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header p-2">
                         <div class="col-11 d-flex flex-wrap ">
