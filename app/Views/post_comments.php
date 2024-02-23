@@ -777,26 +777,21 @@
             });
             $('body').on('click', '.delete_post_facebook', function() {
                 var data_delete_id = $(this).attr('data-delete_id');
-
+                $('.loader').show();
                 $.ajax({
                     type: 'post',
                     url: '<?= base_url('delete_post') ?>',
                     data: {
                         data_delete_id: data_delete_id,
                     },
-                    beforeSend: function() {
-                        $('.delete_loader').show();
-                        $('.noRecourdFound').hide();
-                    },
                     success: function(res) {
-                        $('.delete_loader').hide();
+                        $('.loader').hide();
                         iziToast.delete({
                             title: 'Post Delete Successfully'
                         });
                     }
                 });
             });
-            $('.delete_loader').hide();
 
             $('body').on('click', '.app_card_post', function() {
                 var access_tocken = $(this).attr('data-acess_token');
