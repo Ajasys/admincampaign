@@ -29,6 +29,12 @@
         width: 50px;
         height: 50px;
     }
+
+    .btn:hover {
+        color: var(--bs-btn-hover-color);
+        background-color: #efefef !important;
+        border-color: #ffffff !important;
+    }
 </style>
 <style>
     body {
@@ -427,22 +433,24 @@
         <div class="modal fade " id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header p-2 py-3">
+                    <div class="modal-header p-2">
                         <div class="col-11 d-flex flex-wrap ">
-                            <div class="me-2">
+                            <div class="me-2" data-bs-toggle="modal" data-bs-target="#comment-modal">
+
+                                <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=5mIr9vvPKjoAX-zrvYj&amp;_nc_oc=AQl6mR6y2pjIoGKmOR7fdu7zLgCBmH2vprbxILHxch3EcDKIw2dNoMlXRjIbv8rITPVDcwSSDac73ClROnRdBptx&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfD6iLdF10SSWXxBASqUk3ZYhyyYKA-_1rv919_YAYlj3g&amp;oe=65DC2E85" alt="#" style="width:40px;height:40px;">
                                     
                                 <!-- <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=0TEiKYItlngAX_Ns_i1&amp;_nc_oc=AQk3YbtUJ7KyXL-g6j6xMjQuMCdaeyYB3aG9sW1OhvdtEgz__SFpYb9nEtrPSIeyfoHYbS9eMFyqg3JEXIi77ErR&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCYEfsnxuyriahsInOArWDb4GVQEZTrhSXz_i5jFLkLXg&amp;oe=65D24B45" alt="#" style="width:40px;height:40px;"> -->
                             </div>
                             <div class="col">
                                 <div class="col-12 d-flex flex-wrap justify-content-between">
-                                    <h5 class="col-10" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                                    <span class="col-10 fw-medium" data-bs-toggle="modal" data-bs-target="#comment-modal">
                                         Realtosmart
-                                    </h5>
+                                    </span>
                                 </div>
 
                                 <div class="col-12" data-bs-toggle="modal" data-bs-target="#comment-modal">
                                     <span class="text-muted">
-                                        <span class="fs-14">5 days ago</span>
+                                        <span class="fs-14 fw-light">5 days ago</span>
                                     </span>
                                     <span>
                                         <i class="fa-solid fa-earth-asia fs-14 fw-muted"></i>
@@ -460,7 +468,7 @@
                                         <div class="swiper-slide">
                                             <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
                                                     <!-- <div class="img_show_comment"></div> -->
-                                                <!-- <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100"> -->
+                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100">
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
@@ -488,15 +496,13 @@
                                 </div>
                             </div>
                             <div>
-                                <div class="col-12 p-1 mt-2 d-flex post-btn-box flex-wrap align-items-center like_comment_count">
-                                   
-                                </div>
-                                <!-- <p class="text-muted fs-12 overflow-hidden text-wrap">
+                                                                   
+                                                                <!-- <p class="text-muted fs-12 overflow-hidden text-wrap">
                                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima, dolor Lorem ipsum
                                     dolor sit, amet consectetur adipisicing elit. Nobis magni ea inventore
                                     exercitationem est numquam dolores ducimus ab quidem quibusdam similique fuga, in
                                     voluptatem aliquam asperiores...</p> -->
-                                <div id="comments_list" class="col-12"></div>
+                                
                             </div>
                         </div>
                     </div>
@@ -507,7 +513,9 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary">Understood</button>
                     </div> -->
-                    <div class="modal-footer">
+                    <div class="modal-footer ">
+                        <div class="like_comment_count col-12"></div>
+                        <div id="comments_list" class="col-12">
 
                     </div>
                 </div>

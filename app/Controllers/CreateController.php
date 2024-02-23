@@ -395,7 +395,7 @@ class CreateController extends BaseController
             <div class="col-12 my-2">
                 <p class="fs-14">' . $fb_titile . '</p>
             </div>
-            <div class="py-2 d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="min-height: 209px; max-height: 209px; overflow: hidden;">';
+            <div class="py-2 d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="height: -webkit-fill-available;width: -webkit-fill-available;overflow: hidden;">';
             if (isset($data['attachments']['data']) && !empty($data['attachments']['data'])) {
                 $attachments = $data['attachments']['data'];
                 // Display all images
@@ -406,13 +406,13 @@ class CreateController extends BaseController
                         $subattachments = $attachment['subattachments']['data'];
                         foreach ($subattachments as $subattachment) {
                             $image_url = $subattachment['media']['image']['src'];
-                            $html .= "<img src='$image_url' alt='Image' style='width:100%;height:300px;'>";
+                            $html .= "<img src='$image_url' alt='Image' style='height: -webkit-fill-available;width: -webkit-fill-available;object-fit:contain'>";
                         }
                     } else {
                         // No subattachments, display the main attachment image
                         if (isset($attachment['media']['image']['src']) && !empty($attachment['media']['image']['src'])) {
                             $image_url = $attachment['media']['image']['src'];
-                            $html .= "<img src='$image_url' alt='Image' style='width:100%;height:300px;'>";
+                            $html .= "<img src='$image_url' alt='Image' style='height: -webkit-fill-available;width: -webkit-fill-available;object-fit:contain'>";
                         }
                     }
                 }
@@ -481,13 +481,47 @@ if (isset($like_comment['comments']['summary']['total_count']) && !empty($like_c
             $likeCount = '';
         }
         $like_comment_count .=
-            '<span class="cursor-pointer">
-        <button class="btn p-0 w-100 like_button border-0">' . $likeCount . '<i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i></button>
+            '<div class="col-12 d-flex justify-content-between align-items-center">
+    <div class="col d-flex justify-content-start align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="18" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+            <g>
+                <path fill="#2196f3" fill-rule="evenodd" d="M256 512c140.997 0 256-115.003 256-256S396.997 0 256 0 0 115.003 0 256s115.003 256 256 256z" clip-rule="evenodd" opacity="1" data-original="#2196f3" class=""></path>
+                <path fill="#ffffff" d="M126.318 206.456h56.704v163.048c-1.604 7.982-8.984 13.959-17.324 13.959h-39.38c-9.549 0-17.318-7.775-17.318-17.324V223.774c0-9.548 7.769-17.318 17.318-17.318zm269.641 18.977c-8.856-11.353-24.777-18.976-39.617-18.976h-83.529a4.248 4.248 0 0 1-3.383-1.683 4.245 4.245 0 0 1-.711-3.718l10.557-37.862c10.162-36.434-3.25-46.603-34.089-59.723-2.885-1.227-5.692-1.245-8.589-.061-2.897 1.178-4.884 3.153-6.087 6.044l-38.985 93.594v164.045l39.283 16.37h104.03c30.767 0 42.284-32.674 45.807-46.718l21.509-85.649c2.782-11.085-1.834-20.075-6.196-25.663z" opacity="1" data-original="#ffffff" class=""></path>
+            </g>
+        </svg>
+        <span class="ms-2 text-secondary-emphasis">You and ' . $likeCount . ' other </span>
+    </div>
+    <div class="col d-flex justify-content-end align-items-center">
+        <span class="me-1 text-secondary-emphasis">' . $commentCount . '</span>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="18" x="0" y="0" viewBox="0 0 22 22" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+            <g>
+                <path d="m21.08 15.4.91 5.43a1.022 1.022 0 0 1-.28.88A1.007 1.007 0 0 1 21 22a1.028 1.028 0 0 1-.17-.01l-5.43-.91A10.812 10.812 0 0 1 11 22a11 11 0 1 1 11-11 10.812 10.812 0 0 1-.92 4.4z" fill="#8b8b8b" opacity="1" data-original="#000000" class=""></path>
+            </g>
+        </svg>
+    </div>
+</div>
+<div class="col-12 p-1 d-flex post-btn-box flex-wrap align-items-center border-top border-bottom">
+    <span class="cursor-pointer col-6">
+        <button type="button" class="btn btn-light w-100 d-flex modal-like-btn align-items-center justify-content-center fw-medium text-secondary-emphasis">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" x="0" y="0" viewBox="0 0 478.2 478.2" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                <g>
+                    <path d="M457.575 325.1c9.8-12.5 14.5-25.9 13.9-39.7-.6-15.2-7.4-27.1-13-34.4 6.5-16.2 9-41.7-12.7-61.5-15.9-14.5-42.9-21-80.3-19.2-26.3 1.2-48.3 6.1-49.2 6.3h-.1c-5 .9-10.3 2-15.7 3.2-.4-6.4.7-22.3 12.5-58.1 14-42.6 13.2-75.2-2.6-97-16.6-22.9-43.1-24.7-50.9-24.7-7.5 0-14.4 3.1-19.3 8.8-11.1 12.9-9.8 36.7-8.4 47.7-13.2 35.4-50.2 122.2-81.5 146.3-.6.4-1.1.9-1.6 1.4-9.2 9.7-15.4 20.2-19.6 29.4-5.9-3.2-12.6-5-19.8-5h-61c-23 0-41.6 18.7-41.6 41.6v162.5c0 23 18.7 41.6 41.6 41.6h61c8.9 0 17.2-2.8 24-7.6l23.5 2.8c3.6.5 67.6 8.6 133.3 7.3 11.9.9 23.1 1.4 33.5 1.4 17.9 0 33.5-1.4 46.5-4.2 30.6-6.5 51.5-19.5 62.1-38.6 8.1-14.6 8.1-29.1 6.8-38.3 19.9-18 23.4-37.9 22.7-51.9-.4-8.1-2.2-15-4.1-20.1zm-409.3 122.2c-8.1 0-14.6-6.6-14.6-14.6V270.1c0-8.1 6.6-14.6 14.6-14.6h61c8.1 0 14.6 6.6 14.6 14.6v162.5c0 8.1-6.6 14.6-14.6 14.6h-61v.1zm383.7-133.9c-4.2 4.4-5 11.1-1.8 16.3 0 .1 4.1 7.1 4.6 16.7.7 13.1-5.6 24.7-18.8 34.6-4.7 3.6-6.6 9.8-4.6 15.4 0 .1 4.3 13.3-2.7 25.8-6.7 12-21.6 20.6-44.2 25.4-18.1 3.9-42.7 4.6-72.9 2.2h-1.4c-64.3 1.4-129.3-7-130-7.1h-.1l-10.1-1.2c.6-2.8.9-5.8.9-8.8V270.1c0-4.3-.7-8.5-1.9-12.4 1.8-6.7 6.8-21.6 18.6-34.3 44.9-35.6 88.8-155.7 90.7-160.9.8-2.1 1-4.4.6-6.7-1.7-11.2-1.1-24.9 1.3-29 5.3.1 19.6 1.6 28.2 13.5 10.2 14.1 9.8 39.3-1.2 72.7-16.8 50.9-18.2 77.7-4.9 89.5 6.6 5.9 15.4 6.2 21.8 3.9 6.1-1.4 11.9-2.6 17.4-3.5.4-.1.9-.2 1.3-.3 30.7-6.7 85.7-10.8 104.8 6.6 16.2 14.8 4.7 34.4 3.4 36.5-3.7 5.6-2.6 12.9 2.4 17.4.1.1 10.6 10 11.1 23.3.4 8.9-3.8 18-12.5 27z" fill="#6c757d" opacity="1" data-original="#6c757d" class=""></path>
+                </g>
+            </svg>
+            <span class="ms-2 mt-1 modal-like-text">Like</span>
+        </button>
     </span>
-    <span class="cursor-pointer">
-        <div class="btn w-100 text-muted d-flex p-0 border-0" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto "></i>
-        </div>
-    </span>';
+    <span class="cursor-pointer col-6">
+        <button type="button" class="btn btn-light w-100 d-flex align-items-center justify-content-center fw-medium text-secondary-emphasis">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="22" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                <g>
+                    <path d="M12 1a10.984 10.984 0 0 0-9.632 16.293l-1.326 4.42A1 1 0 0 0 2 23a1.019 1.019 0 0 0 .288-.042l4.42-1.326A11 11 0 1 0 12 1zm0 20a8.966 8.966 0 0 1-4.648-1.306 1.008 1.008 0 0 0-.519-.144.973.973 0 0 0-.287.042l-3.054.917.916-3.055a1 1 0 0 0-.1-.8A8.992 8.992 0 1 1 12 21z" data-name="Layer 2" fill="#000000" opacity="1" data-original="#000000"></path>
+                </g>
+            </svg>
+            <span class="ms-2 mt-1">Comment</span>
+        </button>
+    </span>
+</div>';
 
         foreach ($comments_responce['data'] as $key => $comment_value) {
             // die();
@@ -518,23 +552,56 @@ if (isset($like_comment['comments']['summary']['total_count']) && !empty($like_c
             // pre($comment_value);
             $access_token = 'EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
 
-            $comments_html .= '<div class="d-flex">
-            <div class="col-12 d-flex flex-wrap  my-1 p-2  rounded-3 d-flex">
-                <div class="col replay-parent">
-                    <h6> ' . $comment_value['from']['name'] . '</h6>
-                    <p class="fs-12">' . $comment_value['message'] . '</p>
+            $comments_html .= '<div class="d-flex flex-wrap">
+            <div class="col-12 d-flex flex-wrap justify-content-start my-1 p-2rounded-3 d-flex">
+                <div class="me-2" style="width:max-content;">
+                                            <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=5mIr9vvPKjoAX-zrvYj&amp;_nc_oc=AQl6mR6y2pjIoGKmOR7fdu7zLgCBmH2vprbxILHxch3EcDKIw2dNoMlXRjIbv8rITPVDcwSSDac73ClROnRdBptx&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfD6iLdF10SSWXxBASqUk3ZYhyyYKA-_1rv919_YAYlj3g&amp;oe=65DC2E85" alt="#" style="width:35px;height:35px;">
+                                        </div>
+                                        <div class="replay-parent col-10">
+                                            <div class="p-2 rounded-3" style = "width:max-content;background-color:#ededed;">
+                                                <span class="fw-semibold fs-12"> ' . $comment_value['from']['name'] . '</span>
+                    <p class="fs-12 fw-normal">' . $comment_value['message'] . '</p>
+</div>
                     <div class="col-12 d-flex align-content-center flex-wrap my-2">
-                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><span class="mx-1 text-muted">' . $facebook_comment_time . '</span><span class="mx-2 text-muted">Like</span></div>
-                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 Replay_btn fdsfgdfg"  style="cursor:pointer;">Replay</span></div>
+                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><span class="mx-1 text-muted fw-normal">' . $facebook_comment_time . '</span><span class="mx-2 text-muted fw-bold">Like</span></div>
+                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 Replay_btn fdsfgdfg fw-bold"  style="cursor:pointer;">Reply</span></div>
                     </div>
-                    <div class="border rounded-3 comment_box d-none">
-                        <div class="d-flex justify-content-between">
-                            <div class="col">
-                                <input type="text" value="" id="input_comment" class="comment_input p-2 w-100 border-0 " placeholder="Add comment...">
+                    <div class="col-10 d-flex d-none">
+                        <div class="me-2" style="width:max-content;">
+                            <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=5mIr9vvPKjoAX-zrvYj&amp;_nc_oc=AQl6mR6y2pjIoGKmOR7fdu7zLgCBmH2vprbxILHxch3EcDKIw2dNoMlXRjIbv8rITPVDcwSSDac73ClROnRdBptx&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfD6iLdF10SSWXxBASqUk3ZYhyyYKA-_1rv919_YAYlj3g&amp;oe=65DC2E85" alt="#" style="width:28px;height:28px;">
                             </div>
-                            <button class="btn btn-link comment-send-btn comment_send" data-post_id =' . $comment_value['id'] . '><i class="bi bi-send text-primary" style="color: blue;"></i></button>
+                            <div class="replay-parent col-10">
+                                                    <div class="p-2 rounded-3" style = "width:max-content;background-color:#ededed;">
+                                                        <span class="fw-semibold fs-12"> ' . $comment_value['from']['name'] . '</span>
+                                                        <p class="fs-12 fw-normal">' . $comment_value['message'] . '</p>
+                                                    </div>
+                                                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
+                                                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><span class="mx-1 text-muted fw-normal">' . $facebook_comment_time . '</span><span class="mx-2 text-muted fw-bold">Like</span></div>
+                                                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 Replay_btn fdsfgdfg fw-bold"  style="cursor:pointer;">Reply</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-10 comment_box d-none mt-1 mb-2 w-100">
+                                                <div class="d-flex justify-content-start align-content-center w-100">
+                                                    <div class="me-1 mt-1" style="width:max-content;">
+                                                        <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=5mIr9vvPKjoAX-zrvYj&amp;_nc_oc=AQl6mR6y2pjIoGKmOR7fdu7zLgCBmH2vprbxILHxch3EcDKIw2dNoMlXRjIbv8rITPVDcwSSDac73ClROnRdBptx&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfD6iLdF10SSWXxBASqUk3ZYhyyYKA-_1rv919_YAYlj3g&amp;oe=65DC2E85" alt="#" style="width:28px;height:28px;">
+                                                    </div>
+                                                    <div class="border rounded-3 input-group-sm col-11 d-flex" style = "background-color:#ededed;">
+                                                        <input style = "background-color:#ededed;" type="text" value="" id="input_comment" class="comment_input form-control-sm p-2 w-100 border-0 " placeholder="Add comment...">
+                                                        <button class="btn btn-sm btn-link comment-send-btn comment_send" data-post_id =' . $comment_value['id'] . '><i class="bi bi-send text-primary" style="color: blue;"></i></button>
                         </div>
                     </div>
+</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex col-12 justify-content-start align-content-center">
+                                        <div class="me-1 mt-1" style="width:max-content;">
+                                            <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=5mIr9vvPKjoAX-zrvYj&amp;_nc_oc=AQl6mR6y2pjIoGKmOR7fdu7zLgCBmH2vprbxILHxch3EcDKIw2dNoMlXRjIbv8rITPVDcwSSDac73ClROnRdBptx&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfD6iLdF10SSWXxBASqUk3ZYhyyYKA-_1rv919_YAYlj3g&amp;oe=65DC2E85" alt="#" style="width:35px;height:35px;">
+                                        </div>
+                                        <div class="border rounded-3 col-11 d-flex" style = "background-color:#ededed;">
+                                            <input style = "background-color:#ededed;" type="text" value="" id="input_comment" class="comment_input p-2 w-100 border-0 " placeholder="Add comment...">
+                                            <button class="btn btn-link comment-send-btn comment_send" data-post_id =' . $comment_value['id'] . '><i class="bi bi-send text-primary" style="color: blue;"></i></button>
                 </div>
             </div>
         </div>';
