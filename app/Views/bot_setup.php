@@ -6462,7 +6462,6 @@ $admin_bot = json_decode($admin_bot, true);
                                             </g>
                                         </g>
                                     </svg>
-                        
                         </div>
                     </div>
 
@@ -6470,36 +6469,57 @@ $admin_bot = json_decode($admin_bot, true);
             `;
             case "26":
             return `
-            <form name="question_update_form" enctype="multipart/form-data" method="post">
-            <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box" id="filePicker">
-                <input type="file" id="audioFile" name="audioFile" class="audioFile">
+            <form class="col-12" name="question_update_form" enctype="multipart/form-data" method="post">
+            <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box" id="filepick">
+                <input type="file" id="audioFile" class="audioFile" name="audioFile" accept="audio/mp3, audio/wav" style="display: none;">
                 <input type="hidden" id="audioFileName" name="audioFileName" class="audioFileName">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                    <g>
+                        <path fill="#0296e5" d="M120 464H74a18 18 0 0 1-18-18V338a18 18 0 0 1 18-18h46z" opacity="1" data-original="#0296e5" class=""></path>
+                        <path fill="#026ca2" d="m56 440-.186-.047A42 42 0 0 1 24 399.207v-14.414a42 42 0 0 1 31.814-40.746L56 344z" opacity="1" data-original="#026ca2" class=""></path>
+                        <path fill="#0bafea" d="M88 360a8 8 0 0 1-8-8v-32a8 8 0 0 1 16 0v32a8 8 0 0 1-8 8zM80 464v-80a8 8 0 0 1 16 0v80z" opacity="1" data-original="#0bafea"></path>
+                        <path fill="#026ca2" d="M138.733 446.633 120 456V328l18.733 9.367A24 24 0 0 1 152 358.833v66.334a24 24 0 0 1-13.267 21.466zM72 272h32v48H72z" opacity="1" data-original="#026ca2" class=""></path>
+                        <path fill="#0296e5" d="M392 464h46a18 18 0 0 0 18-18V338a18 18 0 0 0-18-18h-46z" opacity="1" data-original="#0296e5" class=""></path>
+                        <path fill="#026ca2" d="m456 440 .186-.047A42 42 0 0 0 488 399.207v-14.414a42 42 0 0 0-31.814-40.746L456 344z" opacity="1" data-original="#026ca2" class=""></path>
+                        <path fill="#0bafea" d="M424 360a8 8 0 0 1-8-8v-24a8 8 0 0 1 16 0v24a8 8 0 0 1-8 8zM416 464v-80a8 8 0 0 1 16 0v80z" opacity="1" data-original="#0bafea"></path>
+                        <path fill="#026ca2" d="M373.267 446.633 392 456V328l-18.733 9.367A24 24 0 0 0 360 358.833v66.334a24 24 0 0 0 13.267 21.466z" opacity="1" data-original="#026ca2" class=""></path>
+                        <path fill="#0296e5" d="M256 48C149.961 48 64 133.961 64 240v32h48v-32A144 144 0 0 1 256 96a144 144 0 0 1 144 144v32h48v-32c0-106.039-85.961-192-192-192z" opacity="1" data-original="#0296e5" class=""></path>
+                        <path fill="#026ca2" d="M408 272h32v48h-32z" opacity="1" data-original="#026ca2" class=""></path>
+                        <path fill="#02a437" d="M256 456a8 8 0 0 1-7.644-5.647L223.015 368l-7.587 18.969A8 8 0 0 1 208 392h-24a8 8 0 0 1 0-16h18.584l13.988-34.971a8 8 0 0 1 15.074.618l23.105 75.093 25.439-114.475a8 8 0 0 1 15.473-.564L317.952 376H328a8 8 0 0 1 0 16h-16a8 8 0 0 1-7.663-5.7l-15.183-50.612-25.344 114.047a8 8 0 0 1-7.491 6.259q-.162.006-.319.006z" opacity="1" data-original="#02a437"></path>
+                        <path fill="#fbb540" d="M192 240a8 8 0 0 1-8-8v-24a8 8 0 0 1 16 0v24a8 8 0 0 1-8 8z" opacity="1" data-original="#fbb540"></path>
+                        <path fill="#ea9d2d" d="M224 264a8 8 0 0 1-8-8v-64a8 8 0 0 1 16 0v64a8 8 0 0 1-8 8z" opacity="1" data-original="#ea9d2d" class=""></path>
+                        <path fill="#fbb540" d="M256 280a8 8 0 0 1-8-8v-96a8 8 0 0 1 16 0v96a8 8 0 0 1-8 8z" opacity="1" data-original="#fbb540"></path>
+                        <path fill="#ea9d2d" d="M288 264a8 8 0 0 1-8-8v-64a8 8 0 0 1 16 0v64a8 8 0 0 1-8 8z" opacity="1" data-original="#ea9d2d" class=""></path>
+                        <path fill="#fbb540" d="M320 240a8 8 0 0 1-8-8v-24a8 8 0 0 1 16 0v24a8 8 0 0 1-8 8z" opacity="1" data-original="#fbb540"></path>
+                        <g fill="#ea9d2d">
+                            <path d="M352 232a8 8 0 0 1-8-8v-8a8 8 0 0 1 16 0v8a8 8 0 0 1-8 8zM160 232a8 8 0 0 1-8-8v-8a8 8 0 0 1 16 0v8a8 8 0 0 1-8 8z" fill="#ea9d2d" opacity="1" data-original="#ea9d2d" class=""></path>
+                        </g>
+                    </g>
                 </svg>
-                <div class="col-12 text-center">Choose an audio file</div>
-                <audio controls id="audioPlayer" style="display: none;"></audio>
+                <div class="col-12 text-center">Choose a audio file</div>
+                <audio controls id="audioPlayer" style="display: none; height:40px;"></audio>
             </div>
             </form>
             <script>
-                $('#filePicker').on('click', function() {
-                    $('.audioFile').click();
+                document.getElementById('filepick').addEventListener('click', function() {
+                    document.getElementById('audioFile').click();
                 });
 
-                $('.audioFile').on('change', function() {
+                document.getElementById('audioFile').addEventListener('change', function() {
                     const file = this.files[0];
-                    const textCenterElement = document.querySelector('.media-upload-box .text-center'); // Get the text center element
-                    const audioPlayer = document.getElementById('audioPlayer'); // Get the audio player element
+                    const textCenterElement = document.querySelector('.media-upload-box .text-center');
+                    const audioPlayer = document.getElementById('audioPlayer'); 
                     if (file && file.type.startsWith('audio/')) {
                         console.log('Audio file selected:', file.name);
-                        textCenterElement.textContent = 'Selected audio file: ' + file.name; // Update the text content
+                        textCenterElement.textContent = 'Selected audio file: ' + file.name; 
                         document.getElementById('audioFileName').value = file.name;
-                        audioPlayer.src = URL.createObjectURL(file); // Set the audio player's src to the URL of the selected file
-                        audioPlayer.style.display = 'block'; // Show the audio player
+                        audioPlayer.src = URL.createObjectURL(file); 
+                        audioPlayer.style.display = 'block'; 
                     } else {
-                        textCenterElement.textContent = 'Choose an audio file'; // Reset the text content
+                        textCenterElement.textContent = 'Choose an audio file'; 
                         console.log('Please select an audio file.');
-                        audioPlayer.src = ''; // Reset the audio player's src
-                        audioPlayer.style.display = 'none'; // Hide the audio player
+                        audioPlayer.src = '';
+                        audioPlayer.style.display = 'none'; 
                     }
                 });
             `;

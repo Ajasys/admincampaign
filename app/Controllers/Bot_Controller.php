@@ -1530,8 +1530,8 @@ class Bot_Controller extends BaseController
 						if (isset($carouselData['audioFileName'])) {
 							$audioFileName = $carouselData['audioFileName'];
 							// Append an audio player element to play the audio
-							$html .= '<div class="col-12 text-center">
-										<audio controls>
+							$html .= '<div class="col-12">
+										<audio controls style="height:40px;">
 											<source src="assets/bot_audio/' . $audioFileName . '" type="audio/mpeg">
 											Your browser does not support the audio element.
 										</audio>
