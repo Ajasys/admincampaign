@@ -956,20 +956,29 @@ class Bot_Controller extends BaseController
 	
 		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
+
+			if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
+				$nextQuestion = $_POST['nextQuestion'];
+				// pre($nextQuestion);
+				$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $nextQuestion . '';
+			} else {
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
+			}
+
+			// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
 			$result = $db_connection->query($sql);
 			$bot_chat_data = $result->getResultArray();
 		} else {
 			$sequence = isset($result) ? 1 : $sequence;
 			$db_connection = \Config\Database::connect('second');
-if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true" && $_POST['nextQuestion'] != "") {
+			if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
 				$nextQuestion = $_POST['nextQuestion'];
 				// pre($nextQuestion);
 				$sql = 'SELECT * FROM ' . $table . ' WHERE id = ' . $nextQuestion . '';
 			} else {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 			}
-// pre($sql);
+			// pre($sql);
 
 			// Execute query
 			$db_connection = \Config\Database::connect('second');

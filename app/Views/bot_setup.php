@@ -5014,8 +5014,9 @@ $admin_bot = json_decode($admin_bot, true);
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
-        var next_questions = $('select.OccupationInputClass option:selected').val();
-        
+        var next_questions = $('select.occupation_add option:selected').val();
+        // console.log(next_questions);
+
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
             var formdata = new FormData(form);
@@ -6527,7 +6528,7 @@ $admin_bot = json_decode($admin_bot, true);
                     const textCenterElement = document.querySelector('.media-upload-box .text-center');
                     const audioPlayer = document.getElementById('audioPlayer'); 
                     if (file && file.type.startsWith('audio/')) {
-                        console.log('Audio file selected:', file.name);
+                       
                         textCenterElement.textContent = 'Selected audio file: ' + file.name; 
                         document.getElementById('audioFileName').value = file.name;
                         audioPlayer.src = URL.createObjectURL(file); 
