@@ -426,7 +426,8 @@
                     <div class="modal-header p-2 py-3">
                         <div class="col-11 d-flex flex-wrap ">
                             <div class="me-2" data-bs-toggle="modal" data-bs-target="#comment-modal">
-                                <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=0TEiKYItlngAX_Ns_i1&amp;_nc_oc=AQk3YbtUJ7KyXL-g6j6xMjQuMCdaeyYB3aG9sW1OhvdtEgz__SFpYb9nEtrPSIeyfoHYbS9eMFyqg3JEXIi77ErR&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCYEfsnxuyriahsInOArWDb4GVQEZTrhSXz_i5jFLkLXg&amp;oe=65D24B45" alt="#" style="width:40px;height:40px;">
+                                    
+                                <!-- <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=0TEiKYItlngAX_Ns_i1&amp;_nc_oc=AQk3YbtUJ7KyXL-g6j6xMjQuMCdaeyYB3aG9sW1OhvdtEgz__SFpYb9nEtrPSIeyfoHYbS9eMFyqg3JEXIi77ErR&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCYEfsnxuyriahsInOArWDb4GVQEZTrhSXz_i5jFLkLXg&amp;oe=65D24B45" alt="#" style="width:40px;height:40px;"> -->
                             </div>
                             <div class="col">
                                 <div class="col-12 d-flex flex-wrap justify-content-between">
@@ -451,25 +452,29 @@
                         <div class="card-header mb-2 col-12" id="post_card">
                             <div class="col-12 ">
                                 <div class="swiper mySwiper position-relative">
-                                    <div class="swiper-wrapper">
+                                    <div class="swiper-wrapper img_show_comment">
                                         <div class="swiper-slide">
                                             <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100">
+                                                    <!-- <div class="img_show_comment"></div> -->
+                                                <!-- <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100"> -->
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100">
+                                                    <!-- <div class="img_show_comment"></div> -->
+                                                <!-- <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100"> -->
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100">
+                                                 <!-- <div class="img_show_comment"></div> -->
+                                                <!-- <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100"> -->
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100">
+                                                <!-- <div class="img_show_comment"></div> -->
+                                                <!-- <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100"> -->
                                             </div>
                                         </div>
                                     </div>
@@ -479,20 +484,14 @@
                                 </div>
                             </div>
                             <div>
-                                <div class="col-12 p-1 mt-2 d-flex post-btn-box flex-wrap align-items-center">
-                                    <span class="cursor-pointer">
-                                        <button class="btn p-0 w-100 like_button border-0">22<i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i></button>
-                                    </span>
-                                    <span class="cursor-pointer">
-                                        <div class="btn w-100 text-muted d-flex p-0 border-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto "></i>
-                                        </div>
-                                    </span>
+                                <div class="col-12 p-1 mt-2 d-flex post-btn-box flex-wrap align-items-center like_comment_count">
+                                   
                                 </div>
-                                <p class="text-muted fs-12 overflow-hidden text-wrap">
+                                <!-- <p class="text-muted fs-12 overflow-hidden text-wrap">
                                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima, dolor Lorem ipsum
                                     dolor sit, amet consectetur adipisicing elit. Nobis magni ea inventore
                                     exercitationem est numquam dolores ducimus ab quidem quibusdam similique fuga, in
-                                    voluptatem aliquam asperiores...</p>
+                                    voluptatem aliquam asperiores...</p> -->
                                 <div id="comments_list" class="col-12"></div>
                             </div>
                         </div>
@@ -603,10 +602,13 @@
                 $('.create_comment').attr('data-access_id', '');
 
             });
+            $('#comment-modal').on('click', '.btn-close', function() {
+                $('.img_clear').attr('src','');
+            });
             $('body').on('click', '.cmt_modal_open', function() {
                 var data_access_token = $(this).attr('data-access_token');
                 var data_post_id = $(this).attr('data-post_id');
-
+                $('.loader').show();
                 $.ajax({
                     type: 'post',
                     url: '<?= base_url('comment_show') ?>',
@@ -617,8 +619,23 @@
 
                     success: function(res) {
                         var response = JSON.parse(res);
+                        $('.loader').hide();
                         $('#comments_list').html(response.comments_html);
+                        var swiper = new Swiper(".mySwiper", {
+                                pagination: {
+                                    el: ".swiper-pagination",
+                                    type: "fraction",
+                                },
+                                navigation: {
+                                    nextEl: ".swiper-button-next",
+                                    prevEl: ".swiper-button-prev",
+                                },
+                            });
+                        $('.img_show_comment').html(response.img_show_comment);
+                        $('.like_comment_count').html(response.like_comment_count);
 
+                        
+                        
 
                     }
                 });
@@ -981,11 +998,13 @@
                                 var imagePlaceholder = '<div class="mx-2 rounded-3 border overflow-hidden ClassImageMember" style="width:150px;height:150px">' + mediaElement + '</div>';
                                 $('.img-placeholder').append(imagePlaceholder);
                             };
+                          
                             reader.readAsDataURL(file);
                         } else if (file.type.includes('video')) {
                             // If it's a video file, create a <video> element
                             var videoElement = '<video controls class="" style="width:150px;height:150px;"><source src="' + URL.createObjectURL(file) + '" type="' + file.type + '"></video>';
                             $('.img-placeholder').append(videoElement);
+                           
                         }
                     }
                 }

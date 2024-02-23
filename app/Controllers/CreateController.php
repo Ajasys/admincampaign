@@ -446,12 +446,34 @@ class CreateController extends BaseController
         }
         // $gjfgh = getSocialData('https://graph.facebook.com/v19.0/'.$post_idd.'?fields=attachments&access_token='.$access_token.'
         // ');
-        $data = getSocialData("https://graph.facebook.com/v19.0/$post_idd?fields=attachments&access_token=$access_token");
-        // pre($data);
-        // die();
+        $url = 'https://graph.facebook.com/v19.0/' . $post_idd . '?fields=attachments&access_token=' . $access_token . '';
+
+        $data = getSocialData($url);
         $comments_responce = getSocialData('https://graph.facebook.com/v13.0/' . $post_idd . '/comments?fields=from,message,created_time&access_token=' . $access_token . '');
+        $like_comment_count = "";
         $comments_html = "";
+        $img_show_comment = "";
+        $like_comment = getSocialData('https://graph.facebook.com/v19.0/'.$post_idd.'?fields=comments.limit(0).summary(true),likes.limit(0).summary(true)&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD','');
+        
+        // Decode JSON response
+        // $data = json_decode($url, true);
+
+        // Extract comment and like counts
+        // if(isset)
+        $commentCount = $like_comment['comments']['summary']['total_count'];
+        $likeCount = $like_comment['likes']['summary']['total_count'];
+
+        $like_comment_count .=
+            '<span class="cursor-pointer">
+        <button class="btn p-0 w-100 like_button border-0">'.$likeCount.'<i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i></button>
+    </span>
+    <span class="cursor-pointer">
+        <div class="btn w-100 text-muted d-flex p-0 border-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto "></i>
+        </div>
+    </span>';
+
         foreach ($comments_responce['data'] as $key => $comment_value) {
+            // die();
             $timestamp_comment = $comment_value['created_time'];
             $date_comment = new DateTime($timestamp_comment, new DateTimeZone('UTC'));
             $date_comment->setTimezone(new DateTimeZone('Asia/Kolkata'));
@@ -479,119 +501,8 @@ class CreateController extends BaseController
             // pre($comment_value);
             $access_token = 'EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
 
-            // replay to comment 
-            $comment_id = '196821650189891_122116834772192565';
-            // $reply_message = 'how are you.';
-            // $url = "https://graph.facebook.com/v13.0/{$comment_id}/comments";
-            // $data = array(
-            //     'message' => $reply_message,
-            //     'access_token' => $access_token
-            // );
-            // $ch = curl_init($url);
-            // curl_setopt($ch, CURLOPT_POST, 1);
-            // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            // $response = curl_exec($ch);
-            // curl_close($ch);
-            // if ($response !== false) {
-            //     $response_data = json_decode($response, true);
-            //     if (isset($response_data['id'])) {
-            //         $answer =  "Reply posted successfully.";
-            //     } else {
-            //         $answer =  "Failed to post reply: " . $response;
-            //     }
-            // } else {
-            //     echo "Failed to make request.";
-            // }
-            // end replay comment 
-            // $post_id = '196821650189891_122116834772192565';
-
-            // // $url = "https://graph.facebook.com/v12.0/{$post_id}/comments?fields=from,message&access_token={$access_token}";
-
-
-            // $url = "https://graph.facebook.com/v12.0/$post_id/comments?fields=from{name}&access_token=$access_token";
-            // // Send a GET request to the Graph API
-            // $response = file_get_contents($url);
-
-            // $data = json_decode($response, true);
-            // // Check if the request was successful
-            // if (isset($data['data'])) {
-            //     $comments = $data['data'];
-            //     foreach ($comments as $comment) {
-            //         // Check if the 'from' key exists
-            //         if (isset($comment['from'])) {
-            //             // Extract user name and comment message
-            //             $user_name = $comment['from']['name'];
-            //             $message = $comment['message'];
-            //             echo "User: $user_name, Comment: $message" . PHP_EOL;
-            //         }
-            //     }
-            // } else {
-            //     echo "Error fetching comments: " . $data['error']['message'] . PHP_EOL;
-            // }
-            // $fields = 'id,comments.summary(true),likes.summary(true)';
-
-            // $url = "https://graph.facebook.com/v12.0/{$comment_id}?fields={$fields}&access_token={$access_token}";
-
-            // $response = file_get_contents($url);
-            // $data = json_decode($response, true);
-
-            // if (!empty($data)) {
-            //     $likes_count = $data['likes']['summary']['total_count'];
-            //     $comments_count = $data['comments']['summary']['total_count'];
-            // }
-            //     $fields = 'id,comments.summary(true),likes.summary(true)';
-            //     $url = "https://graph.facebook.com/v12.0/$post_id?fields=$fields&access_token=$access_token";
-            //     $response = file_get_contents($url);
-            //     $data = json_decode($response, true);
-
-            // if (!empty($data)) {
-            //     $likes_count = $data['likes']['summary']['total_count'];
-            //     $comments_count = $data['comments']['summary']['total_count'];
-
-            //     // Check if the owner of the access token has liked the post
-            //     $liked_by_user = false;
-            //     $me_likes_url = "https://graph.facebook.com/v12.0/me/likes/$post_id?access_token=$access_token";
-            //     pre($me_likes_url);
-            //     die();
-            //     $me_likes_response = file_get_contents($me_likes_url);
-            //     $me_likes_data = json_decode($me_likes_response, true);
-            //     if (!empty($me_likes_data) && isset($me_likes_data['data']) && count($me_likes_data['data']) > 0) {
-            //         $liked_by_user = true;
-            //     }
-
-            //     // Prepare the message based on whether the user has liked the post
-            //     if ($liked_by_user) {
-            //         echo "You and {$likes_count} other like this.<br>";
-            //     } else {
-            //         echo "{$likes_count} people like this.<br>";
-            //     }
-
-            //     echo "Comments: {$comments_count}<br>";
-            // } else {
-            //     echo "Unable to fetch data from Facebook API.";
-            // }
-
-
             $comments_html .= '<div class="d-flex">
             <div class="col-12 d-flex flex-wrap  my-1 p-2  rounded-3 d-flex">
-                <div>';
-                if (isset($data['attachments']['data']) && !empty($data['attachments']['data'])) {
-                    $attachments = $data['attachments']['data'];
-                
-                    // Check the number of attachments (images)
-                    $num_images = count($attachments);
-                
-                    // Display the images
-                    foreach ($attachments as $attachment) {
-                        $image_url = $attachment['media']['image']['src'];
-                        $comments_html .= '<img class="rounded-circle me-2"
-                        src="'.$image_url.'"
-                        alt="#" style="width:30px;height:30px;object-fit-container">';
-                    }
-                }
-                    
-                $comments_html .= '</div>
                 <div class="col replay-parent">
                     <h6> ' . $comment_value['from']['name'] . '</h6>
                     <p class="fs-12">' . $comment_value['message'] . '</p>
@@ -611,7 +522,32 @@ class CreateController extends BaseController
             </div>
         </div>';
         }
+
+        if (isset($data['attachments']['data']) && !empty($data['attachments']['data'])) {
+            $attachments = $data['attachments']['data'];
+
+            // Display all images
+            foreach ($attachments as $attachment) {
+                // Check for subattachments
+                if (isset($attachment['subattachments']['data']) && !empty($attachment['subattachments']['data'])) {
+                    $subattachments = $attachment['subattachments']['data'];
+
+                    foreach ($subattachments as $subattachment) {
+                        $image_url = $subattachment['media']['image']['src'];
+                        $img_show_comment .= "<div class='swiper-slide'><div class='slide'><img src='$image_url' class='img_clear' alt='Image' style='width:100%;height:300px;'></div></div>";
+                    }
+                } else {
+                    // No subattachments, display the main attachment image
+                    $image_url = $attachment['media']['image']['src'];
+                    $img_show_comment .= "<div class='swiper-slide'><div class='slide'><img src='$image_url' alt='Image' class='img_clear' style='width:100%;height:300px;'></div></div>";
+                }
+            }
+        }
+
         $return_array['comments_html'] = $comments_html;
+        $return_array['img_show_comment'] = $img_show_comment;
+        $return_array['like_comment_count'] = $like_comment_count;
+
 
         echo json_encode($return_array, true);
         die();
