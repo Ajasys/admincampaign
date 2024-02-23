@@ -2992,18 +2992,24 @@ $admin_bot = json_decode($admin_bot, true);
         var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id');
         var next_questions = $(".bot_preview_html .messege1:last").attr('data-next_questions'); 
 
+        var dataToSend = {
+            action: 'init_chat',
+            table: table,
+            bot_id: bot_id,
+            sequence: sequence,
+            next_question_id: next_question_id
+        };
+
+        if (nextQuestion) {
+            dataToSend.next_questions = nextQuestion;
+        } else {
+            dataToSend.next_questions = next_questions;
+        }
+
         $.ajax({
             method: "post",
             url: "<?= site_url('bot_preview_data'); ?>",
-            data: {
-                action: 'init_chat',
-                table: table,
-                bot_id: bot_id,
-                sequence: sequence,
-                next_question_id: next_question_id,
-                next_questions: next_questions,
-                nextQuestion: nextQuestion  
-            },
+            data: dataToSend,
             success: function(data) {
                 var response = JSON.parse(data);
                 // $('.skip_question').hide();
@@ -3019,7 +3025,7 @@ $admin_bot = json_decode($admin_bot, true);
     // });
 
     $('body').on('click', '#modal_refresh', function (e) {
-        // window.location.reload();
+        window.location.reload();
     });
 
 
@@ -5160,7 +5166,7 @@ $admin_bot = json_decode($admin_bot, true);
                                         '</select>' +
                                         '</td>' +
                                         '<td class="col-4 p-2 ">' +
-                                        '<select class="form-select question_select_second" aria-label="Default select example">' +
+                                        '<select class="form-select question_select_second1" aria-label="Default select example">' +
                                         '<?php
                                             if (isset($admin_bot_setup)) {
                                                 foreach ($admin_bot_setup as $type_key => $type_value) {
@@ -5215,7 +5221,7 @@ $admin_bot = json_decode($admin_bot, true);
         var singleOptions = $('select.OccupationInputClass option:selected').val();
         console.log(singleOptions);
 
-        var selectedOptions = $('.question_select_second').map(function() {
+        var selectedOptions = $('.question_select_second1').map(function() {
             return $(this).val();
         }).get();
 

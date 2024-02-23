@@ -999,11 +999,11 @@ class Bot_Controller extends BaseController
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 			}
 
-			if(isset($_POST['nextQuestion'])){
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['nextQuestion'] . ' ORDER BY sequence';
-			}else{
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
-			}	
+			// if(isset($_POST['nextQuestion'])){
+			// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['nextQuestion'] . ' ORDER BY sequence';
+			// }else{
+			// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
+			// }	
 
 			//  else {
 			// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND next_questions <= ' . $sequence . ' ORDER BY sequence';
