@@ -21,6 +21,10 @@ $admin_bot = json_decode($admin_bot, true);
         font-size: 12px;
     }
 
+    ::-webkit-scrollbar {
+        height: 10px;
+    }
+    
     .bot-box {
         width: 100%;
         height: 85px;
@@ -2419,7 +2423,7 @@ $admin_bot = json_decode($admin_bot, true);
                     <label for="formGroupExampleInput" class="form-label">Question</label>
                     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect" disabled>
                 </div>
-                <div class="row">
+                <div class="row conditional_flow_single_hide">
                     <div class="col-4">
                         <label for="formGroupExampleInput" class="form-label">Subflows</label>
                         <select class="form-select" aria-label="Default select example">
@@ -2431,7 +2435,8 @@ $admin_bot = json_decode($admin_bot, true);
                        
                         <div class="main-selectpicker">
                             <select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select occupation_add" data-live-search="true">
-                                <option value="">No Jump</option>
+                                <option selected value="0">No Jump</option>
+                                <option value="100">End Of conversion</option>
                                     <?php
                                     if (isset($admin_bot_setup)) {
                                         foreach ($admin_bot_setup as $type_key => $type_value) {
@@ -2446,10 +2451,28 @@ $admin_bot = json_decode($admin_bot, true);
                                     ?>
                             </select>
                             </div>
-                    </div>
+                    </div>  
                 </div>
+
+               
             </div>
 
+
+            <div class="conditional_flow_single">
+                <table class="table w-100 col-12">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Options</th>
+                                        <th scope="col">Sub-Flow</th>
+                                        <th scope="col">Jump To</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                
+                                </tbody>
+                </table>
+            </div>
             <!-- Conditional Flow -->
             <!-- <div class="model-body2 p-3">
                     <div class="mb-3">
@@ -4070,6 +4093,7 @@ $admin_bot = json_decode($admin_bot, true);
 
                         if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                             if (menu_message && menu_message.options != "") {
+           
                                 var optionsArray = menu_message.options.split(';');
                                 $(".main-plan").remove();
                                 optionsArray.forEach(function(option, index) {
@@ -4951,6 +4975,8 @@ $admin_bot = json_decode($admin_bot, true);
 
         e.preventDefault();
         var edit_value = $(this).attr("data-id");
+        var type_of_question = $(this).attr("data-type_of_question");
+
         var className = '.Email_Add_Ckeditor';
         if (editors[className]) {
             var editor = editors[className];
@@ -4978,7 +5004,153 @@ $admin_bot = json_decode($admin_bot, true);
                     $(".conditional_flow_update").attr('data-id', response[0].id);
                     $(".OccupationInputClass").val(response[0].next_questions);
                     $('.selectpicker').selectpicker('refresh');
+
+                    
+                    if (type_of_question == 1){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 3){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 4){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 5){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 6){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 7){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 8){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 9){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 10){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 11){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 12){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 13){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 14){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 15){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 16){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 17){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+
+                    if (type_of_question == 18){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 19){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 20){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 21){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 22){
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    // var menu_message = response[0].menu_message;
+                    
+                    if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
+                        var menu_message = JSON.parse(response[0].menu_message);
+                       
+                        var next_questions = response[0].next_questions;
+                        
+                            console.log(next_questions);
+                        
+                            
+                            if (menu_message && menu_message.options) {
+                                var optionsArray = menu_message.options.split(';');
+                                $(".main-plan").remove();
+                                optionsArray.forEach(function(option, index) {
+                                    var row_numbers = index === 0 ? '' : $('.main-plan').length;
+                                    var main_table_html =
+                                        '<tr class="col-12 main-plan">' +
+                                        '<td class="col-3 p-2 ">' +
+                                        '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                                        '</td>' +
+                                        '<td class="col-3 p-2">' +
+                                        '<select class="form-select" aria-label="Default select example">' +
+                                        '<option value="1">Main-flow</option>' +
+                                        '</select>' +
+                                        '</td>' +
+                                        '<td class="col-4 p-2 ">' +
+                                        '<select class="form-select question_select_second" aria-label="Default select example">' +
+                                        '<?php
+                                            if (isset($admin_bot_setup)) {
+                                                foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                    // pre($type_value);
+
+                                                    if ($type_value['bot_id'] == $botId) {
+
+                                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                    }
+                                                }
+                                            }
+                                        ?>'
+                                        '</select>' +
+                                        '</td>' +
+                                        '<td class="col-2 p-2">' +
+                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                        '<i class="fa fa-trash cursor-pointer"></i>' +
+                                        '</button>' +
+                                        '</td>' +
+                                        '</tr>';
+                                    $(".conditional_flow_single").append(main_table_html);
+                                    $(".conditional_flow_single").show();
+                                    $(".conditional_flow_single_hide").hide();
+                                    
+                            
+                                });
+                            } else {
+                                // $(".is_strict_validation").prop("checked", false);
+                            }
+                        }
+                        
                 },
+
                 error: function(error) {
                     $('.loader').hide();
                     // console.log(error);
@@ -4997,8 +5169,17 @@ $admin_bot = json_decode($admin_bot, true);
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
-        var selectedOptions = $('select.OccupationInputClass option:selected').val();
-        // console.log(selectedOptions);
+        var singleOptions = $('select.OccupationInputClass option:selected').val();
+        console.log(singleOptions);
+
+        var selectedOptions = $('.question_select_second').map(function() {
+            return $(this).val();
+        }).get();
+
+        if (!Array.isArray(selectedOptions)) {
+            selectedOptions = [selectedOptions];
+        }
+        console.log(selectedOptions);
 
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
@@ -5006,7 +5187,13 @@ $admin_bot = json_decode($admin_bot, true);
             formdata.append('action', 'update');
             formdata.append('edit_id', update_id);
             formdata.append('table', table);
-            formdata.append('next_questions', selectedOptions);
+
+            if (singleOptions) {
+                formdata.append('next_questions', singleOptions);
+            } else {
+                formdata.append('next_questions', selectedOptions);
+            }
+
 
             $('.loader').show();
             $.ajax({

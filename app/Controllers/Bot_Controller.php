@@ -858,7 +858,7 @@ class Bot_Controller extends BaseController
 
 				if ($value['type_of_question'] != 36) {
 					$html .= '<div class="col-3 p-1">';
-					$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
+					$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-type_of_question=' . $value['type_of_question'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
 					$html .= '	</div>';
 				}
 
@@ -963,14 +963,19 @@ class Bot_Controller extends BaseController
 			$sequence = isset($result) ? 1 : $sequence;
 			$db_connection = \Config\Database::connect('second');
 
-			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined") {
-			// 	$nextQuestion = $_POST['nextQuestion'];
-			// 	// pre($nextQuestion);
+			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "") {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 				// pre($sql);
-			}else if(isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] == "NO Jump"){
+			}else {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 			}
+
+			if(isset($_POST['nextQuestion'])){
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['nextQuestion'] . ' ORDER BY sequence';
+			}else{
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
+			}	
+
 			//  else {
 			// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND next_questions <= ' . $sequence . ' ORDER BY sequence';
 			// }
@@ -986,9 +991,7 @@ class Bot_Controller extends BaseController
 				JOIN admin_bot_setup AS parent ON child.type_of_question = parent.next_question_id
 				WHERE parent.bot_id = ' . $bot_id . '
 				ORDER BY parent.sequence LIMIT 1;';
-			// pre($sql_parent_child);
-			// $resultss = $db_connection->query($sql);
-			// $bot_chat_data = $resultss->getResultArray();
+	
 			$resultss_ss = $db_connection->query($sql_parent_child);
 			$bot_chat_data_ss = $resultss_ss->getResultArray();
 		}
@@ -1858,7 +1861,15 @@ class Bot_Controller extends BaseController
 					$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
 					$response['message'] = "Answer inserted successfully for question: " . $question['question'];
 				} else {
-					$response['error'] = "Question with sequence " . $sequence . " not found or does not match the specified question id.";
+					// $response['error'] = "Question with sequence " . $sequence . " not found or does not match the specified question id.";
+
+					$updateData = [
+						'answer' => $answer,
+					];
+					$response['response'] = 3;
+
+					$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
+					$response['message'] = "Answer inserted successfully for question: " . $question['question'];
 				}
 			}
 		}else{

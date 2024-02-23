@@ -230,7 +230,7 @@
             </div>
             <div class="modal-body d-flex justify-content-center flex-wrap position-relative ">
                 <div class="col-12">
-                    <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-bot_type="1">
+                    <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-bot_type="2" data-toggle="modal" data-target="#bot_name_model" data-bs-dismiss="modal">
                         <div style="width:50px;height:50px;" class="border rounded-circle d-flex justify-content-center align-items-center">
                             <i class="bi bi-funnel fs-2"></i>
                         </div>
@@ -238,7 +238,7 @@
                             <p class="fs-6 text-dark fs-semibold">Get Lead By Chat Bots</p>
                         </div>
                     </div>
-                    <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-bot_type="2">
+                    <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-bot_type="2" data-toggle="modal" data-target="#bot_name_model" data-bs-dismiss="modal">
                         <div style="width:50px;height:50px;" class="border rounded-circle d-flex justify-content-center align-items-center">
                             <i class="bi bi-headset fs-2"></i>
                         </div>
@@ -248,10 +248,15 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn-primary bot_preview" data-bs-toggle="modal" data-bs-target="#bot_name_modal">Custom Bot</button>
+                <button type="button" class="btn-primary bot_preview" data-bot_type="2" data-toggle="modal" data-target="#bot_name_model" data-bs-dismiss="modal">Custom Bot</button>
 
             </div>
         </div>
+        </div>
+</div>
+
+<div class="modal fade firstmodal" id="bot_name_model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content bot_name_modal" id="bot_name_modal">
             <div class="modal-header">
                 <h5 class="modal-title" id="botfirstmodal">Create New Bot</h5>
@@ -267,8 +272,8 @@
                 <button type="button" class="btn btn-primary m-auto bot_create_btn" data-bot_type="0">Create</button>
             </div>
         </div>
-    </div>
-</div>
+</div></div>
+    
 
 
 
@@ -324,14 +329,14 @@
     // });
 
     $('.add').on('click', function() {
-        $('.bot_name_modal').hide();
+        // $('.bot_name_modal').hide();
         $('.bot_type_modal').show();
     });
-    $('.bot_name_modal').hide();
+    // $('.bot_name_modal').hide();
     $('body').on('click', '.modal-card', function() {
-        $('.bot_type_modal').slideUp(300);
-        $('.bot_type_modal').hide();
-        $('.bot_name_modal').slideDown(600);
+        // $('.bot_type_modal').slideUp(300);
+        // $('.bot_type_modal').hide();
+        // $('.bot_name_modal').slideDown(600);
         var bot_type = $(this).attr('data-bot_type');
         $('.bot_create_btn').attr('data-bot_type', bot_type);
     });
