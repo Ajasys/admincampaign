@@ -406,7 +406,7 @@ class CreateController extends BaseController
                     </div>
                 </div>
             </div>
-<div class="col-12 cmt_modal_open" data-bs-toggle="modal" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-target="#comment-modal">
+                <div class="col-12 cmt_modal_open" data-bs-toggle="modal" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-target="#comment-modal">
             <div class="col-12 my-2">
                 <p class="fs-14">' . $fb_titile . '</p>
             </div>
@@ -415,11 +415,14 @@ class CreateController extends BaseController
                 </div>
             </div>
             <div class="col-12 p-1 mt-2 d-flex post-btn-box border-top">
-                <div class="col-6 d-flex flex-wrap rounded-3 text-muted" >
+                <div class="col-4 d-flex flex-wrap rounded-3 text-muted" >
                     <button class="btn w-100 like_button border-0"><i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i>Like</button>
                 </div>
-                <div class="col-6 d-flex flex-wrap rounded-3 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                <div class="col-4 d-flex flex-wrap rounded-3 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
                     <div class="btn w-100 text-muted d-flex p-0 border-0 " data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto"></i><div class="my-auto"> Comment</div></div>
+                </div>
+                <div class="col-4 d-flex flex-wrap rounded-3" data-toggle="modal" data-target="#sharemodal" >
+                    <div class="btn w-100 text-muted d-flex p-0 border-0" data-toggle="modal"  data-attachment_post="'  .$fb_upload_img .'" data-target="#sharemodal"  id="post_commnet_modal"><i class="fa-solid fa-share mx-2 my-auto"></i><div class="my-auto">share</div></div>
                 </div>
             </div>
         </div>
@@ -634,6 +637,62 @@ class CreateController extends BaseController
         return json_encode($result, true);
         die();
     }
+
+
+
+    public function ShareOfPost() {
+        // Check if the request method is POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get the attachment from the form data
+            $attachment = $_FILES['attachment'];
+    
+            // Construct the URL for the Facebook Graph API endpoint
+            $page_id = '196821650189891';
+            $access_token = 'EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
+
+    
+            // Initialize cURL session
+            $curl = curl_init();
+    
+            // Set the file as multipart/form-data
+            $file_data = array(
+                'source' => curl_file_create($attachment['tmp_name'], $attachment['type'], $attachment['name']),
+                'message' => 'Your message here' // Optional: Add a message to the post
+            );
+    
+            // Set cURL options
+            curl_setopt_array($curl, array(
+                CURLOPT_URL =>'https://developers.facebook.com/docs/graph-api/reference/v2.2/' . $page_id . '/feed',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array_merge($file_data, array(
+                    'access_token' => $access_token
+                )),
+            ));
+    
+            // Execute the POST request
+            $response = curl_exec($curl);
+    
+            // Check for errors
+            if ($response === false) {
+                $error = curl_error($curl);
+                echo "cURL Error: " . $error;
+            } else {
+                echo "Post sent successfully.";
+            }
+    
+            // Close cURL session
+            curl_close($curl);
+        } else {
+            // Handle the case when the request method is not POST
+        }
+    }
+
 
     public function delete_post()
     {

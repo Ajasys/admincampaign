@@ -106,6 +106,8 @@ $routes->get('/phone_number', 'Home::phone_number');
 $routes->get('/post_comments', 'Home::post_comments');
 $routes->post('/create_insert_data', 'CreateController::create_insert_data');
 $routes->post('/SendPostDataFB', 'CreateController::SendPostDataFB');
+// $routes->post('/ShareOfPost', 'CreateController::ShareOfPost');
+
 $routes->post('/list_post_pagewise', 'CreateController::list_post_pagewise');
 $routes->post('/comment_replay_send', 'CreateController::comment_replay_send');
 $routes->post('/delete_post', 'CreateController::delete_post');

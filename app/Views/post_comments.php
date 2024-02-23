@@ -510,6 +510,108 @@
             </div>
         </div>
 
+            <!-- share modal Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="sharemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Auto share (optional)</h5>
+                        <form class="needs-validation" id="share_form" name="share_form" method="POST" novalidate>
+                        <button type="button" class="close btn btn-transparent fs-4" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2">Automatically share your post to the other accounts. Where possible, the share
+                            will look as if it was done natively.</div>
+                        <div class="d-flex m-3">
+                            <div class="border border-2 rounded-circle d-none justify-content-center align-items-center"
+                                style="width:40px; height:40px;">
+                            </div>
+                        </div>
+                        <div class="clickshare p-1 border rounded m-1">share to</div>
+                        <div class="clickshareto d-none p-1 border ro
+                        unded">
+                            <div class="d-flex">
+                                <div class="border border-2 d-none rounded-circle d-flex justify-content-center align-items-center"
+                                    style="width:40px; height:40px;">
+                                </div>
+                                <div class="fs-6">
+
+
+                                    <?php
+                                    $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+                                    $fb_page_list = fb_insta_page_list($token);
+                                    $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                                    $i = 0;
+                                    foreach ($fb_page_list['page_list'] as $key => $value) {
+                                        $pageprofile = fb_page_img($value->id, $value->access_token);
+                                        $img_decode = json_decode($pageprofile, true);
+                                        ?>
+
+                                        <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
+                                            <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])): ?>
+                                                <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex  <?= $i == 0 ? 'first' : ''; ?>"
+                                                    data-acess_token="<?php echo $value->access_token; ?>"
+                                                    data-pagee_id="<?php echo $value->id; ?>"
+                                                    data-page_name="<?php echo $value->name; ?>"
+                                                    data-img="<?php echo $img_decode['page_img']; ?>">
+                                                    <img class="rounded-circle me-2"
+                                                        src="<?php echo $img_decode['page_img']; ?>" alt="#"
+                                                        style="width:30px;height:30px;object-fit-container" />
+                                                    <div class="col">
+                                                        <?php echo $value->name ?>
+                                                    </div>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php $i++;
+                                    } ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                                </form>
+
+                        <div class="shareto d-none border rounded p-2">
+                            <div class="">
+                                <div class="d-flex">
+                                    <div class="border border-2 rounded-circle d-flex justify-content-center align-items-center"
+                                        style="width:40px; height:40px;">
+                                    </div>
+                                    <!-- <div class="fs-6">veleri offical</div>-->
+                                </div>
+                                <div class="d-flex"><i class="fa-solid fa-circle-info m-2"></i>
+                                    <!-- <div>Some accounts may not be listed due to missing settings such a default
+                                                board for Pinterest, missing permissions, or API limitations.</div>
+                                        </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex justify-content-between mt-3">
+                            <div class="d-flex" style="height:40px">
+                                <div class="border rounded p-2 mx-1"><i class="fa-solid fa-hashtag"></i>hastags</div>
+                                <div class="border rounded p-2 mx-1"><i class="fa-brands fa-strava"></i>ajassists</div>
+                            </div>
+                            <div class="d-flex" style="height:40px">
+                                <div class="border rounded p-1 px-2 mx-1"><i class="fa-solid fa-b"></i></div>
+                                <div class="border rounded p-1 px-2  mx-1"><i class="fa-solid fa-italic"></i></div>
+                                <div class="border rounded p-1 px-2 mx-1"><i class="fa-regular fa-face-smile"></i></div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary sharepost" id="sharepost" data-attachment_post="">Share</button>
+            </div>
+
+        </div>
+
 
 
 
@@ -519,6 +621,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
         <script>
+              $(document).on('click', '.clickshare', function () {
+                $('.clickshareto').removeClass('d-none');
+            })
             $('body').on('click', '.account-box', function() {
 
                 $(this).addClass('active-account-box');
@@ -843,6 +948,35 @@
 
 
             });
+
+             // $("body").on('click', '#post_commnet_modal', function(e) { 
+            //     var attachment = $(this).attr("data-attachment_post");
+            //     $('.sharepost').data('data-attachment_post', attachment);
+            // });
+
+            // $('body').on('click', '#sharepost', function(){
+            //     var form = $("form[name='share_form']")[0];
+            //     var attachment = $(this).data("data-attachment_post"); 
+            //     // console.log(attachment);
+                
+            //     var formData = new FormData(form);
+            //     formData.append('action', 'post');
+            //     formData.append('attachment', attachment);
+            
+            //     $.ajax({
+            //         method: "post",
+            //         url: "<?= site_url('ShareOfPost'); ?>",
+            //         data: formData,
+            //         contentType: false, 
+            //         processData: false,
+            //         success: function (res) {
+            //             console.log(res);
+            //         },
+            //         error: function (xhr, status, error) {
+            //             console.error(xhr.responseText);
+            //         }
+            //     });
+            // });
 
             $('body').on('click', '.create_comment', function() {
                 var edit_value = $(this).attr("data-publish_id");
