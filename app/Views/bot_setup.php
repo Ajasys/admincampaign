@@ -2429,22 +2429,23 @@ $admin_bot = json_decode($admin_bot, true);
                     <div class="col-8">
                         <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
                        
-                        <select id="occupation" name="" class="selectpicker OccupationInputClass question_select form-control form-main occupation_add" data-live-search="true">
-                                <option value="No Jump">No Jump</option>
-                                <?php
+                        <div class="main-selectpicker">
+                            <select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select occupation_add" data-live-search="true">
+                                <option value="">No Jump</option>
+                                    <?php
                                     if (isset($admin_bot_setup)) {
                                         foreach ($admin_bot_setup as $type_key => $type_value) {
-                                        
+
                                             if ($type_value['bot_id'] == $botId) {
                                                 // pre($type_value['question']);
 
-                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                echo '<option value="' . $type_value["type_of_question"] . '">' . $type_value["question"] . '</option>';
                                             }
                                         }
                                     }
-                                ?>
-                        </select>
-
+                                    ?>
+                            </select>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -4877,7 +4878,7 @@ $admin_bot = json_decode($admin_bot, true);
             };
             var options_value = JSON.stringify(row);
         }
-        
+
         if (type_of_question == "44") {
             var rowData = [];
             var remove_question = $(".remove_question").is(":checked") ? "true" : "false";
@@ -4975,7 +4976,7 @@ $admin_bot = json_decode($admin_bot, true);
 
                     $("#formGroupExampleInput").val(response[0].question);
                     $(".conditional_flow_update").attr('data-id', response[0].id);
-                    $(".OccupationInputClass").val(response[0].next_question_id);
+                    $(".OccupationInputClass").val(response[0].next_questions);
                     $('.selectpicker').selectpicker('refresh');
                 },
                 error: function(error) {
@@ -4996,13 +4997,8 @@ $admin_bot = json_decode($admin_bot, true);
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
-        var selectedOptions = $('.OccupationInputClass').map(function() {
-            return $(this).val();
-        }).get();
-
-        if (!Array.isArray(selectedOptions)) {
-            selectedOptions = [selectedOptions];
-        }
+        var selectedOptions = $('select.OccupationInputClass option:selected').val();
+        // console.log(selectedOptions);
 
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
