@@ -247,9 +247,12 @@
                         </div>
                     </div>
                 </div>
+
+                <button type="button" class="btn-primary bot_preview" data-bs-toggle="modal" data-bs-target="#bot_name_modal">Custom Bot</button>
+
             </div>
         </div>
-        <div class="modal-content bot_name_modal">
+        <div class="modal-content bot_name_modal" id="bot_name_modal">
             <div class="modal-header">
                 <h5 class="modal-title" id="botfirstmodal">Create New Bot</h5>
                 <button type="button" class="close border-none close-modal" data-dismiss="modal" aria-label="Close" data-bs-toggle="modal">

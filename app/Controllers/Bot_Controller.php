@@ -850,17 +850,17 @@ class Bot_Controller extends BaseController
 							</label>
 						</div>
 						<div class="col-2 d-flex flex-wrap align-items-center">';
-				$html .= '<div class="col-4 p-1">';
+				$html .= '<div class="col-3 p-1">';
 				if ($value['type_of_question'] != 31 && $value['type_of_question'] != 32 && $value['type_of_question'] != 33 && $value['type_of_question'] != 45) {
 					$html .= '<i class="fa fa-pencil cursor-pointer question_edit" data-id=' . $value['id'] . ' data-type_of_question=' . $value['type_of_question'] . ' data-bs-toggle="modal" data-bs-target="#add-email"></i>';
 				}
 				$html .= '</div>';
 
-				// if ($value['type_of_question'] != 36) {
-				// 	$html .= '<div class="col-3 p-1">';
-				// 	$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
-				// 	$html .= '	</div>';
-				// }
+				if ($value['type_of_question'] != 36) {
+					$html .= '<div class="col-3 p-1">';
+					$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
+					$html .= '	</div>';
+				}
 
 				$html .= '	<div class="col-3 p-1">
 								<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question=' . $value['id'] . '></i>
@@ -963,13 +963,17 @@ class Bot_Controller extends BaseController
 			$sequence = isset($result) ? 1 : $sequence;
 			$db_connection = \Config\Database::connect('second');
 
-			if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
-				$nextQuestion = $_POST['nextQuestion'];
-				pre($nextQuestion);
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
-			} else {
+			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined") {
+			// 	$nextQuestion = $_POST['nextQuestion'];
+			// 	// pre($nextQuestion);
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+				// pre($sql);
+			}else if(isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] == "NO Jump"){
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 			}
+			//  else {
+			// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND next_questions <= ' . $sequence . ' ORDER BY sequence';
+			// }
 
 			// Execute query
 			$db_connection = \Config\Database::connect('second');
