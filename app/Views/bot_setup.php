@@ -1505,7 +1505,6 @@ $admin_bot = json_decode($admin_bot, true);
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourythreequestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fouryfourquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyfivequestion"></div>
-                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentysixquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourtyonequestion"></div>
                                 <!--Question-->
                                 <!-- <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
@@ -2431,7 +2430,7 @@ $admin_bot = json_decode($admin_bot, true);
                         <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
                        
                         <select id="occupation" name="" class="selectpicker OccupationInputClass question_select form-control form-main occupation_add" data-live-search="true">
-                                <!-- <option value="No Jump">No Jump</option> -->
+                                <option value="No Jump">No Jump</option>
                                 <?php
                                     if (isset($admin_bot_setup)) {
                                         foreach ($admin_bot_setup as $type_key => $type_value) {
@@ -2439,7 +2438,7 @@ $admin_bot = json_decode($admin_bot, true);
                                             if ($type_value['bot_id'] == $botId) {
                                                 // pre($type_value['question']);
 
-                                                echo '<option value="' . $type_value["sequence"] . '">' . $type_value["question"] . '</option>';
+                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                             }
                                         }
                                     }
@@ -3062,9 +3061,9 @@ $admin_bot = json_decode($admin_bot, true);
                 success: function (res) {
                     var response = JSON.parse(res);
                     if (response.response == 3 || response.response == 1) {
-                        // sequence++;
+                        sequence++;
                         $('.answer_chat').val('');
-                        bot_preview_data(response.sequence, nextQuestion);
+                        bot_preview_data(sequence, nextQuestion);
                     } else if (response.response == 2) {
                         var sdfsdf = response.id_validation;
                         var apend_messege = '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="1" data-sequence="' + sequence + '"><div class="border rounded-circle overflow-hidden" style="width:35px;height:35px"> <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle"> </div><div class="col px-2"> <div class="col-12 mb-2"> <span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="1"><p>' + sdfsdf + '</p></span></div></div></div>';
@@ -3899,7 +3898,6 @@ $admin_bot = json_decode($admin_bot, true);
                     }
 
                     $("#Question_error_message").val(response[0].error_text);
-                    // $("#Question_error_message").val(response[0].error_text);
 
                     var menu_message = response[0].menu_message;
 
@@ -4075,10 +4073,6 @@ $admin_bot = json_decode($admin_bot, true);
                                 $(".main-plan").remove();
                                 optionsArray.forEach(function(option, index) {
                                     var row_numbers = index === 0 ? '' : $('.main-plan').length;
-                                    var nextQuestions = response[0].next_questions.split(',');
-                                    console.log(nextQuestions);
-                                    
-
                                     var main_table_html =
                                         '<tr class="col-12 main-plan">' +
                                         '<td class="col-3">' +
@@ -4091,8 +4085,6 @@ $admin_bot = json_decode($admin_bot, true);
                                         '</td>' +
                                         '<td class="col-4">' +
                                         '<select class="form-select question_select_second" aria-label="Default select example">' +
-                                        '<option></option>' +
-                                        
                                         '<?php
                                             if (isset($admin_bot_setup)) {
                                                 foreach ($admin_bot_setup as $type_key => $type_value) {
@@ -4100,12 +4092,11 @@ $admin_bot = json_decode($admin_bot, true);
 
                                                     if ($type_value['bot_id'] == $botId) {
 
-                                                        echo '<option value="' . $type_value["sequence"] . '">' . $type_value["question"] . '</option>';
+                                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                                     }
                                                 }
                                             }
                                         ?>'
-                                        
                                         '</select>' +
                                         '</td>' +
                                         '<td class="col-2">' +
@@ -4453,17 +4444,14 @@ $admin_bot = json_decode($admin_bot, true);
         }
 
         var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
-
         var selectedOptions = $('.question_select_second').map(function() {
             return $(this).val();
         }).get();
 
-        if (!Array.isArray(selectedOptions) || selectedOptions.length > 1) {
-            selectedOptions = selectedOptions.join(','); 
-        } else {
-            selectedOptions = selectedOptions[0];
+        if (!Array.isArray(selectedOptions)) {
+            selectedOptions = [selectedOptions];
         }
-        console.log(selectedOptions);
+
         var error_text = $('#Question_error_message').val();
 
         if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
@@ -4825,16 +4813,6 @@ $admin_bot = json_decode($admin_bot, true);
             var options_value = $('.carousel_img_input').prop('files')[0];
         }
 
-        if (type_of_question == "26") {
-            var audioFile = document.getElementById('audioFile').files[0];
-            var audioFileName = document.getElementById('audioFileName').value;
-            var row = {
-                audioFile: audioFile,
-                audioFileName: audioFileName
-            };
-            var options_value = JSON.stringify(row);
-        }
-
         if (type_of_question == "27") {
             var rowData = [];
             $(".contact_div_in").each(function(index) {
@@ -4890,7 +4868,16 @@ $admin_bot = json_decode($admin_bot, true);
             var options_value = JSON.stringify(row);
         }
 
-
+        if (type_of_question == "26") {
+            var audioFile = document.getElementById('audioFile').files[0];
+            var audioFileName = document.getElementById('audioFileName').value;
+            var row = {
+                audioFile: audioFile,
+                audioFileName: audioFileName
+            };
+            var options_value = JSON.stringify(row);
+        }
+        
         if (type_of_question == "44") {
             var rowData = [];
             var remove_question = $(".remove_question").is(":checked") ? "true" : "false";
@@ -4920,12 +4907,7 @@ $admin_bot = json_decode($admin_bot, true);
             }
             formdata.append('skip_question', skip_question);
             formdata.append('error_text', error_text);
-
-            if (selectedOptions == "undefined") {
-                formdata.append('next_questions', '');
-            }else{
-                formdata.append('next_questions', selectedOptions);
-            }   
+            formdata.append('next_questions', selectedOptions);
             
             $('.loader').show();
             $.ajax({
@@ -5014,8 +4996,13 @@ $admin_bot = json_decode($admin_bot, true);
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
-        var next_questions = $('select.occupation_add option:selected').val();
-        // console.log(next_questions);
+        var selectedOptions = $('.OccupationInputClass').map(function() {
+            return $(this).val();
+        }).get();
+
+        if (!Array.isArray(selectedOptions)) {
+            selectedOptions = [selectedOptions];
+        }
 
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
@@ -5023,12 +5010,7 @@ $admin_bot = json_decode($admin_bot, true);
             formdata.append('action', 'update');
             formdata.append('edit_id', update_id);
             formdata.append('table', table);
-
-            if (next_questions == "undefined") {
-                formdata.append('next_questions', '');
-            }else{
-                formdata.append('next_questions', next_questions);
-            }   
+            formdata.append('next_questions', selectedOptions);
 
             $('.loader').show();
             $.ajax({

@@ -850,17 +850,17 @@ class Bot_Controller extends BaseController
 							</label>
 						</div>
 						<div class="col-2 d-flex flex-wrap align-items-center">';
-				$html .= '<div class="col-3 p-1">';
+				$html .= '<div class="col-4 p-1">';
 				if ($value['type_of_question'] != 31 && $value['type_of_question'] != 32 && $value['type_of_question'] != 33 && $value['type_of_question'] != 45) {
 					$html .= '<i class="fa fa-pencil cursor-pointer question_edit" data-id=' . $value['id'] . ' data-type_of_question=' . $value['type_of_question'] . ' data-bs-toggle="modal" data-bs-target="#add-email"></i>';
 				}
 				$html .= '</div>';
 
-				if ($value['type_of_question'] != 36) {
-				$html .= '<div class="col-3 p-1">';
-				$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
-				$html .= '	</div>';
-				}
+				// if ($value['type_of_question'] != 36) {
+				// 	$html .= '<div class="col-3 p-1">';
+				// 	$html .= '<i class="fa fa-sitemap cursor-pointer question_flow_edit" data-id=' . $value['id'] . ' data-bs-toggle="modal" data-bs-target="#exampleModal"></i>';
+				// 	$html .= '	</div>';
+				// }
 
 				$html .= '	<div class="col-3 p-1">
 								<i class="fa fa-clone duplicate_question_add cursor-pointer" data-question=' . $value['id'] . '></i>
@@ -956,29 +956,20 @@ class Bot_Controller extends BaseController
 	
 		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 			$db_connection = \Config\Database::connect('second');
-
-			if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
-				$nextQuestion = $_POST['nextQuestion'];
-				// pre($nextQuestion);
-				$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $nextQuestion . '';
-			} else {
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
-			}
-
-			// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
+			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
 			$result = $db_connection->query($sql);
 			$bot_chat_data = $result->getResultArray();
 		} else {
 			$sequence = isset($result) ? 1 : $sequence;
 			$db_connection = \Config\Database::connect('second');
+
 			if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
 				$nextQuestion = $_POST['nextQuestion'];
-				// pre($nextQuestion);
-				$sql = 'SELECT * FROM ' . $table . ' WHERE id = ' . $nextQuestion . '';
+				pre($nextQuestion);
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 			} else {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
 			}
-			// pre($sql);
 
 			// Execute query
 			$db_connection = \Config\Database::connect('second');
@@ -1525,30 +1516,7 @@ class Bot_Controller extends BaseController
 											</div>
 										</div>
 									</div>';
-						}
-					}else if($value['type_of_question'] == "26"){
-						$html .= '<div class="col">
-									<div class="col-12 mb-2">
-										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
-											' . $value['question'] . '
-										</span>
-									</div>';
-					
-						$carouselData = json_decode($value['menu_message'], true);
-						// Check if the menu message contains an audio file name
-						if (isset($carouselData['audioFileName'])) {
-							$audioFileName = $carouselData['audioFileName'];
-							// Append an audio player element to play the audio
-							$html .= '<div class="col-12">
-										<audio controls style="height:40px;">
-											<source src="assets/bot_audio/' . $audioFileName . '" type="audio/mpeg">
-											Your browser does not support the audio element.
-										</audio>
-									</div>';
-						}
-						
-						$html .= '</div>';
-						
+						}	
 					}else if ($value['type_of_question'] == "27") {
 						$contactsData = json_decode($value['menu_message'], true);
 						$html .= '<div class="bg-white p-2 position-absolute tabel_div top-0 bottom-0 start-0 end-0 m-auto rounded-2 overflow-x-scroll d-none" style="width: max-content; height: 200px;">
@@ -1855,23 +1823,6 @@ class Bot_Controller extends BaseController
 		$response = []; 
 
 		if (!empty($question)) {
-
-			if(isset($question) && $question['next_questions'] != "" && $question['next_questions'] != "undefined"){
-				$menu_message = explode(';',json_decode($question['menu_message'])->options);
-				$next_questions = explode(',',$question['next_questions']);
-				// pre($menu_message);
-				foreach($menu_message as $key => $value) {
-					if($value == $answer && isset($next_questions[$key])){
-						$response['sequence'] = $next_questions[$key];
-						break;
-					} else {
-						$response['sequence'] = $question['sequence'] + 1;
-					}
-				}
-			} else {
-				$response['sequence'] = $question['sequence'] + 1;
-			}
-
 			if ($question['type_of_question'] == 3 && $question['error_text']) {
 				// Validate email if the question type is 3
 				$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
