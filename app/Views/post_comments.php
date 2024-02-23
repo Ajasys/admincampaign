@@ -230,44 +230,43 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade " id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" data-bs-backdrop="static">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create Post</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-0 ">
-                        <div class="col-12 p-3">
-                            <div class="col-12 border rounded-2 p-2 my-2">
-                                <div class="upload-btn-wrapper col-12">
-                                    <div class="file-btn col-12  p-3">
-                                        <div class="col-12 justify-content-center d-flex">
-                                            <i class="bi bi-images"></i>
-                                        </div>
-                                        <div class="col-12 justify-content-center d-flex">
-                                            <h5>Drag &amp; drop or select a file<p></p>
-                                            </h5>
-                                        </div>
+            <!-- <div class="modal fade " id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" data-bs-backdrop="static">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Post</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-0 ">
+                            <div class="col-12 p-3">
+                                <div class="col-12 border rounded-2 p-2 my-2">
+                                    <div class="upload-btn-wrapper col-12">
+                                        <div class="file-btn col-12  p-3">
+                                            <div class="col-12 justify-content-center d-flex">
+                                                <i class="bi bi-images"></i>
+                                            </div>
+                                            <div class="col-12 justify-content-center d-flex">
+                                                <h5>Drag &amp; drop or select a file<p></p>
+                                                </h5>
+                                            </div>
 
+                                        </div>
+                                        <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate>
+
+                                            <input class="form-control main-control coupon_event attachment" id="attachment" name="attachment[]" multiple type="file" placeholder="">
+                                        </form>
                                     </div>
-                                    <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate>
-
-                                        <input class="form-control main-control coupon_event attachment" id="attachment" name="attachment[]" multiple type="file" placeholder="">
-                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <!-- <button class="btn btn-primary" data-bs-target="" data-bs-toggle="modal" data-bs-dismiss="modal"></button> -->
-                        <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal">Back to
-                            first</button>
-                    </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal">Back to
+                                first</button>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div> -->
         <div class="m-auto massage_list_loader text-center position-fixed top-50 start-50">
             <span>Loading...</span>
             <div class="mx-auto chat_loader"></div>
@@ -326,10 +325,15 @@
                                                 <div class="col-12 border rounded  p-3">
                                                     <textarea cols="30" rows="5" class="col-12 border-0 event_address" placeholder="Write something or use shortcodes, spintax..... " id="event_address"></textarea>
                                                     <div class="img-input col-12 d-flex flex-wrap">
+
+                                                        <div class="mx-3 rounded-3 filePicker overflow-hidden position-relative d-flex justify-content-center align-items-center" style="width:150px;height:150px;border:1px dashed gray">
+                                                            <div class="w-100 h-100 position-absolute add-img-input"></div>
+                                                            <p class="fs-1">+</p>
+                                                            <input class="form-control fileInput position-absolute opacity-0 h-100 attachment" id="attachment" name="attachment[]" multiple type="file" type="file"  style=>
+                                                        </div>
                                                         <div class="img-placeholder d-flex flex-wrap"></div>
                                                     </div>
-                                                    <span class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 drag-and-drop-btn" data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#bdbaba;">Click or Drag &
-                                                        Drop Media</span>
+                                                    <!-- <span class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 drag-and-drop-btn" data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#bdbaba;">Add Photo</span>
                                                     <div class="row col-12" id="offer-input">
                                                         <div class="col-md-4 my-1 ">
                                                             <input type="text" placeholder="Coupon code (optional)" class="form-control" id="coupon_event" value="">
@@ -340,7 +344,7 @@
                                                         <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
                                                             <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control" id="terms_event"></textarea>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <!-- <div id="select-box">
                                                         <div class="col-lg-3 col-md-4 col-sm-6">
                                                             <div class="main-selectpicker">
@@ -395,8 +399,8 @@
                     <div class="modal-footer">
                         <div class="card-footer col-12 p-2 px-4 d-flex  align-content-center flex-wrap">
                             <div class="col-4">
-                                <button class="bg-transparent border-0 text-muted">
-                                    <i class="fa-regular fa-clone me-2 "></i>Bulk Option</button>
+                                <!-- <button class="bg-transparent border-0 text-muted">
+                                    <i class="fa-regular fa-clone me-2 "></i>Bulk Option</button> -->
                             </div>
                             <div class="col-8 d-flex  flex-wrap justify-content-end ">
                                 <button class="btn btn-outline-secondary mx-1 draft_create" id="draft_create">Draft</button>
@@ -425,7 +429,7 @@
                 <div class="modal-content">
                     <div class="modal-header p-2 py-3">
                         <div class="col-11 d-flex flex-wrap ">
-                            <div class="me-2" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                            <div class="me-2">
                                     
                                 <!-- <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=0TEiKYItlngAX_Ns_i1&amp;_nc_oc=AQk3YbtUJ7KyXL-g6j6xMjQuMCdaeyYB3aG9sW1OhvdtEgz__SFpYb9nEtrPSIeyfoHYbS9eMFyqg3JEXIi77ErR&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCYEfsnxuyriahsInOArWDb4GVQEZTrhSXz_i5jFLkLXg&amp;oe=65D24B45" alt="#" style="width:40px;height:40px;"> -->
                             </div>
@@ -816,6 +820,16 @@
                     success: function(res) {
                         var result = JSON.parse(res);
                         $('.loader').hide();
+var swiper = new Swiper(".mySwiper", {
+                            pagination: {
+                                el: ".swiper-pagination",
+                                type: "fraction",
+                            },
+                            navigation: {
+                                nextEl: ".swiper-button-next",
+                                prevEl: ".swiper-button-prev",
+                            },
+                        });
                         $('.massage_list_loader').hide();
                         $('#demo_list_data').html(result.html);
 
@@ -983,8 +997,9 @@
                 var data_access_id = $(this).attr("data-access_id");
                 var tabb_attr = $('.postt_tab .active ').attr("data-tabb_id");
                 var form = $("form[name='create_form']")[0];
-                var form = $(".add_form_Email")[0];
+                var form = $("form[name='create_form_clear']")[0];
 
+                
                 var attachment = $('.attachment').prop('files');
                 var event_address = $('.event_address').val();
                 var formData = new FormData(form);
@@ -999,6 +1014,7 @@
 
 
                 if (edit_value == "") {
+			        $('.loader').show();
                     $.ajax({
                         method: "post",
                         url: "<?= site_url('SendPostDataFB'); ?>",
@@ -1007,6 +1023,7 @@
                         processData: false,
                         success: function(res) {
                             // Handle success
+					        $('.loader').hide();
                             iziToast.success({
                                 title: 'Post Successfully'
                             });
@@ -1018,6 +1035,7 @@
                         }
                     });
                 } else if (edit_value != "") {
+                    $('.loader').show();
                     $.ajax({
                         method: "post",
                         url: "<?= site_url('UpdatePostDataFB'); ?>",
@@ -1025,6 +1043,7 @@
                         contentType: false,
                         processData: false,
                         success: function(res) {
+                            $('.loader').hide();
                             iziToast.success({
                                 title: 'Update Successfully'
                             });

@@ -311,24 +311,9 @@ class CreateController extends BaseController
         $html = "";
 
         foreach ($fb_page_list['data'] as $key => $value) {
-            // pre($value);
-            // $url = getSocialData('https://graph.facebook.com/v19.0/196821650189891_122121898676192565?fields=comments.limit(0).summary(true),likes.limit(0).summary(true)&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD','');
-
-            // // Decode JSON response
-            // // $data = json_decode($url, true);
-
-            // // Extract comment and like counts
-            // $commentCount = $url['comments']['summary']['total_count'];
-            // $likeCount = $url['likes']['summary']['total_count'];
-
-            // Output comment and like counts
-            // echo "Comment Count: " . $commentCount . "<br>";
-            // echo "Like Count: " . $likeCount . "<br>";
-            // die();
-            // pre($test);
-            // $comments_responce = getSocialData('https://graph.facebook.com/' . $value['id'] . '/comments??fields=from,message&access_token=' . $accesss_tocken);
-            // $comments_responce = getSocialData('https://graph.facebook.com/v13.0/'.$value['id'].'/comments?fields=from,message,created_time&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD');
-            // pre($comments_responce);
+            $url = 'https://graph.facebook.com/v19.0/' . $value['id'] . '?fields=attachments&access_token=' . $accesss_tocken . '';
+            $data = getSocialData($url);
+            // $time = strtotime($data[0]['created_time']);    
             $accesss_tocken_comment = 'EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD';
             if (isset($value['full_picture'])) {
                 $fb_upload_img = ($value['full_picture']);
@@ -410,8 +395,30 @@ class CreateController extends BaseController
             <div class="col-12 my-2">
                 <p class="fs-14">' . $fb_titile . '</p>
             </div>
-            <div class="py-2 d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="min-height: 209px; max-height: 209px; overflow: hidden;">
-                    <img src="' . $fb_upload_img . '" class="" style="width:209px; height: auto; max-height:209px;object-fit:contain">
+            <div class="py-2 d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="min-height: 209px; max-height: 209px; overflow: hidden;">';
+            if (isset($data['attachments']['data']) && !empty($data['attachments']['data'])) {
+                $attachments = $data['attachments']['data'];
+                // Display all images
+                foreach ($attachments as $attachment) {
+                    // pre($attachment);
+                    // Check for subattachments
+                    if (isset($attachment['subattachments']['data']) && !empty($attachment['subattachments']['data'])) {
+                        $subattachments = $attachment['subattachments']['data'];
+                        foreach ($subattachments as $subattachment) {
+                            $image_url = $subattachment['media']['image']['src'];
+                            $html .= "<img src='$image_url' alt='Image' style='width:100%;height:300px;'>";
+                        }
+                    } else {
+                        // No subattachments, display the main attachment image
+                        if (isset($attachment['media']['image']['src']) && !empty($attachment['media']['image']['src'])) {
+                            $image_url = $attachment['media']['image']['src'];
+                            $html .= "<img src='$image_url' alt='Image' style='width:100%;height:300px;'>";
+                        }
+                    }
+                }
+            }
+            $html .= '
+            
                 </div>
             </div>
             <div class="col-12 p-1 mt-2 d-flex post-btn-box border-top">
@@ -463,15 +470,22 @@ class CreateController extends BaseController
 
         // Extract comment and like counts
         // if(isset)
+if (isset($like_comment['comments']['summary']['total_count']) && !empty($like_comment['comments']['summary']['total_count'])) {
         $commentCount = $like_comment['comments']['summary']['total_count'];
+} else {
+            $commentCount = '';
+        }
+        if (isset($like_comment['likes']['summary']['total_count']) && !empty($like_comment['likes']['summary']['total_count'])) {
         $likeCount = $like_comment['likes']['summary']['total_count'];
-
+} else {
+            $likeCount = '';
+        }
         $like_comment_count .=
             '<span class="cursor-pointer">
-        <button class="btn p-0 w-100 like_button border-0">'.$likeCount.'<i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i></button>
+        <button class="btn p-0 w-100 like_button border-0">' . $likeCount . '<i class="fa-regular fa-thumbs-up mx-2 " id="like_icon"></i><i class="fa-solid fa-thumbs-up d-none mx-2" id="like_icon_lite"></i></button>
     </span>
     <span class="cursor-pointer">
-        <div class="btn w-100 text-muted d-flex p-0 border-0" data-bs-toggle="modal" data-bs-target="#comment-modal" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto "></i>
+        <div class="btn w-100 text-muted d-flex p-0 border-0" id="post_commnet_modal"><i class="fa-regular fa-comment mx-2 my-auto "></i>
         </div>
     </span>';
 
