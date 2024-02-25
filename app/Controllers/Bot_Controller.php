@@ -964,7 +964,6 @@ class Bot_Controller extends BaseController
 
 	public function bot_preview_data()
 	{
-
 		$table = $_POST['table'];
 		$bot_id = $_POST['bot_id'];
 		$sequence = $_POST['sequence'];
@@ -991,15 +990,15 @@ class Bot_Controller extends BaseController
 			$result = $db_connection->query($sql);
 			$bot_chat_data = $result->getResultArray();
 		} else {
-			$sequence = isset($result) ? 1 : $sequence ;
+			$sequence = isset($result) ? 1 : $sequence - 1;
 			// pre($sequence);
 			$db_connection = \Config\Database::connect('second');
 			
 			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "") {
-				// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 				// pre($sql);
 				// $nextQuestionsStr = implode(',', $_POST['next_questions']);
-        		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
+        		// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
 				// pre($sql);
 			}else {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
@@ -1550,38 +1549,15 @@ class Bot_Controller extends BaseController
 									</div>';
 
 						$carouselData = json_decode($value['menu_message'], true);
-						if (isset($carouselData['imageFileName'])) {
-							$imageFileName = $carouselData['imageFileName'];
+						$carousel_image = isset($carouselData[0]['carousel_image']) ? base_url('') . '/assets/bot_image/' . $carouselData[0]['carousel_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
+						if(isset($carouselData[0]['carousel_image'])){
 							$html .= '<div class="col-12 text-center">
 											<div class="position-relative bg-white border rounded-3 overflow-hidden" style="width:200px;height:200px">
-												<img src="assets/bot_image/' . $imageFileName . '" alt="" class="w-100 h-100 skip_questioned">
+												<img src="' . $carousel_image . '" alt="" class="w-100 h-100 opacity-50 skip_questioned">
 											</div>
 										</div>
 									</div>';
-						}
-					}else if($value['type_of_question'] == "26"){
-						$html .= '<div class="col">
-									<div class="col-12 mb-2">
-										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
-											' . $value['question'] . '
-										</span>
-									</div>';
-					
-						$carouselData = json_decode($value['menu_message'], true);
-						// Check if the menu message contains an audio file name
-						if (isset($carouselData['audioFileName'])) {
-							$audioFileName = $carouselData['audioFileName'];
-							// Append an audio player element to play the audio
-							$html .= '<div class="col-12">
-							              <audio controls style="height:40px;">
-											<source src="assets/bot_audio/' . $audioFileName . '" type="audio/mpeg">
-											Your browser does not support the audio element.
-										</audio>
-									</div>';
-						}
-						
-						$html .= '</div>';
-							
+						}	
 					}else if ($value['type_of_question'] == "27") {
 						$contactsData = json_decode($value['menu_message'], true);
 						$html .= '<div class="bg-white p-2 position-absolute tabel_div top-0 bottom-0 start-0 end-0 m-auto rounded-2 overflow-x-scroll d-none" style="width: max-content; height: 200px;">
@@ -1878,12 +1854,29 @@ class Bot_Controller extends BaseController
 		$bot_id = $_POST['bot_id'];
 		$answer = $_POST['answer'];
 		$questionId = $_POST['question_id'];
+		// pre($questionId);
 		$sequence = $_POST['sequence'];
+		// $next_questions = $_POST['next_questions'];
+		// pre($next_questions);
 
 		$db_connection = \Config\Database::connect('second');
 		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
 		$result = $db_connection->query($sql);
 		$question = $result->getRowArray();
+
+
+		if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['sequence'] != 1) {
+			$db_connection = \Config\Database::connect('second');
+			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+			$result = $db_connection->query($sql);
+			$questioned = $result->getRowArray();	
+			// pre($questioned);		
+		}else if($_POST['sequence'] == 1){
+			$db_connection = \Config\Database::connect('second');
+			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
+			$result = $db_connection->query($sql);
+			$question = $result->getRowArray();
+		}
 
 		$response = []; 
 
@@ -1918,6 +1911,7 @@ class Bot_Controller extends BaseController
 
 					$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
 					$response['message'] = "Answer inserted successfully for question: " . $question['question'];
+				
 				} else {
 					// $response['error'] = "Question with sequence " . $sequence . " not found or does not match the specified question id.";
 
@@ -1928,6 +1922,7 @@ class Bot_Controller extends BaseController
 
 					$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
 					$response['message'] = "Answer inserted successfully for question: " . $question['question'];
+					// pre($response['message']);
 				}
 			}
 		}else{
@@ -2082,7 +2077,7 @@ class Bot_Controller extends BaseController
 				$page_data = fb_page_img($value['id'], $value['access_token']);
 				$page_data = json_decode($page_data);
 
-				$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
+				$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box linked-page" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
 										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 												<img src="' . $page_data->page_img . '" alt="" width="45">
@@ -2100,7 +2095,7 @@ class Bot_Controller extends BaseController
 
 			foreach ($IG_data as $IG_key => $IG_value) {
 				$IG_chat_list_html .= '
-								<div class="col-12 account-nav my-2 account-box" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
+								<div class="col-12 account-nav my-2 account-box linked-page" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
 									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
 										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
@@ -2156,7 +2151,7 @@ class Bot_Controller extends BaseController
 					}
 					$chat_list_html .= '
 							<div class=" fw-semibold fs-12 chat-nav-search-bar my-2 col-12 chat-account-box p-1 pe-3
-							 chat_list" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '">
+							 chat_list linked-page1" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '">
 							<div class="d-flex flex justify-content-between align-items-center col-12">
 										<div class="col-2 p-1">';
 					if ($platform == 'messenger') {

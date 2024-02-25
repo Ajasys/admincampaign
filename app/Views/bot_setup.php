@@ -3076,8 +3076,10 @@ $admin_bot = json_decode($admin_bot, true);
         var bot_id = '<?php echo $botId; ?>';
         var last_conversation_id = $(".bot_preview_html .messege1:last").attr('data-conversation-id');
         var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id');
+        var next_questions = $(".bot_preview_html .messege1:last").attr('data-next_questions'); 
+        console.log(next_questions);
        // Assuming $sequence is defined elsewhere in your code
-
+        // console.log(nextQuestion);
         if (chatting !== "") {
             $.ajax({
                 method: "post",
@@ -3091,7 +3093,8 @@ $admin_bot = json_decode($admin_bot, true);
                     question_id: last_conversation_id,
                     sequence: sequence,
                     next_question_id: next_question_id,
-                    nextQuestion: nextQuestion // Include the nextQuestion parameter in the data sent to the server
+                    nextQuestion: nextQuestion ,
+                    next_questions: next_questions
                 },
                 success: function (res) {
                     var response = JSON.parse(res);
