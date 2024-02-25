@@ -61,6 +61,10 @@
    .audiance_show_data:hover{
    background-color: #efefef;
    }
+   #DataTables_Table_0_filter{
+      display: flex;
+      justify-content: end;
+   }
 </style>
 <div class="main-dashbord p-2">
    <div class="container-fluid p-0">
@@ -72,12 +76,12 @@
             </div>
          </div>
       </div>
-      <div class="row starting-page ps-3 flex-nowrap">
-         <div class="px-3 py-2  bg-white rounded-2 col-12 border first-view">
+      <div class="row starting-page px-3 ps-lg-3 ">
+         <div class="px-3 py-2  bg-white rounded-2 col-12 col-xl-12 border d-xl-block first-view box-view">
             <div class="bg-white rounded-2 rounded-2 p-3">
                <div class="row align-items-center justify-content-between">
-                  <div class="col-lg-4 col-md-4 col-sm-6 px-2">
-                     <button class=" btn-primary btn-primary button-add" data-bs-toggle="modal"
+                  <div class="col-lg-4 col-md-4 col-sm-6 px-0 px-xl-2">
+                     <button class=" btn-primary btn-primary button-add fs-12" data-bs-toggle="modal"
                         data-bs-target="#create_audience_list" name="inquirysource_add" value="occupation-add"
                         type="submit">Create Audience +</button>
                   </div>
@@ -108,7 +112,7 @@
                <table class="w-100 main-table lead_list_table">
                   <thead>
                      <tr>
-                        <th><input type="checkbox" class="select-all-sms" /></th>
+                        <th><input type="checkbox" class="select-all-sms mx-2"/></th>
                         <th class="p-2 text-nowrap"><span>Name</span></th>
                         <th class="p-2 text-nowrap"><span>Type</span></th>
                         <th class="p-2 text-nowrap"><span>Estimated Audience </span></th>
@@ -122,7 +126,7 @@
                </table>
             </div>
          </div>
-         <div class="px-3 col-6">
+         <div class="px-0 px-xl-3 col-12 col-xl-6 box-view second-view d-none">
             <div id="lead_list_modal"
                class=" py-2  bg-white rounded-2 col-12 border h-100 d-flex flex-column justify-content-between lead_list_modal">
                <div class="p-3 py-1 border-bottom">
@@ -883,12 +887,16 @@
        $('.second-page').hide();
    })
    $('body').on('click', '.audiance_show_data', function () {
-       $('.first-view').addClass('col-6');
-       $('.first-view').removeClass('col-12');
+       $('.first-view').addClass('col-xl-6');
+       $('.first-view').addClass('d-none');
+       $('.first-view').removeClass('col-xl-12');
+       $('.second-view').removeClass('d-none');
    })
    $('body').on('click', '.close_container', function () {
-       $('.first-view').addClass('col-12');
-       $('.first-view').removeClass('col-6');
+       $('.first-view').addClass('col-xl-12');
+       $('.first-view').removeClass('col-xl-6');
+       $('.second-view').addClass('d-none');
+       $('.first-view').removeClass('d-none');
    })
    $('body').on('change', '.get_exel_file', function () {
        // alert('LKJC');
