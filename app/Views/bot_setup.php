@@ -4151,10 +4151,9 @@ $admin_bot = json_decode($admin_bot, true);
                                             if (isset($admin_bot_setup)) {
                                                 foreach ($admin_bot_setup as $type_key => $type_value) {
                                                     // pre($type_value);
-
                                                     if ($type_value['bot_id'] == $botId) {
 
-                                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                        echo '<option value="' . $type_value["type_of_question"] . '">' . $type_value["question"] . '</option>';
                                                     }
                                                 }
                                             }
@@ -4513,7 +4512,7 @@ $admin_bot = json_decode($admin_bot, true);
         if (!Array.isArray(selectedOptions)) {
             selectedOptions = [selectedOptions];
         }
-
+        console.log(selectedOptions);
         var error_text = $('#Question_error_message').val();
 
         if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
@@ -5143,60 +5142,64 @@ $admin_bot = json_decode($admin_bot, true);
                     // var menu_message = response[0].menu_message;
                     
                     if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
-                        var menu_message = JSON.parse(response[0].menu_message);
-                       
-                        var next_questions = response[0].next_questions;
-                        
-                            console.log(next_questions);
-                        
-                            
-                            if (menu_message && menu_message.options) {
-                                var optionsArray = menu_message.options.split(';');
-                                $(".main-plan").remove();
-                                optionsArray.forEach(function(option, index) {
-                                    var row_numbers = index === 0 ? '' : $('.main-plan').length;
-                                    var main_table_html =
-                                        '<tr class="col-12 main-plan">' +
-                                        '<td class="col-3 p-2 ">' +
-                                        '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
-                                        '</td>' +
-                                        '<td class="col-3 p-2">' +
-                                        '<select class="form-select" aria-label="Default select example">' +
-                                        '<option value="1">Main-flow</option>' +
-                                        '</select>' +
-                                        '</td>' +
-                                        '<td class="col-4 p-2 ">' +
-                                        '<select class="form-select question_select_second1" aria-label="Default select example">' +
+    var menu_message = JSON.parse(response[0].menu_message);
+    
+    var next_questions = response[0].next_questions;
+    
+    console.log("Original next_questions:", next_questions);
+    
+    // Split the value of next_questions
+    var nextQuestionsArray = next_questions.split(',');
+    
+    console.log("Split next_questions:", nextQuestionsArray);
+    
+    if (menu_message && menu_message.options) {
+        var optionsArray = menu_message.options.split(';');
+        $(".main-plan").remove();
+        optionsArray.forEach(function(option, index) {
+            var row_numbers = index === 0 ? '' : $('.main-plan').length;
+            var main_table_html =
+                '<tr class="col-12 main-plan">' +
+                '<td class="col-3 p-2 ">' +
+                '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                '</td>' +
+                '<td class="col-3 p-2">' +
+                '<select class="form-select" aria-label="Default select example">' +
+                '<option value="1">Main-flow</option>' +
+                '</select>' +
+                '</td>' +
+                '<td class="col-4 p-2 ">' +
+                '<select class="form-select question_select_second" aria-label="Default select example">' +
+                                        '<option></option>' +
+                                        
                                         '<?php
                                             if (isset($admin_bot_setup)) {
                                                 foreach ($admin_bot_setup as $type_key => $type_value) {
                                                     // pre($type_value);
-
                                                     if ($type_value['bot_id'] == $botId) {
-
-                                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                        echo '<option value="' . $type_value["sequence"] . '">' . $type_value["question"] . '</option>';
                                                     }
                                                 }
                                             }
                                         ?>'
+                                        
                                         '</select>' +
-                                        '</td>' +
-                                        '<td class="col-2 p-2">' +
-                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
-                                        '<i class="fa fa-trash cursor-pointer"></i>' +
-                                        '</button>' +
-                                        '</td>' +
-                                        '</tr>';
-                                    $(".conditional_flow_single").append(main_table_html);
-                                    $(".conditional_flow_single").show();
-                                    $(".conditional_flow_single_hide").hide();
-                                    
-                            
-                                });
-                            } else {
-                                // $(".is_strict_validation").prop("checked", false);
-                            }
-                        }
+            '</td>' +
+            '<td class="col-2">' +
+            '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+            '<i class="fa fa-trash cursor-pointer"></i>' +
+            '</button>' +
+            '</td>' +
+            '</tr>';
+            $(".conditional_flow_single").append(main_table_html);
+            $(".conditional_flow_single").show();
+            $(".conditional_flow_single_hide").hide();
+        });
+    } else {
+        // $(".is_strict_validation").prop("checked", false);
+    }
+}
+
                         
                 },
 
@@ -5219,9 +5222,9 @@ $admin_bot = json_decode($admin_bot, true);
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
         var singleOptions = $('select.OccupationInputClass option:selected').val();
-        console.log(singleOptions);
+        // console.log(singleOptions);
 
-        var selectedOptions = $('.question_select_second1').map(function() {
+        var selectedOptions = $('.question_select_second_1').map(function() {
             return $(this).val();
         }).get();
 

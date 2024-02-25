@@ -986,14 +986,20 @@ class Bot_Controller extends BaseController
 		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
+			$sequence = 1;
+			// pre($sql);
 			$result = $db_connection->query($sql);
 			$bot_chat_data = $result->getResultArray();
 		} else {
-			$sequence = isset($result) ? 1 : $sequence;
+			$sequence = isset($result) ? 1 : $sequence ;
+			// pre($sequence);
 			$db_connection = \Config\Database::connect('second');
-
+			
 			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "") {
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+				// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+				// pre($sql);
+				// $nextQuestionsStr = implode(',', $_POST['next_questions']);
+        		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
 				// pre($sql);
 			}else {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
@@ -1020,7 +1026,7 @@ class Bot_Controller extends BaseController
 				JOIN admin_bot_setup AS parent ON child.type_of_question = parent.next_question_id
 				WHERE parent.bot_id = ' . $bot_id . '
 				ORDER BY parent.sequence LIMIT 1;';
-	
+			// pre($sql_parent_child);
 			$resultss_ss = $db_connection->query($sql_parent_child);
 			$bot_chat_data_ss = $resultss_ss->getResultArray();
 		}
