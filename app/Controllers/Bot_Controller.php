@@ -986,14 +986,20 @@ class Bot_Controller extends BaseController
 		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
+			$sequence = 1;
+			// pre($sql);
 			$result = $db_connection->query($sql);
 			$bot_chat_data = $result->getResultArray();
 		} else {
-			$sequence = isset($result) ? 1 : $sequence;
+			$sequence = isset($result) ? 1 : $sequence ;
+			// pre($sequence);
 			$db_connection = \Config\Database::connect('second');
-
+			
 			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "") {
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+				// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+				// pre($sql);
+				// $nextQuestionsStr = implode(',', $_POST['next_questions']);
+        		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
 				// pre($sql);
 			}else {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
@@ -1020,7 +1026,7 @@ class Bot_Controller extends BaseController
 				JOIN admin_bot_setup AS parent ON child.type_of_question = parent.next_question_id
 				WHERE parent.bot_id = ' . $bot_id . '
 				ORDER BY parent.sequence LIMIT 1;';
-	
+			// pre($sql_parent_child);
 			$resultss_ss = $db_connection->query($sql_parent_child);
 			$bot_chat_data_ss = $resultss_ss->getResultArray();
 		}
@@ -1544,15 +1550,38 @@ class Bot_Controller extends BaseController
 									</div>';
 
 						$carouselData = json_decode($value['menu_message'], true);
-						$carousel_image = isset($carouselData[0]['carousel_image']) ? base_url('') . '/assets/bot_image/' . $carouselData[0]['carousel_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
-						if(isset($carouselData[0]['carousel_image'])){
+						if (isset($carouselData['imageFileName'])) {
+							$imageFileName = $carouselData['imageFileName'];
 							$html .= '<div class="col-12 text-center">
 											<div class="position-relative bg-white border rounded-3 overflow-hidden" style="width:200px;height:200px">
-												<img src="' . $carousel_image . '" alt="" class="w-100 h-100 opacity-50 skip_questioned">
+												<img src="assets/bot_image/' . $imageFileName . '" alt="" class="w-100 h-100 skip_questioned">
 											</div>
 										</div>
 									</div>';
-						}	
+						}
+					}else if($value['type_of_question'] == "26"){
+						$html .= '<div class="col">
+									<div class="col-12 mb-2">
+										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
+										</span>
+									</div>';
+					
+						$carouselData = json_decode($value['menu_message'], true);
+						// Check if the menu message contains an audio file name
+						if (isset($carouselData['audioFileName'])) {
+							$audioFileName = $carouselData['audioFileName'];
+							// Append an audio player element to play the audio
+							$html .= '<div class="col-12">
+							              <audio controls style="height:40px;">
+											<source src="assets/bot_audio/' . $audioFileName . '" type="audio/mpeg">
+											Your browser does not support the audio element.
+										</audio>
+									</div>';
+						}
+						
+						$html .= '</div>';
+							
 					}else if ($value['type_of_question'] == "27") {
 						$contactsData = json_decode($value['menu_message'], true);
 						$html .= '<div class="bg-white p-2 position-absolute tabel_div top-0 bottom-0 start-0 end-0 m-auto rounded-2 overflow-x-scroll d-none" style="width: max-content; height: 200px;">
