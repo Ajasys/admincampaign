@@ -72,8 +72,13 @@
     .menu-toggle {
         cursor: pointer;
     }
-    .chat-nav-search-bar{
+
+    .chat-nav-search-bar {
         cursor: pointer;
+    }
+
+    .accordion-button:not(.collapsed)::after {
+        display: none;
     }
 </style>
 
@@ -134,46 +139,46 @@
                 <div class="accordion  border" id="accordionExample">
                     <div class="accordion-item border-0 border-bottom">
                         <h2 class="accordion-header">
-                            <button class="accordion-button border-0 shadow-none fw-medium" type="button"
+                            <button class="accordion-button border-0 shadow-none fw-medium  toggle-center" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
                                 aria-controls="collapseOne">
-                                <i class="fa-solid fa-user fa-xl me-2"></i>
-                                <P class="fs-14 fw-bolder">aayushdave2312@gmail.com</P>
+                                <p><i class="fa-solid fa-user fa-xl me-2"></i></p>
+                                <P class="fs-14 fw-bolder first-container-text">aayushdave2312@gmail.com</P>
                             </button>
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show px-2"
+                        <div id="collapseOne" class="accordion-collapse collapse show px-4 py-3"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body account_list p-0">
                                 <li
-                                    class="menu-toggle bg-body-secondary col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class">
+                                    class="menu-toggle bg-body-secondary col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1">
                                     <div class="col-12 d-flex">
                                         <p><i class="fa-solid fa-inbox"></i></p>
                                         <span class="ms-3 first-container-text viewdata ">Inbox</span>
                                     </div>
                                 </li>
                                 <li
-                                    class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class">
+                                    class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1">
                                     <div class="col-12 d-flex">
                                         <p><i class="fa-regular fa-star"></i></p>
                                         <span class="ms-3 first-container-text viewdata ">Starred</span>
                                     </div>
                                 </li>
                                 <li
-                                    class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class">
+                                    class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1">
                                     <div class="col-12 d-flex">
                                         <p><i class="fa-regular fa-clock"></i></p>
                                         <span class="ms-3 first-container-text viewdata ">Snoozed</span>
                                     </div>
                                 </li>
                                 <li
-                                    class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class">
+                                    class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1">
                                     <div class="col-12 d-flex">
                                         <p><i class="fa-regular fa-paper-plane"></i></p>
                                         <span class="ms-3 first-container-text viewdata ">Sent</span>
                                     </div>
                                 </li>
                                 <li
-                                    class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class">
+                                    class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1">
                                     <div class="col-12 d-flex">
                                         <p><i class="fa-solid fa-file"></i></p>
                                         <span class="ms-3 first-container-text viewdata ">Draft</span>
@@ -187,7 +192,7 @@
                 <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap">
                     <div class="col-12 d-flex flex-wrap w-100 ">
                         <ul class=" d-flex  flex-wrap nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
-                            <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle bg-body-secondary nav-item Tab1Class"
+                            <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle bg-body-secondary nav-item Tab1Class hide-panel2"
                                 role="presentation">
                                 <div id="inquiry_alert_tab"
                                     class="col-12 d-flex nav-link  active p-0 bg-transparent text-dark" DataStatus='1'
@@ -213,7 +218,7 @@
                                     <span class="ms-3 first-container-text">Send Template Messages</span>
                                 </div>
                             </li>
-                            <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class"
+                            <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel2"
                                 role="presentation">
                                 <div class="col-12 d-flex" id="user_alert_tab" data-bs-toggle="pill"
                                     data-bs-target="#user_alert_main" type="button" role="tab"
@@ -258,106 +263,277 @@
                         </ul>
                     </div>
                     <div class="col-12 mt-2 d-flex justify-content-end">
-                        <div class="col-1 p-3 Arro-pro " style="cursor:pointer"><i class="bi bi-arrow-left Arrowmovement text-primary fw-bold fs-5"></i></div>
+                        <div class="col-1 p-3 Arro-pro " style="cursor:pointer">
+                        <i class="bi bi-arrow-left Arrowmovement text-primary fw-bold fs-5"></i>
+                    </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md ps-1">
-                <div class="tab-content p-0 " id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="inquiry_alert_main" role="tabpanel"
-                        aria-labelledby="inquiry_alert_tab" tabindex="0">
-                        <div class="">
-                            <div
-                                class=" p-2 main-check-class bg-white rounded-3 border col-12 col-sm-8 col-md-12  mx-auto mx-md-0">
-                                <div class="bg-white rounded-2">
+            <!-- old-design-whith backend -->
+            <div class="col-12 col-md">
+                <div class="col-12 ps-1 d-none main-panel1">
+                    <div class="tab-content p-0 " id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="inquiry_alert_main" role="tabpanel"
+                            aria-labelledby="inquiry_alert_tab" tabindex="0">
+                            <div class="">
+                                <div
+                                    class=" p-2 main-check-class bg-white rounded-3 border col-12 col-sm-8 col-md-12  mx-auto mx-md-0">
+                                    <div class="bg-white rounded-2">
 
-                                    <div class="overflow-x-scroll">
+                                        <div class="overflow-x-scroll">
 
-                                        <div class="title-2 mb-2">
-                                            <h2 style="background-color: #D8D7FF; font-size: 14px;"
-                                                class="p-2 rounded-1"><b>Email
-                                                    Send List</b></h2>
-                                        </div>
-                                        <table id="myTable" class="table ">
-                                            <thead>
-
-                                                <tr>
-                                                    <th width="25%">Email</th>
-                                                    <th width="40%">Subject</th>
-                                                    <th width="10%">Status</th>
-                                                    <th width="15%">Open Datetime</th>
-                                                    <th width="10%">See Details</th>
-                                                </tr>
-                                            </thead>
-
-
-                                            <tbody id="demo_list_data">
-
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-content P-0" id="pills-tabContent">
-                    <div class="tab-pane fade " id="user_alert_main" role="tabpanel" aria-labelledby="user_alert_tab"
-                        tabindex="0">
-                        <div
-                            class=" p-2 main-check-class bg-white p-2 rounded-3 border col-12 col-sm-8 col-md-12  mx-auto mx-md-0">
-                            <div class="tab-content p-0" id="pills-tabContentS">
-                                <div class="tab-pane fade show active -whatapp" id="user_alert" role="tabpanel"
-                                    aria-labelledby="user_alert_tab" tabindex="0">
-                                    <div class="container-fluid p-0 main-check-class"></div>
-                                </div>
-                                <div class="tab-pane fade" id="inquiry_alert" role="tabpanel"
-                                    aria-labelledby="inquiry_alert_tab" tabindex="0"></div>
-                                <div class="" id="customer_alert" role="tabpanel" aria-labelledby="customer_alert_tab"
-                                    tabindex="0">
-                                    <div class="container-fluid p-0 main-check-class">
-                                        <div class="p-2">
-                                            <div class="d-flex align-items-center justify-content-between">
-
-                                                <div class="d-flex justify-content-end col-12">
-                                                    <div data-delete_id="" class="deleted-all emailDbtn"
-                                                        style="display: none;">
-                                                        <span class="btn-primary-rounded">
-                                                            <i class="bi bi-trash3 fs-14"></i>
-                                                        </span>
-                                                    </div>
-                                                    <span
-                                                        class="btn-primary-rounded changes_of_model changes_of_email_add ms-2"
-                                                        data-bs-toggle="modal" data-bs-target="#add-email"
-                                                        data-bs-dismiss="modal" data-delete_id="">
-                                                        <i class="bi bi-plus"></i>
-                                                    </span>
-                                                </div>
+                                            <div class="title-2 ">
+                                                <h2 style="background-color: #D8D7FF; font-size: 14px;"
+                                                    class="p-2 rounded-1"><b>Email
+                                                        Send List</b></h2>
                                             </div>
-                                        </div>
-                                        <div class="bg-white rounded-2 mx-2 mb-2">
-                                            <table id="email_table"
-                                                class="email-tamplate comman_list_data_table w-100 table main-table">
+                                            <table id="myTable" class="table ">
                                                 <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <input class="select-all-sms check_box emailQuery"
-                                                                type="checkbox" id="select-all-sms">
-                                                        </th>
-                                                        <th>
-                                                            <span class="">Email Details</span>
-                                                        </th>
 
+                                                    <tr>
+                                                        <th width="25%">Email</th>
+                                                        <th width="40%">Subject</th>
+                                                        <th width="10%">Status</th>
+                                                        <th width="15%">Open Datetime</th>
+                                                        <th width="10%">See Details</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="email_list" class="email_list_comman"></tbody>
+
+
+                                                <tbody id="demo_list_data">
+
+                                                </tbody>
+
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="tab-content P-0" id="pills-tabContent">
+                        <div class="tab-pane fade " id="user_alert_main" role="tabpanel"
+                            aria-labelledby="user_alert_tab" tabindex="0">
+                            <div
+                                class=" p-2 main-check-class bg-white p-2 rounded-3 border col-12 col-sm-8 col-md-12  mx-auto mx-md-0">
+                                <div class="tab-content p-0" id="pills-tabContentS">
+                                    <div class="tab-pane fade show active -whatapp" id="user_alert" role="tabpanel"
+                                        aria-labelledby="user_alert_tab" tabindex="0">
+                                        <div class="container-fluid p-0 main-check-class"></div>
+                                    </div>
+                                    <div class="tab-pane fade" id="inquiry_alert" role="tabpanel"
+                                        aria-labelledby="inquiry_alert_tab" tabindex="0"></div>
+                                    <div class="" id="customer_alert" role="tabpanel"
+                                        aria-labelledby="customer_alert_tab" tabindex="0">
+                                        <div class="container-fluid p-0 main-check-class">
+                                            <div class="p-2">
+                                                <div class="d-flex align-items-center justify-content-between">
+
+                                                    <div class="d-flex justify-content-end col-12">
+                                                        <div data-delete_id="" class="deleted-all emailDbtn"
+                                                            style="display: none;">
+                                                            <span class="btn-primary-rounded">
+                                                                <i class="bi bi-trash3 fs-14"></i>
+                                                            </span>
+                                                        </div>
+                                                        <span
+                                                            class="btn-primary-rounded changes_of_model changes_of_email_add ms-2"
+                                                            data-bs-toggle="modal" data-bs-target="#add-email"
+                                                            data-bs-dismiss="modal" data-delete_id="">
+                                                            <i class="bi bi-plus"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bg-white rounded-2 mx-2 mb-2">
+                                                <table id="email_table"
+                                                    class="email-tamplate comman_list_data_table w-100 table main-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <input class="select-all-sms check_box emailQuery"
+                                                                    type="checkbox" id="select-all-sms">
+                                                            </th>
+                                                            <th>
+                                                                <span class="">Email Details</span>
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="email_list" class="email_list_comman"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-flex flex-wrap main-panel2">
+                    <div class="col-5 col-sm-7 col-md-6 col-lg-3 col-xl-3 col-xxl-3 chat-box rounded-3 overflow-hidden"
+                        style="height:80vh">
+                        <div class="col-12 border  bg-white position-relative" style="height:80vh">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button border-0 shadow-none fw-medium p-3" type="button">
+                                    <i class="fa-solid fa-envelope fa-xl me-2"></i>
+                                    <p>Emails</p>
+                                </button>
+                            </h2>
+                            <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1" style="max-height: 100%;">
+                                <div
+                                    class="menu-toggle fw-semibold fs-12 chat-nav-search-bar  col-12 chat-account-box  chat_list border rounded-3 py-2">
+                                    <div class="d-flex flex justify-content-between align-items-center col-12">
+                                        <div class="col-2">
+                                            <svg class="w-100" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0"
+                                                y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512"
+                                                xml:space="preserve">
+                                                <g>
+                                                    <g data-name="Layer 2">
+                                                        <g data-name="01.facebook">
+                                                            <circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1"
+                                                                data-original="#3a559f"></circle>
+                                                            <path fill="#ffffff"
+                                                                d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z"
+                                                                opacity="1" data-original="#ffffff"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="col-10 d-flex flex-wrap justify-content-between align-items-center">
+                                            <p class="col-12 ps-2" style="font-size:16px;">Kaddy Patel</p>
+                                            <p class="col-10 ps-2 d-flex fs-12 text-secondary-emphasis"><span
+                                                    class="text-truncate">hi</span> <span class="col-3 ms-2">5 H</span> </p>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="m-auto  text-center">
+                                <span>Loading...</span>
+                                <div class="mx-auto chat_loader"></div>
+                            </div> -->
+                            <!-- <div class="col-12 overflow-y-scroll chat_list p-2" style="max-height: 100%;">
+                                <div class="col-12 text-center">
+                                    <p class="fs-5 fw-medium mt-5">No Record Found</p>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="ms-7 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl transcript_box rounded-4 overflow-hidden"
+                        style="height:80vh">
+                        <div class="col-12 border rounded-end-4 bg-white position-relative" style="height:80vh">
+                            <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3">
+                                <div class="d-flex bg-white rounded-pill py-1 border">
+                                    <div class="d-flex col-12 align-items-center">
+                                        <!-- <div class="ps-2">
+                                        <button class="btn btn-primary btn_x rounded-5 border">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div> -->
+                                        <div class="input-group  position-relative ">
+                                            <input type="text"
+                                                class="form-control border rounded-pill px-4 py-2 border-0 massage_input"
+                                                placeholder="Write a message...">
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <button
+                                                class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage"
+                                                data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
+                                                <i class="fa-regular fa-paper-plane"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $(".btn_x").click(function () {
+                                        $(".accordion_item_div").toggle();
+                                    });
+                                });
+                            </script>
+                            <div class="col-12">
+                                <div class="accordion-header d-flex flex-wrap">
+                                    <div class="accordion-button border-0 shadow-none fw-medium p-3 d-flex justify-content-between"
+                                        type="button">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <i class="fa-solid fa-circle-user fs-3 me-2"></i>
+                                            <span class="d-flex flex-wrap">
+                                                <span class="username col-12 d-block UserChatName">User Name</span>
+                                                <span class="in_chat_page_name fs-12 col-12 d-block"></span>
+                                            </span>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end">
+                                            <button class="bg-transparent border-0" id="booklist">
+                                                <i class="fa-regular fa-star text-white "></i>
+                                                <i class="fa-solid fa-star d-none text-white"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class=" d-flex justify-content-between border-bottom align-items-center">
+                                    <h5 class="fs-5 d-flex ps-2 pb-2 align-items-center">
+                                        
+                                    </h5>
+                                </div> -->
+                        </div>
+                        <div class="main-task left-main-task mt-2 p-2 overflow-y-scroll chat_bord col-12"
+                            style="max-height:80%;">
+                            <!-- <div class="d-flex  mb-1 col-3">
+                                    <i class="me-2 bi bi-people-fill"></i>
+                                    <a href="" class="ms-3">https://www.facebook.com/</a>
+                                </div>
+                                <div class="d-flex  mb-1 col-3">
+                                    <i class="me-2 bi bi-telephone-fill"></i>
+                                    <p class="ms-3">9780567980</p>
+                                </div>
+                                <div class="d-flex  mb-1 col-3">
+                                    <i class="me-2 bi bi-whatsapp"></i>
+                                    <p class="ms-3">urvi Test</p>
+                                </div>
+                                <div class="mt-4">
+                                    <div class="d-flex mb-4 justify-content-end">
+                                        <div class="col-6 text-end">
+                                            <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">Hello</span>
+                                        </div>
+                                    </div>
+    
+                                    <div class="d-flex mb-4">
+                                        <div class="col-6 text-start">
+                                            <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">undefined, This is an
+                                                <b>appointment booking</b> demo bot🙂.</span>
+                                        </div>
+                                    </div>
+    
+                                    <div class="d-flex mb-4">
+                                        <div class="col-6 text-start">
+                                            <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">What is your full
+                                                name ?</span>
+                                        </div>
+                                    </div>
+    
+                                </div> -->
+                        </div>
+                        <div class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0"
+                            style="display: none;">
+                            <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
+                                <div>
+                                    <span>Loading...</span>
+                                    <div class="mx-auto chat_loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center col-12 overflow-y-scroll p-3 noRecourdFound">No Chats Found!</div>
+                        <div class="col-12 overflow-y-scroll p-2 noRecourdFound" style="max-height: 100%;">
+                            <div class="col-12 text-center">
+                                <p class="fs-5 fw-medium mt-5 d-block">No Record Found</p>
+                            </div>
+                        </div>
+    
                     </div>
                 </div>
             </div>
@@ -547,55 +723,6 @@
                     </div>
                 </div>
             </div> -->
-            <div class="col-8 col-sm-7 col-md-6 col-lg-3 col-xl-3 col-xxl-3 chat-box rounded-3 overflow-hidden"
-                style="height:80vh">
-                <div class="col-12 border  bg-white position-relative" style="height:80vh">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button border-0 shadow-none fw-medium p-3" type="button">
-                            <i class="fa-solid fa-envelope fa-xl me-2"></i>
-                            <p>Emails</p>
-                        </button>
-                    </h2>
-                    <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1" style="max-height: 100%;">
-                        <div class="menu-toggle fw-semibold fs-12 chat-nav-search-bar  col-12 chat-account-box  chat_list border rounded-3 py-2">
-                            <div class="d-flex flex justify-content-between align-items-center col-12">
-                                <div class="col-2">
-                                    <svg class="w-100" xmlns="http://www.w3.org/2000/svg"
-                                        version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40"
-                                        x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512"
-                                        xml:space="preserve">
-                                        <g>
-                                            <g data-name="Layer 2">
-                                                <g data-name="01.facebook">
-                                                    <circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1"
-                                                        data-original="#3a559f"></circle>
-                                                    <path fill="#ffffff"
-                                                        d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z"
-                                                        opacity="1" data-original="#ffffff"></path>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </svg></div>
-                                <div class="col-10 d-flex flex-wrap justify-content-between align-items-center">
-                                    <p class="col-12 ps-2" style="font-size:16px;">Kaddy Patel</p>
-                                    <p class="col-10 ps-2 d-flex fs-12 text-secondary-emphasis"><span
-                                            class="text-truncate">hi</span> <span class="col-3 ms-2">5 H</span> </p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="m-auto  text-center">
-                            <span>Loading...</span>
-                            <div class="mx-auto chat_loader"></div>
-                        </div> -->
-                    <!-- <div class="col-12 overflow-y-scroll chat_list p-2" style="max-height: 100%;">
-                            <div class="col-12 text-center">
-                                <p class="fs-5 fw-medium mt-5">No Record Found</p>
-                            </div>
-                        </div> -->
-                </div>
-            </div>
             <!-- <div class="col bg-white border rounded-3 mx-2 rounded-3 overflow-hidden">
                 <div class="col-12">
                     <h2 class="accordion-header">
@@ -782,119 +909,6 @@
                     </div>
                 </div>
             </div> -->
-            <div class="ms-2 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl transcript_box rounded-4 overflow-hidden"
-                style="height:80vh">
-                <div class="col-12 border rounded-end-4 bg-white position-relative" style="height:80vh">
-                    <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3">
-                        <div class="d-flex bg-white rounded-pill py-1 border">
-                            <div class="d-flex col-12 align-items-center">
-                                <!-- <div class="ps-2">
-                                    <button class="btn btn-primary btn_x rounded-5 border">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </div> -->
-                                <div class="input-group  position-relative ">
-                                    <input type="text"
-                                        class="form-control border rounded-pill px-4 py-2 border-0 massage_input"
-                                        placeholder="Write a message...">
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage"
-                                        data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
-                                        <i class="fa-regular fa-paper-plane"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <script>
-                        $(document).ready(function () {
-                            $(".btn_x").click(function () {
-                                $(".accordion_item_div").toggle();
-                            });
-                        });
-                    </script>
-                    <div class="col-12">
-                        <div class="accordion-header d-flex flex-wrap">
-                            <div
-                                class="accordion-button border-0 shadow-none fw-medium p-3 d-flex justify-content-between"
-                                type="button">
-                                <div class="col-6 d-flex align-items-center">
-                                    <i class="fa-solid fa-circle-user fs-3 me-2"></i>
-                                    <span class="d-flex flex-wrap">
-                                        <span class="username col-12 d-block UserChatName">User Name</span>
-                                        <span class="in_chat_page_name fs-12 col-12 d-block"></span>
-                                    </span>
-                                </div>
-                                <div class="col-6 d-flex justify-content-end">
-                                    <button class="bg-transparent border-0" id="booklist">
-                                        <i class="fa-regular fa-star text-white "></i>
-                                        <i class="fa-solid fa-star d-none text-white"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class=" d-flex justify-content-between border-bottom align-items-center">
-                                <h5 class="fs-5 d-flex ps-2 pb-2 align-items-center">
-                                    
-                                </h5>
-                            </div> -->
-                </div>
-                <div class="main-task left-main-task mt-2 p-2 overflow-y-scroll chat_bord col-12"
-                    style="max-height:80%;">
-                    <!-- <div class="d-flex  mb-1 col-3">
-                                <i class="me-2 bi bi-people-fill"></i>
-                                <a href="" class="ms-3">https://www.facebook.com/</a>
-                            </div>
-                            <div class="d-flex  mb-1 col-3">
-                                <i class="me-2 bi bi-telephone-fill"></i>
-                                <p class="ms-3">9780567980</p>
-                            </div>
-                            <div class="d-flex  mb-1 col-3">
-                                <i class="me-2 bi bi-whatsapp"></i>
-                                <p class="ms-3">urvi Test</p>
-                            </div>
-                            <div class="mt-4">
-                                <div class="d-flex mb-4 justify-content-end">
-                                    <div class="col-6 text-end">
-                                        <span class="px-3 py-2 rounded-3 text-white" style="background:#724EBF;">Hello</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex mb-4">
-                                    <div class="col-6 text-start">
-                                        <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">undefined, This is an
-                                            <b>appointment booking</b> demo bot🙂.</span>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex mb-4">
-                                    <div class="col-6 text-start">
-                                        <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">What is your full
-                                            name ?</span>
-                                    </div>
-                                </div>
-
-                            </div> -->
-                </div>
-                <div class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0"
-                    style="display: none;">
-                    <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
-                        <div>
-                            <span>Loading...</span>
-                            <div class="mx-auto chat_loader"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center col-12 overflow-y-scroll p-3 noRecourdFound">No Chats Found!</div>
-                <div class="col-12 overflow-y-scroll p-2 noRecourdFound" style="max-height: 100%;">
-                            <div class="col-12 text-center">
-                                <p class="fs-5 fw-medium mt-5 d-block">No Record Found</p>
-                            </div>
-                        </div>
-
-            </div>
         </div>
     </div>
 </div>
@@ -1939,11 +1953,13 @@
         $('.first-container-text').toggle();
         $('.Arrowmovement').toggleClass("arrow-down");
         $(this).toggleClass('rotate-arrow');
+        $('.toggle-center').toggleClass('justify-content-center');
+        $('.menu-toggle div').toggleClass('justify-content-center');
     });
-    $('body').on('click',"#booklist",function(){
+    $('body').on('click', "#booklist", function () {
         $(this).children('i').toggleClass('d-none');
     })
-   
+
     function mail_get() {
         $.ajax({
             type: 'post',
@@ -1959,4 +1975,12 @@
         });
     }
     mail_get();
+    $('body').on('click','.hide-panel2',function(){
+        $('.main-panel1').removeClass('d-none');
+        $('.main-panel2').addClass('d-none');
+    })
+    $('body').on('click','.hide-panel1',function(){
+        $('.main-panel2').removeClass('d-none');
+        $('.main-panel1').addClass('d-none');
+    })
 </script>

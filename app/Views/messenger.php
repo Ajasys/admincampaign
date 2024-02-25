@@ -2377,4 +2377,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             }
         });
     });
+    $('body').on('click','.hide-panel',function(){
+        $('.social-accounts').addClass('d-none');
+        $('.chat-box').removeClass('d-none');
+    })
 </script>
