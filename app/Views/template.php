@@ -184,7 +184,7 @@
                     </div>
                 </div>
                 <!-- backend-with design -->
-                <!-- <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap">
+                <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap">
                     <div class="col-12 d-flex flex-wrap w-100 ">
                         <ul class=" d-flex  flex-wrap nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
                             <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle bg-body-secondary nav-item Tab1Class"
@@ -260,9 +260,9 @@
                     <div class="col-12 mt-2 d-flex justify-content-end">
                         <div class="col-1 p-3 Arro-pro " style="cursor:pointer"><i class="bi bi-arrow-left Arrowmovement text-primary fw-bold fs-5"></i></div>
                     </div>
-                </div> -->
+                </div>
             </div>
-            <!-- <div class="col-12 col-md ps-1">
+            <div class="col-12 col-md ps-1">
                 <div class="tab-content p-0 " id="pills-tabContent">
                     <div class="tab-pane fade show active" id="inquiry_alert_main" role="tabpanel"
                         aria-labelledby="inquiry_alert_tab" tabindex="0">
@@ -360,7 +360,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <!-- <div class="col-4 bg-white border rounded-3 mx-2 rounded-3 overflow-hidden">
                 <div class="col-12">
                     <h2 class="accordion-header">
@@ -878,7 +878,7 @@
 
                             </div> -->
                 </div>
-                <!-- <div class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0"
+                <div class="m-auto massage_list_loader text-center position-absolute top-0 end-0 bottom-0 start-0"
                     style="display: none;">
                     <div class="w-100 h-100 d-flex justify-content-center align-items-center" style="z-index:555">
                         <div>
@@ -886,13 +886,13 @@
                             <div class="mx-auto chat_loader"></div>
                         </div>
                     </div>
-                </div> -->
-                <!-- <div class="text-center col-12 overflow-y-scroll p-3 noRecourdFound">No Chats Found!</div> -->
-                <!-- <div class="col-12 overflow-y-scroll p-2 noRecourdFound" style="max-height: 100%;">
+                </div>
+                <div class="text-center col-12 overflow-y-scroll p-3 noRecourdFound">No Chats Found!</div>
+                <div class="col-12 overflow-y-scroll p-2 noRecourdFound" style="max-height: 100%;">
                             <div class="col-12 text-center">
                                 <p class="fs-5 fw-medium mt-5 d-block">No Record Found</p>
                             </div>
-                        </div> -->
+                        </div>
 
             </div>
         </div>
