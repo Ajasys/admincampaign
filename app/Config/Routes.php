@@ -543,6 +543,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('update_sequence', 'Bot_Controller::update_sequence');
 	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
+	$routes->post('bot_id_to_quotation', 'Bot_Controller::bot_id_to_quotation');
 
 	$routes->get('/bot_installer', 'Home::bot_installer');
 	$routes->post('bot_preview', 'Bot_Controller::bot_preview');
