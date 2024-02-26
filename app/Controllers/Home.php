@@ -181,8 +181,8 @@ class Home extends BaseController
     }
     public function index()
     {
-        
-        
+
+       
         $table_username = session_username($_SESSION['username']);
         $social_accounts = [
             'id int(255) primary key AUTO_INCREMENT',
@@ -195,6 +195,11 @@ class Home extends BaseController
             'account_phone_no varchar(255) NOT NULL',
             'phone_number_id longtext',
             'conversation_account_id int(255) NOT NULL',
+            'msg_read_status int(255) NOT NULL DEFAULT 0 COMMENT "0-unread & 1-read"',
+            'boatstatus int(255) NOT NULL DEFAULT 0 COMMENT "0-chatactive & 1-boatactive"',
+            'is_valid_boat_ans int(255) NOT NULL DEFAULT 0 COMMENT "0-No && 1-Valid"',
+            'next_boat_question int(255) NOT NULL DEFAULT 0 COMMENT "0-No question && Others Means Have next question"',
+            'boat_question_id int(255) NOT NULL DEFAULT 0',
 
         ];
         $table = tableCreateAndTableUpdate2($table_username . '_social_accounts', '', $social_accounts);
@@ -299,6 +304,8 @@ class Home extends BaseController
             'email_radio int(11)',
             'email_from varchar(200)',
             'website_name varchar(255)',
+            'bot_status int(255) DEFAULT 0 COMMENT "0-No Bot && 1- Active Bot"',
+            'bot_id int(255) DEFAULT 0',
             "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
             "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook & 3-Email & 4-Linkedin & 5-website'",
         ];
