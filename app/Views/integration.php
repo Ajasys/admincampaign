@@ -6,10 +6,10 @@ $table_username = session_username($_SESSION['username']);
 $db_connection = \Config\Database::connect('second');
 
 $query = "SELECT 
-(select count(id) from admin_platform_integration where `platform_status`=1) as whatsappcount,
-(select count(id) from admin_platform_integration where `platform_status`=2) as fbcount,
-(select count(id) from admin_platform_integration where `platform_status`=3) as emailcount,
-(select count(id) from admin_platform_integration where `platform_status`=5) as websitecount 
+(select count(id) from " . $table_username . "_platform_integration where `platform_status`=1) as whatsappcount,
+(select count(id) from " . $table_username . "_platform_integration where `platform_status`=2) as fbcount,
+(select count(id) from " . $table_username . "_platform_integration where `platform_status`=3) as emailcount,
+(select count(id) from " . $table_username . "_platform_integration where `platform_status`=5) as websitecount 
 FROM " . $table_username . "_platform_integration
 WHERE `verification_status`=1";
 $rows = $db_connection->query($query);
