@@ -1003,16 +1003,17 @@ $this->db = \Config\Database::connect();
 			// pre($sequence);
 			$db_connection = \Config\Database::connect('second');
 			
-			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "") {
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['next_questions'] != "0") {
+				$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 				// pre($sql);
 				// $nextQuestionsStr = implode(',', $_POST['next_questions']);
         		// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
 				// pre($sql);
 			}else {
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' ORDER BY sequence';
+				$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence . ' ORDER BY sequence';
 			}
 
+			
 			// if(isset($_POST['nextQuestion'])){
 			// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['nextQuestion'] . ' ORDER BY sequence';
 			// }else{
@@ -1069,7 +1070,7 @@ $this->db = \Config\Database::connect();
 				$last_que_id = $value['id'];
 				// continue;
 				if (isset($test_pr_que) && !empty($test_pr_que)) {
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $asasasf[0]['id'] . '" data-sequence="' . $asasasf[0]['sequence'] . '">
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="'.$value['next_bot_id'].'" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $asasasf[0]['id'] . '" data-sequence="' . $asasasf[0]['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
@@ -1117,7 +1118,7 @@ $this->db = \Config\Database::connect();
 											</div>';
 								// pre($html);			
 						}
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="'.$value['next_bot_id'].'" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
@@ -1196,7 +1197,7 @@ $this->db = \Config\Database::connect();
 								// pre($html);			
 						}
 
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="'.$value['next_bot_id'].'" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
@@ -1969,18 +1970,18 @@ $this->db = \Config\Database::connect();
 
 		if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['sequence'] != 1) {
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND id = ' . $_POST['question_id'] . ' ORDER BY sequence';
+			$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['question_id'] . ' ORDER BY sequence';
 			$result = $db_connection->query($sql);
 			$questioned = $result->getRowArray();	
 			// pre($sql);		
 		}else if($_POST['sequence'] == 1){
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
+			$sql = 'SELECT * FROM ' . $table . ' WHERE  sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
 		}else{
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
+			$sql = 'SELECT * FROM ' . $table . ' WHERE  sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
 		}
@@ -2059,45 +2060,47 @@ $this->db = \Config\Database::connect();
 		foreach ($botdisplaydata as $key => $value) {
 			$bot_img = empty($value['bot_img']) ? base_url('') . 'assets/bot_image/account.png' : /* bot img uploading path */ base_url('') . 'assets/bot_image/bot_img/bot-1.png';
 			$html .= '
-			<div class="col-3 p-2">
+			<div class="col-12 col-sm-5 col-lg-4 col-xl-3 m-2">
 			<div class="card mb-3 bg-white shadow">
 				<div class="row g-0 p-2">
 					<div class="d-flex align-items-center">
-						<div class="col-md-4 text-center">
+						<div class="col-4 text-center text-truncate">
 							<div class="p-2">
 								<img src="' . $bot_img . '"
 											class="img-fluid rounded-start mb-1" width="30px">
-										<p class="card-text"><small class="text-body-secondary">' . $value['name'] . '</small></p>
+										<p class="card-text text-truncate"><small class="text-body-secondary">' . $value['name'] . '</small></p>
 									</div>
 								</div>
 								<div class="border h-100"></div>
-								<div class="col-md-8">
-									<div class="card-body d-flex flex-wrap py-1 px-2 justify-content-between">
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted bot_setup"
+								<div class="col-8 p-2 d-flex flex-wrap justify-content-center">
+									<div class="card-body d-flex py-1 d-sm-block d-md-flex ">
+										<div class="d-flex justify-content-center"><div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted bot_setup mb-2 mx-1"
 											data-toggle="tooltip" data-placement="top" title="Setup">
 											<a href="' . base_url('') . 'bot_setup?bot_id=' . $value['id'] . '" class="text-muted">
 												<i class="fa-solid fa-screwdriver-wrench"></i>
 											</a>
 										</div>
-										
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted"
+
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted mb-2 mx-1"
 											data-toggle="tooltip" data-placement="top" title="Bot Chats">
 											<a href="#" class="text-muted">
 												<i class="fa-solid fa-comment"></i>
 											</a>
 										</div>
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted"
+										</div>
+										<div class="d-flex justify-content-center">
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted mb-2 mx-1"
 											data-toggle="tooltip" data-placement="top" title="Setting">
 											<a href="#" class="text-muted">
 												<i class="fa-solid fa-gear"></i>
 											</a>
 										</div>
 
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted bot_delete"
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted bot_delete mb-2 mx-1"
                                             data-toggle="tooltip" data-placement="top" title="Delete" data-delete_id="' . $value['id'] . '">
                                             <i class="fa-solid fa-trash"></i>
 										</div>
-
+										</div>
 									</div>
 									<div
 										class="card-body d-flex flex-wrap py-1 px-2 justify-content-between align-items-center">
@@ -2451,15 +2454,21 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		$db_connection = \Config\Database::connect('second');
 		$bot_data = $db_connection->query($query);
 		$bot_data_get = $bot_data->getResultArray();
+
+		
+		
+
+		
+
 		$html="";
 
-		$html.='<select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select occupation_add" data-live-search="true">
-                                <option class="dropdown-item" selected value="0">No Jump</option>
+		$html.='<select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select_second question_select_second_1 occupation_add" data-live-search="true">
+                                <option class="dropdown-item" value="0">No Jump</option>
                                 <option class="dropdown-item" value="100">End Of conversion</option>';
                                     
                                     if (isset($bot_data_get)) {
                                         foreach ($bot_data_get as $type_key => $type_value) {
-											$html.='<option class="dropdown-item" value="' . $type_value["type_of_question"] . '">' . $type_value["question"] . '</option>';
+											$html.='<option class="dropdown-item" value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                         }
                                     }
                                    
@@ -2468,5 +2477,4 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 			return json_encode($result);
 			die();
 	}
-}
 }

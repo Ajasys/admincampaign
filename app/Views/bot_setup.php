@@ -24,7 +24,7 @@ $admin_bot = json_decode($admin_bot, true);
     ::-webkit-scrollbar {
         height: 10px;
     }
-    
+
     .bot-box {
         width: 100%;
         height: 85px;
@@ -34,7 +34,8 @@ $admin_bot = json_decode($admin_bot, true);
     }
 
     #image_container {
-        text-align: center; /* Center content horizontally */
+        text-align: center;
+        /* Center content horizontally */
     }
 
     .bot-box:hover {
@@ -93,9 +94,10 @@ $admin_bot = json_decode($admin_bot, true);
     }
 
     .form-check-input:checked {
-    background-color: var(--second-color);
-    border-color: var(--all-light);
-}
+        background-color: var(--second-color);
+        border-color: var(--all-light);
+    }
+
     .second-add {
         display: block !important;
     }
@@ -105,111 +107,132 @@ $admin_bot = json_decode($admin_bot, true);
     }
 
     .user-table .nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
-  color: var(--first-color) !important;
-}
+    .nav-tabs .nav-link.active {
+        color: var(--first-color) !important;
+    }
 
-.list-group-item.active {
-    z-index: 2;
-    color: var(--bs-list-group-active-color);
-    background-color: var(--first-color) !important;
-    border-color:1px solid var(--all-light);
-}
+    .list-group-item.active {
+        z-index: 2;
+        color: var(--bs-list-group-active-color);
+        background-color: var(--first-color) !important;
+        border-color: 1px solid var(--all-light);
+    }
 
-.main-task{
-    font-size: 15px;
-}
-.user_reply{
-    font-size: 15px;
-}
-.modal{
-    font-size: 15px;
-    padding: 0px !important;
-}
-.modal button{
-    font-size: 15px;
-}
-.modal select{
-    font-size: 15px;
-}
+    .main-task {
+        font-size: 15px;
+    }
 
-@media  (max-width:600px){
-.main-task{
-    font-size: 13px;
-} 
-.user_reply{
-    font-size: 13px;
-}
-.modal{
-    font-size: 12px;
-}
-.modal button{
-    font-size: 12px;
-}
-.modal select{
-    font-size: 12px;
-}
+    .user_reply {
+        font-size: 15px;
+    }
 
-}
-.messege1{
-    width: 100%!important;
-}
-.messege2{
-    width: 100%!important;
-}
+    .modal {
+        font-size: 15px;
+        padding: 0px !important;
+    }
 
-.emoji_div_man {
+    .modal button {
+        font-size: 15px;
+    }
+
+    .modal select {
+        font-size: 15px;
+    }
+
+    @media (max-width:600px) {
+        .main-task {
+            font-size: 13px;
+        }
+
+        .user_reply {
+            font-size: 13px;
+        }
+
+        .modal {
+            font-size: 12px;
+        }
+
+        .modal button {
+            font-size: 12px;
+        }
+
+        .modal select {
+            font-size: 12px;
+        }
+
+    }
+
+    .messege1 {
+        width: 100% !important;
+    }
+
+    .messege2 {
+        width: 100% !important;
+    }
+
+    .emoji_div_man {
         margin-top: 30px;
         margin-right: 10px;
 
     }
 
-/* calender */
-.month-calendar {
-      margin-bottom: 30px;
+    /* calender */
+    .month-calendar {
+        margin-bottom: 30px;
     }
+
     .month-calendar h3 {
-      margin-top: 20px;
+        margin-top: 20px;
     }
+
     .days {
-  list-style: none;
-  padding: 0px;
-  display: flex;
- margin-left: 15px;
-  flex-wrap: wrap;
-}
+        list-style: none;
+        padding: 0px;
+        display: flex;
+        margin-left: 15px;
+        flex-wrap: wrap;
+    }
 
-.days li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin:2px 5px;
-  width:10%;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #d8d7ff;
-  font-size: 10px;
+    .days li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2px 5px;
+        width: 10%;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #d8d7ff;
+        font-size: 10px;
 
-}
-.days li:hover{
-  background: #724ebf;
-  color: white;
-}
+    }
 
-.intercom-emoji-picker-emoji{
-    cursor:pointer;
-}
+    .days li:hover {
+        background: #724ebf;
+        color: white;
+    }
 
-.days li:nth-child(7n) {
-  border-right: none;
-}
-.color{
-  background: #724ebf!important;
-  color: #e5efff !important;
-}
-select.selectpicker {
-    display: block !important;
-}
+    .intercom-emoji-picker-emoji {
+        cursor: pointer;
+    }
+
+    .days li:nth-child(7n) {
+        border-right: none;
+    }
+
+    .color {
+        background: #724ebf !important;
+        color: #e5efff !important;
+    }
+
+    select.selectpicker {
+        display: block !important;
+    }
+
+    .pen-tick {
+        background-color: #724EBF;
+        width: 20px;
+        height: 20px;
+    }
 </style>
 
 
@@ -249,7 +272,7 @@ select.selectpicker {
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="bot_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                            <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="What is Your Name?">
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="What is Your Name?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-question icon"></i>
@@ -1378,93 +1401,93 @@ select.selectpicker {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <div class="col-12 d-flex flex-wrap position-relative">
+                <div class="col-12 d-flex flex-wrap position-relative">
 
-<div>
-    <div class="emoji_div_man border rounded-2 position-absolute top-0 end-0 overflow-x-scroll" style="height: 200px; width: 200px; z-index: 20; display: none;">
-        <div class="emoji_div p-2 bg-white">
-            <span class="intercom-emoji-picker-emoji" title="thumbs_up">&#x1F44D;</span>
-            <span class="intercom-emoji-picker-emoji" title="-1">&#x1F44E;</span>
-            <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
-            <span class="intercom-emoji-picker-emoji" title="confused">&#x1F615;</span>
-            <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
-            <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
-            <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
-            <span class="intercom-emoji-picker-emoji" title="smile">&#x1F604;</span>
-            <span class="intercom-emoji-picker-emoji" title="smiley">&#x1F603;</span>
-            <span class="intercom-emoji-picker-emoji" title="grinning">&#x1F600;</span>
-            <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
-            <span class="intercom-emoji-picker-emoji" title="wink">&#x1F609;</span>
-            <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
-            <span class="intercom-emoji-picker-emoji" title="kissing_heart">&#x1F618;</span>
-            <span class="intercom-emoji-picker-emoji" title="kissing_closed_eyes">&#x1F61A;</span>
-            <span class="intercom-emoji-picker-emoji" title="kissing">&#x1F617;</span>
-            <span class="intercom-emoji-picker-emoji" title="kissing_smiling_eyes">&#x1F619;</span>
-            <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_winking_eye">&#x1F61C;</span>
-            <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_closed_eyes">&#x1F61D;</span>
-            <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue">&#x1F61B;</span>
-            <span class="intercom-emoji-picker-emoji" title="flushed">&#x1F633;</span>
-            <span class="intercom-emoji-picker-emoji" title="grin">&#x1F601;</span>
-            <span class="intercom-emoji-picker-emoji" title="pensive">&#x1F614;</span>
-            <span class="intercom-emoji-picker-emoji" title="relieved">&#x1F60C;</span>
-            <span class="intercom-emoji-picker-emoji" title="unamused">&#x1F612;</span>
-            <span class="intercom-emoji-picker-emoji" title="disappointed">&#x1F61E;</span>
-            <span class="intercom-emoji-picker-emoji" title="persevere">&#x1F623;</span>
-            <span class="intercom-emoji-picker-emoji" title="cry">&#x1F622;</span>
-            <span class="intercom-emoji-picker-emoji" title="joy">&#x1F602;</span>
-            <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
-            <span class="intercom-emoji-picker-emoji" title="sleepy">&#x1F62A;</span>
-            <span class="intercom-emoji-picker-emoji" title="disappointed_relieved">&#x1F625;</span>
-            <span class="intercom-emoji-picker-emoji" title="cold_sweat">&#x1F630;</span>
-            <span class="intercom-emoji-picker-emoji" title="sweat_smile">&#x1F605;</span>
-            <span class="intercom-emoji-picker-emoji" title="sweat">&#x1F613;</span>
-            <span class="intercom-emoji-picker-emoji" title="weary">&#x1F629;</span>
-            <span class="intercom-emoji-picker-emoji" title="tired_face">&#x1F62B;</span>
-            <span class="intercom-emoji-picker-emoji" title="fearful">&#x1F628;</span>
-            <span class="intercom-emoji-picker-emoji" title="scream">&#x1F631;</span>
-            <span class="intercom-emoji-picker-emoji" title="angry">&#x1F620;</span>
-            <span class="intercom-emoji-picker-emoji" title="rage">&#x1F621;</span>
-            <span class="intercom-emoji-picker-emoji" title="triumph">&#x1F624;</span>
-            <span class="intercom-emoji-picker-emoji" title="confounded">&#x1F616;</span>
-            <span class="intercom-emoji-picker-emoji" title="laughing">&#x1F606;</span>
-            <span class="intercom-emoji-picker-emoji" title="yum">&#x1F60B;</span>
-            <span class="intercom-emoji-picker-emoji" title="mask">&#x1F637;</span>
-            <span class="intercom-emoji-picker-emoji" title="sunglasses">&#x1F60E;</span>
-            <span class="intercom-emoji-picker-emoji" title="sleeping">&#x1F634;</span>
-            <span class="intercom-emoji-picker-emoji" title="dizzy_face">&#x1F635;</span>
-            <span class="intercom-emoji-picker-emoji" title="astonished">&#x1F632;</span>
-            <span class="intercom-emoji-picker-emoji" title="worried">&#x1F61F;</span>
-            <span class="intercom-emoji-picker-emoji" title="frowning">&#x1F626;</span>
-            <span class="intercom-emoji-picker-emoji" title="anguished">&#x1F627;</span>
-            <span class="intercom-emoji-picker-emoji" title="imp">&#x1F47F;</span>
-            <span class="intercom-emoji-picker-emoji" title="open_mouth">&#x1F62E;</span>
-            <span class="intercom-emoji-picker-emoji" title="grimacing">&#x1F62C;</span>
-            <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
-        </div>
-    </div>
-</div>
-<div class="col-10 d-flex align-items-center">
-    <span>
-        <p>Note : Please press "Enter" for Paragraph break</p>
-    </span>
+                    <div>
+                        <div class="emoji_div_man border rounded-2 position-absolute top-0 end-0 overflow-x-scroll" style="height: 200px; width: 200px; z-index: 20; display: none;">
+                            <div class="emoji_div p-2 bg-white">
+                                <span class="intercom-emoji-picker-emoji" title="thumbs_up">&#x1F44D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="-1">&#x1F44E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="confused">&#x1F615;</span>
+                                <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
+                                <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="smile">&#x1F604;</span>
+                                <span class="intercom-emoji-picker-emoji" title="smiley">&#x1F603;</span>
+                                <span class="intercom-emoji-picker-emoji" title="grinning">&#x1F600;</span>
+                                <span class="intercom-emoji-picker-emoji" title="blush">&#x1F60A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="wink">&#x1F609;</span>
+                                <span class="intercom-emoji-picker-emoji" title="heart_eyes">&#x1F60D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing_heart">&#x1F618;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing_closed_eyes">&#x1F61A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing">&#x1F617;</span>
+                                <span class="intercom-emoji-picker-emoji" title="kissing_smiling_eyes">&#x1F619;</span>
+                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_winking_eye">&#x1F61C;</span>
+                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue_closed_eyes">&#x1F61D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="stuck_out_tongue">&#x1F61B;</span>
+                                <span class="intercom-emoji-picker-emoji" title="flushed">&#x1F633;</span>
+                                <span class="intercom-emoji-picker-emoji" title="grin">&#x1F601;</span>
+                                <span class="intercom-emoji-picker-emoji" title="pensive">&#x1F614;</span>
+                                <span class="intercom-emoji-picker-emoji" title="relieved">&#x1F60C;</span>
+                                <span class="intercom-emoji-picker-emoji" title="unamused">&#x1F612;</span>
+                                <span class="intercom-emoji-picker-emoji" title="disappointed">&#x1F61E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="persevere">&#x1F623;</span>
+                                <span class="intercom-emoji-picker-emoji" title="cry">&#x1F622;</span>
+                                <span class="intercom-emoji-picker-emoji" title="joy">&#x1F602;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sob">&#x1F62D;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sleepy">&#x1F62A;</span>
+                                <span class="intercom-emoji-picker-emoji" title="disappointed_relieved">&#x1F625;</span>
+                                <span class="intercom-emoji-picker-emoji" title="cold_sweat">&#x1F630;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sweat_smile">&#x1F605;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sweat">&#x1F613;</span>
+                                <span class="intercom-emoji-picker-emoji" title="weary">&#x1F629;</span>
+                                <span class="intercom-emoji-picker-emoji" title="tired_face">&#x1F62B;</span>
+                                <span class="intercom-emoji-picker-emoji" title="fearful">&#x1F628;</span>
+                                <span class="intercom-emoji-picker-emoji" title="scream">&#x1F631;</span>
+                                <span class="intercom-emoji-picker-emoji" title="angry">&#x1F620;</span>
+                                <span class="intercom-emoji-picker-emoji" title="rage">&#x1F621;</span>
+                                <span class="intercom-emoji-picker-emoji" title="triumph">&#x1F624;</span>
+                                <span class="intercom-emoji-picker-emoji" title="confounded">&#x1F616;</span>
+                                <span class="intercom-emoji-picker-emoji" title="laughing">&#x1F606;</span>
+                                <span class="intercom-emoji-picker-emoji" title="yum">&#x1F60B;</span>
+                                <span class="intercom-emoji-picker-emoji" title="mask">&#x1F637;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sunglasses">&#x1F60E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="sleeping">&#x1F634;</span>
+                                <span class="intercom-emoji-picker-emoji" title="dizzy_face">&#x1F635;</span>
+                                <span class="intercom-emoji-picker-emoji" title="astonished">&#x1F632;</span>
+                                <span class="intercom-emoji-picker-emoji" title="worried">&#x1F61F;</span>
+                                <span class="intercom-emoji-picker-emoji" title="frowning">&#x1F626;</span>
+                                <span class="intercom-emoji-picker-emoji" title="anguished">&#x1F627;</span>
+                                <span class="intercom-emoji-picker-emoji" title="imp">&#x1F47F;</span>
+                                <span class="intercom-emoji-picker-emoji" title="open_mouth">&#x1F62E;</span>
+                                <span class="intercom-emoji-picker-emoji" title="grimacing">&#x1F62C;</span>
+                                <span class="intercom-emoji-picker-emoji" title="neutral_face">&#x1F610;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 d-flex align-items-center">
+                        <span>
+                            <p>Note : Please press "Enter" for Paragraph break</p>
+                        </span>
 
 
-</div>
-<div class="col-2 d-flex smile_btn justify-content-end align-items-center px-2">
-    <i class="fa-regular fa-face-smile fa-lg"></i>
-</div>
+                    </div>
+                    <div class="col-2 d-flex smile_btn justify-content-end align-items-center px-2">
+                        <i class="fa-regular fa-face-smile fa-lg"></i>
+                    </div>
 
-<script>
-    $("body").on("click", ".smile_btn", function() {
-        $(".emoji_div_man").toggle()
-    })
-</script>
-<div class="col-12 p-2 border my-3">
-    <form class="needs-validation add_form_Email col-12" id="add_form_Email" name="add_form_Email" novalidate>
-        <div id="editor_add" class="Email_Add_Ckeditor" style="border:1px solid red"></div>
-    </form>
-</div>
-</div>
+                    <script>
+                        $("body").on("click", ".smile_btn", function() {
+                            $(".emoji_div_man").toggle()
+                        })
+                    </script>
+                    <div class="col-12 p-2 border my-3">
+                        <form class="needs-validation add_form_Email col-12" id="add_form_Email" name="add_form_Email" novalidate>
+                            <div id="editor_add" class="Email_Add_Ckeditor" style="border:1px solid red"></div>
+                        </form>
+                    </div>
+                </div>
 
                 <div class="col-12 d-flex flex-wrap">
                     <ul class="nav nav-tabs col-12 " id="myTab" role="tablist">
@@ -1485,6 +1508,7 @@ select.selectpicker {
                     <div class="tab-content col-12 edit-data-panal">
                         <div class="tab-pane active" id="basic-edit" role="tabpanel" aria-labelledby="basic-tab" tabindex="0">
                             <div class="col-12 d-flex flex-wrap p-1">
+                                
                                 <!--Whatsapp-->
                                 <!-- <div class="col-12 d-flex flex-wrap px-3">
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center">
@@ -1513,6 +1537,7 @@ select.selectpicker {
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentysevenquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyeightquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="thirtyethquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="thirtysixquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fourythreequestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fouryfourquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twentyfivequestion"></div>
@@ -2196,14 +2221,14 @@ select.selectpicker {
                                                     </div>
                                                 </div>
                                                 <div class="col-6 p-2">
-                                                <div class="main-selectpicker">
-                                                    <select class="selectpicker form-control form-main main-control" aria-label="Default select example" data-live-search="true" required="" tabindex="-98">
-                                                        <option selected>Open this select menu</option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
-                                                </div>
+                                                    <div class="main-selectpicker">
+                                                        <select class="selectpicker form-control form-main main-control" aria-label="Default select example" data-live-search="true" required="" tabindex="-98">
+                                                            <option selected>Open this select menu</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 d-flex flex-wrap my-2 px-2 fw-medium">
@@ -2234,11 +2259,11 @@ select.selectpicker {
                                         <div class="accordion-body">
                                             <div class="col-12 d-flex flex-wrap">
                                                 <div class="col-8">
-                                                <div class="input-group mb-3">
-                                                    <input id="textToCopy" type="text" class="form-control" value="{{time_based_greeting}}" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
-                                                    <button class="btn-primary" type="button" id="button-addon2">Copy</button>
-                                                </div>
-                                                
+                                                    <div class="input-group mb-3">
+                                                        <input id="textToCopy" type="text" class="form-control" value="{{time_based_greeting}}" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
+                                                        <button class="btn-primary" type="button" id="button-addon2">Copy</button>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -2437,53 +2462,53 @@ select.selectpicker {
                         <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd" name="bot_idd">
                             <option selected>Main Flow</option>
                             <?php
-                                if (isset($admin_bot)) {
-                                    foreach ($admin_bot as $key_bot => $value_bot) {
-                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : ''; 
-                                        echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
-                                    }
+                            if (isset($admin_bot)) {
+                                foreach ($admin_bot as $key_bot => $value_bot) {
+                                    $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                    echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
                                 }
+                            }
                             ?>
                         </select>
                     </div>
                     <div class="col-8">
                         <label for="formGroupExampleInput " class="form-label">Next Question jump</label>
-                       
+
                         <div class="main-selectpicker bot_quotation_list">
-                       <select id="occupation" class="OccupationInputClass form-control main-control  from-main selectpicker question_select occupation_add" data-live-search="true">
+                            <select id="occupation" class="OccupationInputClass form-control main-control  from-main selectpicker question_select occupation_add" data-live-search="true">
                                 <option class="dropdown-item" selected value="0">No Jump</option>
-                                <option class="dropdown-item" value="100">End Of conversion</option>  
+                                <option class="dropdown-item" value="100">End Of conversion</option>
                                 <?php
-                                if (isset($admin_bot_setup)  ) {
-                                        foreach ($admin_bot_setup as $type_key => $type_value) {
-                                            // pre($type_value);
-                                            if($type_value['bot_id'] == $botId){
-											echo '<option class="dropdown-item" id="quotattion_type" value="' . $type_value["type_of_question"] . '">' . $type_value["question"] . '</option>';
-                                            }
-                                        }
-                                    }  ?> 
-						</select>
+                                if (isset($admin_bot_setup)) {
+                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                        // pre($type_value);
+                                        // if ($type_value['bot_id'] == $botId) {
+                                            echo '<option class="dropdown-item" id="quotattion_type" value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                        // }
+                                    }
+                                }  ?>
+                            </select>
                         </div>
-                    </div>  
+                    </div>
                 </div>
 
-               
+
             </div>
 
 
             <div class="conditional_flow_single">
                 <table class="table w-100 col-12">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Options</th>
-                                        <th scope="col">Sub-Flow</th>
-                                        <th scope="col">Jump To</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="tbody">
-                                
-                                </tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">Options</th>
+                            <th scope="col">Sub-Flow</th>
+                            <th scope="col">Jump To</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+
+                    </tbody>
                 </table>
             </div>
             <!-- Conditional Flow -->
@@ -2890,16 +2915,16 @@ select.selectpicker {
                                 </div>
                                 <h6 class="mx-2">
                                     <?php
-                                        if (isset($admin_bot)) {                                                      
-                                            foreach ($admin_bot as $type_key => $type_value) {
-                                                if ($type_value['id'] == $botId) {
-                                                    echo '' . $type_value["name"] . '';
-                                                }
+                                    if (isset($admin_bot)) {
+                                        foreach ($admin_bot as $type_key => $type_value) {
+                                            if ($type_value['id'] == $botId) {
+                                                echo '' . $type_value["name"] . '';
                                             }
                                         }
+                                    }
                                     ?>
                                 </h6>
-                           </div>
+                            </div>
                             <div class="d-flex flex-wrap">
                                 <button class="btn bg-primary mx-2 px-3 text-white" id="sound-icon">
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -2913,7 +2938,7 @@ select.selectpicker {
                     </div>
                     <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
                         <div class="overflow-y-scroll col-8 py-3 messege-scroll" style="min-height:400px; max-height:400px">
-                                        <!-- <div class="col-12 d-flex flex-wrap align-items-end chat_again_continue">
+                            <!-- <div class="col-12 d-flex flex-wrap align-items-end chat_again_continue">
                                             <div class="border  rounded-circle overflow-hidden" style="width:35px;height:35px">
                                                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
                                             </div>
@@ -2931,7 +2956,7 @@ select.selectpicker {
                             <div class="bot_preview_html"></div>
                             <!-- <div class="messaged"></div> -->
 
-                           
+
                             <!-- <div class="messege1 d-flex flex-wrap  ">
                             <div class="border  rounded-circle overflow-hidden " style="width:40px;height:40px">
                                 <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
@@ -2992,22 +3017,24 @@ select.selectpicker {
 
 <script>
     //bot chat list into preview
-    function bot_preview_data(sequence, nextQuestion,answer) {
+    function bot_preview_data(sequence, nextQuestion, answer) {
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
-        var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
-        var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id', conversion_id); 
+        var conversion_id = $(".conversion_id").attr('data-conversation-id');
+        var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id', conversion_id);
 
         var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id');
-        var next_questions = $(".bot_preview_html .messege1:last").attr('data-next_questions'); 
-
+        var next_questions = $(".bot_preview_html .messege1:last").attr('data-next_questions');
+        var next_bot_id = $(".bot_preview_html .messege1:last").attr('data-next_bot_id');
+        console.log(next_bot_id);
         var dataToSend = {
             action: 'init_chat',
             table: table,
             bot_id: bot_id,
             sequence: sequence,
             next_question_id: next_question_id,
-            answer: answer
+            answer: answer,
+            next_bot_id: next_bot_id
         };
 
         if (nextQuestion) {
@@ -3034,13 +3061,13 @@ select.selectpicker {
     //     bot_preview_data(1, true); 
     // });
 
-    $('body').on('click', '#modal_refresh', function (e) {
+    $('body').on('click', '#modal_refresh', function(e) {
         window.location.reload();
     });
 
 
-    $('body').on('click', '.bot_preview', function (e) {
-        
+    $('body').on('click', '.bot_preview', function(e) {
+
         $.ajax({
             type: 'POST',
             url: 'delete_record',
@@ -3076,6 +3103,7 @@ select.selectpicker {
 
     //insert chat answer
     var sequence = 1;
+
     function insertAnswer(nextQuestion) {
         var rowData = [];
         var chatting = $('.answer_chat').val();
@@ -3085,8 +3113,8 @@ select.selectpicker {
         var bot_id = '<?php echo $botId; ?>';
         var last_conversation_id = $(".bot_preview_html .messege1:last").attr('data-conversation-id');
         var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id');
-        var next_questions = $(".bot_preview_html .messege1:last").attr('data-next_questions'); 
-        console.log(next_questions);
+        var next_questions = $(".bot_preview_html .messege1:last").attr('data-next_questions');
+        // console.log(next_questions);
 
         var dataToSend = {
             table: table,
@@ -3097,7 +3125,7 @@ select.selectpicker {
             question_id: last_conversation_id,
             sequence: sequence,
             next_question_id: next_question_id,
-            nextQuestion: nextQuestion ,
+            nextQuestion: nextQuestion,
             next_questions: next_questions
         };
         if (nextQuestion) {
@@ -3105,7 +3133,7 @@ select.selectpicker {
         } else {
             dataToSend.next_questions = next_questions;
         }
-       // Assuming $sequence is defined elsewhere in your code
+        // Assuming $sequence is defined elsewhere in your code
         // console.log(nextQuestion);
         if (chatting !== "") {
             $.ajax({
@@ -3113,12 +3141,12 @@ select.selectpicker {
                 url: "<?= site_url('insert_chat_answer'); ?>",
                 data: dataToSend,
 
-                success: function (res) {
+                success: function(res) {
                     var response = JSON.parse(res);
                     if (response.response == 3 || response.response == 1) {
                         sequence++;
                         $('.answer_chat').val('');
-                        bot_preview_data(sequence, nextQuestion,chatting);
+                        bot_preview_data(sequence, nextQuestion, chatting);
                     } else if (response.response == 2) {
                         var sdfsdf = response.id_validation;
                         var apend_messege = '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="1" data-sequence="' + sequence + '"><div class="border rounded-circle overflow-hidden" style="width:35px;height:35px"> <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle"> </div><div class="col px-2"> <div class="col-12 mb-2"> <span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="1"><p>' + sdfsdf + '</p></span></div></div></div>';
@@ -3131,7 +3159,7 @@ select.selectpicker {
     }
 
 
-    $('body').on('click', '.chatting_data', function (e) {
+    $('body').on('click', '.chatting_data', function(e) {
         // var apend_messege = '<div class="messege2 d-flex flex-wrap mt-2 ds"><div class="col "><div class="col-12 mb-2 text-end"><span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3"></span></div></div><div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px"><img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle"></div></div>';
         // $('.messaged').append(apend_messege);
         insertAnswer();
@@ -3139,9 +3167,9 @@ select.selectpicker {
 
 
     //enter chat answer insert
-    $('.answer_chat').keypress(function (e) {
+    $('.answer_chat').keypress(function(e) {
         if (e.which == 13) {
-            insertAnswer(); 
+            insertAnswer();
         }
     });
 
@@ -3156,7 +3184,7 @@ select.selectpicker {
         bot_preview_data(sequence);
     });
 
-    
+
 
     //page js for drag and drop
     $(".question_add").on("dragstart", function(e) {
@@ -3277,7 +3305,7 @@ select.selectpicker {
         });
 
         //Number-1
-        $('body').on('change', '#Number-1', function() {  
+        $('body').on('change', '#Number-1', function() {
             if ($(this).prop('checked')) {
                 $('.Number-1').text('Give Skip Option');
             } else {
@@ -3287,7 +3315,7 @@ select.selectpicker {
 
 
         //Location-1
-        $('body').on('change', '#Location-1', function() {  
+        $('body').on('change', '#Location-1', function() {
             if ($(this).prop('checked')) {
                 $('.Location-1').text('Give Skip Option');
             } else {
@@ -3296,7 +3324,7 @@ select.selectpicker {
         });
 
         //Website-1
-        $('body').on('change', '#Website-1', function() {  
+        $('body').on('change', '#Website-1', function() {
             if ($(this).prop('checked')) {
                 $('.Website-1').text('Give Skip Option');
             } else {
@@ -3305,7 +3333,7 @@ select.selectpicker {
         });
 
         //Ask_Contact-1
-        $('body').on('change', '#Ask_Contact-1', function() {  
+        $('body').on('change', '#Ask_Contact-1', function() {
             if ($(this).prop('checked')) {
                 $('.Ask_Contact-1').text('Give Skip Option');
             } else {
@@ -3314,7 +3342,7 @@ select.selectpicker {
         });
 
         //Appointment
-        $('body').on('change', '#Appointment-1', function() {  
+        $('body').on('change', '#Appointment-1', function() {
             if ($(this).prop('checked')) {
                 $('.Appointment-1').text('Enable Timezone Selection');
             } else {
@@ -3323,7 +3351,7 @@ select.selectpicker {
         });
 
         //proudect
-        $('body').on('change', '#proudect-1', function() {  
+        $('body').on('change', '#proudect-1', function() {
             if ($(this).prop('checked')) {
                 $('.proudect-1').text('Auto Slide');
                 $('.proudect-corousel-sec-input').removeClass('second-remove');
@@ -3335,7 +3363,7 @@ select.selectpicker {
             }
         });
 
-        $('body').on('change', '#send_params', function() { 
+        $('body').on('change', '#send_params', function() {
             if ($(this).prop('checked')) {
                 $('.send_params').text('Send in Params');
             } else {
@@ -3363,16 +3391,27 @@ select.selectpicker {
         //Single Choile Table Row Add
         function table_html() {
             var row_numbers = $('.main-plan').length;
-            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '"placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td><td class="col-3"><select class="form-select question_select_second" aria-label="Default select example"><option></option>';
+            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select bot_idd" aria-label="Default select example" id="bot_idd" name="bot_idd"><option selected>Main Flow</option>';
+
+            <?php
+            if (isset($admin_bot)) {
+                foreach ($admin_bot as $key_bot => $value_bot) {
+                    $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                    echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
+                }
+            }
+            ?>
+
+            main_table_html += '</select></td><td class="col-3"><select class="form-select question_select_second" aria-label="Default select example"><option></option>';
 
             var options = <?php echo $encoded_options; ?>;
-            // console.log(options);
             options.forEach(function(option) {
                 main_table_html += '<option value="' + option.id + '">' + option.question + '</option>';
             });
             main_table_html += '</select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".tbody").append(main_table_html);
         }
+
         table_html();
 
 
@@ -3744,7 +3783,7 @@ select.selectpicker {
 
     $("body").on("change", ".carousel_img_input", function() {
         let carousel_img_input = this.files[0];
-        
+
         if (carousel_img_input) {
             let reader = new FileReader();
             reader.onload = function(e) {
@@ -3764,8 +3803,6 @@ select.selectpicker {
     $("body").on("click", ".img_carousel_clo_btn", function() {
         $(".img_carousel").addClass("d-none");
     });
-
-
 </script>
 
 <script>
@@ -4012,13 +4049,13 @@ select.selectpicker {
 
                             // Check if audioFileName exists
                             if (audioFileName) {
-                                
+
                                 // Set the source of the audio player to play the selected audio
                                 var audioPlayer = document.getElementById('audioPlayer');
                                 audioPlayer.src = 'assets/bot_audio/' + audioFileName; // Adjust the path as needed
                                 audioPlayer.style.display = 'block'; // Show the audio player
                             }
-                            
+
                             // Other code to populate form fields...
                         }
 
@@ -4091,14 +4128,14 @@ select.selectpicker {
                             $(".appointment_period:eq(1)").val(appointment_period[1]);
                         }
 
-                        if(type_of_question == "18" || type_of_question == "24"){
+                        if (type_of_question == "18" || type_of_question == "24") {
                             if (menu_message[0].auto_slide_carousel === "1") {
                                 $(".auto_slide_carousel").prop("checked", true);
                             } else {
                                 $(".auto_slide_carousel").prop("checked", false);
                             }
                         }
-                    
+
                         if (menu_message.remove_question === "true") {
                             $(".remove_question").prop("checked", true);
                         } else {
@@ -4137,11 +4174,11 @@ select.selectpicker {
                             $(".is_strict_validation").prop("checked", false);
                         }
 
-                        if(type_of_question == 8){
+                        if (type_of_question == 8) {
                             var weekdays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
                             weekdays.forEach(function(day) {
                                 var checkbox = $("." + day.toLowerCase() + "_val");
-                                
+
                                 if (menu_message.weekdays.includes(day)) {
                                     checkbox.prop("checked", true);
                                 } else {
@@ -4152,38 +4189,48 @@ select.selectpicker {
 
                         if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                             if (menu_message && menu_message.options_value && menu_message.options_value.options) {
-                                    console.log(menu_message);
-                                    var optionsArray = menu_message.options_value.options.split(';');
-                                    $(".main-plan").remove();
-                                    var id_array = response[0].next_questions;
-                                    id_array = id_array.split(",");
-                                    var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
-                                    // console.log(admin_bot_setup);
-                                    optionsArray.forEach(function(option, index) {
+                                // console.log(menu_message);
+                                var optionsArray = menu_message.options_value.options.split(';');
+                                $(".main-plan").remove();
+                                var id_array = response[0].next_questions;
+                                id_array = id_array.split(",");
+                                var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
+                                // console.log(admin_bot_setup);
+                                optionsArray.forEach(function(option, index) {
                                     // console.log(id_array[index]);
                                     // console.log(index);
                                     // console.log(option);
                                     var row_numbers = index === 0 ? '' : $('.main-plan').length;
                                     var main_table_html =
-                                    '<tr class="col-12 main-plan">' +
-                                    '<td class="col-3">' +
-                                    '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
-                                    '</td>' +
-                                    '<td class="col-3">' +
-                                    '<select class="form-select" aria-label="Default select example">' +
-                                    '<option value="1">Main-flow</option>' +
-                                    '</select>' +
-                                    '</td>' +
-                                    '<td class="col-4">' +
-                                    '<select class="form-select question_select_second" aria-label="Default select example">';
+                                        '<tr class="col-12 main-plan">' +
+                                        '<td class="col-3">' +
+                                        '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                                        '</td>' +
+                                        '<td class="col-3">' +
+                                        '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd" name="bot_idd">' +
+                                        '<option selected>Main Flow</option>';
+                                    <?php
+                                    if (isset($admin_bot)) {
+                                        foreach ($admin_bot as $key_bot => $value_bot) {
+                                            $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                            echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
+                                        }
+                                    }
+                                    ?>
+                                    main_table_html +=
+                                        '</select>' +
+                                        '</td>' +
+                                        '<td class="col-4">' +
+                                        '<div class="main-selectpicker bot_quotation_list">' +
+                                        '<select class="form-select question_select_second" aria-label="Default select example">';
                                     '<option></option>' +
-                                    
+
                                     // Build options dynamically
                                     admin_bot_setup.forEach(function(bot_setup, bot_index) {
-                                        if (bot_setup.bot_id == <?php echo $botId; ?>) {
-                                            if (bot_setup.type_of_question == id_array[index]) {
+                                        // if (bot_setup.bot_id == <?php echo $botId; ?>) {
+                                            if (bot_setup.id == id_array[index]) {
                                                 console.log(bot_setup);
-                                                var isSelected = bot_setup.type_of_question == id_array[index]; 
+                                                var isSelected = bot_setup.id == id_array[index];
                                                 main_table_html += '<option value="' + bot_setup.id + '"';
                                                 if (isSelected) {
                                                     main_table_html += ' selected';
@@ -4192,12 +4239,13 @@ select.selectpicker {
                                             } else {
                                                 main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
                                             }
-                                        }
+                                        // }
                                     });
 
                                     // Close the select element and complete the table row
                                     main_table_html +=
                                         '</select>' +
+                                        '</div>' +
                                         '</td>' +
                                         '<td class="col-2">' +
                                         '<button type="button" class="btn btn-danger multiple-remove-btn">' +
@@ -4369,7 +4417,7 @@ select.selectpicker {
                         }
 
                         // console.log(menu_message);
-                      
+
                         if (type_of_question == 24) {
                             let corousel_table_html = '';
 
@@ -4486,7 +4534,7 @@ select.selectpicker {
                             }
                             $(".proudect-table-body").append(corousel_table_html);
                         }
-                       
+
 
                         if (type_of_question == 27) {
                             var contact_table_html = '';
@@ -4579,7 +4627,9 @@ select.selectpicker {
             });
 
             if (!Array.isArray(selectedOptions)) {
-                selectedOptions = {selectedOptions};
+                selectedOptions = {
+                    selectedOptions
+                };
             }
 
             // console.log(selectedOptions);
@@ -4678,13 +4728,13 @@ select.selectpicker {
             var rating_type = {};
 
             var selectedList = $('.list-group-item.active').attr('value');
-           
+
             var reactionArray = [Terrible, Bad, Okay, Good, Great];
 
             var valuesArray = {
                 reaction: reactionArray,
                 rating_type: selectedList
-                
+
             };
             var options_value = JSON.stringify(valuesArray);
             if (options_value === 'undefined') {
@@ -4693,7 +4743,7 @@ select.selectpicker {
         }
 
 
-       
+
 
         if (type_of_question == "8") {
             var checkedDays = $('.days_val:checked').map(function() {
@@ -4976,7 +5026,7 @@ select.selectpicker {
             var edit_quantity_button = $(".edit_quantity_button").val();
             var row = {
                 add_more_button: add_more_button,
-                add_more_button_jump:add_more_button_jump,
+                add_more_button_jump: add_more_button_jump,
                 submit_button: submit_button,
                 quantity_button_jump: quantity_button_jump,
                 edit_quantity_button: edit_quantity_button
@@ -5036,7 +5086,7 @@ select.selectpicker {
             formdata.append('skip_question', skip_question);
             formdata.append('error_text', error_text);
             formdata.append('next_questions', selectedOptions);
-            
+
             $('.loader').show();
             $.ajax({
                 method: "post",
@@ -5046,14 +5096,14 @@ select.selectpicker {
                 contentType: false,
                 success: function(res) {
                     // if (res == true) {
-                        $('.loader').hide();
-                        // $("form[name='question_update_form']")[0].reset();
-                        $("form[name='question_update_form']").removeClass("was-validated");
-                        $(".btn-close").trigger("click");
-                        iziToast.success({
-                            title: 'Update Successfully'
-                        });
-                        bot_list_data();
+                    $('.loader').hide();
+                    // $("form[name='question_update_form']")[0].reset();
+                    $("form[name='question_update_form']").removeClass("was-validated");
+                    $(".btn-close").trigger("click");
+                    iziToast.success({
+                        title: 'Update Successfully'
+                    });
+                    bot_list_data();
                     // } else {
                     //     $('.loader').hide();
                     //     $(".btn-close").trigger("click");
@@ -5106,116 +5156,116 @@ select.selectpicker {
                     $("#formGroupExampleInput").val(response[0].question);
                     $(".conditional_flow_update").attr('data-id', response[0].id);
                     $(".OccupationInputClass").val(response[0].next_questions);
+                    $(".bot_idd").val(response[0].next_bot_id);
                     $('.selectpicker').selectpicker('refresh');
-                    
-                    if (type_of_question == 1){
+
+                    if (type_of_question == 1) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 3){
+                    if (type_of_question == 3) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 4){
+                    if (type_of_question == 4) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 5){
+                    if (type_of_question == 5) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 6){
+                    if (type_of_question == 6) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 7){
+                    if (type_of_question == 7) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 8){
+                    if (type_of_question == 8) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 9){
+                    if (type_of_question == 9) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 10){
+                    if (type_of_question == 10) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 11){
+                    if (type_of_question == 11) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 12){
+                    if (type_of_question == 12) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 13){
+                    if (type_of_question == 13) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 14){
+                    if (type_of_question == 14) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 15){
+                    if (type_of_question == 15) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 16){
+                    if (type_of_question == 16) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 17){
+                    if (type_of_question == 17) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
 
-                    if (type_of_question == 18){
+                    if (type_of_question == 18) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 19){
+                    if (type_of_question == 19) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 20){
+                    if (type_of_question == 20) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 21){
+                    if (type_of_question == 21) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                    if (type_of_question == 22){
+                    if (type_of_question == 22) {
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
                     // var menu_message = response[0].menu_message;
-                    
+
                     if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                         var menu_message = JSON.parse(response[0].menu_message);
-                        
+
                         var next_questions = response[0].next_questions;
-                        
-                        console.log("Original next_questions:", next_questions);
-                        
+
+                        // console.log("Original next_questions:", next_questions);
+
                         // Split the value of next_questions
                         var nextQuestionsArray = next_questions.split(',');
-                        
-                        console.log("Split next_questions:", nextQuestionsArray);
-                        
+
+                        // console.log("Split next_questions:", nextQuestionsArray);
+
                         if (menu_message && menu_message.options_value && menu_message.options_value.options) {
-                                console.log(menu_message);
-                                var optionsArray = menu_message.options_value.options.split(';');
-                                $(".main-plan").remove();
-                                var id_array = response[0].next_questions;
-                                id_array = id_array.split(",");
-                                var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
-                                // console.log(admin_bot_setup);
-                                optionsArray.forEach(function(option, index) {
+                           
+                            var optionsArray = menu_message.options_value.options.split(';');
+                            $(".main-plan").remove();
+                            var id_array = response[0].next_questions;
+                            id_array = id_array.split(",");
+                            var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
+                            optionsArray.forEach(function(option, index) {
                                 var row_numbers = index === 0 ? '' : $('.main-plan').length;
                                 var main_table_html =
                                     '<tr class="col-12 main-plan">' +
@@ -5223,38 +5273,52 @@ select.selectpicker {
                                     '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
                                     '</td>' +
                                     '<td class="col-3 p-2">' +
-                                    '<select class="form-select" aria-label="Default select example">' +
-                                    '<option value="1">Main-flow</option>' +
+                                    '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd" name="bot_idd">' +
+                                    '<option selected>Main Flow</option>';
+                                <?php
+                                if (isset($admin_bot)) {
+                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                        echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
+                                    }
+                                }
+                                ?>
+                                main_table_html +=
                                     '</select>' +
                                     '</td>' +
                                     '<td class="col-4 p-2 ">' +
+                                    '<div class="main-selectpicker bot_quotation_list">' +
                                     '<select class="form-select question_select_second_1" aria-label="Default select example">';
-                                    '<option></option>' +
-                                    // Build options dynamically
-                                    admin_bot_setup.forEach(function(bot_setup, bot_index) {
-                                        if (bot_setup.bot_id == <?php echo $botId; ?>) {
-                                            if (bot_setup.type_of_question == id_array[index]) {
-                                                console.log(bot_setup);
-                                                var isSelected = bot_setup.type_of_question == id_array[index]; 
-                                                main_table_html += '<option value="' + bot_setup.id + '"';
-                                                if (isSelected) {
-                                                    main_table_html += ' selected';
-                                                }
-                                                main_table_html += '>' + bot_setup.question + '</option>';
-                                            } else {
-                                                main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
+                                '<option></option>' +
+                                // Build options dynamically
+                                admin_bot_setup.forEach(function(bot_setup, bot_index) {
+                                    // console.log(admin_bot_setup);
+                                    // if (bot_setup.bot_id == <?php echo $botId; ?>) {
+                                        console.log(bot_setup.bot_id);
+                                        if (bot_setup.id == id_array[index]) {
+                                            // console.log(bot_setup);
+                                            var isSelected = bot_setup.id == id_array[index];
+                                            // console.log(isSelected);
+                                            main_table_html += '<option value="' + bot_setup.id + '"';
+                                            if (isSelected) {
+                                                main_table_html += ' selected';
                                             }
+                                            main_table_html += '>' + bot_setup.question + '</option>';
+                                        } else {
+                                            main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
                                         }
-                                    });
-                                    
-                                 main_table_html +=  '</select>' +
-                                '</td>' +
-                                '<td class="col-2">' +
-                                '<button type="button" class="btn btn-danger multiple-remove-btn">' +
-                                '<i class="fa fa-trash cursor-pointer"></i>' +
-                                '</button>' +
-                                '</td>' +
-                                '</tr>';
+                                    // }
+                                });
+
+                                main_table_html += '</select>' +
+                                    '</div>' +
+                                    '</td>' +
+                                    '<td class="col-2">' +
+                                    '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                    '<i class="fa fa-trash cursor-pointer"></i>' +
+                                    '</button>' +
+                                    '</td>' +
+                                    '</tr>';
                                 $(".conditional_flow_single").append(main_table_html);
                                 $(".conditional_flow_single").show();
                                 $(".conditional_flow_single_hide").hide();
@@ -5264,7 +5328,7 @@ select.selectpicker {
                         }
                     }
 
-                        
+
                 },
 
                 error: function(error) {
@@ -5281,30 +5345,40 @@ select.selectpicker {
 
     //question condition flow update
     $("body").on('click', '.conditional_flow_update', function(e) {
+
         e.preventDefault();
         var update_id = $(this).attr("data-id");
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
         var singleOptions = $('select.OccupationInputClass option:selected').val();
-        // console.log(singleOptions);
 
         var selectedOptions = $('.question_select_second_1').map(function() {
-            return $(this).val();
+            var value = $(this).val();
+            if (value !== "0") {
+                return value;
+            }
         }).get();
+
+        selectedOptions = selectedOptions.filter(function(value) {
+            return value !== undefined;
+        });
 
         if (!Array.isArray(selectedOptions)) {
             selectedOptions = [selectedOptions];
         }
-        console.log(selectedOptions);
-    
+        var next_bot_id = $('.bot_idd').val();
+        
+
+        // die();
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
             var formdata = new FormData(form);
             formdata.append('action', 'update');
             formdata.append('edit_id', update_id);
             formdata.append('table', table);
+            formdata.append('next_bot_id', next_bot_id);
 
-            if (singleOptions) {
+            if (singleOptions && singleOptions != "0") {
                 formdata.append('next_questions', singleOptions);
             } else {
                 formdata.append('next_questions', selectedOptions);
@@ -5462,6 +5536,7 @@ select.selectpicker {
             27: "#twentysevenquestion",
             28: "#twentyeightquestion",
             30: "#thirtyethquestion",
+            36: "#thirtysixquestion",
             43: "#fourythreequestion",
             44: "#fouryfourquestion",
             41: "#fourtyonequestion",
@@ -5471,7 +5546,7 @@ select.selectpicker {
     });
 
     function clearQuestions() {
-        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion, #twentythreequestion, #twentyfourquestion ,#twentysevenquestion, #twentyeightquestion, #thirtyethquestion, #fourythreequestion, #fouryfourquestion,#twentysixquestion, #twentyfivequestion, #fourtyonequestion").html("");
+        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion, #twentythreequestion, #twentyfourquestion ,#twentysevenquestion, #twentyeightquestion, #thirtyethquestion, #fourythreequestion, #fouryfourquestion,#twentysixquestion, #twentyfivequestion, #fourtyonequestion, #thirtysixquestion").html("");
     }
 
     function getQuestionHTML(type_of_question) {
@@ -5556,7 +5631,7 @@ select.selectpicker {
                                                 <?php
                                                 if (isset($admin_bot_setup)) {
                                                     foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                       
+
 
                                                         if ($type_value['bot_id'] == $botId) {
 
@@ -6769,7 +6844,7 @@ select.selectpicker {
                     
             `;
             case "26":
-            return `
+                return `
             <form class="col-12" name="question_update_form" enctype="multipart/form-data" method="post">
             <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box" id="filepick">
                 <input type="file" id="audioFile" class="audioFile" name="audioFile" accept="audio/mp3, audio/wav" style="display: none;">
@@ -6884,6 +6959,279 @@ select.selectpicker {
                     </div>
                 </form>
             `;
+
+            case "36":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <label class="fs-14 mb-1"><b>Note</b>: Please note that the below conditions are an intersection of each other.</label>
+                        <div class="col-12 border rounded-2 py-2 px-4">
+                            <div class="col-12">
+                                <label class="pull-left full-width fs-14 fw-semibold">Select your office dates</label>
+                            </div>
+                            <div class="col-12 d-flex mt-2">
+                                <span class="pe-4">
+                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="ms-1 fs-14">MON</span>
+                                </span>
+                                <span class="pe-4">
+                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="ms-1 fs-14">MON</span>
+                                </span>
+                                <span class="pe-4">
+                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="ms-1 fs-14">MON</span>
+                                </span>
+                                <span class="pe-4">
+                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="ms-1 fs-14">MON</span>
+                                </span>
+                                <span class="pe-4">
+                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="ms-1 fs-14">MON</span>
+                                </span>
+                                <span class="pe-4">
+                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="ms-1 fs-14">MON</span>
+                                </span>
+                                <span class="pe-4">
+                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="ms-1 fs-14">MON</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 border rounded-2 p-3 d-flex flex-wrap my-3">
+                            <div class="col-6 d-flex flex-warp align-items-center">
+                                <span class="me-2">Slot Timings :</span>
+                                <span class="me-1">
+                                    <select class="form-control form-main main-control fs-13 bg-white f-w-small m-w-100 height-40 border m-b-0 p-r-10 font-normal b-r-6 ng-pristine ng-valid ng-touched" ng-model="from_timing" ng-change="changeFromTiming(from_timing)" aria-invalid="false" style="">
+                                        <!-- ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="12:00 AM" class="ng-binding ng-scope">12:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="12:30 AM" class="ng-binding ng-scope">12:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="01:00 AM" class="ng-binding ng-scope">01:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="01:30 AM" class="ng-binding ng-scope">01:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="02:00 AM" class="ng-binding ng-scope">02:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="02:30 AM" class="ng-binding ng-scope">02:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="03:00 AM" class="ng-binding ng-scope">03:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="03:30 AM" class="ng-binding ng-scope">03:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="04:00 AM" class="ng-binding ng-scope">04:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="04:30 AM" class="ng-binding ng-scope">04:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="05:00 AM" class="ng-binding ng-scope">05:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="05:30 AM" class="ng-binding ng-scope">05:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="06:00 AM" class="ng-binding ng-scope">06:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="06:30 AM" class="ng-binding ng-scope">06:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="07:00 AM" class="ng-binding ng-scope">07:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="07:30 AM" class="ng-binding ng-scope">07:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="08:00 AM" class="ng-binding ng-scope">08:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="08:30 AM" class="ng-binding ng-scope">08:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="09:00 AM" class="ng-binding ng-scope">09:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="09:30 AM" class="ng-binding ng-scope">09:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="10:00 AM" class="ng-binding ng-scope">10:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="10:30 AM" class="ng-binding ng-scope">10:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="11:00 AM" class="ng-binding ng-scope">11:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="11:30 AM" class="ng-binding ng-scope">11:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="12:00 PM" class="ng-binding ng-scope">12:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="12:30 PM" class="ng-binding ng-scope">12:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="01:00 PM" class="ng-binding ng-scope">01:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="01:30 PM" class="ng-binding ng-scope">01:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="02:00 PM" class="ng-binding ng-scope">02:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="02:30 PM" class="ng-binding ng-scope">02:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="03:00 PM" class="ng-binding ng-scope">03:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="03:30 PM" class="ng-binding ng-scope">03:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="04:00 PM" class="ng-binding ng-scope">04:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="04:30 PM" class="ng-binding ng-scope">04:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="05:00 PM" class="ng-binding ng-scope">05:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="05:30 PM" class="ng-binding ng-scope">05:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="06:00 PM" class="ng-binding ng-scope">06:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="06:30 PM" class="ng-binding ng-scope">06:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="07:00 PM" class="ng-binding ng-scope">07:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="07:30 PM" class="ng-binding ng-scope">07:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="08:00 PM" class="ng-binding ng-scope">08:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="08:30 PM" class="ng-binding ng-scope">08:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="09:00 PM" class="ng-binding ng-scope">09:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="09:30 PM" class="ng-binding ng-scope">09:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="10:00 PM" class="ng-binding ng-scope">10:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="10:30 PM" class="ng-binding ng-scope">10:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="11:00 PM" class="ng-binding ng-scope">11:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="11:30 PM" class="ng-binding ng-scope">11:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                    </select>
+                                </span>
+                                <span class="fw-bolder mx-1">-</span>
+                                <span class="ms-1">
+                                    <select class="form-control form-main main-control fs-13 bg-white f-w-small m-w-100 height-40 border m-b-0 p-r-10 font-normal b-r-6 ng-pristine ng-valid ng-touched" ng-model="from_timing" ng-change="changeFromTiming(from_timing)" aria-invalid="false" style="">
+                                        <!-- ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="12:00 AM" class="ng-binding ng-scope">12:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="12:30 AM" class="ng-binding ng-scope">12:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="01:00 AM" class="ng-binding ng-scope">01:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="01:30 AM" class="ng-binding ng-scope">01:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="02:00 AM" class="ng-binding ng-scope">02:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="02:30 AM" class="ng-binding ng-scope">02:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="03:00 AM" class="ng-binding ng-scope">03:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="03:30 AM" class="ng-binding ng-scope">03:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="04:00 AM" class="ng-binding ng-scope">04:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="04:30 AM" class="ng-binding ng-scope">04:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="05:00 AM" class="ng-binding ng-scope">05:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="05:30 AM" class="ng-binding ng-scope">05:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="06:00 AM" class="ng-binding ng-scope">06:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="06:30 AM" class="ng-binding ng-scope">06:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="07:00 AM" class="ng-binding ng-scope">07:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="07:30 AM" class="ng-binding ng-scope">07:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="08:00 AM" class="ng-binding ng-scope">08:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="08:30 AM" class="ng-binding ng-scope">08:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="09:00 AM" class="ng-binding ng-scope">09:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="09:30 AM" class="ng-binding ng-scope">09:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="10:00 AM" class="ng-binding ng-scope">10:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="10:30 AM" class="ng-binding ng-scope">10:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="11:00 AM" class="ng-binding ng-scope">11:00 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="11:30 AM" class="ng-binding ng-scope">11:30 AM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="12:00 PM" class="ng-binding ng-scope">12:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="12:30 PM" class="ng-binding ng-scope">12:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="01:00 PM" class="ng-binding ng-scope">01:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="01:30 PM" class="ng-binding ng-scope">01:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="02:00 PM" class="ng-binding ng-scope">02:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="02:30 PM" class="ng-binding ng-scope">02:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="03:00 PM" class="ng-binding ng-scope">03:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="03:30 PM" class="ng-binding ng-scope">03:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="04:00 PM" class="ng-binding ng-scope">04:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="04:30 PM" class="ng-binding ng-scope">04:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="05:00 PM" class="ng-binding ng-scope">05:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="05:30 PM" class="ng-binding ng-scope">05:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="06:00 PM" class="ng-binding ng-scope">06:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="06:30 PM" class="ng-binding ng-scope">06:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="07:00 PM" class="ng-binding ng-scope">07:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="07:30 PM" class="ng-binding ng-scope">07:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="08:00 PM" class="ng-binding ng-scope">08:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="08:30 PM" class="ng-binding ng-scope">08:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="09:00 PM" class="ng-binding ng-scope">09:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="09:30 PM" class="ng-binding ng-scope">09:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="10:00 PM" class="ng-binding ng-scope">10:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="10:30 PM" class="ng-binding ng-scope">10:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="11:00 PM" class="ng-binding ng-scope">11:00 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                        <option ng-repeat="timing in available_timings" value="11:30 PM" class="ng-binding ng-scope">11:30 PM</option><!-- end ngRepeat: timing in available_timings -->
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="col-6 d-flex flex-warp align-items-center justify-content-end">
+                                <span class="me-2">Timezone</span>
+                                <span class="ms-1 col-7">
+                                    <select class="form-control form-main main-control bg-white f-w-small height-40 border m-b-0 p-l-10 font-normal p-l-5 max-width-120 b-r-6 ng-pristine ng-valid ng-touched" ng-model="timezone" ng-change="changeTimezone(timezone)" aria-invalid="false" style="">
+                                        <!-- ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+14:00" class="ng-binding ng-scope">GMT+14:00(Samoa and Christmas Island / Kiribati, LINT, Kiritimati)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+13:45" class="ng-binding ng-scope">GMT+13:45(Chatham Islands / New Zealand, CHADT, Chatham Islands)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+13:00" class="ng-binding ng-scope">GMT+13:00(New Zealand with exceptions and 4 more, NZDT, Auckland)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+12:00" class="ng-binding ng-scope">GMT+12:00(Fiji, small region of Russia, ANAT, Anadyr)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+11:00" class="ng-binding ng-scope">GMT+11:00(much of Australia and 7 more, AEDT, Melbourne)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+10:30" class="ng-binding ng-scope">GMT+10:30(small region of Australia, ACDT, Adelaide)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+10:00" class="ng-binding ng-scope">GMT+10:00(Queensland / Australia and 6 more, AEST, Brisbane)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+09:30" class="ng-binding ng-scope">GMT+09:30(Northern Territory / Australia, ACST, Darwin)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+9" class="ng-binding ng-scope">GMT+9(Japan, South Korea and , JST, Tokyo)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+08:45" class="ng-binding ng-scope">GMT+08:45(Western Australia / Australia, ACWST, Eucla)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+08:00" class="ng-binding ng-scope">GMT+08:00(China, Philippines, CST, Beijing)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+07:00" class="ng-binding ng-scope">GMT+07:00(much of Indonesia, Thailand, WIB, Jakarta)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+06:30" class="ng-binding ng-scope">GMT+06:30(Myanmar and Cocos Islands, MMT, Yangon)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+06:00" class="ng-binding ng-scope">GMT+06:00(Bangladesh and 6 more, BST, Dhaka)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+05:45" class="ng-binding ng-scope">GMT+05:45(Nepal, NPT, Kathmandu)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+05:30" class="ng-binding ng-scope">GMT+05:30(India and Sri Lanka, IST, New Delhi)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+05:00" class="ng-binding ng-scope">GMT+05:00(Pakistan and 8 more, UZT, Tashkent)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+04:30" class="ng-binding ng-scope">GMT+04:30(Afghanistan, AFT, Kabul)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+04:00" class="ng-binding ng-scope">GMT+04:00(Azerbaijan and 8 more, GST, Dubai)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+03:30" class="ng-binding ng-scope">GMT+03:30(Iran, IRST, Tehran)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+03:00" class="ng-binding ng-scope">GMT+03:00(Moscow / Russia and 22 more, MSK, Moscow)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+02:00" class="ng-binding ng-scope">GMT+02:00(Greece and 31 more, EET, Cairo)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+01:00" class="ng-binding ng-scope">GMT+01:00(Germany and 45 more, CET, Brussels)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="+00:00" class="ng-binding ng-scope">GMT+00:00(United Kingdom and 24 more, GMT, London)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-01:00" class="ng-binding ng-scope">GMT-01:00(Cabo Verde and 2 more, CVT, Praia)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-02:00" class="ng-binding ng-scope">GMT-02:00(Pernambuco / Brazil and South Georgia / Sandwich Is., GST, King Edward Point)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-03:00" class="ng-binding ng-scope">GMT-03:00(most of Brazil, Argentina and 9 more, ART, Buenos Aires)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-03:30" class="ng-binding ng-scope">GMT-03:30(Newfoundland and Labrador / Canada, NST, St.John 's)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-04:00" class="ng-binding ng-scope">GMT-04:00(some regions of Canada and 28 more, VET, Caracas)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-05:00" class="ng-binding ng-scope">GMT-05:00(regions of USA and 14 more, EST, New York)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-06:00" class="ng-binding ng-scope">GMT-06:00(regions of USA and 9 more, CST, Mexico City)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-07:00" class="ng-binding ng-scope">GMT-07:00(some regions of USA and 2 more, MST, Calgary)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-08:00" class="ng-binding ng-scope">GMT-08:00(regions of USA and 4 more, PST, Los Angeles)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-09:00" class="ng-binding ng-scope">GMT-09:00(Alaska / USA and regions of French Polynesia, AKST, Anchorage)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-09:30" class="ng-binding ng-scope">GMT-09:30(Marquesas Islands / French Polynesia, MART, Taiohae)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-10:00" class="ng-binding ng-scope">GMT-10:00(small region of USA and 2 more, HST, Honolulu)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-11:00" class="ng-binding ng-scope">GMT-11:00(American Samoa and 2 more, NUT, Alofi)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                        <option ng-repeat="timezone in available_timezones" value="-12:00" class="ng-binding ng-scope">GMT-12:00(much of US Minor Outlying Islands, AoE, Baker Island)</option><!-- end ngRepeat: timezone in available_timezones -->
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 border rounded-2 p-2 d-flex flex-wrap my-3">
+                            <div class="col-12">
+                                <label class="pull-left full-width text-left min-w-150 fs-14 f-w-500 mb-1">Out of office Message <span class="red-color bold">*</span> <i class="fa fa-info-circle m-l-5 info-icon pointer" aria-hidden="true" title="Message to display when user tries to contact you outside work hours."></i></label>
+                                <div class="col-12">
+                                    <input type="text" class="border form-control form-main main-control" placeholder="Message" value="Sorry, all our agents are offline now.">
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <label class="fs-14 f-w-500 text-left full-width m-t-5 mb-1">Jump to a question in out of office case <i class="fa fa-info-circle m-l-10" title="Reference data answered in previous questions anywhere in the bot flow. E.g. Name"></i></label>
+                                <div class="col-12 d-flex">
+                                    <div class="col-4 me-2">
+                                        <select class="border form-control form-main main-control" ng-model="selected_flow" ng-change="changeFlowIdOption('',selected_flow)" aria-invalid="false">
+                                            <!-- ngRepeat: flow in sub_flows -->
+                                            <option ng-repeat="flow in sub_flows" value="0" class="ng-binding ng-scope">Main Flow</option><!-- end ngRepeat: flow in sub_flows -->
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <select class="form-control form-main main-control" ng-model="out_of_office_jump" ng-change="changeOfcJump(out_of_office_jump)" aria-invalid="false">
+                                            <!-- ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="" class="ng-binding ng-scope">No Jump</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1753628" class="ng-binding ng-scope">What type of food do you eat?</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1735427" class="ng-binding ng-scope">What is your name</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1740912" class="ng-binding ng-scope">Adding the WhatsApp Button.</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1740905" class="ng-binding ng-scope">======= Cart Summary =======</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1740909" class="ng-binding ng-scope">Choose item(s)</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1740888" class="ng-binding ng-scope">Choose from the below list</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1735428" class="ng-binding ng-scope">What is your gender?</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1753793" class="ng-binding ng-scope">What is your gender?</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1735461" class="ng-binding ng-scope">What type of food do you eat?</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1735776" class="ng-binding ng-scope">How would you rate our company?</option><!-- end ngRepeat: question in possibleQuestions -->
+                                            <option ng-repeat="question in possibleQuestions" value="1735834" class="ng-binding ng-scope">How many bots do you want?</option><!-- end ngRepeat: question in possibleQuestions -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 border rounded-2 p-3 d-flex flex-wrap my-3">
+                            <div class="col-12">
+                                <label class="pull-left full-width text-left min-w-150 fs-16 f-w-500">Agent Busy Messages <span class="red-color bold">*</span> <i class="fa fa-info-circle m-l-5 info-icon pointer" aria-hidden="true" title="Message to display when all agents are busy.."></i></label>
+                            </div>
+                            <div class="col-12 my-2">
+                                <label class="pull-left full-width m-t-10 m-b-5 text-left fs-14 f-w-500 mb-1">Message 1 (after 30 Sec)</label>
+                                <div class="col-12">
+                                    <input type="text" class="border form-control form-main main-control"  placeholder="Message" name="" value="I am trying to reach my agent.....In the meantime go grab some coffee ☕" aria-invalid="false" >
+                                </div>
+                            </div>
+                            <div class="col-12 my-2">
+                                <label class="pull-left full-width m-t-10 m-b-5 text-left fs-14 f-w-500 mb-1">Message 2 (after 1 Min)</label>
+                                <div class="col-12">
+                                    <input type="text" class="border form-control form-main main-control"  placeholder="Message" name="" value="Looks like my agent is busy helping other prospects like you, let me try again....." aria-invalid="false" >
+                                </div>
+                            </div>
+                            <div class="col-12 my-2">
+                                <label class="pull-left full-width m-t-10 m-b-5 text-left fs-14 f-w-500 mb-1">Message 3 (after 2 Mins)</label>
+                                <div class="col-12">
+                                    <input type="text" class="border form-control form-main main-control"  placeholder="Message" name="" value="Sorry for making you wait this long. It is taking more time than usual, our agent will be here anytime soon....🙂" aria-invalid="false" >
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            `;
             case "43":
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
@@ -6956,16 +7304,16 @@ select.selectpicker {
                                 <select class="form-select add_more_button_jump" aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                     <?php
-                                        if (isset($admin_bot_setup)) {
-                                            foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                // pre($type_value);
+                                    if (isset($admin_bot_setup)) {
+                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                            // pre($type_value);
 
-                                                if ($type_value['bot_id'] == $botId) {
+                                            if ($type_value['bot_id'] == $botId) {
 
-                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                }
+                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                             }
                                         }
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -6984,16 +7332,16 @@ select.selectpicker {
                             <div class="col-5">
                                 <select class="form-select quantity_button_jump" aria-label="Default select example">
                                     <?php
-                                        if (isset($admin_bot_setup)) {
-                                            foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                // pre($type_value);
+                                    if (isset($admin_bot_setup)) {
+                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+                                            // pre($type_value);
 
-                                                if ($type_value['bot_id'] == $botId) {
+                                            if ($type_value['bot_id'] == $botId) {
 
-                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                }
+                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                             }
                                         }
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -7006,31 +7354,31 @@ select.selectpicker {
                 </form>
             `;
             default:
-            return "";
+                return "";
         }
     }
 </script>
 
 <script>
-    $('body').on('click','.remove_image',function(){
+    $('body').on('click', '.remove_image', function() {
         $('.image_svg').removeClass('d-none');
         $('#image_container').addClass('d-none');
     })
     $(document).ready(function() {
-        $(document).on("click","#sound-icon",function(){
+        $(document).on("click", "#sound-icon", function() {
             $(".sound-icon-lite").toggleClass("d-none");
         })
-        
+
     })
-    
-    $('body').on('click','.start_date_range',function(){
+
+    $('body').on('click', '.start_date_range', function() {
         $(this).bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY',
             time: false,
             clearButton: true
         });
     })
-    $('body').on('click','.end_date_range',function(){
+    $('body').on('click', '.end_date_range', function() {
         $(this).bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY',
             time: false,
@@ -7043,7 +7391,7 @@ select.selectpicker {
     //     time: false,
     //     clearButton: true
     // });
-    
+
     // $('.date_range2').bootstrapMaterialDatePicker({
     //     format: 'DD-MM-YYYY',
     //     time: false,
@@ -7052,34 +7400,34 @@ select.selectpicker {
     const progressCircle = document.querySelector(".autoplay-progress svg");
     const progressContent = document.querySelector(".autoplay-progress span");
     var swiper = new Swiper(".mySwiper", {
-      spaceBetween: 30,
-      centeredSlides: true,
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-      },
-      on: {
-        autoplayTimeLeft(s, time, progress) {
-          progressCircle.style.setProperty("--progress", 1 - progress);
-          progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        },
+        on: {
+            autoplayTimeLeft(s, time, progress) {
+                progressCircle.style.setProperty("--progress", 1 - progress);
+                progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+            }
         }
-      }
     });
 
     document.getElementById("button-addon2").addEventListener("click", function() {
         var textToCopy = document.getElementById("textToCopy");
-        textToCopy.removeAttribute("disabled"); 
+        textToCopy.removeAttribute("disabled");
         textToCopy.select();
         document.execCommand("copy");
-        textToCopy.setAttribute("disabled", "disabled"); 
+        textToCopy.setAttribute("disabled", "disabled");
         iziToast.success({
             title: 'Copied to clipboard'
         });
@@ -7100,22 +7448,21 @@ select.selectpicker {
                 title: 'Copied to clipboard'
             });
         });
-        }
-    )
+    })
 
 
     $("body").on('change', '#bot_idd', function(e) {
         var bott_idd = $(this).val();
-            $.ajax({
-                method: "post",
-                url: "<?= site_url('bot_id_to_quotation'); ?>",
-                data: {
-                    'id':bott_idd
-                },
-                success: function (res) {
-                    var response = JSON.parse(res);
-                    $('.bot_quotation_list').html(response.html);
-                }
-            });
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('bot_id_to_quotation'); ?>",
+            data: {
+                'id': bott_idd
+            },
+            success: function(res) {
+                var response = JSON.parse(res);
+                $('.bot_quotation_list').html(response.html);
+            }
+        });
     });
 </script>
