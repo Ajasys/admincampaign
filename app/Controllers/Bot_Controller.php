@@ -1004,7 +1004,7 @@ class Bot_Controller extends BaseController
 			$db_connection = \Config\Database::connect('second');
 			
 			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "") {
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 				// pre($sql);
 				// $nextQuestionsStr = implode(',', $_POST['next_questions']);
         		// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
@@ -1783,19 +1783,24 @@ class Bot_Controller extends BaseController
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 						$menuOptions = json_decode($value['menu_message'], true);
 						
-						if (isset($menuOptions['options'])) {
-							$options = explode(';', $menuOptions['options']);
-							$nextQuestionsArray = explode(',', $value['next_questions']);
-		
+						
+						if (isset($menuOptions['options_value']['options'])) {
+							$options = explode(';', $menuOptions['options_value']['options']);
+							$nextQuestionsArray = isset($menuOptions['selectedOptions']) ? $menuOptions['selectedOptions'] : [];
+							
+						
+							
 							foreach ($options as $index => $option) {
 								$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
-					
+
 								$html .= '<div class="col-12 mb-2 option-wrapper">
-											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="'.$nextQuestion.'" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
-										</div>';
+											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
+										  </div>';
 							}
 						}
 					}
+					
+					
 					
 
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
@@ -1938,7 +1943,7 @@ class Bot_Controller extends BaseController
 
 		if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['sequence'] != 1) {
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND next_questions = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND id = ' . $_POST['question_id'] . ' ORDER BY sequence';
 			$result = $db_connection->query($sql);
 			$questioned = $result->getRowArray();	
 			// pre($sql);		

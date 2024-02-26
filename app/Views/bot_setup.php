@@ -2449,7 +2449,7 @@ $admin_bot = json_decode($admin_bot, true);
                                             if ($type_value['bot_id'] == $botId) {
                                                 // pre($type_value['question']);
 
-                                                echo '<option value="' . $type_value["type_of_question"] . '">' . $type_value["question"] . '</option>';
+                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                             }
                                         }
                                     }
@@ -3355,7 +3355,7 @@ $admin_bot = json_decode($admin_bot, true);
         //Single Choile Table Row Add
         function table_html() {
             var row_numbers = $('.main-plan').length;
-            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '"placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td><td class="col-3"><select class="form-select question_select" aria-label="Default select example"><option selected>No Jump</option>';
+            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '"placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select" aria-label="Default select example"><option value="1">Main-flow</option></select></td><td class="col-3"><select class="form-select question_select_second" aria-label="Default select example"><option></option>';
 
             var options = <?php echo $encoded_options; ?>;
             // console.log(options);
@@ -4143,14 +4143,15 @@ $admin_bot = json_decode($admin_bot, true);
                         }
 
                         if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
-                            if (menu_message && menu_message.options != "") {
-                                var optionsArray = menu_message.options.split(';');
-                                $(".main-plan").remove();
-                                var id_array = response[0].next_questions;
-                                id_array = id_array.split(",");
-                                var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
-                                // console.log(admin_bot_setup);
-                                optionsArray.forEach(function(option, index) {
+                            if (menu_message && menu_message.options_value && menu_message.options_value.options) {
+                                    console.log(menu_message);
+                                    var optionsArray = menu_message.options_value.options.split(';');
+                                    $(".main-plan").remove();
+                                    var id_array = response[0].next_questions;
+                                    id_array = id_array.split(",");
+                                    var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
+                                    // console.log(admin_bot_setup);
+                                    optionsArray.forEach(function(option, index) {
                                     // console.log(id_array[index]);
                                     // console.log(index);
                                     // console.log(option);
@@ -4167,18 +4168,18 @@ $admin_bot = json_decode($admin_bot, true);
                                     '</td>' +
                                     '<td class="col-4">' +
                                     '<select class="form-select question_select_second" aria-label="Default select example">';
-
+                                    '<option></option>' +
                                     // Build options dynamically
                                     admin_bot_setup.forEach(function(bot_setup, bot_index) {
                                         if (bot_setup.type_of_question == id_array[index]) {
                                             var isSelected = bot_setup.type_of_question == id_array[index]; 
-                                            main_table_html += '<option value="' + bot_setup.sequence + '"';
+                                            main_table_html += '<option value="' + bot_setup.id + '"';
                                             if (isSelected) {
                                                 main_table_html += ' selected';
                                             }
                                             main_table_html += '>' + bot_setup.question + '</option>';
                                         } else {
-                                            main_table_html += '<option value="' + bot_setup.sequence + '">' + bot_setup.question + '</option>';
+                                            main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
                                         }
                                     });
 
@@ -4532,14 +4533,15 @@ $admin_bot = json_decode($admin_bot, true);
         }
 
         var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
-        var selectedOptions = $('.question_select_second').map(function() {
-            return $(this).val();
-        }).get();
+        // var selectedOptions = $('.question_select_second').map(function() {
+        //     return $(this).val();
+        // }).get();
 
-        if (!Array.isArray(selectedOptions)) {
-            selectedOptions = [selectedOptions];
-        }
-        console.log(selectedOptions);
+        // if (!Array.isArray(selectedOptions)) {
+        //     selectedOptions = [selectedOptions];
+        // }
+        // console.log(selectedOptions);
+
         var error_text = $('#Question_error_message').val();
 
         if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
@@ -4556,6 +4558,19 @@ $admin_bot = json_decode($admin_bot, true);
         }
 
         if (type_of_question == "2" || type_of_question == "40" || type_of_question == "42") {
+            var selectedOptions = $('.question_select_second').map(function() {
+                return $(this).val();
+            }).get();
+
+            selectedOptions = selectedOptions.filter(function(option) {
+                return option !== "";
+            });
+
+            if (!Array.isArray(selectedOptions)) {
+                selectedOptions = {selectedOptions};
+            }
+
+            // console.log(selectedOptions);
             var comined = {};
             var options = $('.single_choice_options').val();
             comined.options = options;
@@ -4569,12 +4584,13 @@ $admin_bot = json_decode($admin_bot, true);
                     comined.options += options_i;
                 }
             }
-            var options_value = JSON.stringify(comined);
-            // console.log(options_value);
-            if (options_value === 'undefined') {
-                options_value = '';
-            }
+            var combinedArray = {
+                options_value: comined,
+                selectedOptions: selectedOptions
+            };
+            var options_value = JSON.stringify(combinedArray);
         }
+
 
         if (type_of_question == "3") {
             var remove_menu = $(".remove_menu").is(":checked") ? "true" : "false";
@@ -5079,7 +5095,6 @@ $admin_bot = json_decode($admin_bot, true);
                     $(".conditional_flow_update").attr('data-id', response[0].id);
                     $(".OccupationInputClass").val(response[0].next_questions);
                     $('.selectpicker').selectpicker('refresh');
-
                     
                     if (type_of_question == 1){
                         $(".conditional_flow_single").hide();
@@ -5180,13 +5195,15 @@ $admin_bot = json_decode($admin_bot, true);
                         
                         console.log("Split next_questions:", nextQuestionsArray);
                         
-                        if (menu_message && menu_message.options) {
-                            var optionsArray = menu_message.options.split(';');
-                            $(".main-plan").remove();
-                            var id_array = response[0].next_questions;
-                            id_array = id_array.split(",");
-                            var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
-                            optionsArray.forEach(function(option, index) {
+                        if (menu_message && menu_message.options_value && menu_message.options_value.options) {
+                                console.log(menu_message);
+                                var optionsArray = menu_message.options_value.options.split(';');
+                                $(".main-plan").remove();
+                                var id_array = response[0].next_questions;
+                                id_array = id_array.split(",");
+                                var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
+                                // console.log(admin_bot_setup);
+                                optionsArray.forEach(function(option, index) {
                                 var row_numbers = index === 0 ? '' : $('.main-plan').length;
                                 var main_table_html =
                                     '<tr class="col-12 main-plan">' +
@@ -5205,13 +5222,13 @@ $admin_bot = json_decode($admin_bot, true);
                                         admin_bot_setup.forEach(function(bot_setup, bot_index) {
                                             if (bot_setup.type_of_question == id_array[index]) {
                                                 var isSelected = bot_setup.type_of_question == id_array[index]; 
-                                                main_table_html += '<option value="' + bot_setup.sequence + '"';
+                                                main_table_html += '<option value="' + bot_setup.id + '"';
                                                 if (isSelected) {
                                                     main_table_html += ' selected';
                                                 }
                                                 main_table_html += '>' + bot_setup.question + '</option>';
                                             } else {
-                                                main_table_html += '<option value="' + bot_setup.sequence + '">' + bot_setup.question + '</option>';
+                                                main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
                                             }
                                         });
                                     
@@ -5264,7 +5281,7 @@ $admin_bot = json_decode($admin_bot, true);
             selectedOptions = [selectedOptions];
         }
         console.log(selectedOptions);
-
+    
         if (update_id != "") {
             var form = $("form[name='question_update_form']")[0];
             var formdata = new FormData(form);
@@ -5518,9 +5535,9 @@ $admin_bot = json_decode($admin_bot, true);
                                             </select>
                                         </td>
                                         <td class="col-4">
-                                            <select class="form-select question_select" aria-label="Default select example">
+                                            <select class="form-select question_select_second" aria-label="Default select example">
                                                 
-                    
+                                                <option></option>
                                                 <?php
                                                 if (isset($admin_bot_setup)) {
                                                     foreach ($admin_bot_setup as $type_key => $type_value) {
