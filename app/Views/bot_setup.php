@@ -2431,31 +2431,36 @@ $admin_bot = json_decode($admin_bot, true);
                 <div class="row conditional_flow_single_hide">
                     <div class="col-4">
                         <label for="formGroupExampleInput" class="form-label">Subflows</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd" name="bot_idd">
                             <option selected>Main Flow</option>
+                            <?php
+                                if (isset($admin_bot)) {
+                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : ''; 
+                                        echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                    }
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="col-8">
-                        <label for="formGroupExampleInput" class="form-label">Next Question jump</label>
+                        <label for="formGroupExampleInput " class="form-label">Next Question jump</label>
                        
-                        <div class="main-selectpicker">
-                            <select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select occupation_add" data-live-search="true">
-                                <option selected value="0">No Jump</option>
-                                <option value="100">End Of conversion</option>
-                                    <?php
-                                    if (isset($admin_bot_setup)) {
+                        <div class="main-selectpicker bottttttt">
+                       <select id="occupation" class="OccupationInputClass form-control main-control  from-main selectpicker question_select occupation_add" data-live-search="true">
+                                <option class="dropdown-item" selected value="0">No Jump</option>
+                                <option class="dropdown-item" value="100">End Of conversion</option>  
+                                <?php
+                                if (isset($admin_bot_setup)  ) {
                                         foreach ($admin_bot_setup as $type_key => $type_value) {
-
-                                            if ($type_value['bot_id'] == $botId) {
-                                                // pre($type_value['question']);
-
-                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                            // pre($type_value);
+                                            if($type_value['bot_id'] == $botId){
+											echo '<option class="dropdown-item" id="quotattion_type" value="' . $type_value["type_of_question"] . '">' . $type_value["question"] . '</option>';
                                             }
                                         }
-                                    }
-                                    ?>
-                            </select>
-                            </div>
+                                    }  ?> 
+						</select>
+                        </div>
                     </div>  
                 </div>
 
@@ -4169,17 +4174,21 @@ $admin_bot = json_decode($admin_bot, true);
                                     '<td class="col-4">' +
                                     '<select class="form-select question_select_second" aria-label="Default select example">';
                                     '<option></option>' +
+                                    
                                     // Build options dynamically
                                     admin_bot_setup.forEach(function(bot_setup, bot_index) {
-                                        if (bot_setup.type_of_question == id_array[index]) {
-                                            var isSelected = bot_setup.type_of_question == id_array[index]; 
-                                            main_table_html += '<option value="' + bot_setup.id + '"';
-                                            if (isSelected) {
-                                                main_table_html += ' selected';
+                                        if (bot_setup.bot_id == <?php echo $botId; ?>) {
+                                            if (bot_setup.type_of_question == id_array[index]) {
+                                                console.log(bot_setup);
+                                                var isSelected = bot_setup.type_of_question == id_array[index]; 
+                                                main_table_html += '<option value="' + bot_setup.id + '"';
+                                                if (isSelected) {
+                                                    main_table_html += ' selected';
+                                                }
+                                                main_table_html += '>' + bot_setup.question + '</option>';
+                                            } else {
+                                                main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
                                             }
-                                            main_table_html += '>' + bot_setup.question + '</option>';
-                                        } else {
-                                            main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
                                         }
                                     });
 
@@ -5219,8 +5228,10 @@ $admin_bot = json_decode($admin_bot, true);
                                     '<select class="form-select question_select_second_1" aria-label="Default select example">';
                                     '<option></option>' +
                                     // Build options dynamically
-                                        admin_bot_setup.forEach(function(bot_setup, bot_index) {
+                                    admin_bot_setup.forEach(function(bot_setup, bot_index) {
+                                        if (bot_setup.bot_id == <?php echo $botId; ?>) {
                                             if (bot_setup.type_of_question == id_array[index]) {
+                                                console.log(bot_setup);
                                                 var isSelected = bot_setup.type_of_question == id_array[index]; 
                                                 main_table_html += '<option value="' + bot_setup.id + '"';
                                                 if (isSelected) {
@@ -5230,7 +5241,8 @@ $admin_bot = json_decode($admin_bot, true);
                                             } else {
                                                 main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
                                             }
-                                        });
+                                        }
+                                    });
                                     
                                  main_table_html +=  '</select>' +
                                 '</td>' +
@@ -7087,4 +7099,20 @@ $admin_bot = json_decode($admin_bot, true);
         });
         }
     )
+
+
+    $("body").on('change', '#bot_idd', function(e) {
+        var bott_idd = $(this).val();
+            $.ajax({
+                method: "post",
+                url: "<?= site_url('bot_id_to_quotation'); ?>",
+                data: {
+                    'id':bott_idd
+                },
+                success: function (res) {
+                    var response = JSON.parse(res);
+                    $('.bot_quotation_list').html(response.html);
+                }
+            });
+    });
 </script>

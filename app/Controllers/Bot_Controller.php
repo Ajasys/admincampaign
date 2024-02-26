@@ -973,7 +973,6 @@ $this->db = \Config\Database::connect();
 		
 		if(isset($_POST['answer'])){
 			$answer = $_POST['answer'];
-			
 		}
 		
 		
@@ -1128,6 +1127,24 @@ $this->db = \Config\Database::connect();
 										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="'.$value['sequence'].'" data-conversation-id="' . $value['id'] . '">
 											' . $value['question'] . '
 										</span>';
+
+										if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
+											$menuOptions = json_decode($value['menu_message'], true);
+					
+											if (isset($menuOptions['options_value']['options'])) {
+												$options = explode(';', $menuOptions['options_value']['options']);
+												$nextQuestionsArray = explode(',', $value['next_questions']);
+					
+												foreach ($options as $index => $option) {
+													$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
+													// pre($nextQuestion);
+													$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
+																<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
+															  </div>';
+												}
+											}
+										}
+
 					if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
 						$html .= '<div class="col-12 mb-2 mt-1">
 														<button class="btn bg-primary rounded-3 text-white skip_questioned">
@@ -1145,7 +1162,18 @@ $this->db = \Config\Database::connect();
 					$html .= '</div>				
 					</div>
 					';
-					
+
+					$html .= '<script>
+								
+								function selectOption(button, value) {
+									$(".answer_chat").val(value); 
+									var nextQuestion = $(button).data("next_questions");
+									console.log("Next Question:", nextQuestion); 
+									
+									insertAnswer(nextQuestion);
+								}
+
+							</script>';
 				} else {
 
 					$html .= '
@@ -1787,14 +1815,12 @@ $this->db = \Config\Database::connect();
 						
 						if (isset($menuOptions['options_value']['options'])) {
 							$options = explode(';', $menuOptions['options_value']['options']);
-							$nextQuestionsArray = isset($menuOptions['selectedOptions']) ? $menuOptions['selectedOptions'] : [];
-							
-						
-							
+							$nextQuestionsArray = explode(',', $value['next_questions']);
+
 							foreach ($options as $index => $option) {
 								$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
-
-								$html .= '<div class="col-12 mb-2 option-wrapper">
+								// pre($nextQuestion);
+								$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
 											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
 										  </div>';
 							}
@@ -1802,8 +1828,6 @@ $this->db = \Config\Database::connect();
 					}
 					
 					
-					
-
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
 						$menuOptions = json_decode($value['menu_message'], true);
 
@@ -1833,7 +1857,7 @@ $this->db = \Config\Database::connect();
 									$(".answer_chat").val(value); 
 									var nextQuestion = $(button).data("next_questions");
 									console.log("Next Question:", nextQuestion); 
-									 
+									
 									insertAnswer(nextQuestion);
 								}
 
@@ -1912,6 +1936,7 @@ $this->db = \Config\Database::connect();
 		return json_encode($dateresult, true);
 		die();
 	}
+
 
 
 
@@ -2412,4 +2437,36 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	public function send_massage()
 	{
 	}
+
+	public function bot_id_to_quotation()
+	{
+	
+		if (isset($_POST['id']) && !empty($_POST['id'])) {
+			$bot_id = $_POST['id'];
+		} else {
+			$bot_id = "";
+		}
+
+		$query = "SELECT * FROM " . $this->username . "_bot_setup WHERE bot_id = $bot_id";
+		$db_connection = \Config\Database::connect('second');
+		$bot_data = $db_connection->query($query);
+		$bot_data_get = $bot_data->getResultArray();
+		$html="";
+
+		$html.='<select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select occupation_add" data-live-search="true">
+                                <option class="dropdown-item" selected value="0">No Jump</option>
+                                <option class="dropdown-item" value="100">End Of conversion</option>';
+                                    
+                                    if (isset($bot_data_get)) {
+                                        foreach ($bot_data_get as $type_key => $type_value) {
+											$html.='<option class="dropdown-item" value="' . $type_value["type_of_question"] . '">' . $type_value["question"] . '</option>';
+                                        }
+                                    }
+                                   
+									$html.=' </select>';
+									$result['html'] = $html;
+			return json_encode($result);
+			die();
+	}
+}
 }
