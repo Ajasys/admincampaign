@@ -52,7 +52,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         </select>
                     </div>
                     <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        class="btn-primary-rounded mx-2 PlusButtonClass">
+                        class="btn-primary-rounded mx-2 PlusButtonClass bot-hider">
                         <i class="bi bi-plus"></i>
                     </button>
                 </div>
@@ -105,6 +105,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                     <th scope="col"><span class="text-muted phone-header">Country <span class="mx-2"></span></span></th>
                                     <th scope="col"><span class="text-muted phone-header">Name <span class="mx-2"></span></span></th>
                                     <th scope="col"><span class="text-muted phone-header">Delete</span></th>
+                                    <th scope="col"><span class="text-muted phone-header">Chat-bot</span></th>
                                 </tr>
                             </thead>
                             <tbody class="SetHtmlListData">
@@ -166,23 +167,34 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             </div>
             <div class="modal-body">
                 <form class="needs-validation row ConnectionAddFormList" name="fb_cnt" method="POST" novalidate="">
-
-                <div class="align-items-end d-flex col-12 my-2">
+                    <div class="hide-menu">
+                        <div class="align-items-end d-flex col-12 my-2">
+                            <div class="col-12">
+                                <h6 class="modal-body-title">Phone Number ID<sup class="validationn">*</sup></h6>
+                                <input type="number" class="form-control main-control PhoneNumberID" id="" name=""
+                                    placeholder="Enter Phone Number ID" required="">
+                            </div>
+                        </div>
                         <div class="col-12">
-                            <h6 class="modal-body-title">Phone Number ID<sup class="validationn">*</sup></h6>
-                            <input type="number" class="form-control main-control PhoneNumberID" id="" name=""
-                                placeholder="Enter Phone Number ID" required="">
+                            <h6 class="modal-body-title">WhatApp Business Account ID<sup class="validationn">*</sup></h6>
+                            <input type="number" class="form-control main-control WhatAppBAID" id="" name=""
+                                placeholder="Enter WhatApp Business Account ID" required="">
+                        </div>
+                        <div class="col-12">
+                            <h6 class="modal-body-title">Access Token<sup class="validationn">*</sup></h6>
+                            <textarea type="text" class="form-control main-control AccessTokenInput" id="" name=""
+                                placeholder="Enter Access Token" required=""></textarea>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <h6 class="modal-body-title">WhatApp Business Account ID<sup class="validationn">*</sup></h6>
-                        <input type="number" class="form-control main-control WhatAppBAID" id="" name=""
-                            placeholder="Enter WhatApp Business Account ID" required="">
-                    </div>
-                    <div class="col-12">
-                        <h6 class="modal-body-title">Access Token<sup class="validationn">*</sup></h6>
-                        <textarea type="text" class="form-control main-control AccessTokenInput" id="" name=""
-                            placeholder="Enter Access Token" required=""></textarea>
+                    <div class="col-12 bot-selecter">
+                        <h6 class="modal-body-title">Select bot<sup class="validationn">*</sup></h6>
+                        <div class="main-selectpicker w-100" id="investor_list_select_table">
+							<select name="month" id="attendance_month" class="selectpicker form-control select form-main" data-live-search="true" required>
+								<option class="dropdown-item" disabled>--Select bot--</option>
+								<option class="dropdown-item" >1</option>
+								<option class="dropdown-item" >2</option>
+							</select>
+						</div>
                     </div>
                 </form>
             </div>
@@ -355,7 +367,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         }
     });
 
-
-
-   
+    // $('.bot-selecter').hide();
+    $('body').on('click','.bot-hider',function(){
+        $('.bot-selecter').hide();
+        $('.hide-menu').show();
+    })
+    $('body').on('click','.chat_bot',function(){
+        $('.hide-menu').hide();
+        $('.bot-selecter').show();
+    })
 </script>

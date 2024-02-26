@@ -497,7 +497,7 @@ class WhatAppIntegrationController extends BaseController
                     $Whatsappproname = $value['name'];
                 }
 
-                $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
+                $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
                                             <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
                                             <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
                                             <div class="col text-start">
@@ -527,7 +527,7 @@ class WhatAppIntegrationController extends BaseController
                     $Whatsappproname = $value['name'];
                 }
                 $html .= '<div class="col-12  my-2 account-box ChatClickOpenHtml ' . substr($value['contact_no'], -10) . ' " conversation_account_id = "' . $id . '"  contact_no="' . $value['contact_no'] . '" fcontact_no="+' . substr_replace($value['contact_no'], ' ', -10, 0) . '" whatsapp_name="' . $Whatsappproname . '" account_phone_no="' . $value['account_phone_no'] . '">
-                                        <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ">
+                                        <div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 linked-page1">
                                         <img class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" src="https://erp.gymsmart.in/assets/image/member.png" alt="" width="45">
                                         <div class="col d-flex justify-content-between">
                                             <div>
@@ -1836,6 +1836,11 @@ class WhatAppIntegrationController extends BaseController
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </td>
+                            <td>
+                                <button class="btn p-0 chat_bot" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <i class="fa-solid fa-robot"></i>
+                                </button>
+                            </td>
        
                         </tr>
                     ';
@@ -1944,7 +1949,7 @@ class WhatAppIntegrationController extends BaseController
                 } else {
                     $dayOfWeek = $dateTime->format('d, F Y');
                 }
-                $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">' . $dayOfWeek . '</div>';
+                $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill " style="background:#f3f3f3;">' . $dayOfWeek . '</div>';
                 $dates = $date;
             }
 
@@ -2271,7 +2276,7 @@ class WhatAppIntegrationController extends BaseController
                                     <a href="https://www.google.com/maps?q='.$value['latitude'].','.$value['longitude'].'" target="_blank">
                                         <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
                                     </a>
-                                </span>
+                                </span> 
                             </div>
                             <span class="ms-2 text-nowrap mt-auto" style="font-size:10px;">'.$formattedtime.'</span>
                         </div>
@@ -2291,7 +2296,7 @@ class WhatAppIntegrationController extends BaseController
 
         // pre($MsgSendStatus);
         if ($MsgSendStatus == '0') {
-            $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill" style="background:#f3f3f3;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
+            $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill d-inline-block " style="background:#f3f3f3;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
             <script>$(".WhatsApp24HourButton").prop("disabled", true); $(".TextInputTastbar").addClass("d-none"); $(".chat_bord").addClass("chat_bordClass");</script>';
         } else {
             $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false); $(".TextInputTastbar").removeClass("d-none"); $(".chat_bord").removeClass("chat_bordClass");</script>';
