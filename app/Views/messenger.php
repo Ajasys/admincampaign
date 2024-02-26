@@ -2395,8 +2395,77 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             }
         });
     });
+
     $('body').on('click','.hide-panel',function(){
         $('.social-accounts').addClass('d-none');
         $('.chat-box').removeClass('d-none');
     })
+
+    if (!("Notification" in window)) {
+        alert("This browser does not support desktop notifications.");
+    }
+
+
+
+
+
+
+    // handleDataAvailable();
+    $(document).ready(function () {
+        setInterval(function () {
+            handleDataAvailable();
+        }, 3000);
+    });
+
+    function handleDataAvailable(event) {
+        $.ajax({
+            method: "POST",
+            url: "<?= site_url('check_new_data_Available'); ?>",
+            data: {
+                table: 'admin_notify_message'
+            },
+            success: function (res) {
+                var res_data = JSON.parse(res);
+                console.log(res_data.msg);
+                if (res_data.status == 1 && res_data.msg != '') {
+                    if (!window.Notification) {
+                        console.log('Browser does not support notifications.');
+                    } else {
+                        console.log('Browser support notifications.');
+                        // check if permission is already granted
+                        if (Notification.permission === 'granted') {
+                            console.log('notification permission granted.');
+                            // show notification here
+                            var notify = new Notification('Hi there!', {
+                                body: 'How are you doing?',
+                            });
+                        } else {
+                            // request permission from user
+                            Notification.requestPermission().then(function (p) {
+                                if (p === 'granted') {
+                                    console.log('notification permission not granted.');
+                                    // show notification here
+                                    var notify = new Notification('Hi there!', {
+                                        body: 'How are you doing?',
+                                    });
+                                } else {
+                                    console.log('User blocked notifications.');
+                                }
+                            }).catch(function (err) {
+                                console.error(err);
+                            });
+                        }
+                    }
+                    // Notification.requestPermission().then(function (permission) {
+                    //     if (permission === 'granted') {
+                    //         console.log(Notification);
+                    //         var msg = { msg: res_data.msg };
+                    //         var notification = new Notification(msg);
+                    //     }
+                    // });
+                }
+            }
+        });
+    }
+
 </script>

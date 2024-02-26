@@ -636,6 +636,9 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/whatsapp_connections', 'Home::whatsapp_connections');
 	// $routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
 	$routes->post('/WhatsAppConnectionEntry', 'WhatAppAakashController::WhatsAppConnectionEntry');
+
+	// get live message
+    $routes->post('check_new_data_Available','CommonController::check_new_data_Available');
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');
