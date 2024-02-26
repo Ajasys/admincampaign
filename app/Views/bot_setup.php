@@ -2921,6 +2921,7 @@ $admin_bot = json_decode($admin_bot, true);
                                         </div> -->
 
                             <div class="bot_preview_html"></div>
+                            <!-- <div class="messaged"></div> -->
 
                            
                             <!-- <div class="messege1 d-flex flex-wrap  ">
@@ -2983,7 +2984,7 @@ $admin_bot = json_decode($admin_bot, true);
 
 <script>
     //bot chat list into preview
-    function bot_preview_data(sequence, nextQuestion) {
+    function bot_preview_data(sequence, nextQuestion,answer) {
         var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
         var bot_id = '<?php echo $botId; ?>';
         var conversion_id = $(".conversion_id").attr('data-conversation-id'); 
@@ -2997,7 +2998,8 @@ $admin_bot = json_decode($admin_bot, true);
             table: table,
             bot_id: bot_id,
             sequence: sequence,
-            next_question_id: next_question_id
+            next_question_id: next_question_id,
+            answer: answer
         };
 
         if (nextQuestion) {
@@ -3015,7 +3017,7 @@ $admin_bot = json_decode($admin_bot, true);
                 // $('.skip_question').hide();
                 $('.chat_again_continue').addClass('d-none');
                 $('.loader').hide();
-                $(".bot_preview_html").html(response.html);
+                $(".bot_preview_html").append(response.html);
             }
         });
     }
@@ -3066,7 +3068,6 @@ $admin_bot = json_decode($admin_bot, true);
 
     //insert chat answer
     var sequence = 1;
-
     function insertAnswer(nextQuestion) {
         var rowData = [];
         var chatting = $('.answer_chat').val();
@@ -3101,7 +3102,7 @@ $admin_bot = json_decode($admin_bot, true);
                     if (response.response == 3 || response.response == 1) {
                         sequence++;
                         $('.answer_chat').val('');
-                        bot_preview_data(sequence, nextQuestion);
+                        bot_preview_data(sequence, nextQuestion,chatting);
                     } else if (response.response == 2) {
                         var sdfsdf = response.id_validation;
                         var apend_messege = '<div class="messege1 d-flex flex-wrap conversion_id" data-conversation-id="1" data-sequence="' + sequence + '"><div class="border rounded-circle overflow-hidden" style="width:35px;height:35px"> <img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle"> </div><div class="col px-2"> <div class="col-12 mb-2"> <span class="p-1 rounded-pill d-inline-block bg-white px-3 conversion_id" data-conversation-id="1"><p>' + sdfsdf + '</p></span></div></div></div>';
@@ -3115,6 +3116,8 @@ $admin_bot = json_decode($admin_bot, true);
 
 
     $('body').on('click', '.chatting_data', function (e) {
+        // var apend_messege = '<div class="messege2 d-flex flex-wrap mt-2 ds"><div class="col "><div class="col-12 mb-2 text-end"><span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3"></span></div></div><div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px"><img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle"></div></div>';
+        // $('.messaged').append(apend_messege);
         insertAnswer();
     });
 

@@ -968,6 +968,15 @@ class Bot_Controller extends BaseController
 		$bot_id = $_POST['bot_id'];
 		$sequence = $_POST['sequence'];
 
+		$html = '';
+		
+		if(isset($_POST['answer'])){
+			$answer = $_POST['answer'];
+			
+		}
+		
+		
+
 		if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
 			$nextQuestion = $_POST['nextQuestion'];
 			// pre($nextQuestion);
@@ -1001,7 +1010,7 @@ class Bot_Controller extends BaseController
         		// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
 				// pre($sql);
 			}else {
-				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence <= ' . $sequence . ' ORDER BY sequence';
+				$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' ORDER BY sequence';
 			}
 
 			// if(isset($_POST['nextQuestion'])){
@@ -1035,9 +1044,16 @@ class Bot_Controller extends BaseController
 		$last_que_id = 0;
 		$bot_chat_data_ss_index = 0;
 		
+		
 		if (!empty($bot_chat_data)) {
-			// pre($bot_chat_data);
+			
 			foreach ($bot_chat_data as $value) {
+				
+				if(isset($_POST['answer'])){
+					$value['answer'] = $_POST['answer'];
+					// pre($value['answer']);
+				}
+				// pre($value['answer']);
 				if (isset($bot_chat_data_ss[$bot_chat_data_ss_index]['parent_id']) && $last_que_id == $bot_chat_data_ss[$bot_chat_data_ss_index]['parent_id']) {
 					$sql_child = 'SELECT * FROM ' . $table . ' WHERE id = ' . $bot_chat_data_ss[$bot_chat_data_ss_index]['child_id'] . ' ';
 					$fss = $db_connection->query($sql_child);
@@ -1086,7 +1102,25 @@ class Bot_Controller extends BaseController
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
+					$html .= '
+					<div class="messege2 d-flex flex-wrap mt-2 ds">
+						<div class="col ">';
 
+					
+						if ($value['answer'] != '' ) {
+							// pre($value['answer']);
+							$html .= '<div class="col-12 mb-2 text-end">
+														<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
+														' . $_POST['answer'] . '
+														</span>
+													</div>
+												</div>
+												<div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px">
+													<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+												</div>
+											</div>';
+								// pre($html);			
+						}
 					$html .= '<div class="col">
 									<div class="col-12 mb-2">
 										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="'.$value['sequence'].'" data-conversation-id="' . $value['id'] . '">
@@ -1109,6 +1143,7 @@ class Bot_Controller extends BaseController
 					$html .= '</div>				
 					</div>
 					';
+					
 				} else {
 
 					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
@@ -1154,7 +1189,7 @@ class Bot_Controller extends BaseController
 								if ($question['type'] == 'Question') {
 									$html .= '<div class="col-10 my-2 mx-auto">
 												<textarea class="form-control main-control text_value" cols="3" rows="3" placeholder="' . $question['text'] . '"></textarea>
-											  </div>';
+											</div>';
 								} elseif ($question['type'] == 'Dropdown') {
 									$html .= '<div class="col-10 my-2 mx-auto">
 												<select class="form-select form-select-sm mt-2 address_value" aria-label="Small select example">';
@@ -1254,53 +1289,53 @@ class Bot_Controller extends BaseController
 												</div>
 																		
 												<div class="col-12 month-content" id="march-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">March <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="march"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">March <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="march"></ul>
 												</div>
-										   
+										
 												<div class="col-12 month-content" id="april-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">April<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="april"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">April<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="april"></ul>
 												</div>
-										   
+										
 												<div class="col-12 month-content" id="may-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">May <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="may"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">May <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="may"></ul>
 												</div>
-										   
+										
 												<div class="col-12 month-content" id="june-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">June <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="june"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">June <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="june"></ul>
 												</div>
-										   
+										
 												<div class="col-12 month-content" id="july-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">July <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="july"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">July <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="july"></ul>
 												</div>
-										   
+										
 												<div class="col-12 month-content" id="august-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">August <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="august"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">August <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="august"></ul>
 												</div>
-										   
+										
 												<div class="col-12 month-content" id="september-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">September<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="september"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">September<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="september"></ul>
 												</div>
-										   
+										
 												<div class="col-12 month-content" id="october-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">October <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="october"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">October <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="october"></ul>
 												</div>
-										   
+										
 												<div class="col-12 month-content" id="november-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">November<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="november"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">November<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="november"></ul>
 												</div>
-										   
+										
 												<div class="col-12 month-content" id="december-content">
-												 <h4 class="d-flex justify-content-center" style="margin-bottom:10px;">December <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
-												 <ul class="days" id="december"></ul>
+												<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">December <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
+												<ul class="days" id="december"></ul>
 												</div>
 												</div>
 												
@@ -1318,8 +1353,8 @@ class Bot_Controller extends BaseController
 												
 												
 				
-										   $html .= '<script>
-										   $(document).ready(function() {
+										$html .= '<script>
+										$(document).ready(function() {
 		
 											function daysInMonth(month, year) {
 												return new Date(year, month + 1, 0).getDate();
@@ -1449,7 +1484,7 @@ class Bot_Controller extends BaseController
 										});
 		
 		
-										   
+										
 										</script>';
 									}
 								}
@@ -1639,6 +1674,25 @@ class Bot_Controller extends BaseController
 	
 					}
 					else {
+						$html .= '
+					<div class="messege2 d-flex flex-wrap mt-2 ds">
+						<div class="col ">';
+
+					
+						if ($value['answer'] != '' ) {
+							// pre($value['answer']);
+							$html .= '<div class="col-12 mb-2 text-end">
+														<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
+														' . $value['answer'] . '
+														</span>
+													</div>
+												</div>
+												<div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px">
+													<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+												</div>
+											</div>';
+								// pre($html);			
+						}
 						$html .= '<div class="col">
 												<div class="col-12 mb-2">
 													<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
@@ -1734,8 +1788,8 @@ class Bot_Controller extends BaseController
 								$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
 					
 								$html .= '<div class="col-12 mb-2 option-wrapper">
-											  <button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="'.$nextQuestion.'" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
-										  </div>';
+											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="'.$nextQuestion.'" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
+										</div>';
 							}
 						}
 					}
@@ -1749,17 +1803,17 @@ class Bot_Controller extends BaseController
 							$html .= '<div class="col-12 mb-2 option-wrapper">';
 							foreach ($options as $option) {
 								$html .= '<div class="col-12 d-flex flex-wrap align-items-end chat_again_continue my-1">
-														  <div class="d-inline-block px-3 py-2 col-6 btn-secondary rounded-3 mx-2">
-															  <div class="col-12">
-																  <input type="checkbox" class="me-2 main-form option-check rounded-circle" value="' . $option . '">' . $option . '
-															  </div>
-														  </div>
-													  </div>';
+														<div class="d-inline-block px-3 py-2 col-6 btn-secondary rounded-3 mx-2">
+															<div class="col-12">
+																<input type="checkbox" class="me-2 main-form option-check rounded-circle" value="' . $option . '">' . $option . '
+															</div>
+														</div>
+													</div>';
 							}
 							$html .= '<div class="col-6 text-center mt-2 mx-2">
-													  <button class="text-white btn bg-primary col-12" onclick="submitOptions()">Submit</button>
-												  </div>
-											  </div>';
+													<button class="text-white btn bg-primary col-12" onclick="submitOptions()">Submit</button>
+												</div>
+											</div>';
 						}
 					}
 
@@ -1801,26 +1855,49 @@ class Bot_Controller extends BaseController
 								}
 							</script>';
 
-					$html .= '</div>
-								<div class="messege2 d-flex flex-wrap mt-2">
-									<div class="col ">';
+					// $html .= '</div>
+					// 			<div class="messege2 d-flex flex-wrap mt-2">
+					// 				<div class="col ">';
 
 								
-					if ($value['answer'] != '') {
-						$html .= '<div class="col-12 mb-2 text-end">
-													<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
-													' . $value['answer'] . '
-													</span>
-												</div>
-											</div>
-											<div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px">
-												<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-											</div>
-										</div>';
-					}
+					// 				if ($value['answer'] != '') {
+					// 					// pre($value['answer']);
+					// 					$html .= '<div class="col-12 mb-2 text-end">
+					// 												<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
+					// 												' . $value['answer'] . '
+					// 												</span>
+					// 											</div>
+					// 										</div>
+					// 										<div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px">
+					// 											<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+					// 										</div>
+					// 									</div>';
+					// 						// pre($html);			
+					// 				}
 				}
+				// $html .= '</div>
+				// 	<div class="messege2 d-flex flex-wrap mt-2 ds">
+				// 		<div class="col ">';
+
+					
+				// 		if ($value['answer'] != '') {
+				// 			// pre($value['answer']);
+				// 			$html .= '<div class="col-12 mb-2 text-end">
+				// 										<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
+				// 										' . $value['answer'] . '
+				// 										</span>
+				// 									</div>
+				// 								</div>
+				// 								<div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px">
+				// 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+				// 								</div>
+				// 							</div>';
+				// 				// pre($html);			
+				// 		}
 			}
+			
 		}
+		
 
 		$dateresult['html'] = $html;
 		return json_encode($dateresult, true);
@@ -1859,15 +1936,15 @@ class Bot_Controller extends BaseController
 		// $next_questions = $_POST['next_questions'];
 		// pre($next_questions);
 
-		$db_connection = \Config\Database::connect('second');
-		$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
-		$result = $db_connection->query($sql);
-		$question = $result->getRowArray();
+		// $db_connection = \Config\Database::connect('second');
+		// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
+		// $result = $db_connection->query($sql);
+		// $question = $result->getRowArray();
 
 
 		if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['sequence'] != 1) {
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['next_questions'] . ' ORDER BY sequence';
+			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND next_questions = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 			$result = $db_connection->query($sql);
 			$questioned = $result->getRowArray();	
 			// pre($questioned);		
@@ -1926,7 +2003,14 @@ class Bot_Controller extends BaseController
 				}
 			}
 		}else{
-			$response['error'] = "No question data found.";
+			$updateData = [
+				'answer' => $answer,
+			];
+			$response['response'] = 3;
+
+			$db_connection->table($table)->update($updateData, ['id' => $questioned['id']]);
+			$response['message'] = "Answer inserted successfully for question: " . $questioned['question'];
+			// $response['error'] = "No question data found.";
 		}
 		echo json_encode($response);
 		exit;
