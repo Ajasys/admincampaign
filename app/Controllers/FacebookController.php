@@ -476,7 +476,7 @@ class FaceBookController extends BaseController
         $status = 0;
         $query = $this->db->query("SELECT * , p.id AS page_ids
                 FROM " . $this->username . "_fb_pages AS p
-                WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status IN (1,4)");
+                WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status IN (1)");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
         if ($count_num > 0) {
