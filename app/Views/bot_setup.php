@@ -5200,20 +5200,20 @@ $admin_bot = json_decode($admin_bot, true);
                                     '</td>' +
                                     '<td class="col-4 p-2 ">' +
                                     '<select class="form-select question_select_second_1" aria-label="Default select example">';
-                                        '<option></option>' +
-                                        // Build options dynamically
-                                            admin_bot_setup.forEach(function(bot_setup, bot_index) {
-                                                if (bot_setup.type_of_question == id_array[index]) {
-                                                    var isSelected = bot_setup.type_of_question == id_array[index]; 
-                                                    main_table_html += '<option value="' + bot_setup.sequence + '"';
-                                                    if (isSelected) {
-                                                        main_table_html += ' selected';
-                                                    }
-                                                    main_table_html += '>' + bot_setup.question + '</option>';
-                                                } else {
-                                                    main_table_html += '<option value="' + bot_setup.sequence + '">' + bot_setup.question + '</option>';
+                                    '<option></option>' +
+                                    // Build options dynamically
+                                        admin_bot_setup.forEach(function(bot_setup, bot_index) {
+                                            if (bot_setup.type_of_question == id_array[index]) {
+                                                var isSelected = bot_setup.type_of_question == id_array[index]; 
+                                                main_table_html += '<option value="' + bot_setup.sequence + '"';
+                                                if (isSelected) {
+                                                    main_table_html += ' selected';
                                                 }
-                                            });
+                                                main_table_html += '>' + bot_setup.question + '</option>';
+                                            } else {
+                                                main_table_html += '<option value="' + bot_setup.sequence + '">' + bot_setup.question + '</option>';
+                                            }
+                                        });
                                     
                                  main_table_html +=  '</select>' +
                                 '</td>' +
