@@ -26,11 +26,6 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     .chat_bordClass {
         max-height:90% !important;
     }
-
-
-
-    
-
     .c-wa-message:before {
         position: absolute;
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAMAAADp2asXAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACQUExURUxpccPDw9ra2m9vbwAAAAAAADExMf///wAAABoaGk9PT7q6uqurqwsLCycnJz4+PtDQ0JycnIyMjPf3915eXvz8/E9PT/39/RMTE4CAgAAAAJqamv////////r6+u/v7yUlJeXl5f///5ycnOXl5XNzc/Hx8f///xUVFf///+zs7P///+bm5gAAAM7Ozv///2fVensAAAAvdFJOUwCow1cBCCnqAhNAnY0WIDW2f2/hSeo99g1lBYT87vDXG8/6d8oL4sgM5szrkgl660OiZwAAAHRJREFUKM/ty7cSggAABNFVUQFzwizmjPz/39k4YuFWtm55bw7eHR6ny63+alnswT3/rIDzUSC7CrAziPYCJCsB+gbVkgDtVIDh+DsE9OTBpCtAbSBAZSEQNgWIygJ0RgJMDWYNAdYbAeKtAHODlkHIv997AkLqIVOXVU84AAAAAElFTkSuQmCC);
@@ -408,6 +403,28 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         padding: 16px 8px;
         border-radius: 6px;
     }
+    .chat-header{
+        background-color: #724EBF;
+    }
+    .accordion-button:not(.collapsed) {
+        color: black;
+        background-color: #dcd4ffb8;
+        box-shadow: inset 0 calc(-1 * var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+    }
+    .account-box{
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+    .account-box:hover{
+        background-color: #eaeaea9c!important;
+    }
+    .linked-page1{
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+    .linked-page1:hover{
+        background-color: #eaeaea9c!important;
+    }
 </style>
 
 
@@ -591,20 +608,20 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
                 <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box"
                     style="height:80vh">
-                    <div class="col-12 border rounded-3 bg-white position-lg-relative" style="height:80vh">
-                        <div class="chat-nav-search-bar p-2 col-12 mt-2">
-                            <div class="d-flex justify-content-between align-items-center border-bottom">
-                                <div class="dropdown d-flex align-items-center ps-2 pb-2">
+                    <div class="col-12 border rounded-3 bg-white position-lg-relative overflow-hidden" style="height:80vh">
+                        <div class="chat-nav-search-bar p-2 col-12 text-white chat-header">
+                            <div class="d-flex justify-content-between align-items-center ">
+                                <div class="dropdown d-flex align-items-center ps-2 ">
                                     <i class="fa-solid fa-user fs-5 me-2"></i>
                                     <h5 class="fs-5 fw-semibold">Social Media Accounts</h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll ms-lg-1" style="max-height: 100%;">
-                            <div class="accordion mt-2" id="accordionExample">
+                        <div class="col-12 overflow-y-scroll px-0" style="max-height: 100%;">
+                            <div class="accordion " id="accordionExample">
                                 <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button border-0 shadow-none fw-medium" type="button"
+                                        <button class="accordion-button border-0 shadow-none fw-medium rounded-0 px-3 py-2" type="button"
                                             data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
                                             aria-controls="collapseOne">
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -632,7 +649,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                                 <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium"
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium px-3 py-2 "
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                             aria-expanded="false" aria-controls="collapseTwo">
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -676,7 +693,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                                 <div class="accordion-item border-0 border-bottom WhatsAppListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium"
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium px-3 py-2 "
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
                                             aria-expanded="false" aria-controls="collapseThree">
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
@@ -710,7 +727,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 }
                                                 echo '<div class="accordion-body  WA_account_list  WA_account_listTab p-0 account-box" id ="' . $value['id'] . '" phoneno = "' . $value['display_phone_number'] . '" name="' . $value['verified_name'] . '"> 
                                                 <div class="col-12  my-2 " data-page_id="17841457874373728" data-platform="instagram" data-page_access_token="EAADNF4vVgk0BO6ZBcyZCiZCY5FGuPPWKb7npn8YcXafmqIexQxBgMPRZAAttSOgFr6NqP2B74icpZAcvL5pJgwv4ZBdTsM4Neik41DvLdjprcNSGdIfty83qi5CkzEAyuXUeEYVQf9lNRy9GtaDhFZBYBpKKyZCkfGqAB6wcfP8cvcx8mjcXrbpYEfbq0XYucWT81gzkkywZD" data-page_name="ajasystechnologies">
-                                                    <div class="col-12 d-flex flex-wrap  align-items-center  p-2">
+                                                    <div class="col-12 d-flex flex-wrap  align-items-center  p-2 linked-page">
                                                             <img src="https://erp.gymsmart.in/assets/image/member.png" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" alt="" height="100" width="100">
                                                          <div class="ps-2">
                                                             <p class="fs-6 fw-medium col">' . $value['verified_name'] . '</p>
@@ -747,14 +764,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
                 <div class="col-12 d-none d-lg-block d-xl-block col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3 chat-box main-box"
                     style="height:80vh">
-                    <div class="col-12 border  bg-white position-relative rounded-3" style="height:80vh">
-                        <div class="chat-nav-search-bar p-2 col-12 mt-2">
-                            <div class="d-lg-none">
-                                <button class="back-button">
-                                    << back</button>
-                            </div>
-                            <div class="d-flex justify-content-between border-bottom align-items-center">
-                                <div class="dropdown d-flex align-items-center ChatNameHeader ps-2 pb-2">
+                    <div class="col-12 border  bg-white position-relative rounded-3 overflow-hidden position-relative" style="height:80vh">
+                        <div class="chat-nav-search-bar chat-header p-2 col-12 text-white">
+                            <div class="d-flex justify-content-between  align-items-center">
+                                <div class="dropdown d-flex align-items-center ChatNameHeader ps-2 ">
                                     <i class="fas fa-comment fs-5  me-2"></i>
                                     <h5 class="fs-5 w-semibold">Chats</h5>
                                 </div>
@@ -763,7 +776,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1" style="max-height: 100%;">
+                        <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1" style="max-height: 80%;">
 
                         </div>
                         <!-- <div class="m-auto  text-center">
@@ -787,17 +800,18 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 <p class="fs-5 fw-medium mt-5">No Record Found</p>
                             </div>
                         </div> -->
+                        <div class="d-lg-none border-top px-2 position-absolute bottom-0 start-0 w-100 py-1 bg-white ">
+                            <button class="back-button text-muted border-0  bg-transparent">
+                                <i class="fa-solid fa-angle-left fs-14"></i><span class="mx-1">Back</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="d-none col-12 col-sm-12 col-md-12 col-lg-6 d-xl-block col-xxl-6 transcript_box  main-box"
                     style="height:80vh">
-                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3"
+                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3 overflow-hidden "
                         style="height:80vh">
-                        <div class="d-xl-none">
-                            <button class="back-button1 ">
-                                << back</button>
-                        </div>
                         <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0"
                             style="height: 200px; width: 200px; display:none;">
                             <ul class="p-1 bg-white ">
@@ -1109,26 +1123,26 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
 
-                        <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-2 px-3 TextInputTastbar">
+                        <div class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-5 mb-xl-3 px-3 TextInputTastbar">
                             <div class="d-flex bg-white rounded-pill py-1 border">
                                 <div class="d-flex col-12 align-items-center">
                                     <div class="ps-2">
                                         <button
-                                            class="btn btn-primary text-white btn_x documentselectionpin rounded-5 WhatsApp24HourButton">
-                                            <i class="bi bi-paperclip"></i>
+                                            class="btn btn-primary  btn_x documentselectionpin rounded-5 WhatsApp24HourButton border-0  p-0 px-2 bg-transparent  text-muted">
+                                            <i class="fa-solid fa-paperclip"></i>
                                         </button>
 
                                     </div>
                                     <div class="ps-2">
                                         <button
-                                            class="btn btn-primary text-white documentselectionpin emoji_btn WhatsApp24HourButton rounded-5">
+                                            class="btn btn-primary  documentselectionpin emoji_btn WhatsApp24HourButton rounded-5 border-0 p-0 pe-2 bg-transparent  text-muted">
                                             <i class="bi bi-emoji-smile-fill"></i>
 
                                         </button>
                                     </div>
                                     <div class="input-group  position-relative ">
                                         <input type="text"
-                                            class="form-control border rounded-pill px-4 py-2 border-0 massage_input"
+                                            class="form-control border rounded-pill p-1 px-lg-4 py-lg-2 border-0 massage_input"
                                             textval="" placeholder="Write a message...">
                                     </div>
                                     <div class="d-flex justify-content-center">
@@ -1137,12 +1151,12 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                             data-target="#audiorecorder"><i class="fa-solid fa-microphone"></i>
                                         </div> -->
                                         <button
-                                            class="btn btn-primary rounded-circle me-1 documentselectionpin mic WhatsApp24HourButton"
+                                            class="btn btn-primary rounded-circle me-1 documentselectionpin mic WhatsApp24HourButton p-0 ps-2 border-0 bg-transparent text-muted"
                                             data-toggle="modal" data-target="#audiorecorder">
                                             <i class="fa-solid fa-microphone"></i>
                                         </button>
                                         <button
-                                            class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage WhatsApp24HourButton"
+                                            class="btn btn-primary rounded-circle me-1 SendWhatsAppMessage send_massage WhatsApp24HourButton p-0 px-2 border-0 bg-transparent text-muted"
                                             data-conversion_id="" data-page_token="" data-page_id="" data-massage_id="">
                                             <i class="fa-regular fa-paper-plane"></i>
                                         </button>
@@ -1151,13 +1165,13 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
 
-                        <div class="chat-nav-search-bar Setchatheadercolorclass   p-2 pt-3 col-12">
+                        <div class="chat-nav-search-bar Setchatheadercolorclass  chat-header  p-2 col-12 text-white ">
                             <div
-                                class="d-flex justify-content-between border-bottom RemoveHeaderBorderDiv align-items-center">
-                                <h5 class="fs-5 d-flex ps-2 pb-1 profilepiccolor align-items-center">
-                                    <i class="fa-solid fa-circle-user fs-3 me-2"></i>
+                                class="d-flex justify-content-between RemoveHeaderBorderDiv align-items-center text-white ">
+                                <h5 class="fs-5 d-flex ps-2 profilepiccolor align-items-center text-white ">
+                                    <i class="fa-solid fa-circle-user fs-4 me-2"></i>
                                     <span class="d-flex flex-wrap">
-                                        <span class="username col-12 d-block UserChatName">User Name</span>
+                                        <span class="username col-12 d-block UserChatName fs-6">User Name</span>
                                         <span class="in_chat_page_name fs-12 col-12 d-block"></span>
                                     </span>
                                 </h5>
@@ -1166,7 +1180,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                             </div>
                         </div>
 
-                        <div class=" mt-2 p-2 overflow-y-scroll chat_bord col-12" id="user_msg_send_div"
+                        <div class=" mt-2 p-2 overflow-y-scroll chat_bord col-12 pb-5 pb-xl-2" id="user_msg_send_div"
                             style="max-height:80%;">
 
                         </div>
@@ -1186,7 +1200,11 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 <p class="fs-5 fw-medium mt-5 d-block">No Record Found</p>
                             </div>
                         </div> -->
-
+                        <div class="d-xl-none">
+                            <button class="back-button1 text-muted border-0  bg-white position-absolute bottom-0 start-0  py-1 border-top w-100 text-start px-2">
+                                <i class="fa-solid fa-angle-left fs-14"></i><span class="mx-1">Back</span>
+                            </button>
+                        </div>
                     </div>
 
                 </div>
@@ -1977,13 +1995,13 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.SetChatBackGroundClass').removeClass('ChatBackGroundClass');
         $('.documentselectionpin').removeClass('chatheadercolorclass');
         $('.SendWhatsAppMessage').removeClass('chatheadercolorclass');
-        $('.RemoveHeaderBorderDiv').addClass('border-bottom');
-        $('.UserChatName').removeClass('text-white');
-        $('.profilepiccolor').removeClass('text-white');
+        // $('.RemoveHeaderBorderDiv').addClass('border-bottom');
+        // $('.UserChatName').removeClass('text-white');
+        // $('.profilepiccolor').removeClass('text-white');
         $('.chat_bord').html('');
         setTimeout(function () {
-            $('.UserChatName').addClass('text-dark');
-            $('.profilepiccolor').addClass('text-dark');
+            // $('.UserChatName').addClass('text-dark');
+            // $('.profilepiccolor').addClass('text-dark');
 
         }, 500);
 
@@ -1996,8 +2014,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     $('body').on('click', '.WhatsAppListedMessage', function () {
         $('.Setchatheadercolorclass').addClass('chatheadercolorclass');
         $('.SetChatBackGroundClass').addClass('ChatBackGroundClass');
-        $('.documentselectionpin').addClass('chatheadercolorclass');
-        $('.SendWhatsAppMessage').addClass('chatheadercolorclass');
+        // $('.documentselectionpin').addClass('chatheadercolorclass');
+        // $('.SendWhatsAppMessage').addClass('chatheadercolorclass');
         $('.RemoveHeaderBorderDiv').removeClass('border-bottom');
         $('.UserChatName').removeClass('text-dark');
         $('.profilepiccolor').removeClass('text-dark');
