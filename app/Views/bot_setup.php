@@ -3079,24 +3079,32 @@ $admin_bot = json_decode($admin_bot, true);
         var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id');
         var next_questions = $(".bot_preview_html .messege1:last").attr('data-next_questions'); 
         console.log(next_questions);
+
+        var dataToSend = {
+            table: table,
+            action: "chat_answer",
+            answer: chatting,
+            email_validation: email_validation,
+            bot_id: bot_id,
+            question_id: last_conversation_id,
+            sequence: sequence,
+            next_question_id: next_question_id,
+            nextQuestion: nextQuestion ,
+            next_questions: next_questions
+        };
+        if (nextQuestion) {
+            dataToSend.next_questions = nextQuestion;
+        } else {
+            dataToSend.next_questions = next_questions;
+        }
        // Assuming $sequence is defined elsewhere in your code
         // console.log(nextQuestion);
         if (chatting !== "") {
             $.ajax({
                 method: "post",
                 url: "<?= site_url('insert_chat_answer'); ?>",
-                data: {
-                    table: table,
-                    action: "chat_answer",
-                    answer: chatting,
-                    email_validation: email_validation,
-                    bot_id: bot_id,
-                    question_id: last_conversation_id,
-                    sequence: sequence,
-                    next_question_id: next_question_id,
-                    nextQuestion: nextQuestion ,
-                    next_questions: next_questions
-                },
+                data: dataToSend,
+
                 success: function (res) {
                     var response = JSON.parse(res);
                     if (response.response == 3 || response.response == 1) {
@@ -3357,8 +3365,8 @@ $admin_bot = json_decode($admin_bot, true);
             main_table_html += '</select></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".tbody").append(main_table_html);
         }
-
         table_html();
+
 
         $('body').on('click', '.single-choice-add-tabal', function() {
             table_html();

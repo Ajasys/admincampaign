@@ -1098,10 +1098,6 @@ class Bot_Controller extends BaseController
 				}
 
 				if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
-								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
-									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-								</div>';
 					$html .= '
 					<div class="messege2 d-flex flex-wrap mt-2 ds">
 						<div class="col ">';
@@ -1121,6 +1117,11 @@ class Bot_Controller extends BaseController
 											</div>';
 								// pre($html);			
 						}
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
+									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+								</div>';
+					
 					$html .= '<div class="col">
 									<div class="col-12 mb-2">
 										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="'.$value['sequence'].'" data-conversation-id="' . $value['id'] . '">
@@ -1145,6 +1146,26 @@ class Bot_Controller extends BaseController
 					';
 					
 				} else {
+
+					$html .= '
+					<div class="messege2 d-flex flex-wrap mt-2 ds">
+						<div class="col ">';
+
+					
+						if ($value['answer'] != '' ) {
+							// pre($value['answer']);
+							$html .= '<div class="col-12 mb-2 text-end">
+														<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
+														' . $_POST['answer'] . '
+														</span>
+													</div>
+												</div>
+												<div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px">
+													<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
+												</div>
+											</div>';
+								// pre($html);			
+						}
 
 					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
@@ -1674,25 +1695,7 @@ class Bot_Controller extends BaseController
 	
 					}
 					else {
-						$html .= '
-					<div class="messege2 d-flex flex-wrap mt-2 ds">
-						<div class="col ">';
-
 					
-						if ($value['answer'] != '' ) {
-							// pre($value['answer']);
-							$html .= '<div class="col-12 mb-2 text-end">
-														<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
-														' . $value['answer'] . '
-														</span>
-													</div>
-												</div>
-												<div class="border  rounded-circle overflow-hidden ms-2" style="width:35px;height:35px">
-													<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
-												</div>
-											</div>';
-								// pre($html);			
-						}
 						$html .= '<div class="col">
 												<div class="col-12 mb-2">
 													<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
@@ -1824,7 +1827,7 @@ class Bot_Controller extends BaseController
 									$(".answer_chat").val(value); 
 									var nextQuestion = $(button).data("next_questions");
 									console.log("Next Question:", nextQuestion); 
-									bot_preview_data(sequence, nextQuestion); 
+									 
 									insertAnswer(nextQuestion);
 								}
 
@@ -1931,24 +1934,20 @@ class Bot_Controller extends BaseController
 		$bot_id = $_POST['bot_id'];
 		$answer = $_POST['answer'];
 		$questionId = $_POST['question_id'];
-		// pre($questionId);
 		$sequence = $_POST['sequence'];
-		// $next_questions = $_POST['next_questions'];
-		// pre($next_questions);
-
-		// $db_connection = \Config\Database::connect('second');
-		// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
-		// $result = $db_connection->query($sql);
-		// $question = $result->getRowArray();
-
 
 		if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['sequence'] != 1) {
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND next_questions = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 			$result = $db_connection->query($sql);
 			$questioned = $result->getRowArray();	
-			// pre($questioned);		
+			// pre($sql);		
 		}else if($_POST['sequence'] == 1){
+			$db_connection = \Config\Database::connect('second');
+			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
+			$result = $db_connection->query($sql);
+			$question = $result->getRowArray();
+		}else{
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
