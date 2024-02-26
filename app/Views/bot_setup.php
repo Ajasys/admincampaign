@@ -207,6 +207,9 @@ $admin_bot = json_decode($admin_bot, true);
   background: #724ebf!important;
   color: #e5efff !important;
 }
+select.selectpicker {
+    display: block !important;
+}
 </style>
 
 
@@ -2446,7 +2449,7 @@ $admin_bot = json_decode($admin_bot, true);
                     <div class="col-8">
                         <label for="formGroupExampleInput " class="form-label">Next Question jump</label>
                        
-                        <div class="main-selectpicker bottttttt">
+                        <div class="main-selectpicker bot_quotation_list">
                        <select id="occupation" class="OccupationInputClass form-control main-control  from-main selectpicker question_select occupation_add" data-live-search="true">
                                 <option class="dropdown-item" selected value="0">No Jump</option>
                                 <option class="dropdown-item" value="100">End Of conversion</option>  
