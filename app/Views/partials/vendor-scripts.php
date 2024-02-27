@@ -35,6 +35,9 @@
         transition: all 0.5s;
         transform: rotateY(181deg);
     }
+    .cursor-pinter{
+        cursor: pointer;
+    }
 </style>
 
 

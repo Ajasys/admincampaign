@@ -86,6 +86,11 @@ class Home extends BaseController
         $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
         return view('whatapp', $data);
     }
+    // =====assets-permisssion-page===
+    public function asses_permissions()
+    {
+        return view('asses_permissions');
+    }
     // ======phone-number-page======
     public function phone_number()
     {

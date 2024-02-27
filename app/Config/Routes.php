@@ -99,6 +99,7 @@ $routes->post('/insert_data_alert', 'Alertsetting::insert_data');
 $routes->get('/add_account', 'Home::add_account');
 $routes->get('/whatapp_connection', 'Home::whatapp_connection');
 $routes->get('/phone_number', 'Home::phone_number');
+$routes->get('/asses_permissions', 'Home::asses_permissions');
 
 
 
