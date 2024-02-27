@@ -127,7 +127,7 @@ $routes->post('/login_insert_data', 'Userlogin::insert_data');
 $routes->get('/checkout', 'Razorpay::index');
 $routes->get('biometric_member_attendance', 'CronController::biometric_member_attendance');
 $routes->post('/web_integrate', 'WebAPIController::web_integrate');
-$routes->post('web_bot_integrate', 'Bot_Controller::web_bot_integrate');
+$routes->post('web_bot_integrate', 'WebAPIController::web_bot_integrate');
 $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/pdf_view', 'UserInformation::pdf_view');
 	$routes->get('/allinquiry', 'Home::allinquiry');
