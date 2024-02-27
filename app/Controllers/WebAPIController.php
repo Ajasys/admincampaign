@@ -73,11 +73,16 @@ class WebAPIController extends BaseController
                             ];
                             $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
                         }
+                        
                         $query_mater = "SELECT * FROM " . $row['username'] . "_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
                         $results = $conn->query($query_mater);
                         $rows_data = $results->getResultArray();
                         if (!empty($rows_data)) {
                             $rows = (object) $rows_data[0];
+
+
+
+                            
                             if ($conn->tableExists($row['username'] . "_fb_pages")) {
                             } else {
                                 $fb_table = $row['username'] . '_fb_pages';

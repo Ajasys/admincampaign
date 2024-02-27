@@ -130,7 +130,7 @@ class FaceBookController extends BaseController
     }
 
     //Listing page on connection id 
-    function facebook_user()
+    function old_facebook_user()
     {
         $action = $this->request->getPost("action");
         $fb_access_token = $this->request->getPost("fb_access_token");
@@ -169,6 +169,92 @@ class FaceBookController extends BaseController
         return json_encode($resultff);
         die();
     }
+
+    //Listing page on connection id 
+    function facebook_user()
+    {
+        $action = $this->request->getPost("action");
+        $fb_access_token = $this->request->getPost("fb_access_token");
+        $fb_check_conn = $this->request->getPost("fb_check_conn");
+
+        $errorMsg = 'Something Went wrong..!';
+        $resultff = array();
+        $resultff['response'] = 0;
+        $resultff['message'] = $errorMsg;
+
+        $html = "";
+        if ($action == "user" && $fb_access_token) {
+            $html .= '<option value="0">Select Page</option>';
+            if (isset($fb_access_token) && $fb_check_conn == 1) {
+                $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
+
+                foreach ($pageresult['data'] as $aa_key => $aa_value) {
+                    $longLivedAccessToken = $aa_value['access_token'];
+                    $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
+                }
+                if (isset($result['error']['message'])) {
+                    $Msg = $result['error']['message'];
+                } else {
+                    $Msg = 'Page list Succesfully..';
+                }
+                $resultff['response'] = 1;
+                $resultff['message'] = $Msg;
+            } else {
+                $resultff['response'] = 0;
+                $resultff['message'] = 'Please check your access token..!';
+            }
+        } else if ($action == "add_user") {
+            $response = $this->request->getPost("response");
+            $longLivedToken = $this->request->getPost("longLivedToken");
+            $userinformation = $this->request->getPost("userinformation");
+
+            $appresult = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' . $longLivedToken . '&access_token=' . $longLivedToken);
+            if (isset($appresult['data'])) {
+                $fbdata = $appresult['data'];
+
+                $query = $this->db->query('SELECT * FROM ' . $this->username . '_platform_integration WHERE fb_app_id = "' . $fbdata['app_id'] . '" AND platform_status=2');
+                $count_num = $query->getNumRows();
+            
+                if ($count_num > 0) {
+                    $result_facebook_data = $query->getResultArray()[0];
+                    if ($result_facebook_data['verification_status'] == 1) {
+                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET access_token = '" . $longLivedToken . "',fb_app_name='".$fbdata['application']."',fb_app_type='".$fbdata['type']."'  WHERE fb_app_id = '" .$fbdata['app_id'] . "' AND platform_status=2");
+
+                        $resultff['response'] = 2;
+                        $resultff['message'] = $result_facebook_data['fb_app_name'] . ' facebook app connection already exists..!';
+                    } else {
+                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET access_token = '" . $longLivedToken . "',fb_app_name='".$fbdata['application']."',fb_app_type='".$fbdata['type']."'  WHERE fb_app_id = '" .$fbdata['app_id']. "' AND platform_status=2");
+
+                        $resultff['response'] = 1;
+                        $resultff['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
+                    }
+                } else {
+
+                    $insert_data['access_token'] = $longLivedToken;
+                    $insert_data['master_id'] = $_SESSION['master'];
+                    $insert_data['fb_app_id'] = $fbdata['app_id'];
+                    $insert_data['fb_app_name'] = $fbdata['application'];
+                    $insert_data['fb_app_type'] = $fbdata['type'];
+                    $insert_data['verification_status'] = 1;
+                    $insert_data['platform_status'] = 2;
+
+                    $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_platform_integration');
+                    $resultff['response'] = 1;
+                    $resultff['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
+                }
+            } else {
+                if (isset($result['error']['message'])) {
+                    $errorMsg = $result['error']['message'];
+                }
+                $resultff['response'] = 0;
+                $resultff['message'] = $errorMsg;
+            }
+        }
+        $resultff['html'] = $html;
+        return json_encode($resultff);
+        die();
+    }
+
 
     //Listing form on pages id 
     function facebook_form()
