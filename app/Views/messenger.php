@@ -776,7 +776,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                     <h5 class="fs-5 w-semibold">Chats</h5>
                                 </div>
                                 <div class="">
-                                    <p class="page_name p-1 d-flex"></p>
+                                    <p class="page_name d-flex"></p>
                                 </div>
                             </div>
                         </div>
@@ -1693,6 +1693,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             var user_name = $(this).data('user_name');
             var platform = $(this).data('platform');
             var page_name = $('.page_name').text();
+            var sender_id = $(this).data('sender_id');
             // var massage_id = $(this).data('massage_id');
             if (conversion_id !== undefined && conversion_id !== 'undefined' && conversion_id != '') {
                 $.ajax({
@@ -1714,13 +1715,15 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         $('.massage_list_loader').hide();
                         $('.chat_bord').show();
                         $('.chat_bord').html(obj.html);
+                        scrollToBottom();
                         $('.noRecourdFound').hide();
                         $('.username').text(user_name);
                         $('.in_chat_page_name').text(page_name + '(' + platform + ')');
                         $('.send_massage').attr("data-conversion_id", conversion_id);
                         $('.send_massage').attr("data-page_token", page_access_token);
                         $('.send_massage').attr("data-page_id", page_id);
-                        $('.send_massage').attr("data-massage_id", massage_id);
+                        $('.send_massage').attr("data-sender_id", sender_id);
+                        // $('.send_massage').attr("data-massage_id", massage_id);
                     }
                 });
                 return false;
@@ -1731,31 +1734,37 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         $('body').on('click', '.send_massage', function () {
             var massage_input = $('.massage_input').val();
-            var conversion_id = $(this).attr("data-conversion_id", conversion_id);
-            var page_access_token = $(this).attr("data-page_token", page_access_token);
-            var page_id = $(this).attr("data-page_id", page_id);
-            // var massage_id = $(this).attr("data-massage_id",massage_id);
-            // if(massage_input != '' && conversion_id != '' &&  page_access_token != '' &&  page_id != '' &&  massage_id != '') {
+            var conversion_id = $(this).data("conversion_id");
+            var page_access_token = $(this).data("page_token");
+            var page_id = $(this).data("page_id");
+            var sender_id = $(this).data("sender_id");
+            // var massage_id = $(this).attr("data-massage_id");
+            if(massage_input != '' && conversion_id != '' && page_access_token != '' && page_id != '') {
             $.ajax({
                 method: "post",
                 url: "<?= site_url('send_massage'); ?>",
                 data: {
-                    // action: 'chat_massage_list',
-                    // conversion_id: conversion_id,
-                    // page_access_token: page_access_token,
-                    // page_id: page_id,
-                    // id: massage_id,
+                    action: 'chat_massage_list',
+                    conversion_id: conversion_id,
+                    page_access_token: page_access_token,
+                    sender_id: sender_id,
+                    page_id: page_id,
+                    massage: massage_input,
                 },
                 success: function (data) {
-                    // var obj = JSON.parse(data);
-                    // $('.chat_bord').html(obj.html);
-                    // $('.send_massage').attr("data-conversion_id",conversion_id);
-                    // $('.send_massage').attr("data-page_token",page_access_token);
-                    // $('.send_massage').attr("data-page_id",page_id);
-                    // $('.send_massage').attr("data-massage_id",massage_id);
-                }
+                    var obj = JSON.parse(data);
+                    if(obj.status == 0){
+                            iziToast.error({
+                                title: obj.msg,
+                            });
+                        } else {
+                            $('.chat_bord').append(obj.html);
+                            scrollToBottom();
+                            $('.massage_input').val('');
+                        }
+                    }
             });
-            // } 
+            } 
         });
     });
 
@@ -1842,8 +1851,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     $('.chat_list .active-account-box').trigger('click');
                 }
             });
+            $('.massage_input').val('');
         }
-        $('.massage_input').val('');
     });
 
     $('body').on('keydown', '.massage_input', function (event) {
@@ -1853,6 +1862,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         if (event.which === 13) {
             $('.SendWhatsAppMessage').trigger('click');
+            $('.send_massage').trigger('click');
         }
     });
 
@@ -2415,61 +2425,33 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
 
     // handleDataAvailable();
-    $(document).ready(function () {
-        setInterval(function () {
-            handleDataAvailable();
-        }, 3000);
-    });
-
-    function handleDataAvailable(event) {
-        $.ajax({
-            method: "POST",
-            url: "<?= site_url('check_new_data_Available'); ?>",
-            data: {
-                table: 'admin_notify_message'
-            },
-            success: function (res) {
-                var res_data = JSON.parse(res);
-                console.log(res_data.msg);
-                if (res_data.status == 1 && res_data.msg != '') {
-                    if (!window.Notification) {
-                        console.log('Browser does not support notifications.');
-                    } else {
-                        console.log('Browser support notifications.');
-                        // check if permission is already granted
-                        if (Notification.permission === 'granted') {
-                            console.log('notification permission granted.');
-                            // show notification here
-                            var notify = new Notification('Hi there!', {
-                                body: 'How are you doing?',
-                            });
-                        } else {
-                            // request permission from user
-                            Notification.requestPermission().then(function (p) {
-                                if (p === 'granted') {
-                                    console.log('notification permission not granted.');
-                                    // show notification here
-                                    var notify = new Notification('Hi there!', {
-                                        body: 'How are you doing?',
-                                    });
-                                } else {
-                                    console.log('User blocked notifications.');
-                                }
-                            }).catch(function (err) {
-                                console.error(err);
-                            });
-                        }
-                    }
-                    // Notification.requestPermission().then(function (permission) {
-                    //     if (permission === 'granted') {
-                    //         console.log(Notification);
-                    //         var msg = { msg: res_data.msg };
-                    //         var notification = new Notification(msg);
-                    //     }
+    // $(document).ready(function () {
+        //     // setInterval(function () {
+    //     //     handleDataAvailable();
+    //     // }, 3000);
                     // });
-                }
-            }
-        });
-    }
+                
+    // function handleDataAvailable(event) {
+    //     $.ajax({
+    //         method: "POST",
+    //         url: "<?= site_url('check_new_data_Available'); ?>",
+    //         data: {
+    //             table: 'admin_notify_message'
+    //         },
+    //         success: function (res) {
+    //             var res_data = JSON.parse(res);
+    //             // console.log(res_data.msg);
+    //             if (res_data.status == 1 && res_data.msg != '') {
+    //                 Notification.requestPermission().then(function (permission) {
+    //                     if (permission === 'granted') {
+    //                         // console.log(Notification);
+    //                         var msg = { msg: res_data.msg };
+    //                         var notification = new Notification(msg);
+    //                     }
+    //                 });
+    //             }
+    //         }
+    //     });
+    // }
 
 </script>

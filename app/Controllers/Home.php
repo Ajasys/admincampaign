@@ -580,7 +580,7 @@ class Home extends BaseController
                     }
                     $phoneNumber = $display_phone_number;
                     if ($display_phone_number != '' && $value['id'] != '' && $verified_name != '') {
-$connection_ids = $value['id'];
+                        $connection_ids = $value['id'];
                         $id = $value['id'];
                         $phoneno = str_replace([' ', '+'], '', $display_phone_number);
                         $inputString = $_SESSION['username'];

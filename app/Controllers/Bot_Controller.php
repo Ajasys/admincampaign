@@ -12,7 +12,7 @@ class Bot_Controller extends BaseController
 		helper('custom');
 		helper('custom1');
 		$db = db_connect();
-$this->db = \Config\Database::connect();
+		$this->db = \Config\Database::connect();
 		$this->MasterInformationModel = new MasterInformationModel($db);
 		$this->username = session_username($_SESSION['username']);
 		$this->admin = 0;
@@ -2216,8 +2216,8 @@ $this->db = \Config\Database::connect();
 $page_img = $page_data->page_img;
 					// }
 
-				$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box linked-page" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
-										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
+				$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
+										<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 												<img src="' . $page_data->page_img . '" alt="" width="45">
 											</a>
@@ -2242,8 +2242,8 @@ $page_img = $page_data->page_img;
 
 			foreach ($IG_data as $IG_key => $IG_value) {
 				$IG_chat_list_html .= '
-								<div class="col-12 account-nav my-2 account-box linked-page" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
-									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
+								<div class="col-12 account-nav account-box linked-page" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
+									<div class=" d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
 										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
 										</a>
@@ -2307,8 +2307,8 @@ $unread_msg = 0;
 						$key = 1;
 					}
 					$chat_list_html .= '
-							<div class=" fw-semibold fs-12 chat-nav-search-bar my-2 col-12 chat-account-box p-1 pe-3
-							 chat_list linked-page1" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '">
+							<div class=" fw-semibold fs-12 chat-nav-search-bar col-12 chat-account-box p-1 pe-3
+							 chat_list linked-page1" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '" data-sender_id="'.$conversion_value['participants']['data'][$key]['id'].'">
 							<div class="d-flex flex justify-content-between align-items-center col-12">
 										<div class="col-2 p-1">';
 					if ($platform == 'messenger') {
@@ -2426,6 +2426,73 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 
 	public function send_massage()
 	{
+// pre($_POST);
+		$page_access_token = $this->request->getPost('page_access_token');
+		$action = $this->request->getPost('action');
+		$conversion_id = $this->request->getPost('conversion_id');
+		$sender_id = $this->request->getPost('sender_id');
+		$page_id = $this->request->getPost('page_id');
+		$message = $this->request->getPost('massage');
+		// pre($sender_id);
+
+		if ($page_access_token != '' && $action != '' && $sender_id != '' && $page_id != '') {
+			// msg send facebook api
+			$url = "https://graph.facebook.com/v19.0/$page_id/messages?access_token=$page_access_token";
+			$json_data = '{
+							"recipient" : {
+								"id":"' . $sender_id . '"
+							},
+							"messaging_type" : "RESPONSE",
+							"message" : {
+								"text":"' . $message . '"
+							}
+							
+						}';
+
+			$data = postSocialData($url, $json_data);
+			$return = array();
+			if (isset($data['error']['code']) && $data['error']['code'] == 10) {
+				$return['status'] = 0;
+				$return['msg'] = "You Dont't Have Permission To Send Message On This Page.";
+			} else {
+				$time = date('H:i a');
+				$return['status'] = 1;
+				$return['msg'] = "Successfully Inserted!";
+				$return['html'] = '
+								<div class="d-flex mb-4 justify-content-end" >
+								<div class="col-9 text-end">
+									<span class="me-2" style="font-size:12px;">' . $time . '</span> <span class="px-3 py-2 rounded-pill text-white" style="background:rgb(10, 124, 255);">' . $message . ' </span> 
+								</div>
+							</div>';
+			}
+		} else {
+			$msg = '';
+			if ($sender_id == '') {
+				$msg .= 'Sender id';
+			}
+
+			if ($sender_id == '' && $page_access_token == '') {
+				$msg .= ',';
+			}
+
+			if ($page_access_token == '') {
+				$msg .= 'Page Access Token';
+			}
+
+			if ($page_id == '' && ($page_access_token == '' || $sender_id == '')) {
+				$msg .= ',';
+			}
+
+			if ($page_id == '') {
+				$msg .= 'Page id';
+			}
+
+			$return['status'] = 0;
+			$return['msg'] = $msg !== '' ? $msg . " Not Found!" : '';
+
+		}
+
+		return json_encode($return);
 	}
 
 	public function bot_id_to_quotation()
