@@ -15,11 +15,11 @@ if ($query->getNumRows() > 0) {
 }
 // pre($columnNames);
 ?>
-<?php 
-    $db_connection = \Config\Database::connect('second');
-    $queryy = 'SELECT * FROM admin_platform_integration WHERE platform_status =2';
-    $result = $db_connection->query($queryy);
-    $get_facebook_page = $result->getResultArray();
+<?php
+$db_connection = \Config\Database::connect('second');
+$queryy = 'SELECT * FROM admin_platform_integration WHERE platform_status =2';
+$result = $db_connection->query($queryy);
+$get_facebook_page = $result->getResultArray();
 
 ?>
 <style>
@@ -96,14 +96,14 @@ if ($query->getNumRows() > 0) {
             <div class="col-6 col-lg-2">
                <div class="main-selectpicker fs-12">
                   <select class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12">
-                    <?php
-                    if (isset($get_facebook_page) && !empty($get_facebook_page)) {
+                     <?php
+                     if (isset($get_facebook_page) && !empty($get_facebook_page)) {
                         foreach ($get_facebook_page as $key => $value) {
-                            echo '<option value="' . $value['id'] . '" data-access_token="'.$value['access_token'].'" class="  dropdown-item">
+                           echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
                                 ' . $value['fb_app_name'] . '</option>';
                         }
-                    }
-                    ?>
+                     }
+                     ?>
                   </select>
                </div>
             </div>
@@ -217,7 +217,7 @@ if ($query->getNumRows() > 0) {
                   <div class="card-header">
                      <div class="col-12">
                         <button type="button" class="btn-primary me-2 Cancle_Btn close_container">Cancel</button>
-                        <button type="button" class="btn-primary me-2 Cancle_Btn  edt" data-edit_id=""
+                        <button type="button" class="btn-primary me-2 Cancle_Btn  edt chake-button" data-edit_id=""
                            data-bs-toggle="modal" data-bs-target="#Edit_custom">Edit</button>
                      </div>
                   </div>
@@ -425,21 +425,23 @@ if ($query->getNumRows() > 0) {
                <div class="col-12 mt-3">
                   <div class="main-selectpicker">
                      <label for="#"><input type="checkbox" class="me-2" id="per_face_drop" name="option"
-                           value="1">Facebook Senoronice<sup class="validationn">*</sup></label>
+                           value="1">Facebook Synchronize<sup class="validationn">*</sup></label>
                      <div class="col-12 d-none platform_selecter mt-2 ">
                         <div class="main-selectpicker fs-12 col-6">
-                           <select
-                              class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12">
+                           <select id="pages_name"
+                              class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12"
+                              name="pages_name">
+                              <option value="0">Select pages</option>
                               <?php
-                                    $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
-                                    $fb_page_list = fb_page_list($token);
-                                    $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                                    $i = 0;
-                                    foreach ($fb_page_list['page_list'] as $key => $value) {
-                                       $pageprofile = fb_page_img($value->id, $value->access_token);
-                                       $img_decode = json_decode($pageprofile, true);
-                              ?>
-                               <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
+                              $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
+                              $fb_page_list = fb_page_list($token);
+                              $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                              $i = 0;
+                              foreach ($fb_page_list['page_list'] as $key => $value) {
+                                 ?>
+                                 <option value="<?php echo $value->id; ?>">
+                                    <?php echo $value->name; ?>
+                                 </option>
                               <?php } ?>
                            </select>
                         </div>
@@ -638,6 +640,33 @@ if ($query->getNumRows() > 0) {
                      </div>
                   </div>
                </div>
+               <!--Facebook Synchronize-->
+               <div class="col-12 mt-3">
+                  <div class="main-selectpicker">
+                     <label for="#"><input type="checkbox" class="me-2 per_face_drop1" id="per_face_drop1" name="option_facebook"
+                           value="1">Facebook Synchronize<sup class="validationn">*</sup></label>
+                     <div class="col-12 d-none platform_selecter1 mt-2 ">
+                        <div class="main-selectpicker fs-12 col-6">
+                           <select id="crm_pages"
+                              class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12 pages_name"
+                              name="pages_name">
+                              <option value="0">Select pages</option>
+                              <?php
+                              $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
+                              $fb_page_list = fb_page_list($token);
+                              $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                              $i = 0;
+                              foreach ($fb_page_list['page_list'] as $key => $value) {
+                                 ?>
+                                 <option value="<?php echo $value->id; ?>">
+                                    <?php echo $value->name; ?>
+                                 </option>
+                              <?php } ?>
+                           </select>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </form>
          </div>
          <div class="modal-footer">
@@ -651,19 +680,19 @@ if ($query->getNumRows() > 0) {
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-   // function list_data() {
-   //    $.ajax({
-   //       method: "post",
-   //       url: "<?= site_url('audience_facebook_data'); ?>",
-   //       data: {
-   //          action: 'facebook_list',
-   //       },
-   //       success: function (res) {
-   //          $('.loader').hide();
-   //          datatable_view(res);
-   //       }
-   //    });
-   // }
+   function list_data() {
+      $.ajax({
+         method: "post",
+         url: "<?= site_url('audience_facebook_data'); ?>",
+         data: {
+            action: 'facebook_list',
+         },
+         success: function (res) {
+            $('.loader').hide();
+            datatable_view(res);
+         }
+      });
+   }
 
    function list_dataa() {
       show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';
@@ -779,7 +808,8 @@ if ($query->getNumRows() > 0) {
       var name = $("#name").val();
       var source = $("input[name='flexRadioDefault']:checked").val();
       var inquiry_data = $("input[name='option']:checked").val();
-
+      var pages_name = $("#pages_name").val(); // Get the selected option value
+      // console.log(pages_name);
       // Validate form fields
       if (intrested_product != "" && inquiry_status != "" && name != "") {
          var formData = new FormData();
@@ -791,7 +821,7 @@ if ($query->getNumRows() > 0) {
          formData.append('name', name);
          formData.append('source', source);
          formData.append('inquiry_data', inquiry_data);
-
+         formData.append('pages_name', pages_name);
          // Show loader
          $('.loader').show();
 
@@ -868,7 +898,13 @@ if ($query->getNumRows() > 0) {
             // Update other elements with the received data
             $('.name_audience').val(response[0].name);
             $('input[name="option1"][value="' + response[0].inquiry_data + '"]').prop('checked', true);
-            // Update other elements as needed
+            if (response[0].pages_name === "0") {
+               $('input[name="option_facebook"]').prop('checked', false);
+            } else {
+               $('input[name="option_facebook"]').prop('checked', true);
+            }
+            $('#crm_pages').val(response[0].pages_name);
+            $('#crm_pages').selectpicker('refresh');
          },
          error: function (error) {
             $('.loader').hide();
@@ -880,12 +916,14 @@ if ($query->getNumRows() > 0) {
       var update_id = $(this).attr("data-edit_id");
       var new_name = $("#new_name").val(); // Get the new name from the input field
       var inquiry_data = $("input[name='option1']:checked").val();
+      var pages_name = $("#crm_pages").val(); // Get the selected option value
       var formdata = new FormData();
       formdata.append('action', 'update');
       formdata.append('edit_id', update_id);
       formdata.append('table', 'audience');
       formdata.append('name', new_name); // Append the new name to the form data
       formdata.append('inquiry_data', inquiry_data); // Append the radio button value to the form data
+      formdata.append('pages_name', pages_name); // Append the radio button value to the form data
       $('.loader').show();
       $.ajax({
          method: "post",
@@ -1237,6 +1275,23 @@ if ($query->getNumRows() > 0) {
       }
       else {
          $('.platform_selecter').addClass('d-none');
+      }
+   })
+   $('body').on('change', '#per_face_drop1', function () {
+      if (this.checked) {
+         $('.platform_selecter1').removeClass('d-none');
+      }
+      else {
+         $('.platform_selecter1').addClass('d-none');
+      }
+   })
+   $('body').on('click', '.chake-button', function () {
+      if ($(".per_face_drop1").prop("checked")) {
+         $('.platform_selecter1').removeClass('d-none');
+         // alert('kld');
+      }
+      else {
+         $('.platform_selecter1').addClass('d-none');
       }
    })
 </script>
