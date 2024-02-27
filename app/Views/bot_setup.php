@@ -3103,18 +3103,18 @@ option {
             dataToSend.next_questions = next_questions;
         }
 
-        $.ajax({
-            method: "post",
-            url: "<?= site_url('web_bot_integrate'); ?>",
-            data: dataToSend,
-            success: function(data) {
-                var response = JSON.parse(data);
-                // $('.skip_question').hide();
-                $('.chat_again_continue').addClass('d-none');
-                $('.loader').hide();
-                $(".bot_preview_html").append(response.html);
-            }
-        });
+        // $.ajax({
+        //     method: "post",
+        //     url: "<?= //site_url('web_bot_integrate'); ?>",
+        //     data: dataToSend,
+        //     success: function(data) {
+        //         var response = JSON.parse(data);
+        //         // $('.skip_question').hide();
+        //         $('.chat_again_continue').addClass('d-none');
+        //         $('.loader').hide();
+        //         $(".bot_preview_html").append(response.html);
+        //     }
+        // });
     }
 
     // $('body').on('click', '.chat_start_again', function (e) {

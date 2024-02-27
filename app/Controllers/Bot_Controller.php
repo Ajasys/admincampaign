@@ -2459,10 +2459,14 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	}
 
 
-	public function web_bot_integrate()
+	public function old_web_bot_integrate()
 	{
 		$conn = \Config\Database::connect('second');
-        $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
+        // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
+		
+		$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);
+       echo $access_token.'-----------';
+	   die;
 		$html= '';
 	
         if ($access_token === null) {
@@ -2471,12 +2475,14 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
             $message = 'Please enter your authorization token..!';
         } else {
             if (isset($access_token)) {
-                $query = "SELECT * FROM `master_user`";
+               echo  $query = "SELECT * FROM `master_user`";
+			   die;
                 $result_page = $conn->query($query);
                 $i = 0;
 
                 if ($result_page->getNumRows() > 0) {
-					
+					echo 'hii';
+					die;
                     $allRows = $result_page->getResultArray();
                     $response = 0;
                     $message = 'Something went wrong..!';
@@ -2517,6 +2523,8 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
                         if (!empty($rows_data)) {
                             $rows = (object) $rows_data[0];
 
+							pre($rows);
+							die;
 							$table = $_POST['table'];
 							$bot_id = $_POST['bot_id'];
 							$sequence = $_POST['sequence'];
@@ -2539,19 +2547,16 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 							if (isset($_POST['next_question_id'])) {
 								$next_question_id = $_POST['next_question_id'];
 							}
-						
 							if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
-								$db_connection = \Config\Database::connect('second');
+								
 								$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
 						
 								$sequence = 1;
 								// pre($sql);
-								$result = $db_connection->query($sql);
+								$result = $conn->query($sql);
 								$bot_chat_data = $result->getResultArray();
 							} else {
 								$sequence = isset($result) ? 1 : $sequence - 1;
-								// pre($sequence);
-								$db_connection = \Config\Database::connect('second');
 								
 								if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['next_questions'] != "0" && $_POST['next_questions'] != "0,0") {
 									$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
@@ -2565,8 +2570,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	
 								
 								// Execute query
-								$db_connection = \Config\Database::connect('second');
-								$result = $db_connection->query($sql);
+								$result = $conn->query($sql);
 								$bot_chat_data = $result->getResultArray();
 							
 								// Retrieve parent-child data
@@ -2576,7 +2580,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 									WHERE parent.bot_id = ' . $bot_id . '
 									ORDER BY parent.sequence LIMIT 1;';
 								// pre($sql_parent_child);
-								$resultss_ss = $db_connection->query($sql_parent_child);
+								$resultss_ss = $conn->query($sql_parent_child);
 								$bot_chat_data_ss = $resultss_ss->getResultArray();
 							}
 	
@@ -2597,7 +2601,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 									// pre($value['answer']);
 									if (isset($bot_chat_data_ss[$bot_chat_data_ss_index]['parent_id']) && $last_que_id == $bot_chat_data_ss[$bot_chat_data_ss_index]['parent_id']) {
 										$sql_child = 'SELECT * FROM ' . $table . ' WHERE id = ' . $bot_chat_data_ss[$bot_chat_data_ss_index]['child_id'] . ' ';
-										$fss = $db_connection->query($sql_child);
+										$fss = $conn->query($sql_child);
 										$asasasf = $fss->getResultArray();
 										$test_pr_que = $asasasf[0]['question'];
 										$test = $value['question'];
@@ -3466,6 +3470,107 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		$jsonQuestion = json_encode($questionArray);
 		return $jsonQuestion;
 		die();
+
+	}
+
+	public function web_bot_integrate()
+	{
+		$conn = \Config\Database::connect('second');
+        // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
+		
+		$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);
+       echo $access_token.'-----------';
+	   die;
+		$html= '';
+	
+        if ($access_token === null) {
+			
+            $response = 0;
+            $message = 'Please enter your authorization token..!';
+        } else {
+            if (isset($access_token)) {
+               echo  $query = "SELECT * FROM `master_user`";
+			   die;
+                $result_page = $conn->query($query);
+                $i = 0;
+
+                if ($result_page->getNumRows() > 0) {
+					echo 'hii';
+					die;
+                    $allRows = $result_page->getResultArray();
+                    $response = 0;
+                    $message = 'Something went wrong..!';
+                    foreach ($allRows as $key => $row) {
+                        if ($conn->tableExists($row['username'] . "_platform_integration")) {
+                        } else {
+                            $table_name3 = $row['username'] . '_platform_integration';
+                            $columns3 = [
+                                'id int primary key AUTO_INCREMENT',
+                                'master_id int(11) NOT NULL',
+                                "phone_number_id varchar(400) NOT NULL",
+                                "business_account_id varchar(400) NOT NULL",
+                                "access_token longtext NOT NULL",
+                                "whatsapp_name longtext NOT NULL",
+                                "whatsapp_number varchar(400)",
+                                "fb_app_id text NOT NULL",
+                                'fb_app_name varchar(200)',
+                                'fb_app_type varchar(200)',
+                                'from_email varchar(200)',
+                                'smtp_port int(11)',
+                                'smtp_host varchar(200)',
+                                'smtp_user varchar(200)',
+                                'smtp_password varchar(200)',
+                                'smtp_crypto varchar(200)',
+                                'mail_cc varchar(200)',
+                                'email_radio int(11)',
+                                'email_from varchar(200)',
+                                'website_name varchar(255)',
+                                "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
+                                "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook & 3-Email & 4-Linkedin & 5-website'",
+                            ];
+                            $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
+                        }
+
+                        $query_mater = "SELECT * FROM " . $row['username'] . "_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
+                        $results = $conn->query($query_mater);
+                        $rows_data = $results->getResultArray();
+                        if (!empty($rows_data)) {
+                            $rows = (object) $rows_data[0];
+
+							pre($rows);
+							die;
+							$table = $_POST['table'];
+							$bot_id = $_POST['bot_id'];
+							$sequence = $_POST['sequence'];
+							$html = '';
+							
+	
+						}
+
+
+					}
+				
+				}
+				else {
+                    $response = 0;
+                    $message = 'Something went wrong..!';
+                }
+			}
+			else {
+                $response = 0;
+                $message = 'Please enter all required field..!';
+            }
+		}
+
+	
+
+		$result = [];
+        if ($response == 1) {
+            $result['success'] = ['status' => true, 'message' => $message,'question' => $value['question']];
+        } else {
+            $result['error'] = ['status' => false, 'message' => $message];
+        }
+        return json_encode($result);
 
 	}
 }
