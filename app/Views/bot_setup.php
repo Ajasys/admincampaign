@@ -233,6 +233,16 @@ $admin_bot = json_decode($admin_bot, true);
         width: 20px;
         height: 20px;
     }
+    /* select, option {
+    width: 250px!important;
+}
+
+option {
+    width: 200px;
+    overflow: hidden!important;
+    white-space: nowrap!important;
+    text-overflow: ellipsis!important;
+} */
 </style>
 
 
@@ -2460,12 +2470,14 @@ $admin_bot = json_decode($admin_bot, true);
                     <div class="col-4">
                         <label for="formGroupExampleInput" class="form-label">Subflows</label>
                         <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">
-                            <option selected>Main Flow</option>
+                            <!-- <option selected>Main Flow</option> -->
                             <?php
                             if (isset($admin_bot)) {
                                 foreach ($admin_bot as $key_bot => $value_bot) {
                                     $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
-                                    echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                    $botName = $value_bot["name"] . ($selected ? ' (this bot)' : ''); 
+                             
+                                    echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $botName . '</option>';
                                 }
                             }
                             ?>
@@ -4225,6 +4237,7 @@ $admin_bot = json_decode($admin_bot, true);
                                         '<select class="form-select question_select_second" aria-label="Default select example">';
                                     '<option></option>' +
 
+                                    
                                     // Build options dynamically
                                     admin_bot_setup.forEach(function(bot_setup, bot_index) {
                                         // if (bot_setup.bot_id == <?php echo $botId; ?>) {
@@ -5015,6 +5028,22 @@ $admin_bot = json_decode($admin_bot, true);
             var options_value = JSON.stringify(row);
         }
 
+        if (type_of_question == "36") {
+            var checkedDays = $('.human_days_val:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+
+            var human_slot_from_timing  = $(".human_slot_from_timing").val();
+            var human_slot_to_timing  = $(".human_slot_to_timing").val();
+            var human_timezone  = $(".human_timezone").val();
+            var human_timezone  = $(".out_of_office_message").val();    
+            var human_timezone  = $(".first_busy_message ").val();
+            var human_timezone  = $(".human_timezone").val();
+            
+        }
+
+
         if (type_of_question == "41") {
             var rowData = [];
             var add_more_button = $(".add_more_button").val();
@@ -5244,8 +5273,99 @@ $admin_bot = json_decode($admin_bot, true);
                         $(".conditional_flow_single").hide();
                         $(".conditional_flow_single_hide").show();
                     }
+                    if (type_of_question == 23) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 24) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 25) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 26) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 27) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 28) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 29) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 30) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 31) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 32) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 33) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 34) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 35) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 36) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 37) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 38) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 39) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 41) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 43) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 44) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 45) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 46) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
+                    if (type_of_question == 47) {
+                        $(".conditional_flow_single").hide();
+                        $(".conditional_flow_single_hide").show();
+                    }
                     // var menu_message = response[0].menu_message;
-
                     if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                         var menu_message = JSON.parse(response[0].menu_message);
 
@@ -6979,47 +7099,47 @@ $admin_bot = json_decode($admin_bot, true);
                                 <label class="pull-left full-width fs-14 fw-semibold">Select your office dates</label>
                             </div>
                             <div class="col-12 d-flex mt-2">
-                                <span class="pe-4">
+                                <span class="pe-4 human_days_val">
+                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="ms-1 fs-14">SUN</span>
+                                </span>
+                                <span class="pe-4 human_days_val">
                                     <span class="pen-tick rounded-1 d-inline-block text-center text-white">
                                         <i class="fa-solid fa-check"></i>
                                     </span>
                                     <span class="ms-1 fs-14">MON</span>
                                 </span>
-                                <span class="pe-4">
+                                <span class="pe-4 human_days_val">
                                     <span class="pen-tick rounded-1 d-inline-block text-center text-white">
                                         <i class="fa-solid fa-check"></i>
                                     </span>
-                                    <span class="ms-1 fs-14">MON</span>
+                                    <span class="ms-1 fs-14">TUE</span>
                                 </span>
-                                <span class="pe-4">
+                                <span class="pe-4 human_days_val">
                                     <span class="pen-tick rounded-1 d-inline-block text-center text-white">
                                         <i class="fa-solid fa-check"></i>
                                     </span>
-                                    <span class="ms-1 fs-14">MON</span>
+                                    <span class="ms-1 fs-14">WED</span>
                                 </span>
-                                <span class="pe-4">
+                                <span class="pe-4 human_days_val">
                                     <span class="pen-tick rounded-1 d-inline-block text-center text-white">
                                         <i class="fa-solid fa-check"></i>
                                     </span>
-                                    <span class="ms-1 fs-14">MON</span>
+                                    <span class="ms-1 fs-14">THU</span>
                                 </span>
-                                <span class="pe-4">
+                                <span class="pe-4 human_days_val">
                                     <span class="pen-tick rounded-1 d-inline-block text-center text-white">
                                         <i class="fa-solid fa-check"></i>
                                     </span>
-                                    <span class="ms-1 fs-14">MON</span>
+                                    <span class="ms-1 fs-14">FRI</span>
                                 </span>
-                                <span class="pe-4">
+                                <span class="pe-4 human_days_val">
                                     <span class="pen-tick rounded-1 d-inline-block text-center text-white">
                                         <i class="fa-solid fa-check"></i>
                                     </span>
-                                    <span class="ms-1 fs-14">MON</span>
-                                </span>
-                                <span class="pe-4">
-                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
-                                    <span class="ms-1 fs-14">MON</span>
+                                    <span class="ms-1 fs-14">SAT</span>
                                 </span>
                             </div>
                         </div>
@@ -7027,8 +7147,8 @@ $admin_bot = json_decode($admin_bot, true);
                             <div class="col-6 d-flex flex-warp align-items-center">
                                 <span class="me-2">Slot Timings :</span>
                                 <span class="me-1">
-                                    <select class="form-control form-main main-control fs-13 bg-white f-w-small m-w-100 height-40 border m-b-0 p-r-10 font-normal b-r-6 ng-pristine ng-valid ng-touched" ng-model="from_timing" ng-change="changeFromTiming(from_timing)" aria-invalid="false" style="">
-                                        <!-- ngRepeat: timing in available_timings -->
+                                    <select class="human_slot_from_timing form-control form-main main-control fs-13 bg-white f-w-small m-w-100 height-40 border m-b-0 p-r-10 font-normal b-r-6 ng-pristine ng-valid ng-touched" ng-model="from_timing" ng-change="changeFromTiming(from_timing)" aria-invalid="false" style="">
+                                    
                                         <option ng-repeat="timing in available_timings" value="12:00 AM" class="ng-binding ng-scope">12:00 AM</option><!-- end ngRepeat: timing in available_timings -->
                                         <option ng-repeat="timing in available_timings" value="12:30 AM" class="ng-binding ng-scope">12:30 AM</option><!-- end ngRepeat: timing in available_timings -->
                                         <option ng-repeat="timing in available_timings" value="01:00 AM" class="ng-binding ng-scope">01:00 AM</option><!-- end ngRepeat: timing in available_timings -->
@@ -7081,8 +7201,7 @@ $admin_bot = json_decode($admin_bot, true);
                                 </span>
                                 <span class="fw-bolder mx-1">-</span>
                                 <span class="ms-1">
-                                    <select class="form-control form-main main-control fs-13 bg-white f-w-small m-w-100 height-40 border m-b-0 p-r-10 font-normal b-r-6 ng-pristine ng-valid ng-touched" ng-model="from_timing" ng-change="changeFromTiming(from_timing)" aria-invalid="false" style="">
-                                        <!-- ngRepeat: timing in available_timings -->
+                                    <select class="human_slot_to_timing form-control form-main main-control fs-13 bg-white f-w-small m-w-100 height-40 border m-b-0 p-r-10 font-normal b-r-6 ng-pristine ng-valid ng-touched" ng-model="from_timing" ng-change="changeFromTiming(from_timing)" aria-invalid="false" style="">
                                         <option ng-repeat="timing in available_timings" value="12:00 AM" class="ng-binding ng-scope">12:00 AM</option><!-- end ngRepeat: timing in available_timings -->
                                         <option ng-repeat="timing in available_timings" value="12:30 AM" class="ng-binding ng-scope">12:30 AM</option><!-- end ngRepeat: timing in available_timings -->
                                         <option ng-repeat="timing in available_timings" value="01:00 AM" class="ng-binding ng-scope">01:00 AM</option><!-- end ngRepeat: timing in available_timings -->
@@ -7137,8 +7256,7 @@ $admin_bot = json_decode($admin_bot, true);
                             <div class="col-6 d-flex flex-warp align-items-center justify-content-end">
                                 <span class="me-2">Timezone</span>
                                 <span class="ms-1 col-7">
-                                    <select class="form-control form-main main-control bg-white f-w-small height-40 border m-b-0 p-l-10 font-normal p-l-5 max-width-120 b-r-6 ng-pristine ng-valid ng-touched" ng-model="timezone" ng-change="changeTimezone(timezone)" aria-invalid="false" style="">
-                                        <!-- ngRepeat: timezone in available_timezones -->
+                                    <select class="human_timezone form-control form-main main-control bg-white f-w-small height-40 border m-b-0 p-l-10 font-normal p-l-5 max-width-120 b-r-6 ng-pristine ng-valid ng-touched" ng-model="timezone" ng-change="changeTimezone(timezone)" aria-invalid="false" style="">
                                         <option ng-repeat="timezone in available_timezones" value="+14:00" class="ng-binding ng-scope">GMT+14:00(Samoa and Christmas Island / Kiribati, LINT, Kiritimati)</option><!-- end ngRepeat: timezone in available_timezones -->
                                         <option ng-repeat="timezone in available_timezones" value="+13:45" class="ng-binding ng-scope">GMT+13:45(Chatham Islands / New Zealand, CHADT, Chatham Islands)</option><!-- end ngRepeat: timezone in available_timezones -->
                                         <option ng-repeat="timezone in available_timezones" value="+13:00" class="ng-binding ng-scope">GMT+13:00(New Zealand with exceptions and 4 more, NZDT, Auckland)</option><!-- end ngRepeat: timezone in available_timezones -->
@@ -7185,33 +7303,39 @@ $admin_bot = json_decode($admin_bot, true);
                             <div class="col-12">
                                 <label class="pull-left full-width text-left min-w-150 fs-14 f-w-500 mb-1">Out of office Message <span class="red-color bold">*</span> <i class="fa fa-info-circle m-l-5 info-icon pointer" aria-hidden="true" title="Message to display when user tries to contact you outside work hours."></i></label>
                                 <div class="col-12">
-                                    <input type="text" class="border form-control form-main main-control" placeholder="Message" value="Sorry, all our agents are offline now.">
+                                    <input type="text" class="border form-control form-main main-control out_of_office_message" placeholder="Message" value="Sorry, all our agents are offline now.">
                                 </div>
                             </div>
                             <div class="col-12 mt-3">
                                 <label class="fs-14 f-w-500 text-left full-width m-t-5 mb-1">Jump to a question in out of office case <i class="fa fa-info-circle m-l-10" title="Reference data answered in previous questions anywhere in the bot flow. E.g. Name"></i></label>
                                 <div class="col-12 d-flex">
                                     <div class="col-4 me-2">
-                                        <select class="border form-control form-main main-control" ng-model="selected_flow" ng-change="changeFlowIdOption('',selected_flow)" aria-invalid="false">
-                                            <!-- ngRepeat: flow in sub_flows -->
-                                            <option ng-repeat="flow in sub_flows" value="0" class="ng-binding ng-scope">Main Flow</option><!-- end ngRepeat: flow in sub_flows -->
-                                        </select>
+                                        <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">
+                                           <?php
+                                           if (isset($admin_bot)) {
+                                               foreach ($admin_bot as $key_bot => $value_bot) {
+                                                   $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                   echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                               }
+                                           }
+                                           ?>
+                                       </select>
                                     </div>
-                                    <div class="col-4">
-                                        <select class="form-control form-main main-control" ng-model="out_of_office_jump" ng-change="changeOfcJump(out_of_office_jump)" aria-invalid="false">
-                                            <!-- ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="" class="ng-binding ng-scope">No Jump</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1753628" class="ng-binding ng-scope">What type of food do you eat?</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1735427" class="ng-binding ng-scope">What is your name</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1740912" class="ng-binding ng-scope">Adding the WhatsApp Button.</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1740905" class="ng-binding ng-scope">======= Cart Summary =======</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1740909" class="ng-binding ng-scope">Choose item(s)</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1740888" class="ng-binding ng-scope">Choose from the below list</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1735428" class="ng-binding ng-scope">What is your gender?</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1753793" class="ng-binding ng-scope">What is your gender?</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1735461" class="ng-binding ng-scope">What type of food do you eat?</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1735776" class="ng-binding ng-scope">How would you rate our company?</option><!-- end ngRepeat: question in possibleQuestions -->
-                                            <option ng-repeat="question in possibleQuestions" value="1735834" class="ng-binding ng-scope">How many bots do you want?</option><!-- end ngRepeat: question in possibleQuestions -->
+                                    <div class="col-4 bot_quotation_list">
+                                        <select class="form-select question_select_second" aria-label="Default select example">
+                                            <option></option>
+                                            <?php
+                                            if (isset($admin_bot_setup)) {
+                                                foreach ($admin_bot_setup as $type_key => $type_value) {
+
+
+                                                    if ($type_value['bot_id'] == $botId) {
+
+                                                        echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                    }
+                                                }
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -7224,19 +7348,19 @@ $admin_bot = json_decode($admin_bot, true);
                             <div class="col-12 my-2">
                                 <label class="pull-left full-width m-t-10 m-b-5 text-left fs-14 f-w-500 mb-1">Message 1 (after 30 Sec)</label>
                                 <div class="col-12">
-                                    <input type="text" class="border form-control form-main main-control"  placeholder="Message" name="" value="I am trying to reach my agent.....In the meantime go grab some coffee ☕" aria-invalid="false" >
+                                    <input type="text" class="first_busy_message border form-control form-main main-control"  placeholder="Message" name="" value="I am trying to reach my agent.....In the meantime go grab some coffee ☕" aria-invalid="false" >
                                 </div>
                             </div>
                             <div class="col-12 my-2">
                                 <label class="pull-left full-width m-t-10 m-b-5 text-left fs-14 f-w-500 mb-1">Message 2 (after 1 Min)</label>
                                 <div class="col-12">
-                                    <input type="text" class="border form-control form-main main-control"  placeholder="Message" name="" value="Looks like my agent is busy helping other prospects like you, let me try again....." aria-invalid="false" >
+                                    <input type="text" class="second_busy_message border form-control form-main main-control"  placeholder="Message" name="" value="Looks like my agent is busy helping other prospects like you, let me try again....." aria-invalid="false" >
                                 </div>
                             </div>
                             <div class="col-12 my-2">
                                 <label class="pull-left full-width m-t-10 m-b-5 text-left fs-14 f-w-500 mb-1">Message 3 (after 2 Mins)</label>
                                 <div class="col-12">
-                                    <input type="text" class="border form-control form-main main-control"  placeholder="Message" name="" value="Sorry for making you wait this long. It is taking more time than usual, our agent will be here anytime soon....🙂" aria-invalid="false" >
+                                    <input type="text" class="third_busy_message border form-control form-main main-control"  placeholder="Message" name="" value="Sorry for making you wait this long. It is taking more time than usual, our agent will be here anytime soon....🙂" aria-invalid="false" >
                                 </div>
                             </div>
                         </div>

@@ -1010,7 +1010,7 @@ $this->db = \Config\Database::connect();
         		// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
 				// pre($sql);
 			}else {
-				$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence . ' ORDER BY sequence';
+				$sql = 'SELECT * FROM ' . $table . ' WHERE  bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' ORDER BY sequence';
 			}
 
 			
@@ -1163,6 +1163,22 @@ $this->db = \Config\Database::connect();
 					$html .= '</div>				
 					</div>
 					';
+
+
+					if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
+							$menu_list_Data = json_decode($value['menu_message'], true);
+							if(isset($menu_list_Data['options_value']['options'])){
+								$optionsArray = explode(';', $menu_list_Data['options_value']['options']);
+								foreach ($optionsArray as $option) {
+									$html .= '
+									<div class="col-12">
+										<button class="btn bg-primary rounded-3 text-white col-6 my-1" onclick="selectOption(this, \'' . $option . '\')">
+										'.$option.'
+										</button>
+									</div>';
+								}
+							}
+					}
 
 					$html .= '<script>
 								
@@ -1700,6 +1716,7 @@ $this->db = \Config\Database::connect();
 														' . $value['question'] . '
 													</a>
 												</div>';
+												
 					}else if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
 						$html .= '<div class="col">
 										<div class="col-12 mb-2">
@@ -1709,10 +1726,9 @@ $this->db = \Config\Database::connect();
 										';
 
 							$menu_list_Data = json_decode($value['menu_message'], true);
-							// pre($menu_list_Data);
 							
-							if(isset($menu_list_Data['options'])){
-								$optionsArray = explode(';', $menu_list_Data['options']);
+							if(isset($menu_list_Data['options_value']['options'])){
+								$optionsArray = explode(';', $menu_list_Data['options_value']['options']);
 								foreach ($optionsArray as $option) {
 									$html .= '
 									<div class="col-12">
@@ -1722,8 +1738,8 @@ $this->db = \Config\Database::connect();
 									</div>';
 								}
 							}
-	
 					}
+					
 					else {
 					
 						$html .= '<div class="col">
@@ -1732,6 +1748,7 @@ $this->db = \Config\Database::connect();
 														' . $value['question'] . '
 													</span>
 												</div>';
+												
 					}
 
 					if (($value['type_of_question'] == 6 && $value['skip_question'] == 1) || ($value['type_of_question'] == 10 && $value['skip_question'] == 1) || ($value['type_of_question'] == 11 && $value['skip_question'] == 1) || ($value['type_of_question'] == 12 && $value['skip_question'] == 1) || ($value['type_of_question'] == 13 && $value['skip_question'] == 1) || ($value['type_of_question'] == 14 && $value['skip_question'] == 1)) {
@@ -2074,14 +2091,15 @@ $this->db = \Config\Database::connect();
 								<div class="border h-100"></div>
 								<div class="col-8 p-2 d-flex flex-wrap justify-content-center">
 									<div class="card-body d-flex py-1 d-sm-block d-md-flex ">
-										<div class="d-flex justify-content-center"><div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted bot_setup mb-2 mx-1"
+										<div class="d-flex justify-content-center">
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted bot_setup mb-2 mx-2"
 											data-toggle="tooltip" data-placement="top" title="Setup">
 											<a href="' . base_url('') . 'bot_setup?bot_id=' . $value['id'] . '" class="text-muted">
 												<i class="fa-solid fa-screwdriver-wrench"></i>
 											</a>
 										</div>
 
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted mb-2 mx-1"
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted mb-2 mx-2"
 											data-toggle="tooltip" data-placement="top" title="Bot Chats">
 											<a href="#" class="text-muted">
 												<i class="fa-solid fa-comment"></i>
@@ -2089,14 +2107,14 @@ $this->db = \Config\Database::connect();
 										</div>
 										</div>
 										<div class="d-flex justify-content-center">
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted mb-2 mx-1"
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted mb-2 mx-2"
 											data-toggle="tooltip" data-placement="top" title="Setting">
 											<a href="#" class="text-muted">
 												<i class="fa-solid fa-gear"></i>
 											</a>
 										</div>
 
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted bot_delete mb-2 mx-1"
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box2 text-muted bot_delete mb-2 mx-2"
                                             data-toggle="tooltip" data-placement="top" title="Delete" data-delete_id="' . $value['id'] . '">
                                             <i class="fa-solid fa-trash"></i>
 										</div>
@@ -2104,7 +2122,7 @@ $this->db = \Config\Database::connect();
 									</div>
 									<div
 										class="card-body d-flex flex-wrap py-1 px-2 justify-content-between align-items-center">
-										<div class="form-check form-switch">
+										<div class="form-check form-switch mx-2">
 											<input class="form-check-input bot_active dfg toggle-switch" type="checkbox" role="switch" id="is_active"
 												' . ($value['active'] == 1 ? 'checked' : '') . ' data-update_id="' . $value['id'] . '">
 											<label class="form-check-label toggle-label" id="toggleStatus" for="is_active">Inactive</label>
@@ -2230,7 +2248,7 @@ $page_img = $page_data->page_img;
 					// }
 
 				$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box linked-page" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
-										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ps-4">
+										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 												<img src="' . $page_data->page_img . '" alt="" width="45">
 											</a>
@@ -2256,7 +2274,7 @@ $page_img = $page_data->page_img;
 			foreach ($IG_data as $IG_key => $IG_value) {
 				$IG_chat_list_html .= '
 								<div class="col-12 account-nav my-2 account-box linked-page" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
-									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ps-4">
+									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
 										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
 										</a>
@@ -2454,15 +2472,9 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		$db_connection = \Config\Database::connect('second');
 		$bot_data = $db_connection->query($query);
 		$bot_data_get = $bot_data->getResultArray();
-
-		
-		
-
-		
-
 		$html="";
-
-		$html.='<select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select_second question_select_second_1 occupation_add" data-live-search="true">
+		$html.='
+			<select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select_second question_select_second_1 occupation_add" data-live-search="true">
                                 <option class="dropdown-item" value="0">No Jump</option>
                                 <option class="dropdown-item" value="100">End Of conversion</option>';
                                     
@@ -2477,4 +2489,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 			return json_encode($result);
 			die();
 	}
+
+
+	
 }

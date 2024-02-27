@@ -386,7 +386,7 @@
                     list_data();
                     $('#bot_name_model').modal('hide');
                     $('#bot_crate').modal('hide');
-                    // $('#bot_name_model .close-modal').trigger('click');
+                    $('#bot_name_model .close-modal').trigger('click');
                     iziToast.success({
                         title: 'Bot Created Successfully!',
                     });
