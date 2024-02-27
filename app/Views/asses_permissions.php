@@ -454,9 +454,9 @@
 
             <div class="col-12 d-flex flex-wrap mt-2">
                 <!-- first-div -->
-                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box"
+                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box rounded-bottom-0"
                     style="height:80vh">
-                    <div class="col-12 border rounded-3 bg-white position-lg-relative " style="height:80vh">
+                    <div class="col-12 border rounded-3 bg-white position-lg-relative rounded-bottom-0" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12  rounded-top-3 ">
                             <div class="d-flex justify-content-between align-items-center ">
                                 <div class="dropdown d-flex align-items-center ps-2 ">
@@ -521,9 +521,9 @@
                     </div>
                 </div>
                 <!-- second-div -->
-                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box"
+                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box rounded-bottom-0"
                     style="height:80vh">
-                    <div class="col-12 border rounded-3 bg-white position-lg-relative " style="height:80vh">
+                    <div class="col-12 border rounded-3 bg-white position-lg-relative rounded-bottom-0" style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12  rounded-top-3 border-bottom">
                             <div class="d-flex justify-content-between align-items-center ">
                                 <div class="dropdown d-flex align-items-center ps-2 ">
@@ -556,9 +556,9 @@
                     </div>
                 </div>
                 <!-- third-div -->
-                <div class="d-none col-12 col-sm-12 col-md-12 col-lg-6 d-xl-block col-xxl-6 transcript_box  main-box"
+                <div class="d-none col-12 col-sm-12 col-md-12 col-lg-6 d-xl-block col-xxl-6 transcript_box  main-box rounded-bottom-0"
                     style="height:80vh">
-                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3 overflow-hidden "
+                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3 overflow-hidden rounded-bottom-0"
                         style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 rounded-top-3 border-bottom">
                             <div class="d-flex justify-content-between align-items-center ">
@@ -601,7 +601,10 @@
                     </div>
 
                 </div>
-
+            </div>
+            <div class="col-12 bg-white d-flex justify-content-end  py-2 px-1 border  ">
+                <button class="btn btn-secondary me-2">Cancle</button>
+                <button class="btn btn-primary">Save Changes</button>
             </div>
         </div>
     </div>
