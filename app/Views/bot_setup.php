@@ -2459,7 +2459,7 @@ $admin_bot = json_decode($admin_bot, true);
                 <div class="row conditional_flow_single_hide">
                     <div class="col-4">
                         <label for="formGroupExampleInput" class="form-label">Subflows</label>
-                        <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd" name="bot_idd">
+                        <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">
                             <option selected>Main Flow</option>
                             <?php
                             if (isset($admin_bot)) {
@@ -3391,7 +3391,7 @@ $admin_bot = json_decode($admin_bot, true);
         //Single Choile Table Row Add
         function table_html() {
             var row_numbers = $('.main-plan').length;
-            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select bot_idd" aria-label="Default select example" id="bot_idd" name="bot_idd"><option selected>Main Flow</option>';
+            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select bot_idd" aria-label="Default select example" id="bot_idd"><option selected>Main Flow</option>';
 
             <?php
             if (isset($admin_bot)) {
@@ -4207,7 +4207,7 @@ $admin_bot = json_decode($admin_bot, true);
                                         '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
                                         '</td>' +
                                         '<td class="col-3">' +
-                                        '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd" name="bot_idd">' +
+                                        '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">' +
                                         '<option selected>Main Flow</option>';
                                     <?php
                                     if (isset($admin_bot)) {
@@ -5273,7 +5273,7 @@ $admin_bot = json_decode($admin_bot, true);
                                     '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
                                     '</td>' +
                                     '<td class="col-3 p-2">' +
-                                    '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd" name="bot_idd">' +
+                                    '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">' +
                                     '<option selected>Main Flow</option>';
                                 <?php
                                 if (isset($admin_bot)) {
@@ -5620,28 +5620,38 @@ $admin_bot = json_decode($admin_bot, true);
                                             <input type="text" class="form-control single_choice_options" placeholder="Enter the option" value="">
                                         </td>
                                         <td class="col-3">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option value="1">Main-flow</option>
-                                            </select>
-                                        </td>
-                                        <td class="col-4">
-                                            <select class="form-select question_select_second" aria-label="Default select example">
-                                                
-                                                <option></option>
+                                            <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">
+                                           
                                                 <?php
-                                                if (isset($admin_bot_setup)) {
-                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
-
-
-                                                        if ($type_value['bot_id'] == $botId) {
-
-                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                        }
+                                                if (isset($admin_bot)) {
+                                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                        echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
                                                     }
                                                 }
                                                 ?>
-
                                             </select>
+                                        </td>
+                                        <td class="col-4">
+                                            <div class="main-selectpicker bot_quotation_list">
+                                                <select class="form-select question_select_second" aria-label="Default select example">
+                                                    
+                                                    <option></option>
+                                                    <?php
+                                                    if (isset($admin_bot_setup)) {
+                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+
+
+                                                            if ($type_value['bot_id'] == $botId) {
+
+                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+
+                                                </select>
+                                            </div>
                                         </td>
                                         <td class="col-2">
                                             <button type="button" class="btn btn-danger">

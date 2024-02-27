@@ -638,6 +638,7 @@ $connection_ids = $value['id'];
             'skip_question int(11) NOT NULL',
             'error_text varchar(500) NOT NULL',
             'next_questions varchar(500) NOT NULL',
+            'next_bot_id int(11) NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_username . '_bot_setup', '', $columns_bot);
 

@@ -1003,7 +1003,7 @@ $this->db = \Config\Database::connect();
 			// pre($sequence);
 			$db_connection = \Config\Database::connect('second');
 			
-			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['next_questions'] != "0") {
+			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['next_questions'] != "0" && $_POST['next_questions'] != "0,0") {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 				// pre($sql);
 				// $nextQuestionsStr = implode(',', $_POST['next_questions']);
