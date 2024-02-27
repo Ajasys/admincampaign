@@ -15,6 +15,13 @@ if ($query->getNumRows() > 0) {
 }
 // pre($columnNames);
 ?>
+<?php 
+    $db_connection = \Config\Database::connect('second');
+    $queryy = 'SELECT * FROM admin_platform_integration WHERE platform_status =2';
+    $result = $db_connection->query($queryy);
+    $get_facebook_page = $result->getResultArray();
+
+?>
 <style>
    table th,
    td {
@@ -81,10 +88,24 @@ if ($query->getNumRows() > 0) {
 <div class="main-dashbord p-2">
    <div class="container-fluid p-0">
       <div class="p-2 position-relative">
-         <div class="d-flex justify-content-between align-items-center">
+         <div class="d-flex justify-content-between align-items-center col-12">
             <div class="title-1">
                <i class="bi bi-people"></i>
                <h2> Manage Audiences</h2>
+            </div>
+            <div class="col-6 col-lg-2">
+               <div class="main-selectpicker fs-12">
+                  <select class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12">
+                    <?php
+                    if (isset($get_facebook_page) && !empty($get_facebook_page)) {
+                        foreach ($get_facebook_page as $key => $value) {
+                            echo '<option value="' . $value['id'] . '" data-access_token="'.$value['access_token'].'" class="  dropdown-item">
+                                ' . $value['fb_app_name'] . '</option>';
+                        }
+                    }
+                    ?>
+                  </select>
+               </div>
             </div>
          </div>
       </div>
@@ -118,16 +139,6 @@ if ($query->getNumRows() > 0) {
                         
                      </div>
                      </div> -->
-                  <div class="col-6 col-lg-1">
-                     <div class="main-selectpicker fs-12">
-                        <select
-                           class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12">
-                           <option class="dropdown-item fs-14">Realtosmart</option>
-                           <option class="dropdown-item fs-14">Realtosmart</option>
-                           <option class="dropdown-item fs-14">Realtosmart</option>
-                        </select>
-                     </div>
-                  </div>
                </div>
             </div>
             <div class="w-100 row_none">
@@ -419,9 +430,17 @@ if ($query->getNumRows() > 0) {
                         <div class="main-selectpicker fs-12 col-6">
                            <select
                               class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12">
-                              <option class="dropdown-item fs-14">Realtosmart</option>
-                              <option class="dropdown-item fs-14">Realtosmart</option>
-                              <option class="dropdown-item fs-14">Realtosmart</option>
+                              <?php
+                                    $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
+                                    $fb_page_list = fb_page_list($token);
+                                    $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                                    $i = 0;
+                                    foreach ($fb_page_list['page_list'] as $key => $value) {
+                                       $pageprofile = fb_page_img($value->id, $value->access_token);
+                                       $img_decode = json_decode($pageprofile, true);
+                              ?>
+                               <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
+                              <?php } ?>
                            </select>
                         </div>
                      </div>
@@ -632,19 +651,19 @@ if ($query->getNumRows() > 0) {
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-   function list_data() {
-      $.ajax({
-         method: "post",
-         url: "<?= site_url('audience_facebook_data'); ?>",
-         data: {
-            action: 'facebook_list',
-         },
-         success: function (res) {
-            $('.loader').hide();
-            datatable_view(res);
-         }
-      });
-   }
+   // function list_data() {
+   //    $.ajax({
+   //       method: "post",
+   //       url: "<?= site_url('audience_facebook_data'); ?>",
+   //       data: {
+   //          action: 'facebook_list',
+   //       },
+   //       success: function (res) {
+   //          $('.loader').hide();
+   //          datatable_view(res);
+   //       }
+   //    });
+   // }
 
    function list_dataa() {
       show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';

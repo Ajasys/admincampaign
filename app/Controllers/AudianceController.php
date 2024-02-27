@@ -153,62 +153,62 @@ class AudianceController extends BaseController
         return $this->response->setJSON($jsonResponse);
     }
 
-    public function audience_facebook_data() {
-        $html = "";
-        if ($_POST['action'] == 'facebook_list') {
-            $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+    // public function audience_facebook_data() {
+    //     $html = "";
+    //     if ($_POST['action'] == 'facebook_list') {
+    //         $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 
-            // Fetch user data including ad accounts
-            $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
-            $response = file_get_contents($url);
-            $data = json_decode($response, true);
+    //         // Fetch user data including ad accounts
+    //         $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
+    //         $response = file_get_contents($url);
+    //         $data = json_decode($response, true);
 
-            // Check if 'adaccounts' data exists and iterate over each ad account
-            if (isset($data['adaccounts']['data'])) {
-                $chat_list_html = '';
-                foreach ($data['adaccounts']['data'] as $ad_account) {
-                    $account_id = $ad_account['id'];
+    //         // Check if 'adaccounts' data exists and iterate over each ad account
+    //         if (isset($data['adaccounts']['data'])) {
+    //             $chat_list_html = '';
+    //             foreach ($data['adaccounts']['data'] as $ad_account) {
+    //                 $account_id = $ad_account['id'];
 
-                    // Fetch custom audiences for each ad account
-                    $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
-                    $response = file_get_contents($url);
-                    $audience_data = json_decode($response, true);
+    //                 // Fetch custom audiences for each ad account
+    //                 $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+    //                 $response = file_get_contents($url);
+    //                 $audience_data = json_decode($response, true);
 
-                    // Iterate over custom audiences data and build HTML
-                    foreach ($audience_data['data'] as $conversion_value) {
-                        $chat_list_html = "";
-                        $lower_bound = $conversion_value['approximate_count_lower_bound'];
-                        $upper_bound = $conversion_value['approximate_count_upper_bound'];
-                        $count_range = ($lower_bound == -1 && $upper_bound == -1) ? "Not available" : "$lower_bound-$upper_bound";
+    //                 // Iterate over custom audiences data and build HTML
+    //                 foreach ($audience_data['data'] as $conversion_value) {
+    //                     $chat_list_html = "";
+    //                     $lower_bound = $conversion_value['approximate_count_lower_bound'];
+    //                     $upper_bound = $conversion_value['approximate_count_upper_bound'];
+    //                     $count_range = ($lower_bound == -1 && $upper_bound == -1) ? "Not available" : "$lower_bound-$upper_bound";
 
-                        $chat_list_html .= '<tr class="audiance_view audiance_show_data" onclick="ViewFbAudiances(\'' . $conversion_value['id'] . '\',\'' . $conversion_value['name'] . '\',\'' . $conversion_value['subtype'] . '\',\'' . $count_range . '\',\'' . date('d-m-Y H:i', $conversion_value['time_updated']) . '\',\'' . date('d-m-Y H:i', $conversion_value['time_created']) . '\');">';
-                        $chat_list_html .= '     <td><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 408.788 408.788" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M353.701 0H55.087C24.665 0 .002 24.662.002 55.085v298.616c0 30.423 24.662 55.085 55.085 55.085h147.275l.251-146.078h-37.951a8.954 8.954 0 0 1-8.954-8.92l-.182-47.087a8.955 8.955 0 0 1 8.955-8.989h37.882v-45.498c0-52.8 32.247-81.55 79.348-81.55h38.65a8.955 8.955 0 0 1 8.955 8.955v39.704a8.955 8.955 0 0 1-8.95 8.955l-23.719.011c-25.615 0-30.575 12.172-30.575 30.035v39.389h56.285c5.363 0 9.524 4.683 8.892 10.009l-5.581 47.087a8.955 8.955 0 0 1-8.892 7.901h-50.453l-.251 146.078h87.631c30.422 0 55.084-24.662 55.084-55.084V55.085C408.786 24.662 384.124 0 353.701 0z" style="" fill="#475993" data-original="#475993" class=""></path></g></svg></td>
-                                <td class="p-2 text-nowrap">' . $conversion_value['name'] . '</td>
-                                <td class="p-2 text-nowrap">' . $conversion_value['subtype'] . '</td>
-                                <td class="p-2 text-nowrap">' . $count_range . '</td>
-                                <td class="p-2 text-nowrap fs-12"><span class="text-muted d-block">Last Edited</span>'.date('d-m-Y H:i', $conversion_value['time_updated']).'</td>
-                                <td class="p-2 text-nowrap">'.date('d-m-Y H:i', $conversion_value['time_created']).'</td>
+    //                     $chat_list_html .= '<tr class="audiance_view audiance_show_data" onclick="ViewFbAudiances(\'' . $conversion_value['id'] . '\',\'' . $conversion_value['name'] . '\',\'' . $conversion_value['subtype'] . '\',\'' . $count_range . '\',\'' . date('d-m-Y H:i', $conversion_value['time_updated']) . '\',\'' . date('d-m-Y H:i', $conversion_value['time_created']) . '\');">';
+    //                     $chat_list_html .= '     <td><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 408.788 408.788" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M353.701 0H55.087C24.665 0 .002 24.662.002 55.085v298.616c0 30.423 24.662 55.085 55.085 55.085h147.275l.251-146.078h-37.951a8.954 8.954 0 0 1-8.954-8.92l-.182-47.087a8.955 8.955 0 0 1 8.955-8.989h37.882v-45.498c0-52.8 32.247-81.55 79.348-81.55h38.65a8.955 8.955 0 0 1 8.955 8.955v39.704a8.955 8.955 0 0 1-8.95 8.955l-23.719.011c-25.615 0-30.575 12.172-30.575 30.035v39.389h56.285c5.363 0 9.524 4.683 8.892 10.009l-5.581 47.087a8.955 8.955 0 0 1-8.892 7.901h-50.453l-.251 146.078h87.631c30.422 0 55.084-24.662 55.084-55.084V55.085C408.786 24.662 384.124 0 353.701 0z" style="" fill="#475993" data-original="#475993" class=""></path></g></svg></td>
+    //                             <td class="p-2 text-nowrap">' . $conversion_value['name'] . '</td>
+    //                             <td class="p-2 text-nowrap">' . $conversion_value['subtype'] . '</td>
+    //                             <td class="p-2 text-nowrap">' . $count_range . '</td>
+    //                             <td class="p-2 text-nowrap fs-12"><span class="text-muted d-block">Last Edited</span>'.date('d-m-Y H:i', $conversion_value['time_updated']).'</td>
+    //                             <td class="p-2 text-nowrap">'.date('d-m-Y H:i', $conversion_value['time_created']).'</td>
 
-                                <td class="p-2 text-nowrap">' . $conversion_value['id'] . '</td>';
-                                $chat_list_html .= '</tr>';
-                                $html .= $chat_list_html;
-                    }
-                }
-                // $return_result['chat_list_html'] = $chat_list_html;
-                if (!empty($html)) {
-                    echo $html;
-                } else {
-                    echo '<p style="text-align:center;">Data Not Found </p>';
-                }
-            } else {
-                // No ad account data found
-                return json_encode(['error' => 'No ad account data found']);
-            }
-        } else {
-            // Invalid action
-            return json_encode(['error' => 'Invalid action']);
-        }
-    }
+    //                             <td class="p-2 text-nowrap">' . $conversion_value['id'] . '</td>';
+    //                             $chat_list_html .= '</tr>';
+    //                             $html .= $chat_list_html;
+    //                 }
+    //             }
+    //             // $return_result['chat_list_html'] = $chat_list_html;
+    //             if (!empty($html)) {
+    //                 echo $html;
+    //             } else {
+    //                 echo '<p style="text-align:center;">Data Not Found </p>';
+    //             }
+    //         } else {
+    //             // No ad account data found
+    //             return json_encode(['error' => 'No ad account data found']);
+    //         }
+    //     } else {
+    //         // Invalid action
+    //         return json_encode(['error' => 'Invalid action']);
+    //     }
+    // }
 
     public function audience_list_data()
     {
