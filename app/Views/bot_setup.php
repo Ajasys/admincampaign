@@ -3400,10 +3400,11 @@ option {
         $encoded_options = json_encode($options);
         ?>
 
+        var row_counter = 0;
         //Single Choile Table Row Add
         function table_html() {
-            var row_numbers = $('.main-plan').length;
-            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_numbers + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select bot_idd" aria-label="Default select example" id="bot_idd"><option selected>Main Flow</option>';
+            row_counter++;
+            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_counter + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select bot_idd" aria-label="Default select example" id="bot_idd"><option selected>Main Flow</option>';
 
             <?php
             if (isset($admin_bot)) {
@@ -5038,9 +5039,9 @@ option {
             var human_slot_to_timing  = $(".human_slot_to_timing").val();
             var human_timezone  = $(".human_timezone").val();
             var human_timezone  = $(".out_of_office_message").val();    
-            var human_timezone  = $(".first_busy_message ").val();
-            var human_timezone  = $(".human_timezone").val();
-            
+            var human_timezone  = $(".first_busy_message").val();
+            var human_timezone  = $(".second_busy_message").val();
+            var human_timezone  = $(".third_busy_message").val();
         }
 
 
