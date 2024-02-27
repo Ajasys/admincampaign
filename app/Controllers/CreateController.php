@@ -900,31 +900,35 @@ public function schedule_insert_data()
             // Check if attachment file is present in the request
             if (isset($attachments['name']) && $attachments['error'] === UPLOAD_ERR_OK) { 
                 // Get the current time in Unix timestamp format
-                $utc_date_string = '27-02-2024 13:00';
-                $utcconverted = UtcTime('d-m-Y H:i', timezonedata(), $utc_date_string);
-                $date = DateTime::createFromFormat('d-m-Y H:i:s', $utcconverted.':00');
+                $utc_date_string = date('d-m-Y H:i', strtotime($_POST['scheduled_time']));
+                // $utcconverted = UtcTime('d-m-Y H:i', timezonedata(), $utc_date_string);
+                $date = DateTime::createFromFormat('d-m-Y H:i:s', $utc_date_string.':00');
                 $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
-                $formatted_date = $date->format('Y-m-d\TH:i:sP');
-                echo "Scheduled Time: $formatted_date";
+                $formatted_date = $date->format('c');
+                $formatted_date = strtotime($formatted_date);
+                echo "Scheduled Time: ".$utc_date_string;
+                echo "Scheduled Time: ".strtotime($formatted_date);
 
-                
+
                 $uploaded_file_path = '/path/to/uploaded/files/' . $attachments['name']; // Set the path where you 
                 move_uploaded_file($attachments['tmp_name'], $uploaded_file_path);
 
                 $attachment_link = 'https://example.com/uploaded_files/' . $attachments['name'];
                
-                    $post_data = json_encode([
+                    $post_data = json_encode(array(
                         "message" => "Schedule Post",
                         "link" => $attachment_link,
                         "published" => "false",
-                        "scheduled_publish_time" => $formatted_date
-                    ]);
+                        "scheduled_publish_time" => "$formatted_date"
+                    ));
+
+                // echo $post_data;
                     
                 $url = 'https://graph.facebook.com/v19.0/'.  $page_id.'/feed/?access_token='. $access_token .'';
                 $Result = postSocialData($url, $post_data);
 
-                
-                echo "Scheduled Time: $formatted_date\n"; 
+                // pre($Result);
+                // echo "Scheduled Time: $formatted_date\n"; 
 
            
                 echo "Facebook API Response: ";
@@ -940,6 +944,10 @@ public function schedule_insert_data()
             }
         }
     }
+
+
+
+
 
     public function duplicate_data($data, $table_name)
     {
