@@ -3077,46 +3077,7 @@ option {
     }
 
 
-    function bot_preview_data(sequence, nextQuestion, answer) {
-        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
-        var bot_id = '<?php echo $botId; ?>';
-        var conversion_id = $(".conversion_id").attr('data-conversation-id');
-        var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id', conversion_id);
-
-        var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id');
-        var next_questions = $(".bot_preview_html .messege1:last").attr('data-next_questions');
-        var next_bot_id = $(".bot_preview_html .messege1:last").attr('data-next_bot_id');
-        console.log(next_bot_id);
-        var dataToSend = {
-            action: 'init_chat',
-            table: table,
-            bot_id: bot_id,
-            sequence: sequence,
-            next_question_id: next_question_id,
-            answer: answer,
-            next_bot_id: next_bot_id
-        };
-
-        if (nextQuestion) {
-            dataToSend.next_questions = nextQuestion;
-        } else {
-            dataToSend.next_questions = next_questions;
-        }
-
-        // $.ajax({
-        //     method: "post",
-        //     url: "<?= //site_url('web_bot_integrate'); ?>",
-        //     data: dataToSend,
-        //     success: function(data) {
-        //         var response = JSON.parse(data);
-        //         // $('.skip_question').hide();
-        //         $('.chat_again_continue').addClass('d-none');
-        //         $('.loader').hide();
-        //         $(".bot_preview_html").append(response.html);
-        //     }
-        // });
-    }
-
+   
     // $('body').on('click', '.chat_start_again', function (e) {
     //     bot_preview_data(1, true); 
     // });
