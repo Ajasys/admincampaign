@@ -545,6 +545,9 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
 	$routes->post('bot_id_to_quotation', 'Bot_Controller::bot_id_to_quotation');
 
+	$routes->post('web_bot_integrate', 'Bot_Controller::web_bot_integrate');
+	
+
 	$routes->get('/bot_installer', 'Home::bot_installer');
 	$routes->post('bot_preview', 'Bot_Controller::bot_preview');
 	$routes->post('', 'Bot_Controller::get_chat_data');

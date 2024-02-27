@@ -233,6 +233,13 @@ $admin_bot = json_decode($admin_bot, true);
         width: 20px;
         height: 20px;
     }
+    .second-li {
+        height: 30px;
+    }
+
+    .second-li:hover {
+        background: rgb(241, 239, 239);
+    }
     /* select, option {
     width: 250px!important;
 }
@@ -3069,6 +3076,47 @@ option {
         });
     }
 
+
+    function bot_preview_data(sequence, nextQuestion, answer) {
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+        var bot_id = '<?php echo $botId; ?>';
+        var conversion_id = $(".conversion_id").attr('data-conversation-id');
+        var chatting_conversion_id = $(".chatting_data").attr('data-conversation-id', conversion_id);
+
+        var next_question_id = $(".bot_preview_html .messege1:last").attr('data-next_question_id');
+        var next_questions = $(".bot_preview_html .messege1:last").attr('data-next_questions');
+        var next_bot_id = $(".bot_preview_html .messege1:last").attr('data-next_bot_id');
+        console.log(next_bot_id);
+        var dataToSend = {
+            action: 'init_chat',
+            table: table,
+            bot_id: bot_id,
+            sequence: sequence,
+            next_question_id: next_question_id,
+            answer: answer,
+            next_bot_id: next_bot_id
+        };
+
+        if (nextQuestion) {
+            dataToSend.next_questions = nextQuestion;
+        } else {
+            dataToSend.next_questions = next_questions;
+        }
+
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('web_bot_integrate'); ?>",
+            data: dataToSend,
+            success: function(data) {
+                var response = JSON.parse(data);
+                // $('.skip_question').hide();
+                $('.chat_again_continue').addClass('d-none');
+                $('.loader').hide();
+                $(".bot_preview_html").append(response.html);
+            }
+        });
+    }
+
     // $('body').on('click', '.chat_start_again', function (e) {
     //     bot_preview_data(1, true); 
     // });
@@ -5030,18 +5078,33 @@ option {
         }
 
         if (type_of_question == "36") {
+            var rowData = [];
             var checkedDays = $('.human_days_val:checked').map(function() {
                 return $(this).val();
             }).get();
 
-
             var human_slot_from_timing  = $(".human_slot_from_timing").val();
             var human_slot_to_timing  = $(".human_slot_to_timing").val();
             var human_timezone  = $(".human_timezone").val();
-            var human_timezone  = $(".out_of_office_message").val();    
-            var human_timezone  = $(".first_busy_message").val();
-            var human_timezone  = $(".second_busy_message").val();
-            var human_timezone  = $(".third_busy_message").val();
+            var out_of_office_message  = $(".out_of_office_message").val();
+            var human_bot_flow  = $(".human_bot_flow").val();    
+            var human_question_select  = $(".human_question_select").val();        
+            var first_busy_message  = $(".first_busy_message").val();
+            var second_busy_message  = $(".second_busy_message").val();
+            var third_busy_message  = $(".third_busy_message").val();
+
+            var row = {
+                human_slot_from_timing: human_slot_from_timing,
+                human_slot_to_timing: human_slot_to_timing,
+                human_timezone: human_timezone,
+                out_of_office_message: out_of_office_message,
+                human_bot_flow: human_bot_flow,
+                human_question_select: human_question_select,
+                first_busy_message: first_busy_message,
+                second_busy_message: second_busy_message,
+                third_busy_message: third_busy_message
+            };
+            var options_value = JSON.stringify(row);
         }
 
 
@@ -7311,7 +7374,7 @@ option {
                                 <label class="fs-14 f-w-500 text-left full-width m-t-5 mb-1">Jump to a question in out of office case <i class="fa fa-info-circle m-l-10" title="Reference data answered in previous questions anywhere in the bot flow. E.g. Name"></i></label>
                                 <div class="col-12 d-flex">
                                     <div class="col-4 me-2">
-                                        <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">
+                                        <select class="form-select bot_idd human_bot_flow" aria-label="Default select example" id="bot_idd">
                                            <?php
                                            if (isset($admin_bot)) {
                                                foreach ($admin_bot as $key_bot => $value_bot) {
@@ -7323,7 +7386,7 @@ option {
                                        </select>
                                     </div>
                                     <div class="col-4 bot_quotation_list">
-                                        <select class="form-select question_select_second" aria-label="Default select example">
+                                        <select class="form-select question_select_second human_question_select" aria-label="Default select example">
                                             <option></option>
                                             <?php
                                             if (isset($admin_bot_setup)) {
@@ -7585,6 +7648,22 @@ option {
         });
     })
 
+
+    $("body").on("click", ".first-li", function() {
+        $(".min-selectbox").toggleClass('d-none');
+
+    });
+
+    $("body").on("click", ".second-li", function() {
+        $(".min-selectbox").toggleClass('d-none');
+        let miantext = $(this).text();
+        $(this).css("background", "#724ebf");
+        $(this).css("color", "white");
+        $(this).siblings("li").css("background", "white");
+        $(this).siblings("li").css("color", "black");
+        $(".first-li").text(miantext);
+
+    });
 
     $("body").on('change', '#bot_idd', function(e) {
         var bott_idd = $(this).val();
