@@ -843,6 +843,104 @@ if (isset($like_comment['comments']['summary']['total_count']) && !empty($like_c
         }
     }
 
+    //     public function schedule_insert_data(){
+
+
+
+//         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+//         $page_id = '196821650189891';
+//         $access_token='EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+//         // pre($_POST);
+//         $utc_date_string = '28-02-2024 13:00';
+//         $utcconverted = UtcTime('d-m-Y H:i', timezonedata(), $utc_date_string);
+//         // Create a DateTime object from the input string, assuming the input is in 'd-m-Y H:i:s' format
+//             $date = DateTime::createFromFormat('d-m-Y H:i:s', $utcconverted.':00');
+
+//             // Set the timezone to UTC
+//             $date->setTimezone(new DateTimeZone('UTC'));
+
+//             // Format the date as per your desired format
+//             $formatted_date = $date->format('Y-m-d\TH:i:sP');
+
+//             // echo $formatted_date;
+
+
+// // die();
+//         $jsonstring = '{
+//             "message": "Shedule Post",
+//             "link": "https://gymsmart.in/images/slider_03.jpg",
+//             "published": "false",
+//             "scheduled_publish_time": "'.$formatted_date.'"
+//           }';
+//           $url = 'https://graph.facebook.com/v19.0/'.  $page_id.'/feed/?access_token='. $access_token .'';
+//         $Result = postSocialData($url, $jsonstring);
+//         //   pre($Result);
+//          // Check for errors
+//                 if ($Result === false) {
+//                     echo "Error: Failed to make the request.";
+//                 } else {
+
+//                     echo"successfully";
+//                 }
+//             }
+//         }
+
+public function schedule_insert_data()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Retrieve data from the POST request
+            $attachments = $_FILES['attachment']; 
+
+            // Set your page ID and access token
+            $page_id = '196821650189891';
+            $access_token='EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+
+            // Check if attachment file is present in the request
+            if (isset($attachments['name']) && $attachments['error'] === UPLOAD_ERR_OK) { 
+                // Get the current time in Unix timestamp format
+                $utc_date_string = '27-02-2024 13:00';
+                $utcconverted = UtcTime('d-m-Y H:i', timezonedata(), $utc_date_string);
+                $date = DateTime::createFromFormat('d-m-Y H:i:s', $utcconverted.':00');
+                $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
+                $formatted_date = $date->format('Y-m-d\TH:i:sP');
+                echo "Scheduled Time: $formatted_date";
+
+                
+                $uploaded_file_path = '/path/to/uploaded/files/' . $attachments['name']; // Set the path where you 
+                move_uploaded_file($attachments['tmp_name'], $uploaded_file_path);
+
+                $attachment_link = 'https://example.com/uploaded_files/' . $attachments['name'];
+               
+                    $post_data = json_encode([
+                        "message" => "Schedule Post",
+                        "link" => $attachment_link,
+                        "published" => "false",
+                        "scheduled_publish_time" => $formatted_date
+                    ]);
+                    
+                $url = 'https://graph.facebook.com/v19.0/'.  $page_id.'/feed/?access_token='. $access_token .'';
+                $Result = postSocialData($url, $post_data);
+
+                
+                echo "Scheduled Time: $formatted_date\n"; 
+
+           
+                echo "Facebook API Response: ";
+                
+                if ($Result === false) {
+                    echo "Error: Failed to make the request.";
+                } else {
+                    // Here, $Result is already an array, so you don't need to decode it again
+                    echo "Successfully scheduled the post.";
+                }
+            } else {
+                echo "No attachment file uploaded."; // Handle case when no attachment file is uploaded
+            }
+        }
+    }
+
     public function duplicate_data($data, $table_name)
     {
         // Your duplicate data checking logic here
