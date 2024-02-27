@@ -464,12 +464,13 @@ class WhatAppIntegrationController extends BaseController
                     $lastmsg = $GerDataLastMsg[0]['message_contant'];
                     $msgtext = '';
                     if (!function_exists('\App\Controllers\is_json')) {
-                        function is_json($string) {
+                        function is_json($string)
+                        {
                             json_decode($string);
                             return (json_last_error() == JSON_ERROR_NONE);
                         }
                     }
-                    
+
                     if (is_json($GerDataLastMsg[0]['message_contant'])) {
                         $data1 = json_decode($GerDataLastMsg[0]['message_contant'], true);
                         if (isset($data1['body'])) {
@@ -1837,7 +1838,7 @@ class WhatAppIntegrationController extends BaseController
                                 </button>
                             </td>
                             <td>
-                                <button class="btn p-0 chat_bot" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button class="btn p-0 chat_bot" data-bs-toggle="modal" id="chat_bot" data-bot_editid="' . $value['id'] . '" data-bs-target="#exampleModal2">
                                     <i class="fa-solid fa-robot"></i>
                                 </button>
                             </td>
@@ -1851,6 +1852,33 @@ class WhatAppIntegrationController extends BaseController
         echo $html;
     }
 
+    public function whatsapp_bot_id_update()
+    {
+        $username = session_username($_SESSION['username']);
+		$table_name = $this->request->getPost("table");
+        if (isset($_POST['bot_main_id']) && !empty($_POST['bot_main_id'])) {
+            $bot_main_id = $_POST['bot_main_id'];
+        } else {
+            $bot_main_id = '';
+        }
+        if (isset($_POST['bot_type_id']) && !empty($_POST['bot_type_id'])) {
+            $bot_type_id = $_POST['bot_type_id'];
+        } else {
+            $bot_type_id = '';
+        }
+
+
+        $update_data['bot_status'] = 1;
+        $update_data['bot_id'] = $bot_type_id;
+
+
+        $departmentUpdatedata = $this->MasterInformationModel->update_entry2($bot_main_id, $update_data, $username . "_" . $table_name);
+        $departmentdisplaydata = $this->MasterInformationModel->display_all_records2($username . "_" . $table_name);
+        $departmentdisplaydata = json_decode($departmentdisplaydata, true);
+        $response = 1;
+
+
+    }
     public function WhatsAppListConverstion()
     {
 
@@ -1976,12 +2004,13 @@ class WhatAppIntegrationController extends BaseController
 
                 if (!function_exists('\App\Controllers\is_json')) {
                     // Function to check if a string is JSON
-                    function is_json($string) {
+                    function is_json($string)
+                    {
                         json_decode($string);
                         return (json_last_error() == JSON_ERROR_NONE);
                     }
                 }
-                
+
                 // Your code snippet
                 if (is_json($value['message_contant'])) {
                     $data1 = json_decode($value['message_contant'], true);
@@ -1995,7 +2024,7 @@ class WhatAppIntegrationController extends BaseController
                     $html .= '
                         <div class="d-flex mb-4 ">
                             <div class="col-9 text-start">
-                                <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $msgtext. ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
+                                <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $msgtext . ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
                             </div>
                         </div>';
                 }
@@ -2114,7 +2143,6 @@ class WhatAppIntegrationController extends BaseController
                     </div>
                 </div>';
                 }
-
             } elseif ($msgtype == '5') {
 
 
@@ -2264,26 +2292,26 @@ class WhatAppIntegrationController extends BaseController
                     </div>
                 </div>';
                 }
-            }elseif ($msgtype == '7') {
+            } elseif ($msgtype == '7') {
                 // pre('dishant');
                 if ($sent_recieved_status == '2') {
-                    if($value['latitude'] != '' && $value['longitude'] != ''){
+                    if ($value['latitude'] != '' && $value['longitude'] != '') {
                         $html .= '        <div class="d-flex mb-4 mt-2 mt-md-0 mx-2">
                         <div class="col-9 text-start d-flex justify-content-start">
                             <div class="px-3 py-2 rounded-3 border border-2"
                                 style="background:#f3f3f3; width:fit-content; position:relative;">
                                 <span class="user-message" style="position: relative; display: inline-block;">
-                                    <a href="https://www.google.com/maps?q='.$value['latitude'].','.$value['longitude'].'" target="_blank">
+                                    <a href="https://www.google.com/maps?q=' . $value['latitude'] . ',' . $value['longitude'] . '" target="_blank">
                                         <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
                                     </a>
                                 </span> 
                             </div>
-                            <span class="ms-2 text-nowrap mt-auto" style="font-size:10px;">'.$formattedtime.'</span>
+                            <span class="ms-2 text-nowrap mt-auto" style="font-size:10px;">' . $formattedtime . '</span>
                         </div>
                     </div> ';
-                    } 
+                    }
                 }
-            } 
+            }
         }
 
         if ($html != '') {
@@ -2372,7 +2400,7 @@ class WhatAppIntegrationController extends BaseController
                     $insert_data['sent_date_time'] = gmdate('Y-m-d H:i:s');
                     $insert_data['message_type'] = '1';
                     $insert_data['sent_recieved_status'] = '1';
-                                $jsonmsg = '{"body":'.json_encode($massage_input).'}';
+                    $jsonmsg = '{"body":' . json_encode($massage_input) . '}';
 
                     $insert_data['message_contant'] = $jsonmsg;
                     $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
@@ -2709,7 +2737,6 @@ class WhatAppIntegrationController extends BaseController
                             }
                         }
                     }
-
                 } else {
                     echo 'Failed to save the image';
                 }
@@ -2740,6 +2767,28 @@ class WhatAppIntegrationController extends BaseController
 
         echo $updatedHTML;
     }
+    public function wa_connextion_edit_data()
+	{
+		if ($this->request->getPost("action") == "edit") {
+			$main_id = $this->request->getPost('edit_id');
+			$username = session_username($_SESSION['username']);
+			$table_name = $this->request->getPost('table');
+        
+            $full_data =  any_id_to_full_data($username . "_" . $table_name,$main_id);
+            if(isset($full_data['bot_id']) && !empty($full_data['bot_id']))
+            {
+                $edit_id = $full_data['bot_id'];
+            }else{
+                $edit_id = 0;
+            }
+       
+			$username = session_username($_SESSION['username']);
+			$table_name = $this->request->getPost('table');
+			$userEditdata = $this->MasterInformationModel->edit_entry2($username . "_bot" , $edit_id);
+			return json_encode($userEditdata, true);
+		}
+		die();
+	}
 
     public function bulk_whatsapp_template_send()
     {

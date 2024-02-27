@@ -604,6 +604,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
+	$routes->post('/whatsapp_bot_id_update', 'WhatAppIntegrationController::whatsapp_bot_id_update');
+	$routes->post('/wa_connextion_edit_data', 'WhatAppIntegrationController::wa_connextion_edit_data');
 	$routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
 	$routes->post('/whatsapp_template_delete_data', 'WhatAppIntegrationController::whatsapp_template_delete_data');
 	$routes->post('/whatsappView', 'WhatAppIntegrationController::whatsappView');

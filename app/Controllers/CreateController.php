@@ -276,7 +276,6 @@ class CreateController extends BaseController
 
     public function list_post_pagewise()
     {
-        // 2024-02-17T10:00:00+0000
 
         if (isset($_POST['access_tocken'])) {
             $accesss_tocken = $_POST['access_tocken'];

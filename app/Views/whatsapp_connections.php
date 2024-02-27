@@ -2,21 +2,25 @@
 <?= $this->include('partials/sidebar') ?>
 <style>
     @media (max-width:575px) {
-        .heading{
+        .heading {
             order: -1;
         }
-        .btn-pluse{
+
+        .btn-pluse {
             order: -1;
         }
-        .title-1 h2{
+
+        .title-1 h2 {
             font-size: 15px;
         }
+
         /* .list-table{
             overflow-x: scroll;
             min-width: 332px;
         } */
     }
-    .list-table{
+
+    .list-table {
         overflow-x: scroll;
         /* min-width: 632px; */
     }
@@ -28,6 +32,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 } else {
     $get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
 }
+$admin_bot = json_decode($admin_bot, true);
 ?>
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
@@ -45,14 +50,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 </div>
                 <div class="d-flex align-items-center col-6 col-sm-2 col-lg-2 btn-pluse mb-1">
                     <div class="main-selectpicker col">
-                        <select id="product_type" name="product_type"
-                            class="selectpicker form-control form-main main-control d-none product_type"
-                            data-live-search="true" required="" tabindex="-98">
+                        <select id="product_type" name="product_type" class="selectpicker form-control form-main main-control d-none product_type" data-live-search="true" required="" tabindex="-98">
                             <option value="1" class="dropdown-item">Realtoart</option>
                         </select>
                     </div>
-                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        class="btn-primary-rounded mx-2 PlusButtonClass bot-hider">
+                    <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-primary-rounded mx-2 PlusButtonClass bot-hider">
                         <i class="bi bi-plus"></i>
                     </button>
                 </div>
@@ -65,20 +67,15 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 <div class="col-xl-12 d-flex  px-3 d-flex flex-wrap">
                     <div class="col-3">
                         <div class="d-flex input-group d-none">
-                            <span class="input-group-text" id="basic-addon2"><i
-                                    class="fa-solid fa-magnifying-glass"></i></span>
-                            <input type="number" min="0" step="0.01" class="form-control main-control "
-                                id="coupon_value" name="coupon_value" placeholder="Coupon Value" required="">
+                            <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input type="number" min="0" step="0.01" class="form-control main-control " id="coupon_value" name="coupon_value" placeholder="Coupon Value" required="">
                         </div>
                     </div>
                     <div class="col-2 mx-2 d-none">
                         <div class="d-flex input-group">
-                            <span class="input-group-text border-end-0" id="basic-addon2"><i
-                                    class="fa-solid fa-magnifying-glass"></i></span>
+                            <span class="input-group-text border-end-0" id="basic-addon2"><i class="fa-solid fa-magnifying-glass"></i></span>
                             <div class="main-selectpicker col">
-                                <select id="product_type" name="product_type"
-                                    class="border  border-start-0 rounded-start-0 selectpicker form-control form-main main-control product_type"
-                                    data-live-search="true" required="" tabindex="-98">
+                                <select id="product_type" name="product_type" class="border  border-start-0 rounded-start-0 selectpicker form-control form-main main-control product_type" data-live-search="true" required="" tabindex="-98">
                                     <option value="1" class="dropdown-item d-flex flex-wrap ">
                                         <p>Filter</p>
                                     </option>
@@ -95,11 +92,9 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         <table class="table table-borderless mb-0 " style="min-width:700px">
                             <thead>
                                 <tr class="border-bottom">
-                                    <th scope="col"><span class="text-muted phone-header">Phone Number <span
-                                                class="mx-2"></span></span></th>
+                                    <th scope="col"><span class="text-muted phone-header">Phone Number <span class="mx-2"></span></span></th>
                                     <th scope="col"><span class="text-muted phone-header">Status <span class="mx-2"></span></span></th>
-                                    <th scope="col"><span class="text-muted phone-header">Quality rating <span
-                                                class="mx-2"></span></span></th>
+                                    <th scope="col"><span class="text-muted phone-header">Quality rating <span class="mx-2"></span></span></th>
                                     <!-- <th scope="col" style="max-width: 150px;"><span
                                             class="text-muted phone-header">Messaging Limit <span class="mx-2"></span></span></th> -->
                                     <th scope="col"><span class="text-muted phone-header">Country <span class="mx-2"></span></span></th>
@@ -171,30 +166,32 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         <div class="align-items-end d-flex col-12 my-2">
                             <div class="col-12">
                                 <h6 class="modal-body-title">Phone Number ID<sup class="validationn">*</sup></h6>
-                                <input type="number" class="form-control main-control PhoneNumberID" id="" name=""
-                                    placeholder="Enter Phone Number ID" required="">
+                                <input type="number" class="form-control main-control PhoneNumberID" id="" name="" placeholder="Enter Phone Number ID" required="">
                             </div>
                         </div>
                         <div class="col-12">
                             <h6 class="modal-body-title">WhatApp Business Account ID<sup class="validationn">*</sup></h6>
-                            <input type="number" class="form-control main-control WhatAppBAID" id="" name=""
-                                placeholder="Enter WhatApp Business Account ID" required="">
+                            <input type="number" class="form-control main-control WhatAppBAID" id="" name="" placeholder="Enter WhatApp Business Account ID" required="">
                         </div>
                         <div class="col-12">
                             <h6 class="modal-body-title">Access Token<sup class="validationn">*</sup></h6>
-                            <textarea type="text" class="form-control main-control AccessTokenInput" id="" name=""
-                                placeholder="Enter Access Token" required=""></textarea>
+                            <textarea type="text" class="form-control main-control AccessTokenInput" id="" name="" placeholder="Enter Access Token" required=""></textarea>
                         </div>
                     </div>
                     <div class="col-12 bot-selecter">
-                        <h6 class="modal-body-title">Select bot<sup class="validationn">*</sup></h6>
+                        <h6 class="modal-body-title">Select bot</h6>
                         <div class="main-selectpicker w-100" id="investor_list_select_table">
-							<select name="month" id="attendance_month" class="selectpicker form-control select form-main" data-live-search="true" required>
-								<option class="dropdown-item" disabled>--Select bot--</option>
-								<option class="dropdown-item" >1</option>
-								<option class="dropdown-item" >2</option>
-							</select>
-						</div>
+                            <select name="bot_iid" id="bot_iid" name="bot_id" class="selectpicker form-control select form-main" data-live-search="true" required>
+                                <option class="dropdown-item" value="0" >Select bot</option>
+                                <?php
+                                if (isset($admin_bot)) {
+                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                        echo '<option value="' . $value_bot["id"] . '">' . $value_bot["name"] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -207,21 +204,57 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         </div>
     </div>
 </div>
+<!-- chat-bot -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">WhatsApp Bussiness Account</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation row ConnectionAddFormList" name="fb_cnt" method="POST" novalidate="">
+                    <div class="col-12 bot-selecter">
+                        <h6 class="modal-body-title">Select bot</h6>
+                        <div class="main-selectpicker w-100" id="investor_list_select_table">
+                            <select name="update_bot_iid" id="update_bot_iid"  class="selectpicker form-control select form-main" data-live-search="true" required>
+                                <option class="dropdown-item" value="0" >Select bot</option>
+                                <?php
+                                if (isset($admin_bot)) {
+                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                        echo '<option value="' . $value_bot["id"] . '">' . $value_bot["name"] . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!-- <a href="<?= base_url('integration') ?>"> -->
+                    <button type="button" class="btn-secondary mx-0" id="cancel" name="">Back</button>
+                <!-- </a> -->
+                <button type="button" class="btn btn-primary bot_id_get_update" data-bot_id="" id="bot_id_get_update">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-    $('body').on('click', '.phone-header', function () {
+    $('body').on('click', '.phone-header', function() {
         $(this).removeClass('text-muted');
         $(this).closest('th').siblings('th').children('span').addClass('text-muted');
 
     })
-    $('body').on('hover', '.messeging-content', function () {
+    $('body').on('hover', '.messeging-content', function() {
         alert('jdfdff');
         $(this).css('font-weight', '500');
     })
 
 
-    $('body').on('click', '.PlusButtonClass', function(){
+    $('body').on('click', '.PlusButtonClass', function() {
         $('.PhoneNumberID').val('');
         $('.WhatAppBAID').val('');
         $('.AccessTokenInput').val('');
@@ -229,22 +262,22 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         $('.SubmitWhatAppIntegrationData').attr('action', 'insert');
         $('.ConnectionAddFormList').removeClass('was-validated');
 
-        
+
     });
 
 
 
 
 
-    function ListData(){
+    function ListData() {
 
         $.ajax({
             method: "post",
             url: "WhatsAppConnectionsList",
             data: {
-                'action':'list',
+                'action': 'list',
             },
-            success: function (res) {
+            success: function(res) {
                 $('.SetHtmlListData').html(res);
                 filter();
             },
@@ -254,41 +287,61 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     ListData();
 
     function filter() {
-    var masterListDataSearchBar = $('.MasterListDataSearchBar').val();
+        var masterListDataSearchBar = $('.MasterListDataSearchBar').val();
         var totalcount = $('.CountedNumberT').attr('total');
-    if (masterListDataSearchBar !== '') {
-        // var countscript = 
-        var subtotalcount = totalcount;
-        $('.ContactNumberClassSearch').each(function(index) {
-            var currentElementText = $(this).text();
-            var count = $(this).attr('count');
-            // console.log(masterListDataSearchBar + "    " + currentElementText);
-            var hideAndShowElement = $('.HideandShow' + count);
-            // console.log(hideAndShowElement);
+        if (masterListDataSearchBar !== '') {
+            // var countscript = 
+            var subtotalcount = totalcount;
+            $('.ContactNumberClassSearch').each(function(index) {
+                var currentElementText = $(this).text();
+                var count = $(this).attr('count');
+                // console.log(masterListDataSearchBar + "    " + currentElementText);
+                var hideAndShowElement = $('.HideandShow' + count);
+                // console.log(hideAndShowElement);
 
-            if (currentElementText.includes(masterListDataSearchBar)) {
-                hideAndShowElement.removeClass('d-none');
+                if (currentElementText.includes(masterListDataSearchBar)) {
+                    hideAndShowElement.removeClass('d-none');
 
-            } else {
-                hideAndShowElement.addClass('d-none');
-                subtotalcount = parseInt(subtotalcount) - 1;
-            }
-            
-        });
-        $('.CountedNumberT').text(subtotalcount);
-    } else {
-        $('.CountedNumberT').text(totalcount);
-        $('.HideandShowAllTr').removeClass('d-none');
+                } else {
+                    hideAndShowElement.addClass('d-none');
+                    subtotalcount = parseInt(subtotalcount) - 1;
+                }
+
+            });
+            $('.CountedNumberT').text(subtotalcount);
+        } else {
+            $('.CountedNumberT').text(totalcount);
+            $('.HideandShowAllTr').removeClass('d-none');
+        }
     }
-}
 
 
+    $('body').on('click', '.bot_id_get_update', function() {
+        // var bot_main_id = $('#chat_bot').attr('data-bot_editid');
+        var bot_main_id = $(this).attr("data-bot_id");
+        var bot_type_id = $('#update_bot_iid').val();
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('whatsapp_bot_id_update'); ?>",
+            data: {
+                'bot_main_id': bot_main_id,
+                'bot_type_id': bot_type_id,
+                "table": 'platform_integration',
+            },
+            success: function(data) {
+                $(".btn-close").trigger("click");
+                iziToast.success({
+                    title: 'Bot Added Successfully'
+                });
+            }
+        });
+    });
 
-    $('body').on('input', '.MasterListDataSearchBar', function(){
+    $('body').on('input', '.MasterListDataSearchBar', function() {
         filter();
     });
 
-    $('body').on('click', '.DelectConnection', function(){
+    $('body').on('click', '.DelectConnection', function() {
         var id = $(this).attr('id');
         var table = $(this).attr('table');
         var record_text = "Are you sure you want to Delete this?";
@@ -312,7 +365,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         data: {
                             'action': 'delete',
                             'id': id,
-                            "table" : table,
+                            "table": table,
                         },
                         success: function(data) {
                             iziToast.error({
@@ -327,9 +380,44 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         }
     });
 
+    // edit data 
+    $('body').on('click', '.chat_bot', function(e) {
+        e.preventDefault();
+        // $('.selectpicker').selectpicker('refresh');
+        var self = $(this).closest("tr");
+        var edit_value = $(this).attr("data-bot_editid");
+        if (edit_value != "") {
+            $('.loader').show();
+            $.ajax({
+                type: "post",
+                url: "<?= site_url('wa_connextion_edit_data'); ?>",
+                data: {
+                    action: 'edit',
+                    edit_id: edit_value,
+                    table: 'platform_integration'
+                },
+                success: function(res) {
+                    $('.loader').hide();
+                    // $('.selectpicker').selectpicker('refresh');
+                    var response = JSON.parse(res);
+                    $('.bot_id_get_update').attr('data-bot_id', edit_value);
+                    if(response[0].id !="")
+                    {
+						$("#exampleModal #bot_iid").val(response[0].id);
+                    }
+                    $('.selectpicker').selectpicker('refresh');
+                },
+                error: function(error) {
+                    $('.loader').hide();
+                }
+            });
+        } else {
+            $('.loader').hide();
+            alert("Data Not Edit.");
+        }
+    });
 
-
-    $('body').on('click', '#SubmitWhatAppIntegrationData', function(){
+    $('body').on('click', '#SubmitWhatAppIntegrationData', function() {
         var PhoneNumberID = $('.PhoneNumberID').val();
         var WhatAppBAID = $('.WhatAppBAID').val();
         var AccessTokenInput = $('.AccessTokenInput').val();
@@ -343,37 +431,37 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     'whatapp_phone_number_id': PhoneNumberID,
                     'whatapp_business_account_id': WhatAppBAID,
                     'whatapp_access_token': AccessTokenInput,
-                    id:id,
-                    action:action,
+                    id: id,
+                    action: action,
                 },
-                success: function (res) {
-                    if(res == 1){
+                success: function(res) {
+                    if (res == 1) {
                         iziToast.success({
                             title: 'Added Successfully',
                         });
                         ListData();
 
-                    }else{
+                    } else {
                         iziToast.error({
                             title: 'Duplicate Data',
                         });
                     }
                     $('.btn-close').trigger('click');
-                    
+
                 },
             });
-        }else{
+        } else {
             $('.ConnectionAddFormList').addClass('was-validated');
         }
     });
 
-    // $('.bot-selecter').hide();
-    $('body').on('click','.bot-hider',function(){
-        $('.bot-selecter').hide();
-        $('.hide-menu').show();
-    })
-    $('body').on('click','.chat_bot',function(){
-        $('.hide-menu').hide();
-        $('.bot-selecter').show();
-    })
+    // // $('.bot-selecter').hide();
+    // $('body').on('click', '.bot-hider', function() {
+    //     // $('.bot-selecter').hide();
+    //     $('.hide-menu').show();
+    // })
+    // $('body').on('click', '.chat_bot', function() {
+    //     $('.hide-menu').hide();
+    //     $('.bot-selecter').show();
+    // })
 </script>

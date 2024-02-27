@@ -159,7 +159,9 @@ class Home extends BaseController
     }
     public function whatsapp_connections()
     {
-        return view('whatsapp_connections');
+        $table_username = session_username($_SESSION['username']);
+        $data['admin_bot'] = $this->MasterInformationModel->display_all_records2($table_username . '_bot');
+        return view('whatsapp_connections', $data);
     }
 
     public function redirect_link()
