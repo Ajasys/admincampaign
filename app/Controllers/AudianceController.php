@@ -170,6 +170,7 @@ class AudianceController extends BaseController
     //             $chat_list_html = '';
     //             foreach ($data['adaccounts']['data'] as $ad_account) {
     //                 $account_id = $ad_account['id'];
+
     //                 // Fetch custom audiences for each ad account
     //                 $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
     //                 $response = file_get_contents($url);
@@ -247,16 +248,26 @@ class AudianceController extends BaseController
 
             $ts = "";
             $ts .=
-                '<tr class="audiance_view audiance_show_data" data-view_id="' .
+                '<tr class="audiance_view audiance_show_data cursor-pinter" data-view_id="' .
                 $value["id"] .
                 '"data-edit_id="' .
                 $value["id"] .
                 '">
-                    <td><img src="https://ajasys.com/img/favicon.png" style="width:15px;height:15px;"></td>
-                    <td class="p-2 text-nowrap"> ' .
+                    <td>
+                        <div class="d-flex flex-wrap align-items-center justify-content-between col-12" style="width:70px;">
+                            <img src="https://ajasys.com/img/favicon.png" class="mx-1" style="width:15px;height:15px;">
+                            <span class="mx-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 64.019 64.019" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><linearGradient id="a" x1="17.091" x2="49.122" y1="35.929" y2="3.898" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1a6fb0"></stop><stop offset="1" stop-color="#3d9ae2"></stop></linearGradient><linearGradient id="b" x1="14.883" x2="46.914" y1="60.126" y2="28.096" gradientUnits="userSpaceOnUse"><stop stop-opacity="1" stop-color="#00b6bd" offset="0"></stop><stop stop-opacity="1" stop-color="#fcaf4f" offset="0.005791505791505791"></stop></linearGradient><path fill="url(#a)" d="M63.999 31.717C63.841 14.207 49.547.01 32 .01a31.707 31.707 0 0 0-21.149 8.023L7.414 4.596A1.998 1.998 0 0 0 4 6.01v16a2 2 0 0 0 2 2h16a2 2 0 0 0 1.414-3.414l-4.062-4.062A19.821 19.821 0 0 1 32 12.01c11.028 0 20 8.972 20 20a2 2 0 0 0 2 2h8a2 2 0 0 0 1.999-2.293z" opacity="1" data-original="url(#a)" class=""></path><path fill="url(#b)" d="M58 40.01H42a2 2 0 0 0-1.414 3.414l4.062 4.061A19.826 19.826 0 0 1 32 52.01c-11.028 0-20-8.972-20-20a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2c0 17.645 14.355 32 32 32a31.711 31.711 0 0 0 21.149-8.022l3.437 3.437a2.003 2.003 0 0 0 2.18.434A2.004 2.004 0 0 0 60 58.01v-16a2 2 0 0 0-2-2z" opacity="1" data-original="url(#b)" class=""></path></g></svg>
+                            </span>
+                            <span class="mx-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 408.788 408.788" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M353.701 0H55.087C24.665 0 .002 24.662.002 55.085v298.616c0 30.423 24.662 55.085 55.085 55.085h147.275l.251-146.078h-37.951a8.954 8.954 0 0 1-8.954-8.92l-.182-47.087a8.955 8.955 0 0 1 8.955-8.989h37.882v-45.498c0-52.8 32.247-81.55 79.348-81.55h38.65a8.955 8.955 0 0 1 8.955 8.955v39.704a8.955 8.955 0 0 1-8.95 8.955l-23.719.011c-25.615 0-30.575 12.172-30.575 30.035v39.389h56.285c5.363 0 9.524 4.683 8.892 10.009l-5.581 47.087a8.955 8.955 0 0 1-8.892 7.901h-50.453l-.251 146.078h87.631c30.422 0 55.084-24.662 55.084-55.084V55.085C408.786 24.662 384.124 0 353.701 0z" style="" fill="#475993" data-original="#475993" class=""></path></g></svg>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="p-1 text-nowrap"> ' .
                 $value["name"] .
                 '</td>
-                    <td class="p-2 text-nowrap">' .
+                    <td class="p-1 text-nowrap">' .
                 $value["source"] .
                 "</td>";
 
@@ -269,13 +280,13 @@ class AudianceController extends BaseController
             }
 
             $ts .=
-                '<td class="p-2 text-nowrap fs-12"><span class=" text-muted d-block">Last Edited</span>' .
+                '<td class="p-1 text-nowrap fs-12"><span class=" text-muted d-block">Last Edited</span>' .
                 date("d-m-Y H:i", strtotime($value["updated_at"])) .
                 '</td>
-                <td class="p-2 text-nowrap"> ' .
+                <td class="p-1 text-nowrap"> ' .
                 date("d-m-Y H:i", strtotime($value["created_at"])) .
                 '</td>
-                <td class="p-2 text-nowrap"> </td>
+                <td class="p-1 text-nowrap"> </td>
             ';
             $ts .= "</tr>";
             $html .= $ts;

@@ -643,9 +643,11 @@ $get_facebook_page = $result->getResultArray();
                <!--Facebook Synchronize-->
                <div class="col-12 mt-3">
                   <div class="main-selectpicker">
-                     <label for="#"><input type="checkbox" class="me-2 per_face_drop1" id="per_face_drop1" name="option_facebook"
-                           value="1">Facebook Synchronize<sup class="validationn">*</sup></label>
-                     <div class="col-12 d-none platform_selecter1 mt-2 ">
+                     <label for="#">
+                        <!-- <input type="checkbox" class="me-2 per_face_drop1" id="per_face_drop1" name="option_facebook"value="1" > -->
+                        Facebook Synchronize<sup class="validationn">*</sup>
+                     </label>
+                     <div class="col-12 platform_selecter1 mt-2 ">
                         <div class="main-selectpicker fs-12 col-6">
                            <select id="crm_pages"
                               class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12 pages_name"
@@ -1277,21 +1279,20 @@ $get_facebook_page = $result->getResultArray();
          $('.platform_selecter').addClass('d-none');
       }
    })
-   $('body').on('change', '#per_face_drop1', function () {
-      if (this.checked) {
-         $('.platform_selecter1').removeClass('d-none');
-      }
-      else {
-         $('.platform_selecter1').addClass('d-none');
-      }
-   })
-   $('body').on('click', '.chake-button', function () {
-      if ($(".per_face_drop1").prop("checked")) {
-         $('.platform_selecter1').removeClass('d-none');
-         // alert('kld');
-      }
-      else {
-         $('.platform_selecter1').addClass('d-none');
-      }
-   })
+//    $('body').on('change', '#per_face_drop1', function () {
+//       if (this.checked) {
+//          $('.platform_selecter1').removeClass('d-none');
+//       }
+//       else {
+//          $('.platform_selecter1').addClass('d-none');
+//       }
+//    })
+//   $('body').on('click','.chake-button',function(){
+//      var h = $(".per_face_drop1");
+//      if ($(".per_face_drop1").prop("checked")) {
+//         $('.platform_selecter1').removeClass('d-none');
+//      } else {
+//         $('.platform_selecter1').addClass('d-none');
+//      }
+//   })
 </script>
