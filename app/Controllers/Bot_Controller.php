@@ -2230,7 +2230,7 @@ $page_img = $page_data->page_img;
 					// }
 
 				$fb_chat_list_html .= '<div class="col-12 account-nav my-2 account-box linked-page" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
-										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
+										<div class="col-12 d-flex flex-wrap justify-content-between align-items-center p-2 ps-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 												<img src="' . $page_data->page_img . '" alt="" width="45">
 											</a>
@@ -2256,7 +2256,7 @@ $page_img = $page_data->page_img;
 			foreach ($IG_data as $IG_key => $IG_value) {
 				$IG_chat_list_html .= '
 								<div class="col-12 account-nav my-2 account-box linked-page" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
-									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
+									<div class="col-12 d-flex flex-wrap justify-content-between align-items-center  p-2 ps-4">
 										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
 										</a>

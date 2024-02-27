@@ -425,6 +425,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     .linked-page1:hover{
         background-color: #eaeaea9c!important;
     }
+    .scroll-none::-webkit-scrollbar {
+        display: none;
+    }
+    
 </style>
 
 
@@ -608,8 +612,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
                 <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box"
                     style="height:80vh">
-                    <div class="col-12 border rounded-3 bg-white position-lg-relative overflow-hidden" style="height:80vh">
-                        <div class="chat-nav-search-bar p-2 col-12 text-white chat-header">
+                    <div class="col-12 border rounded-3 bg-white position-lg-relative " style="height:80vh">
+                        <div class="chat-nav-search-bar p-2 col-12 text-white chat-header rounded-top-3">
                             <div class="d-flex justify-content-between align-items-center ">
                                 <div class="dropdown d-flex align-items-center ps-2 ">
                                     <i class="fa-solid fa-user fs-5 me-2"></i>
@@ -617,7 +621,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll px-0" style="max-height: 100%;">
+                        <div class="col-12 overflow-y-scroll px-0 scroll-none" style="max-height: 100%;">
                             <div class="accordion " id="accordionExample">
                                 <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
@@ -776,7 +780,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1" style="max-height: 80%;">
+                        <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1 px-0 scroll-none" style="max-height: 80%;">
 
                         </div>
                         <!-- <div class="m-auto  text-center">
