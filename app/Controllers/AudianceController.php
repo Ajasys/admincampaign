@@ -222,7 +222,7 @@ class AudianceController extends BaseController
         }
     }
 
-    public function audience_list_data()
+        public function audience_list_data()
     {
         $table_name = $_POST["table"];
         $username = session_username($_SESSION["username"]);
@@ -256,40 +256,43 @@ class AudianceController extends BaseController
                 continue; // Skip this row if it's a duplicate combination
             }
 
-            $ts = "";
-            $ts .=
-                '<tr class="audiance_view audiance_show_data cursor-pinter" data-view_id="' .
-                $value["id"] .
-                '"data-edit_id="' .
-                $value["id"] .
-                '">
-                <td><img src="https://ajasys.com/img/favicon.png" style="width:15px;height:15px;"></td>
-                    <td class="p-1 text-nowrap"> ' .
-                $value["name"] .
-                '</td>
-                    <td class="p-1 text-nowrap">' .
-                $value["source"] .
-                "</td>";
+            // Check if the value of facebook_syncro is 0
+            if ($value["facebook_syncro"] == 0) {
+                $ts = "";
+                $ts .=
+                    '<tr class="audiance_view audiance_show_data cursor-pinter" data-view_id="' .
+                    $value["id"] .
+                    '"data-edit_id="' .
+                    $value["id"] .
+                    '">
+                    <td><img src="https://ajasys.com/img/favicon.png" style="width:15px;height:15px;"></td>
+                        <td class="p-1 text-nowrap"> ' .
+                    $value["name"] .
+                    '</td>
+                        <td class="p-1 text-nowrap">' .
+                    $value["source"] .
+                    "</td>";
 
-            // Iterate through the results of the SQL query to match the inquiry_status
-            foreach ($paydone_data_get as $status) {
-                if ($value["name"] == $status["name"]) {
-                    $ts .= "<td>" . $status["sub_count"] . "</td>";
-                    break; // Once the match is found, break out of the loop
+                // Iterate through the results of the SQL query to match the inquiry_status
+                foreach ($paydone_data_get as $status) {
+                    if ($value["name"] == $status["name"]) {
+                        $ts .= "<td>" . $status["sub_count"] . "</td>";
+                        break; // Once the match is found, break out of the loop
+                    }
                 }
-            }
 
-            $ts .=
-                '<td class="p-1 text-nowrap fs-12"><span class=" text-muted d-block">Last Edited</span>' .
-                date("d-m-Y H:i", strtotime($value["updated_at"])) .
-                '</td>
-                <td class="p-1 text-nowrap"> ' .
-                date("d-m-Y H:i", strtotime($value["created_at"])) .
-                '</td>
-                <td class="p-1 text-nowrap"> </td>
-            ';
-            $ts .= "</tr>";
-            $html .= $ts;
+                $ts .=
+                    '<td class="p-1 text-nowrap fs-12"><span class=" text-muted d-block">Last Edited</span>' .
+                    date("d-m-Y H:i", strtotime($value["updated_at"])) .
+                    '</td>
+                    <td class="p-1 text-nowrap"> ' .
+                    date("d-m-Y H:i", strtotime($value["created_at"])) .
+                    '</td>
+                    <td class="p-1 text-nowrap"> </td>
+                ';
+                $ts .= "</tr>";
+                $html .= $ts;
+            }
 
             // Add the current combination to the list of encountered combinations
             $uniqueCombinations[] = $combination;
@@ -303,6 +306,7 @@ class AudianceController extends BaseController
             echo '<p style="text-align:center;">Data Not Found </p>';
         }
     }
+
 
     public function audience_show_data()
     {
@@ -381,6 +385,7 @@ class AudianceController extends BaseController
         $username = session_username($_SESSION["username"]);
         $action_name = $this->request->getPost("action");
         $pages_name = $this->request->getPost("pages_name");
+        $facebook_syncro = $this->request->getPost("facebook_syncro");
 
         $currentDateTime = date("Y-m-d H:i:s");
         if ($action_name == "insert") {
@@ -394,6 +399,7 @@ class AudianceController extends BaseController
                 $name = $_POST["name"];
                 $source = $_POST["source"];
                 $pages_name = $_POST["pages_name"];
+                $facebook_syncro = $_POST["facebook_syncro"];
 
                 // Set a default retention value if not provided
                 $retention_days = isset($_POST["retansion"])
@@ -443,6 +449,7 @@ class AudianceController extends BaseController
                             "intrested_product" => $intrested_product,
                             "name" => $name,
                             "pages_name" => $pages_name, // Add selected page value here
+                            "facebook_syncro" => $facebook_syncro, // Add selected facebook value here
                             "created_at" => $currentDateTime,
                             "updated_at" => $currentDateTime,
                         ]);
@@ -468,6 +475,7 @@ class AudianceController extends BaseController
                         $departmentdisplaydata,
                         true
                     );
+                    if ($facebook_syncro == 1) {
                     $accessToken = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
                     $adAccountId = '6331751513513589';
                     $url = "https://graph.facebook.com/v19.0/act_$adAccountId/customaudiences";
@@ -546,10 +554,15 @@ class AudianceController extends BaseController
                     // Process the response as needed
                     // For example, you can return the response to the caller
                     return $users_response;
-                    } else {
-                        // Data not available, return error
-                        return "error";
-                    }
+                } else {
+                    // Handle the case when $pages_name is equal to 0
+                    // For example, you can return a message indicating that the custom audience was not created
+                    return "Custom audience not created because pages_name is equal to 0.";
+                }
+            } else {
+                // Data not available, return error
+                return "error";
+            }
             }
         }
     }

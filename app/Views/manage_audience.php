@@ -425,7 +425,7 @@ $get_facebook_page = $result->getResultArray();
                <div class="col-12 mt-3">
                   <div class="main-selectpicker">
                      <label for="#"><input type="checkbox" class="me-2" id="per_face_drop" name="option"
-                           value="1">Facebook Synchronize<sup class="validationn">*</sup></label>
+                           value="">Facebook Synchronize<sup class="validationn">*</sup></label>
                      <div class="col-12 d-none platform_selecter mt-2 ">
                         <div class="main-selectpicker fs-12 col-6">
                            <select id="pages_name"
@@ -810,6 +810,7 @@ $get_facebook_page = $result->getResultArray();
       var name = $("#name").val();
       var source = $("input[name='flexRadioDefault']:checked").val();
       var inquiry_data = $("input[name='option']:checked").val();
+      var facebook_syncro= $("#per_face_drop").is(":checked") ? 1 : 0; // Check if the checkbox is checked
       var pages_name = $("#pages_name").val(); // Get the selected option value
       // console.log(pages_name);
       // Validate form fields
@@ -824,6 +825,7 @@ $get_facebook_page = $result->getResultArray();
          formData.append('source', source);
          formData.append('inquiry_data', inquiry_data);
          formData.append('pages_name', pages_name);
+         formData.append('facebook_syncro', facebook_syncro);
          // Show loader
          $('.loader').show();
 
@@ -846,7 +848,7 @@ $get_facebook_page = $result->getResultArray();
                      title: 'Added Successfully'
                   });
 
-                  location.reload(true);
+                  // location.reload(true);
                   list_data();
                }
                else {
@@ -1197,7 +1199,7 @@ $get_facebook_page = $result->getResultArray();
                   title: 'data imported successfully'
                });
 
-               location.reload(true);
+               // location.reload(true);
                list_data();
                data_module_list_data();
 
