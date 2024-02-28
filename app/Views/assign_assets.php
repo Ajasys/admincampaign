@@ -1,7 +1,9 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
 <style>
-
+    .btn_dark:hover {
+        background-color: #e3e4e4;
+    }
 </style>
 <?php
 
@@ -87,45 +89,24 @@ $resultdata = $rows->getResultArray();
                             <!-- first-div -->
                             <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3 social-accounts main-box rounded-bottom-0" style="height:80vh">
                                 <div class="col-12 border rounded-3 bg-white position-lg-relative rounded-bottom-0" style="height:80vh">
-                                    <div class="chat-nav-search-bar p-2 col-12  rounded-top-3 ">
+                                    <div class="chat-nav-search-bar p-2 col-12  rounded-top-3 border-bottom ">
                                         <div class="d-flex justify-content-between align-items-center ">
                                             <div class="dropdown d-flex align-items-center ps-2 ">
                                                 <h5 class="fs-5 fw-semibold ">Select assets Type</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="accordion" id="accordionExample">
-                                        <div class="accordion-item rounded-0 border-start-0 border-end-0">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button border-0 shadow-none fw-medium rounded-0 px-3 py-2 border-bottom " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                                        <g>
-                                                            <path fill="#1877f2" d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z" opacity="1" data-original="#1877f2" class=""></path>
-                                                            <path fill="#ffffff" d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z" opacity="1" data-original="#ffffff"></path>
-                                                        </g>
-                                                    </svg> -->
-                                                    <P class="ms-2">Pages</P>
 
-                                                </button>
-                                            </h2>
-                                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body p-0">
-                                                    <ul>
-                                                        <!-- <li class="cursor-pointer py-2 ps-5 account-box d-flex  flex-wrap align-items-center border-bottom">
-                                                            <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
-                                                            <p class="col">Ajasys all</p>
-                                                        </li>
-                                                        <li class="cursor-pointer py-2 ps-5 account-box d-flex  flex-wrap align-items-center ">
-                                                            <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
-                                                            <p class="col">Ajasys all</p>
-                                                        </li> -->
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="border-to pages_div btn_dark border-bottom rounded-1 p-2">
+                                        <p>Pages</p>
                                     </div>
+                                    <div class="border-top instagram_div btn_dark border-bottom rounded-1 p-2">
+                                        <p>instagram</p>
+                                    </div>
+
                                 </div>
                             </div>
+                            <!-- Pages_div -->
                             <!-- second-div -->
                             <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3  social-accounts main-box rounded-bottom-0" style="height:80vh">
                                 <div class="col-12 border rounded-3 bg-white position-lg-relative rounded-bottom-0" style="height:80vh">
@@ -136,34 +117,63 @@ $resultdata = $rows->getResultArray();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
-                                        <div class="d-flex align-items-center" style="height: 45px;">
-                                            <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
-                                            <div class="col fs-6 fw-semibold">
-                                                Select all
+                                    <!-- pades div  -->
+                                    <div class="Pages_div">
+                                        <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
+                                            <div class="d-flex align-items-center" style="height: 45px;">
+                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                                                <div class="col fs-6 fw-semibold">
+                                                    Select all
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <ul class="">
-                                    <?php
-
-                                    foreach($resultdata as $key=>$page_data)
-                                    {
-                                        $pagesList = get_object_vars(json_decode(fb_page_list($page_data['access_token'])));
-                                        foreach($pagesList['page_list'] as $key=>$pagelist_data)
-                                        {
-                                            ?>
-                                             <li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
-                                            <input type="checkbox" class="me-2 rounded-3 selectedId" name="selectedId" style="width:18px;height:18px;">
-                                            <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
-                                            <p class="col"><?php echo $pagelist_data->name;?></p>
-                                        </li>
+                                        <ul class="">
                                             <?php
-                                        }
-                                    }
-                                    ?>
-                                        
-                                    </ul>
+
+                                            foreach ($resultdata as $key => $page_data) {
+                                                $pagesList = get_object_vars(json_decode(fb_page_list($page_data['access_token'])));
+                                                foreach ($pagesList['page_list'] as $key => $pagelist_data) {
+                                            ?>
+                                                    <li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
+                                                        <input type="checkbox" class="me-2 rounded-3 selectedId" name="selectedId" style="width:18px;height:18px;">
+                                                        <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
+                                                        <p class="col">
+                                                            <?php echo $pagelist_data->name; ?>
+                                                        </p>
+                                                    </li>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+
+                                        </ul>
+                                    </div>
+
+                                    <!-- instagram div  -->
+                                    <div class="instagram_div_to d-none">
+                                        <div class="d-flex justify-content-between ms-3 me-3 mt-2">
+                                            <div>
+                                                <p>Search & Fliter</p>
+                                            </div>
+                                            <div><i class="bi bi-search"></i></div>
+                                        </div>
+
+                                        <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
+                                            <div class="d-flex align-items-center" style="height: 45px;">
+                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                                                <div class="col fs-6 fw-semibold">
+                                                    Select all
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3 me-3 mt-2 d-flex align-items-center">
+                                            <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+
+                                            <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
+                                            <p>@ajasystechnologiies</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <!-- third-div -->
@@ -176,9 +186,10 @@ $resultdata = $rows->getResultArray();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="col-12 d-flex justify-content-end border-bottom">
-                                            <div class="main-selectpicker border-bottom col-7 d-flex align-items-center" style="height: 45px;">
+
+                                    <div class="card-body ">
+                                        <div class="col-12 Pages_div d-flex justify-content-end border-bottom">
+                                            <div class="main-selectpicker col-7 d-flex align-items-center" style="height: 45px;">
                                                 <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
                                                     <option value="">select user</option>
                                                     <option value="">User 1</option>
@@ -187,7 +198,8 @@ $resultdata = $rows->getResultArray();
                                             </div>
                                         </div>
 
-                                        <div class=" col-12 overflow-y-scroll" style="height:90vh;">
+                                        <!-- Pages_div -->
+                                        <div class=" Pages_div col-12 overflow-y-scroll" style="height:90vh;">
                                             <div>
                                                 <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
@@ -198,7 +210,8 @@ $resultdata = $rows->getResultArray();
                                                     </div>
                                                     <div class="col-11">
                                                         <p class="col ms-3 fw-bold fs-14">Content</p>
-                                                        <p class="ms-3">Create, manage or delete posts, stories and more as the Page. Protect your copyrighted content.</p>
+                                                        <p class="ms-3">Create, manage or delete posts, stories and more as the Page.
+                                                            Protect your copyrighted content.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 p-2 d-flex align-items-center">
@@ -210,7 +223,8 @@ $resultdata = $rows->getResultArray();
                                                     </div>
                                                     <div class="col-11">
                                                         <p class="col ms-3 fw-bold fs-14">Community activity</p>
-                                                        <p class="ms-3">Review and respond to comments, remove unwanted content and report activity.</p>
+                                                        <p class="ms-3">Review and respond to comments, remove unwanted content and report
+                                                            activity.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 p-2 d-flex align-items-center">
@@ -258,7 +272,8 @@ $resultdata = $rows->getResultArray();
                                                     </div>
                                                     <div class="col-11">
                                                         <p class="col ms-3 fw-bold fs-14">Revenue</p>
-                                                        <p class="ms-3">View and export Page Monetization and earnings data within Creator Studio only.
+                                                        <p class="ms-3">View and export Page Monetization and earnings data within Creator
+                                                            Studio only.
                                                         </p>
                                                     </div>
                                                 </div>
@@ -272,7 +287,8 @@ $resultdata = $rows->getResultArray();
                                                     <div class="col-11">
                                                         <p class="col ms-3 fw-bold fs-14">Leads</p>
                                                         <p class="ms-3">
-                                                            Access and manage leads, including downloading leads, creating lead ads and more.
+                                                            Access and manage leads, including downloading leads, creating lead ads and
+                                                            more.
                                                             Partial access (business tools and Facebook)
                                                         </p>
                                                     </div>
@@ -286,9 +302,11 @@ $resultdata = $rows->getResultArray();
                                                         </label>
                                                     </div>
                                                     <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Content, Messages, Community activity, Ads, Insights</p>
+                                                        <p class="col ms-3 fw-bold fs-14">Content, Messages, Community activity, Ads,
+                                                            Insights</p>
                                                         <p class="ms-3">
-                                                            Access and manage leads, including downloading leads, creating lead ads and more.
+                                                            Access and manage leads, including downloading leads, creating lead ads and
+                                                            more.
                                                             Partial access (business tools and Facebook)
                                                         </p>
                                                     </div>
@@ -303,21 +321,94 @@ $resultdata = $rows->getResultArray();
                                                     <div class="col-11">
                                                         <p class="col ms-3 fw-bold fs-14">Everything</p>
                                                         <p class="ms-3">
-                                                            Access and manage leads, including downloading leads, creating lead ads and more.
+                                                            Access and manage leads, including downloading leads, creating lead ads and
+                                                            more.
                                                             Partial access (business tools and Facebook)
                                                         </p>
                                                     </div>
                                                 </div>
 
+                                                <!-- instagram -->
                                             </div>
                                         </div>
 
+                                        <!-- instagram -->
+                                        <div class="instagram_div_to d-non col-12 overflow-y-scroll" style="height:90vh;">
+                                            <div>
+
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Content</p>
+                                                        <p class="ms-3">Create, manage or delete posts, stories and more as the Instagram account. View posts from other Instagram accounts that this account follows.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Messages</p>
+                                                        <p class="ms-3">Send and respond to direct messages as the Instagram account.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Community activity</p>
+                                                        <p class="ms-3">Review and respond to comments, remove unwanted content and report activity.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Ads</p>
+                                                        <p class="ms-3">Create, manage and delete ads for the Instagram account.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Insights</p>
+                                                        <p class="ms-3">See how the Instagram account, content and ads perform.</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
                             </div>
+
+
                         </div>
                     </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -349,5 +440,14 @@ $resultdata = $rows->getResultArray();
             var check = ($('.selectedId').filter(":checked").length == $('.selectedId').length);
             $('#selectall').prop("checked", check);
         });
+
+        $("body").on("click", ".pages_div", function() {
+            $(".Pages_div").removeClass("d-none")
+            $(".instagram_div_to").addClass("d-none");
+        })
+        $("body").on("click", ".instagram_div", function() {
+            $(".Pages_div").addClass("d-none");
+            $(".instagram_div_to").removeClass("d-none");
+        })
     });
 </script>
