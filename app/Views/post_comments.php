@@ -1,10 +1,10 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
-<?php 
-    $db_connection = \Config\Database::connect('second');
-    $queryy = 'SELECT * FROM admin_platform_integration WHERE platform_status =2';
-    $result = $db_connection->query($queryy);
-    $get_facebook_page = $result->getResultArray();
+<?php
+$db_connection = \Config\Database::connect('second');
+$queryy = 'SELECT * FROM admin_platform_integration WHERE platform_status =2';
+$result = $db_connection->query($queryy);
+$get_facebook_page = $result->getResultArray();
 
 ?>
 
@@ -144,27 +144,25 @@
                     <h2>Posts</h2>
                 </div>
                 <div class="col-6 col-lg-2 ms-auto me-2">
-            <div class="main-selectpicker">
-              
-            
-                <select id="" name=""
-                            class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control ">
+                    <div class="main-selectpicker">
 
-                    <!-- 13022024 -->
-                    <?php
-                    if (isset($get_facebook_page) && !empty($get_facebook_page)) {
-                        foreach ($get_facebook_page as $key => $value) {
-                            echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
+
+                        <select id="" name="" class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control ">
+
+                            <!-- 13022024 -->
+                            <?php
+                            if (isset($get_facebook_page) && !empty($get_facebook_page)) {
+                                foreach ($get_facebook_page as $key => $value) {
+                                    echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
                                 ' . $value['fb_app_name'] . '</option>';
-                        }
-                    }
-                    ?>
-                </select>
-            </div>
-        </div>
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
                 <div>
-                    <button class=" btn btn-primary-rounded border border-primary add_buttonn" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">+</button>
+                    <button class=" btn btn-primary-rounded border border-primary add_buttonn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+</button>
                 </div>
             </div>
             <div class="col-12 d-flex flex-wrap ">
@@ -174,19 +172,15 @@
                         <div class="accordion mt-2" id="accordionExample">
                             <div class="accordion-item border-0 border-bottom">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button border-0 shadow-none fw-medium" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                                        aria-controls="collapseOne">
+                                    <button class="accordion-button border-0 shadow-none fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         <i class="fa-brands fa-facebook fa-2xl me-2"></i>
                                         <P>Facebook Pages</P>
 
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show"
-                                    data-bs-parent="#accordionExample">
+                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                                     <div class="accordion-body account_list p-0">
-                                        <div
-                                            class="col-12 border  bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
+                                        <div class="col-12 border  bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
                                             <!--  facebook page get start -->
                                             <?php
                                             $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
@@ -199,15 +193,9 @@
                                             ?>
 
                                                 <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
-                                                    <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])): ?>
-                                                        <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>"
-                                                            data-acess_token="<?php echo $value->access_token; ?>"
-                                                            data-pagee_id="<?php echo $value->id; ?>"
-                                                            data-page_name="<?php echo $value->name; ?>"
-                                                            data-img="<?php echo $img_decode['page_img']; ?>">
-                                                            <img class="rounded-circle me-2"
-                                                                src="<?php echo $img_decode['page_img']; ?>" alt="#"
-                                                                style="width:30px;height:30px;object-fit-container" />
+                                                    <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])) : ?>
+                                                        <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token; ?>" data-pagee_id="<?php echo $value->id; ?>" data-page_name="<?php echo $value->name; ?>" data-img="<?php echo $img_decode['page_img']; ?>">
+                                                            <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
                                                             <div class="col">
                                                                 <?php echo $value->name ?>
                                                             </div>
@@ -215,14 +203,14 @@
                                                     <?php endif; ?>
                                                 </div>
                                                 <!-- <div class="col-12 d-flex flex-wrap align-items-start">
-                                <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)): ?>
+                                <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)) : ?>
                                     <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post"
                                                             data-pagee_id="<?php if (isset($value->instagram_business_account)) {
                                                                                 echo $value->id;
                                                                             } ?>" data-page_name="<?php echo $value->instagram_business_account->username; ?>"
                                                             data-img="<?php echo $img_decode['page_img']; ?>"
                                                             data-acess_token="<?php echo $value->access_token; ?>">
-                                        <?php if (isset($value->instagram_business_account->username)): ?>
+                                        <?php if (isset($value->instagram_business_account->username)) : ?>
                                             <?php echo $value->instagram_business_account->username; ?>
                                         <?php endif; ?>
                                     </div>
@@ -240,61 +228,58 @@
                     </div>
                 </div>
                 <div class="col-9 px-3  mt-2">
-                    <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3"
-                        style="max-height:90vh;">
+                    <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:90vh;">
                         <div class="demo_list_data  d-flex flex-wrap col-12" id="demo_list_data"></div>
                     </div>
                 </div>
             </div>
         </div>
-            <div class="modal fade " id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true"
-            role="dialog" data-bs-backdrop="static">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Post</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body p-0 ">
-                            <div class="col-12 p-3">
-                                <div class="col-12 border rounded-2 p-2 my-2">
-                                    <div class="upload-btn-wrapper col-12">
-                                        <div class="file-btn col-12  p-3">
-                                            <div class="col-12 justify-content-center d-flex">
-                                                <i class="bi bi-images"></i>
-                                            </div>
-                                            <div class="col-12 justify-content-center d-flex">
-                                                <h5>Drag &amp; drop or select a file<p></p>
-                                                </h5>
-                                            </div>
-
+        <div class="modal fade " id="get_file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" data-bs-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create Post</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0 ">
+                        <div class="col-12 p-3">
+                            <div class="col-12 border rounded-2 p-2 my-2">
+                                <div class="upload-btn-wrapper col-12">
+                                    <div class="file-btn col-12  p-3">
+                                        <div class="col-12 justify-content-center d-flex">
+                                            <i class="bi bi-images"></i>
                                         </div>
-                                        <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate>
+                                        <div class="col-12 justify-content-center d-flex">
+                                            <h5>Drag &amp; drop or select a file<p></p>
+                                            </h5>
+                                        </div>
 
-                                            <input class="form-control main-control coupon_event attachment" id="attachment" name="attachment[]" multiple type="file" placeholder="">
-                                        </form>
                                     </div>
+                                    <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate>
+
+                                        <input class="form-control main-control coupon_event attachment" id="attachment" name="attachment[]" multiple type="file" placeholder="">
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-<!-- <button class="btn btn-primary" data-bs-target="" data-bs-toggle="modal" data-bs-dismiss="modal"></button> -->
-                            <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal">Back to
-                                first</button>
-                        </div>
-
                     </div>
+                    <div class="modal-footer">
+                        <!-- <button class="btn btn-primary" data-bs-target="" data-bs-toggle="modal" data-bs-dismiss="modal"></button> -->
+                        <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal">Back to
+                            first</button>
+                    </div>
+
                 </div>
             </div>
+        </div>
         <div class="m-auto massage_list_loader text-center position-fixed top-50 start-50">
             <span>Loading...</span>
             <div class="mx-auto chat_loader"></div>
         </div>
-        <div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-<div class="modal-header">
+                    <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -302,88 +287,62 @@
                             <form class="needs-validation" id="create_form" name="create_form" method="POST" novalidate>
                                 <ul class="nav nav-pills navtab_primary_sm postt_tab" id="pills-tab" role="tablist">
                                     <li class="nav-item active" role="presentation">
-                                        <a class="nav-link bg-white text-primary create-input-toggle "
-                                            id="pills-master-diet" data-tabb_id="1" data-bs-toggle="pill"
-                                            data-bs-target="#pills-master-diet-tab" href="#">Photo/Video</a>
+                                        <a class="nav-link bg-white text-primary create-input-toggle " id="pills-master-diet" data-tabb_id="1" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Photo/Video</a>
                                     </li>
                                     <li class="nav-item " role="presentation">
-                                        <a class="nav-link bg-white text-primary create-input-toggle"
-                                            id="pills-all-diet" data-tabb_id="2" data-bs-toggle="pill"
-                                            data-bs-target="#pills-master-diet-tab" href="#">Reels</a>
+                                        <a class="nav-link bg-white text-primary create-input-toggle" id="pills-all-diet" data-tabb_id="2" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Reels</a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <a class="nav-link bg-white text-primary" id="pills-all-event"
-                                            data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab"
-                                            href="#">Event</a>
+                                        <a class="nav-link bg-white text-primary" id="pills-all-event" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Event</a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <a class="nav-link bg-white text-primary" id="pills-all-offer"
-                                            data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab"
-                                            href="#">Offer</a>
+                                        <a class="nav-link bg-white text-primary" id="pills-all-offer" data-bs-toggle="pill" data-bs-target="#pills-master-diet-tab" href="#">Offer</a>
                                     </li>
                                 </ul>
 
                             </form>
-                                                    </nav>
+                        </nav>
                         <div class="col-12">
-                            <form class="needs-validation" id="create_form_clear" name="create_form_clear" method="POST"
-                                novalidate>
+                            <form class="needs-validation" id="create_form_clear" name="create_form_clear" method="POST" novalidate>
                                 <div class="tab-content active show" id="pills-tabContent">
-                                    <div class="tab-pane fade active show" id="pills-master-diet-tab" role="tabpanel"
-                                        aria-labelledby="update-all-tab-modal" tabindex="0">
+                                    <div class="tab-pane fade active show" id="pills-master-diet-tab" role="tabpanel" aria-labelledby="update-all-tab-modal" tabindex="0">
                                         <div class="col-12  tab-compo">
                                             <div class="card-body p-2">
                                                 <div id="event-input">
                                                     <div class="col-12 my-1 p-1">
                                                         <div class="col-12">
-                                                            <input type="text" class="form-control p-2" id="event_title"
-                                                                placeholder="Title">
+                                                            <input type="text" class="form-control p-2" id="event_title" placeholder="Title">
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
                                                         <div class="col-6 my-1 p-1">
                                                             <div class="col-12">
-                                                                <input type="text"
-                                                                    class="form-control p-2 offer_start_date"
-                                                                    id="event_start_date" placeholder="Start Date">
+                                                                <input type="text" class="form-control p-2 offer_start_date" id="event_start_date" placeholder="Start Date">
                                                             </div>
                                                         </div>
                                                         <div class="col-6 my-1 p-1">
                                                             <div class="col-12">
-                                                                <input type="text"
-                                                                    class="form-control p-2 event_end_date"
-                                                                    id="event_end" placeholder="End Date">
+                                                                <input type="text" class="form-control p-2 event_end_date" id="event_end" placeholder="End Date">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 border rounded  p-3">
-                                                    <textarea cols="30" rows="5" class="col-12 border-0 event_address"
-                                                        placeholder="Write something or use shortcodes, spintax..... "
-                                                        id="event_address"></textarea>
+                                                    <textarea cols="30" rows="5" class="col-12 border-0 event_address" placeholder="Write something or use shortcodes, spintax..... " id="event_address"></textarea>
                                                     <div class="img-input col-12 d-flex flex-wrap">
-                                                    <div class="img-placeholder d-flex flex-wrap"></div>
-                                                                                                                </div>
-                                                    <span
-                                                        class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 drag-and-drop-btn"
-                                                        data-bs-toggle="modal" data-bs-target="#get_file" type="file"
-                                                        style="background:#bdbaba;">Click or Drag &
+                                                        <div class="img-placeholder d-flex flex-wrap"></div>
+                                                    </div>
+                                                    <span class="border-0 col-12 mt-4 d-inline-block rounded-3 text-center px-4 py-2 fw-semibold text-muted mb-4 drag-and-drop-btn" data-bs-toggle="modal" data-bs-target="#get_file" type="file" style="background:#bdbaba;">Click or Drag &
                                                         Drop Media</span>
                                                     <div class="row col-12" id="offer-input">
                                                         <div class="col-md-4 my-1 ">
-                                                            <input type="text" placeholder="Coupon code (optional)"
-                                                                class="form-control" id="coupon_event" value="">
+                                                            <input type="text" placeholder="Coupon code (optional)" class="form-control" id="coupon_event" value="">
                                                         </div>
-                                                        <div
-                                                            class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
-                                                            <input type="text"
-                                                                placeholder="Link to redeem offer (optional)"
-                                                                class="form-control" value="" id="link_event">
+                                                        <div class="col-md-8 my-1 u-padding-left-md-0-isImportant u-margin-top-0-mobile-10 u-margin-top-sm-10">
+                                                            <input type="text" placeholder="Link to redeem offer (optional)" class="form-control" value="" id="link_event">
                                                         </div>
                                                         <div class="col-md-12 my-1 u-margin-bottom-10 undefined">
-                                                            <textarea rows="1"
-                                                                placeholder="Terms and conditions (optional)"
-                                                                class="form-control" id="terms_event"></textarea>
+                                                            <textarea rows="1" placeholder="Terms and conditions (optional)" class="form-control" id="terms_event"></textarea>
                                                         </div>
                                                     </div>
                                                     <!-- <div id="select-box">
@@ -443,26 +402,21 @@
                                 <button class="bg-transparent border-0 text-muted">
                                     <i class="fa-regular fa-clone me-2 "></i>Bulk Option</button>
                             </div>
-<!-- <input type="text" id="scheduled_time_picker" placeholder="Select Scheduled Time"> -->
+                            <!-- <input type="text" id="scheduled_time_picker" placeholder="Select Scheduled Time"> -->
 
                             <div class="col-8 d-flex  flex-wrap justify-content-end ">
-                                <button class="btn btn-outline-secondary mx-1 draft_create"
-                                    id="draft_create">Draft</button>
-                                <button class="btn btn-primary mx-1 create_comment" data-access_id=""
-                                    data-publish_id="">Publish</button>
+                                <button class="btn btn-outline-secondary mx-1 draft_create" id="draft_create">Draft</button>
+                                <button class="btn btn-primary mx-1 create_comment" data-access_id="" data-publish_id="">Publish</button>
                                 <button class="btn btn-primary mx-1 Scedual_start_date " id="Scedual">Scedual</button>
-<button class="btn btn-primary mx-1 sebmite-siduale" id="Scedual_data">submit</button>
+                                <button class="btn btn-primary mx-1 sebmite-siduale" id="Scedual_data">submit</button>
                                 <div class="btn-group dropup btn-outline-dark mx-1">
-                                    <button type="button" class="btn btn-primary rounded-3" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
+                                    <button type="button" class="btn btn-primary rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-solid fa-angle-up"></i></button>
                                     <ul class="dropdown-menu">
                                         <div class="col-12">
-                                            <input type="hidden" class="form-control date_range1 start_date_range" id=""
-                                                value="" placeholder="DD-MM-YYYY">
+                                            <input type="hidden" class="form-control date_range1 start_date_range" id="" value="" placeholder="DD-MM-YYYY">
                                         </div>
-                                        <li class="dropdown-item cursor-pointer drop-text" data-id="Scedual"><i
-                                                class="fa-solid fa-calendar-days mx-2"></i>Scedual</li>
+                                        <li class="dropdown-item cursor-pointer drop-text" data-id="Scedual"><i class="fa-solid fa-calendar-days mx-2"></i>Scedual</li>
                                         <!-- <li class="dropdown-item cursor-pointer drop-text" data-id="Auto-Scedual"><i class="fa-solid fa-calendar-week mx-2"></i>Auto Scedual</li>
                                         <li class="dropdown-item cursor-pointer drop-text" data-id="Recycle"><i class="fa-solid fa-recycle mx-2"></i>Recycle</li>
                                         <li class="dropdown-item cursor-pointer drop-text" data-id="Recuring"><i class="fa-brands fa-gg mx-2"></i>Recuring</li> -->
@@ -477,14 +431,13 @@
 
 
         <!-- post comment modal -->
-        <div class="modal fade " id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade " id="comment-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header p-2 py-3">
                         <div class="col-11 d-flex flex-wrap ">
                             <div class="me-2" data-bs-toggle="modal" data-bs-target="#comment-modal">
-                                    
+
                                 <!-- <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=0TEiKYItlngAX_Ns_i1&amp;_nc_oc=AQk3YbtUJ7KyXL-g6j6xMjQuMCdaeyYB3aG9sW1OhvdtEgz__SFpYb9nEtrPSIeyfoHYbS9eMFyqg3JEXIi77ErR&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfCYEfsnxuyriahsInOArWDb4GVQEZTrhSXz_i5jFLkLXg&amp;oe=65D24B45" alt="#" style="width:40px;height:40px;"> -->
                             </div>
                             <div class="col">
@@ -512,29 +465,25 @@
                                 <div class="swiper mySwiper position-relative">
                                     <div class="swiper-wrapper img_show_comment">
                                         <div class="swiper-slide">
-                                            <div
-                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                    <!-- <div class="img_show_comment"></div> -->
+                                            <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <!-- <div class="img_show_comment"></div> -->
                                                 <!-- <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100"> -->
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div
-                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                    <!-- <div class="img_show_comment"></div> -->
+                                            <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <!-- <div class="img_show_comment"></div> -->
                                                 <!-- <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100"> -->
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div
-                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
-                                                 <!-- <div class="img_show_comment"></div> -->
+                                            <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                                <!-- <div class="img_show_comment"></div> -->
                                                 <!-- <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100"> -->
                                             </div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div
-                                                class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
+                                            <div class="d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 ">
                                                 <!-- <div class="img_show_comment"></div> -->
                                                 <!-- <img src="https://scontent.famd15-1.fna.fbcdn.net/v/t39.30808-6/426594382_122116834508192565_6829799641563540288_n.jpg?stp=dst-jpg_p720x720&amp;_nc_cat=111&amp;ccb=1-7&amp;_nc_sid=3635dc&amp;_nc_ohc=-OTJFrPF0PUAX-dt5ot&amp;_nc_ht=scontent.famd15-1.fna&amp;edm=AKK4YLsEAAAA&amp;oh=00_AfAwGoz7nCWr8q4xNPZRtiQZQBvMVpJI1hL-XoynWfA1QQ&amp;oe=65D195E8" alt="#" class="object-fit-content w-100"> -->
                                             </div>
@@ -546,11 +495,10 @@
                                 </div>
                             </div>
                             <div>
-<div
-                                    class="col-12 p-1 mt-2 d-flex post-btn-box flex-wrap align-items-center like_comment_count">
-                                                                   
-</div>
-                                                                <!-- <p class="text-muted fs-12 overflow-hidden text-wrap">
+                                <div class="col-12 p-1 mt-2 d-flex post-btn-box flex-wrap align-items-center like_comment_count">
+
+                                </div>
+                                <!-- <p class="text-muted fs-12 overflow-hidden text-wrap">
                                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima, dolor Lorem ipsum
                                     dolor sit, amet consectetur adipisicing elit. Nobis magni ea inventore
                                     exercitationem est numquam dolores ducimus ab quidem quibusdam similique fuga, in
@@ -573,34 +521,30 @@
             </div>
         </div>
 
-            <!-- share modal Modal -->
+        <!-- share modal Modal -->
         <!-- Modal -->
-        <div class="modal fade" id="sharemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+        <div class="modal fade" id="sharemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Auto share (optional)</h5>
                         <form class="needs-validation" id="share_form" name="share_form" method="POST" novalidate>
-                        <button type="button" class="close btn btn-transparent fs-4" data-dismiss="modal"
-                            aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                            <button type="button" class="close btn btn-transparent fs-4" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-2">Automatically share your post to the other accounts. Where possible, the share
                             will look as if it was done natively.</div>
                         <div class="d-flex m-3">
-                            <div class="border border-2 rounded-circle d-none justify-content-center align-items-center"
-                                style="width:40px; height:40px;">
+                            <div class="border border-2 rounded-circle d-none justify-content-center align-items-center" style="width:40px; height:40px;">
                             </div>
                         </div>
                         <div class="clickshare p-1 border rounded m-1">share to</div>
                         <div class="clickshareto d-none p-1 border ro
                         unded">
                             <div class="d-flex">
-                                <div class="border border-2 d-none rounded-circle d-flex justify-content-center align-items-center"
-                                    style="width:40px; height:40px;">
+                                <div class="border border-2 d-none rounded-circle d-flex justify-content-center align-items-center" style="width:40px; height:40px;">
                                 </div>
                                 <div class="fs-6">
 
@@ -613,37 +557,30 @@
                                     foreach ($fb_page_list['page_list'] as $key => $value) {
                                         $pageprofile = fb_page_img($value->id, $value->access_token);
                                         $img_decode = json_decode($pageprofile, true);
-                                        ?>
+                                    ?>
 
                                         <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
-                                            <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])): ?>
-                                                <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex  <?= $i == 0 ? 'first' : ''; ?>"
-                                                    data-acess_token="<?php echo $value->access_token; ?>"
-                                                    data-pagee_id="<?php echo $value->id; ?>"
-                                                    data-page_name="<?php echo $value->name; ?>"
-                                                    data-img="<?php echo $img_decode['page_img']; ?>">
-                                                    <img class="rounded-circle me-2"
-                                                        src="<?php echo $img_decode['page_img']; ?>" alt="#"
-                                                        style="width:30px;height:30px;object-fit-container" />
+                                            <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])) : ?>
+                                                <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex  <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token; ?>" data-pagee_id="<?php echo $value->id; ?>" data-page_name="<?php echo $value->name; ?>" data-img="<?php echo $img_decode['page_img']; ?>">
+                                                    <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
                                                     <div class="col">
                                                         <?php echo $value->name ?>
                                                     </div>
                                                 </div>
                                             <?php endif; ?>
-                                            <?php $i++;
+                                        <?php $i++;
                                     } ?>
-                                    </div>
+                                        </div>
                                 </div>
                             </div>
 
                         </div>
-                                </form>
+                        </form>
 
                         <div class="shareto d-none border rounded p-2">
                             <div class="">
                                 <div class="d-flex">
-                                    <div class="border border-2 rounded-circle d-flex justify-content-center align-items-center"
-                                        style="width:40px; height:40px;">
+                                    <div class="border border-2 rounded-circle d-flex justify-content-center align-items-center" style="width:40px; height:40px;">
                                     </div>
                                     <!-- <div class="fs-6">veleri offical</div>-->
                                 </div>
@@ -654,6 +591,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="d-flex border rounded-3 p-2 align-items-center col-12">
+                                    <div class="mx-2 col-2 d-flex flex-wrap justify-content-center">
+                                            <div class="rounded-circle border outline-3 d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-whatsapp fs-4"></i></div>
+                                            <div>whatsapp</div>
+                                        </div>
+                                        <div class="mx-2 col-2 d-flex flex-wrap justify-content-center">
+                                            <div class="rounded-circle border outline-3 d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-facebook-messenger fs-4"></i></div>
+                                            <div>messanger</div>
+                                        </div>
+                                </div>
                         <div class="d-flex justify-content-between mt-3">
                             <div class="d-flex" style="height:40px">
                                 <div class="border rounded p-2 mx-1"><i class="fa-solid fa-hashtag"></i>hastags</div>
@@ -670,8 +617,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary sharepost" id="sharepost"
-                    data-attachment_post="">Share</button>
+                <button type="button" class="btn btn-primary sharepost" id="sharepost" data-attachment_post="">Share</button>
             </div>
 
         </div>
@@ -685,8 +631,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
         <script>
-
-
             // $(document).ready(function() {
             //     $('body').on('click', '#Scedual', function() {
             //         $(this).bootstrapMaterialDatePicker({
@@ -698,10 +642,10 @@
 
             // });
             $('.sebmite-siduale').hide();
-              $(document).on('click', '.clickshare', function () {
+            $(document).on('click', '.clickshare', function() {
                 $('.clickshareto').removeClass('d-none');
             })
-            $('body').on('click', '.account-box', function () {
+            $('body').on('click', '.account-box', function() {
 
                 $(this).addClass('active-account-box');
                 $(this).parent().siblings().children('.app_card_post').removeClass('active-account-box');
@@ -722,12 +666,12 @@
                 clearText: 'clear',
                 time: true,
                 date: true,
-            }).on('change', function (e, date) {
+            }).on('change', function(e, date) {
                 var startDate = moment(date, 'DD-MM-YYYY ');
                 var endDate = startDate.clone().add(7, 'days');
                 $('#event_end').val(endDate.format('DD-MM-YYYY h:m A'));
             });
-            $("body").on("click", ".Replay_btn", function () {
+            $("body").on("click", ".Replay_btn", function() {
                 $(this).closest('.replay-parent').find('.comment_box ').removeClass('d-none');
             })
 
@@ -784,10 +728,10 @@
                 $('.create_comment').attr('data-access_id', '');
 
             });
-            $('#comment-modal').on('click', '.btn-close', function () {
+            $('#comment-modal').on('click', '.btn-close', function() {
                 $('.img_clear').attr('src', '');
             });
-            $('body').on('click', '.cmt_modal_open', function () {
+            $('body').on('click', '.cmt_modal_open', function() {
                 var data_access_token = $(this).attr('data-access_token');
                 var data_post_id = $(this).attr('data-post_id');
                 $('.loader').show();
@@ -804,20 +748,20 @@
                         $('.loader').hide();
                         $('#comments_list').html(response.comments_html);
                         var swiper = new Swiper(".mySwiper", {
-                                pagination: {
-                                    el: ".swiper-pagination",
-                                    type: "fraction",
-                                },
-                                navigation: {
-                                    nextEl: ".swiper-button-next",
-                                    prevEl: ".swiper-button-prev",
-                                },
-                            });
+                            pagination: {
+                                el: ".swiper-pagination",
+                                type: "fraction",
+                            },
+                            navigation: {
+                                nextEl: ".swiper-button-next",
+                                prevEl: ".swiper-button-prev",
+                            },
+                        });
                         $('.img_show_comment').html(response.img_show_comment);
                         $('.like_comment_count').html(response.like_comment_count);
 
-                        
-                        
+
+
 
                     }
                 });
@@ -850,18 +794,18 @@
             });
             $('body').on('click', '.delete_post_facebook', function() {
                 var data_delete_id = $(this).attr('data-delete_id');
-                
+
                 $.ajax({
                     type: 'post',
                     url: '<?= base_url('delete_post') ?>',
                     data: {
                         data_delete_id: data_delete_id,
                     },
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('.delete_loader').show();
                         $('.noRecourdFound').hide();
                     },
-                    success: function (res) {
+                    success: function(res) {
                         $('.delete_loader').hide();
                         iziToast.delete({
                             title: 'Post Delete Successfully'
@@ -1036,32 +980,32 @@
 
             });
 
-             $("body").on('click', '#post_commnet_modal', function (e) { 
-            // alert();
+            $("body").on('click', '#post_commnet_modal', function(e) {
+                // alert();
                 var attachment = $(this).attr("data-attachment_post");
-            var attachment = $('.sharepost').attr('data-attachment_post', attachment);
+                var attachment = $('.sharepost').attr('data-attachment_post', attachment);
             });
 
-            $('body').on('click', '.sharepost', function () {
+            $('body').on('click', '.sharepost', function() {
                 var form = $("form[name='create_form']")[0];
-            // var attachment = $(this).data("attachment_post"); // Retrieve data attribute from the .sharepost button
+                // var attachment = $(this).data("attachment_post"); // Retrieve data attribute from the .sharepost button
 
                 var formData = new FormData(form);
-            formData.append('action', 'post');
-            // formData.append('attachment', attachment);
-            
-            $.ajax({
-            method: "post",
-            url: "<?= site_url('ShareOfPost'); ?>",
-            data: formData,
-            contentType: false, 
-            processData: false,
-            success: function (res) {
-            console.log(res);
-            },
-            error: function (xhr, status, error) {
-            console.error(xhr.responseText);
-            }
+                formData.append('action', 'post');
+                // formData.append('attachment', attachment);
+
+                $.ajax({
+                    method: "post",
+                    url: "<?= site_url('ShareOfPost'); ?>",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(res) {
+                        console.log(res);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
                 });
             });
 
@@ -1071,7 +1015,7 @@
                 var tabb_attr = $('.postt_tab .active ').attr("data-tabb_id");
                 var form = $("form[name='create_form']")[0];
                 var form = $(".add_form_Email")[0];
-                
+
                 var attachment = $('.attachment').prop('files');
                 var event_address = $('.event_address').val();
                 var formData = new FormData(form);
@@ -1086,7 +1030,7 @@
 
 
                 if (edit_value == "") {
-			                            $.ajax({
+                    $.ajax({
                         method: "post",
                         url: "<?= site_url('SendPostDataFB'); ?>",
                         data: formData,
@@ -1094,7 +1038,7 @@
                         processData: false,
                         success: function(res) {
                             // Handle success
-					        $('.loader').hide();
+                            $('.loader').hide();
                             iziToast.success({
                                 title: 'Post Successfully'
                             });
@@ -1106,7 +1050,7 @@
                         }
                     });
                 } else if (edit_value != "") {
-                                        $.ajax({
+                    $.ajax({
                         method: "post",
                         url: "<?= site_url('UpdatePostDataFB'); ?>",
                         data: formData,
@@ -1119,53 +1063,53 @@
                             });
                             $('.btn-close').trigger('click');
 
-                },
-                        error: function (xhr, status, error) {
+                        },
+                        error: function(xhr, status, error) {
                             // Handle errors
                             console.error(xhr.responseText);
                         }
                     });
                 }
             });
-            
+
             $('body').on('click', '.sebmite-siduale', function() {
-            var form = $(".add_form_Email")[0];
-            var attachment = $('.attachment').prop('files')[0]; // Assuming only one attachment
-            var scheduled_time = $('.Scedual_start_date').val();
+                var form = $(".add_form_Email")[0];
+                var attachment = $('.attachment').prop('files')[0]; // Assuming only one attachment
+                var scheduled_time = $('.Scedual_start_date').val();
 
-            if (scheduled_time !== undefined && scheduled_time.trim() !== '') {
-                var formData = new FormData(form);
-                formData.append('action', 'post');
-                formData.append('attachment', attachment);
-                formData.append('scheduled_time', scheduled_time);
+                if (scheduled_time !== undefined && scheduled_time.trim() !== '') {
+                    var formData = new FormData(form);
+                    formData.append('action', 'post');
+                    formData.append('attachment', attachment);
+                    formData.append('scheduled_time', scheduled_time);
 
-                $.ajax({
-                    method: "post",
-                    url: "<?= site_url('schedule_insert_data'); ?>",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(res) {
-                        // Handle success
-                        iziToast.success({
-                            title: 'Post Scheduled Successfully'
-                        });
-                        $('.btn-close').trigger('click');
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle errors
-                        console.error(xhr.responseText);
-                    }
-                });
+                    $.ajax({
+                        method: "post",
+                        url: "<?= site_url('schedule_insert_data'); ?>",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(res) {
+                            // Handle success
+                            iziToast.success({
+                                title: 'Post Scheduled Successfully'
+                            });
+                            $('.btn-close').trigger('click');
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            console.error(xhr.responseText);
+                        }
+                    });
 
-                $('.scheduled_time_preview').text(scheduled_time);
-            } else {
-                iziToast.error({
-                    title: 'Error',
-                    message: 'Please select a scheduled time for the post.'
-                });
-            }
-        });
+                    $('.scheduled_time_preview').text(scheduled_time);
+                } else {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Please select a scheduled time for the post.'
+                    });
+                }
+            });
 
 
             /*  ---------------------------- modal input ----------------------------
@@ -1256,18 +1200,18 @@
                         if (file.type.includes('image')) {
                             // If it's an image file, create an <img> element
                             var reader = new FileReader();
-                            reader.onload = function (e) {
+                            reader.onload = function(e) {
                                 var mediaElement = '<img src="' + e.target.result + '" alt="" class="w-100 h-100">';
                                 var imagePlaceholder = '<div class="mx-2 rounded-3 border overflow-hidden ClassImageMember" style="width:150px;height:150px">' + mediaElement + '</div>';
                                 $('.img-placeholder').append(imagePlaceholder);
                             };
-                          
+
                             reader.readAsDataURL(file);
                         } else if (file.type.includes('video')) {
                             // If it's a video file, create a <video> element
                             var videoElement = '<video controls class="" style="width:150px;height:150px;"><source src="' + URL.createObjectURL(file) + '" type="' + file.type + '"></video>';
                             $('.img-placeholder').append(videoElement);
-                           
+
                         }
                     }
                 }
@@ -1312,7 +1256,7 @@
                     prevEl: ".swiper-button-prev",
                 },
             });
-// $('body').on('click','.drop-text',function(){
+            // $('body').on('click','.drop-text',function(){
             //     var text = $(this).text();
             //     var getid = $(this).attr('data-id');
             //     $('.Scedual_start_date').text(text);
@@ -1325,26 +1269,24 @@
 
 
             });
-            $('body').on('click', '.Scedual_start_date', function(){
+            $('body').on('click', '.Scedual_start_date', function() {
                 $(this).hide();
                 $('.sebmite-siduale').show();
             });
 
 
-            $('body').on('click', '.pOSTTitle',function(){
+            $('body').on('click', '.pOSTTitle', function() {
                 $.ajax({
                     method: "post",
                     url: "<?= site_url('shedualpostajax'); ?>",
                     data: {
-                        'action':"shedualpost"
+                        'action': "shedualpost"
                     },
-                    success: function(res) {
-                    },
+                    success: function(res) {},
                     error: function(xhr, status, error) {
                         // Handle errors
                         console.error(xhr.responseText);
                     }
                 });
             })
-
         </script>
