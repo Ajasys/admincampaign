@@ -19,6 +19,9 @@ $query = "SELECT * FROM " . $table_username . "_platform_integration WHERE `veri
 $rows = $db_connection->query($query);
 $resultdata = $rows->getResultArray();
 
+$user_get = "SELECT * FROM " . $table_username . "_user WHERE switcher_active = 'active' AND role NOT IN (1)  ORDER BY id ASC";
+$user_result = $db_connection->query($user_get);
+$user_data = $user_result->getResultArray();
 ?>
 <div class="main-dashbord p-3">
     <div class="container-fluid p-0">
@@ -61,9 +64,9 @@ $resultdata = $rows->getResultArray();
         <table id="" class="table main-table w-100">
             <thead>
                 <tr>
-                    <th class="p-2 text-nowrap"><span>App Name</span></th>
-                    <th class="p-2 text-nowrap"><span>App Id </span></th>
-                    <th class="p-2 text-nowrap"><span>Type</span></th>
+                <th class="p-2 text-nowrap"><span>User Name</span></th>
+                    <th class="p-2 text-nowrap"><span>User Id </span></th>
+                    <th class="p-2 text-nowrap"><span>Assets Pemission</span></th>
                     <th class="p-2 text-nowrap"><span></span></th>
                     <th class="p-2 text-nowrap"><span>Status</span></th>
                     <th class="p-2 text-nowrap text-center"><span></span></th>
@@ -133,15 +136,16 @@ $resultdata = $rows->getResultArray();
                                             foreach ($resultdata as $key => $page_data) {
                                                 $pagesList = get_object_vars(json_decode(fb_page_list($page_data['access_token'])));
                                                 foreach ($pagesList['page_list'] as $key => $pagelist_data) {
-                                            ?>
-                                                    <li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
+                                                    $page_imgdata = fb_page_img($pagelist_data->id, $pagelist_data->access_token);
+                                                    // pre($page_imgdata);
+                                                    $page_imgdata = json_decode($page_imgdata);
+                                                    ?>
+                                                     <li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
                                                         <input type="checkbox" class="me-2 rounded-3 selectedId" name="selectedId" style="width:18px;height:18px;">
-                                                        <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
-                                                        <p class="col">
-                                                            <?php echo $pagelist_data->name; ?>
-                                                        </p>
+                                                        <img class="rounded-circle me-1" src="<?php echo $page_imgdata->page_img;?>" alt="" style="width:30px;height:30px">
+                                                        <p class="col"><?php echo $pagelist_data->name;?></p>
                                                     </li>
-                                            <?php
+                                                    <?php
                                                 }
                                             }
                                             ?>
@@ -191,9 +195,14 @@ $resultdata = $rows->getResultArray();
                                         <div class="col-12 Pages_div d-flex justify-content-end border-bottom">
                                             <div class="main-selectpicker col-7 d-flex align-items-center" style="height: 45px;">
                                                 <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
-                                                    <option value="">select user</option>
-                                                    <option value="">User 1</option>
-                                                    <option value="">User 2</option>
+                                                <option value="0">Select User</option>
+                                                <?php
+                                                    if (isset($user_data)) {
+                                                        foreach ($user_data as $type_key => $user_value) {
+                                                            echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
+                                                        }
+                                                    }
+                                                ?>
                                                 </select>
                                             </div>
                                         </div>

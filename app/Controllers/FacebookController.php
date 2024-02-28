@@ -1401,6 +1401,10 @@ class FaceBookController extends BaseController
                 {
                     $html .= '<i class="fa-brands fa-facebook transition-5 icon2 rounded-circle fa-lg" style="color: #0b85ed;"></i>';
                 }
+                else
+                {
+                    $html .='';
+                }
                 $html .='</td></tr>';
             }
         }
