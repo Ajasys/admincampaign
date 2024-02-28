@@ -134,6 +134,20 @@ $get_facebook_page = $result->getResultArray();
     .cursor-pointer {
         cursor: pointer;
     }
+    .btn-text {
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Add ellipsis (...) to indicate truncated text */
+        max-width: 100%; /* Limit the maximum width of the text */
+        font-size: 16px; /* Default font size */
+    }
+
+    /* Media query for smaller screens (up to 576px) */
+    @media (max-width: 576px) {
+        .btn-text {
+            font-size: 14px; /* Reduce font size for smaller screens */
+        }
+    }
 </style>
 <div class="main-dashbord p-2">
     <div class="container-fluid p-0">
@@ -166,7 +180,7 @@ $get_facebook_page = $result->getResultArray();
                 </div>
             </div>
             <div class="col-12 d-flex flex-wrap ">
-                <div class="col-3 ">
+                <div class="col-12 col-sm-5 col-xl-3">
 
                     <div class="col-12 ms-1" style="max-height: 100%;">
                         <div class="accordion mt-2" id="accordionExample">
@@ -227,8 +241,8 @@ $get_facebook_page = $result->getResultArray();
                         </div>
                     </div>
                 </div>
-                <div class="col-9 px-3  mt-2">
-                    <div class="col-12 overflow-y-scroll  d-flex flex-wrap justify-content-center rounded-3" style="max-height:90vh;">
+                <div class="col-12 col-sm-7 col-xl-9 px-0 px-sm-3  mt-2">
+                    <div class="col-12 overflow-y-scroll overflow-x-hidden d-flex flex-wrap justify-content-center rounded-3" style="max-height:90vh;">
                         <div class="demo_list_data  d-flex flex-wrap col-12" id="demo_list_data"></div>
                     </div>
                 </div>
