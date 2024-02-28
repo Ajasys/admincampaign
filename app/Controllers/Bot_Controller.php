@@ -777,7 +777,7 @@ class Bot_Controller extends BaseController
 				$html .= '
 					<div class="col-12 w-100 d-flex flex-wrap p-2 cursor-pointer drag_question">
 						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
-							<div class="col-10 d-flex flex-wrap align-items-center">
+							<div class="col-12 col-sm-10 d-flex flex-wrap align-items-center">
 								<label class="text-wrap px-2" for="">';
 				if (isset($value['type_of_question']) && $value['type_of_question'] == 1) {
 					$html .= '<i class="fa fa-question"></i>';
@@ -879,7 +879,7 @@ class Bot_Controller extends BaseController
 								<p class="fw-semibold d-inline block mx-2 cursor-pointer sequence" data-id=' . $value['id'] . ' data-sequence=' . $value['sequence'] . '>' . $value['question'] . '</p>
 							</label>
 						</div>
-						<div class="col-2 d-flex flex-wrap align-items-center">';
+						<div class="col-12 col-sm-2 d-flex flex-wrap align-items-center">';
 				$html .= '<div class="col-3 p-1">';
 				if ($value['type_of_question'] != 31 && $value['type_of_question'] != 32 && $value['type_of_question'] != 33 && $value['type_of_question'] != 45) {
 					$html .= '<i class="fa fa-pencil cursor-pointer question_edit" data-id=' . $value['id'] . ' data-type_of_question=' . $value['type_of_question'] . ' data-bs-toggle="modal" data-bs-target="#add-email"></i>';

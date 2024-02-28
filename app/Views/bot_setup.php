@@ -289,7 +289,7 @@ option {
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="bot_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="What is Your Name?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="What is Your Name?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-question icon"></i>
@@ -307,7 +307,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="What is Your Gender?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="What is Your Gender?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-circle-dot icon"></i>
@@ -325,7 +325,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Enter Your Email.">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Enter Your Email.">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-envelope icon"></i>
@@ -344,7 +344,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="What type of food do you eat?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="What type of food do you eat?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-check-square icon" ng-class="i.icon"></i>
@@ -364,7 +364,7 @@ option {
                                 </div>
 
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Enter your mobile number">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Enter your mobile number">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-mobile-screen-button icon"></i>
@@ -383,7 +383,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="How many bots do you want?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="How many bots do you want?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-hashtag icon"></i>
@@ -402,7 +402,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="How would you rate our company?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="How would you rate our company?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-star icon"></i>
@@ -421,7 +421,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="When is your birthday?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="When is your birthday?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-calendar-days icon"></i>
@@ -440,7 +440,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="In which slot would you like to book the appointment?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="In which slot would you like to book the appointment?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-clock icon"></i>
@@ -459,7 +459,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Where do you live?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Where do you live?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-location-dot icon"></i>
@@ -478,7 +478,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="What is your age?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="What is your age?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-expand icon"></i>
@@ -497,7 +497,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Can you upload a file?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Can you upload a file?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-upload icon"></i>
@@ -516,7 +516,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Can you give us your website?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Can you give us your website?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-link icon"></i>
@@ -535,7 +535,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Please share your contact details">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Please share your contact details">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-user-plus icon"></i>
@@ -554,7 +554,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Choose item(s)">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Choose item(s)">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-shopping-cart icon"></i>
@@ -573,7 +573,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Please authenticate">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Please authenticate">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-key icon"></i>
@@ -592,7 +592,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Please share your full address">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Please share your full address">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-forumbee icon"></i>
@@ -611,7 +611,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Pick an item of your choices">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Pick an item of your choices">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-list icon"></i>
@@ -630,7 +630,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="This will call your api and show the response to the user">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="This will call your api and show the response to the user">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-bullseye icon"></i>
@@ -649,7 +649,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="This will call your api and show the search result in real time to the user">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="This will call your api and show the search result in real time to the user">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-search icon"></i>
@@ -668,7 +668,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="When would you like to book your appointment?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="When would you like to book your appointment?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-calendar-check icon"></i>
@@ -695,7 +695,7 @@ option {
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Hello">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Hello">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-quote-left icon"></i>
@@ -713,7 +713,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Follow us on facebook for more updates.">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Follow us on facebook for more updates.">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-compass icon"></i>
@@ -731,7 +731,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Here are recommended products for you">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Here are recommended products for you">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-sharp fa-solid fa-sliders icon"></i>
@@ -750,7 +750,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="These are product samples">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="These are product samples">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-image icon"></i>
@@ -770,7 +770,7 @@ option {
                                 </div>
 
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Listen to this">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Listen to this">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-file-audio icon"></i>
@@ -789,7 +789,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our contact(s)">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our contact(s)">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-sharp fa-solid fa-address-book icon"></i>
@@ -809,7 +809,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our Location">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our Location">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-sharp fa-solid fa-paper-plane icon"></i>
@@ -828,7 +828,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our Logo">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our Logo">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-file icon"></i>
@@ -847,7 +847,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="URL Auto Redirect">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="URL Auto Redirect">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-arrow-up-right-from-square icon"></i>
@@ -866,7 +866,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="URL Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="URL Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-scissors icon"></i>
@@ -885,7 +885,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Country Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Country Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-earth-americas icon"></i>
@@ -904,7 +904,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Action Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Action Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-signs-post icon"></i>
@@ -933,7 +933,7 @@ option {
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-circle-question icon"></i>
@@ -959,7 +959,7 @@ option {
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-wpexplorer icon"></i>
@@ -989,7 +989,7 @@ option {
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Talk to out live agent">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Talk to out live agent">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-headphones icon"></i>
@@ -1007,7 +1007,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-3 p-2 question_add">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-diamond-turn-right icon"></i>
@@ -1017,7 +1017,7 @@ option {
                                             if (isset($master_bot_typeof_question)) {
                                                 foreach ($master_bot_typeof_question as $type_key => $type_value) {
                                                     if ($type_value['question_type'] == 'Live Chats Redirect to whatsapp') {
-                                                        echo '<span class="span_text text-center" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
+                                                        echo '<span class="span_text text-center text-trucate" data-question_id=' . $type_value["id"] . '>' . $type_value["question_type"] . '</span>';
                                                     }
                                                 }
                                             }
@@ -1033,7 +1033,7 @@ option {
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Choose one template">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Choose one template">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-comment-dots icon"></i>
@@ -1051,7 +1051,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Whatsapp Message Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Whatsapp Message Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-users icon"></i>
@@ -1069,7 +1069,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Choose From the below list">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Choose From the below list">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-list-ol icon"></i>
@@ -1087,7 +1087,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="======Cart Summery======">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="======Cart Summery======">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-cart-shopping icon"></i>
@@ -1105,7 +1105,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Adding the whatsapp button.">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Adding the whatsapp button.">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-whatsapp icon"></i>
@@ -1123,7 +1123,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Adding the whatsapp catalog">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Adding the whatsapp catalog">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-cart-arrow-down icon"></i>
@@ -1141,7 +1141,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Provide Address">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Provide Address">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-map-pin icon"></i>
@@ -1159,7 +1159,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="WhatsApp Ad Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="WhatsApp Ad Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-rectangle-ad icon"></i>
@@ -1186,7 +1186,7 @@ option {
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-instagram icon"></i>
@@ -1204,7 +1204,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-instagram icon"></i>
@@ -1229,8 +1229,8 @@ option {
                 </div>
 
 
-                <div class="col-8 p-1 ">
-                    <div class="main-task col-12 border rounded-3 bg-white overflow-y-scroll left-main-task ps-3 overflow-y-scroll bot_list" style="height:80vh" style="max-height:546.8px">
+                <div class="col-12 col-lg-8 p-1 ">
+                    <div class="main-task col-12 border rounded-3 bg-white overflow-y-scroll  ps-3 overflow-y-scroll bot_list" style="height:80vh" style="max-height:546.8px">
                         <!-- <div class="col-12 w-100 d-flex flex-wrap p-2">
                             <div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
                                 <div class="col-10 d-flex flex-wrap align-items-center">
