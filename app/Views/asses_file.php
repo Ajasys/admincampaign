@@ -128,14 +128,18 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                 <div class="col-12 border rounded-3 bg-white position-lg-relative rounded-bottom-0" style="height:80vh">
                                     <div class="chat-nav-search-bar p-2 col-12  rounded-top-3 border-bottom">
                                         <div class="d-flex justify-content-between align-items-center ">
-                                            <div class="dropdown d-flex align-items-center ps-2 ">
+                                            <div class="dropdown d-flex align-items-center ps-2">
                                                 <h5 class="fs-5 fw-semibold ">Select assets</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
-                                        <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
-                                        <p class="col fs-6 fw-semibold">Select all</p>
+                                    <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
+                                        <div class="d-flex align-items-center" style="height: 45px;">
+                                            <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                                            <div class="col fs-6 fw-semibold">
+                                                Select all
+                                            </div>
+                                        </div>
                                     </div>
                                     <ul class="">
                                         <li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
@@ -161,9 +165,9 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body p-2">
-                                        <div class="col-12">
-                                            <div class="main-selectpicker col-3">
+                                    <div class="card-body">
+                                        <div class="col-12 d-flex justify-content-end border-bottom">
+                                            <div class="main-selectpicker border-bottom col-7 d-flex align-items-center" style="height: 45px;">
                                                 <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
                                                     <option value="">select user</option>
                                                     <option value="">User 1</option>
@@ -171,22 +175,132 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-12 mt-2">
-                                            <ul class="">
-                                                <li class="cursor-pointer py-1 ps-3  d-flex  flex-wrap align-items-center">
-                                                    <input type="checkbox" class="me-2 rounded-3" style="width:18px;height:18px;">
-                                                    <p class="col fs-14">View</p>
-                                                </li>
-                                                <li class="cursor-pointer py-1 ps-3  d-flex  flex-wrap align-items-center ">
-                                                    <input type="checkbox" class="me-2 rounded-3" style="width:18px;height:18px;">
-                                                    <p class="col fs-14">Edit</p>
-                                                </li>
-                                                <li class="cursor-pointer py-1 ps-3  d-flex  flex-wrap align-items-center ">
-                                                    <input type="checkbox" class="me-2 rounded-3" style="width:18px;height:18px;">
-                                                    <p class="col fs-14">Update</p>
-                                                </li>
-                                            </ul>
+
+                                        <div class=" col-12 overflow-y-scroll" style="height:90vh;">
+                                            <div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Content</p>
+                                                        <p class="ms-3">Create, manage or delete posts, stories and more as the Page. Protect your copyrighted content.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Community activity</p>
+                                                        <p class="ms-3">Review and respond to comments, remove unwanted content and report activity.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Messages and calls</p>
+                                                        <p class="ms-3">Send and respond to messages and calls as the Page.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Ads</p>
+                                                        <p class="ms-3">Create, manage and delete ads for the Page.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Insights</p>
+                                                        <p class="ms-3">See how the Page, content and ads perform.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Revenue</p>
+                                                        <p class="ms-3">View and export Page Monetization and earnings data within Creator Studio only.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Leads</p>
+                                                        <p class="ms-3">
+                                                            Access and manage leads, including downloading leads, creating lead ads and more.
+                                                            Partial access (business tools and Facebook)
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 p-2 d-flex align-items-center border-bottom">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Content, Messages, Community activity, Ads, Insights</p>
+                                                        <p class="ms-3">
+                                                            Access and manage leads, including downloading leads, creating lead ads and more.
+                                                            Partial access (business tools and Facebook)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center border-bottom" style="margin-bottom: 200px;">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Everything</p>
+                                                        <p class="ms-3">
+                                                            Access and manage leads, including downloading leads, creating lead ads and more.
+                                                            Partial access (business tools and Facebook)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                               
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
 
