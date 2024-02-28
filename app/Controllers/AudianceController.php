@@ -155,62 +155,72 @@ class AudianceController extends BaseController
         return $this->response->setJSON($jsonResponse);
     }
 
-    // public function audience_facebook_data() {
-    //     $html = "";
-    //     if ($_POST['action'] == 'facebook_list') {
-    //         $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
+    public function audience_facebook_data() {
+        $html = "";
+        if ($_POST['action'] == 'facebook_list') {
+            $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 
-    //         // Fetch user data including ad accounts
-    //         $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
-    //         $response = file_get_contents($url);
-    //         $data = json_decode($response, true);
+            // Fetch user data including ad accounts
+            $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
+            $response = file_get_contents($url);
+            $data = json_decode($response, true);
 
-    //         // Check if 'adaccounts' data exists and iterate over each ad account
-    //         if (isset($data['adaccounts']['data'])) {
-    //             $chat_list_html = '';
-    //             foreach ($data['adaccounts']['data'] as $ad_account) {
-    //                 $account_id = $ad_account['id'];
+            // Check if 'adaccounts' data exists and iterate over each ad account
+            if (isset($data['adaccounts']['data'])) {
+                $chat_list_html = '';
+                foreach ($data['adaccounts']['data'] as $ad_account) {
+                    $account_id = $ad_account['id'];
 
-    //                 // Fetch custom audiences for each ad account
-    //                 $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
-    //                 $response = file_get_contents($url);
-    //                 $audience_data = json_decode($response, true);
+                    // Fetch custom audiences for each ad account
+                    $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+                    $response = file_get_contents($url);
+                    $audience_data = json_decode($response, true);
 
-    //                 // Iterate over custom audiences data and build HTML
-    //                 foreach ($audience_data['data'] as $conversion_value) {
-    //                     $chat_list_html = "";
-    //                     $lower_bound = $conversion_value['approximate_count_lower_bound'];
-    //                     $upper_bound = $conversion_value['approximate_count_upper_bound'];
-    //                     $count_range = ($lower_bound == -1 && $upper_bound == -1) ? "Not available" : "$lower_bound-$upper_bound";
+                    // Iterate over custom audiences data and build HTML
+                    foreach ($audience_data['data'] as $conversion_value) {
+                        $chat_list_html = "";
+                        $lower_bound = $conversion_value['approximate_count_lower_bound'];
+                        $upper_bound = $conversion_value['approximate_count_upper_bound'];
+                        $count_range = ($lower_bound == -1 && $upper_bound == -1) ? "Not available" : "$lower_bound-$upper_bound";
 
-    //                     $chat_list_html .= '<tr class="audiance_view audiance_show_data" onclick="ViewFbAudiances(\'' . $conversion_value['id'] . '\',\'' . $conversion_value['name'] . '\',\'' . $conversion_value['subtype'] . '\',\'' . $count_range . '\',\'' . date('d-m-Y H:i', $conversion_value['time_updated']) . '\',\'' . date('d-m-Y H:i', $conversion_value['time_created']) . '\');">';
-    //                     $chat_list_html .= '     <td><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 408.788 408.788" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M353.701 0H55.087C24.665 0 .002 24.662.002 55.085v298.616c0 30.423 24.662 55.085 55.085 55.085h147.275l.251-146.078h-37.951a8.954 8.954 0 0 1-8.954-8.92l-.182-47.087a8.955 8.955 0 0 1 8.955-8.989h37.882v-45.498c0-52.8 32.247-81.55 79.348-81.55h38.65a8.955 8.955 0 0 1 8.955 8.955v39.704a8.955 8.955 0 0 1-8.95 8.955l-23.719.011c-25.615 0-30.575 12.172-30.575 30.035v39.389h56.285c5.363 0 9.524 4.683 8.892 10.009l-5.581 47.087a8.955 8.955 0 0 1-8.892 7.901h-50.453l-.251 146.078h87.631c30.422 0 55.084-24.662 55.084-55.084V55.085C408.786 24.662 384.124 0 353.701 0z" style="" fill="#475993" data-original="#475993" class=""></path></g></svg></td>
-    //                             <td class="p-2 text-nowrap">' . $conversion_value['name'] . '</td>
-    //                             <td class="p-2 text-nowrap">' . $conversion_value['subtype'] . '</td>
-    //                             <td class="p-2 text-nowrap">' . $count_range . '</td>
-    //                             <td class="p-2 text-nowrap fs-12"><span class="text-muted d-block">Last Edited</span>'.date('d-m-Y H:i', $conversion_value['time_updated']).'</td>
-    //                             <td class="p-2 text-nowrap">'.date('d-m-Y H:i', $conversion_value['time_created']).'</td>
+                        $chat_list_html .= '<tr class="audiance_view audiance_show_data" onclick="ViewFbAudiances(\'' . $conversion_value['id'] . '\',\'' . $conversion_value['name'] . '\',\'' . $conversion_value['subtype'] . '\',\'' . $count_range . '\',\'' . date('d-m-Y H:i', $conversion_value['time_updated']) . '\',\'' . date('d-m-Y H:i', $conversion_value['time_created']) . '\');">';
+                        $chat_list_html .= '     <td>
+                        <div class="d-flex flex-wrap align-items-center justify-content-between col-12" style="width:70px;">
+                            <img src="https://ajasys.com/img/favicon.png" class="mx-1" style="width:15px;height:15px;">
+                            <span class="mx-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 64.019 64.019" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><linearGradient id="a" x1="17.091" x2="49.122" y1="35.929" y2="3.898" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1a6fb0"></stop><stop offset="1" stop-color="#3d9ae2"></stop></linearGradient><linearGradient id="b" x1="14.883" x2="46.914" y1="60.126" y2="28.096" gradientUnits="userSpaceOnUse"><stop stop-opacity="1" stop-color="#00b6bd" offset="0"></stop><stop stop-opacity="1" stop-color="#fcaf4f" offset="0.005791505791505791"></stop></linearGradient><path fill="url(#a)" d="M63.999 31.717C63.841 14.207 49.547.01 32 .01a31.707 31.707 0 0 0-21.149 8.023L7.414 4.596A1.998 1.998 0 0 0 4 6.01v16a2 2 0 0 0 2 2h16a2 2 0 0 0 1.414-3.414l-4.062-4.062A19.821 19.821 0 0 1 32 12.01c11.028 0 20 8.972 20 20a2 2 0 0 0 2 2h8a2 2 0 0 0 1.999-2.293z" opacity="1" data-original="url(#a)" class=""></path><path fill="url(#b)" d="M58 40.01H42a2 2 0 0 0-1.414 3.414l4.062 4.061A19.826 19.826 0 0 1 32 52.01c-11.028 0-20-8.972-20-20a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2c0 17.645 14.355 32 32 32a31.711 31.711 0 0 0 21.149-8.022l3.437 3.437a2.003 2.003 0 0 0 2.18.434A2.004 2.004 0 0 0 60 58.01v-16a2 2 0 0 0-2-2z" opacity="1" data-original="url(#b)" class=""></path></g></svg>
+                            </span>
+                            <span class="mx-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 408.788 408.788" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M353.701 0H55.087C24.665 0 .002 24.662.002 55.085v298.616c0 30.423 24.662 55.085 55.085 55.085h147.275l.251-146.078h-37.951a8.954 8.954 0 0 1-8.954-8.92l-.182-47.087a8.955 8.955 0 0 1 8.955-8.989h37.882v-45.498c0-52.8 32.247-81.55 79.348-81.55h38.65a8.955 8.955 0 0 1 8.955 8.955v39.704a8.955 8.955 0 0 1-8.95 8.955l-23.719.011c-25.615 0-30.575 12.172-30.575 30.035v39.389h56.285c5.363 0 9.524 4.683 8.892 10.009l-5.581 47.087a8.955 8.955 0 0 1-8.892 7.901h-50.453l-.251 146.078h87.631c30.422 0 55.084-24.662 55.084-55.084V55.085C408.786 24.662 384.124 0 353.701 0z" style="" fill="#475993" data-original="#475993" class=""></path></g></svg>
+                            </span>
+                        </div>
+                    </td>
+                                <td class="p-2 text-nowrap">' . $conversion_value['name'] . '</td>
+                                <td class="p-2 text-nowrap">' . $conversion_value['subtype'] . '</td>
+                                <td class="p-2 text-nowrap">' . $count_range . '</td>
+                                <td class="p-2 text-nowrap fs-12"><span class="text-muted d-block">Last Edited</span>'.date('d-m-Y H:i', $conversion_value['time_updated']).'</td>
+                                <td class="p-2 text-nowrap">'.date('d-m-Y H:i', $conversion_value['time_created']).'</td>
 
-    //                             <td class="p-2 text-nowrap">' . $conversion_value['id'] . '</td>';
-    //                             $chat_list_html .= '</tr>';
-    //                             $html .= $chat_list_html;
-    //                 }
-    //             }
-    //             // $return_result['chat_list_html'] = $chat_list_html;
-    //             if (!empty($html)) {
-    //                 echo $html;
-    //             } else {
-    //                 echo '<p style="text-align:center;">Data Not Found </p>';
-    //             }
-    //         } else {
-    //             // No ad account data found
-    //             return json_encode(['error' => 'No ad account data found']);
-    //         }
-    //     } else {
-    //         // Invalid action
-    //         return json_encode(['error' => 'Invalid action']);
-    //     }
-    // }
+                                <td class="p-2 text-nowrap">' . $conversion_value['id'] . '</td>';
+                                $chat_list_html .= '</tr>';
+                                $html .= $chat_list_html;
+                    }
+                }
+                // $return_result['chat_list_html'] = $chat_list_html;
+                if (!empty($html)) {
+                    echo $html;
+                } else {
+                    echo '<p style="text-align:center;">Data Not Found </p>';
+                }
+            } else {
+                // No ad account data found
+                return json_encode(['error' => 'No ad account data found']);
+            }
+        } else {
+            // Invalid action
+            return json_encode(['error' => 'Invalid action']);
+        }
+    }
 
     public function audience_list_data()
     {
@@ -253,17 +263,7 @@ class AudianceController extends BaseController
                 '"data-edit_id="' .
                 $value["id"] .
                 '">
-                    <td>
-                        <div class="d-flex flex-wrap align-items-center justify-content-between col-12" style="width:70px;">
-                            <img src="https://ajasys.com/img/favicon.png" class="mx-1" style="width:15px;height:15px;">
-                            <span class="mx-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 64.019 64.019" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><linearGradient id="a" x1="17.091" x2="49.122" y1="35.929" y2="3.898" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1a6fb0"></stop><stop offset="1" stop-color="#3d9ae2"></stop></linearGradient><linearGradient id="b" x1="14.883" x2="46.914" y1="60.126" y2="28.096" gradientUnits="userSpaceOnUse"><stop stop-opacity="1" stop-color="#00b6bd" offset="0"></stop><stop stop-opacity="1" stop-color="#fcaf4f" offset="0.005791505791505791"></stop></linearGradient><path fill="url(#a)" d="M63.999 31.717C63.841 14.207 49.547.01 32 .01a31.707 31.707 0 0 0-21.149 8.023L7.414 4.596A1.998 1.998 0 0 0 4 6.01v16a2 2 0 0 0 2 2h16a2 2 0 0 0 1.414-3.414l-4.062-4.062A19.821 19.821 0 0 1 32 12.01c11.028 0 20 8.972 20 20a2 2 0 0 0 2 2h8a2 2 0 0 0 1.999-2.293z" opacity="1" data-original="url(#a)" class=""></path><path fill="url(#b)" d="M58 40.01H42a2 2 0 0 0-1.414 3.414l4.062 4.061A19.826 19.826 0 0 1 32 52.01c-11.028 0-20-8.972-20-20a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2c0 17.645 14.355 32 32 32a31.711 31.711 0 0 0 21.149-8.022l3.437 3.437a2.003 2.003 0 0 0 2.18.434A2.004 2.004 0 0 0 60 58.01v-16a2 2 0 0 0-2-2z" opacity="1" data-original="url(#b)" class=""></path></g></svg>
-                            </span>
-                            <span class="mx-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" x="0" y="0" viewBox="0 0 408.788 408.788" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M353.701 0H55.087C24.665 0 .002 24.662.002 55.085v298.616c0 30.423 24.662 55.085 55.085 55.085h147.275l.251-146.078h-37.951a8.954 8.954 0 0 1-8.954-8.92l-.182-47.087a8.955 8.955 0 0 1 8.955-8.989h37.882v-45.498c0-52.8 32.247-81.55 79.348-81.55h38.65a8.955 8.955 0 0 1 8.955 8.955v39.704a8.955 8.955 0 0 1-8.95 8.955l-23.719.011c-25.615 0-30.575 12.172-30.575 30.035v39.389h56.285c5.363 0 9.524 4.683 8.892 10.009l-5.581 47.087a8.955 8.955 0 0 1-8.892 7.901h-50.453l-.251 146.078h87.631c30.422 0 55.084-24.662 55.084-55.084V55.085C408.786 24.662 384.124 0 353.701 0z" style="" fill="#475993" data-original="#475993" class=""></path></g></svg>
-                            </span>
-                        </div>
-                    </td>
+                <td><img src="https://ajasys.com/img/favicon.png" style="width:15px;height:15px;"></td>
                     <td class="p-1 text-nowrap"> ' .
                 $value["name"] .
                 '</td>
@@ -375,8 +375,9 @@ class AudianceController extends BaseController
         // pre($_POST);
         // die();
         $post_data = $this->request->getPost();
-       
         $table_name = $this->request->getPost("table");
+        // pre($table_name);
+        // die();
         $username = session_username($_SESSION["username"]);
         $action_name = $this->request->getPost("action");
         $pages_name = $this->request->getPost("pages_name");
@@ -467,10 +468,88 @@ class AudianceController extends BaseController
                         $departmentdisplaydata,
                         true
                     );
-                } else {
-                    // Data not available, return error
-                    return "error";
-                }
+                    $accessToken = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+                    $adAccountId = '6331751513513589';
+                    $url = "https://graph.facebook.com/v19.0/act_$adAccountId/customaudiences";
+                    $postData = [
+                        'name' => $name, // Change here to use name from POST data
+                        'subtype' => 'CUSTOM',
+                        'description' => 'People who purchased on my website',
+                        'customer_file_source' => 'USER_PROVIDED_ONLY',
+                        'access_token' => $accessToken
+                    ];
+
+                    // Initialize cURL session
+                    $curl = curl_init();
+                
+                    // Set cURL options
+                    curl_setopt_array($curl, [
+                        CURLOPT_URL => $url,
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_POST => true,
+                        CURLOPT_POSTFIELDS => $postData
+                    ]);
+                
+                    // Execute cURL request
+                    $response = curl_exec($curl);
+                    // Check for errors
+                    if(curl_errno($curl)) {
+                        $error = curl_error($curl);
+                        curl_close($curl);
+                        return "cURL Error: $error";
+                    }
+                
+                    // Close cURL session
+                    curl_close($curl);
+                   // Decode the JSON response to extract the audience ID
+                    $response_data = json_decode($response, true);
+                    $audience_id = $response_data['id'];
+
+                    $usersUrl = "https://graph.facebook.com/v19.0/https://graph.facebook.com/v19.0/$audience_id/users?access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD";
+                    $usersPostData = [
+                        "payload" => [
+                            "schema" => "EMAIL_SHA256", // Schema for hashed email addresses
+                            "data" => [
+                                [
+                                    hash('sha256', $merged_data['email']), // Hashed email address
+                                ]
+                            ],
+                            "PAGEUID" => [
+                                $pages_name
+                            ]
+                        ]
+                    ];
+                    $usersPostDataJson = json_encode($usersPostData);
+                    // Initialize cURL session for adding users
+                    $curl_users = curl_init();
+                    
+                    // Set cURL options for adding users
+                    curl_setopt_array($curl_users, [
+                        CURLOPT_URL => $usersUrl,
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_POST => true,
+                        CURLOPT_POSTFIELDS => $usersPostDataJson // Pass the JSON string here
+                    ]);
+                    
+                    // Execute cURL request to add users
+                    $users_response = curl_exec($curl_users);
+                    // Check for errors
+                    if(curl_errno($curl_users)) {
+                        $error = curl_error($curl_users);
+                        curl_close($curl_users);
+                        return "cURL Error adding users: $error";
+                    }
+
+                    // Close cURL session for adding users
+                    curl_close($curl_users);
+
+                    // Process the response as needed
+                    // For example, you can return the response to the caller
+                    return $users_response;
+                    } else {
+                        // Data not available, return error
+                        return "error";
+                    }
             }
         }
     }
@@ -644,6 +723,7 @@ class AudianceController extends BaseController
                 $spreadsheet = IOFactory::load($tmpFilePath); // Load the uploaded Excel file
                 $worksheet = $spreadsheet->getActiveSheet();
                 $rows = $worksheet->toArray();
+                $rowsss = array_map('str_getcsv', file($tmpFilePath));
                 // foreach ($rows as $row) {
                 $new_column = [];
                 unset($_POST["name"]);
@@ -821,8 +901,94 @@ class AudianceController extends BaseController
                 } else {
                     $result["response"] = 1;
                     $result["msg"] = "Data Inserted Success";
+                    
                 }
 
+               
+                $accessToken = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+                $adAccountId = '6331751513513589';
+                $url = "https://graph.facebook.com/v12.0/act_$adAccountId/customaudiences";
+                $postData = [
+                    'name' => $name, // Change here to use name from POST data
+                    'subtype' => 'CUSTOM',
+                    'description' => 'Custom audience from CSV file',
+                    'customer_file_source' => 'USER_PROVIDED_ONLY',
+                    'access_token' => $accessToken
+                ];
+    
+                // Initialize cURL session
+                $curl = curl_init();
+            
+                // Set cURL options
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => $url,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POST => true,
+                    CURLOPT_POSTFIELDS => $postData
+                ]);
+            
+                // Execute cURL request
+                $response = curl_exec($curl);
+                // Check for errors
+                if(curl_errno($curl)) {
+                    $error = curl_error($curl);
+                    curl_close($curl);
+                    return "cURL Error: $error";
+                }
+            
+                // Close cURL session
+                curl_close($curl);
+                
+                // Decode the JSON response to extract the audience ID
+                $response_data = json_decode($response, true);
+                $audience_id = $response_data['id'];
+    
+                // Now, add users to the custom audience
+                $usersUrl = "https://graph.facebook.com/v12.0/$audience_id/users?access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD";
+                $usersPostData = [
+                    "payload" => [
+                        "schema" => "EMAIL_SHA256", // Schema for hashed email addresses
+                        "data" => [],
+                    ]
+                ];
+    
+                // Add hashed email addresses to the payload
+                foreach ($rowsss as $row) {
+                    $email = $row[0]; // Assuming the first column contains email addresses
+                    $hashed_email = hash('sha256', $email);
+                    $usersPostData['payload']['data'][] = $hashed_email;
+                }
+    
+                // Convert data to JSON
+                $usersPostDataJson = json_encode($usersPostData);
+                // pre($usersPostDataJson);
+    
+                // Initialize cURL session for adding users
+                $curl_users = curl_init();
+
+                // Set cURL options for adding users
+                curl_setopt_array($curl_users, [
+                    CURLOPT_URL => $usersUrl,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_POST => true,
+                    CURLOPT_HTTPHEADER => ['Content-Type: application/json'], // Set the Content-Type header
+                    CURLOPT_POSTFIELDS => $usersPostDataJson // Pass the JSON string here
+                ]);
+
+                // Execute cURL request to add users
+                $users_response = curl_exec($curl_users);
+                // Check for errors
+                if(curl_errno($curl_users)) {
+                    $error = curl_error($curl_users);
+                    curl_close($curl_users);
+                    return "cURL Error adding users: $error";
+                }
+    
+                // Close cURL session for adding users
+                curl_close($curl_users);
+    
+                // For example, you can return the response to the caller
+                return $users_response;
                 return json_encode($result);
             }
         }

@@ -1958,23 +1958,28 @@ class Bot_Controller extends BaseController
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['question_id'] . ' ORDER BY sequence';
 			$result = $db_connection->query($sql);
-			$questioned = $result->getRowArray();	
-			// pre($sql);		
+			$questioned = $result->getRowArray();
+			// pre($questioned);
+				
 		}else if($_POST['sequence'] == 1){
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE  sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
+			// pre($question);
+		
 		}else{
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE  sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
+			// pre($question);
 		}
 
 		$response = []; 
 
 		if (!empty($question)) {
+			// pre($question);
 			if ($question['type_of_question'] == 3 && $question['error_text']) {
 				// Validate email if the question type is 3
 				$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
@@ -2020,13 +2025,38 @@ class Bot_Controller extends BaseController
 				}
 			}
 		}else{
-			$updateData = [
-				'answer' => $answer,
-			];
-			$response['response'] = 3;
 
-			$db_connection->table($table)->update($updateData, ['id' => $questioned['id']]);
-			$response['message'] = "Answer inserted successfully for question: " . $questioned['question'];
+			if ($questioned['type_of_question'] == 3 && $questioned['error_text']) {
+				
+				$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+				if (preg_match($regex, $answer)) {
+					$response['id_validation'] = ""; 
+					$response['response'] = 1;
+				} else {
+					$response['id_validation'] = $questioned['error_text']; 
+					$response['response'] = 2;
+				}
+			} else if($questioned['type_of_question'] == 5 && $questioned['error_text']){
+				$regex = '/^([a-zA-Z0-9_ ]{5,10})$/';
+
+				if (preg_match($regex, $answer)) {
+					$response['id_validation'] = ""; 
+					$response['response'] = 1;
+				} else {
+					$response['id_validation'] = $questioned['error_text']; 
+					$response['response'] = 2;
+				}
+			}else{
+
+				$updateData = [
+					'answer' => $answer,
+				];
+				$response['response'] = 3;
+
+				$db_connection->table($table)->update($updateData, ['id' => $questioned['id']]);
+				$response['message'] = "Answer inserted successfully for question: " . $questioned['question'];
+
+			}
 			// $response['error'] = "No question data found.";
 		}
 		echo json_encode($response);
