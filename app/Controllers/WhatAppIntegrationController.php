@@ -3004,7 +3004,9 @@ class WhatAppIntegrationController extends BaseController
         $post_data = $_POST;
         $phone_no = $post_data['phone_no'];
         $originalHTML = $post_data['originalHTML'];
-
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
         $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
 
         $result = $db_connection->query($sqlquery, [$phone_no]);
@@ -3014,11 +3016,19 @@ class WhatAppIntegrationController extends BaseController
         $name = $row->full_name;
         $mobileno1 = $row->mobileno;
         $address = $row->address;
+        $intrested_product = $row->intrested_product;
+        $nxt_follow_up = $row->nxt_follow_up;
+        $dob = $row->dob;
+
 
         $placeholders = array(
             '{{Name}}' => $name,
             '{{address}}' => $address,
             '{{phone_no}}' => $mobileno1,
+            '{{product_Name}}' => $intrested_product,
+            '{{Next_FollowupDate}}' => $nxt_follow_up,
+            '{{date_of_birth}}' => $dob,
+
         );
 
         $modifiedHTML = $originalHTML;

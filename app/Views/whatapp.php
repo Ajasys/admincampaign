@@ -1600,7 +1600,10 @@ if (!empty($connections)) {
                                                 <option selected>Add Variable</option>
                                                 <option value="1">Name</option>
                                                 <option value="2">phone_no</option>
-                                                <option value="3">address</option>
+                                                <option value="3">product_Name </option>
+                                                <option value="4">Next_FollowupDate</option>
+                                                <option value="5">date_of_birth</option>
+
                                             </select>
                                         </div>
                                         <textarea class="form-control main-control col-12 TemplateBodyClass body_div" id="body_id" placeholder="Type Your Body Text Here..." name="" required></textarea>
