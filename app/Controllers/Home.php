@@ -121,9 +121,9 @@ class Home extends BaseController
     {
         return view('posts');
     }
-    public function asses_file()
+    public function assign_assets()
     {
-        return view('asses_file');
+        return view('assign_assets');
     }
 
     public function whatappaakash()
