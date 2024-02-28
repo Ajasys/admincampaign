@@ -610,7 +610,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     </nav>
                 </div> -->
 
-                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3  social-accounts main-box"
+                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 overflow-auto scroll-none col-xl-3  social-accounts main-box"
                     style="height:80vh">
                     <div class="col-12 border rounded-3 bg-white position-lg-relative " style="height:80vh">
                         <div class="chat-nav-search-bar p-2 col-12 text-white chat-header rounded-top-3">
@@ -621,7 +621,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll px-0 scroll-none" style="max-height: 100%;">
+                        <div class="col-12  px-0 scroll-none" style="max-height: 100%;">
                             <div class="accordion " id="accordionExample">
                                 <div class="accordion-item border-0 border-bottom ListedMessage">
                                     <h2 class="accordion-header">
@@ -766,7 +766,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     </div>
                 </div>
 
-                <div class="col-12 d-none d-lg-block d-xl-block col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3 chat-box main-box"
+                <div class="col-12 d-none rounded-3 d-lg-block d-xl-block col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3 chat-box main-box overflow-auto scroll-none"
                     style="height:80vh">
                     <div class="col-12 border  bg-white position-relative rounded-3 overflow-hidden position-relative" style="height:80vh">
                         <div class="chat-nav-search-bar chat-header p-2 col-12 text-white">
@@ -780,7 +780,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1 px-0 scroll-none" style="max-height: 80%;">
+                        <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1 px-0 scroll-none">
 
                         </div>
                         <!-- <div class="m-auto  text-center">
@@ -814,7 +814,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
                 <div class="d-none col-12 col-sm-12 col-md-12 col-lg-6 d-xl-block col-xxl-6 transcript_box  main-box"
                     style="height:80vh">
-                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3 overflow-hidden "
+                    <div class="col-12 border rounded-3bg-white position-relative SetChatBackGroundClass rounded-3 overflow-hidden "
                         style="height:80vh">
                         <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0"
                             style="height: 200px; width: 200px; display:none;">
