@@ -645,6 +645,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
 	$routes->get('/whatsapp_connections', 'Home::whatsapp_connections');
+	$routes->get('/asses_file', 'Home::asses_file');
 	// $routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
 	$routes->post('/WhatsAppConnectionEntry', 'WhatAppAakashController::WhatsAppConnectionEntry');
 
