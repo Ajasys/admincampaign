@@ -682,19 +682,19 @@ $get_facebook_page = $result->getResultArray();
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-   // function list_data() {
-   //    $.ajax({
-   //       method: "post",
-   //       url: "<?= site_url('audience_facebook_data'); ?>",
-   //       data: {
-   //          action: 'facebook_list',
-   //       },
-   //       success: function (res) {
-   //          $('.loader').hide();
-   //          datatable_view(res);
-   //       }
-   //    });
-   // }
+   function list_data() {
+      $.ajax({
+         method: "post",
+         url: "<?= site_url('audience_facebook_data'); ?>",
+         data: {
+            action: 'facebook_list',
+         },
+         success: function (res) {
+            $('.loader').hide();
+            datatable_view(res);
+         }
+      });
+   }
 
    function list_dataa() {
       show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';
