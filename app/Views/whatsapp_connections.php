@@ -99,8 +99,8 @@ $admin_bot = json_decode($admin_bot, true);
                                             class="text-muted phone-header">Messaging Limit <span class="mx-2"></span></span></th> -->
                                     <th scope="col"><span class="text-muted phone-header">Country <span class="mx-2"></span></span></th>
                                     <th scope="col"><span class="text-muted phone-header">Name <span class="mx-2"></span></span></th>
-                                    <th scope="col"><span class="text-muted phone-header">Delete</span></th>
                                     <th scope="col"><span class="text-muted phone-header">Chat-bot</span></th>
+                                    <th scope="col"><span class="text-muted phone-header">Delete</span></th>
                                 </tr>
                             </thead>
                             <tbody class="SetHtmlListData">
@@ -182,7 +182,7 @@ $admin_bot = json_decode($admin_bot, true);
                         <h6 class="modal-body-title">Select bot</h6>
                         <div class="main-selectpicker w-100" id="investor_list_select_table">
                             <select name="bot_iid" id="bot_iid" name="bot_id" class="selectpicker form-control select form-main" data-live-search="true" required>
-                                <option class="dropdown-item" value="0" >Select bot</option>
+                                <option class="dropdown-item" value="0">Select bot</option>
                                 <?php
                                 if (isset($admin_bot)) {
                                     foreach ($admin_bot as $key_bot => $value_bot) {
@@ -199,7 +199,7 @@ $admin_bot = json_decode($admin_bot, true);
                 <a href="<?= base_url('integration') ?>">
                     <button type="button" class="btn-secondary mx-0" id="cancel" name="">Back</button>
                 </a>
-                <button type="button" class="btn btn-primary SubmitWhatAppIntegrationData" action = "insert" EditId="" id="SubmitWhatAppIntegrationData">Submit</button>
+                <button type="button" class="btn btn-primary SubmitWhatAppIntegrationData" action="insert" EditId="" id="SubmitWhatAppIntegrationData">Submit</button>
             </div>
         </div>
     </div>
@@ -217,14 +217,14 @@ $admin_bot = json_decode($admin_bot, true);
                     <div class="col-12 bot-selecter">
                         <h6 class="modal-body-title">Select bot</h6>
                         <div class="main-selectpicker w-100" id="investor_list_select_table">
-                            <select name="update_bot_iid" id="update_bot_iid"  class="selectpicker form-control select form-main" data-live-search="true" required>
-                                <option class="dropdown-item" value="0" >Select bot</option>
+                            <select name="update_bot_iid" id="update_bot_iid" class="selectpicker form-control select form-main" data-live-search="true" required>
+                                <option class="dropdown-item" value="0">Select bot</option>
                                 <?php
-                                if (isset($admin_bot)) {
-                                    foreach ($admin_bot as $key_bot => $value_bot) {
-                                        echo '<option value="' . $value_bot["id"] . '">' . $value_bot["name"] . '</option>';
-                                    }
-                                }
+                                // if (isset($admin_bot)) {
+                                //     foreach ($admin_bot as $key_bot => $value_bot) {
+                                //         echo '<option value="' . $value_bot["id"] . '">' . $value_bot["name"] . '</option>';
+                                //     }
+                                // }
                                 ?>
                             </select>
                         </div>
@@ -233,7 +233,7 @@ $admin_bot = json_decode($admin_bot, true);
             </div>
             <div class="modal-footer">
                 <!-- <a href="<?= base_url('integration') ?>"> -->
-                    <button type="button" class="btn-secondary mx-0" id="cancel" name="">Back</button>
+                <button type="button" class="btn-secondary mx-0" id="cancel" name="">Back</button>
                 <!-- </a> -->
                 <button type="button" class="btn btn-primary bot_id_get_update" data-bot_id="" id="bot_id_get_update">Submit</button>
             </div>
@@ -270,7 +270,6 @@ $admin_bot = json_decode($admin_bot, true);
 
 
     function ListData() {
-
         $.ajax({
             method: "post",
             url: "WhatsAppConnectionsList",
@@ -280,11 +279,27 @@ $admin_bot = json_decode($admin_bot, true);
             success: function(res) {
                 $('.SetHtmlListData').html(res);
                 filter();
+                
             },
-
         });
     }
     ListData();
+
+    function bot_disabled_data() {
+        $('.loader').show();
+        $.ajax({
+            datatype: 'json',
+            method: "post",
+            url: "<?= site_url('dropdown_bot_disabled'); ?>",
+            data: {},
+            success: function(res) {
+                $('#update_bot_iid').html(res);
+                $('#bot_iid').html(res);
+                $('.selectpicker').selectpicker('refresh');
+            }
+        });
+    }
+    bot_disabled_data();
 
     function filter() {
         var masterListDataSearchBar = $('.MasterListDataSearchBar').val();
@@ -333,6 +348,7 @@ $admin_bot = json_decode($admin_bot, true);
                 iziToast.success({
                     title: 'Bot Added Successfully'
                 });
+                ListData();
             }
         });
     });
@@ -401,9 +417,8 @@ $admin_bot = json_decode($admin_bot, true);
                     // $('.selectpicker').selectpicker('refresh');
                     var response = JSON.parse(res);
                     $('.bot_id_get_update').attr('data-bot_id', edit_value);
-                    if(response[0].id !="")
-                    {
-						$("#exampleModal #bot_iid").val(response[0].id);
+                    if (response[0].id != "") {
+                        $("#exampleModal2 #update_bot_iid").val(response[0].id);
                     }
                     $('.selectpicker').selectpicker('refresh');
                 },

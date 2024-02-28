@@ -1829,20 +1829,43 @@ class WhatAppIntegrationController extends BaseController
                             </td>
                             <td class="align-middle text-truncate messeging-content d-none" style="max-width: 150px;"
                                 scope="col-2">10 k customers</td>
-                            <td class="align-middle" scope="col-1">' . $countryName . '</td>
-                            <td class="align-middle" scope="col-2">' . $verified_name . '</td>
-                    
+                            <td class="align-middle" scope="col-1">' . $countryName . '</td>';
+                            $full_data =  any_id_to_full_data($username . "_platform_integration", $value['id']);
+                            if (isset($full_data['bot_id']) && !empty($full_data['bot_id'])) {
+                                $bot_id = $full_data['bot_id'];
+                            } else {
+                                $bot_id = '';
+                            }
+                            $get_bot_full_data =  any_id_to_full_data($username . "_bot", $bot_id);
+                            if (isset($get_bot_full_data['name']) && !empty($get_bot_full_data['name'])) {
+                                $bot_full_name = $get_bot_full_data['name'];
+                            } else {
+                                $bot_full_name = '';
+                            }
+                            $html .= '<td class="align-middle" scope="col-2">' . $verified_name . '</td>';
+                            $html .= '<td class="d-flex align-items-center">';
+                            if (isset($get_bot_full_data['name']) && !empty($get_bot_full_data['name'])) {
+                                $html .= ' <div class="d-flex align-items-center">
+                                <i class="fa-solid fa-check fa-xl me-2 fw-bold" style="color: #198754;font-weight:bold;"></i>
+                                    <span class="badge rounded-pill text-bg-success">'.$bot_full_name.'</span>
+                                    
+                                </div>
+                               ';      
+                            }else{
+                                $html .= '
+                                <div class="d-flex align-items-center">
+                                    <span class="badge text-bg-success"></span>
+                                </div>';
+                            }
+                            $html .= '  <button class="btn ms-2 p-0 chat_bot text-center" data-bs-toggle="modal" id="chat_bot" data-bot_editid="' . $value['id'] . '" data-bs-target="#exampleModal2">
+                            <i class="fas fa-pencil-alt fa-lg fs-14"></i>
+                        </button></td>';
+                            $html .= '
                             <td class="align-middle" scope="col-1">
                                 <button class="btn p-0 DelectConnection"  table="' . $table_name . '" id="' . $value['id'] . '">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </td>
-                            <td>
-                                <button class="btn p-0 chat_bot" data-bs-toggle="modal" id="chat_bot" data-bot_editid="' . $value['id'] . '" data-bs-target="#exampleModal2">
-                                    <i class="fa-solid fa-robot"></i>
-                                </button>
-                            </td>
-       
                         </tr>
                     ';
                 }
@@ -1855,7 +1878,7 @@ class WhatAppIntegrationController extends BaseController
     public function whatsapp_bot_id_update()
     {
         $username = session_username($_SESSION['username']);
-		$table_name = $this->request->getPost("table");
+        $table_name = $this->request->getPost("table");
         if (isset($_POST['bot_main_id']) && !empty($_POST['bot_main_id'])) {
             $bot_main_id = $_POST['bot_main_id'];
         } else {
@@ -1876,8 +1899,6 @@ class WhatAppIntegrationController extends BaseController
         $departmentdisplaydata = $this->MasterInformationModel->display_all_records2($username . "_" . $table_name);
         $departmentdisplaydata = json_decode($departmentdisplaydata, true);
         $response = 1;
-
-
     }
     public function WhatsAppListConverstion()
     {
@@ -2767,28 +2788,59 @@ class WhatAppIntegrationController extends BaseController
 
         echo $updatedHTML;
     }
+    public function dropdown_bot_disabled()
+    {
+        $db_connection = \Config\Database::connect('second');
+        $username = session_username($_SESSION['username']);
+        // $setting_name = $this->username.'_setting';
+        $bot_query2 = "SELECT * FROM " . $username . "_bot";
+        $result = $db_connection->query($bot_query2);
+        $bot_name_get2 = $result->getResult();
+        $html = '';
+        $html .= '<option class="dropdown-item" value="">Select Bot</option>';
+        foreach ($bot_name_get2 as $type_key => $type_value) {
+            $qry = "SELECT `bot_id` FROM  " . $username . "_platform_integration WHERE platform_status =1";
+
+            $result = $db_connection->query($qry);
+            $bot_get_match = $result->getResult();
+            if (!empty($bot_get_match)) {
+                $bot_all_main_id = array();
+                foreach ($bot_get_match as $user_role_key => $bot_val) {
+                    $bot_all_main_id[] = explode(',', $bot_val->bot_id);
+                }
+                $bot_all_main_id = array_merge(...$bot_all_main_id);
+                if (in_array($type_value->id, $bot_all_main_id)) {
+                    $html .= '<option class="dropdown-item" disabled style="opacity: 1; color: black;" value="' . $type_value->id . '">' . $type_value->name . '</option>';
+                } else {
+                    $html .= '<option class="dropdown-item" value="' . $type_value->id . '">' . $type_value->name . '</option>';
+                }
+            } else {
+                $html .= '<option class="dropdown-item" value="' . $type_value->id . '">' . $type_value->name . '</option>';
+            }
+        }
+        return $html;
+    }
     public function wa_connextion_edit_data()
-	{
-		if ($this->request->getPost("action") == "edit") {
-			$main_id = $this->request->getPost('edit_id');
-			$username = session_username($_SESSION['username']);
-			$table_name = $this->request->getPost('table');
-        
-            $full_data =  any_id_to_full_data($username . "_" . $table_name,$main_id);
-            if(isset($full_data['bot_id']) && !empty($full_data['bot_id']))
-            {
+    {
+        if ($this->request->getPost("action") == "edit") {
+            $main_id = $this->request->getPost('edit_id');
+            $username = session_username($_SESSION['username']);
+            $table_name = $this->request->getPost('table');
+
+            $full_data =  any_id_to_full_data($username . "_" . $table_name, $main_id);
+            if (isset($full_data['bot_id']) && !empty($full_data['bot_id'])) {
                 $edit_id = $full_data['bot_id'];
-            }else{
+            } else {
                 $edit_id = 0;
             }
-       
-			$username = session_username($_SESSION['username']);
-			$table_name = $this->request->getPost('table');
-			$userEditdata = $this->MasterInformationModel->edit_entry2($username . "_bot" , $edit_id);
-			return json_encode($userEditdata, true);
-		}
-		die();
-	}
+
+            $username = session_username($_SESSION['username']);
+            $table_name = $this->request->getPost('table');
+            $userEditdata = $this->MasterInformationModel->edit_entry2($username . "_bot", $edit_id);
+            return json_encode($userEditdata, true);
+        }
+        die();
+    }
 
     public function bulk_whatsapp_template_send()
     {
