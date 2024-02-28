@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MasterInformationModel;
+use CodeIgniter\CLI\Console;
 use Config\Database;
 
 class WhatAppIntegrationController extends BaseController
@@ -120,6 +121,8 @@ class WhatAppIntegrationController extends BaseController
         $ConnectionStatus = 0;
         $header = '';
         $footer = '';
+        $bodyTextValue = '';
+        $bodyvarvalue = '';
         $Html = '';
         if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['phone_number_id']) && isset($settings_data['business_account_id']) && isset($settings_data['access_token']) && !empty($settings_data['phone_number_id']) && !empty($settings_data['business_account_id']) && !empty($settings_data['access_token']) && $settings_data['phone_number_id'] != '0' && $settings_data['business_account_id'] != '0') {
@@ -143,6 +146,30 @@ class WhatAppIntegrationController extends BaseController
                                             $Body1 = $value2['text'];
                                             $templatebody[$item['name']] = $Body1;
                                         }
+
+                                        if ($value2['type'] == 'BODY') {
+                                            if (isset($value2['example']['body_text']) && is_array($value2['example']['body_text'])) {
+                                                $bodyTextValue = $value2['example']['body_text'][0];
+
+                                                if (is_array($item) && isset($item['name'])) {
+                                                    if (!isset($bodyvarvalue) || !is_array($bodyvarvalue)) {
+                                                        $bodyvarvalue = [];
+                                                    }
+                                                    $bodyvarvalue[$item['name']] = $bodyTextValue;
+                                                } else {
+                                                }
+                                            }
+                                        }
+
+
+                                        // if ($value2['type'] == 'BODY') {
+                                        //     if (isset($value2['example']['body_text']) && is_array($value2['example']['body_text'])) {
+                                        //         $bodyTextValue = $value2['example']['body_text'][0];
+                                        //             $bodyvarvalue = [];
+                                        //             $bodyvarvalue[$item['name']] = $bodyTextValue;
+                                        //     }
+                                        // }
+
 
                                         if ($value2['type'] == 'FOOTER') {
                                             $footer1 = $value2['text'];
@@ -226,7 +253,12 @@ class WhatAppIntegrationController extends BaseController
                                         if (isset($value['components']) && !empty($value['components'])) {
                                             foreach ($value['components'] as $key1 => $value1) {
 
+                                                if ($value1['type'] == 'BODY') {
+                                                    if (isset($value1['example']['body_text']) && is_array($value1['example']['body_text'])) {
 
+                                                        $bodyTextValue = $value1['example']['body_text'][0];
+                                                    }
+                                                }
                                                 // $Html .= '
                                                 // <tr class="rounded-pill "  >
                                                 //         <td class="py-2 text-capitalize WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Name . '</td>
@@ -251,6 +283,7 @@ class WhatAppIntegrationController extends BaseController
                                                 if ($value1['type'] == 'BODY') {
                                                     $Body = $value1['text'];
                                                 }
+
                                                 if ($value1['type'] == 'FOOTER') {
                                                     $footer = $value1['text'];
                                                 }
@@ -303,16 +336,16 @@ class WhatAppIntegrationController extends BaseController
                                             // pre('Yes');
                                             $Html .= '
                                                 <tr class="rounded-pill "  >
-                                                        <td class="py-2  WhatsAppTemplateModelViewBtn"   name="' . $Name . '"data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Name . '</td>
-                                                        <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Category . '</td>
-                                                        <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $status . '</td>
+                                                        <td class="py-2  WhatsAppTemplateModelViewBtn"   name="' . $Name . '"data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '" Bodytextvalue="' . htmlspecialchars(json_encode($bodyTextValue)) . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Name . '</td>
+                                                        <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytextvalue="' . htmlspecialchars(json_encode($bodyTextValue)) . '" Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $Category . '</td>
+                                                        <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytextvalue="' . htmlspecialchars(json_encode($bodyTextValue)) . '" Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $status . '</td>
 
-                                                        <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >
+                                                        <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytextvalue="' . htmlspecialchars(json_encode($bodyTextValue)) . '" Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >
                                                             <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
                                                                 ' . $Body . '
                                                             </div>
                                                         </td>
-                                                        <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >' . $language . '</td>
+                                                        <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '" Bodytextvalue="' . htmlspecialchars(json_encode($bodyTextValue)) . '"footertext="' . $footer . '"  id="' . $id . '" >' . $language . '</td>
                                                         <td class="template-creation-table-data text-center cwt-border-right p-l-25 ">
                                                             <span>
                                                                 <i class="fa fa-eye fs-16 view_template d-none" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
@@ -393,6 +426,9 @@ class WhatAppIntegrationController extends BaseController
 
 
         $recordsCount = '';
+
+        $return_array['bodyvarvalue'] = $bodyvarvalue;
+
         $return_array['templateBUTTON'] = $templateBUTTON;
         $return_array['templatefooter'] = $templatefooter;
         $return_array['templatebody'] = $templatebody;
@@ -1455,7 +1491,9 @@ class WhatAppIntegrationController extends BaseController
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
             $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
 
-            if (isset($post_data['bodydivvalues']) && !empty($post_data['bodydivvalues'])) {
+            $bodydivvalues = $post_data['bodydivvalues'];
+
+            if (isset($post_data['bodydivvalues']) && !empty($post_data['bodydivvalues']) && array_filter($post_data['bodydivvalues'], 'strlen')) {
                 $bodydivvalues = $post_data['bodydivvalues'];
                 $modified_body = $originalHTML;
                 foreach ($bodydivvalues as $index => $value) {
@@ -1516,7 +1554,7 @@ class WhatAppIntegrationController extends BaseController
                         $WhatsApp_Message_id = $message['id'];
                         $WhatsApp_Response = $message['message_status'];
 
-                        $sql = "INSERT INTO admin_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat, connection_id) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime', '$connectionid')";
+                        $sql = "INSERT INTO " . $username . "_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat, connection_id) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime', '$connectionid')";
                         $db_connection->query($sql);
                     }
                 }
@@ -1830,37 +1868,37 @@ class WhatAppIntegrationController extends BaseController
                             <td class="align-middle text-truncate messeging-content d-none" style="max-width: 150px;"
                                 scope="col-2">10 k customers</td>
                             <td class="align-middle" scope="col-1">' . $countryName . '</td>';
-                            $full_data =  any_id_to_full_data($username . "_platform_integration", $value['id']);
-                            if (isset($full_data['bot_id']) && !empty($full_data['bot_id'])) {
-                                $bot_id = $full_data['bot_id'];
-                            } else {
-                                $bot_id = '';
-                            }
-                            $get_bot_full_data =  any_id_to_full_data($username . "_bot", $bot_id);
-                            if (isset($get_bot_full_data['name']) && !empty($get_bot_full_data['name'])) {
-                                $bot_full_name = $get_bot_full_data['name'];
-                            } else {
-                                $bot_full_name = '';
-                            }
-                            $html .= '<td class="align-middle" scope="col-2">' . $verified_name . '</td>';
-                            $html .= '<td class="d-flex align-items-center">';
-                            if (isset($get_bot_full_data['name']) && !empty($get_bot_full_data['name'])) {
-                                $html .= ' <div class="d-flex align-items-center">
+                    $full_data =  any_id_to_full_data($username . "_platform_integration", $value['id']);
+                    if (isset($full_data['bot_id']) && !empty($full_data['bot_id'])) {
+                        $bot_id = $full_data['bot_id'];
+                    } else {
+                        $bot_id = '';
+                    }
+                    $get_bot_full_data =  any_id_to_full_data($username . "_bot", $bot_id);
+                    if (isset($get_bot_full_data['name']) && !empty($get_bot_full_data['name'])) {
+                        $bot_full_name = $get_bot_full_data['name'];
+                    } else {
+                        $bot_full_name = '';
+                    }
+                    $html .= '<td class="align-middle" scope="col-2">' . $verified_name . '</td>';
+                    $html .= '<td class="d-flex align-items-center">';
+                    if (isset($get_bot_full_data['name']) && !empty($get_bot_full_data['name'])) {
+                        $html .= ' <div class="d-flex align-items-center">
                                 <i class="fa-solid fa-check fa-xl me-2 fw-bold" style="color: #198754;font-weight:bold;"></i>
-                                    <span class="badge rounded-pill text-bg-success">'.$bot_full_name.'</span>
+                                    <span class="badge rounded-pill text-bg-success">' . $bot_full_name . '</span>
                                     
                                 </div>
-                               ';      
-                            }else{
-                                $html .= '
+                               ';
+                    } else {
+                        $html .= '
                                 <div class="d-flex align-items-center">
                                     <span class="badge text-bg-success"></span>
                                 </div>';
-                            }
-                            $html .= '  <button class="btn ms-2 p-0 chat_bot text-center" data-bs-toggle="modal" id="chat_bot" data-bot_editid="' . $value['id'] . '" data-bs-target="#exampleModal2">
+                    }
+                    $html .= '  <button class="btn ms-2 p-0 chat_bot text-center" data-bs-toggle="modal" id="chat_bot" data-bot_editid="' . $value['id'] . '" data-bs-target="#exampleModal2">
                             <i class="fas fa-pencil-alt fa-lg fs-14"></i>
                         </button></td>';
-                            $html .= '
+                    $html .= '
                             <td class="align-middle" scope="col-1">
                                 <button class="btn p-0 DelectConnection"  table="' . $table_name . '" id="' . $value['id'] . '">
                                     <i class="fa-solid fa-trash-can"></i>
@@ -2948,7 +2986,7 @@ class WhatAppIntegrationController extends BaseController
                                 $WhatsApp_Message_id = $message['id'];
                                 $WhatsApp_Response = $message['message_status'];
                                 $cuurrenttime = date('Y-m-d H:i:s');
-                                $sql = "INSERT INTO admin_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat, connection_id) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime', '$connectionid')";
+                                $sql = "INSERT INTO " . $username . "_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat, connection_id) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime', '$connectionid')";
                                 $db_connection->query($sql);
                             }
                         }
@@ -2957,5 +2995,48 @@ class WhatAppIntegrationController extends BaseController
             }
         }
         echo $ReturnResult;
+    }
+
+    public function set_variable_value()
+    {
+        $db_connection = \Config\Database::connect('second');
+
+        $post_data = $_POST;
+        $phone_no = $post_data['phone_no'];
+        $originalHTML = $post_data['originalHTML'];
+
+        $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
+
+        $result = $db_connection->query($sqlquery, [$phone_no]);
+
+        $row = $result->getRow();
+
+        $name = $row->full_name;
+        $mobileno1 = $row->mobileno;
+        $address = $row->address;
+
+        $placeholders = array(
+            '{{Name}}' => $name,
+            '{{address}}' => $address,
+            '{{phone_no}}' => $mobileno1,
+        );
+
+        $modifiedHTML = $originalHTML;
+        foreach ($placeholders as $placeholder => $value) {
+            $modifiedHTML = str_replace($placeholder, $value, $modifiedHTML);
+        }
+
+        $return_array = array();
+        foreach ($placeholders as $placeholder => $value) {
+            if (strpos($originalHTML, $placeholder) !== false) {
+                $return_array[$placeholder] = $value;
+            }
+        }
+        $json_string = json_encode($return_array, true);
+        $decoded_array = json_decode($json_string, true);
+
+        $values['variablevalues'] = array_values($decoded_array);
+        $values['modifiedHTML'] = $modifiedHTML;
+        return json_encode($values, true);
     }
 }

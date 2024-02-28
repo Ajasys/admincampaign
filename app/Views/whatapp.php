@@ -9,7 +9,6 @@ if (!empty($connections)) {
 } else {
     echo '<script>window.location.href = "' . base_url() . 'whatsapp_connections' . '";</script>';
 }
-
 ?>
 <style>
     .wa-preview-main-div-cont {
@@ -43,7 +42,6 @@ if (!empty($connections)) {
         font-size: 9px;
     }
 
-
     .preview-header-main-cont {
         display: flex;
         align-items: center;
@@ -63,7 +61,6 @@ if (!empty($connections)) {
         flex-grow: 1;
         margin-left: 10px;
     }
-
 
     .wa-phone-header {
         display: flex;
@@ -86,14 +83,12 @@ if (!empty($connections)) {
     position: relative;
     overflow-y: auto;
 } */
-
     .preview-chat-section {
         border: 1px solid #ccc;
         border-radius: 8px;
         overflow: hidden;
         object-fit: cover;
     }
-
 
     .preview-chat-section-chat {
         padding: 10px;
@@ -120,7 +115,6 @@ if (!empty($connections)) {
         background-color: #fff;
         word-break: break-all;
         border-radius: 0px 30px 30px 30px;
-
     }
 
     .preview-chat-paragraph>p {
@@ -143,14 +137,11 @@ if (!empty($connections)) {
         color: black;
         max-width: '100%';
         height: 'auto';
-
     }
 
     .preview-chat-paragraph1>* {
         margin-top: 10px;
     }
-
-
 
     .cwt-info-facebook,
     .cwt-info-whatsapp {
@@ -173,7 +164,6 @@ if (!empty($connections)) {
         font-size: 12px;
     }
 
-
     /* .preview-call-button {
         background-color: #095f54;
         color: #fff;
@@ -181,13 +171,11 @@ if (!empty($connections)) {
         text-align: center;
         cursor: pointer;
     } */
-
     .preview-whatsapp-footer {
         background-color: #F1EDE5;
         padding: 10px;
         text-align: center;
         cursor: pointer;
-
     }
 
     .whatsapp-footer {
@@ -209,12 +197,9 @@ if (!empty($connections)) {
         color: #095f54;
         cursor: pointer;
     } */
-
     .whatsapp-footer-1 {
         background-color: #F1EDE5;
-
     }
-
 
     .audio-icon-tem i {
         font-size: 18px;
@@ -224,8 +209,6 @@ if (!empty($connections)) {
 
     .template-creation-heading {
         overflow-x: hidden;
-
-
     }
 
     .whatsapp-footer-1 i,
@@ -310,7 +293,6 @@ if (!empty($connections)) {
         word-break: break-word;
         font-family: 'Poppins', sans-serif;
     } */
-
     .user-name-chat-footer {
         white-space: pre-line;
         font-size: 12px !important;
@@ -324,7 +306,6 @@ if (!empty($connections)) {
         line-height: 1.15;
         cursor: pointer;
         font-size: 100%;
-
     }
 
     .col-12.mb-3.justify-content-center {
@@ -382,7 +363,6 @@ if (!empty($connections)) {
     /* .wa-phone-header {
         display: flex;
     } */
-
     .wa-phone-header i {
         font-size: 14px;
         margin-right: 10px;
@@ -414,15 +394,11 @@ if (!empty($connections)) {
         background-color: #fff;
         word-break: break-all;
         border-radius: 0px 30px 30px 30px;
-
     }
 
     /* .preview-chat-paragraph>p {
         word-break: break-all;
-
-
     } */
-
     .preview-chat-paragraph1 {
         margin-bottom: 10px;
         word-break: break-all;
@@ -430,7 +406,6 @@ if (!empty($connections)) {
         color: black;
         max-width: '100%';
         height: 'auto';
-
     }
 
     .preview-chat-paragraph1>* {
@@ -470,7 +445,6 @@ if (!empty($connections)) {
         padding: 10px;
         text-align: center;
         cursor: pointer;
-
     }
 
     .whatsapp-footer {
@@ -495,7 +469,6 @@ if (!empty($connections)) {
 
     .whatsapp-footer-1 {
         background-color: #F1EDE5;
-
     }
 
     .audio-icon-tem i {
@@ -506,8 +479,6 @@ if (!empty($connections)) {
 
     .template-creation-heading {
         overflow-x: hidden;
-
-
     }
 
     .whatsapp-footer-1 i,
@@ -560,7 +531,6 @@ if (!empty($connections)) {
         border-radius: 40px;
         background: #e0e0e0;
         /* box-shadow: 20px 20px 60px #e1daf882, -20px -20px 60px #e7e7e7; */
-
     }
 
     .rotate-arrow {
@@ -585,7 +555,6 @@ if (!empty($connections)) {
         .mobile-whatapp {
             width: 100% !important;
             height: 451px;
-
         }
 
         .preview-chat-section-chat {
@@ -606,7 +575,6 @@ if (!empty($connections)) {
         .mobile-whatapp {
             width: 300px;
             height: 451px;
-
         }
 
         .preview-chat-section-chat {
@@ -616,12 +584,10 @@ if (!empty($connections)) {
     }
 
     @media (min-width:1400px) {
-
         .mobile-whatapp-body {
             padding: 10px;
             background-color: #F1EDE5;
             height: 370px !important;
-
         }
 
         .mobile-whatapp {
@@ -632,16 +598,13 @@ if (!empty($connections)) {
         /* .mobile-whatapp {
             width: 300px ;
             height: 496px;
-            
         } */
-
         .preview-chat-section-chat {
             max-height: 362px;
             min-height: 362px !important;
         }
     }
 </style>
-
 <div class="main-dashbord p-2 ">
     <div class="col-12 d-flex justify-content-between">
         <div class="title-1 d-flex align-items-center">
@@ -651,7 +614,6 @@ if (!empty($connections)) {
         <div class="col-6 col-lg-2">
             <div class="main-selectpicker">
                 <select id="" name="" class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control ">
-
                     <!-- 13022024 -->
                     <?php
                     if (isset($connections) && !empty($connections)) {
@@ -688,7 +650,6 @@ if (!empty($connections)) {
                                         </li>
                                     </ul>       
                                 </li> -->
-
                             <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle bg-body-secondary nav-item Tab1Class" role="presentation">
                                 <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-toggle="modal" data-bs-target="#pills-ex-single-tab" type="button" role="tab" aria-controls="#pills-ex-single-tab" aria-selected="true">
                                     <p>
@@ -733,10 +694,8 @@ if (!empty($connections)) {
                                     <span class="ms-3 first-container-text templatelist">Templates</span>
                                 </div>
                             </li>
-
                         </ul>
                         </nav>
-
                     </div>
                     <div class="col-12 mt-2 d-flex justify-content-end">
                         <div class="col-1 p-3 Arro-pro " style="cursor:pointer"><i class="bi bi-arrow-left Arrowmovement text-primary fw-bold fs-5"></i></div>
@@ -744,35 +703,25 @@ if (!empty($connections)) {
                 </div>
             </div>
             <div class="col-12 col-md ps-1">
-
-
-
-
                 <div class="tab-content bg-white rounded-3 border" id="pills-tabContent">
                     <div class="Activeclass p-1">
                         <div class="container p-0 ms-0">
                             <div class="px-3 py-0 rounded-2 mx-2">
                                 <ul class="nav nav-pills navtab_primary_sm" id="pills-tab" role="tablist">
-
                                     <li class="nav-item  " role="presentation">
                                         <button class="nav-link active" id="single" data-table="single" DataStatus='3' data-bs-toggle="pill" data-bs-target="#pills-ex-single-tab" data-bs-toggle="modal" type="button" role="tab" aria-controls="pills-ex-single-tab" aria-selected="true">Single
                                             Template</button>
                                     </li>
-
-
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="schedule" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-target="#pills-ex-schedule-tab" type="button" role="tab" aria-controls="pills-ex-schedule-tab" aria-selected="false">Bulk Template
                                         </button>
                                     </li>
-
-
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade show active" id="pills-ex-single-tab" role="tabpanel" aria-labelledby="pills-ex-single" tabindex="0" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class=" p-2 main-check-class bg-white p-2 col-12 col-sm-8 col-md-12  mx-auto mx-md-0">
-
                             <div class="col-12 p-0 ms-0">
                                 <!-- <div class="px-3 py-2 bg-white rounded-2 mx-2">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -785,8 +734,6 @@ if (!empty($connections)) {
                                                     <i class="bi bi-trash3 fs-14" hidden></i>
                                                 </span>
                                             </div>
-
-
                                         </div>
                                     </div>
                                 </div> -->
@@ -794,13 +741,11 @@ if (!empty($connections)) {
                                     <div class="col-12 hello">
                                         <div class="d-flex flex-wrap align-items-start  p-lg-3  justify-content-center justify-content-xl-between">
                                             <div class="col-12 col-md-12 col-lg-10 col-xl-6 col-xxl-4 my-2 my-lg-0">
-
                                                 <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
                                                     <div class="modal-content">
                                                         <div class="modal-body-secondery">
                                                             <div class="modal-body-card pb-1">
                                                                 <h5 class="mb-3 pb-2 border-bottom col-12">Template</h5>
-
                                                                 <div class="col-12">
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <select class="form-control main-control templatesnamelistddclass header_div" id="header" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
@@ -810,7 +755,6 @@ if (!empty($connections)) {
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-12 mb-3 mt-2">
-
                                                                         <input type="number" id="mobile_code" class="form-control phone_number_div" minlength="10" maxlength="10" onkeyup="if (/D/g.test(this.value)) this.value = this.value.replace(/D/g,'')" placeholder="Enter Your Phone Number" name="name" required>
                                                                     </div>
                                                                     <div class="col-12 mb-3 mt-2">
@@ -822,7 +766,6 @@ if (!empty($connections)) {
                                                                             <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">
                                                                                 English
                                                                                 (en)</option>
-
                                                                             <option class="fs-12 ng-binding ng-scope" value="af" ng-repeat="lang in template_lang">
                                                                                 Afrikaans
                                                                             </option>
@@ -1010,10 +953,7 @@ if (!empty($connections)) {
                                                         </div>
                                                     </div>
                                                 </form>
-
-
                                             </div>
-
                                             <div class="col-12 col-xl-6 d-flex px-0 px-lg-4 my-2  my-2 my-xxl-0 justify-content-center">
                                                 <!-- whatsapp   .. -->
                                                 <div class="">
@@ -1032,14 +972,11 @@ if (!empty($connections)) {
                                                                     <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
                                                                 </div>
                                                             </div>
-
                                                             <div class="preview-chat-section-chat overflow-y-scroll mobile-whatapp-body">
-
                                                                 <div class="preview-chat-paragraph bg-white p-3 col-10">
                                                                     <p class="word-wrap single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue text-break">
                                                                         Message Header Section</p>
                                                                     <img class="rounded-3 preview-header-VIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
-
                                                                     <p contenteditable="false" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break">
                                                                         Message Body Section</p>
                                                                     <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue text-break" contenteditable="false">Message Footer Section
@@ -1049,12 +986,10 @@ if (!empty($connections)) {
                                                                     <button class="single-button-whatsapp-template word-wrap">Ok</button>
                                                                     <button class="single-button-whatsapp-template13 word-wrap" hidden>Cancel</button>
                                                                 </div>
-
                                                             </div>
                                                             <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
                                                                 <div class="preview-whatsapp-footer">
                                                                     <div class="whatsapp-footer d-flex flex-wrap align-items-center">
-
                                                                         <!-- <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i> -->
                                                                         <i class="fa-regular fa-face-smile d-none"></i>
                                                                         <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
@@ -1069,7 +1004,6 @@ if (!empty($connections)) {
                                                                 <div class="col-4 text-center"><i class="fa-regular fa-square"></i></div>
                                                                 <div class="col-4 text-center"><i class="fa-solid fa-chevron-right"></i></div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1095,8 +1029,6 @@ if (!empty($connections)) {
                                                         <i class="bi bi-trash3 fs-14" hidden></i>
                                                     </span>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -1106,17 +1038,13 @@ if (!empty($connections)) {
                                                 <div class="col-6">
                                                     <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
                                                         <div class="modal-content">
-
                                                             <div class="modal-body-secondery justify-content-center">
                                                                 <div class="modal-body-card justify-content-center">
                                                                     <label class=" pull-left full-width text-left m-b-15"><b>Note:
                                                                         </b> follow <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' target="_blank">csv</a>
                                                                         format for
                                                                         reference</label>
-
-
                                                                     <div class="col-12 mb-3 justify-content-center">
-
                                                                         <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' class="text-secondary mx-1 mb-1 add_property_js add_user_role_css add_user-role-pdf">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="28" height="28" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                                                 <g>
@@ -1128,14 +1056,11 @@ if (!empty($connections)) {
                                                                                 </g>
                                                                             </svg>
                                                                         </a>
-
                                                                     </div>
                                                                     <div class="col-6 mb-3 justify-content-center text-center">
                                                                         <label for="" class="main-label main-label ">Upload<sup class="validationn">*</sup></label>
                                                                         <input type="file" class="form-control main-control" id="import_file" name="import_file" placeholder="Details" required="">
                                                                     </div>
-
-
                                                                     <div class="col-12">
                                                                         <div class="col-12 mb-3 mt-2">
                                                                             <select class="form-control main-control templatesnamelistddclass header_div" id="header12" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
@@ -1144,7 +1069,6 @@ if (!empty($connections)) {
                                                                                     Template</option>
                                                                             </select>
                                                                         </div>
-
                                                                         <div class="col-12 mb-3 mt-2">
                                                                             <select class="form-control main-control language_div" id="language" name="language" disabled required>
                                                                                 <option class="fs-12" label="Language" value=""></option>
@@ -1154,7 +1078,6 @@ if (!empty($connections)) {
                                                                                 <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">
                                                                                     English
                                                                                     (en)</option>
-
                                                                                 <option class="fs-12 ng-binding ng-scope" value="af" ng-repeat="lang in template_lang">
                                                                                     Afrikaans
                                                                                 </option>
@@ -1331,10 +1254,7 @@ if (!empty($connections)) {
                                                                                 </option>
                                                                             </select>
                                                                         </div>
-
-
                                                                     </div>
-
                                                                     <!-- <div class="col-12 mb-3">
                                                                     <input type="text" class="form-control main-control campaign_name_div" id="campaign_name" placeholder="campaign name..." name="" required>
                                                                 </div> -->
@@ -1345,13 +1265,10 @@ if (!empty($connections)) {
                                                                         <input type="text" name="daily_time" id="daily_time" class="form-control main-control dailyinputfields daily-time" placeholder="Select Time" required>
                                                                     </div>
                                                                     <div class="modal-footer justify-content-end my-1">
-                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" name="memberships_update1" value="memberships_update1">Preview</button>
+                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">Preview</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-
-
                                                         </div>
                                                     </form>
                                                 </div>
@@ -1373,14 +1290,11 @@ if (!empty($connections)) {
                                                                         <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="preview-chat-section-chat overflow-y-scroll mobile-whatapp-body">
-
                                                                     <div class="preview-chat-paragraph bg-white p-3 col-10">
                                                                         <p class="word-wrap single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue text-break">
                                                                             Message Header Section</p>
                                                                         <img class="rounded-3 preview-header-VIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
-
                                                                         <p contenteditable="false" id="sdf" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break">
                                                                             Message Body Section</p>
                                                                         <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue text-break" contenteditable="false">Message Footer Section
@@ -1390,12 +1304,10 @@ if (!empty($connections)) {
                                                                         <button class="single-button-whatsapp-template word-wrap">Ok</button>
                                                                         <button class="single-button-whatsapp-template13 word-wrap" hidden>Cancel</button>
                                                                     </div>
-
                                                                 </div>
                                                                 <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
                                                                     <div class="preview-whatsapp-footer">
                                                                         <div class="whatsapp-footer d-flex flex-wrap align-items-center">
-
                                                                             <!-- <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i> -->
                                                                             <i class="fa-regular fa-face-smile d-none"></i>
                                                                             <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
@@ -1410,7 +1322,6 @@ if (!empty($connections)) {
                                                                     <div class="col-4 text-center"><i class="fa-regular fa-square"></i></div>
                                                                     <div class="col-4 text-center"><i class="fa-solid fa-chevron-right"></i></div>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1423,17 +1334,11 @@ if (!empty($connections)) {
                         </div>
                     </div>
                 </div>
-
-
                 <!-- shedual modal -->
-
-
-
                 <div class="tab-content">
                     <div class="tab-pane fade " id="pills-ex-schedule-tab3" role="tabpanel" aria-labelledby="pills-ex-schedule" tabindex="0">
                         <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap ">
                             <div class="col-12 d-flex flex-wrap my-2 justify-content-between">
-
                                 <div class="d-flex align-items-center">
                                     <h6>WhatsApp Template Details</h6>
                                 </div>
@@ -1448,14 +1353,12 @@ if (!empty($connections)) {
                                         <button type="button" class="btn-primary CancleBtn me-2  w-100 d-none" data-bs-dismiss="modal" data-bs-toggle="modal" id="cancel" data-delete_id=""><i class="bi bi-arrow-repeat"></i> Sync with
                                             Facebook</button>
                                     </div>
-
                                     <div class="col-3 px-2">
                                         <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
                                             <i class="bi bi-plus PlusButtonDiv "></i>
                                         </button>
                                         <p class="d-none EditBtnTemplate" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit"></p>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="col-12">
@@ -1475,7 +1378,6 @@ if (!empty($connections)) {
                                             </tr>
                                         </thead>
                                         <tbody id="memberships_list">
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -1483,7 +1385,6 @@ if (!empty($connections)) {
                         </div>
                     </div>
                 </div>
-
                 <div class="tab-content">
                     <div class="tab-pane fade " id="pills-ex-view-tab" role="tabpanel" aria-labelledby="pills-ex-view" tabindex="0">
                         <div class="col-12 bg-white border rounded-3 px-4 py-2">
@@ -1531,7 +1432,6 @@ if (!empty($connections)) {
                             </div>
                             <div class="col-12 overflow-scroll dt-row">
                                 <table class="table whatsapp-table  my-2 w-100  table table-striped dt-responsive w-100 main-table lead_list_table no-footer dataTable">
-
                                     <thead>
                                         <th>Receiver Number</th>
                                         <th>Template Name</th>
@@ -1545,17 +1445,13 @@ if (!empty($connections)) {
                                 </table>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
-    <!-- add model -->
-    <div class="modal fade modal-lg" id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
+    <!-- add modeld-flex show -->
+    <div class="modal fade modal-lg " id="whatsapp_template_add_edit" tabindex="-1" aria-labelledby="membershipseditModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-50 modal-dialog-centered">
             <form class="needs-validation membershipDiv" name="whatsapp_template_add_edit" method="POST" novalidate>
                 <div class="modal-content">
@@ -1575,17 +1471,13 @@ if (!empty($connections)) {
                                             can
                                             only contain lowercase alphanumeric characters and underscores ( _ )</p>
                                         <p class="emptyname text-danger fs-12"> Template name cannot be empty</p>
-
-
                                     </div>
-
                                     <div class="col-12 mb-3 ">
                                         <label for="form-memberships" class="main-label">Select Category<sup class="validationn">*</sup></label>
                                         <div class="main-selectpicker">
                                             <select id="category_types" name="category_types" class="selectpicker form-control form-main TemplateCategorySelectionDiv main-control category_div" required>
                                                 <option class=" dropdown-item" value="">Please Select Your category
                                                 </option>
-
                                                 <option value="UTILITY" ng-repeat="category in category_types" class="  dropdown-item">
                                                     Utility</option>
                                                 </option>
@@ -1602,13 +1494,11 @@ if (!empty($connections)) {
                                         <label for="form-memberships" class="main-label">Select Language<sup class="validationn">*</sup></label>
                                         <div class="main-selectpicker">
                                             <!-- <select class="selectpicker form-control main-control language_div" id="language" name="language" required> -->
-
                                             <select class="selectpicker form-control main-control TemplateLanguageDDList language_div" id="languageid" name="language" required>
                                                 <option class="fs-12" label="Please Select Your Language" value="" required>
                                                     Please select your language</option>
                                                 <option class="fs-12 ng-binding ng-scope" value="en_US" ng-repeat="lang in template_lang">English US (en_US)</option>
                                                 <option class="fs-12 ng-binding ng-scope" value="en" ng-repeat="lang in template_lang">English (en)</option>
-
                                                 <option class="fs-12 ng-binding ng-scope" value="af" ng-repeat="lang in template_lang">Afrikaans</option>
                                                 <option class="fs-12 ng-binding ng-scope" value="sq" ng-repeat="lang in template_lang">Albanian</option>
                                                 <option class="fs-12 ng-binding ng-scope" value="ar" ng-repeat="lang in template_lang">Arabic</option>
@@ -1700,18 +1590,23 @@ if (!empty($connections)) {
                                         <div class="col-12 mb-3 text-comment d-none">
                                             <textarea class="form-control main-control ClassHeaderTEXT place MemberAddressClass" id="address" name="address" required="" placeholder="Type your header text here..." rows="3" cols="50" spellcheck="false"></textarea>
                                         </div>
-
                                     </div>
-
-                                    <div class="col-12 mb-3">
-                                        <label for="form-memberships" class="main-label fw-medium">Body<sup class="validationn">*</sup></label>
-                                        <textarea class="form-control main-control TemplateBodyClass body_div" id="body_id" placeholder="Type Your Body Text Here..." name="" required></textarea>
+                                    <div class="col-12 mb-3 d-flex flex-wrap">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <label for="form-memberships" class="main-label fw-medium col-6">Body<sup class="validationn">*</sup></label>
+                                        </div>
+                                        <div class="col-6">
+                                            <select class="form-select form-select-sm col-12 my-1 body-select-picker" aria-label="Small select example">
+                                                <option selected>Add Variable</option>
+                                                <option value="1">Name</option>
+                                                <option value="2">phone_no</option>
+                                                <option value="3">address</option>
+                                            </select>
+                                        </div>
+                                        <textarea class="form-control main-control col-12 TemplateBodyClass body_div" id="body_id" placeholder="Type Your Body Text Here..." name="" required></textarea>
                                         <!-- <p class="fs-12 BODYvalidation" style="display:none;">Template body can not be empty max limit 1024 characters</p> -->
-                                        <p class="fs-10 limitvalue">Body character limit is 1024 characters</p>
-
-
+                                        <p class="fs-10 limitvalue col-12">Body character limit is 1024 characters</p>
                                     </div>
-
                                     <div class="col-12 mb-3">
                                         <label for="form-memberships" class="main-label fw-medium">Footer</label>
                                         <textarea class="form-control main-control footer_div FotterTextDIvClass" id="footer" placeholder="Type Your Footer Text Here..." name=""></textarea>
@@ -1735,17 +1630,12 @@ if (!empty($connections)) {
                                         <div class="col-12 my-3">
                                             <!-- <span class="btn btn-primary Button_make" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add button</span> -->
                                             <span class="btn btn-primary ButtonVariableClass" id=""><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add Button</span>
-
                                         </div>
                                         <!-- quck replay -->
-
                                         <div class="button_link1 SetButtonHTMLClass">
-
-
                                         </div>
                                         <!--call-replay-->
                                         <div class="col-12  button_link2 d-none">
-
                                         </div>
                                     </div>
                                 </form>
@@ -1770,7 +1660,6 @@ if (!empty($connections)) {
                                                     <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
                                                 </div>
                                             </div>
-
                                             <div class="preview-chat-section-chat overflow-y-scroll mobile-whatapp-body">
                                                 <div class="preview-chat-paragraph bg-white p-3 col-10">
                                                     <!-- <div class="preview-header-paragraph refreshit" ng-if="submitParamDetails"  class="ng-scope" style=""> -->
@@ -1784,19 +1673,16 @@ if (!empty($connections)) {
                                                     <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg preview-footer-paragraph font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                                     <!-- end ngIf: media_footer_text.length > 0 -->
                                                     <!-- </div> -->
-
                                                 </div>
                                                 <div class="single-t-call-button">
                                                     <button class="single-button-whatsapp-template1 refreshit"></button>
                                                     <button class="single-button-whatsapp-template2" data-template="2"></button>
                                                     <button class="single-button-whatsapp-template3" data-template="3"></button>
-
                                                 </div>
                                             </div>
                                             <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
                                                 <div class="preview-whatsapp-footer">
                                                     <div class="whatsapp-footer d-flex flex-wrap align-items-center">
-
                                                         <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
                                                         <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
                                                         <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
@@ -1818,8 +1704,8 @@ if (!empty($connections)) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary CloseBtnModelAdd" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary previewbutton ">Preview and Submit</button>
-                        <!-- <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid="" action="insert">Submit</button> -->
+                        <!-- <button type="button" class="btn btn-primary previewbutton ">Preview and Submit</button> -->
+                        <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid="" action="insert">Submit</button>
                     </div>
                 </div>
         </div>
@@ -1834,33 +1720,20 @@ if (!empty($connections)) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body modal-body-secondery d-flex flex-wrap">
-
-
-
-
                     <div class="col-6">
                         <div class="modal-body-card justify-content-center">
                             <div id="" class="col-12 mb-3 mt-2">
-
                                 <form id="dynamicInputsContainer1" name="filds"></form>
                             </div>
-
                             <div id="" class="col-12 mb-3 mt-2">
                                 <form id="dynamicInputsContainer" name="filds"></form>
                             </div>
-
-
                             <!-- <div ng-if="!headerTextLength && !urlParam && !bodyTextLength" class="cwt-info-facebook ng-scope">
                                 <p class="font-size-12 text-center">You haven't used any variable in your text.</p>
                             </div>
-
-
-
                             <div class="cwt-info-facebook">
                                 <p class="font-size-12">The provided example values will be submitted to Facebook as part of the template submission process. If no relevant examples are provided, templates may be rejected by Facebook.</p>
                             </div> -->
-
-
                         </div>
                     </div>
                     <div class="col-6">
@@ -1878,33 +1751,27 @@ if (!empty($connections)) {
                                     <i class="fa fa-ellipsis-v wa-phone-header-elicpse-icon" aria-hidden="true"></i>
                                 </div>
                             </div>
-
                             <div class="preview-chat-section-chat overflow-y-scroll">
                                 <div class="preview-chat-paragraph bg-white p-3 col-10">
                                     <div class="preview-header-paragraph" ng-if="submitParamDetails" class="ng-scope" style="">
                                         <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                     </div>
-
-                                        <!-- <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;"> -->
-
+                                    <!-- <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;"> -->
                                     <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
                                     </div>
                                     <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
                                         <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                     </div>
-
                                 </div>
                                 <div class="single-t-call-button">
                                     <button class="single-button-whatsapp-template1"></button>
                                     <button class="single-button-whatsapp-template2" data-template="2"></button>
                                     <button class="single-button-whatsapp-template3" data-template="3"></button>
-
                                 </div>
                             </div>
                             <div class="preview-call-button ng-scope" ng-if="!edit_template &amp;&amp; !preview_open">
                                 <div class="preview-whatsapp-footer">
                                     <div class="whatsapp-footer d-flex flex-wrap align-items-center">
-
                                         <i class="fa fa-smile-o whatsapp-footer-relative" aria-hidden="true"></i>
                                         <input class="chat-btn-chat whatsapp-footer-1 col-7" placeholder="Type a message" ng-disabled="true" aria-disabled="true" disabled="disabled">
                                         <i class="fa fa-paperclip whatsapp-footer-2" aria-hidden="true"></i>
@@ -1913,7 +1780,6 @@ if (!empty($connections)) {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -1922,12 +1788,8 @@ if (!empty($connections)) {
                     <button class="btn  btn-primary   Elbtn EditTemplateButtonClass" name="" id=""><i class="bi bi-pencil"></i></button>
                     <button type="button" class="btn btn-primary TemplateDeleteBtnDiv" id="" name="">Delete</button>
                     <!-- <button type="button" class="btn btn-secondary CloseBtnModelAdd" data-bs-dismiss="modal">Close</button> -->
-
-                    <span class="btn-primary Template_send_whatsapp" id="sendbtn" datastatus="" name="" value="Send">Send</span>
-
-
+                    <span class="btn-primary Template_send_whatsapp" id="sendbtn" varvalues="" datastatus="" name="" value="Send">Send</span>
                 </div>
-
             </div>
         </div>
     </div>
@@ -1938,7 +1800,6 @@ if (!empty($connections)) {
             var templateName = $(this).val();
             var maxLength = 512;
             var regex = /^[a-z0-9_]+$/;
-
             if (templateName.length === 0) {
                 $('.CheckTemplateNameAlertPTag').hide();
             } else if (templateName.length > maxLength) {
@@ -1949,15 +1810,8 @@ if (!empty($connections)) {
             } else {
                 $('.CheckTemplateNameAlertPTag').hide();
                 $('.emptyname').hide();
-
             }
         });
-
-
-
-
-
-
         $('.dailyinputfields').bootstrapMaterialDatePicker({
             format: 'hh:mm A',
             cancelText: 'ANNULER',
@@ -1966,8 +1820,6 @@ if (!empty($connections)) {
             time: true,
             date: false
         });
-
-
         $('#fromDate_edit').bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY',
             cancelText: 'ANNULER',
@@ -1975,7 +1827,6 @@ if (!empty($connections)) {
             switchOnClick: true,
             time: false
         });
-
         $('.FilterDatePicker').bootstrapMaterialDatePicker({
             format: 'DD-MM-YYYY',
             cancelText: 'ANNULER',
@@ -1983,44 +1834,29 @@ if (!empty($connections)) {
             switchOnClick: true,
             time: false
         });
-
         // $('body').on('click', '.previewbutton', function () {
-
         //     var body = $('.body_div').val();
         //     var regex = /{{\d+}}/g;
         //     var matches = body.match(regex);
-
         //     if (matches) {
-
         //         $('#dynamicInputsContainer').empty();
-
         //         for (var i = 0; i < matches.length; i++) {
         //             var inputField = '<input type="text" id="inputbody" class="form-control main-control inputypeBody mt-2" placeholder="Body{{ ' + (i + 1) + '}}" name="body_' + (i + 1) + '" required>';
         //             $('#dynamicInputsContainer').append(inputField);
-
         //         }
         //     }
-
-
         // });
-
         originalHTML = '';
-
-
         // $('#dynamicInputsContainer').on('input', '#inputbody', function() {
         //     var bodyText1 = $(this).val();
         //     var inputId = $(this).attr('Dataid');
         //     // var regex = /{{[2]}}/g;
         //     // /{{1}}/g
         //     // var regex = /{{\d+}}/g;
-
         //     var regex = new RegExp("{{[" + inputId + "]}}", "g");
-
         //     if (bodyText1.trim() !== '') {
         //         if (!originalHTML) {
         //             originalHTML += $('.preview-chat-paragraph .msg-text-chat').html();
-
-
         //         }
         //         // else{}
         //         var updatedHTML = originalHTML.replace(regex, bodyText1);
@@ -2032,12 +1868,6 @@ if (!empty($connections)) {
         //         // alert('kjh');
         //     }
         // });
-
-
-
-
-
-
         function isValidURL(str) {
             var pattern = new RegExp('^(https?:\\/\\/)?' +
                 '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
@@ -2047,10 +1877,8 @@ if (!empty($connections)) {
                 '(\\#[-a-z\\d_]*)?$', 'i');
             return pattern.test(str);
         }
-
         $('body').on('click', '.WhatsAppTemplateModelViewBtn', function() {
             // $('#view_modal').modal('show');
-
             $('.EditTemplateButtonClass').removeClass('d-none');
             $('.inputypeBody').val('');
             $('.emptyname').addClass('d-none')
@@ -2058,9 +1886,28 @@ if (!empty($connections)) {
             $('.Add_editModelTitle').addClass('d-none')
             $('#sendbtn').addClass('d-none')
             $('.inputypeBody').addClass('d-none')
+            var Body1 = $(this).attr('Bodytext');
+
+            var Bodytextvalue = JSON.parse($(this).attr('Bodytextvalue'));
+            console.log(Bodytextvalue);
+
+            for (var i = 0; i < Bodytextvalue.length; i++) {
+                var placeholder = new RegExp('{{[' + (i + 1) + ']}}', 'g');
+                Body1 = Body1.replace(placeholder, '{{' + Bodytextvalue[i] + '}}');
+
+            }
+
+            $('.msg-text-chat').text(Body1);
 
 
-            var Body = $(this).attr('Bodytext');
+
+
+
+
+
+
+
+
             var footer = $(this).attr('footertext');
             var header = $(this).attr('headertext');
             var button = $(this).attr('buttontext');
@@ -2070,37 +1917,24 @@ if (!empty($connections)) {
             $('.EditTemplateButtonClass').attr('name', name);
             $('.TemplateDeleteBtnDiv').attr('id', id);
             $('.TemplateDeleteBtnDiv').attr('name', name);
-
             if (isValidURL(header)) {
                 $('.preview-header-paragraphVIDEO').removeClass('d-none');
                 $('.preview-header-paragraph').addClass('d-none')
                 $(".preview-header-paragraphVIDEO").attr('src', header).addClass("col-12 rounded-3 border border-3");
-
             } else {
                 $('.preview-header-paragraph').text(header).css('font-weight', 'bold');
                 $('.preview-header-paragraphVIDEO').addClass('d-none');
                 $('.preview-header-paragraph').removeClass('d-none')
-
-
             }
             if (button == "") {
                 $('.single-button-whatsapp-template1').addClass('d-none');
-
             } else {
                 $('.single-button-whatsapp-template1').text(button);
                 $('.single-button-whatsapp-template1').removeClass('d-none');
-
             }
-
-            $('.msg-text-chat').text(Body);
+            // $('.msg-text-chat').text(Body1);
             $('.preview-footer-paragraph').text(footer);
-
-
         });
-
-
-
-
         // ========sidebar-jqury===================
         $('body').on('click', '.menu-toggle', function() {
             $(this).addClass('bg-body-secondary');
@@ -2126,74 +1960,49 @@ if (!empty($connections)) {
                 $(this).closest('.header-jqury').children('.text-comment').addClass('d-none');
             }
         });
-
-
         $('.single-button-whatsapp-template1').addClass('d-none');
         $('.single-button-whatsapp-template2').addClass('d-none');
         $('.single-button-whatsapp-template3').addClass('d-none');
-
-
-
         $('.button1input').on('input', function() {
             var button1input = $(this).val();
             $('.single-button-whatsapp-template1').removeClass('d-none');
-
             if (button1input === "") {
                 $('.single-t-call-button').hide();
-
             } else {
                 $('.single-t-call-button').show();
             }
-
             $('.single-t-call-button .single-button-whatsapp-template1').html(button1input);
         });
         $('.button2input').on('input', function() {
             var button2input = $(this).val();
             $('.single-button-whatsapp-template2').removeClass('d-none');
-
             if (button2input === "") {
                 $('.single-t-call-button').hide();
-
             } else {
                 $('.single-t-call-button').show();
             }
-
             $('.single-t-call-button .single-button-whatsapp-template2').html(button2input);
         });
         $('.button3input').on('input', function() {
             var button3input = $(this).val();
             $('.single-button-whatsapp-template3').removeClass('d-none');
-
             if (button3input === "") {
                 $('.single-t-call-button').hide();
-
             } else {
                 $('.single-t-call-button').show();
             }
-
             $('.single-t-call-button .single-button-whatsapp-template3').html(button3input);
         });
-
-
-
-
-
-
         $('.body_div').on('input', function() {
             var bodyText = $(this).val();
             // console.log(bodyText);
-
             if (bodyText === "") {
                 $('.preview-chat-paragraph').hide();
-
             } else {
                 $('.preview-chat-paragraph').show();
             }
-
             $('.preview-chat-paragraph .msg-text-chat').html(bodyText);
         });
-
-
         $('.footer_div').on('input', function() {
             var footerText = $(this).val();
             if (footerText === "") {
@@ -2201,11 +2010,8 @@ if (!empty($connections)) {
             } else {
                 $('.preview-chat-paragraph').show();
             }
-
-
             $('.preview-chat-paragraph .user-name-chat-footer').html(footerText);
         });
-
         $('.MemberAddressClass').on('input', function() {
             var headerText = $(this).val();
             if (headerText === "") {
@@ -2213,11 +2019,8 @@ if (!empty($connections)) {
             } else {
                 $('.preview-chat-paragraph').show();
             }
-
-
             $('.preview-chat-paragraph .user-name-chat-header').html(headerText);
         });
-
         // =======button-link======
         $('body').on('click', '.Button_make', function() {
             var b = $('#Button_make_picker').val();
@@ -2236,14 +2039,10 @@ if (!empty($connections)) {
         $('body').on('click', '.trash_section', function() {
             $(this).closest('.remove-data').remove();
         })
-
         $('body').on('click', '.Tab1Class', function() {
-
             $('.Activeclass').removeClass('d-none');
             $('#pills-ex-schedule-tab').removeClass('d-none');
             $('#pills-ex-single-tab').removeClass('d-none');
-
-
         });
         $('body').on('click', '.singletabactive', function() {
             $('#single').click();
@@ -2251,24 +2050,16 @@ if (!empty($connections)) {
             location.reload();
             // $('.inputypeBody ').addClass('d-none');
             // $('.inputypeBody ').hide();
-
-
-            
         });
-
         $('body').on('click', '.Tab2Class', function() {
-
             $('.Activeclass').addClass('d-none');
             $('#pills-ex-schedule-tab').addClass('d-none');
             $('#pills-ex-single-tab').addClass('d-none');
-
         });
         $('body').on('click', '.Tab3Class', function() {
-
             $('.Activeclass').addClass('d-none');
             $('#pills-ex-schedule-tab').addClass('d-none');
             $('#pills-ex-single-tab').addClass('d-none');
-
         });
         $('body').on('click', '#schedule', function() {
             list_data();
@@ -2277,10 +2068,9 @@ if (!empty($connections)) {
             $('.language_div').val('');
             $('.preview-chat-paragraph .headervalue').html('Message Header Section');
             $('.preview-chat-paragraph .BodyValue').html('Message Body Section');
-           $('.preview-chat-paragraph .footervalue').html('Message Footer Section');
-           $(".selectpicker-validation").removeClass("selectpicker-validation");
-           $("form[name='master_membership_update_form']").removeClass("was-validated");
-
+            $('.preview-chat-paragraph .footervalue').html('Message Footer Section');
+            $(".selectpicker-validation").removeClass("selectpicker-validation");
+            $("form[name='master_membership_update_form']").removeClass("was-validated");
         });
         $('body').on('click', '#single', function() {
             list_data();
@@ -2289,40 +2079,49 @@ if (!empty($connections)) {
             $('.language_div').val('');
             $('.preview-chat-paragraph .headervalue').html('Message Header Section');
             $('.preview-chat-paragraph .BodyValue').html('Message Body Section');
-           $('.preview-chat-paragraph .footervalue').html('Message Footer Section');
-           $(".selectpicker-validation").removeClass("selectpicker-validation");
-           $("form[name='master_membership_update_form']").removeClass("was-validated");
-
+            $('.preview-chat-paragraph .footervalue').html('Message Footer Section');
+            $(".selectpicker-validation").removeClass("selectpicker-validation");
+            $("form[name='master_membership_update_form']").removeClass("was-validated");
         });
     </script>
-
     <script>
         $('body').on('click', '.previewbutton', function() {
             $('.Add_editModelTitle').removeClass('d-none');
             $('.EditTemplateButtonClass').addClass('d-none');
             $('.inputypeBody').removeClass('d-none')
             $('#sendbtn').addClass('d-none')
-
-
             var body = $('.body_div').val();
             var regex = /{{\d+}}/g;
             var matches = body.match(regex);
-
             if (matches) {
-
                 $('#dynamicInputsContainer').empty();
-
                 for (var i = 1; i <= matches.length; i++) {
                     var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-2" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
                     $('#dynamicInputsContainer').append(inputField);
                 }
             }
-
-
-
-
-
-
+        });
+        $(document).ready(function() {
+            // var valueLabelMap = {
+            //     '1': '{{Name}}',
+            //     '2': '{{Phone_no}}',
+            //     '3': '{{Address}}'
+            // };
+            // var selectedLabel = valueLabelMap[selectedValue];
+            $('.body-select-picker').change(function() {
+                var selectedValue = $(this).find(":selected").val();
+                var selectedValueText = $(this).find(":selected").text();
+                if (selectedValue > 0) {
+                    var selectedLabel = '{{' + selectedValueText + '}}';
+                    var textarea = $('.TemplateBodyClass')[0];
+                    var startPos = textarea.selectionStart;
+                    var endPos = textarea.selectionEnd;
+                    var textBefore = textarea.value.substring(0, startPos);
+                    var textAfter = textarea.value.substring(endPos, textarea.value.length);
+                    textarea.value = textBefore + selectedLabel + textAfter;
+                    textarea.setSelectionRange(startPos + selectedLabel.length, startPos + selectedLabel.length);
+                }
+            });
         });
 
         function list_data() {
@@ -2334,7 +2133,6 @@ if (!empty($connections)) {
                 var table = 'master_whatsapp_template';
                 show_val = '<?= json_encode(array('Template_name', 'category_types', 'language', 'header', 'body', 'footer')); ?>';
                 $('.loader').show();
-
                 $.ajax({
                     datatype: 'json',
                     method: "post",
@@ -2349,43 +2147,33 @@ if (!empty($connections)) {
                     success: function(res) {
                         $('.loader').hide();
                         var response = JSON.parse(res);
-                        
                         var template_name = response.template_name;
                         //12-02-2024
                         var templateBracketvalue = response.templateBracketvalue;
-                
                         var templatelanguage = response.templatelanguage;
                         var bodyvalue = response.templatebody;
                         var headervalue = response.templateheader;
                         var footervalue = response.templatefooter;
                         var buttonvalue = response.templateBUTTON;
-
-
-
-
-
+                        var variablevalue = response.bodyvarvalue;
 
 
                         var selectDropdowns = document.getElementsByClassName("templatesnamelistddclass");
-
                         for (var i = 0; i < selectDropdowns.length; i++) {
                             var selectDropdown = selectDropdowns[i];
                             selectDropdown.innerHTML = "";
-
                             var defaultOption = document.createElement("option");
                             defaultOption.text = "Please Select Template";
                             defaultOption.value = "";
                             defaultOption.disabled = true;
                             defaultOption.selected = true;
                             selectDropdown.add(defaultOption);
-
                             for (var key in template_name) {
                                 if (template_name.hasOwnProperty(key)) {
                                     var option = document.createElement("option");
                                     option.text = template_name[key];
                                     option.value = template_name[key];
                                     option.setAttribute('DataMNo', key);
-
                                     selectDropdown.add(option);
                                 }
                             }
@@ -2393,100 +2181,80 @@ if (!empty($connections)) {
 
 
 
+
                         $('.preview-header-VIDEO').addClass('d-none');
-
                         $('.header_div').change(function() {
-
                             var selectDropdown = $(this).val();
                             var languageDropdown = templatelanguage[selectDropdown];
-                            var body1 = bodyvalue[selectDropdown];
-                            var body = bodyvalue[selectDropdown];
-
+                            var variablevalues = variablevalue[selectDropdown];
                             var header = headervalue[selectDropdown];
                             var footer = footervalue[selectDropdown];
                             var button = buttonvalue[selectDropdown];
-
                             $('.preview-chat-section-chat').slideUp(100);
                             $('.preview-chat-section-chat').slideDown(1000);
-
                             $('.language_div').val(languageDropdown);
+                            var body1 = bodyvalue[selectDropdown];
+                            var body = bodyvalue[selectDropdown];
 
-                            var body = $('.BodyValue').text(body);
-
-                            var regex = /{{\d+}}/g;
-                            var matches = body1.match(regex);
-                            console.log(matches);
-                            $('.inputypeBody').hide();
-
-                            if (matches) {
-                                $('#dynamicInputsContainer1').empty();
-
-                                for (var i = 1; i <= matches.length; i++) {
-                                    var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-1" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
-                                    $('#dynamicInputsContainer1').append(inputField);
-                                    $('.inputypeBody').show();
-
-
-                                }
+                            var placeholders = body.match(/{{\d+}}/g);
+                            if (!placeholders || placeholders.length === 0) {
+                                $('.BodyValue').text(body1);
+                            } else {
+                                placeholders.forEach((placeholder, index) => {
+                                    body = body.replace(placeholder, "{{" + variablevalues[index] + "}}");
+                                });
+                                $('.BodyValue').text(body);
                             }
 
+
+
+                            // var regex = /{{\d+}}/g;
+                            // var matches = body1.match(regex);
+                            // console.log(matches);
+                            // $('.inputypeBody').hide();
+                            // if (matches) {
+                            //     $('#dynamicInputsContainer1').empty();
+                            //     for (var i = 1; i <= matches.length; i++) {
+                            //         var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-1" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
+                            //         $('#dynamicInputsContainer1').append(inputField);
+                            //         $('.inputypeBody').show();
+                            //     }
+                            // }
                             $('.footervalue').text(footer);
                             // $('.language_div1').val(languageDropdown);
-
                             $('.single-button-whatsapp-template').text(button);
-
-
                             if (isValidURL(header)) {
                                 $('.preview-header-VIDEO').removeClass('d-none');
                                 $('.headervalue').addClass('d-none')
                                 $(".preview-header-VIDEO").attr('src', header).addClass("col-12 rounded-3 border border-3");
-
                             } else {
                                 $('.headervalue').text(header).css('font-weight', 'bold');
                                 $('.preview-header-VIDEO').addClass('d-none');
                                 $('.headervalue').removeClass('d-none')
-
-
                             }
-
-
                         });
-
-
-
                         $('#memberships_list').html(response.html);
-
                     }
                 });
             }
-
-
         }
         list_data();
-
-
         $('body').on('click', '.MasterListDataSearchBarButton', function() {
             list_data();
-
         });
-
         $('.MasterListDataSearchBar').keypress(function(e) {
             if (e.which === 13) {
                 list_data();
             }
         });
 
-
         function SendMessagesHistory() {
-
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
             $('.loader').show();
             var FilterPhoneNumber = $('.FilterPhoneNumber').val();
             var FilterDate = $('.FilterDate').val();
             var FilterTemplateStatus = $('select.FilterTemplateStatus option:selected').val();
             var FilterTemplateName = $('select.FilterTemplateName option:selected').val();
-
-
             if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== undefined && WhatsAppConnectionsDropDown !== "undefined") {
                 $.ajax({
                     datatype: 'json',
@@ -2508,12 +2276,7 @@ if (!empty($connections)) {
                 });
                 $('.loader').hide();
             }
-
-
         }
-
-
-
         $("body").on('change', '.FilterTemplateStatus', function() {
             for (var i = setTimeout(function() {}, 0); i > 0; i--) clearTimeout(i);
             setTimeout(function() {
@@ -2538,43 +2301,29 @@ if (!empty($connections)) {
                 SendMessagesHistory();
             }, 1000);
         });
-
-
         $('body').on('click', '.ViewSendMEssageDataTab', function() {
             SendMessagesHistory();
         });
-
         $('body').on('click', '.ViewSendMEssageDataTab', function() {
             ViewSendMEssageDataTab();
         })
-
         $('body').on('click', '.viewdata', function(e) {
             e.preventDefault();
             list_data();
-
         });
-        
         $('body').on('click', '.templatelist', function(e) {
             e.preventDefault();
             list_data();
             $('.TemplateDeleteBtnDiv').removeClass('d-none');
             $('.inputypeBody ').hide();
-
-
         });
-        
-
         $('body').on('change', '.WhatsAppConnectionsDropDown', function() {
             list_data();
             SendMessagesHistory();
         });
-
-
         $('body').on('click', '.RefreshBtnConversation', function() {
             SendMessagesHistory();
         });
-
-
         $('body').on('click', '.FilterClearAll', function() {
             $('.FilterPhoneNumber').val('');
             $('.FilterDate').val('');
@@ -2582,19 +2331,10 @@ if (!empty($connections)) {
             $('.FilterTemplateName').val('');
             $('.FilterTemplateName').selectpicker('refresh');
             $('.FilterTemplateStatus').selectpicker('refresh');
-
             SendMessagesHistory();
-
-
-
         });
-
-
-
-
         $('body').on('click', '.view_template', function(e) {
             var EditId = $(this).attr('data-preview_id');
-
             $.ajax({
                 method: "post",
                 url: "whatsappView",
@@ -2603,7 +2343,6 @@ if (!empty($connections)) {
                 },
                 success: function(res) {
                     var response = JSON.parse(res);
-
                     var img_name = response.uploade_file;
                     var img_path = 'assets/images/whatsapp_template/';
                     var img_url = img_path + img_name;
@@ -2613,20 +2352,15 @@ if (!empty($connections)) {
                         $("form[name='hello'] .user-name-chat-header").html('<img src="' + img_url + '" class="col-12 rounded-3 border border-3 ">');
                     };
                     $('.user-name-chat-footer').text(response.body)
-
-
                 },
                 error: function(err) {
                     console.error("Error:", err);
                 }
             });
         });
-
-
         $('body').on('click', '.Edit_template', function(e) {
             e.preventDefault();
             var edit_value = $(this).attr('data-edit_id');
-
             $.ajax({
                 type: "post",
                 url: "<?= site_url('whatsapptemplate_edit_data'); ?>",
@@ -2636,7 +2370,6 @@ if (!empty($connections)) {
                     table: 'master_whatsapp_template'
                 },
                 success: function(res) {
-
                     var response = JSON.parse(res);
                     console.log(response);
                     $('.Template_name').val(response[0].template_name);
@@ -2646,13 +2379,8 @@ if (!empty($connections)) {
                     $('.body_div').val(response[0].body);
                     $('.footer_div').val(response[0].footer);
                     $('.header_div').val(response[0].header);
-
-
-
-
                 }
             });
-
         });
 
         function setvalue() {
@@ -2661,16 +2389,12 @@ if (!empty($connections)) {
                 $(this).val(inputval);
             });
         }
-
-
-
         $('body').on('click', '.TemplateDeleteBtnDiv', function(e) {
             e.preventDefault();
             var record_text = "Are you sure you want to Delete this?";
             var id = $(this).attr("id");
             var name = $(this).attr("name");
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
-
             if (id != '') {
                 Swal.fire({
                     title: 'Are you sure?',
@@ -2711,11 +2435,6 @@ if (!empty($connections)) {
                 });
             }
         });
-
-
-
-
-
         $('body').on('click', '.ButtonVariableClass', function() {
             var DDValue = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
             // 1 - Empty && 2 - Quick (Only 3 Max Button) && 3 - Call To Active (Link - Phone No)
@@ -2737,21 +2456,16 @@ if (!empty($connections)) {
                     var urlbtnhtml = '<div class="col-12 d-flex flex-wrap remove-data urlbtnhtmlClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2"> <textarea class="CommentInoutSetValDiv form-control lableUrlInputField main-control col border-0" placeholder="Start typing button label here..." cols="1" value="" rows="1" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border justify-content-between"> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-link"></i></span> <div class="col"> <input type="text" class="form-control main-control CommentInoutSetValDiv UrlUrlInputField border-0" placeholder="Input URL..." value="" required=""> </div> <button class="btn btn-primary  d-none mx-2  end-0 me-2 fs-10"><i class="fa-solid fa-plus"></i> Variable</button> </div> </div> </div>';
                     $('.SetButtonHTMLClass').html(SetHtml + urlbtnhtml);
                     setvalue();
-
                 }
                 if (numberOfSubElementsCno == '0') {
                     var SetHtml = $('.SetButtonHTMLClass').html();
                     var phonenobtn = '<div class="col-12 d-flex flex-wrap my-2 link_buttons remove-data phonenobtnClass"> <div class="col-12 d-flex  flex-wrap justify-content-between align-items-center"> <span class="fs-10">Url Button</span> <button class="bg-transparent border-0 mx-2 end-0 me-2 trash_section"><i class="fa-solid fa-trash-can"></i></button> </div> <div class="col-12 border rounded-2 p-2 "> <textarea class="form-control CommentInoutSetValDiv lablCnoInputField main-control  col border-0" placeholder="Start typing button label here..." cols="1" rows="1" value="" required=""></textarea> <div class="col-12 d-flex flex-wrap align-items-center border "> <span class="text-primary  ms-2 text-white "><i class="fa-solid fa-phone"></i></span> <div class="col-7"> <input value="" type="text" class="form-control CnoCnoInputField CommentInoutSetValDiv main-control border-0" placeholder="Input URL..." required=""> </div> </div> </div> </div>';
                     $('.SetButtonHTMLClass').html(SetHtml + phonenobtn);
                     setvalue();
-
                 }
             }
         });
-
-
         // ButtonSelctionDropDown
-
         $('body').on('click', '.previewbutton', function() {
             var name = $('.Template_name').val();
             var category = $('select.TemplateCategorySelectionDiv option:selected').val();
@@ -2762,7 +2476,6 @@ if (!empty($connections)) {
             var action = $(this).attr('action');
             var templatename = $(this).attr('templatename');
             var templateid = $(this).attr('templateid');
-
             var regex = /^[a-z0-9_]+$/;
             if (name.trim() === '') {
                 $('.CheckTemplateNameAlertPTag').hide();
@@ -2776,19 +2489,15 @@ if (!empty($connections)) {
                 $('.CheckTemplateNameAlertPTag').hide();
                 $('.emptyname').hide();
             }
-
             // Perform validation
             if (name != '' && category != '' && language != '' && body != '') {
                 $('#view_modal').modal('show');
                 $('#whatsapp_template_add_edit').modal('hide');
-
-
             } else {
                 // Add validation classes and handle invalid inputs
                 $(".membershipDiv").addClass("was-validated");
                 $("form[name='whatsapp_template_add_edit']").find('.selectpicker').each(function() {
                     var selectpicker_valid = $(this).attr('required') === 'required' ? 1 : 0;
-
                     if (selectpicker_valid === 1) {
                         if ($(this).val() == 0 || $(this).val() == '') {
                             $(this).closest("div").addClass('selectpicker-validation');
@@ -2801,39 +2510,49 @@ if (!empty($connections)) {
                 });
             }
         });
-
-
-
-
-
+        var bodydivvalues = [];
+        $('.inputypeBody').each(function() {
+            var bodydivvalue = $(this).val();
+            bodydivvalues.push(bodydivvalue);
+        });
         $('body').on('click', '.Add_editModelTitle', function() {
-
             var name = $('.Template_name').val();
             var category = $('select.TemplateCategorySelectionDiv option:selected').val();
-            var language = $('select.TemplateLanguageDDList option:selected').val();
+            var language = $('#languageid').find(":selected").val();
             var headertype = $('select.HeaderSelectionDD option:selected').val();
             var headerfile = '';
-            var body = $('.TemplateBodyClass').val();
+            var body1 = $('.TemplateBodyClass').val();
+            // var body = body1.replace(/\{\{Name\}\}/g, '{{1}}')
+            //     .replace(/\{\{Phone_no\}\}/g, '{{2}}')
+            //     .replace(/\{\{address\}\}/g, '{{3}}');
+            var body = replaceDynamicSequences(body1);
             var action = $(this).attr('action');
             var templatename = $(this).attr('templatename');
             var templateid = $(this).attr('templateid');
-
-            var regex = /^[a-z0-9_]+$/;
-            if (name.trim() === '') {
-                $('.CheckTemplateNameAlertPTag').hide();
-                $('.emptyname').show();
-                return;
-            } else if (!regex.test(name)) {
-                $('.emptyname').hide();
-                $('.CheckTemplateNameAlertPTag').show();
-                return;
-            } else {
-                $('.CheckTemplateNameAlertPTag').hide();
-                $('.emptyname').hide();
+            var regex = /\{\{([^}]+)\}\}/g;
+            var matches = [];
+            var match;
+            while ((match = regex.exec(body1)) !== null) {
+                matches.push(match[1]);
             }
+            // var regex = /\{\{([^}]+)\}\}/g;
+            // if (name.trim() === '') {
+            //     $('.CheckTemplateNameAlertPTag').hide();
+            //     $('.emptyname').show();
+            //     return;
+            // } else if (!regex.test(name)) {
+            //     $('.emptyname').hide();
+            //     $('.CheckTemplateNameAlertPTag').show();
+            //     return;
+            // } else {
+            //     $('.CheckTemplateNameAlertPTag').hide();
+            //     $('.emptyname').hide();
+            // }
+            // console.log(name);
+            // console.log(category);
+            // alert(name+'-----------name'+category+'---------category'+language+'---------language'+body+'---------body');
 
-
-
+            // console.log(name);
             if (name != '' && category != '' && language != '' && body != '') {
                 var fileInput = $('#insert_image');
                 var fileName = fileInput.val();
@@ -2851,20 +2570,15 @@ if (!empty($connections)) {
                             contentType: false,
                             success: function(data) {
                                 $('#view_modal').modal('hide');
-
                                 headerfile = data;
                                 var headertext = $('.ClassHeaderTEXT').val();
                                 var footer = $('.FotterTextDIvClass').val();
-
                                 var bodydivvalues = [];
-
                                 $('.inputypeBody').each(function() {
                                     var bodydivvalue = $(this).val();
                                     bodydivvalues.push(bodydivvalue);
                                 });
-
                                 console.log(bodydivvalues);
-
                                 // var bodydivvalue = $('.inputypeBody').val();
                                 // console.log(bodydivvalue);
                                 var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
@@ -2911,18 +2625,12 @@ if (!empty($connections)) {
                                         }
                                     }
                                 }
-
-
-
-
                                 var templateArray = {
                                     'name': name,
                                     'category': category,
                                     'language': language,
                                     'components': []
                                 };
-
-
                                 if (headertype != '') {
                                     if (headertype == 'TEXT') {
                                         if (headertext) {
@@ -2976,18 +2684,13 @@ if (!empty($connections)) {
                                 //         'text': body
                                 //     });
                                 // }
-
-
-
                                 if (/{{(\d+)}}/g.test(body)) {
                                     templateArray.components.push({
                                         "type": "BODY",
                                         "text": body,
                                         "example": {
                                             "body_text": [
-
-                                                bodydivvalues
-
+                                                matches
                                             ]
                                         }
                                     });
@@ -2997,14 +2700,6 @@ if (!empty($connections)) {
                                         "text": body
                                     });
                                 }
-
-
-
-
-
-
-
-
                                 if (footer) {
                                     templateArray.components.push({
                                         'type': 'FOOTER',
@@ -3019,10 +2714,8 @@ if (!empty($connections)) {
                                 }
                                 var jsonString = JSON.stringify(templateArray);
                                 var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
-
                                 // console.log(jsonString);
                                 if (headerfile != '') {
-
                                     $.ajax({
                                         method: "post",
                                         url: "<?= site_url('SendWhatsAppTemplate'); ?>",
@@ -3032,7 +2725,6 @@ if (!empty($connections)) {
                                             "templatename": templatename,
                                             "templateid": templateid,
                                             "connectionid": WhatsAppConnectionsDropDown,
-
                                         },
                                         success: function(data) {
                                             if (data == '0') {
@@ -3040,22 +2732,18 @@ if (!empty($connections)) {
                                                     title: "Failed to add template"
                                                 });
                                                 $('#view_modal').modal('hide');
-
                                             } else {
                                                 if (action = "update") {
                                                     iziToast.success({
                                                         title: "Updated Successfully"
                                                     });
                                                     $('#view_modal').modal('hide');
-
                                                 } else {
                                                     iziToast.success({
                                                         title: "Added Successfully"
                                                     });
                                                     $('#view_modal').modal('hide');
-
                                                 }
-
                                             }
                                             $(".close_btn").trigger("click");
                                             list_data();
@@ -3069,24 +2757,28 @@ if (!empty($connections)) {
                         $(this).attr('DataStoreURL', '');
                     }
                 } else {
-
                     headerfile = $('#insert_image').attr('datastoreurl');
                     var headertext = $('.ClassHeaderTEXT').val();
-                    var body = $('.TemplateBodyClass').val();
+                    // var body1 = $('.TemplateBodyClass').val();
+                    // var body = body1.replace(/\{\{Name\}\}/g, '{{1}}')
+                    //     .replace(/\{\{Phone_no\}\}/g, '{{2}}')
+                    //     .replace(/\{\{address\}\}/g, '{{3}}');
                     var footer = $('.FotterTextDIvClass').val();
-                    var bodydivvalues = []; // Array to store values of all inputypeBody elements
-
+                    // var regex = /\{\{([^}]+)\}\}/g;
+                    // var matches = [];
+                    // var match;
+                    // while ((match = regex.exec(body1)) !== null) {
+                    //     matches.push(match[1]);
+                    // }
+                    var bodydivvalues = [];
                     $('.inputypeBody').each(function() {
                         var bodydivvalue = $(this).val();
                         bodydivvalues.push(bodydivvalue);
                     });
-
                     console.log(bodydivvalues);
-
                     var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
                     var QuickArray = [];
                     if (buttontype == '1') {} else if (buttontype == '2') {
-
                         var numberOfSubElements = $(".SetButtonHTMLClass .QuickSetButtonHTMLClass").length;
                         if (numberOfSubElements > 0) {
                             var QuickArray = [];
@@ -3099,7 +2791,6 @@ if (!empty($connections)) {
                                     });
                                 }
                             });
-                            // console.log(QuickArray);
                         }
                     } else if (buttontype == '3') {
                         var QuickArray = [];
@@ -3136,7 +2827,6 @@ if (!empty($connections)) {
                         'components': []
                     };
                     if (headertype != '') {
-                        // console.log(headertype);
                         if (headertype == 'TEXT') {
                             if (headertext) {
                                 templateArray.components.push({
@@ -3146,8 +2836,6 @@ if (!empty($connections)) {
                                 });
                             }
                         }
-                        // console.log(headerfile);
-                        // console.log(headertype);
                         if (headertype == 'IMAGE' && headerfile != '') {
                             var exampleData = {
                                 "header_handle": [
@@ -3185,15 +2873,13 @@ if (!empty($connections)) {
                             });
                         }
                     }
-
-
                     if (/{{(\d+)}}/g.test(body)) {
                         templateArray.components.push({
                             "type": "BODY",
                             "text": body,
                             "example": {
                                 "body_text": [
-                                    bodydivvalues
+                                    matches
                                 ]
                             }
                         });
@@ -3203,19 +2889,12 @@ if (!empty($connections)) {
                             "text": body
                         });
                     }
-
-
-
-
-
-
                     if (footer) {
                         templateArray.components.push({
                             'type': 'FOOTER',
                             'text': footer
                         });
                     }
-
                     if (QuickArray.length > 0) {
                         templateArray.components.push({
                             'type': 'BUTTONS',
@@ -3223,9 +2902,7 @@ if (!empty($connections)) {
                         });
                         // console.log(QuickArray);
                     }
-
                     var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
-
                     var jsonString = JSON.stringify(templateArray);
                     $.ajax({
                         method: "post",
@@ -3243,20 +2920,17 @@ if (!empty($connections)) {
                                     title: "Failed to add template"
                                 });
                                 $('#view_modal').modal('hide');
-
                             } else {
                                 if (action = "update") {
                                     iziToast.success({
                                         title: "Updated Successfully"
                                     });
                                     $('#view_modal').modal('hide');
-
                                 } else {
                                     iziToast.success({
                                         title: "Added Successfully"
                                     });
                                     $('#view_modal').modal('hide');
-
                                 }
                             }
                             $(".close_btn").trigger("click");
@@ -3269,7 +2943,6 @@ if (!empty($connections)) {
                 $(".membershipDiv").addClass("was-validated");
                 $("form[name='whatsapp_template_add_edit']").find('.selectpicker').each(function() {
                     var selectpicker_valid = $(this).attr('required') === 'required' ? 1 : 0;
-
                     if (selectpicker_valid === 1) {
                         if ($(this).val() == 0 || $(this).val() == '') {
                             $(this).closest("div").addClass('selectpicker-validation');
@@ -3280,18 +2953,21 @@ if (!empty($connections)) {
                         $(this).closest("div").removeClass('selectpicker-validation');
                     }
                 });
-
-
             }
-
         });
+
+        function replaceDynamicSequences(str) {
+            var counter = 1;
+            return str.replace(/{{.*?}}/g, function(match) {
+
+                return '{{' + counter++ + '}}';
+            });
+        }
         $('.tip').each(function() {
             $(this).tooltip({
                 html: true,
                 title: $('#' + $(this).data('tip')).html()
             });
-
-
         });
         // =======country-code==
         $("#mobile_code").intlTelInput({
@@ -3299,20 +2975,17 @@ if (!empty($connections)) {
             separateDialCode: true,
             // utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
         });
-
         // --------------------------------------------------------------
-
         $('body').on('click', '.Template_send', function() {
+
             var bodydivvalues = [];
             $('.inputypeBody').each(function() {
                 var bodydivvalue = $(this).val();
                 bodydivvalues.push(bodydivvalue);
             });
-
             if (!originalHTML) {
                 originalHTML = $('.preview-chat-paragraph .BodyValue').html();
             }
-
             var body = $('.preview-chat-paragraph .BodyValue').text();
             $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
             var fullmsg = $('.preview-chat-paragraph').html();
@@ -3324,37 +2997,49 @@ if (!empty($connections)) {
             var countrey_code = $('.iti__selected-dial-code').text();
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
             $('.preview-chat-paragraph').html(fullmsg);
-
             if (header !== "" && phone_no !== "" && language !== "" && WhatsAppConnectionsDropDown !== '') {
                 $('#view_modal').modal('show');
                 $('.EditTemplateButtonClass').addClass('d-none');
                 $('.Add_editModelTitle').addClass('d-none');
                 $('.TemplateDeleteBtnDiv').addClass('d-none');
                 $('.preview-header-paragraphVIDEO').hide();
-
-
-
             } else {
                 $(".membershipDiv").addClass("was-validated");
-
             }
+
+            $.ajax({
+                dataType: 'json',
+                method: "POST",
+                url: "set_variable_value",
+                data: {
+                    phone_no: phone_no,
+                    originalHTML: originalHTML
+                },
+                success: function(res) {
+                    var modifiedHTML = res.modifiedHTML;
+                    var variablevalue = res.variablevalues;
+                    // console.log(variablevalue);
+                    var varvalues = $('#sendbtn').attr('varvalues');
+                    $('#sendbtn').attr('varvalues', variablevalue.join(','));
+
+
+                    var body = $('.preview-chat-paragraph .BodyValue').html(modifiedHTML);
+
+                },
+            });
+
+
+
         });
-
-
-
         $('.SaveBtnDiv').on('click', function(e) {
             e.preventDefault();
-
-
             var Template_name = $('#header12').val();
             var language = $('.language_div').val();
             var shedualdate = $('#fromDate_edit').val();
             var shedualtime = $('.dailyinputfields').val();
             var uploade_file = $('#import_file').prop('files')[0];
-
             var fullmsg = $('.preview-chat-paragraph').html();
             $('.preview-chat-paragraph').html(fullmsg);
-
             var form = $("form[name='master_membership_update_form']")[0];
             var formData = new FormData(form);
             formData.append('Template_name', Template_name);
@@ -3363,41 +3048,37 @@ if (!empty($connections)) {
             formData.append('shedualdate', shedualdate);
             formData.append('shedualtime', shedualtime);
             formData.append('action', true);
-
-
             if (Template_name != "" && uploade_file != "" && language != "") {
-
                 $('#view_modal').modal('show');
                 $('.EditTemplateButtonClass').addClass('d-none');
                 $('.Add_editModelTitle').addClass('d-none');
                 $('.TemplateDeleteBtnDiv').addClass('d-none');
                 $('.preview-header-paragraphVIDEO').hide();
-
-
             } else {
                 $(".membershipDiv").addClass("was-validated");
             }
-
         });
-
-
         var SendURL;
-
         $('.Template_send_whatsapp').on('click', function() {
             var DataStatus = $('#pills-tab .nav-link.active').attr('DataStatus');
-
+            var bodydivvalues = [];
+            var variableValuesArray = $(this).attr('varvalues');
+            bodydivvalues = variableValuesArray.split(',');
             if (DataStatus === '3') {
-                var bodydivvalues = [];
-                $('.inputypeBody').each(function() {
-                    var bodydivvalue = $(this).val();
-                    bodydivvalues.push(bodydivvalue);
-                });
+
+
+                // $('.inputypeBody').each(function() {
+                //     var bodydivvalue = $(this).val();
+                //     bodydivvalues.push(bodydivvalue);
+                // });
+
+
                 if (!originalHTML) {
                     originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+
                 }
                 var body = $('.preview-chat-paragraph .BodyValue').html();
                 $('.preview-chat-paragraph .msg-text-chat').html(body);
-
                 $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
                 var newbody = JSON.stringify(body);
                 var header = $('.header_div').val();
@@ -3424,18 +3105,15 @@ if (!empty($connections)) {
                     },
                     success: function(res) {
                         $('#view_modal').modal('hide');
-
                         $('#mobile_code').val('');
                         $('.header_div').html('');
                         $('.language_div').val('');
                         list_data();
-
                         $('.loader').hide();
                         if (res == '1') {
                             iziToast.success({
                                 title: 'Messagae Sent Successfully'
                             });
-
                             var viewdataElement = document.querySelector('.viewdata');
                             if (viewdataElement) {
                                 viewdataElement.click();
@@ -3445,10 +3123,8 @@ if (!empty($connections)) {
                             iziToast.error({
                                 title: 'Something went wrong!'
                             });
-
                         }
                     },
-
                 });
             } else {
                 var bodydivvalues = [];
@@ -3458,7 +3134,6 @@ if (!empty($connections)) {
                 });
                 var template_id = $('#header12 option:selected').attr('DataMNo');
                 console.log(template_id);
-
                 var Template_name = $('#header12').val();
                 var language = $('.language_div').val();
                 var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
@@ -3468,10 +3143,8 @@ if (!empty($connections)) {
                 // var shedualdate = $('#fromDate_edit').val();
                 // var shedualtime = $('.dailyinputfields').val();
                 var uploade_file = $('#import_file').prop('files')[0];
-
                 var fullmsg = $('.preview-chat-paragraph').html();
                 $('.preview-chat-paragraph').html(fullmsg);
-
                 var form = $("form[name='master_membership_update_form']")[0];
                 var formData = new FormData(form);
                 formData.append('Template_name', Template_name);
@@ -3481,27 +3154,20 @@ if (!empty($connections)) {
                 formData.append('originalHTML', originalHTML);
                 formData.append('bodydivvalues', bodydivvalues);
                 formData.append('template_id', template_id);
-
-
-
-
                 // formData.append('shedualdate', shedualdate);
                 // formData.append('shedualtime', shedualtime);
                 formData.append('action', true);
-
                 $.ajax({
                     method: "post",
                     url: "bulk_whatsapp_template_send",
                     data: formData,
                     processData: false,
                     contentType: false,
-
                     success: function(data) {
                         $('#view_modal').modal('hide');
                         $('.header_div').html('');
                         $('.language_div').val('');
                         $('#import_file').val('');
-
                         if (data == 1) {
                             list_data();
                             $(".membershipDiv")[0].reset();
@@ -3515,7 +3181,6 @@ if (!empty($connections)) {
                                 viewdataElement.click();
                             }
                             list_data();
-
                         } else {
                             $('.loader').hide();
                             $(".membershipDiv")[0].reset();
@@ -3532,20 +3197,14 @@ if (!empty($connections)) {
                 });
             };
         });
-
-
-
         // $('body').on('click', '#sendbtn', function() {
-
         //     var Template_name = $('#header12').val();
         //     var language = $('.language_div').val();
         //     var shedualdate = $('#fromDate_edit').val();
         //     var shedualtime = $('.dailyinputfields').val();
         //     var uploade_file = $('#import_file').prop('files')[0];
-
         //     var fullmsg = $('.preview-chat-paragraph').html();
         //     $('.preview-chat-paragraph').html(fullmsg);
-
         //     var form = $("form[name='master_membership_update_form']")[0];
         //     var formData = new FormData(form);
         //     formData.append('Template_name', Template_name);
@@ -3554,14 +3213,12 @@ if (!empty($connections)) {
         //     formData.append('shedualdate', shedualdate);
         //     formData.append('shedualtime', shedualtime);
         //     formData.append('action', true);
-
         //     $.ajax({
         //         method: "post",
         //         url: "bulk_whatsapp_template_send",
         //         data: formData,
         //         processData: false,
         //         contentType: false,
-
         //         success: function(data) {
         //             if (data == 0) {
         //                 list_data();
@@ -3571,8 +3228,6 @@ if (!empty($connections)) {
         //                 iziToast.success({
         //                     title: 'Messagae Sent Successfully'
         //                 });
-
-
         //                 list_data();
         //             } else {
         //                 $('.loader').hide();
@@ -3589,11 +3244,7 @@ if (!empty($connections)) {
         //         }
         //     });
         // });
-
         // $('body').on('click', '#sendbtn', function() {
-
-
-
         //     var bodydivvalues = [];
         //     $('.inputypeBody').each(function() {
         //         var bodydivvalue = $(this).val();
@@ -3604,7 +3255,6 @@ if (!empty($connections)) {
         //     }
         //     var body = $('.preview-chat-paragraph .BodyValue').html();
         //     $('.preview-chat-paragraph .msg-text-chat').html(body);
-
         //     $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
         //     var newbody = JSON.stringify(body);
         //     var header = $('.header_div').val();
@@ -3631,18 +3281,15 @@ if (!empty($connections)) {
         //         },
         //         success: function(res) {
         //             $('#view_modal').modal('hide');
-
         //             $('#mobile_code').val('');
         //             $('.header_div').html('');
         //             $('.language_div').val('refresh');
         //             list_data();
-
         //             $('.loader').hide();
         //             if (res == '1') {
         //                 iziToast.success({
         //                     title: "Template sent successfully"
         //                 });
-
         //                 var viewdataElement = document.querySelector('.viewdata');
         //                 if (viewdataElement) {
         //                     viewdataElement.click();
@@ -3652,17 +3299,10 @@ if (!empty($connections)) {
         //                 iziToast.error({
         //                     title: 'Something went wrong!'
         //                 });
-
         //             }
         //         },
-
         //     });
-
         // });
-
-
-
-
         $('body').on('change', '.ButtonSelctionDropDown', function() {
             $('.SetButtonHTMLClass').html('');
         });
@@ -3670,8 +3310,6 @@ if (!empty($connections)) {
             var inputval = $(this).val();
             $(this).attr('value', inputval);
         });
-
-
         $('body').on('click', '.PlusButtonDiv', function() {
             $('.Add_editModelTitle').attr('action', 'insert');
             $('.Template_name_varification').prop("disabled", false);
@@ -3697,20 +3335,12 @@ if (!empty($connections)) {
             $(".selectpicker-validation").removeClass("selectpicker-validation");
             $('.emptyname').hide();
             $('.CheckTemplateNameAlertPTag').hide();
-
         });
-
-
-
         $('body').on('click', '.EditTemplateButtonClass', function() {
             $('.loader').show();
-
             var name = $(this).attr('name');
             var id = $(this).attr('id');
-
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
-
-
             $('.Add_editModelTitle').attr('templatename', name);
             $('.Add_editModelTitle').attr('templateid', id);
             $('.Add_editModelTitle').attr('action', 'update');
@@ -3731,7 +3361,6 @@ if (!empty($connections)) {
                     var body = '';
                     var footer = '';
                     data.components.forEach(component => {
-
                         var type = component.type;
                         if (type == 'BODY') {
                             if (component.text) {
@@ -3767,7 +3396,6 @@ if (!empty($connections)) {
                                     if (headerformat == 'IMAGE' || headerformat == 'VIDEO' || headerformat == 'DOCUMENT') {
                                         if (component.example) {
                                             if (component.example.header_handle[0]) {
-
                                                 $('#insert_image').attr('datastoreurl', component.example.header_handle[0])
                                             }
                                         }
@@ -3778,7 +3406,6 @@ if (!empty($connections)) {
                                 footer = component.text;
                             }
                         }
-
                         if (component.buttons) {
                             var buttonhtml = '';
                             var buttonvalue = 0;
@@ -3823,13 +3450,20 @@ if (!empty($connections)) {
                     $('.Template_name_varification').prop("disabled", true);
                     $('.EditBtnTemplate').trigger('click');
                 },
-
             });
         });
 
+        function replaceDynamicSequences(str) {
+            var counter = 1;
+            return str.replace(/{{.*?}}/g, function(match) {
+
+                return '{{' + counter++ + '}}';
+            });
+        }
+
+
         $('body').on('click', '.DuplicationTemplateClassDiv', function() {
             $('.loader').show();
-
             var name = $(this).attr('name');
             var regex = /^[a-z0-9_]+$/;
             if (name.trim() === '') {
@@ -3844,10 +3478,7 @@ if (!empty($connections)) {
                 $('.CheckTemplateNameAlertPTag').hide();
                 $('.emptyname').hide();
             }
-
-
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
-
             var id = $(this).attr('id');
             $('.Add_editModelTitle').attr('templatename', '');
             $('.Add_editModelTitle').attr('templateid', '');
@@ -3860,64 +3491,77 @@ if (!empty($connections)) {
                     'name': name,
                     'id': id,
                     'connectionid': WhatsAppConnectionsDropDown,
-
                 },
                 success: function(res) {
                     var data = res;
                     var name = data.name;
                     var category = data.category;
                     var language = data.language;
+                    var bodyvalue = data.components;
+                    console.log(bodyvalue);
+
                     var body = '';
                     var footer = '';
                     var bodydivvalues = [];
-
                     $('.inputypeBody').each(function() {
                         var bodydivvalue = $(this).val();
                         bodydivvalues.push(bodydivvalue);
                     });
 
-                    console.log(bodydivvalues);
+                    var body1 = $('.TemplateBodyClass').val();
+                    var body = replaceDynamicSequences(body1);
+
+                    var regex = /\{\{([^}]+)\}\}/g;
+                    var matches = [];
+                    var match;
+                    while ((match = regex.exec(body1)) !== null) {
+                        matches.push(match[1]);
+                    }
+
                     data.components.forEach(component => {
 
                         var type = component.type;
+
+                        // if (type == 'BODY') {
+                        //     var bodyvalue = component.example.body_text;
+                        //    console.log(bodyvalue);
+                        // }
+
+                        // if (type == 'BODY') {
+                        //     var body1 = component.text;
+
+                        //     $('.body_div').val(body);
+                        //     $('.msg-text-chat').text(body);
+                        // }
+
+                        if (type == 'BODY') {
+                            var body1 = component.text;
+                            var placeholders = body1.match(/{{\d+}}/g);
+                            var values = component.example.body_text[0];
+
+                            placeholders.forEach((placeholder, index) => {
+                                body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
+                            });
+
+                            $('.body_div').val(body1);
+                            $('.msg-text-chat').text(body1);
+                        }
+
+
+
                         // if (type == 'BODY') {
                         //     if (component.text) {
                         //         body = component.text;
                         //     }
                         // }
-
                         // if (type == 'BODY' && /{{(\d+)}}/g.test(component.text)) {
-
                         //     body = component.text;
                         //     $('.body_div').val(body);
-
-                        //     var body_text = [
-                        //         bodydivvalues
-                        //     ];
-                        //     var example = {
-                        //         "body_text": body_text
-                        //     };
 
                         // } else {
                         //     body = component.text;
                         //     $('.body_div').val(body);
-
                         // }
-                        if (type == 'BODY') {
-                            var body = component.text;
-                            $('.body_div').val(body);
-                            $('.msg-text-chat').text(body);
-
-                        }
-
-                        if (type == 'BODY') {
-                            var body = component.text;
-                            if (/{{(\d+)}}/g.test(component.text)) {
-                                $('.body_div').val(body);
-                                $('.msg-text-chat').text(body);
-
-                            }
-                        }
 
 
 
@@ -3943,18 +3587,15 @@ if (!empty($connections)) {
                                     $('select.HeaderSelectionDD').closest('.header-jqury').children('.file_upload').removeClass('d-none');
                                     $('select.HeaderSelectionDD').closest('.header-jqury').children('.text-comment').addClass('d-none');
                                 }
-
                                 if (headerformat == 'TEXT') {
                                     if (component.text) {
                                         $('.ClassHeaderTEXT').val(component.text);
                                         $('.preview-header-paragraph').text(component.text);
-
                                     }
                                 } else {
                                     if (headerformat == 'IMAGE' || headerformat == 'VIDEO' || headerformat == 'DOCUMENT') {
                                         if (component.example) {
                                             if (component.example.header_handle[0]) {
-
                                                 $('#insert_image').attr('datastoreurl', component.example.header_handle[0])
                                             }
                                         }
@@ -3965,7 +3606,6 @@ if (!empty($connections)) {
                                 footer = component.text;
                             }
                         }
-
                         if (component.buttons) {
                             var buttonhtml = '';
                             var buttonvalue = 0;
@@ -3999,6 +3639,7 @@ if (!empty($connections)) {
                             }
                         }
                     });
+
                     $('.Template_name_varification').val('');
                     $('.TemplateCategorySelectionDiv').val(category);
                     $('.TemplateCategorySelectionDiv').selectpicker('refresh');
@@ -4011,77 +3652,51 @@ if (!empty($connections)) {
                     $('.Template_name_varification').prop("disabled", false);
                     $('.EditBtnTemplate').trigger('click');
                 },
-
             });
         });
-
         // $('.SetButtonHTMLClass').on('input', function () {
         //     var buttonText = $('#buttoninvalue').val();
-
         //     $('.single-button-whatsapp-template1').removeClass('d-none');
-
         //     $('.single-t-call-button .single-button-whatsapp-template1').html(buttonText);
         // });
-
         $('.SetButtonHTMLClass').on('input', function() {
             var button1input = $('.QuickSubButtonInput').val();
             $('.single-button-whatsapp-template1').removeClass('d-none');
-
             if (button1input === "") {
                 $('.single-t-call-button').hide();
-
             } else {
                 $('.single-t-call-button').show();
                 $('.single-button-whatsapp-template2').addClass('d-none');
-
             }
-
             $('.single-t-call-button .single-button-whatsapp-template1').html(button1input);
         });
-
-
         $('.SetButtonHTMLClass').on('input', function() {
             var button1input = $('.CnoCnoInputField').val();
             var button2input = $('.UrlUrlInputField').val();
-
-
-
             if (button1input === "") {
                 $('.single-t-call-button').hide();
-
             } else {
                 $('.single-t-call-button').show();
                 $('.single-button-whatsapp-template2').addClass('d-none');
-
             }
             if (button2input === "") {
                 $('.single-t-call-button').hide();
-
             } else {
                 $('.single-t-call-button').show();
                 $('.single-button-whatsapp-template1').removeClass('d-none');
-
             }
-
             $('.single-t-call-button .single-button-whatsapp-template2').html(button1input);
             $('.single-t-call-button .single-button-whatsapp-template1').html(button2input);
-
         });
         $('body').on('click', '.refresh-btn', function() {
             $(this).toggleClass('rounded-btn');
         });
-
-
-
         var originalHTML = '';
         $('#dynamicInputsContainer1').on('input', '.inputypeBody', function() {
-
             var inputId = $(this).attr('Dataid');
             if (!originalHTML) {
                 originalHTML = $('.preview-chat-paragraph .BodyValue').html();
-
                 // originalHTML = $('.preview-chat-paragraph .BodyValue').html();
-
             }
             // var originalHTML = $('.preview-chat-paragraph ').html();
             // var bodyText1 = $(this).val();
@@ -4092,7 +3707,6 @@ if (!empty($connections)) {
             formdata.append('inputId', inputId);
             formdata.append('originalHTML', originalHTML);
             formdata.append('action', true);
-
             $.ajax({
                 datatype: 'json',
                 method: "post",
@@ -4102,19 +3716,13 @@ if (!empty($connections)) {
                 contentType: false,
                 success: function(res) {
                     $('.preview-chat-paragraph .BodyValue').html(res);
-
-
                     // $('.preview-chat-paragraph .BodyValue').html(res);
                     $('.loader').hide();
                 }
             });
-
         });
-
-
         var originalHTML = '';
         $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
-
             var inputId = $(this).attr('Dataid');
             if (!originalHTML) {
                 originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
@@ -4128,7 +3736,6 @@ if (!empty($connections)) {
             formdata.append('inputId', inputId);
             formdata.append('originalHTML', originalHTML);
             formdata.append('action', true);
-
             $.ajax({
                 datatype: 'json',
                 method: "post",
@@ -4137,12 +3744,10 @@ if (!empty($connections)) {
                 processData: false,
                 contentType: false,
                 success: function(res) {
-
                     $('.preview-chat-paragraph .msg-text-chat').html(res);
                     $('.loader').hide();
                 }
             });
-
         });
         $('body').on('click', '.btn-close', function() {
             $('#mobile_code').val('');
@@ -4151,9 +3756,7 @@ if (!empty($connections)) {
             $('#import_file').val('');
             $(".selectpicker-validation").removeClass("selectpicker-validation");
             $("form[name='master_membership_update_form']").removeClass("was-validated");
-
             // $('.refreshit').html('');
             list_data();
-
         });
     </script>

@@ -641,7 +641,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/WhatsAppSendDocumentData', 'WhatAppIntegrationController::WhatsAppSendDocumentData');
     $routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
     $routes->post('/sendwhatsappcamera', 'WhatAppIntegrationController::sendwhatsappcamera');
-
+    $routes->post('/set_variable_value', 'WhatAppIntegrationController::set_variable_value');
 
 	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
 
