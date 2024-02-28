@@ -591,13 +591,13 @@ $get_facebook_page = $result->getResultArray();
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex border rounded-3 p-2 align-items-center col-12">
-                                    <div class="mx-2 col-2 d-flex flex-wrap justify-content-center">
-                                            <div class="rounded-circle border outline-3 d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-whatsapp fs-4"></i></div>
+                        <div class="d-flex  rounded-3 p-2 align-items-center col-12">
+                                    <div class="m-2 col-3 d-flex flex-wrap justify-content-center border rounded-3 p-3 whatsapp">
+                                            <div class=" d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-whatsapp fs-3"></i></div>
                                             <div>whatsapp</div>
                                         </div>
-                                        <div class="mx-2 col-2 d-flex flex-wrap justify-content-center">
-                                            <div class="rounded-circle border outline-3 d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-facebook-messenger fs-4"></i></div>
+                                        <div class="m-2 col-3 d-flex flex-wrap justify-content-center rounded-3 border p-3 messanger">
+                                            <div class=" d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-facebook-messenger fs-3"></i></div>
                                             <div>messanger</div>
                                         </div>
                                 </div>
@@ -641,6 +641,11 @@ $get_facebook_page = $result->getResultArray();
             //     });
 
             // });
+                $('body').on('click','.messanger',function()
+                {
+
+                });
+
             $('.sebmite-siduale').hide();
             $(document).on('click', '.clickshare', function() {
                 $('.clickshareto').removeClass('d-none');
