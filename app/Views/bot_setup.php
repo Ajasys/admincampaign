@@ -7612,20 +7612,28 @@ option {
     })
 
 
-    $("body").on("click", ".first-li", function() {
-        $(".min-selectbox").toggleClass('d-none');
+    //for bot selectpicker 
+    $(document).ready(function() {
+        $("body").on("click", ".first-li", function(event) {
+            $(this).siblings(".min-selectbox").toggleClass('d-none');
+            event.stopPropagation();
+        });
 
-    });
+        $("body").on("click", ".second-li", function() {
+            var miantext = $(this).text();
+            $(this).css({"background": "#724ebf", "color": "white"})
+                .siblings(".second-li")
+                .css({"background": "white", "color": "black"});
+            $(this).closest(".min-selectbox").prev(".first-li").text(miantext);
+            $(this).closest(".min-selectbox").addClass('d-none');
+        });
 
-    $("body").on("click", ".second-li", function() {
-        $(".min-selectbox").toggleClass('d-none');
-        let miantext = $(this).text();
-        $(this).css("background", "#724ebf");
-        $(this).css("color", "white");
-        $(this).siblings("li").css("background", "white");
-        $(this).siblings("li").css("color", "black");
-        $(".first-li").text(miantext);
-
+        $(document).on("click", function(event) {
+            var target = $(event.target);
+            if (!target.closest('.min-selectbox').length && !target.hasClass('first-li')) {
+                $(".min-selectbox").addClass('d-none');
+            }
+        });
     });
 
     $("body").on('change', '#bot_idd', function(e) {

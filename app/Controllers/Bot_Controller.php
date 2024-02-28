@@ -1956,21 +1956,21 @@ class Bot_Controller extends BaseController
 
 		if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['sequence'] != 1) {
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['question_id'] . ' ORDER BY sequence';
+			$sql = 'SELECT * FROM ' . $table . ' WHERE id = ' . $_POST['question_id'] . ' ORDER BY sequence';
 			$result = $db_connection->query($sql);
 			$questioned = $result->getRowArray();
 			// pre($questioned);
 				
 		}else if($_POST['sequence'] == 1){
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE  sequence = ' . $sequence;
+			$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
 			// pre($question);
 		
 		}else{
 			$db_connection = \Config\Database::connect('second');
-			$sql = 'SELECT * FROM ' . $table . ' WHERE  sequence = ' . $sequence;
+			$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
 			// pre($question);
@@ -2026,27 +2026,27 @@ class Bot_Controller extends BaseController
 			}
 		}else{
 
-			if ($questioned['type_of_question'] == 3 && $questioned['error_text']) {
+			// if ($questioned['type_of_question'] == 3 && $questioned['error_text']) {
 				
-				$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
-				if (preg_match($regex, $answer)) {
-					$response['id_validation'] = ""; 
-					$response['response'] = 1;
-				} else {
-					$response['id_validation'] = $questioned['error_text']; 
-					$response['response'] = 2;
-				}
-			} else if($questioned['type_of_question'] == 5 && $questioned['error_text']){
-				$regex = '/^([a-zA-Z0-9_ ]{5,10})$/';
+			// 	$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+			// 	if (preg_match($regex, $answer)) {
+			// 		$response['id_validation'] = ""; 
+			// 		$response['response'] = 1;
+			// 	} else {
+			// 		$response['id_validation'] = $questioned['error_text']; 
+			// 		$response['response'] = 2;
+			// 	}
+			// } else if($questioned['type_of_question'] == 5 && $questioned['error_text']){
+			// 	$regex = '/^([a-zA-Z0-9_ ]{5,10})$/';
 
-				if (preg_match($regex, $answer)) {
-					$response['id_validation'] = ""; 
-					$response['response'] = 1;
-				} else {
-					$response['id_validation'] = $questioned['error_text']; 
-					$response['response'] = 2;
-				}
-			}else{
+			// 	if (preg_match($regex, $answer)) {
+			// 		$response['id_validation'] = ""; 
+			// 		$response['response'] = 1;
+			// 	} else {
+			// 		$response['id_validation'] = $questioned['error_text']; 
+			// 		$response['response'] = 2;
+			// 	}
+			// }else{
 
 				$updateData = [
 					'answer' => $answer,
@@ -2056,7 +2056,7 @@ class Bot_Controller extends BaseController
 				$db_connection->table($table)->update($updateData, ['id' => $questioned['id']]);
 				$response['message'] = "Answer inserted successfully for question: " . $questioned['question'];
 
-			}
+			// }
 			// $response['error'] = "No question data found.";
 		}
 		echo json_encode($response);
@@ -2539,22 +2539,23 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		$bot_data = $db_connection->query($query);
 		$bot_data_get = $bot_data->getResultArray();
 		$html="";
-		$html.='
-			<select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select_second question_select_second_1 occupation_add" data-live-search="true">
-                                <option class="dropdown-item" value="0">No Jump</option>
-                                <option class="dropdown-item" value="100">End Of conversion</option>';
+		$html.='<ul id="occupation" class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_select_second_1 occupation_add" data-live-search="true">
+            <li class="first-li text-nowrap overflow-hidden">No Jump</li>
+            <li class="col-12 overflow-auto border rounded min-selectbox d-none" style="position:absolute; top:36px; left:-1px; background:white; min-height:50px; max-height:250px; z-index: 999;">
+                <ul class="list-unstyled second-li-container">'; // Nested ul for list items
                                     
-                                    if (isset($bot_data_get)) {
-                                        foreach ($bot_data_get as $type_key => $type_value) {
-											$html.='<option class="dropdown-item" value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                        }
-                                    }
-                                   
-									$html.=' </select>';
-									$result['html'] = $html;
-			return json_encode($result);
-			die();
-	
+				if (isset($bot_data_get)) {
+					foreach ($bot_data_get as $type_key => $type_value) {
+						$html.='<li class="dropdown-item second-li rounded d-flex align-items-center p-3" value="' . $type_value["id"] . '">' . $type_value["question"] . '</li>';
+					}
+				}
+				$html.='     </ul>
+							</li>
+						</ul>';
+		$html.=' </select>';
+		$result['html'] = $html;
+		return json_encode($result);
+		die();
 	}
 
 
