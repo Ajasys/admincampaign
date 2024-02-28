@@ -269,11 +269,9 @@
                                             </div>
 
                                         </div>
-                                        <form class="needs-validation add_form_Email" id="add_form_Email"
-                                        name="add_form_Email" novalidate>
+                                        <form class="needs-validation add_form_Email" id="add_form_Email" name="add_form_Email" novalidate>
 
-                                            <input class="form-control main-control coupon_event attachment" id="attachment"
-                                            name="attachment[]"  type="file" placeholder="">
+                                            <input class="form-control main-control coupon_event attachment" id="attachment" name="attachment[]" multiple type="file" placeholder="">
                                         </form>
                                     </div>
                                 </div>
@@ -871,7 +869,7 @@
                     }
                 });
             });
-$('.delete_loader').hide();
+            $('.delete_loader').hide();
 
             $('body').on('click', '.app_card_post', function() {
                 var access_tocken = $(this).attr('data-acess_token');
@@ -895,7 +893,7 @@ $('.delete_loader').hide();
                     success: function(res) {
                         var result = JSON.parse(res);
                         $('.loader').hide();
-var swiper = new Swiper(".mySwiper", {
+                        var swiper = new Swiper(".mySwiper", {
                             pagination: {
                                 el: ".swiper-pagination",
                                 type: "fraction",
@@ -1121,7 +1119,7 @@ var swiper = new Swiper(".mySwiper", {
                             });
                             $('.btn-close').trigger('click');
 
-},
+                },
                         error: function (xhr, status, error) {
                             // Handle errors
                             console.error(xhr.responseText);
@@ -1131,23 +1129,15 @@ var swiper = new Swiper(".mySwiper", {
             });
             
             $('body').on('click', '.sebmite-siduale', function() {
-                
             var form = $(".add_form_Email")[0];
-            var attachment = $('.attachment').prop('files');
-            // console.log(attachment);
-            // var event_address = $('.event_address').val();
-            var scheduled_time = $('.Scedual_start_date').val(); // Assuming you're using an input with class="Scedual_start_date"
+            var attachment = $('.attachment').prop('files')[0]; // Assuming only one attachment
+            var scheduled_time = $('.Scedual_start_date').val();
 
-            // Check if scheduled_time is defined and not empty
             if (scheduled_time !== undefined && scheduled_time.trim() !== '') {
                 var formData = new FormData(form);
-
-                // Append additional data to the formData object
-                var formData = new FormData(form);
                 formData.append('action', 'post');
-                formData.append('attachment', attachment[0]); 
-                // formData.append('event_address', event_address);
-                formData.append('scheduled_time', scheduled_time); // Append scheduled time to the formData
+                formData.append('attachment', attachment);
+                formData.append('scheduled_time', scheduled_time);
 
                 $.ajax({
                     method: "post",
@@ -1161,23 +1151,21 @@ var swiper = new Swiper(".mySwiper", {
                             title: 'Post Scheduled Successfully'
                         });
                         $('.btn-close').trigger('click');
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle errors
-                            console.error(xhr.responseText);
-                        }
-                    });
-                
-                // Update the preview section with the selected scheduled time
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.error(xhr.responseText);
+                    }
+                });
+
                 $('.scheduled_time_preview').text(scheduled_time);
             } else {
-                // Handle case where scheduled_time is not defined or empty
                 iziToast.error({
                     title: 'Error',
                     message: 'Please select a scheduled time for the post.'
                 });
             }
-            });
+        });
 
 
             /*  ---------------------------- modal input ----------------------------
