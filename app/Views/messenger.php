@@ -2359,7 +2359,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             data: {
                 id: id,
                 phoneno: phoneno,
-                name: name
+                name: name, 
+                'status' :'0',
             },
             success: function (data) {
                 var data = JSON.parse(data);

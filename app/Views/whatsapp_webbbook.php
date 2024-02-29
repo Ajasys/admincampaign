@@ -27,27 +27,8 @@ $username = "rudrramc_campaign";
 $password = "mMzAx-ftZ^!%";
 $databasename = "rudrramc_campaign";
 // Create connection
-$conn = mysqli_connect(
-    $servername,
-    $username,
-    $password,
-    $databasename
-);
-$check = 'not connected..';
-
-if ($conn) {
-    $check = "connection successfully..";
-}
-
-
-$input = file_get_contents('php://input');
-$data = json_decode($input, true);
-writeToFile(json_encode($data));
-// writeToFile($input);
-
-$response = json_decode(json_encode($data), true);
-$servername = "rudrram.com";
-$username = "rudrramc_campaign";
+// $conn = mysqli_connect(
+// $servername="";
 $password = "mMzAx-ftZ^!%";
 $databasename = "rudrramc_campaign";
 $db_connection = mysqli_connect(
