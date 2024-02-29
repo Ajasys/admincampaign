@@ -323,6 +323,22 @@ class Home extends BaseController
         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
 
 
+        $table_asset = $table_username . '_platform_assets';
+        $columns_asset = [
+            'id int primary key AUTO_INCREMENT',
+            'platform_id int(11) NOT NULL',
+            'master_id int(11) NOT NULL',
+            "asset_id text NOT NULL",
+            "access_token longtext NOT NULL",
+            "asset_img text NOT NULL",
+            "name text NOT NULL",
+        ];
+        $foreign_keys = [
+            'FOREIGN KEY (platform_id) REFERENCES '.$table_username . '_platform_integration(id)',
+        ];
+        $table = tableCreateAndTableUpdate2($table_asset, '', $columns_asset, $foreign_keys);
+
+
         $table_name11 = $table_username . '_task_status';
         $columns = [
             'id int primary key AUTO_INCREMENT',

@@ -1790,15 +1790,47 @@ if (!function_exists("getParentidUserrole")) {
         return $child_ids;
     }
 }
+// if (!function_exists('tableCreateAndTableUpdate2')) {
+//     function tableCreateAndTableUpdate2($table_name = "", $duplicate_table = '', $columns = array())
+//     {
+//         $first_db = \Config\Database::connect("second");
+//         if ($first_db->tableExists($table_name) && $table_name != '') {
+//             foreach ($columns as $value) {
+//                 $value_col_name = explode(' ', $value);
+//                 $col_name = str_replace('`','',$value_col_name[0]);
+//                 if (!$first_db->fieldExists($col_name, $table_name) && !empty($value)) {
+//                     $sql = "ALTER TABLE $table_name ADD $value "; // add column sql 
+//                     $first_db->query($sql);
+//                 }
+//             }
+//         } else if (!$first_db->tableExists($table_name) && $duplicate_table != '' && $table_name != '') {
+//             if (!empty($columns)) {
+//                 $columnss = implode(",", $columns);
+//                 $sql = "CREATE TABLE $table_name ($columnss)";
+//                 $first_db->query($sql);
+//             } else {
+//                 $sql = "CREATE TABLE $table_name LIKE $duplicate_table";
+//                 $first_db->query($sql);
+//             }
+//         } else {
+//             if (!empty($columns)) {
+//                 $sql = "CREATE TABLE $table_name (" . implode(',', $columns) . ")"; // Your Other table Columns
+//                 $first_db->query($sql);
+//             }
+//         }
+//         $first_db->close();
+//     }
+// }
+
+
 if (!function_exists('tableCreateAndTableUpdate2')) {
-    function tableCreateAndTableUpdate2($table_name = "", $duplicate_table = '', $columns = array())
+    function tableCreateAndTableUpdate2($table_name = "", $duplicate_table = '', $columns = array(), $foreign_keys = array())
     {
         $first_db = \Config\Database::connect("second");
         if ($first_db->tableExists($table_name) && $table_name != '') {
             foreach ($columns as $value) {
                 $value_col_name = explode(' ', $value);
-                $col_name = str_replace('`','',$value_col_name[0]);
-                if (!$first_db->fieldExists($col_name, $table_name) && !empty($value)) {
+                if (!$first_db->fieldExists($value_col_name[0], $table_name) && !empty($value)) {
                     $sql = "ALTER TABLE $table_name ADD $value "; // add column sql 
                     $first_db->query($sql);
                 }
@@ -1807,6 +1839,7 @@ if (!function_exists('tableCreateAndTableUpdate2')) {
             if (!empty($columns)) {
                 $columnss = implode(",", $columns);
                 $sql = "CREATE TABLE $table_name ($columnss)";
+                echo $sql;
                 $first_db->query($sql);
             } else {
                 $sql = "CREATE TABLE $table_name LIKE $duplicate_table";
@@ -1816,6 +1849,12 @@ if (!function_exists('tableCreateAndTableUpdate2')) {
             if (!empty($columns)) {
                 $sql = "CREATE TABLE $table_name (" . implode(',', $columns) . ")"; // Your Other table Columns
                 $first_db->query($sql);
+            }
+            if (!empty($foreign_keys)) {
+                foreach ($foreign_keys as $foreign_key) {
+                    $sql = "ALTER TABLE $table_name ADD $foreign_key";
+                    $first_db->query($sql);
+                }
             }
         }
         $first_db->close();

@@ -673,8 +673,9 @@ $user_data = $user_result->getResultArray();
         $('body').on('change', '#fb_conn_id', function () {
             var fb_access_token = $(this).find(':selected').data('access-token');
             var fb_check_conn = $(this).find(':selected').data('connection-check');
+            var connection_id = $(this).find(':selected').val();
             if (fb_access_token != '') {
-                getPagesList(fb_access_token, fb_check_conn);
+                getPagesList(fb_access_token, fb_check_conn,connection_id );
             } else {
                 iziToast.error({
                     title: 'Please select your connection..!'
@@ -1486,13 +1487,14 @@ $user_data = $user_result->getResultArray();
         }
     });
 
-    function getPagesList(fb_access_token, fb_check_conn) {
+    function getPagesList(fb_access_token, fb_check_conn, connection_id) {
         $.ajax({
             type: "post",
             url: "<?= site_url('facebook_user'); ?>",
             data: {
                 fb_access_token: fb_access_token,
                 fb_check_conn: fb_check_conn,
+                connection_id:connection_id,
                 action: 'user'
             },
             success: function (res) {

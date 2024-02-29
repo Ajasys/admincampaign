@@ -219,20 +219,12 @@ class MasterInformationModel extends Model
     }
 
     
- 
-
-
-    public function delete_entry2($tablename,$delete_id){
-
+    public function delete_entry2($tablename,$delete_id,$field = 'id'){
         $secondDb = \Config\Database::connect('second');
-
-        $result = $secondDb->table($tablename)->where("id", $delete_id)->delete();
-
+        $result = $secondDb->table($tablename)->where($field, $delete_id)->delete();
         return $result;
-
     }
 
-  
 
     public function join_entry($tablename, $tablename2, $field, $field2){
 
