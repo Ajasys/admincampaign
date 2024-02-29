@@ -623,35 +623,25 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         </div>
                         <div class="col-12  px-0 scroll-none" style="max-height: 100%;">
                             <div class="accordion " id="accordionExample">
-                                <div class="accordion-item border-0 border-bottom ListedMessage">
+                                <div class="accordion-item border-0 border-bottom FbListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button border-0 shadow-none fw-medium rounded-0 px-3 py-2" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px"
-                                                x="0" y="0" viewBox="0 0 512 512"
-                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium rounded-0 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
-                                                    <path fill="#1877f2"
-                                                        d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z"
-                                                        opacity="1" data-original="#1877f2" class=""></path>
-                                                    <path fill="#ffffff"
-                                                        d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z"
-                                                        opacity="1" data-original="#ffffff"></path>
+                                                    <path fill="#1877f2" d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z" opacity="1" data-original="#1877f2" class=""></path>
+                                                    <path fill="#ffffff" d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z" opacity="1" data-original="#ffffff"></path>
                                                 </g>
                                             </svg>
                                             <P class="ms-2">Facebook</P>
 
                                         </button>
                                     </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show"
-                                        data-bs-parent="#accordionExample">
+                                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                         <div class="accordion-body account_list p-0">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item border-0 border-bottom ListedMessage">
+                                <div class="accordion-item border-0 border-bottom IgListedMessage">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed border-0 shadow-none fw-medium px-3 py-2 "
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
@@ -814,7 +804,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
                 <div class="d-none col-12 col-sm-12 col-md-12 col-lg-6 d-xl-block col-xxl-6 transcript_box  main-box"
                     style="height:80vh">
-                    <div class="col-12 border rounded-3bg-white position-relative SetChatBackGroundClass rounded-3 overflow-hidden "
+                    <div class="col-12 border rounded-3 bg-white position-relative SetChatBackGroundClass rounded-3 overflow-hidden "
                         style="height:80vh">
                         <div class="accordion_item_div border rounded-2 position-absolute start-0 bottom-0"
                             style="height: 200px; width: 200px; display:none;">
@@ -2199,8 +2189,29 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         fileViewDiv.scrollTop = fileViewDiv.scrollHeight;
     }
 
-    $(document).ready(function () {
-        // massage list data
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
         function list_data(api = false, action = 'account_list', page_id = '', page_access_token = '', platform) {
             $.ajax({
                 method: "post",
@@ -2212,7 +2223,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     page_access_token: page_access_token,
                     platform: platform,
                 },
-                beforeSend: function () {
+                beforeSend: function() {
                     if (action == 'account_list') {
                         $('.acc_loader').show();
                     } else if (action == 'chat_list') {
@@ -2220,17 +2231,26 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         $('.chat_list_loader').show();
                     }
                 },
-                success: function (data) {
+                success: function(data) {
                     // ====kjhsdhj==
                     $('.acc_loader').hide();
                     var obj = JSON.parse(data);
                     if (action == 'account_list') {
                         $('.account_list').html(obj.chat_list_html);
                         $('.IG_account_list').html(obj.IG_chat_list_html);
+var last_page_id = getCookie('last_account_id');
+                    if (last_page_id != '') {
+                        $('.account-nav[data-page_id="' + last_page_id + '"]').trigger('click');
+                    }
                     } else if (action == 'chat_list') {
                         $('.chat_list').html(obj.chat_list_html);
                         $('.chat_list_loader').hide();
                         $('.chatNoData').hide();
+var last_chat_id = getCookie('last_chat_id');
+                    var last_page_id = getCookie('last_account_id');
+                    if (last_chat_id != '' && last_page_id != '') {
+                        $('.chat_list[data-sender_id="' + last_chat_id + '"]').trigger('click');
+                    }
                     }
 
                     // if ($('.chat-box').css('display') !== 'none') {
@@ -2239,11 +2259,52 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 }
             });
         }
-        list_data();
+        var last_page_id = getCookie('last_account_id');
+    var platform =getCookie('last_account_platform');
+    if (last_page_id == '' && platform == '') {
+        $('.acc_loader').hide();
+    } else {
+        $('.acc_loader').hide();
+        if(platform == 'messenger'){
+            $('.FbListedMessage .accordion-button').trigger('click');
+            // list_data(false,'account_list');
+        } else if(platform == 'instagram') {
+            $('.IgListedMessage .accordion-button').trigger('click');
+        }
+        list_data(false,'account_list');
+    }
+
+    $('body').on('click', '.FbListedMessage .accordion-button,.IgListedMessage .accordion-button', function() {
+        // alert();
+        list_data(false,'account_list');
+        $('.Setchatheadercolorclass').removeClass('chatheadercolorclass');
+        $('.SetChatBackGroundClass').removeClass('ChatBackGroundClass');
+        $('.documentselectionpin').removeClass('chatheadercolorclass');
+        $('.SendWhatsAppMessage').removeClass('chatheadercolorclass');
+        $('.chat_bord').html('');
+        $(".WhatsApp24HourButton").prop("disabled", false);
+        $('.AddModelContactNO').removeClass('chatheadercolorclasswithheader');
+        $(".TextInputTastbar").removeClass("d-none");
+        $(".chat_bord").removeClass("chat_bordClass");
+    });
+
+    $(document).ready(function() {
+        // massage list data
+        // list_data();
+
+        // console.log(document.session);
+
+
 
         $('.chat_list_loader').hide();
 
-        $('body').on('click', '.account-nav', function () {
+        // var last_page_id = getCookie('last_account_id');
+        // console.log(last_page_id);
+        // if(last_page_id != '') {
+        //     $('.account-nav').data('page_id').trigger('click');
+        // }
+
+        $('body').on('click', '.account-nav', function() {
             var page_id = $(this).attr("data-page_id");
             var page_access_token = $(this).attr("data-page_access_token");
             var platform = $(this).attr("data-platform");
@@ -2251,6 +2312,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             $('.username').text('User Name');
             $('.in_chat_page_name').text('');
             $('.chat_bord').html('');
+setCookie('last_account_id', page_id, 1);
+            setCookie('last_account_platform', platform, 1);
             list_data(false, 'chat_list', page_id, page_access_token, platform);
         });
 
@@ -2264,6 +2327,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             var sender_id = $(this).data('sender_id');
             // var massage_id = $(this).data('massage_id');
             if (conversion_id !== undefined && conversion_id !== 'undefined' && conversion_id != '') {
+setCookie('last_chat_id', sender_id, 1);
                 $.ajax({
                     method: "post",
                     url: "<?= site_url('get_chat_data'); ?>",
@@ -2274,11 +2338,11 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         page_id: page_id,
                         // id: massage_id,
                     },
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('.massage_list_loader').show();
                         $('.noRecourdFound').hide();
                     },
-                    success: function (data) {
+                    success: function(data) {
                         var obj = JSON.parse(data);
                         $('.massage_list_loader').hide();
                         $('.chat_bord').show();
@@ -2300,7 +2364,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         $('.massage_list_loader').hide();
 
-        $('body').on('click', '.send_massage', function () {
+        $('body').on('click', '.send_massage', function() {
             var massage_input = $('.massage_input').val();
             var conversion_id = $(this).data("conversion_id");
             var page_access_token = $(this).data("page_token");
@@ -2573,28 +2637,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
     });
 
 
-    $('body').on('click', '.ListedMessage', function () {
-        $('.Setchatheadercolorclass').removeClass('chatheadercolorclass');
-        $('.SetChatBackGroundClass').removeClass('ChatBackGroundClass');
-        $('.documentselectionpin').removeClass('chatheadercolorclass');
-        $('.SendWhatsAppMessage').removeClass('chatheadercolorclass');
-        // $('.RemoveHeaderBorderDiv').addClass('border-bottom');
-        // $('.UserChatName').removeClass('text-white');
-        // $('.profilepiccolor').removeClass('text-white');
-        $('.chat_bord').html('');
-        setTimeout(function () {
-            // $('.UserChatName').addClass('text-dark');
-            // $('.profilepiccolor').addClass('text-dark');
+    
 
-        }, 500);
-
-        $(".WhatsApp24HourButton").prop("disabled", false);
-        $('.AddModelContactNO').removeClass('chatheadercolorclasswithheader');
-        $(".TextInputTastbar").removeClass("d-none"); 
-        $(".chat_bord").removeClass("chat_bordClass");
-    });
-
-    $('body').on('click', '.WhatsAppListedMessage', function () {
+    $('body').on('click', '.WhatsAppListedMessage', function() {
         $('.Setchatheadercolorclass').addClass('chatheadercolorclass');
         $('.SetChatBackGroundClass').addClass('ChatBackGroundClass');
         // $('.documentselectionpin').addClass('chatheadercolorclass');

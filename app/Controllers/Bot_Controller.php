@@ -2177,50 +2177,47 @@ class Bot_Controller extends BaseController
 
 	public function get_chat_data()
 	{
+$cache = \Config\Services::cache();
 		if ($_POST['action'] == 'account_list') {
 			
 			// pre($userdata);
 			// die();
 			// $token = 'edrftgyhjk,l.;/'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-			// $cache = \Config\Services::cache();
+			
 			$this->db = \Config\Database::connect('second');
 			$get_token = "SELECT access_token FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
 			$data_count = $get_access_token_array->getNumRows();
-			if($data_count > 0) {
+			if ($data_count > 0) {
 				$token = $get_access_token_array->getResultArray()[0]['access_token'];
 			$fileds = 'instagram_business_account{id,username,profile_picture_url},profile_picture_url,access_token,name,id';
 			$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
 			// $fb_page_list = fb_page_list($token);
 			// $fb_page_list = get_object_vars(json_decode($fb_page_list));
 			// pre($url);
-				// $cache_data = $cache->get($_SESSION['id'].'_fb_data');
-				// if(!empty($cache_data)) {
-				// 	$fb_page_list = $cache->get($_SESSION['id'].'_fb_data');
-				// 	// echo 'yes';
-				// } else {
+				$cache_data = $cache->get($_SESSION['id'] . '_fb_data');
+				if (!empty($cache_data)) {
+				$fb_page_list = $cache_data;
+					// echo 'yes';
+				} else {
 			$fb_page_list = getSocialData($url);
 				// echo 'no';
-				// }
-				// pre($fb_page_list['data']);
-				// die();
+				}
 			$fb_chat_list_html = '';
 			$IG_chat_list_html = '';
 			$return_result = array();
 			$IG_data = array();
-
+// pre($fb_page_list);
 			foreach ($fb_page_list['data'] as $key => $value) {
-				// pre($value);
-				$url = 'https://graph.facebook.com/' . $value['id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
-					// echo $url;
-					$unread_msg = 0;
-					$con_data = getSocialData($url);
+				$unread_msg = 0;
 					// pre($con_data);
-					// if(!empty($cache_data)) {
-					// 	$unread_msg = $value['unread_count'];
-					// 	$page_img = $value['page_img'];
-					// } else {
-						if(isset($con_data['data'])) {
+					if (!empty($cache_data)) {
+						$unread_msg = $value['unread_count'];
+						$page_img = $value['page_img'];
+					} else {
+				$url = 'https://graph.facebook.com/' . $value['id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
+										$con_data = getSocialData($url);
+					if (isset($con_data['data'])) {
 							foreach ($con_data['data'] as $con_key => $con_value) {
 								// pre($value);
 								$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
@@ -2229,17 +2226,17 @@ class Bot_Controller extends BaseController
 				$page_data = fb_page_img($value['id'], $value['access_token']);
 				$page_data = json_decode($page_data);
 $page_img = $page_data->page_img;
-					// }
+					}
 
 				$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
 										<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
-												<img src="' . $page_data->page_img . '" alt="" width="45">
+												<img src="' . $page_img . '" alt="" width="45">
 											</a>
 											<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
 											</p>';
-							if($unread_msg  != 0){
-								$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">'.$unread_msg.'</span>';
+							if ($unread_msg  != 0) {
+								$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
 							}
 					$fb_chat_list_html .= '</div>
 									</div>';
@@ -2249,10 +2246,10 @@ $page_img = $page_data->page_img;
 					$IG_data[] = $value['instagram_business_account'];
 				}
 
-					// if(empty($cache_data)) {
-					// 	$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
-					// 	$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
-					// }
+					if(empty($cache_data)) {
+					$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
+					$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
+					}
 			}
 
 			foreach ($IG_data as $IG_key => $IG_value) {
@@ -2269,7 +2266,7 @@ $page_img = $page_data->page_img;
 									';
 			}
 
-				// $cache->save($_SESSION['id'].'_fb_data', $fb_page_list,3600);
+				$cache->save($_SESSION['id'].'_fb_data', $fb_page_list,3600*24);
 
 			// pre($IG_data);
 } else {
@@ -2284,7 +2281,6 @@ $page_img = $page_data->page_img;
 		}
 
 		if ($_POST['action'] == 'chat_list') {
-
 			$page_access_token = $_POST['page_access_token'];
 			$page_id = $_POST['page_id'];
 			$platform = $_POST['platform'];
@@ -2323,7 +2319,7 @@ $unread_msg = 0;
 					}
 					$chat_list_html .= '
 							<div class=" fw-semibold fs-12 chat-nav-search-bar col-12 chat-account-box p-1 pe-3
-							 chat_list linked-page1" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '" data-sender_id="'.$conversion_value['participants']['data'][$key]['id'].'">
+							 chat_list linked-page1" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '" data-sender_id="' . $conversion_value['participants']['data'][$key]['id'] . '">
 							<div class="d-flex flex justify-content-between align-items-center col-12">
 										<div class="col-2 p-1">';
 					if ($platform == 'messenger') {
@@ -2352,8 +2348,8 @@ $unread_msg = 0;
 									<p class="col-12 ps-2" style="font-size:16px;">' . $conversion_value['participants']['data'][$key][$name] . '</p>
 										<p class="col-10 ps-2 d-flex fs-12 text-secondary-emphasis"><span class="text-truncate">' . $conversion_value['messages']['data'][0]['message'] . '</span> <span class="col-3 ms-2">' . $time_count_text . '</span> </p>
 									</div>';
-						if($unread_msg != 0) {
-							$chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">'.$unread_msg.'</span>';
+						if ($unread_msg != 0) {
+							$chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
 						}
 					$chat_list_html .= '</div>
 									
@@ -2394,7 +2390,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 			foreach ($massage_array as $massage_key => $massage_value) {
 				// Specify your timezone
 				// pre(date_default_timezone_get());
-				$dateTime = new \DateTime($massage_value['created_time'],$timezone);
+				$dateTime = new \DateTime($massage_value['created_time'], $timezone);
 				$today = new \DateTime();
 				// pre($today);
 				$date = $dateTime->format('d/m/Y');
@@ -2504,7 +2500,6 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 
 			$return['status'] = 0;
 			$return['msg'] = $msg !== '' ? $msg . " Not Found!" : '';
-
 		}
 
 		return json_encode($return);
