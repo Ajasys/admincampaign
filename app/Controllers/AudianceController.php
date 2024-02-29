@@ -476,86 +476,131 @@ class AudianceController extends BaseController
                         true
                     );
                     if ($facebook_syncro == 1) {
-                    $accessToken = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
-                    $adAccountId = '6331751513513589';
-                    $url = "https://graph.facebook.com/v19.0/act_$adAccountId/customaudiences";
-                    $postData = [
-                        'name' => $name, // Change here to use name from POST data
-                        'subtype' => 'CUSTOM',
-                        'description' => 'People who purchased on my website',
-                        'customer_file_source' => 'USER_PROVIDED_ONLY',
-                        'access_token' => $accessToken
-                    ];
-
-                    // Initialize cURL session
-                    $curl = curl_init();
-                
-                    // Set cURL options
-                    curl_setopt_array($curl, [
-                        CURLOPT_URL => $url,
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_POST => true,
-                        CURLOPT_POSTFIELDS => $postData
-                    ]);
-                
-                    // Execute cURL request
-                    $response = curl_exec($curl);
-                    // Check for errors
-                    if(curl_errno($curl)) {
-                        $error = curl_error($curl);
+                        $accessToken = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+                        $adAccountId = '6331751513513589';
+                        $url = "https://graph.facebook.com/v19.0/act_$adAccountId/customaudiences";
+                        $postData = [
+                            'name' => $name, // Change here to use name from POST data
+                            'subtype' => 'CUSTOM',
+                            'description' => 'People who purchased on my website',
+                            'customer_file_source' => 'USER_PROVIDED_ONLY',
+                            'access_token' => $accessToken
+                        ];
+                        
+                        // Initialize cURL session for creating custom audience
+                        $curl = curl_init();
+                        
+                        // Set cURL options for creating custom audience
+                        curl_setopt_array($curl, [
+                            CURLOPT_URL => $url,
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_POST => true,
+                            CURLOPT_POSTFIELDS => $postData
+                        ]);
+                        
+                        // Execute cURL request to create custom audience
+                        $response = curl_exec($curl);
+                        
+                        // Check for errors in cURL request
+                        if (curl_errno($curl)) {
+                            $error = curl_error($curl);
+                            curl_close($curl);
+                            return "cURL Error: $error";
+                        }
+                        
+                        // Close cURL session for creating custom audience
                         curl_close($curl);
-                        return "cURL Error: $error";
-                    }
-                
-                    // Close cURL session
-                    curl_close($curl);
-                   // Decode the JSON response to extract the audience ID
-                    $response_data = json_decode($response, true);
-                    $audience_id = $response_data['id'];
+                        
+                        // Decode the JSON response to extract the audience ID
+                        $response_data = json_decode($response, true);
+                        if (!empty($response_data) && isset($response_data['id'])) {
+                            $audience_id = $response_data['id'];
+                        
+                            // Construct the correct URL for adding users to the custom audience
+                            $usersUrl = "https://graph.facebook.com/v19.0/$audience_id/users?access_token=EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD";
+                        
+                            // Reset the estimated total count
+                            $estimated_total = 0;
+                        
+                            $allUsersData = [];
 
-                    $usersUrl = "https://graph.facebook.com/v19.0/https://graph.facebook.com/v19.0/$audience_id/users?access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD";
-                    $usersPostData = [
-                        "payload" => [
-                            "schema" => "EMAIL_SHA256", // Schema for hashed email addresses
-                            "data" => [
-                                [
-                                    hash('sha256', $merged_data['email']), // Hashed email address
-                                ]
-                            ],
-                            "PAGEUID" => [
-                                $pages_name
-                            ]
-                        ]
-                    ];
-                    $usersPostDataJson = json_encode($usersPostData);
-                    // Initialize cURL session for adding users
-                    $curl_users = curl_init();
-                    
-                    // Set cURL options for adding users
-                    curl_setopt_array($curl_users, [
-                        CURLOPT_URL => $usersUrl,
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_POST => true,
-                        CURLOPT_POSTFIELDS => $usersPostDataJson // Pass the JSON string here
-                    ]);
-                    
-                    // Execute cURL request to add users
-                    $users_response = curl_exec($curl_users);
-                    // Check for errors
-                    if(curl_errno($curl_users)) {
-                        $error = curl_error($curl_users);
-                        curl_close($curl_users);
-                        return "cURL Error adding users: $error";
-                    }
-
-                    // Close cURL session for adding users
-                    curl_close($curl_users);
-
-                    // Process the response as needed
-                    // For example, you can return the response to the caller
-                    return $users_response;
+                            foreach ($departmentdisplaydata as $record) {
+                                // Extract full name, email, and mobile number from the current record
+                                $full_name = $record['full_name'];
+                                $email = $record['email'];
+                                $mobileno = $record['mobileno'];
+                                
+                                // Hash the values
+                                $hashed_first_name = hash('sha256', $full_name);
+                                $hashed_email = hash('sha256', $email);
+                                $hashed_mobileno = hash('sha256', $mobileno);
+                                
+                                // Construct payload data for the current user
+                                $userPayloadData = [
+                                    $hashed_first_name, // Hashed first name
+                                    $hashed_email, // Hashed email address
+                                    $hashed_mobileno, // Hashed mobile number
+                                    ["LDU"] // Specify LDU flag for this entry
+                                ];
+                                
+                                // Add the payload data for the current user to the array
+                                $allUsersData[] = $userPayloadData;
+                            }
+                            
+                            // Define the schema
+                            $schema = ["FN", "EMAIL", "PHONE", "DATA_PROCESSING_OPTIONS"];
+                            
+                            // Define the payload data
+                            $usersPostData = [
+                                "schema" => $schema,
+                                "is_raw" => "true",
+                                "page_ids" => [110707855263314], // Add the page ID(s) here as an array
+                                "data" => $allUsersData // Add all users' data
+                            ];
+                            // pre($usersPostData);
+                            
+                            // Convert payload data to JSON format
+                            $usersPostDataJson = json_encode($usersPostData);
+                            
+                            // Initialize cURL session for adding users to the custom audience
+                            $curl_users = curl_init();
+                            
+                            // Set cURL options for adding users to the custom audience
+                            curl_setopt_array($curl_users, [
+                                CURLOPT_URL => $usersUrl,
+                                CURLOPT_RETURNTRANSFER => true,
+                                CURLOPT_POST => true,
+                                CURLOPT_POSTFIELDS => http_build_query(['payload' => $usersPostDataJson]), // Pass the JSON string here as 'payload'
+                                CURLOPT_TIMEOUT => 60 // Set a timeout of 60 seconds for the request
+                            ]);
+                            
+                            // Execute cURL request to add users to the custom audience
+                            $users_response = curl_exec($curl_users);
+                            // pre($users_response);
+                            
+                            // Check for errors in cURL request for adding users
+                            if (curl_errno($curl_users)) {
+                                $error = curl_error($curl_users);
+                                curl_close($curl_users);
+                                // Handle the error gracefully, you can log it or display a message
+                                echo "cURL Error adding users: $error\n";
+                            } else {
+                                // Output the response
+                                echo $users_response;
+                            }
+                            
+                            // Close cURL session for adding users to the custom audience
+                            curl_close($curl_users);
+                            
+                            // Return a message with the total estimated users added
+                            return "All records processed successfully. Total estimated users: $estimated_total";
+                            
+                        } else {
+                            // Handle the case when $response_data is empty or does not contain 'id'
+                            return "Custom audience ID not available.";
+                        }
+                       
                 } else {
-                    // Handle the case when $pages_name is equal to 0
                     // For example, you can return a message indicating that the custom audience was not created
                     return "Custom audience not created because pages_name is equal to 0.";
                 }
@@ -728,6 +773,8 @@ class AudianceController extends BaseController
         // pre($_POST);
         $name = $_POST["name"];
         $source = $_POST["source"];
+        $facebook_syncro = $_POST["facebook_syncro"];
+        $pages_name = $_POST["pages_name"];
         $currentDateTime = date("Y-m-d H:i:s");
         if (isset($_FILES["import_file"])) {
             if ($_FILES["import_file"]["error"] === UPLOAD_ERR_OK) {
@@ -741,6 +788,8 @@ class AudianceController extends BaseController
                 $new_column = [];
                 unset($_POST["name"]);
                 unset($_POST["source"]);
+                unset($_POST["facebook_syncro"]);
+                unset($_POST["pages_name"]);
                 $post_data = $_POST;
                 $num_col = 1;
                 $export_data = [];
@@ -860,6 +909,8 @@ class AudianceController extends BaseController
                                             }
                                             $insert_data["name"] = $name;
                                             $insert_data["source"] = $source;
+                                            $insert_data["facebook_syncro"] = $facebook_syncro;
+                                            $insert_data["pages_name"] = $pages_name;
                                             $insert_data[
                                                 "updated_at"
                                             ] = $currentDateTime;
@@ -914,10 +965,7 @@ class AudianceController extends BaseController
                 } else {
                     $result["response"] = 1;
                     $result["msg"] = "Data Inserted Success";
-                    
                 }
-
-               
                 $accessToken = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
                 $adAccountId = '6331751513513589';
                 $url = "https://graph.facebook.com/v12.0/act_$adAccountId/customaudiences";
@@ -958,19 +1006,36 @@ class AudianceController extends BaseController
     
                 // Now, add users to the custom audience
                 $usersUrl = "https://graph.facebook.com/v12.0/$audience_id/users?access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD";
-                $usersPostData = [
-                    "payload" => [
-                        "schema" => "EMAIL_SHA256", // Schema for hashed email addresses
-                        "data" => [],
-                    ]
-                ];
-    
-                // Add hashed email addresses to the payload
-                foreach ($rowsss as $row) {
-                    $email = $row[0]; // Assuming the first column contains email addresses
-                    $hashed_email = hash('sha256', $email);
-                    $usersPostData['payload']['data'][] = $hashed_email;
+
+                $allUsersData = [];
+
+                foreach ($rowsss as $key => $row) {
+                    if ($key != 0) { // Skip the first row which contains headers
+                        // Extract email from the current record
+                        $email = $row[0]; // Assuming the first column contains email addresses
+                        // Hash the values
+                        $hashed_email = hash('sha256', $email);
+                        // Construct payload data for the current user
+                        $userPayloadData = [
+                            $hashed_email, // Hashed email address
+                            ["LDU"]        // Specify LDU flag for this entry
+                        ];
+                        
+                        // Add the payload data for the current user to the array
+                        $allUsersData[] = $userPayloadData;
+                    }
                 }
+                
+                // Define the schema
+                $schema = ["EMAIL", "DATA_PROCESSING_OPTIONS"];
+                
+                // Define the payload data
+                $usersPostData = [
+                    "schema" => $schema,
+                    "is_raw" => "true",
+                    "page_ids" => [110707855263314], // Add the page ID(s) here as an array
+                    "data" => $allUsersData // Add all users' data
+                ];
     
                 // Convert data to JSON
                 $usersPostDataJson = json_encode($usersPostData);
@@ -978,30 +1043,32 @@ class AudianceController extends BaseController
     
                 // Initialize cURL session for adding users
                 $curl_users = curl_init();
-
-                // Set cURL options for adding users
                 curl_setopt_array($curl_users, [
                     CURLOPT_URL => $usersUrl,
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POST => true,
-                    CURLOPT_HTTPHEADER => ['Content-Type: application/json'], // Set the Content-Type header
-                    CURLOPT_POSTFIELDS => $usersPostDataJson // Pass the JSON string here
+                    CURLOPT_POSTFIELDS => http_build_query(['payload' => $usersPostDataJson]), // Pass the JSON string here as 'payload'
+                    CURLOPT_TIMEOUT => 60 // Set a timeout of 60 seconds for the request
                 ]);
 
-                // Execute cURL request to add users
                 $users_response = curl_exec($curl_users);
-                // Check for errors
-                if(curl_errno($curl_users)) {
+                
+                // Check for errors in cURL request for adding users
+                if (curl_errno($curl_users)) {
                     $error = curl_error($curl_users);
                     curl_close($curl_users);
-                    return "cURL Error adding users: $error";
+                    // Handle the error gracefully, you can log it or display a message
+                    echo "cURL Error adding users: $error\n";
+                } else {
+                    // Output the response
+                    echo $users_response;
                 }
-    
-                // Close cURL session for adding users
+                
+                // Close cURL session for adding users to the custom audience
                 curl_close($curl_users);
-    
-                // For example, you can return the response to the caller
-                return $users_response;
+                
+                // Return a message with the total estimated users added
+                return "All records processed successfully.";
                 return json_encode($result);
             }
         }

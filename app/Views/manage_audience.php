@@ -97,12 +97,12 @@ $get_facebook_page = $result->getResultArray();
                <div class="main-selectpicker fs-12">
                   <select class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12">
                      <?php
-                     if (isset($get_facebook_page) && !empty($get_facebook_page)) {
-                        foreach ($get_facebook_page as $key => $value) {
-                           echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
-                                ' . $value['fb_app_name'] . '</option>';
-                        }
-                     }
+                     // if (isset($get_facebook_page) && !empty($get_facebook_page)) {
+                     //    foreach ($get_facebook_page as $key => $value) {
+                     //       echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
+                     //            ' . $value['fb_app_name'] . '</option>';
+                     //    }
+                     // }
                      ?>
                   </select>
                </div>
@@ -469,11 +469,45 @@ $get_facebook_page = $result->getResultArray();
                         </div>
                      </div>
                   </div>
-                  <div class="col-12 mt-2 mb-3">
+                  <div class="col-12">
                      <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
                         <div
                            class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
                            style="width:30px;height:30px;">2</div>
+                           Synchronize Data With Social Media
+                     </h6>
+                     <div class="col-12 mt-1 ms-5">
+                        <div class="main-selectpicker ">
+                           <label for="#"><input type="checkbox" class="me-2 per_face_drop_1" id="per_face_drop" name="option"
+                                 value="">Facebook</label>
+                           <div class="col-12 d-none platform_selecter mt-2 ">
+                              <div class="main-selectpicker fs-12 col-6">
+                                 <select id="pages_namess"
+                                    class="selectpicker form-control form-main pages_name WhatsAppConnectionsDropDown main-control fs-12"
+                                    name="pages_name">
+                                    <option value="0">Select pages</option>
+                                    <?php
+                                    $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
+                                    $fb_page_list = fb_page_list($token);
+                                    $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                                    $i = 0;
+                                    foreach ($fb_page_list['page_list'] as $key => $value) {
+                                       ?>
+                                       <option value="<?php echo $value->id; ?>">
+                                          <?php echo $value->name; ?>
+                                       </option>
+                                    <?php } ?>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12 mt-2 mb-3">
+                     <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
+                        <div
+                           class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
+                           style="width:30px;height:30px;">3</div>
                         Prepare your file Data
                      </h6>
                      <div class="col-12 d-flex flex-wrap">
@@ -488,7 +522,7 @@ $get_facebook_page = $result->getResultArray();
                      <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
                         <div
                            class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
-                           style="width:30px;height:30px;">3</div>
+                           style="width:30px;height:30px;">4</div>
                         Inq file upload <sup class="validationn">*
                      </h6>
                      <div class="col-12 d-flex flex-wrap">
@@ -654,16 +688,16 @@ $get_facebook_page = $result->getResultArray();
                               name="pages_name">
                               <option value="0">Select pages</option>
                               <?php
-                              $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
-                              $fb_page_list = fb_page_list($token);
-                              $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                              $i = 0;
-                              foreach ($fb_page_list['page_list'] as $key => $value) {
+                              // $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
+                              // $fb_page_list = fb_page_list($token);
+                              // $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                              // $i = 0;
+                              // foreach ($fb_page_list['page_list'] as $key => $value) {
                                  ?>
-                                 <option value="<?php echo $value->id; ?>">
-                                    <?php echo $value->name; ?>
+                                 <option value="<?php //echo $value->id; ?>">
+                                    <?php //echo $value->name; ?>
                                  </option>
-                              <?php } ?>
+                              <?php //} ?>
                            </select>
                         </div>
                      </div>
@@ -1180,6 +1214,10 @@ $get_facebook_page = $result->getResultArray();
       // Get the value of the checked radio button
       var source = $("input[id='flexRadioDefault2']:checked").val();
       import_formdata.append('source', source);
+      var facebook_syncro= $(".per_face_drop_1").is(":checked") ? 1 : 0; // Check if the checkbox is checked
+      import_formdata.append('facebook_syncro', facebook_syncro);
+      var pages_name = $("#pages_namess").val(); // Get the selected option value
+      import_formdata.append('pages_name', pages_name);
       if (name != "") {
          // Send the AJAX request
          $.ajax({
