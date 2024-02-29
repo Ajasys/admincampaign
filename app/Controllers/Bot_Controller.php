@@ -761,7 +761,7 @@ class Bot_Controller extends BaseController
 		foreach ($botdisplaydata as $key => $value) {
 			if ($value['bot_id'] == $bot_id) {
 				$html .= '
-					<div class="col-12 w-100 d-flex flex-wrap p-2 cursor-pointer drag_question">
+					<div class="col-12 w-100 d-flex flex-wrap p-2 cursor-pointer drag_question" ondragstart="dragStart(event)" ondragend="dragEnd(event)" draggable="true">
 						<div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
 							<div class="col-12 col-sm-10 d-flex flex-wrap align-items-center">
 								<label class="text-wrap px-2" for="">';
@@ -2512,7 +2512,11 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 
 	public function bot_id_to_quotation()
 	{
-	
+		// Initialize $i to 1 if it's not set in the session
+		if (!isset($_SESSION['i'])) {
+			$_SESSION['i'] = 1;
+		}
+
 		if (isset($_POST['id']) && !empty($_POST['id'])) {
 			$bot_id = $_POST['id'];
 		} else {
@@ -2523,25 +2527,34 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		$db_connection = \Config\Database::connect('second');
 		$bot_data = $db_connection->query($query);
 		$bot_data_get = $bot_data->getResultArray();
-		$html="";
-		$html.='<ul id="occupation" class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_select_second_1 occupation_add" data-live-search="true">
-            <li class="first-li text-nowrap overflow-hidden" data-question_value="">No Jump</li>
-            <li class="col-12 overflow-auto border rounded min-selectbox d-none" style="position:absolute; top:36px; left:-1px; background:white; min-height:50px; max-height:250px; z-index: 999;">
-                <ul class="list-unstyled second-li-container">'; 
-                                    
-				if (isset($bot_data_get)) {
-					foreach ($bot_data_get as $type_key => $type_value) {
-						$html.='<li class="dropdown-item second-li rounded d-flex align-items-center p-3" data-question_value="'.$type_value["id"].'">' . $type_value["question"] . '</li>';
-					}
-				}
-				$html.='     </ul>
-							</li>
-						</ul>';
-		// $html.=' </select>';
+		$html = "";
+		$i = $_SESSION['i']; 
+
+		if(isset($_POST['row_counter'])){
+			$row_counter = $_POST['row_counter'];
+		}else{
+			$row_counter = '1';
+		}
+		$html .= '<select class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_flow_'.$row_counter.' question_select_second_'.$i.' occupation_add" aria-label="Default select example">
+					<option>No Jump</option>';
+		
+		if (isset($bot_data_get)) {
+			foreach ($bot_data_get as $type_key => $type_value) {
+				$html .= '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+			}
+		}
+
+		$html .= '</select>';
+		
+		// Increment $i and update it in the session
+		$i++;
+		$_SESSION['i'] = $i;
+
 		$result['html'] = $html;
 		return json_encode($result);
 		die();
 	}
+
 
 
 	// public function web_bot_integrate()

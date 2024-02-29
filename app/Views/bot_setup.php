@@ -1243,7 +1243,7 @@ option {
 
 
                 <div class="col-12 col-lg-8 p-1 ">
-                    <div class="main-task col-12 border rounded-3 bg-white overflow-y-scroll  ps-3 overflow-y-scroll bot_list" style="height:80vh" style="max-height:546.8px">
+                    <div class="main-task col-12 border rounded-3 bg-white overflow-y-scroll  ps-3 overflow-y-scroll bot_list" style="height:80vh" style="max-height:546.8px"  ondrop="drop(event)" ondragover="allowDrop(event)">
                         <!-- <div class="col-12 w-100 d-flex flex-wrap p-2">
                             <div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
                                 <div class="col-10 d-flex flex-wrap align-items-center">
@@ -3243,24 +3243,41 @@ option {
 
 
     //drag and drop controller question js
-    var targetSequence;
-    var targetQuestionId;
     $('body').on('dragstart', '.drag_question', function(e) {
         $(this).addClass('dragging');
         e.originalEvent.dataTransfer.setData("text/plain", event.target.id);
+
         $('.droppable').css("outline", "2px dotted black");
         $('.droppable').css("background-color", "#d5d5d5");
 
         targetSequence = parseInt($(this).find('.sequence').data('sequence'));
         targetQuestionId = $(this).find('.question_delete').data('question');
     });
+
     $('body').on('dragend', '.drag_question', function(e) {
         $(this).removeClass('dragging');
         $('.droppable').css("outline", "3px dotted transparent");
         $('.droppable').css("background-color", "#f4f4f6");
+
     });
+
     $('body').on('dragover', '.drag_question', function(e) {
         e.preventDefault();
+
+        var windowHeight = $(window).height();
+        var currentPosition = e.clientY;
+
+        if (currentPosition > windowHeight - 100) {
+            $('html, body').animate({
+                scrollTop: '+= ' + scrollSpeed
+            }, 0);
+        }
+
+        if (currentPosition < 100) {
+            $('html, body').animate({
+                scrollTop: '-= ' + scrollSpeed
+            }, 0);
+        }
     });
 </script>
 
@@ -3424,7 +3441,9 @@ option {
 
         function table_html() {
             row_counter++;
-            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_counter + '" placeholder="Enter the option" value=""></td><td class="col-3"><select class="form-select bot_idd_append" aria-label="Default select example" id="bot_idd_append_' + row_counter + '">';
+            <?php $randomNumbers = rand(1, 100) .  rand(1, 100) . rand(1, 100); ?>
+            var randomNumbers = '<?php echo $randomNumbers; ?>';
+            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_counter + '" placeholder="Enter the option" value=""></td><td class="col-3"><select Counts ="'+randomNumbers+'" class="form-select bot_idd_append CommonFirstSelctpicker FirstSlectpicker'+randomNumbers+'" aria-label="Default select example" id="bot_idd_append_' + row_counter + '">';
 
             <?php
             if (isset($admin_bot)) {
@@ -3435,7 +3454,7 @@ option {
             }
             ?>
 
-            main_table_html += '</select></td><td class="col-3"><div class="main-selectpicker bot_quotation_list_append_' + row_counter + '"><select class="form-select question_select_second_' + row_counter + '" aria-label="Default select example"><option>No Jump</option>';
+            main_table_html += '</select></td><td class="col-3"><div Counts ="'+randomNumbers+'"  class="main-selectpicker CommonSecondSelctpicker SecondSlectpicker'+randomNumbers+'  bot_quotation_list_append_' + row_counter + '" ><select class="form-select  question_select_second_' + row_counter + '" aria-label="Default select example"><option>No Jump</option>';
 
             var options = <?php echo $encoded_options; ?>;
             options.forEach(function(option) {
@@ -4221,9 +4240,10 @@ option {
                             });
                         }
 
+                        console.log(menu_message);
                         if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                             if (menu_message && menu_message.options_value && menu_message.options_value.options) {
-                                // console.log(menu_message);
+                                console.log(menu_message);
                                 var optionsArray = menu_message.options_value.options.split(';');
                                 $(".main-plan").remove();
                                 var id_array = response[0].next_questions;
@@ -4618,142 +4638,109 @@ option {
     var row_counter = 0;
     //question update
     $("body").on('click', '.update_question', function(e) {
-    e.preventDefault();
-    var update_id = $(this).attr("data-id");
-    var type_of_question = $(this).attr("data-type_of_question");
-    var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+        e.preventDefault();
+        var update_id = $(this).attr("data-id");
+        var type_of_question = $(this).attr("data-type_of_question");
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
 
-    var editor = editors['.Email_Add_Ckeditor'];
-    if (editor) {
-        var htmlContent = editor.getData();
-    }
-
-    var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
-
-    var error_text = $('#Question_error_message').val();
-
-    if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
-        var remove_menuArray = [];
-        var remove_menu = $(".menu_message").is(":checked") ? "true" : "false";
-        var remove_menuArray = {
-            remove_menu: remove_menu,
-        };
-        var options_value = JSON.stringify(remove_menuArray);
-        if (options_value === 'undefined') {
-            options_value = '';
+        var editor = editors['.Email_Add_Ckeditor'];
+        if (editor) {
+            var htmlContent = editor.getData();
         }
+
+        var skip_question = $(".skip_question").is(":checked") ? "1" : "0";
+
         var error_text = $('#Question_error_message').val();
-    }
 
-    if (type_of_question == "2" || type_of_question == "40" || type_of_question == "42") {
-        
-
-        var comined = {};
-        var options = $('.single_choice_options').val();
-        comined.options = options;
-        for (var i = 1; i <= 100; i++) {
-            var options_i = $('.single_choice_options_' + i).val();
-            var question_select = $('.question_select').val();
-            if (options_i) {
-                if (comined.options !== "") {
-                    comined.options += ";";
-                }
-                comined.options += options_i;
+        if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
+            var remove_menuArray = [];
+            var remove_menu = $(".menu_message").is(":checked") ? "true" : "false";
+            var remove_menuArray = {
+                remove_menu: remove_menu,
+            };
+            var options_value = JSON.stringify(remove_menuArray);
+            if (options_value === 'undefined') {
+                options_value = '';
             }
+            var error_text = $('#Question_error_message').val();
         }
-        console.log(comined);
 
-        
-        var comined_sub_flow = {};
-        comined_sub_flow.options = ''; 
-        var options = $('.bot_idd').val();
-        comined_sub_flow.options = options; 
-        var firstOptionSelected = true; 
-        for (var i = 1; i <= 100; i++) {
-            var options_i = $('#bot_idd_append_' + i).val();
-            if (options_i) {
-                if (!firstOptionSelected) { 
-                    if (comined_sub_flow.options !== "") {
-                        comined_sub_flow.options += ";";
+        if (type_of_question == "2" || type_of_question == "40" || type_of_question == "42") {
+            var comined = {};
+            var options = $('.single_choice_options').val();
+            comined.options = options;
+            for (var i = 1; i <= 100; i++) {
+                var options_i = $('.single_choice_options_' + i).val();
+                var question_select = $('.question_select').val();
+                if (options_i) {
+                    if (comined.options !== "") {
+                        comined.options += ";";
                     }
-                    comined_sub_flow.options += options_i;
-                } else {
-                    firstOptionSelected = false; 
+                    comined.options += options_i;
                 }
             }
-        }
-        console.log(comined_sub_flow);
 
-
-        var comined_jump_flow = {};
-        comined_jump_flow.options = ''; 
-        var options = $('.question_select_second').val();
-        var question = $('.first-li').attr('data-question_value');
-        console.log(question);
-        comined_jump_flow.options = options; 
-        var firstOptionSelected = true; 
-        for (var i = 1; i <= 100; i++) {
-            var options_i = $('.question_select_second_' + i).val();
-            if (options_i) {
-                if (!firstOptionSelected) { 
-                    if (comined_jump_flow.options !== "") {
-                        comined_jump_flow.options += ";";
+            var comined_sub_flow = {};
+            comined_sub_flow.options = ''; 
+            var options = $('.bot_idd').val();
+            comined_sub_flow.options = options; 
+            var firstOptionSelected = true; 
+            for (var i = 1; i <= 100; i++) {
+                var options_i = $('#bot_idd_append_' + i).val();
+                if (options_i) {
+                    if (!firstOptionSelected) { 
+                        if (comined_sub_flow.options !== "") {
+                            comined_sub_flow.options += ";";
+                        }
+                        comined_sub_flow.options += options_i;
+                    } else {
+                        firstOptionSelected = false; 
                     }
-                    comined_jump_flow.options += options_i;
-                } else {
-                    firstOptionSelected = false; 
                 }
             }
+
+            var comined_jump_flow = {};
+            comined_jump_flow.options = ''; 
+            var options = $('.question_select_second').val();
+    
+            comined_jump_flow.options = options; 
+            var firstOptionSelected = true; 
+            for (var i = 1; i <= 100; i++) {
+                var options_i = $('.question_select_second_' + i).val();
+                if (options_i) {
+                    if (!firstOptionSelected) { 
+                        if (comined_jump_flow.options !== "") {
+                            comined_jump_flow.options += ";";
+                        }
+                        comined_jump_flow.options += options_i;
+                    } else {
+                        firstOptionSelected = false; 
+                    }
+                }
+            }
+
+           
+            var combinedArray = [];
+            var single_choice_option = [];
+            for (var i = 0; i < 100; i++) {
+                var option = comined.options.split(';')[i] || '';
+                var subFlow = comined_sub_flow.options.split(';')[i] || '';
+                var jumpQuestion = comined_jump_flow.options.split(';')[i] || '';
+
+                if (option && subFlow && jumpQuestion) {
+                    single_choice_option.push({
+                        'option': option,
+                        'sub-flow': subFlow,
+                        'jump_question': jumpQuestion
+                    });
+                }
+            }
+
+            localStorage.setItem('single_choice_option', JSON.stringify(single_choice_option));
+            var retrievedArray = JSON.parse(localStorage.getItem('single_choice_option'));
+            var options_value = JSON.stringify(single_choice_option);
+            var selectedOptions = comined_jump_flow.options.split(';').join(',');
         }
-
-
-        console.log(comined_jump_flow);
-
-
-        die();
-    }
-
-
-
-        // if (type_of_question == "2" || type_of_question == "40" || type_of_question == "42") {
-        //     var selectedOptions = $('.question_select_second').map(function() {
-        //         return $(this).val();
-        //     }).get();
-
-        //     selectedOptions = selectedOptions.filter(function(option) {
-        //         return option !== "";
-        //     });
-
-        //     if (!Array.isArray(selectedOptions)) {
-        //         selectedOptions = {
-        //             selectedOptions
-        //         };
-        //     }
-
-        //     // console.log(selectedOptions);
-        //     var comined = {};
-        //     var options = $('.single_choice_options').val();
-        //     comined.options = options;
-        //     for (var i = 1; i <= 3; i++) {
-        //         var options_i = $('.single_choice_options_' + i).val();
-        //         var question_select = $('.question_select').val();
-        //         if (options_i) {
-        //             if (comined.options !== "") {
-        //                 comined.options += ";";
-        //             }
-        //             comined.options += options_i;
-        //         }
-        //     }
-        //     var combinedArray = {
-        //         options_value: comined,
-        //         selectedOptions: selectedOptions
-        //     };
-        //     var options_value = JSON.stringify(combinedArray);
-        // }
-
-
-        
-
 
 
         if (type_of_question == "3") {
@@ -7720,18 +7707,25 @@ option {
         });
     });
 
+
     $('body').on('change', '.bot_idd_append', function(e) {
-        var row_counter = $(this).attr('id').split('_').pop(); // Extract the row counter from the ID
+        var row_counter = $(this).attr('id').split('_').pop(); 
         var bot_idd = $(this).val();
+        // var uniquenumber = $(this).attr('Counts');
+        // console.log(uniquenumber);
         $.ajax({
             method: "post",
             url: "<?= site_url('bot_id_to_quotation'); ?>",
             data: {
-                'id': bot_idd
+                'id': bot_idd,
+                row_counter: row_counter
+                // 'uniquenumber': uniquenumber
             },
             success: function(res) {
-                var response = JSON.parse(res);
+                var response = JSON.parse(res);              
                 $('.bot_quotation_list_append_' + row_counter).html(response.html);
+                // $('.bot_quotation_list_append_' + uniquenumber).html(response.html);
+
             }
         });
     });
