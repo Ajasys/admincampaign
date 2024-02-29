@@ -708,33 +708,19 @@ class Bot_Controller extends BaseController
 	//bot delete question
 	public function bot_delete_data()
 	{
-		$delete_id = $this->request->getPost('id');
-		$table_username = getMasterUsername2();
-		$sql = 'SELECT * FROM ' . $table_username . '_bot_setup WHERE bot_id = ' . $delete_id;
+		if ($this->request->getPost("action") == "delete") {
+			$delete_id = $this->request->getPost('id');
+			$table_name = $this->request->getPost('table');
+			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
 
-		$db_connection = \Config\Database::connect('second');
-		$query = $db_connection->query($sql);
-		$result = $query->getResult();
-		
-		// If the query returns a result, proceed with the deletion
-		if (empty($result)) {
-			if ($this->request->getPost("action") == "delete") {
-				$delete_id = $this->request->getPost('id');
-				$table_name = $this->request->getPost('table');
-				$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
-
-				if (!isset($_POST['bot'])) {
-					$this->MasterInformationModel->delete_question_sequence($table_name);
-				}
-				$response = 1;
+			if (!isset($_POST['bot'])) {
+				$this->MasterInformationModel->delete_question_sequence($table_name);
 			}
-		} else {
-			$response = 0;
+			echo "success";
 		}
-
-		echo $response;
 		die();
 	}
+
 
 	public function bot_question_delete_data()
 	{
@@ -1043,8 +1029,7 @@ class Bot_Controller extends BaseController
 		$bot_chat_data_ss = !empty($bot_chat_data_ss) ? $bot_chat_data_ss : '';
 		$html = '';
 		$last_que_id = 0;
-		$bot_chat_data_ss_index = 0;
-		
+		$bot_chat_data_ss_index = 0;		
 		
 		if (!empty($bot_chat_data)) {
 			
@@ -2089,7 +2074,7 @@ class Bot_Controller extends BaseController
 								</div>
 								<div class="border h-100"></div>
 								<div class="col-8 p-2 d-flex flex-wrap justify-content-center">
-									<div class="card-body d-flex py-1 d-sm-block d-md-flex ">
+									<div class="card-body py-1 d-sm-block d-md-flex ">
 										<div class="d-flex justify-content-center">
 										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted bot_setup mb-2 mx-2"
 											data-toggle="tooltip" data-placement="top" title="Setup">
@@ -2120,7 +2105,7 @@ class Bot_Controller extends BaseController
 										</div>
 									</div>
 									<div
-										class="card-body d-flex flex-wrap py-1 px-2 justify-content-between align-items-center">
+										class="card-body d-flex flex-wrap py-1 px-2 justify-content-sm-between justify-content-center align-items-center">
 										<div class="form-check form-switch mx-2">
 											<input class="form-check-input bot_active dfg toggle-switch" type="checkbox" role="switch" id="is_active"
 												' . ($value['active'] == 1 ? 'checked' : '') . ' data-update_id="' . $value['id'] . '">
@@ -2540,19 +2525,19 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		$bot_data_get = $bot_data->getResultArray();
 		$html="";
 		$html.='<ul id="occupation" class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_select_second_1 occupation_add" data-live-search="true">
-            <li class="first-li text-nowrap overflow-hidden">No Jump</li>
+            <li class="first-li text-nowrap overflow-hidden" data-question_value="">No Jump</li>
             <li class="col-12 overflow-auto border rounded min-selectbox d-none" style="position:absolute; top:36px; left:-1px; background:white; min-height:50px; max-height:250px; z-index: 999;">
-                <ul class="list-unstyled second-li-container">'; // Nested ul for list items
+                <ul class="list-unstyled second-li-container">'; 
                                     
 				if (isset($bot_data_get)) {
 					foreach ($bot_data_get as $type_key => $type_value) {
-						$html.='<li class="dropdown-item second-li rounded d-flex align-items-center p-3" value="' . $type_value["id"] . '">' . $type_value["question"] . '</li>';
+						$html.='<li class="dropdown-item second-li rounded d-flex align-items-center p-3" data-question_value="'.$type_value["id"].'">' . $type_value["question"] . '</li>';
 					}
 				}
 				$html.='     </ul>
 							</li>
 						</ul>';
-		$html.=' </select>';
+		// $html.=' </select>';
 		$result['html'] = $html;
 		return json_encode($result);
 		die();
