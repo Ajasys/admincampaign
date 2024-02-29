@@ -172,7 +172,7 @@ class FaceBookController extends BaseController
             $html .= '<option value="0">Select Page</option>';
             if (isset($fb_access_token) && $fb_check_conn == 1) {
                 if ($connection_id > 0) {
-                    $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where platform_id=" . $connection_id;
+                    $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages' AND platform_id=" . $connection_id;
                     $asset_result = $this->db->query($asset_query);
                     $pageresult = $asset_result->getResultArray();
                     if (isset($user_data)) {
@@ -222,7 +222,10 @@ class FaceBookController extends BaseController
                         $resultff['response'] = 1;
                         $resultff['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
                     }
-                    $delete_aasset = $this->MasterInformationModel->delete_entry2($this->username . '_platform_assets', $result_facebook_data['id'], 'platform_id');
+                    
+                    $delete_aasset = "DELETE FROM " . $this->username . "_platform_assets where asset_type='pages' AND platform_id='".$result_facebook_data['id']."'";
+                    $delete_aassetresult = $this->db->query($delete_aasset);
+
                     $asset_insert_data['platform_id'] = $result_facebook_data['id'];
                 } else {
                     $insert_data['access_token'] = $longLivedToken;
@@ -242,6 +245,7 @@ class FaceBookController extends BaseController
                 foreach ($pageresult['data'] as $aa_key => $aa_value) {
                     $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $aa_value['id'] . '/picture?redirect=false&&access_token=' . $aa_value['access_token'] . '');
                     $asset_insert_data['master_id'] = $_SESSION['master'];
+                    $asset_insert_data['asset_type'] = 'pages';
                     $asset_insert_data['asset_id'] = $aa_value['id'];
                     $asset_insert_data['access_token'] = $aa_value['access_token'];
                     $asset_insert_data['asset_img'] = $response_pictures['data']['url'];

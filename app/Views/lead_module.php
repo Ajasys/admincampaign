@@ -1395,6 +1395,7 @@ $user_data = $user_result->getResultArray();
                             data: {
                                 fb_access_token: editresult.result['access_token'],
                                 fb_check_conn: editresult.result['verification_status'],
+                                connection_id:editresult.result['connection_id'],
                                 action: 'user'
                             },
                             success: function (res) {
