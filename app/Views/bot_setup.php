@@ -2252,7 +2252,7 @@ option {
                                                 <span>Select data from SDK Object / Whatsapp User Info</span>
                                             </div>
                                             <div class="col-12 my-2">
-                                                <div class="col-5 p-2">
+                                                <div class="col-10 col-sm-5 p-2">
                                                     <div class="main-selectpicker">
                                                         <select class="selectpicker form-control form-main main-control" aria-label="Default select example" data-live-search="true" required="" tabindex="-98">
                                                             <option selected>Open this select menu</option>
@@ -5701,23 +5701,23 @@ option {
                     <div class="col-12 d-flex flex-wrap px-2">
                         <div class="col-12">
                             <div class="ps-0 form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                                <label class="switch_toggle_primary">
+                                <label class="switch_toggle_primary col-2">
                                     <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 menu_message opacity-0 toggle_text" value="1" type="checkbox" id="Question-1">
                                     <div class="check_input_primary round" ></div>
                                 </label>
                                     
-                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                                <label class="col-10 form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-1" for="Question-1">Do Not Remove Menu Message (For Whatsapp)</label>
                             </div>
                         </div>
                         
                         <div class="col-12">
                             <div class="ps-0 form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ">
-                                <label class="switch_toggle_primary">
+                                <label class="switch_toggle_primary col-2">
                                     <input class="px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Question-2 skip_question opacity-0" type="checkbox" role="switch" id="Question-2">
                                     <div class="check_input_primary round" ></div>
                                 </label>
                                     
-                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
+                                <label class="col-10 form-check-label px-3 fw-medium d-flex align-items-center pt-1 Question-2" for="Question-2">Do Not Give Skip Option</label>
                             </div>
                         </div>
                         
@@ -5746,7 +5746,7 @@ option {
                                 <button type="button" class="btn-primary w-100">Do not show</button>
                             </div>
                         </div>
-                        <div class="col-12 d-flex flex-wrap my-3">
+                        <div class="col-12 d-flex flex-wrap my-3" style="min-width:450px;">
                             <table class="table w-100 col-12">
                                 <thead>
                                     <tr>
@@ -5889,29 +5889,29 @@ option {
                     <div class="col-12 d-flex flex-wrap ">
                        <div class="col-12">
                             <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
-                                <label class="switch_toggle_primary">
+                                <label class="switch_toggle_primary col-2">
                                     <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Email-1 remove_menu opacity-0" value="1" type="checkbox" id="Email-1">
                                     <div class="check_input_primary round" ></div>
                                 </label>
-                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-1" for="Email-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                                <label class="col-10 form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-1" for="Email-1">Do Not Remove Menu Message (For Whatsapp)</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
-                                <label class="switch_toggle_primary">
+                                <label class="switch_toggle_primary col-2">
                                     <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Email-2 company_emails_only opacity-0" value="1" type="checkbox" id="Email-2">
                                     <div class="check_input_primary round" ></div>
                                 </label>
-                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-2" for="Email-2">Do Not Restrict to Company Emails</label>
+                                <label class="col-10 form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-2" for="Email-2">Do Not Restrict to Company Emails</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
-                                <label class="switch_toggle_primary">
+                                <label class="switch_toggle_primary col-2">
                                     <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Email-3 is_strict_validation opacity-0" value="1" type="checkbox" id="Email-3">
                                     <div class="check_input_primary round" ></div>
                                 </label>
-                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-3" for="Email-3">No Strict Validation</label>
+                                <label class="col-10 form-check-label px-3 fw-medium d-flex align-items-center pt-1 Email-3" for="Email-3">No Strict Validation</label>
                             </div>
                         </div>
                         <div class="col-12 my-2">
@@ -5930,13 +5930,13 @@ option {
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap single-choice">
                         <div class="col-12 d-flex flex-wrap">
-                            <div class="col-3 p-1">
+                            <div class="col-4 col-sm-3 p-1">
                                 <label class="form-check-label fw-semibold d-flex align-items-center py-2 single-choice-show-options">Show Options</label>
                             </div>
-                            <div class="col-3 p-1">
+                            <div class="col-4 col-sm-3 p-1">
                                 <button type="button" class="btn-primary w-100">Vertically</button>
                             </div>
-                            <div class="col-3 p-1">
+                            <div class="col-4 col-sm-3 p-1">
                                 <button type="button" class="btn-primary w-100">Dropdown</button>
                             </div>
                         </div>
@@ -5970,9 +5970,9 @@ option {
                             </div>
                         </div>
                         <div class="col-12 my-3">
-                            <div class="col-8 d-flex flex-wrap align-items-center">
-                                <span>Maximum number of options user can select</span>
-                                <span class="col-1 mx-2"><input type="number" class="form-control" id="" value="1"></span>
+                            <div class="col-12  d-flex flex-wrap align-items-center">
+                                <span class="col-8 col-sm-7 col-lg-6">Maximum number of options user can select</span>
+                                <span class="col-2 col-sm-1 mx-2"><input type="number" class="form-control" id="" value="1"></span>
                             </div>
                         </div>
                     </div>
@@ -5985,11 +5985,11 @@ option {
                         <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0 ">
                             <div class="col-12">
                                 <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
-                                    <label class="switch_toggle_primary">
+                                    <label class="switch_toggle_primary col-2">
                                         <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Mobile-1 menu_message opacity-0" value="1" type="checkbox" id="Mobile-1">
                                         <div class="check_input_primary round" ></div>
                                     </label>
-                                    <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Mobile-1" for="Mobile-1">Do Not Remove Menu Message (For Whatsapp)</label>
+                                    <label class="col-10 form-check-label px-3 fw-medium d-flex align-items-center pt-1 Mobile-1" for="Mobile-1">Do Not Remove Menu Message (For Whatsapp)</label>
                                 </div>
                             </div>
                         </div>
@@ -6010,21 +6010,21 @@ option {
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap px-2">
                                <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
-                                    <label class="switch_toggle_primary">
+                                    <label class="switch_toggle_primary col-2">
                                         <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question opacity-0" value="1" type="checkbox" id="Number-1">
                                         <div class="check_input_primary round" ></div>
                                     </label>
-                                    <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
+                                    <label class="col-10 form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
                                 </div>
                         <div class="col-12 my-2 d-flex flex-wrap">
                             <form class="col-12">
-                                <div class="col-6 px-2">
+                                <div class="col-12 col-sm-6 px-2">
                                     <div class="col-12">
                                         <label for="" class="form-label">Minimum Value</label>
                                         <input type="number" class="form-control minimum_value" id="" aria-describedby="" placeholder="Enter Minimum Value">
                                     </div>
                                 </div>
-                                <div class="col-6 px-2">
+                                <div class="col-12 col-sm-6 px-2">
                                     <div class="col-12">
                                         <label for="" class="form-label">Maximum Value</label>
                                         <input type="number" class="form-control maximum_value" id="" placeholder="Enter Maximum Value">
@@ -6209,7 +6209,7 @@ option {
                                 <span>Rating Type</span>
                             </div>
                         </div>
-                        <div class="col-12 my-2">
+                        <div class="col-12 my-2" style="min-width:550px;">
 
                         <div class="row">
                                 <div class="col-4">
@@ -6308,74 +6308,74 @@ option {
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap">
                         <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
-                            <div class="col-1">
+                            <div class="col">
                                 <span><b>NOTE:</b></span>
                             </div>
                             <div class="col-11">
                                 <span>Please note that the below conditions are an intersection of each other.</span>
                             </div>
                         </div>
-                        <div class="col-12 d-flex flex-wrap p-3 px-5 my-2 border rounded-3">
-                            <div class="form-check form-check-inline col">
+                        <div class="col-12 d-flex flex-wrap p-3 px-2 px-md-5 my-2 border rounded-3">
+                            <div class="form-check form-check-inline ">
                                 <input class="form-check-input days_val fw-bold mon_val" type="checkbox" id="" value="MON" checked>
                                 <label class="form-check-label fw-semibold" for="">MON</label>
                             </div>
-                            <div class="form-check form-check-inline col">
+                            <div class="form-check form-check-inline ">
                                 <input class="form-check-input days_val fw-bold tue_val" type="checkbox" id="" value="TUE" checked>
                                 <label class="form-check-label fw-semibold" for="">TUE</label>
                             </div>
-                            <div class="form-check form-check-inline col">
+                            <div class="form-check form-check-inline ">
                                 <input class="form-check-input days_val fw-bold wed_val" type="checkbox" id="" value="WED" checked>
                                 <label class="form-check-label fw-semibold" for="">WED</label>
                             </div>
-                            <div class="form-check form-check-inline col">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input days_val fw-bold thu_val" type="checkbox" id="" value="THU" checked>
                                 <label class="form-check-label fw-semibold" for="">THU</label>
                             </div>
-                            <div class="form-check form-check-inline col">
+                            <div class="form-check form-check-inline ">
                                 <input class="form-check-input days_val fw-bold fri_val" type="checkbox" id="" value="FRI" checked>
                                 <label class="form-check-label fw-semibold" for="">FRI</label>
                             </div>
-                            <div class="form-check form-check-inline col">
+                            <div class="form-check form-check-inline ">
                                 <input class="form-check-input days_val fw-bold sat_val" type="checkbox" id="" value="SAT" checked>
                                 <label class="form-check-label fw-semibold" for="">SAT</label>
                             </div>
-                            <div class="form-check form-check-inline col">
+                            <div class="form-check form-check-inline ">
                                 <input class="form-check-input days_val fw-bold sun_val" type="checkbox" id="" value="SUN" checked>
                                 <label class="form-check-label fw-semibold" for="">SUN</label>
                             </div>
                         </div>
-                        <div class="col-12 d-flex flex-wrap p-3 px-5 my-2 border rounded-3">
+                        <div class="col-12 d-flex flex-wrap p-3 px-2 px-md-5 my-2 border rounded-3">
                             <div class="col-12 d-flex flex-wrap align-items-center my-1">
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <span class="fw-medium">Select Date Range</span>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <input type="text" class="form-control date_range1 start_date_range"  id="" value="" placeholder="DD-MM-YYYY">
                                     </div>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <input type="text" class="form-control date_range2 end_date_range" id="" value="" placeholder="DD-MM-YYYY">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 d-flex flex-wrap align-items-center my-1">
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <span class="fw-medium">Enable Future Days</span>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <input type="number" class="form-control enableFutureDays" id="" value="" placeholder="">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 d-flex flex-wrap align-items-center my-1">
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <span class="fw-medium">Enable Past (Days)</span>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <input type="number" class="form-control enablePasteDays" id="" value="" placeholder="">
                                     </div>
@@ -6384,10 +6384,10 @@ option {
                         </div>
                         <div class="col-12 d-flex flex-wrap p-3 px-5 my-2 border rounded-3">
                             <div class="col-12 d-flex flex-wrap align-items-center my-1">
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <span class="fw-medium">Output Format</span>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <input type="text" class="form-control date_output_format" id="" value="dd-mm-yyyy" placeholder="">
                                     </div>
@@ -6403,11 +6403,11 @@ option {
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap px-2">
                     <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
-                                    <label class="switch_toggle_primary">
+                                    <label class="switch_toggle_primary col-2">
                                         <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Number-1 skip_question opacity-0" value="1" type="checkbox" id="Number-1">
                                         <div class="check_input_primary round" ></div>
                                     </label>
-                                    <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
+                                    <label class="col-10 form-check-label px-3 fw-medium d-flex align-items-center pt-1 Number-1" for="Number-1">Do Not Give Skip Option</label>
                                 </div>
                     </div>
                 </form>
@@ -6418,11 +6418,11 @@ option {
                     <div class="col-12 d-flex flex-wrap">
                         <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
                             <div class="form-check form-switch d-flex flex-wrap align-items-center col-12 my-2 ps-0">
-                                <label class="switch_toggle_primary">
+                                <label class="switch_toggle_primary col-2">
                                     <input class="toggle-checkbox px-3 fs-4 text-emphasis-success d-flex align-items-center pb-1 Location-1 skip_question opacity-0" value="1" type="checkbox" id="Location-1">
                                     <div class="check_input_primary round" ></div>
                                 </label>
-                                <label class="form-check-label px-3 fw-medium d-flex align-items-center pt-1 Location-1" for="Location-1">Do Not Give Skip Option</label>
+                                <label class="col-10 form-check-label px-3 fw-medium d-flex align-items-center pt-1 Location-1" for="Location-1">Do Not Give Skip Option</label>
                             </div>
                         </div>
                         <div class="col-12 my-2">
@@ -6463,7 +6463,7 @@ option {
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 my-2">
                         <div class="col-12 d-flex flex-wrap">
-                            <div class="col-6 px-2">
+                            <div class="col-12 col-sm-6 px-2">
                                 <div class="col-12">
                                     <label for="" class="form-label">Currency </label>
                                     <select class="form-select w-100 currency" aria-label="Default select example">
@@ -6479,7 +6479,7 @@ option {
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-6 px-2">
+                            <div class="col-12 col-sm-6 px-2">
                                 <div class="col-12">
                                     <label for="" class="form-label">Minimum Order Amount</label>
                                     <input type="number" class="form-control min_order_amount" id="" placeholder="" value="">
@@ -6487,13 +6487,13 @@ option {
                             </div>
                         </div>
                         <div class="col-12 mt-2 d-flex flex-wrap">
-                            <div class="col-6 px-2">
+                            <div class="col-12 col-sm-6 px-2">
                                 <div class="col-12">
                                     <label for="" class="form-label">Discount Percentage</label>
                                     <input type="number" class="form-control discount_percentage" id="" placeholder="" value="">
                                 </div>
                             </div>
-                            <div class="col-6 px-2">
+                            <div class="col-12 col-sm-6 px-2">
                                 <div class="col-12">
                                     <label for="" class="form-label">Tax Percentage</label>
                                     <input type="number" class="form-control tax_percentage" id="" placeholder="" value="">
@@ -6501,13 +6501,13 @@ option {
                             </div>
                         </div>
                         <div class="col-12 mt-2 d-flex flex-wrap">
-                            <div class="col-6 px-2">
+                            <div class="col-12 col-sm-6 px-2">
                                 <div class="col-12">
                                     <label for="" class="form-label">Delivery Charges</label>
                                     <input type="number" class="form-control delivery_charges" id="" placeholder="" value="">
                                 </div>
                             </div>
-                            <div class="col-6 px-2">
+                            <div class="col-12 col-sm-6 px-2">
                                 <div class="col-12">
                                     <label for="" class="form-label">Size</label>
                                     <input type="text" class="form-control size" id="" placeholder="" value="">
@@ -6515,10 +6515,10 @@ option {
                             </div>
                         </div>
                         <div class="col-12 mt-2 d-flex flex-wrap">
-                            <div class="col-6 px-2">
+                            <div class="col-12 col-sm-6 px-2">
 
                             </div>
-                            <div class="col-6 px-2">
+                            <div class="col-12 col-sm-6 px-2">
                                 <div class="col-12">
                                     <label for="" class="form-label">Note: Separate different string by comma(,). E.g. M,S,L Note: Size is Only for Instagram</label>
                                 </div>
@@ -6533,13 +6533,13 @@ option {
                     <div class="col-12 d-flex flex-wrap">
                         <div class="col-12 my-2">
                             <form class="col-12 d-flex flex-wrap">
-                                <div class="col-6 px-2">
+                                <div class="col-12 px-2">
                                     <div class="col-12">
                                         <label for="" class="form-label">Button Text :</label>
                                         <input type="text" class="form-control button_text" id="" aria-describedby="" value="Authenticator" placeholder="Set Button Text">
                                     </div>
                                 </div>
-                                <div class="col-6 px-2">
+                                <div class="col-12 px-2">
                                     <div class="col-12">
                                         <label for="" class="form-label">Button URL :</label>
                                         <input type="text" class="form-control button_url" id="" placeholder="">
@@ -6571,11 +6571,11 @@ option {
                         <div class="col-12 d-flex flex-wrap my-3">
                             <div class="form-check form-switch d-flex flex-wrap align-items-center col-4 m-2">
                                 <div class="d-flex align-items-center col-12 my-2">
-                                    <label class="switch_toggle_primary">
+                                    <label class="switch_toggle_primary col-2">
                                         <input class="toggle-checkbox Corousel-1 auto_slide_carousel" type="checkbox" id="Corousel-1">
                                         <span class="check_input_primary round"></span>
                                     </label>
-                                    <p class="mx-2 fw-medium Corousel-1">Do Not Auto Slide</p>
+                                    <p class="col-10 mx-2 fw-medium Corousel-1">Do Not Auto Slide</p>
                                 </div>
                             </div>
                             <div class="col-4 d-flex flex-wrap align-items-center corousel-sec-input d-none">
@@ -6612,7 +6612,7 @@ option {
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap">
                         <div class="col-12 d-flex flex-wrap border rounded-3 p-2">
-                            <div class="col-1">
+                            <div class="col">
                                 <span><b>NOTE:</b></span>
                             </div>
                             <div class="col-11">
@@ -6624,7 +6624,7 @@ option {
                                 <span><b>Google Calendar</b></span>
                             </div>
                             <div class="col-6 d-flex flex-wrap justify-content-center">
-                                <div class="input-group col-4">
+                                <div class="input-group col-12 col-sm-4">
                                     <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" disabled>
                                     <button class="btn-primary" type="button" id="button-addon2">Remove</button>
                                 </div>
@@ -6662,19 +6662,19 @@ option {
                         </div>
                         <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
                             <div class="col-12 d-flex flex-wrap align-items-center my-1">
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label ">Disable Next (Days)</label>
                                         <input type="number" class="form-control appointment_next_days" id="" placeholder="">
                                     </div>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label">End Date :</label>
                                         <input type="text" class="form-control appointment_date_range" id="" placeholder="">
                                     </div>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label">Enable Future (Days)</label>
                                         <input type="number" class="form-control appointment_period" id="" placeholder="">
@@ -6682,7 +6682,7 @@ option {
                                 </div>
                             </div>
                             <div class="col-12 d-flex flex-wrap align-items-center justify-content-between my-1">
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label">Enable Next (Days)</label>
                                         <input type="number" class="form-control appointment_period" id="" placeholder="">
@@ -6690,18 +6690,18 @@ option {
                                 </div>
                                 <div class="col-7 p-2 d-flex flex-wrap align-items-center">
                                     <div class="d-flex align-items-center col-12 my-2">
-                                        <label class="switch_toggle_primary">
+                                        <label class="switch_toggle_primary col-2">
                                             <input class="toggle-checkbox Appointment-1 enable_timezone_selection" type="checkbox" id="Appointment-1">
                                             <span class="check_input_primary round"></span>
                                         </label>
-                                        <p class="mx-2 fw-medium Appointment-1">Enable Timezone Selection</p>
+                                        <p class="col-10 mx-2 fw-medium Appointment-1">Enable Timezone Selection</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 d-flex flex-wrap p-3 my-2 border rounded-3">
                             <div class="col-12 d-flex flex-wrap align-items-center">
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label">Slot Timings :</label>
                                         <select class="form-select from_timing" aria-label="Default select example">
@@ -6714,7 +6714,7 @@ option {
 
                                     </div>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label"></label>
                                         <select class="form-select to_timing" aria-label="Default select example">
@@ -6728,7 +6728,7 @@ option {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label">Timezone</label>
                                         <select class="form-select timezone" aria-label="Default select example">
@@ -6738,13 +6738,13 @@ option {
                                 </div>
                             </div>
                             <div class="col-12 d-flex flex-wrap align-items-center">
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label">Slot Interval <span class="text-denger">*</span>(Mins) :</label>
                                         <input type="number" class="form-control interval" id="" placeholder="">
                                     </div>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label">Format</label>
                                         <select class="form-select format" aria-label="Default select example">
@@ -6754,7 +6754,7 @@ option {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <label for="" class="form-label">Meetings per slot </label>
                                         <input type="number" class="form-control bookings_per_slot" id="" placeholder="">
@@ -6767,14 +6767,14 @@ option {
                                 <div class="col-12">
                                     <label for="" class="form-label">Data Referencing (You can use it only for Title) </label>
                                 </div>
-                                <div class="col-4 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-4 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <select class="form-select" aria-label="Default select example">
                                             <option selected>Main Flow</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-8 p-2 d-flex flex-wrap align-items-center">
+                                <div class="col-12 col-sm-8 p-2 d-flex flex-wrap align-items-center">
                                     <div class="col-12">
                                         <select class="form-select appointment_jump_question" aria-label="Default select example">
                                             <?php
@@ -6851,11 +6851,11 @@ option {
                         <div class="col-12 d-flex flex-wrap my-3">
                             <div class="d-flex flex-wrap align-items-center col-4 m-2">
                                 <div class="d-flex align-items-center ">
-                                    <label class="switch_toggle_primary">
+                                    <label class="switch_toggle_primary col-2">
                                         <input class="toggle-checkbox proudect-1 auto_slide_carousel" type="checkbox" id="proudect-1">
                                         <span class="check_input_primary round"></span>
                                     </label>
-                                    <p class="mx-2 fw-medium proudect-1">Do Not Auto Slide</p>
+                                    <p class="col-10 mx-2 fw-medium proudect-1">Do Not Auto Slide</p>
                                 </div>
                             </div>
                             <div class="col-4 d-flex flex-wrap  align-items-center proudect-corousel-sec-input second-remove">
@@ -6882,11 +6882,11 @@ option {
                         <div class="col-12 d-flex flex-wrap my-3">
                             <div class="d-flex flex-wrap align-items-center col-4 m-2" style="height: 69px;">
                                 <div class="d-flex align-items-center ">
-                                    <label class="switch_toggle_primary">
+                                    <label class="switch_toggle_primary col-2">
                                         <input class="toggle-checkbox proudect-1" type="checkbox" id="proudect-1">
                                         <span class="check_input_primary round auto_slide_carousel"></span>
                                     </label>
-                                    <p class="mx-2 fw-medium proudect-1">Do Not Auto Slide</p>
+                                    <p class="col-10 mx-2 fw-medium proudect-1">Do Not Auto Slide</p>
                                 </div>
                             </div>
 
