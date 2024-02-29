@@ -91,6 +91,8 @@ $routes->get('email_connection', 'Home::email_connection');
 $routes->post('check_email_connection', 'EmailController::check_email_connection');
 $routes->get('/EmailConversions', 'Templates_Controller::template');
 $routes->post('email_link_track', 'Home::email_link_track');
+$routes->post('email_account_insert', 'EmailController::email_account_insert');
+
 
 $routes->get('/alert_setting', 'Home::alert_setting');
 $routes->post('/alert_update_data', 'Alertsetting::alert_update_data');
