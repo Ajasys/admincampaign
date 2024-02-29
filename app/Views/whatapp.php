@@ -1043,9 +1043,7 @@ if (!empty($connections)) {
                                                                     <label class=" pull-left full-width text-left m-b-15"><b>Note:
                                                                         </b> follow <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' target="_blank">csv</a>
                                                                         format for
-                                                                        reference</label>
-                                                                    <div class="col-12 mb-3 justify-content-center">
-                                                                        <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' class="text-secondary mx-1 mb-1 add_property_js add_user_role_css add_user-role-pdf">
+                                                                        reference <a href="<?php echo base_url('/assets/sample.csv'); ?>" download='sample.csv' class="text-secondary mx-1 mb-1 add_property_js add_user_role_css add_user-role-pdf">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="28" height="28" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                                                 <g>
                                                                                     <path d="M496 432.011H272c-8.832 0-16-7.168-16-16v-320c0-8.832 7.168-16 16-16h224c8.832 0 16 7.168 16 16v320c0 8.832-7.168 16-16 16z" style="" fill="#eceff1" data-original="#eceff1"></path>
@@ -1055,10 +1053,10 @@ if (!empty($connections)) {
                                                                                     <path d="m220.032 309.483-50.592-57.824 51.168-65.792c5.44-6.976 4.16-17.024-2.784-22.464-6.944-5.44-16.992-4.16-22.464 2.784l-47.392 60.928-39.936-45.632c-5.856-6.72-15.968-7.328-22.56-1.504-6.656 5.824-7.328 15.936-1.504 22.56l44 50.304-44.608 57.344c-5.44 6.976-4.16 17.024 2.784 22.464a16.104 16.104 0 0 0 9.856 3.36c4.768 0 9.472-2.112 12.64-6.176l40.8-52.48 46.528 53.152A15.874 15.874 0 0 0 208 336.011c3.744 0 7.488-1.312 10.528-3.968 6.656-5.824 7.328-15.936 1.504-22.56z" style="" fill="#fafafa" data-original="#fafafa"></path>
                                                                                 </g>
                                                                             </svg>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-6 mb-3 justify-content-center text-center">
-                                                                        <label for="" class="main-label main-label ">Upload<sup class="validationn">*</sup></label>
+                                                                        </a> </label>
+                                                                  
+                                                                    <div class="col-12 mb-3 mt-2">
+                                                                        <label for="" class="main-label main-label ">Upload CSV <sup class="validationn">*</sup></label>
                                                                         <input type="file" class="form-control main-control" id="import_file" name="import_file" placeholder="Details" required="">
                                                                     </div>
                                                                     <div class="col-12">
@@ -3059,7 +3057,7 @@ if (!empty($connections)) {
             formData.append('action', true);
              
            
-
+            if (Template_name != "" && uploade_file != "" && language != "") {
             $.ajax({
                 dataType: 'json',
                 method: "POST",
@@ -3087,6 +3085,10 @@ if (!empty($connections)) {
 
                 },
             });
+        }else{
+            $(".membershipDiv").addClass("was-validated");
+
+        }
 
         });
         var SendURL;
