@@ -162,9 +162,9 @@
         </div> -->
         <div class="col-12  d-flex flex-wrap justify-content-sm-center justify-content-lg-start mt-2">
             <div class="first-container slide-toggle me-2">
-                <div class="accordion  border  email_account_show" id="accordionExample">
+            <div class="col-12 email_account_show"></div>
 
-                </div>
+
                 <!-- backend-with design -->
                 <div class="col-12 bg-white border rounded-3 px-4 py-3 d-flex flex-wrap">
                     <div class="col-12 d-flex flex-wrap w-100 ">
@@ -263,7 +263,7 @@
                                                 <div class="d-flex align-items-center justify-content-between">
 
                                                     <div class="d-flex justify-content-end col-12">
-                                                        
+
                                                         <span class="btn-primary-rounded changes_of_model changes_of_email_add ms-2" data-bs-toggle="modal" data-bs-target="#add-email" data-bs-dismiss="modal" data-delete_id="">
                                                             <i class="bi bi-plus"></i>
                                                         </span>
@@ -340,7 +340,7 @@
                                     </div>
                                     <div class="col d-flex justify-content-start align-items-center">
                                         <button type="button" class="btn rounded-circle hover-effect mx-1 rotate-icon" style="--bs-btn-hover-border-color: white; --bs-btn-active-border-color: white;"><i class="fa-solid fa-rotate-right"></i></button>
-                                            <button type="button" class="btn rounded-circle hover-effect mx-1 deleted-all_mail main-select-section" style="--bs-btn-hover-border-color: white; --bs-btn-active-border-color: white;"><i class="fa-solid fa-trash-can"></i></button>
+                                        <button type="button" class="btn rounded-circle hover-effect mx-1 deleted-all_mail main-select-section" style="--bs-btn-hover-border-color: white; --bs-btn-active-border-color: white;"><i class="fa-solid fa-trash-can"></i></button>
                                         <button type="button" class="btn rounded-circle hover-effect mx-1" style="--bs-btn-hover-border-color: white; --bs-btn-active-border-color: white;"><i class="fa-solid fa-ellipsis-vertical mx-1"></i></button>
                                     </div>
                                 </div>
@@ -1140,7 +1140,6 @@
         $('.select_wne').trigger('click');
     });
 
-
     $('.smstemplate_select_lable_div').on('change', function() {
         var selec_option = $(this).val();
         if (selec_option != "") {
@@ -1154,6 +1153,12 @@
 
     $('body').on('click', '.select_sms_diif', function() {
         $('.select_sms').trigger('click');
+    });
+    
+
+    $('body').on('click', '.accordion-button', function() {
+        $('.accordion-collapse').collapse('hide');
+        $(this).data('bs-target').collapse('show');
     });
 </script>
 <!-- checkbox for sms/whatapp/email end =======================================================-->
@@ -1902,7 +1907,7 @@
         $(this).children('i').toggleClass('d-none');
     })
 
-    function mail_get(uid, data_from_email, data_host_name,tabmail_id = '',email_id = '') {
+    function mail_get(uid, data_from_email, data_host_name, tabmail_id = '', email_id = '') {
         $('.loader').show();
         $.ajax({
             type: 'post',
@@ -1931,12 +1936,12 @@
         var data_host_name = $(this).attr('data-host_name');
         var email_id = $(this).data('email_id');
         var tabmail_id = $(this).data('tabmail_id');
-        mail_get(uid, data_from_email, data_host_name,tabmail_id,email_id);
+        mail_get(uid, data_from_email, data_host_name, tabmail_id, email_id);
     });
     $('body').on("click", ".ViewSendMEssageDataTab", function() {
         var email_id = $(this).data('email_id');
         var tabmail_id = $(this).data('tabmail_id');
-        mail_get('', '', '',tabmail_id,email_id);
+        mail_get('', '', '', tabmail_id, email_id);
     });
 
     $('body').on('change', '.checkbox', function() {
@@ -2004,10 +2009,10 @@
                 }
             });
         } else {
-				alert('Select atleast one records');
-		}
+            alert('Select atleast one records');
+        }
     });
-   
+
     $('body').on('click', '.hide-panel2', function() {
         $('.main-panel1').removeClass('d-none');
         $('.main-panel2').addClass('d-none');

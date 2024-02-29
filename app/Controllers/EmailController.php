@@ -129,10 +129,73 @@ class EmailController extends BaseController
 			$tabmail_id = '';
 		}
 
+		// $account_mail = "";
+		// $db_connection = \Config\Database::connect('second');
+		// $table_username = session_username($_SESSION['username']);
+		// $query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND  master_id = '" . $_SESSION['master'] . "'";
+		// $result = $db_connection->query($query90);
+		// $email_platform_data = $result->getResultArray();
+		// $html = "";
+		// $test = "";
+
+		// foreach ($email_platform_data as $email_key => $val_email) {
+
+		// 	$account_mail .= '<div class="accordion-item border-0 border-bottom">
+		// 		<h2 class="accordion-header">
+		// 			<button class="accordion-button border-0 shadow-none fw-medium  toggle-center" type="button"
+		// 				data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+		// 				aria-controls="collapseOne">
+		// 				<p><i class="fa-solid fa-user fa-xl me-2"></i></p>
+		// 				<P class="fs-14 fw-bolder first-container-text">' . $val_email['smtp_user'] . '</P>
+		// 			</button>
+		// 		</h2>
+		// 		<div id="collapseOne" class="accordion-collapse collapse show px-4 py-3"
+		// 			data-bs-parent="#accordionExample">
+		// 			<div class="accordion-body account_list p-0">
+		// 				<li
+		// 					class=" menu-toggle bg-body-secondary col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-tabmail_id="1" data-email_id="' . $val_email['smtp_user'] . '">
+		// 					<div class="col-12 d-flex">
+		// 						<p><i class="fa-solid fa-inbox"></i></p>
+		// 						<span class="ms-3 first-container-text viewdata ">Inbox</span>
+		// 					</div>
+		// 				</li>
+		// 				<li
+		// 					class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '" data-tabmail_id="2">
+		// 					<div class="col-12 d-flex">
+		// 						<p><i class="fa-regular fa-star"></i></p>
+		// 						<span class="ms-3 first-container-text viewdata ">Starred</span>
+		// 					</div>
+		// 				</li>
+		// 				<li
+		// 					class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '" data-tabmail_id="3">
+		// 					<div class="col-12 d-flex">
+		// 						<p><i class="fa-regular fa-clock"></i></p>
+		// 						<span class="ms-3 first-container-text viewdata ">Snoozed</span>
+		// 					</div>
+		// 				</li>
+		// 				<li
+		// 					class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '">
+		// 					<div class="col-12 d-flex">
+		// 						<p><i class="fa-regular fa-paper-plane"></i></p>
+		// 						<span class="ms-3 first-container-text viewdata ">Sent</span>
+		// 					</div>
+		// 				</li>
+		// 				<li
+		// 					class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '" data-tabmail_id="5">
+		// 					<div class="col-12 d-flex">
+		// 						<p><i class="fa-solid fa-file"></i></p>
+		// 						<span class="ms-3 first-container-text viewdata ">Draft</span>
+		// 					</div>
+		// 				</li>
+		// 			</div>
+		// 		</div>
+		// 	</div>';
+
+
 		$account_mail = "";
 		$db_connection = \Config\Database::connect('second');
 		$table_username = session_username($_SESSION['username']);
-		$query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND  master_id = '" . $_SESSION['master'] . "'";
+		$query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND master_id = '" . $_SESSION['master'] . "'";
 		$result = $db_connection->query($query90);
 		$email_platform_data = $result->getResultArray();
 		$html = "";
@@ -140,58 +203,58 @@ class EmailController extends BaseController
 
 		foreach ($email_platform_data as $email_key => $val_email) {
 
-			$account_mail .= '<div class="accordion-item border-0 border-bottom">
-				<h2 class="accordion-header">
-					<button class="accordion-button border-0 shadow-none fw-medium  toggle-center" type="button"
-						data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-						aria-controls="collapseOne">
-						<p><i class="fa-solid fa-user fa-xl me-2"></i></p>
-						<P class="fs-14 fw-bolder first-container-text">' . $val_email['smtp_user'] . '</P>
-					</button>
-				</h2>
-				<div id="collapseOne" class="accordion-collapse collapse show px-4 py-3"
-					data-bs-parent="#accordionExample">
-					<div class="accordion-body account_list p-0">
-						<li
-							class=" menu-toggle bg-body-secondary col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-tabmail_id="1" data-email_id="' . $val_email['smtp_user'] . '">
-							<div class="col-12 d-flex">
-								<p><i class="fa-solid fa-inbox"></i></p>
-								<span class="ms-3 first-container-text viewdata ">Inbox</span>
-							</div>
-						</li>
-						<li
-							class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '" data-tabmail_id="2">
+			// Generate a unique ID for each accordion and collapse element
+			$accordion_id = 'accordionExample' . $email_key;
+			$collapse_id = 'collapseOne' . $email_key;
+
+			$account_mail .= '<div class="accordion mb-1" id="' . $accordion_id . '">
+        <div class="accordion-item border-0 border-bottom">
+            <h2 class="accordion-header">
+                <button class="accordion-button border-0 shadow-none fw-medium toggle-center" type="button" data-bs-toggle="collapse" data-bs-target="#' . $collapse_id . '" aria-expanded="true"
+                    aria-controls="' . $collapse_id . '">
+                    <p><i class="fa-solid fa-user fa-xl me-2"></i></p>
+                    <P class="fs-14 fw-bolder first-container-text">' . $val_email['smtp_user'] . '</P>
+                </button>
+            </h2>
+            <div id="' . $collapse_id . '" class="accordion-collapse collapse border show px-4 py-3"
+                data-bs-parent="#' . $accordion_id . '">
+                <div class="accordion-body account_list p-0">
+                    <li class="menu-toggle bg-body-secondary col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-tabmail_id="1" data-email_id="' . $val_email['smtp_user'] . '">
+                        <div class="col-12 d-flex">
+                            <p><i class="fa-solid fa-inbox"></i></p>
+                            <span class="ms-3 first-container-text viewdata ">Inbox</span>
+                        </div>
+                    </li>
+                    <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '" data-tabmail_id="2">
 							<div class="col-12 d-flex">
 								<p><i class="fa-regular fa-star"></i></p>
 								<span class="ms-3 first-container-text viewdata ">Starred</span>
 							</div>
 						</li>
-						<li
-							class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '" data-tabmail_id="3">
+						<li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '" data-tabmail_id="3">
 							<div class="col-12 d-flex">
 								<p><i class="fa-regular fa-clock"></i></p>
 								<span class="ms-3 first-container-text viewdata ">Snoozed</span>
 							</div>
 						</li>
-						<li
-							class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '">
+						<li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '">
 							<div class="col-12 d-flex">
 								<p><i class="fa-regular fa-paper-plane"></i></p>
 								<span class="ms-3 first-container-text viewdata ">Sent</span>
 							</div>
 						</li>
-						<li
-							class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '" data-tabmail_id="5">
+						<li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 ViewSendMEssageDataTab border border-light-subtle menu-toggle nav-item Tab2Class hide-panel1" data-email_id="' . $val_email['smtp_user'] . '" data-tabmail_id="5">
 							<div class="col-12 d-flex">
 								<p><i class="fa-solid fa-file"></i></p>
 								<span class="ms-3 first-container-text viewdata ">Draft</span>
 							</div>
 						</li>
-					</div>
-				</div>
-			</div>';
+                </div>
+            </div>
+        </div>
+    </div>';
 
-
+	
 			$username = $val_email['smtp_user'];
 			$password = $val_email['smtp_password'];
 			$hostname =  '{' . $val_email['smtp_host'] . ':993/imap/ssl/novalidate-cert/norsh}INBOX';
