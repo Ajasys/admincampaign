@@ -2512,11 +2512,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 
 	public function bot_id_to_quotation()
 	{
-		// Initialize $i to 1 if it's not set in the session
-		if (!isset($_SESSION['i'])) {
-			$_SESSION['i'] = 1;
-		}
-
+		
 		if (isset($_POST['id']) && !empty($_POST['id'])) {
 			$bot_id = $_POST['id'];
 		} else {
@@ -2528,16 +2524,17 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		$bot_data = $db_connection->query($query);
 		$bot_data_get = $bot_data->getResultArray();
 		$html = "";
-		$i = $_SESSION['i']; 
+		$i = 1;
 
 		if(isset($_POST['row_counter'])){
 			$row_counter = $_POST['row_counter'];
 		}else{
 			$row_counter = '1';
 		}
-		$html .= '<select class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_flow_'.$row_counter.' question_select_second_'.$i.' occupation_add" aria-label="Default select example">
-					<option>No Jump</option>';
-		
+
+		$html .= '<select class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_flow_'.$row_counter.' question_select_second_'.$i.'_'.$row_counter.' occupation_add" aria-label="Default select example">
+		<option>No Jump</option>';
+			
 		if (isset($bot_data_get)) {
 			foreach ($bot_data_get as $type_key => $type_value) {
 				$html .= '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
@@ -2548,7 +2545,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		
 		// Increment $i and update it in the session
 		$i++;
-		$_SESSION['i'] = $i;
+		
 
 		$result['html'] = $html;
 		return json_encode($result);
