@@ -240,6 +240,10 @@ $admin_bot = json_decode($admin_bot, true);
     .second-li:hover {
         background: rgb(241, 239, 239);
     }
+
+    .bot_box_name {
+        background-color: #f4f4f6;
+    }
     /* select, option {
     width: 250px!important;
 }
@@ -268,7 +272,24 @@ option {
             <div class="col-12 d-flex flex-wrap ">
                 <div class="col-12 col-lg-4 p-1 ">
                     <div class="col-12 border rounded-3 bg-white p-3 overflow-y-scroll d-flex flex-wrap" style="height:80vh">
-                        <div class="col-12  d-flex justify-content-between my-3">
+                        <div class="col-12  d-flex align-items-center my-3">
+
+                            <div class="me-2 d-flex bot_box_name align-items-center border rounded-2" style="height: 37px; width: max-content;">
+                                <h6 class="ms-2 d-inline"><i class="bi bi-robot"></i></h6>
+
+                                <p class="mx-2">
+                                    <?php
+                                    if (isset($admin_bot)) {
+                                        foreach ($admin_bot as $type_key => $type_value) {
+                                            if ($type_value['id'] == $botId) {
+                                                echo '' . $type_value["name"] . '';
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </p>
+                            </div>
+
                             <div class="col-6">
                                 <div class="main-selectpicker">
                                     <select class="form-control main-control from-main selectpicker" aria-label="Default select example">
@@ -278,17 +299,7 @@ option {
                                 </div>
                             </div>
 
-                            <h6 class="mx-2">
-                                <?php
-                                if (isset($admin_bot)) {
-                                    foreach ($admin_bot as $type_key => $type_value) {
-                                        if ($type_value['id'] == $botId) {
-                                            echo '' . $type_value["name"] . '';
-                                        }
-                                    }
-                                }
-                                ?>
-                            </h6>
+                            
 
                             <div class="col-1 d-none">
                                 <button class="btn-primary-rounded mx-1 All_memberPlusBtn" id="plus_btn" data-bs-toggle="modal" datamno="" data-bs-target="#add-member">
@@ -3449,12 +3460,12 @@ option {
             if (isset($admin_bot)) {
                 foreach ($admin_bot as $key_bot => $value_bot) {
                     $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
-                    echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" >' . $value_bot["name"] . '</option>\';';
+                    echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" '.$selected.'>' . $value_bot["name"] . '</option>\';';
                 }
             }
             ?>
 
-            main_table_html += '</select></td><td class="col-3"><div Counts ="'+randomNumbers+'"  class="main-selectpicker CommonSecondSelctpicker SecondSlectpicker'+randomNumbers+'  bot_quotation_list_append_' + row_counter + '" ><select class="form-select  question_select_second_' + row_counter + '" aria-label="Default select example"><option>No Jump</option>';
+            main_table_html += '</select></td><td class="col-3"><div Counts ="'+randomNumbers+'"  class="main-selectpicker CommonSecondSelctpicker SecondSlectpicker'+randomNumbers+'  bot_quotation_list_append_' + row_counter + '" ><select class="form-select  question_select_second_' + row_counter + ' question_flow_' + row_counter + '" aria-label="Default select example">';
 
             var options = <?php echo $encoded_options; ?>;
             options.forEach(function(option) {
@@ -4249,7 +4260,7 @@ option {
                         //     console.log(optionsValue);
                         // });
 
-                        console.log(menu_message.single_choice_option_value);
+                
                         if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                             if (menu_message && menu_message.single_choice_option_value) {
                                 console.log(menu_message);
@@ -4263,6 +4274,10 @@ option {
                                 menu_message.single_choice_option_value.forEach(function(item, index) {
 
                                     var optionsValue = item.option;
+                                    // var subflowvalue = item.sub-flow;
+                                    // console.log(subflowvalue);
+                                    var sub_flow_value = item.sub_flow;  
+                                    console.log(sub_flow_value);
 
                                     var row_numbers = index === 0 ? '' : $('.main-plan').length;
                                     var main_table_html =
@@ -4752,6 +4767,7 @@ option {
         }
 
         if (type_of_question == "2" || type_of_question == "40" || type_of_question == "42") {
+
             var comined = {};
             var options = $('.single_choice_options').val();
             comined.options = options;
@@ -4765,6 +4781,7 @@ option {
                     comined.options += options_i;
                 }
             }
+            console.log(comined);
 
             var comined_sub_flow = {};
             comined_sub_flow.options = ''; 
@@ -4784,26 +4801,36 @@ option {
                     }
                 }
             }
+            console.log(comined_sub_flow);
 
             var comined_jump_flow = {};
             comined_jump_flow.options = ''; 
             var options = $('.question_select_second').val();
-    
             comined_jump_flow.options = options; 
             var firstOptionSelected = true; 
+
             for (var i = 1; i <= 100; i++) {
-                var options_i = $('.question_select_second_' + i).val();
-                if (options_i) {
+                var options_i = $('.question_flow_' + i).val() || ''; 
+          
+                if (options_i && !comined_jump_flow.options.includes(options_i)) {
                     if (!firstOptionSelected) { 
                         if (comined_jump_flow.options !== "") {
                             comined_jump_flow.options += ";";
                         }
+                       
                         comined_jump_flow.options += options_i;
                     } else {
+                  
+                        comined_jump_flow.options += (comined_jump_flow.options === "" ? "" : ";") + options_i;
                         firstOptionSelected = false; 
                     }
                 }
             }
+
+            console.log(comined_jump_flow);
+  
+
+
 
            
             var combinedArray = [];
@@ -4816,7 +4843,7 @@ option {
                 if (option && subFlow && jumpQuestion) {
                     single_choice_option.push({
                         'option': option,
-                        'sub-flow': subFlow,
+                        'sub_flow': subFlow,
                         'jump_question': jumpQuestion
                     });
                 }
@@ -4829,6 +4856,8 @@ option {
             localStorage.setItem('single_choice_option', JSON.stringify(dataToStore));
             var retrievedData = JSON.parse(localStorage.getItem('single_choice_option'));
             var options_value = JSON.stringify(retrievedData);
+            // console.log(options_value);
+            // die();
             var selectedOptions = comined_jump_flow.options.split(';').join(',');
         }
 
