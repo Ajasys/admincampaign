@@ -4240,25 +4240,35 @@ option {
                             });
                         }
 
-                        console.log(menu_message);
+
+                        // menu_message.single_choice_option_value.forEach(function(item, index) {
+                          
+                        //     var optionsValue = item.option;
+                         
+                        //     $('.single_choice_options_' + index).val(optionsValue);
+                        //     console.log(optionsValue);
+                        // });
+
+                        console.log(menu_message.single_choice_option_value);
                         if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
-                            if (menu_message && menu_message.options_value && menu_message.options_value.options) {
+                            if (menu_message && menu_message.single_choice_option_value) {
                                 console.log(menu_message);
-                                var optionsArray = menu_message.options_value.options.split(';');
+                                // var optionsArray = menu_message.single_choice_option_value.option.split(';');
                                 $(".main-plan").remove();
                                 var id_array = response[0].next_questions;
                                 id_array = id_array.split(",");
                                 var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
-                                // console.log(admin_bot_setup);
-                                optionsArray.forEach(function(option, index) {
-                                    // console.log(id_array[index]);
-                                    // console.log(index);
-                                    // console.log(option);
+
+                                console.log(admin_bot_setup);
+                                menu_message.single_choice_option_value.forEach(function(item, index) {
+
+                                    var optionsValue = item.option;
+
                                     var row_numbers = index === 0 ? '' : $('.main-plan').length;
                                     var main_table_html =
                                         '<tr class="col-12 main-plan">' +
                                         '<td class="col-3">' +
-                                        '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                                        '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + optionsValue + '">' +
                                         '</td>' +
                                         '<td class="col-3">' +
                                         '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">' +
@@ -4315,6 +4325,82 @@ option {
                                 // $(".is_strict_validation").prop("checked", false);
                             }
                         }
+
+                        // console.log(menu_message.single_choice_option_value);
+                        // if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
+                        //     if (menu_message && menu_message.single_choice_option_value) {
+                        //         console.log(menu_message);
+                        //         var optionsArray = menu_message.single_choice_option_value.options.split(';');
+                        //         $(".main-plan").remove();
+                        //         var id_array = response[0].next_questions;
+                        //         id_array = id_array.split(",");
+                        //         var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
+                        //         // console.log(admin_bot_setup);
+                        //         optionsArray.forEach(function(option, index) {
+                        //             // console.log(id_array[index]);
+                        //             // console.log(index);
+                        //             // console.log(option);
+                        //             var row_numbers = index === 0 ? '' : $('.main-plan').length;
+                        //             var main_table_html =
+                        //                 '<tr class="col-12 main-plan">' +
+                        //                 '<td class="col-3">' +
+                        //                 '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                        //                 '</td>' +
+                        //                 '<td class="col-3">' +
+                        //                 '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">' +
+                        //                 '<option selected>Main Flow</option>';
+                        //                 <?php
+                        //                 if (isset($admin_bot)) {
+                        //                     foreach ($admin_bot as $key_bot => $value_bot) {
+                        //                         $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                             
+                        //                         echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
+                        //                     }
+                        //                 }
+                        //                 ?>
+                        //                 main_table_html +=
+                        //                     '</select>' +
+                        //                     '</td>' +
+                        //                     '<td class="col-4">' +
+                        //                     '<div class="main-selectpicker bot_quotation_list">' +
+                        //                     '<select class="form-select question_select_second" aria-label="Default select example">';
+                        //                 '<option></option>' +
+                                    
+                        //             // Build options dynamically
+                        //             admin_bot_setup.forEach(function(bot_setup, bot_index) {
+                        //                 if (bot_setup.bot_id == <?php echo $botId; ?>) {
+                        //                     if (bot_setup.id == id_array[index]) {
+                        //                         console.log(bot_setup);
+                        //                         var isSelected = bot_setup.id == id_array[index];
+                        //                         main_table_html += '<option value="' + bot_setup.id + '"';
+                        //                         if (isSelected) {
+                        //                             main_table_html += ' selected';
+                        //                         }
+                        //                         main_table_html += '>' + bot_setup.question + '</option>';
+                        //                     } else {
+                        //                         main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
+                        //                     }
+                        //                 }
+                        //             });
+
+                        //             // Close the select element and complete the table row
+                        //             main_table_html +=
+                        //                 '</select>' +
+                        //                 '</div>' +
+                        //                 '</td>' +
+                        //                 '<td class="col-2">' +
+                        //                 '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                        //                 '<i class="fa fa-trash cursor-pointer"></i>' +
+                        //                 '</button>' +
+                        //                 '</td>' +
+                        //                 '</tr>';
+
+                        //             $(".tbody").append(main_table_html);
+                        //         });
+                        //     } else {
+                        //         // $(".is_strict_validation").prop("checked", false);
+                        //     }
+                        // }
 
                         if (type_of_question == 4) {
                             if (menu_message.options != "") {
@@ -4736,9 +4822,13 @@ option {
                 }
             }
 
-            localStorage.setItem('single_choice_option', JSON.stringify(single_choice_option));
-            var retrievedArray = JSON.parse(localStorage.getItem('single_choice_option'));
-            var options_value = JSON.stringify(single_choice_option);
+            var dataToStore = {
+                single_choice_option_value: single_choice_option
+            };
+
+            localStorage.setItem('single_choice_option', JSON.stringify(dataToStore));
+            var retrievedData = JSON.parse(localStorage.getItem('single_choice_option'));
+            var options_value = JSON.stringify(retrievedData);
             var selectedOptions = comined_jump_flow.options.split(';').join(',');
         }
 
@@ -5275,8 +5365,22 @@ option {
 
                     $("#formGroupExampleInput").val(response[0].question);
                     $(".conditional_flow_update").attr('data-id', response[0].id);
-                    $(".OccupationInputClass").val(response[0].next_questions);
-                    $(".bot_idd").val(response[0].next_bot_id);
+                    // $(".OccupationInputClass").val(response[0].next_questions);
+                    // $(".bot_idd").val(response[0].next_bot_id);
+
+                    if (!response[0].next_questions) {
+                            $(".OccupationInputClass").val(1); 
+                        } else {
+                            $(".OccupationInputClass").val(response[0].next_questions);
+                        }
+                                      
+
+                    if (!response[0].next_bot_id) {
+                        $("#bot_idd").val(response[0].bot_id);
+                    } else {
+                        $(".bot_idd").val(response[0].next_bot_id);
+                    }
+
                     $('.selectpicker').selectpicker('refresh');
 
                     if (type_of_question == 1) {
