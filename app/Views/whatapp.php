@@ -3042,31 +3042,62 @@ if (!empty($connections)) {
             var shedualtime = $('.dailyinputfields').val();
             var uploade_file = $('#import_file').prop('files')[0];
             var fullmsg = $('.preview-chat-paragraph').html();
+            if (!originalHTML) {
+                originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+            }
+            $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
             $('.preview-chat-paragraph').html(fullmsg);
             var form = $("form[name='master_membership_update_form']")[0];
             var formData = new FormData(form);
             formData.append('Template_name', Template_name);
             formData.append('language', language);
             formData.append('uploade_file', uploade_file);
-            formData.append('shedualdate', shedualdate);
-            formData.append('shedualtime', shedualtime);
+            formData.append('originalHTML', originalHTML);
+
+            // formData.append('shedualdate', shedualdate);
+            // formData.append('shedualtime', shedualtime);
             formData.append('action', true);
-            if (Template_name != "" && uploade_file != "" && language != "") {
-                $('#view_modal').modal('show');
-                $('.EditTemplateButtonClass').addClass('d-none');
+             
+           
+
+            $.ajax({
+                dataType: 'json',
+                method: "POST",
+                url: "bulk_set_variable_value",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    $('#view_modal').modal('show');
+                    $('.EditTemplateButtonClass').addClass('d-none');
                 $('.Add_editModelTitle').addClass('d-none');
                 $('.TemplateDeleteBtnDiv').addClass('d-none');
                 $('.preview-header-paragraphVIDEO').hide();
-            } else {
-                $(".membershipDiv").addClass("was-validated");
-            }
+                    console.log(res);
+
+                    var variablevalues = res.map(item => item.variablevalues);
+                    var modifiedHTML = res.modifiedHTML;
+
+                    var allValues = variablevalues.map(function(values) {
+                        return values.join(',');
+                    }).join(';'); 
+
+                    $('#sendbtn').attr('varvalues', allValues);
+                    var body = $('.preview-chat-paragraph .BodyValue').html(modifiedHTML);
+
+                },
+            });
+
         });
         var SendURL;
-        $('.Template_send_whatsapp').on('click', function() {
+        $('.Template_send_whatsapp').on('click', function(e) {
+            e.preventDefault();
             var DataStatus = $('#pills-tab .nav-link.active').attr('DataStatus');
             var bodydivvalues = [];
             var variableValuesArray = $(this).attr('varvalues');
             bodydivvalues = variableValuesArray.split(',');
+
+            
             if (DataStatus === '3') {
 
 
@@ -3130,11 +3161,16 @@ if (!empty($connections)) {
                     },
                 });
             } else {
+
                 var bodydivvalues = [];
-                $('.inputypeBody').each(function() {
-                    var bodydivvalue = $(this).val();
-                    bodydivvalues.push(bodydivvalue);
-                });
+                var variableValuesArray = $(this).attr('varvalues');
+                bodydivvalues = variableValuesArray.split(',');
+
+                // var bodydivvalues = [];
+                // $('.inputypeBody').each(function() {
+                //     var bodydivvalue = $(this).val();
+                //     bodydivvalues.push(bodydivvalue);
+                // });
                 var template_id = $('#header12 option:selected').attr('DataMNo');
                 console.log(template_id);
                 var Template_name = $('#header12').val();
@@ -3160,6 +3196,9 @@ if (!empty($connections)) {
                 // formData.append('shedualdate', shedualdate);
                 // formData.append('shedualtime', shedualtime);
                 formData.append('action', true);
+
+         
+            
                 $.ajax({
                     method: "post",
                     url: "bulk_whatsapp_template_send",

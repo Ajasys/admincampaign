@@ -447,12 +447,16 @@ class WhatAppIntegrationController extends BaseController
 
     public function WhatsAppAccountsContactList()
     {
+        $listdatastatus = 0;
+        if(isset($_POST['status'])){
+            $listdatastatus = $_POST['status'];
+        }
         $id = $_POST['id'];
         $phoneno = str_replace([' ', '+'], '', $_POST['phoneno']);
         $name = $_POST['name'];
         $table_username = getMasterUsername2();
         $Database = \Config\Database::connect('second');
-        $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . ") AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE account_phone_no = '" . $phoneno . "' AND conversation_account_id = '" . $id . "'  ORDER BY last_inserted_id DESC;
+        $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . " AND boatstatus = ".$listdatastatus.") AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE account_phone_no = '" . $phoneno . "' AND conversation_account_id = '" . $id . "' AND boatstatus = ".$listdatastatus."  ORDER BY last_inserted_id DESC;
         ";
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
@@ -1492,6 +1496,8 @@ class WhatAppIntegrationController extends BaseController
             $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
 
             $bodydivvalues = $post_data['bodydivvalues'];
+            // pre($bodydivvalues);
+            // die();  
 
             if (isset($post_data['bodydivvalues']) && !empty($post_data['bodydivvalues']) && array_filter($post_data['bodydivvalues'], 'strlen')) {
                 $bodydivvalues = $post_data['bodydivvalues'];
@@ -2882,14 +2888,18 @@ class WhatAppIntegrationController extends BaseController
 
     public function bulk_whatsapp_template_send()
     {
+
+       
         $connectionid = $_POST['connectionid'];
         $template_name = $_POST['Template_name'];
         $language = $_POST['language'];
         $uploadedFile = $_FILES['uploade_file'];
         $originalHTML = $_POST['originalHTML'];
+
         $template_id = $_POST['template_id'];
-        $bodydivvalues1 = $_POST['bodydivvalues'];
-        $bodydivvalues = explode(',', $bodydivvalues1);
+       
+
+     
         $ReturnResult = 0;
 
         $MetaUrl = config('App')->metaurl;
@@ -2913,29 +2923,34 @@ class WhatAppIntegrationController extends BaseController
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
             $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
 
+            $bodydivvalues1 = $_POST['bodydivvalues'];
+           
 
+            $final_array = explode(';', $bodydivvalues1);
+            $bodydivvalues = [];
+           
+            
+            foreach ($final_array as $values_str) {
+                $bodydivvalues[] = explode(',', $values_str);
+            }
+    
             if ($uploadedFile['type'] === 'text/csv') {
                 $csvData = file_get_contents($uploadedFile['tmp_name']);
                 $phoneNumbers = explode("\n", trim($csvData));
+                array_shift($phoneNumbers);
+                    $phoneNumbers = array_values($phoneNumbers);
+                
+                foreach ($phoneNumbers as $index => $phoneNumber) {
+                if (isset($bodydivvalues[$index])) {
+                    $current_values = $bodydivvalues[$index];
 
-                foreach ($phoneNumbers as $phoneNumber) {
-                    if (isset($_POST['bodydivvalues']) && !empty($_POST['bodydivvalues'])) {
-                        // $bodydivvalues = $_POST['bodydivvalues'];
-                        $modified_body = $originalHTML;
-
-                        foreach ($bodydivvalues as $index => $value) {
-                            $placeholder = '{{' . ($index + 1) . '}}';
-                            $modified_body = str_replace($placeholder, $value, $modified_body);
-                        }
-
-                        $parameters = [];
-                        foreach ($bodydivvalues as $value) {
-
-                            $parameters[] = [
-                                "type" => "text",
-                                "text" => $value
-                            ];
-                        }
+                    $parameters = [];
+                    foreach ($current_values as $value) {
+                        $parameters[] = [
+                            "type" => "text",
+                            "text" => $value
+                        ];
+                    }
 
                         $postData = json_encode([
                             "messaging_product" => "whatsapp",
@@ -2956,7 +2971,6 @@ class WhatAppIntegrationController extends BaseController
                             ]
                         ]);
                     } else {
-                        // If $bodydivvalues is empty
                         foreach ($phoneNumbers as $phoneNumber) {
 
                             $postData = json_encode([
@@ -2975,6 +2989,7 @@ class WhatAppIntegrationController extends BaseController
                     }
 
                     $Result = postSocialData($url, $postData);
+
                     if (isset($Result['error_data'])) {
                         // Handle error data
                     } elseif (isset($Result['contacts'], $Result['messages'])) {
@@ -2991,6 +3006,7 @@ class WhatAppIntegrationController extends BaseController
                             }
                         }
                     }
+
                 }
             }
         }
@@ -3055,6 +3071,7 @@ class WhatAppIntegrationController extends BaseController
 
     public function set_variable_value()
     {
+
         $db_connection = \Config\Database::connect('second');
 
         $post_data = $_POST;
@@ -3112,4 +3129,81 @@ class WhatAppIntegrationController extends BaseController
         $values['modifiedHTML'] = $modifiedHTML;
         return json_encode($values, true);
     }
+
+    public function bulk_set_variable_value()
+{
+    $uploadedFile = $_FILES['uploade_file'];
+    if ($uploadedFile['type'] === 'text/csv') {
+        $csvData = file_get_contents($uploadedFile['tmp_name']);
+        $phoneNumbers = explode("\n", trim($csvData));
+    }
+
+    $db_connection = \Config\Database::connect('second');
+
+    $post_data = $_POST;
+    $originalHTML = $post_data['originalHTML'];
+
+    $inputString = $_SESSION['username'];
+    $parts = explode("_", $inputString);
+    $username = $parts[0];
+
+    $resultArray = array();
+
+    foreach ($phoneNumbers as $phoneNumber) {
+        $phoneNumber = trim($phoneNumber);
+
+        $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
+        $result = $db_connection->query($sqlquery, [$phoneNumber]);
+
+        $row = $result->getRow();
+
+        if ($row) {
+            $name = $row->full_name;
+            $mobileno1 = $row->mobileno;
+            $address = $row->address;
+            $intrested_product = $row->intrested_product;
+            $nxt_follow_up = $row->nxt_follow_up;
+            $dob = $row->dob;
+
+            $placeholders = array(
+                '{{phone_no}}' => $mobileno1,
+                '{{address}}' => $address,
+                '{{Name}}' => $name,
+                '{{product_Name}}' => $intrested_product,
+                '{{Next_FollowupDate}}' => $nxt_follow_up,
+                '{{date_of_birth}}' => $dob,
+            );
+
+            $modifiedHTML = $originalHTML;
+            foreach ($placeholders as $placeholder => $value) {
+                $modifiedHTML = str_replace($placeholder, $value, $modifiedHTML);
+            }
+
+            $return_array = array();
+            foreach ($placeholders as $placeholder => $value) {
+                if (strpos($originalHTML, $placeholder) !== false) {
+                    $return_array[$placeholder] = $value;
+                }
+            }
+            $json_string = json_encode($return_array, true);
+
+            $decoded_array = json_decode($json_string, true);
+
+            $values['variablevalues'] = array();
+            preg_match_all('/\{\{(.*?)\}\}/', $originalHTML, $matches);
+            foreach ($matches[1] as $placeholder) {
+                if (isset($decoded_array["{{" . $placeholder . "}}"])) {
+                    $values['variablevalues'][] = $decoded_array["{{" . $placeholder . "}}"];
+                }
+            }
+
+            $values['modifiedHTML'] = $modifiedHTML;
+
+            $resultArray[] = $values; 
+        }
+    }
+
+    return json_encode($resultArray, true);
+}
+
 }
