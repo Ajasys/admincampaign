@@ -2083,9 +2083,9 @@ class Bot_Controller extends BaseController
 											</a>
 										</div>
 
-										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted mb-2 mx-2"
-											data-toggle="tooltip" data-placement="top" title="Bot Chats">
-											<a href="#" class="text-muted">
+										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted mb-2 mx-2 BotChatIconDivClass"
+											data-toggle="tooltip" data-placement="top" title="Bot Chats" botid = "'.$value['id'].'">
+											<a href="' . base_url('') . 'bot_chat?id=' . $value['id'] . '" class="text-muted">
 												<i class="fa-solid fa-comment"></i>
 											</a>
 										</div>

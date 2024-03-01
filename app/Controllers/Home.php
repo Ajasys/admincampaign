@@ -664,6 +664,97 @@ class Home extends BaseController
         $data['WhatsAppAccounts'] = $responseArray;
 
         return view('messenger', $data);
+}
+
+    public function bot_chat()
+    {
+        $table_username = getMasterUsername2();
+        $db_connection = \Config\Database::connect('second');
+        $responseArray = array();
+        $MetaUrl = config('App')->metaurl;
+        $html = '';
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $table_name = $username . '_platform_integration';
+        $db_connection = \Config\Database::connect('second');
+        $query90 = "SELECT * FROM $table_name WHERE platform_status = 1";
+        $result = $db_connection->query($query90);
+        $total_dataa_userr_22 = $result->getResult();
+        if (isset($total_dataa_userr_22[0])) {
+            $settings_data = $result->getResultArray();
+        } else {
+            $settings_data = array();
+        }
+        $count = 0;
+        if (!empty($settings_data)) {
+            foreach ($settings_data as $key => $value) {
+                if ($value['bot_status'] == '1') {
+                    $accountBotID = $value['bot_id'];
+                    $phone_number_id = $value['phone_number_id'];
+                    $business_account_id = $value['business_account_id'];
+                    $access_token = $value['access_token'];
+                    $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
+                    $DataArray = getSocialData($url);
+                    if (isset($DataArray['data'])) {
+                        $display_phone_number = '';
+                        $verified_name = '';
+                        $qualityReating = '';
+                        $qualityColor = '';
+                        if (isset($DataArray['data'][0]['display_phone_number'])) {
+                            $display_phone_number = $DataArray['data'][0]['display_phone_number'];
+                        }
+                        if (isset($DataArray['data'][0]['verified_name'])) {
+                            $verified_name = $DataArray['data'][0]['verified_name'];
+                        }
+                        if (isset($DataArray['data'][0]['throughput']['level'])) {
+                            $qualityReating = $DataArray['data'][0]['throughput']['level'];
+                        }
+                        if (isset($DataArray['data'][0]['quality_rating'])) {
+                            $$qualityColor = $DataArray['data'][0]['quality_rating'];
+                        }
+                        $phoneNumber = $display_phone_number;
+                        if ($display_phone_number != '' && $value['id'] != '' && $verified_name != '') {
+                            $connection_ids = $value['id'];
+                            $id = $value['id'];
+                            $phoneno = str_replace([' ', '+'], '', $display_phone_number);
+                            $inputString = $_SESSION['username'];
+                            $parts = explode("_", $inputString);
+                            $table_username = $parts[0];
+                            $Database = \Config\Database::connect('second');
+                            $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . " AND boatstatus = '0') AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE  account_phone_no = '" . $phoneno . "' AND boatstatus = '0' AND conversation_account_id = '" . $id . "' ORDER BY last_inserted_id DESC;
+                                ";
+                            $Getresult = $Database->query($sql);
+                            $GetData = $Getresult->getResultArray();
+                            $counts = 0;
+
+                            foreach ($GetData as $key => $value) {
+                                $UnreadMsgCountSql = "SELECT COUNT(*) AS total_records, MAX(id) AS last_id, MAX(created_at) AS last_createdate, MAX(CASE WHEN id = (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $value['contact_no'] . " AND platform_account_id = " . $id . " AND msg_read_status = '0' ) THEN message_status END) AS last_read_status, MAX(CASE WHEN id = (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $value['contact_no'] . " AND platform_account_id = " . $id . " AND msg_read_status = '0') THEN sent_recieved_status END) AS sent_recieved_status FROM " . $table_username . "_messages WHERE contact_no = " . $value['contact_no'] . " AND platform_account_id = " . $id . " AND msg_read_status = '0' AND sent_recieved_status = '2';";
+                                $UnreadmsgCount = $Database->query($UnreadMsgCountSql);
+                                $UnreadmsgCountArr = $UnreadmsgCount->getResultArray();
+                                if (isset($UnreadmsgCountArr) && !empty($UnreadmsgCount)) {
+                                    $TotalUnreadMsg = $UnreadmsgCountArr[0]['total_records'];
+                                    if ($TotalUnreadMsg > 0) {
+                                        $counts++;
+                                    }
+                                }
+                            }
+                                $responseArray[] = array(
+                                    'display_phone_number' => $phoneno,
+                                    'id' => $connection_ids,
+                                    'verified_name' => $verified_name,
+                                    'count' => $counts,
+                                    'botid' =>  $accountBotID,
+                                );
+                        }
+                    }
+
+                }
+            }
+        }
+        $responseArray = json_encode($responseArray);
+        $data['WhatsAppAccounts'] = $responseArray;
+        return view('bot_chat', $data);
     }
 
     public function bot_installer()
