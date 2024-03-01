@@ -180,7 +180,7 @@ class FaceBookController extends BaseController
                             $longLivedAccessToken = $aa_value['access_token'];
                             $html .= '<option value="' . $aa_value['asset_id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
                         }
-                        $Msg = 'Page list Succesfully..';
+                        $Msg = 'Page list Successfully..';
                     } else {
                         $Msg = 'Page does not exist..!';
                     }
@@ -209,16 +209,18 @@ class FaceBookController extends BaseController
             $appresult = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' . $longLivedToken . '&access_token=' . $longLivedToken);
             if (isset($appresult['data'])) {
                 $fbdata = $appresult['data'];
+                $profile_pictures = getSocialData('https://graph.facebook.com/v19.0/'.$appresult ['user_id'].'/picture?redirect=false&&access_token=' . $longLivedToken. '');
+                    
                 $query = $this->db->query('SELECT * FROM ' . $this->username . '_platform_integration WHERE fb_app_id = "' . $fbdata['app_id'] . '" AND platform_status=2');
                 $count_num = $query->getNumRows();
                 if ($count_num > 0) {
                     $result_facebook_data = $query->getResultArray()[0];
                     if ($result_facebook_data['verification_status'] == 1) {
-                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET access_token = '" . $longLivedToken . "',fb_app_name='" . $fbdata['application'] . "',fb_app_type='" . $fbdata['type'] . "'  WHERE fb_app_id = '" . $fbdata['app_id'] . "' AND platform_status=2");
+                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET profile_img='".$profile_pictures['data']['url']."',access_token = '" . $longLivedToken . "',fb_app_name='" . $fbdata['application'] . "',fb_app_type='" . $fbdata['type'] . "'  WHERE fb_app_id = '" . $fbdata['app_id'] . "' AND platform_status=2");
                         $resultff['response'] = 2;
                         $resultff['message'] = $result_facebook_data['fb_app_name'] . ' facebook app connection already exists..!';
                     } else {
-                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET access_token = '" . $longLivedToken . "',fb_app_name='" . $fbdata['application'] . "',fb_app_type='" . $fbdata['type'] . "'  WHERE fb_app_id = '" . $fbdata['app_id'] . "' AND platform_status=2");
+                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET profile_img='".$profile_pictures['data']['url']."',access_token = '" . $longLivedToken . "',fb_app_name='" . $fbdata['application'] . "',fb_app_type='" . $fbdata['type'] . "'  WHERE fb_app_id = '" . $fbdata['app_id'] . "' AND platform_status=2");
                         $resultff['response'] = 1;
                         $resultff['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
                     }
@@ -230,6 +232,7 @@ class FaceBookController extends BaseController
                 } else {
                     $insert_data['access_token'] = $longLivedToken;
                     $insert_data['master_id'] = $_SESSION['master'];
+                    $insert_data['profile_img'] = $profile_pictures['data']['url'];
                     $insert_data['fb_app_id'] = $fbdata['app_id'];
                     $insert_data['fb_app_name'] = $fbdata['application'];
                     $insert_data['fb_app_type'] = $fbdata['type'];

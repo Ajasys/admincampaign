@@ -301,6 +301,7 @@ class Home extends BaseController
         $columns3 = [
             'id int primary key AUTO_INCREMENT',
             'master_id int(11) NOT NULL',
+            'profile_img text NOT NULL',
             "phone_number_id varchar(400) NOT NULL",
             "business_account_id varchar(400) NOT NULL",
             "access_token longtext NOT NULL",
@@ -332,18 +333,30 @@ class Home extends BaseController
             'id int primary key AUTO_INCREMENT',
             'platform_id int(11) NOT NULL',
             'master_id int(11) NOT NULL',
-            'user_id int(11) NOT NULL',
             "asset_type text NOT NULL",
             "asset_id text NOT NULL",
             "access_token longtext NOT NULL",
             "asset_img text NOT NULL",
             "name text NOT NULL",
-            "asset_permission text NOT NULL",
         ];
-        $foreign_keys = [
+        $foreign_keysasset = [
             'FOREIGN KEY (platform_id) REFERENCES '.$table_username . '_platform_integration(id)',
         ];
-        $table = tableCreateAndTableUpdate2($table_asset, '', $columns_asset, $foreign_keys);
+        $table = tableCreateAndTableUpdate2($table_asset, '', $columns_asset, $foreign_keysasset);
+
+
+        $table_assetpermission = $table_username . '_platform_assetpermission';
+        $columns_assetpermission = [
+            'id int primary key AUTO_INCREMENT',
+            'asset_id int(11) NOT NULL',
+            'master_id int(11) NOT NULL',
+            'user_id int(11) NOT NULL',
+            "assetpermission_name text NOT NULL",
+        ];
+        $foreign_keyspermission = [
+            'FOREIGN KEY (asset_id) REFERENCES '.$table_username . '_platform_assets(id)',
+        ];
+        $table = tableCreateAndTableUpdate2($table_assetpermission, '', $columns_assetpermission, $foreign_keyspermission);
 
 
         $table_name11 = $table_username . '_task_status';

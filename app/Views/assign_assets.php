@@ -30,11 +30,11 @@ $user_data = $user_result->getResultArray();
             <div class="col-xl-12 d-flex justify-content-between">
                 <div class="title-1  d-flex align-items-center">
                     <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 25px"></i>
-                    <h2>Assign Assets Permission</h2>
+                    <h2>Assign Assets & Permission</h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
-                    <button class="btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal_to">
-                        Assign assets
+                    <button class="btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#assign_user">
+                        Assign To User
                     </button>
                 </div>
             </div>
@@ -83,15 +83,16 @@ $user_data = $user_result->getResultArray();
 
 
     <!-- Modal one -->
-    <div class="modal fade" id="exampleModal_to" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="assign_user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Assign Assets & Permission To User</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
+                    <small>Select user to give assets and permission. Then assign their access and which accounts and tools they can use.</small>
+                    <select id="user" name="user" class="selectpicker form-control form-main pt-3" data-live-search="true" required>
                         <option value="0">Select User</option>
                         <?php
                         if (isset($user_data)) {
@@ -104,14 +105,14 @@ $user_data = $user_result->getResultArray();
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal_one">Assign assets</button>
+                    <button type="button" class="btn btn-primary assign_asset" data-bs-toggle="modal" data-bs-target="#assign_asset">Next</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal two-->
-    <div class="modal fade show d-block" id="exampleModal_one" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="assign_asset" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -119,6 +120,8 @@ $user_data = $user_result->getResultArray();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body m-0 p-0">
+                    <input type="hidden" name="select_user" id="select_user">
+                    <input type="hidden" name="asset_array" id="asset_array">
                     <div class="p-2">
                         <div class="col-12 d-flex flex-wrap">
                             <!-- first-div -->
@@ -132,7 +135,6 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                     </div>
 
-
                                     <div class="accordion" id="accordionExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
@@ -143,35 +145,47 @@ $user_data = $user_result->getResultArray();
                                                             <path fill="#ffffff" d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z" opacity="1" data-original="#ffffff" class=""></path>
                                                         </g>
                                                     </svg>
-                                                    <p class="ms-2">facebook</p>
+                                                    <p class="ms-2">Facebook</p>
                                                 </button>
                                             </h2>
                                             <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body p-0">
-                                                    <div class="accordion" id="accordionExample_two">
-                                                        <div class="accordion-item">
-                                                            <h2 class="accordion-header">
-                                                                <button class="accordion-button m-0 p-2 ps-4 pe-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne_in" aria-expanded="true" aria-controls="collapseOne_in">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                                                        <g>
-                                                                            <path fill="#1877f2" d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z" opacity="1" data-original="#1877f2" class=""></path>
-                                                                            <path fill="#ffffff" d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z" opacity="1" data-original="#ffffff" class=""></path>
-                                                                        </g>
-                                                                    </svg>
-                                                                    <p class="ms-2">Ajasys All</p>
-                                                                </button>
-                                                            </h2>
-                                                            <div id="collapseOne_in" class="accordion-collapse collapse" data-bs-parent="#accordionExample_two">
-                                                                <div class="accordion-body p-0">
-                                                                    <div class="border-to pages_div btn_dark border-bottom rounded-1 p-2">
-                                                                        <p class="ms-5">Pages</p>
+                                                <?php
+                                                // pre($resultdata);
+                                                foreach ($resultdata as $fbdata) {
+                                                ?>
+                                                    <div class="accordion-body p-0">
+                                                        <div class="accordion" id="accordionExample_two">
+                                                            <div class="accordion-item">
+
+                                                                <h2 class="accordion-header">
+                                                                    <button class="accordion-button m-0 p-2 ps-4 pe-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne_in" aria-expanded="true" aria-controls="collapseOne_in">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                                            <g>
+                                                                                <path fill="#1877f2" d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z" opacity="1" data-original="#1877f2" class=""></path>
+                                                                                <path fill="#ffffff" d="M355.65 330 367 256h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979H370v-63s-29.296-5-57.305-5C254.219 100 216 135.44 216 199.6V256h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111V330z" opacity="1" data-original="#ffffff" class=""></path>
+                                                                            </g>
+                                                                        </svg>
+                                                                        <p class="ms-2"><?php echo $fbdata['fb_app_name']; ?></p>
+                                                                    </button>
+                                                                </h2>
+
+
+                                                                <div id="collapseOne_in" class="accordion-collapse collapse" data-bs-parent="#accordionExample_two" data-id="<?php echo $fbdata['id']; ?>" data-connection-check="<?php echo $fbdata['verification_status']; ?>">
+                                                                    <div class="accordion-body p-0">
+                                                                        <div class="border-to pages_div btn_dark border-bottom rounded-1 p-2">
+                                                                            <p class="ms-5">Pages</p>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
 
+
+                                                            </div>
+
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                <?php
+                                                }
+                                                ?>
                                             </div>
                                         </div>
 
@@ -284,27 +298,12 @@ $user_data = $user_result->getResultArray();
                                                 </div>
                                             </div>
                                         </div>
-                                        <ul class="">
-                                            <?php
+                                        <div class="col-12 overflow-x-hidden" style="height:500px;">
+                                            <ul class="page_asset_list overflow-y-scroll" style="height:490px;">
 
-                                            foreach ($resultdata as $key => $page_data) {
-                                                $pagesList = get_object_vars(json_decode(fb_page_list($page_data['access_token'])));
-                                                foreach ($pagesList['page_list'] as $key => $pagelist_data) {
-                                                    $page_imgdata = fb_page_img($pagelist_data->id, $pagelist_data->access_token);
-                                                    // pre($page_imgdata);
-                                                    $page_imgdata = json_decode($page_imgdata);
-                                            ?>
-                                                    <li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
-                                                        <input type="checkbox" class="me-2 rounded-3 selectedId" name="selectedId" style="width:18px;height:18px;">
-                                                        <img class="rounded-circle me-1" src="<?php echo $page_imgdata->page_img; ?>" alt="" style="width:30px;height:30px">
-                                                        <p class="col"><?php echo $pagelist_data->name; ?></p>
-                                                    </li>
-                                            <?php
-                                                }
-                                            }
-                                            ?>
 
-                                        </ul>
+                                            </ul>
+                                        </div>
                                     </div>
 
                                     <!-- instagram div  -->
@@ -345,7 +344,7 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                     </div>
 
-                                    <div class="card-body ">
+                                    <div class="card-body">
 
                                         <!-- Pages_div -->
                                         <div class=" Pages_div col-12 overflow-y-scroll" style="height:90vh;">
@@ -353,131 +352,51 @@ $user_data = $user_result->getResultArray();
                                                 <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
                                                         <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop create_scenarios" type="checkbox" value="create_scenarios">
                                                             <span class="check_input_primary round"></span>
                                                         </label>
                                                     </div>
                                                     <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Content</p>
-                                                        <p class="ms-3">Create, manage or delete posts, stories and more as the Page.
-                                                            Protect your copyrighted content.</p>
+                                                        <p class="col ms-3 fw-bold fs-14">Create Scenarios</p>
+                                                        <p class="ms-3">Create, manage or delete scenarios for lead retrieval.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
                                                         <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Community activity</p>
-                                                        <p class="ms-3">Review and respond to comments, remove unwanted content and report
-                                                            activity.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Messages and calls</p>
-                                                        <p class="ms-3">Send and respond to messages and calls as the Page.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Ads</p>
-                                                        <p class="ms-3">Create, manage and delete ads for the Page.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Insights</p>
-                                                        <p class="ms-3">See how the Page, content and ads perform.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Revenue</p>
-                                                        <p class="ms-3">View and export Page Monetization and earnings data within Creator
-                                                            Studio only.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop leads" type="checkbox" value="leads">
                                                             <span class="check_input_primary round"></span>
                                                         </label>
                                                     </div>
                                                     <div class="col-11">
                                                         <p class="col ms-3 fw-bold fs-14">Leads</p>
-                                                        <p class="ms-3">
-                                                            Access and manage leads, including downloading leads, creating lead ads and
-                                                            more.
-                                                            Partial access (business tools and Facebook)
-                                                        </p>
+                                                        <p class="ms-3">Access and view leads.</p>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-12 p-2 d-flex align-items-center border-bottom">
+                                                <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
                                                         <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop post_comments" type="checkbox" value="post_comments">
                                                             <span class="check_input_primary round"></span>
                                                         </label>
                                                     </div>
                                                     <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Content, Messages, Community activity, Ads,
-                                                            Insights</p>
-                                                        <p class="ms-3">
-                                                            Access and manage leads, including downloading leads, creating lead ads and
-                                                            more.
-                                                            Partial access (business tools and Facebook)
-                                                        </p>
+                                                        <p class="col ms-3 fw-bold fs-14">Post & Comments</p>
+                                                        <p class="ms-3">Create, view and manage post and their comments.</p>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 p-2 d-flex align-items-center border-bottom" style="margin-bottom: 200px;">
+                                                <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
                                                         <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop messages" type="checkbox" value="messages">
                                                             <span class="check_input_primary round"></span>
                                                         </label>
                                                     </div>
                                                     <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Everything</p>
-                                                        <p class="ms-3">
-                                                            Access and manage leads, including downloading leads, creating lead ads and
-                                                            more.
-                                                            Partial access (business tools and Facebook)
-                                                        </p>
+                                                        <p class="col ms-3 fw-bold fs-14">Messages</p>
+                                                        <p class="ms-3">Manage page messages.</p>
                                                     </div>
                                                 </div>
-
-                                                <!-- instagram -->
                                             </div>
                                         </div>
 
@@ -561,7 +480,7 @@ $user_data = $user_result->getResultArray();
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary assign_permission" id="assign_permission">Save changes</button>
                 </div>
             </div>
         </div>
@@ -591,12 +510,127 @@ $user_data = $user_result->getResultArray();
         });
 
         $("body").on("click", ".pages_div", function() {
-            $(".Pages_div").removeClass("d-none")
+            $(".Pages_div").removeClass("d-none");
             $(".instagram_div_to").addClass("d-none");
-        })
+        });
         $("body").on("click", ".instagram_div", function() {
             $(".Pages_div").addClass("d-none");
             $(".instagram_div_to").removeClass("d-none");
-        })
+        });
+
+        $("body").on("click", ".assign_asset", function() {
+            var userid = $('#user').find(':selected').val();
+            alert(userid);
+            if(userid>0)
+            {
+                $('#select_user').val(userid);
+            }
+            else
+            {
+                $('#select_user').val(0);
+            }
+        });
+
+        $("body").on("click", "#collapseOne_in", function() {
+            var connection_id = $(this).attr('data-id');
+            var fb_check_conn = $(this).attr('data-connection-check');
+
+            $('.loader').show();
+            $.ajax({
+                type: "post",
+                url: "<?= site_url('facebook_pageasset'); ?>",
+                data: {
+                    fb_check_conn: fb_check_conn,
+                    connection_id: connection_id,
+                    action: 'user'
+                },
+                success: function(res) {
+                    $('.loader').hide();
+                    var result = JSON.parse(res);
+                    if (result.response == 1) {
+                        $('.page_asset_list').html(result.html);
+                    } else {
+                        iziToast.error({
+                            title: result.message
+                        });
+                    }
+                },
+                error: function(error) {
+                    $('.loader').hide();
+                }
+            });
+        });
+
+        var selectedValues = [];
+        // Attach click event listener to toggle-checkbox checkboxes
+        $('.toggle-checkbox').on('click', function() {
+            var value = $(this).val();
+            if ($(this).is(':checked')) {
+                // Checkbox is checked, add its value to the array
+                selectedValues.push(value);
+            } else {
+                // Checkbox is unchecked, remove its value from the array
+                var index = selectedValues.indexOf(value);
+                if (index !== -1) {
+                    selectedValues.splice(index, 1);
+                }
+            }
+            console.log(selectedValues);
+            $('#asset_array').val(selectedValues);
+            
+        });
+
+        $("body").on("click", "#assign_permission", function() {
+            var userId = $('#select_user').val();
+            var asset_array = $('#asset_array').val();
+           
+            var checkbox = $('.selectedId:checked');
+
+            if (checkbox.length > 0) {
+                var checkbox_value = [];
+                $(checkbox).each(function () {
+                    checkbox_value.push($(this).val());
+                });
+
+                alert(checkbox_value+'---------pagevalue');
+                alert(asset_array+'---------asset_array');
+
+                if(asset_array.length>0)
+                {
+                    $.ajax({
+                        type: "post",
+                        url: "<?= site_url('assign_asset_permission'); ?>",
+                        data: {
+                            action: 'insert',
+                            user_id: userId,
+                            page_id: checkbox_value,
+                            asset_array: asset_array,
+                        },
+                        success: function(res) {
+                            var result = JSON.parse(res);
+                            if(result.responce==1)
+                            {
+                                alert('success');
+                            }
+                        },
+                        error: function(error) {
+                            $('.loader').hide();
+                        }
+                    });
+                }
+                else
+                {
+                    //assign anypermission
+                }
+              
+            }
+            else
+            {
+                //please select your assets
+            }
+
+
+            
+        });
     });
 </script>

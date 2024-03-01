@@ -553,10 +553,6 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
 	$routes->post('bot_id_to_quotation', 'Bot_Controller::bot_id_to_quotation');
-
-	
-	
-
 	$routes->get('/bot_installer', 'Home::bot_installer');
 	$routes->post('bot_preview', 'Bot_Controller::bot_preview');
 	$routes->post('', 'Bot_Controller::get_chat_data');
@@ -613,6 +609,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 	//linkedin integration
 	$routes->get('/linkedin_connection', 'Home::linkedin_connection');
+
+	//assign asset permission
+	$routes->post('/facebook_pageasset', 'AssetPermissionController::facebook_pageasset');
+	$routes->post('/assign_asset_permission', 'AssetPermissionController::assign_asset_permission');
 	
 
 	// whatsapp integration 
