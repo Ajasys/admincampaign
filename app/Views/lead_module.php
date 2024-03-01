@@ -142,6 +142,15 @@
 <?php
 // pre($_COOKIE);
 $table_username = session_username($_SESSION['username']);
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+    $get_asset_permission = array();
+} else {
+    $get_asset_permission = get_asset_permission($_SESSION['id']);
+    if(!in_array('create_scenarios', $get_asset_permission) || !in_array('leads', $get_asset_permission))
+    {
+        header('Location:'.base_url('logout').'');
+    }
+}
 $product = json_decode($product, true);
 $this->db = \Config\Database::connect('second');
 $conn_query = "SELECT * FROM " . $table_username . "_platform_integration Where master_id=" . $_SESSION['master'] . " AND platform_status=2 AND verification_status=1";
@@ -162,356 +171,327 @@ $user_data = $user_result->getResultArray();
             <div class="title-2">
                 <h2>Integration Scenarios</h2>
             </div>
-            <!-- <ul class="nav nav-pills mt-3 navtab_primary_sm" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-General-tab" data-bs-toggle="pill" data-bs-target="#Connection-name" type="button" role="tab" aria-controls="pills-General" aria-selected="false" tabindex="-1">Connection Name</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-Email-tab" data-bs-toggle="pill" data-bs-target="#Scenarious" type="button" role="tab" aria-controls="pills-Email" aria-selected="true">Scenarios</button>
-                </li>
-            </ul> -->
-            <!-- <div class="col-12"> -->
-            <!-- <div class="tab-pane fade" id="Connection-name" role="tabpanel" aria-labelledby="pills-General-tab" tabindex="0">
-                    <?php if (isset($data[0])) { ?>
-                        <div class="p-2 bg-white rounded-2 mx-2 ">
-                            <div class="lead_list p-2 rounded-2">
-                                <div class="d-flex align-items-center justify-content-end">
-                                    <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
-                                        <div class="mx-1">
-                                            <?php
-                                            ?>
-                                            <?php if (isset($data[0]['user_profile']) && !empty($data[0]['user_profile'])) { ?>
-                                                <img src="<?php echo $data[0]['user_profile'] ?>">
-                                            <?php } else { ?>
-                                                <img src="https://dev.realtosmart.com/assets/images/f_intigration.svg">
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                                    <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill">
-                                        <p class="d-block col-12 text-dark">
-                                            <?php echo $data[0]['username']; ?>
-                                        </p>
-                                        <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
-                                            <i class="bi bi-person me-1"></i>
-                                            <span>
-                                                <?php echo $data[0]['username']; ?>
-                                            </span>
-                                        </div>
-                                    </a>
-                                    <div class="delete_account" data-delete_id="<?php echo $data[0]['id']; ?>"><i class="bi bi-trash3 fs-5"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                </div> -->
+
             <div class="col-12">
                 <div class="p-3">
-                    <div class="p-2">
-                        <div class="d-flex justify-content-between">
-                            <button class="btn-primary-rounded lead_main_box_add ">
-                                <i class="bi bi-plus"></i>
-                            </button>
+                    <?php
+                    if ((in_array('create_scenarios', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                    ?>
+                        <div class="p-2">
+                            <div class="d-flex justify-content-between">
+                                <button class="btn-primary-rounded lead_main_box_add ">
+                                    <i class="bi bi-plus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <form class="needs-validation" name="pagelist" method="POST" novalidate="">
-                        <input type="hidden" id="platform_status" name="platform_status" value="">
-                        <div class="lead_add_main_box px-3 py-5 bg-white rounded-2 mx-2 mb-2 position-relative" style="display: none;">
+                        <form class="needs-validation" name="pagelist" method="POST" novalidate="">
+                            <input type="hidden" id="platform_status" name="platform_status" value="">
+                            <div class="lead_add_main_box px-3 py-5 bg-white rounded-2 mx-2 mb-2 position-relative" style="display: none;">
 
-                            <i class="fa-solid fa-angle-left position-absolute top-0 start-0 translate-middle m-4 fs-4 text-secondary-emphasis cursor-pointer discard-tag" data-bs-toggle="modal" data-bs-target="#discard_main_box"></i>
+                                <i class="fa-solid fa-angle-left position-absolute top-0 start-0 translate-middle m-4 fs-4 text-secondary-emphasis cursor-pointer discard-tag" data-bs-toggle="modal" data-bs-target="#discard_main_box"></i>
 
-                            <!--updated ka code  -->
-                            <div class="d-flex justify-content-center align-items-center gap-3 py-4">
+                                <!--updated ka code  -->
+                                <div class="d-flex justify-content-center align-items-center gap-3 py-4">
 
-                                <div class="big_list_add_outer_main big_list_add_outer_main_1 position-relative">
+                                    <div class="big_list_add_outer_main big_list_add_outer_main_1 position-relative">
 
-                                    <div class="big_circle_plus_outer position-relative">
-                                        <div class="big_circle_plus cursor-pointer">
-                                            <div class="big_circle_plus_inner bg-primary p-5 rounded-circle position-relative">
-                                                <div class="z-2 position-relative">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="z-2">
-                                                        <g>
-                                                            <path d="M492 236H276V20c0-11.046-8.954-20-20-20s-20 8.954-20 20v216H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h216v216c0 11.046 8.954 20 20 20s20-8.954 20-20V276h216c11.046 0 20-8.954 20-20s-8.954-20-20-20z" fill="#ffffff" data-original="#000000" class="" opacity="1"></path>
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="big_circle_plus_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 ms-3 top-50 start-100 translate-middle-y">
-                                            <ul class="position-relative px-3">
-                                                <li class="py-1">
-                                                    <a class="dropdown-item cursor-pointer" id="facebook_lead_drop_1" data-type="2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 1643 1643" fill="none" class="me-2">
-                                                            <path d="M1643 823.999C1643 370.808 1275.19 3 822 3C368.808 3 1 370.808 1 823.999C1 1221.36 283.424 1552.22 657.8 1628.58V1070.3H493.6V823.999H657.8V618.749C657.8 460.296 786.697 331.4 945.15 331.4H1150.4V577.699H986.2C941.045 577.699 904.1 614.644 904.1 659.799V823.999H1150.4V1070.3H904.1V1640.89C1318.7 1599.84 1643 1250.1 1643 823.999Z" fill="#0D6AE2"></path>
+                                        <div class="big_circle_plus_outer position-relative">
+                                            <div class="big_circle_plus cursor-pointer">
+                                                <div class="big_circle_plus_inner bg-primary p-5 rounded-circle position-relative">
+                                                    <div class="z-2 position-relative">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="z-2">
+                                                            <g>
+                                                                <path d="M492 236H276V20c0-11.046-8.954-20-20-20s-20 8.954-20 20v216H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h216v216c0 11.046 8.954 20 20 20s20-8.954 20-20V276h216c11.046 0 20-8.954 20-20s-8.954-20-20-20z" fill="#ffffff" data-original="#000000" class="" opacity="1"></path>
+                                                            </g>
                                                         </svg>
-                                                        <span>Facebook Leads</span>
-                                                    </a>
-                                                </li>
-                                                <li class="py-1">
-                                                    <a class="dropdown-item cursor-pointer" id="website_lead" data-type="5">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                                    <g>
-                                                        <circle cx="256" cy="256" r="225.229" fill="#a3defe" opacity="1" data-original="#a3defe" class=""></circle>
-                                                        <path fill="#7acefa" d="M178.809 44.35C92.438 75.858 30.771 158.727 30.771 256c0 124.39 100.838 225.229 225.229 225.229 57.256 0 109.512-21.377 149.251-56.569C139.58 395.298 125.639 142.906 178.809 44.35z" opacity="1" data-original="#7acefa" class=""></path>
-                                                        <path fill="#f7ef87" d="M476.093 194.583H35.907c-15.689 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407h440.186c15.689 0 28.407-12.718 28.407-28.407v-66.02c0-15.689-12.718-28.407-28.407-28.407z" opacity="1" data-original="#f7ef87" class=""></path>
-                                                        <path fill="#efd176" d="M35.907 194.583c-15.688 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407H275.1c-30.164-19.995-42.899-74.938-30.332-122.834z" opacity="1" data-original="#efd176"></path>
-                                                        <path d="M478.365 187.162c-7.871-25.404-20.202-49.361-36.162-70.662a7.54 7.54 0 0 0-1.274-1.69c-12.438-16.293-27.011-30.994-43.35-43.536-40.914-31.404-89.87-48.003-141.576-48.004H256c-37.727 0-75.195 9.237-108.352 26.712a7.501 7.501 0 0 0 6.993 13.27c25.118-13.237 52.887-21.417 81.291-24.048-20.694 20.712-39.721 45.999-55.546 73.422H92.203a217.914 217.914 0 0 1 32.761-30.524 7.5 7.5 0 0 0-9.037-11.973C98.942 82.95 83.84 98.072 71.012 114.886c-.424.434-.792.92-1.101 1.446-16.016 21.332-28.38 45.339-36.276 70.83C14.891 188.339 0 203.954 0 222.989v66.02c0 19.036 14.891 34.651 33.635 35.828 7.87 25.402 20.201 49.359 36.16 70.659a7.515 7.515 0 0 0 1.277 1.694c12.438 16.293 27.01 30.993 43.35 43.534 40.915 31.404 89.871 48.004 141.578 48.004 41.421 0 82.096-11.021 117.626-31.872a7.502 7.502 0 0 0 2.673-10.265 7.502 7.502 0 0 0-10.265-2.673c-27.467 16.12-58.229 25.95-89.957 28.878 20.689-20.713 39.715-46.003 55.539-73.424h88.276a220.539 220.539 0 0 1-25.259 24.523 7.5 7.5 0 0 0 4.782 13.281 7.47 7.47 0 0 0 4.775-1.72c35.239-29.132 60.797-67.287 74.178-110.619C497.11 323.659 512 308.045 512 289.01v-66.02c0-19.036-14.892-34.651-33.635-35.828zm-46.581-59.535c13.235 18.111 23.688 38.206 30.796 59.456h-98.057c-6.252-20.083-14.64-40.166-24.673-59.456zm-43.34-44.452a217.733 217.733 0 0 1 31.348 29.452h-88.177c-15.831-27.434-34.867-52.729-55.57-73.445 40.938 3.694 79.458 18.708 112.399 43.993zM256 40.77c21.52 19.485 41.514 44.384 58.222 71.857H197.777C214.485 85.154 234.479 60.255 256 40.77zm-66.878 86.857h133.756c10.472 19.162 19.286 39.271 25.896 59.456H163.226c6.61-20.185 15.424-40.294 25.896-59.456zm-108.911 0h91.938c-10.033 19.29-18.421 39.372-24.673 59.456H49.419c7.111-21.266 17.56-41.352 30.792-59.456zm.005 256.746c-13.235-18.111-23.688-38.207-30.796-59.456h98.058c6.252 20.083 14.639 40.166 24.672 59.456zm43.34 44.452c-11.42-8.765-21.915-18.657-31.348-29.452h88.177c15.829 27.43 34.862 52.728 55.558 73.444-40.933-3.696-79.449-18.709-112.387-43.992zM256 471.23c-21.521-19.485-41.515-44.384-58.223-71.858h116.445C297.514 426.846 277.52 451.745 256 471.23zm66.878-86.857H189.122c-10.472-19.162-19.288-39.272-25.9-59.456h185.556c-6.612 20.184-15.428 40.294-25.9 59.456zm109.049 0H339.85c10.033-19.29 18.42-39.372 24.672-59.456h98.067a216.097 216.097 0 0 1-30.662 59.456zM497 289.01c0 11.528-9.379 20.907-20.907 20.907H35.906C24.379 309.917 15 300.538 15 289.01v-66.02c0-11.527 9.379-20.906 20.907-20.906h3.319l.028.002.024-.002h319.653l.024.002.028-.002h113.74l.024.002.028-.002h3.318c11.528 0 20.907 9.379 20.907 20.906zm-308.316-68.473a7.502 7.502 0 0 0-9.613 4.482l-13.636 37.467-13.637-37.467a7.5 7.5 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.684-56.83a7.501 7.501 0 0 0-4.483-9.613zm222.501 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.637-37.467a7.5 7.5 0 0 0-14.095 5.131l20.685 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.504 7.504 0 0 0-4.484-9.613zm-111.25 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0L256 249.514l13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.503 7.503 0 0 0-4.483-9.614z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
-                                                    </g>
-                                                </svg>
-                                                        <span> Website Lead Setting</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="big_circle_fb_outer position-relative logo-1">
-                                        <div class="big_circle_fb cursor-pointer">
-                                            <div class="big_circle_fb_inner p-5 rounded-circle position-relative profile_div">
-
-                                                <div class="z-2 position-relative fb_div_hide">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                                        <g>
-                                                            <path fill-rule="evenodd" d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z" fill="#ffffff" data-original="#000000" opacity="1" class=""></path>
-                                                        </g>
-                                                    </svg>
-                                                </div>
-
-                                                <!-- <img src="https://ajasys.com/img/favicon.png" class="w-100 h-100 object-fit-contain rounded-circle"> -->
-                                            </div>
-                                        </div>
-                                        <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
-                                            <?php if (isset($fb_account) && !empty($fb_account)) { ?>
-                                                <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
-                                                    Name</label>
-                                                <div class="main-selectpicker">
-                                                    <select id="user_agent" class="selectpicker form-control form-main user_agent" data-live-search="true">
-                                                        <?php foreach ($fb_account as $key => $value) {
-                                                            echo "<option value=" . $value['accessToken'] . " data-user_id=" . $value['userid'] . " data-username='" . $value['username'] . "'>" . $value['username'] . "</option>";
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <div class="text-end mt-3 fb_user_next">
-                                                    <button class="btn-primary big_falcebook_circle_sbt" data-master_id=<?php if (isset($fb_account[0]['master_id'])) {
-                                                                                                                            echo $fb_account[0]['master_id'];
-                                                                                                                        } ?>>Next</button>
-                                                </div>
-                                            <?php } else { ?>
-                                                <div class="text-end mt-2">
-                                                    <fb:login-button onlogin="myFacebookLogin();"></fb:login-button>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-                                        <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
-                                            <b>Facebook Lead Connection</b>
-                                        </h6>
-                                    </div>
-
-                                    <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
-                                        <div class="btn-primary-rounded add_next_big_plus_1">
-                                            <i class="bi bi-plus"></i>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- ===========facebook-way======= -->
-                                <div class="big_list_add_outer_main big_list_add_outer_main_2 position-relative">
-                                    <div class="big_circle_fb_outer position-relative">
-                                        <div class="big_circle_fb cursor-pointer">
-                                            <div class="big_circle_fb_inner p-5 rounded-circle position-relative page-profile">
-                                                <div class="z-2 position-relative fb_div_hide1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                                        <g>
-                                                            <path fill-rule="evenodd" d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z" fill="#ffffff" data-original="#000000" opacity="1" class=""></path>
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
-                                            <form>
-                                                <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
-                                                    Name</label>
-                                                <div class="main-selectpicker">
-                                                    <select id="fb_conn_id" class="selectpicker form-control form-main fb_conn_id" required>
-                                                        <option value="">select Connection</option>
-                                                        <?php foreach ($conn_rows as $key => $value) {
-                                                            echo "<option value=" . $value['id'] . "  data-access-token=" . $value['access_token'] . " data-connection-check=" . $value['verification_status'] . ">" . $value['fb_app_name'] . "</option>";
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-
-                                                <div class="d-flex mt-2 justify-content-between">
-                                                    <div>
-                                                        <label class="form-label main-label fs-14 text-nowrap">Page</label><sup class="validationn">*</sup>
-                                                    </div>
-                                                    <div>
-                                                        <i class="fa fa-refresh text-success page-referesh" aria-hidden="true"></i>
                                                     </div>
                                                 </div>
-
-
-
-                                                <div class="main-selectpicker">
-                                                    <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
-                                                        <option value="">select Page</option>
-                                                    </select>
-                                                </div>
-
-                                                <label class="form-label main-label fs-14 text-nowrap">Form</label><sup class="validationn">*</sup>
-                                                <div class="main-selectpicker">
-                                                    <select id="facebookform" class="selectpicker form-control form-main" data-live-search="true" required>
-                                                        <option value="">select Form</option>
-                                                    </select>
-                                                </div>
-                                                <div class="text-end mt-3 page_frm_save">
-                                                    <button class="btn-primary d-inline-block big_falcebook_circle_2_sbt" edit-id="">Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
-                                            <b>Facebook Pages & Forms</b>
-                                        </h6>
-                                    </div>
-                                    <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
-                                        <div class="btn-primary-rounded add_next_big_plus_2">
-                                            <i class="bi bi-plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ===========website-way======== -->
-                                <div class="big_list_add_outer_main big_list_add_outer_main_4 position-relative">
-                                    <div class="big_circle_fb_outer position-relative">
-                                        <div class="big_circle_fb cursor-pointer">
-                                            <div class="big_circle_fb_inner p-5 rounded-circle position-relative page-profile">
-                                                <div class="z-2 position-relative fb_div_hide1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                                    <g>
-                                                        <circle cx="256" cy="256" r="225.229" fill="#a3defe" opacity="1" data-original="#a3defe" class=""></circle>
-                                                        <path fill="#7acefa" d="M178.809 44.35C92.438 75.858 30.771 158.727 30.771 256c0 124.39 100.838 225.229 225.229 225.229 57.256 0 109.512-21.377 149.251-56.569C139.58 395.298 125.639 142.906 178.809 44.35z" opacity="1" data-original="#7acefa" class=""></path>
-                                                        <path fill="#f7ef87" d="M476.093 194.583H35.907c-15.689 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407h440.186c15.689 0 28.407-12.718 28.407-28.407v-66.02c0-15.689-12.718-28.407-28.407-28.407z" opacity="1" data-original="#f7ef87" class=""></path>
-                                                        <path fill="#efd176" d="M35.907 194.583c-15.688 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407H275.1c-30.164-19.995-42.899-74.938-30.332-122.834z" opacity="1" data-original="#efd176"></path>
-                                                        <path d="M478.365 187.162c-7.871-25.404-20.202-49.361-36.162-70.662a7.54 7.54 0 0 0-1.274-1.69c-12.438-16.293-27.011-30.994-43.35-43.536-40.914-31.404-89.87-48.003-141.576-48.004H256c-37.727 0-75.195 9.237-108.352 26.712a7.501 7.501 0 0 0 6.993 13.27c25.118-13.237 52.887-21.417 81.291-24.048-20.694 20.712-39.721 45.999-55.546 73.422H92.203a217.914 217.914 0 0 1 32.761-30.524 7.5 7.5 0 0 0-9.037-11.973C98.942 82.95 83.84 98.072 71.012 114.886c-.424.434-.792.92-1.101 1.446-16.016 21.332-28.38 45.339-36.276 70.83C14.891 188.339 0 203.954 0 222.989v66.02c0 19.036 14.891 34.651 33.635 35.828 7.87 25.402 20.201 49.359 36.16 70.659a7.515 7.515 0 0 0 1.277 1.694c12.438 16.293 27.01 30.993 43.35 43.534 40.915 31.404 89.871 48.004 141.578 48.004 41.421 0 82.096-11.021 117.626-31.872a7.502 7.502 0 0 0 2.673-10.265 7.502 7.502 0 0 0-10.265-2.673c-27.467 16.12-58.229 25.95-89.957 28.878 20.689-20.713 39.715-46.003 55.539-73.424h88.276a220.539 220.539 0 0 1-25.259 24.523 7.5 7.5 0 0 0 4.782 13.281 7.47 7.47 0 0 0 4.775-1.72c35.239-29.132 60.797-67.287 74.178-110.619C497.11 323.659 512 308.045 512 289.01v-66.02c0-19.036-14.892-34.651-33.635-35.828zm-46.581-59.535c13.235 18.111 23.688 38.206 30.796 59.456h-98.057c-6.252-20.083-14.64-40.166-24.673-59.456zm-43.34-44.452a217.733 217.733 0 0 1 31.348 29.452h-88.177c-15.831-27.434-34.867-52.729-55.57-73.445 40.938 3.694 79.458 18.708 112.399 43.993zM256 40.77c21.52 19.485 41.514 44.384 58.222 71.857H197.777C214.485 85.154 234.479 60.255 256 40.77zm-66.878 86.857h133.756c10.472 19.162 19.286 39.271 25.896 59.456H163.226c6.61-20.185 15.424-40.294 25.896-59.456zm-108.911 0h91.938c-10.033 19.29-18.421 39.372-24.673 59.456H49.419c7.111-21.266 17.56-41.352 30.792-59.456zm.005 256.746c-13.235-18.111-23.688-38.207-30.796-59.456h98.058c6.252 20.083 14.639 40.166 24.672 59.456zm43.34 44.452c-11.42-8.765-21.915-18.657-31.348-29.452h88.177c15.829 27.43 34.862 52.728 55.558 73.444-40.933-3.696-79.449-18.709-112.387-43.992zM256 471.23c-21.521-19.485-41.515-44.384-58.223-71.858h116.445C297.514 426.846 277.52 451.745 256 471.23zm66.878-86.857H189.122c-10.472-19.162-19.288-39.272-25.9-59.456h185.556c-6.612 20.184-15.428 40.294-25.9 59.456zm109.049 0H339.85c10.033-19.29 18.42-39.372 24.672-59.456h98.067a216.097 216.097 0 0 1-30.662 59.456zM497 289.01c0 11.528-9.379 20.907-20.907 20.907H35.906C24.379 309.917 15 300.538 15 289.01v-66.02c0-11.527 9.379-20.906 20.907-20.906h3.319l.028.002.024-.002h319.653l.024.002.028-.002h113.74l.024.002.028-.002h3.318c11.528 0 20.907 9.379 20.907 20.906zm-308.316-68.473a7.502 7.502 0 0 0-9.613 4.482l-13.636 37.467-13.637-37.467a7.5 7.5 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.684-56.83a7.501 7.501 0 0 0-4.483-9.613zm222.501 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.637-37.467a7.5 7.5 0 0 0-14.095 5.131l20.685 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.504 7.504 0 0 0-4.484-9.613zm-111.25 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0L256 249.514l13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.503 7.503 0 0 0-4.483-9.614z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
-                                                    </g>
-                                                </svg>
-                                                </div>
+                                            </div>
+                                            <div class="big_circle_plus_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 ms-3 top-50 start-100 translate-middle-y">
+                                                <ul class="position-relative px-3">
+                                                    <li class="py-1">
+                                                        <a class="dropdown-item cursor-pointer" id="facebook_lead_drop_1" data-type="2">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 1643 1643" fill="none" class="me-2">
+                                                                <path d="M1643 823.999C1643 370.808 1275.19 3 822 3C368.808 3 1 370.808 1 823.999C1 1221.36 283.424 1552.22 657.8 1628.58V1070.3H493.6V823.999H657.8V618.749C657.8 460.296 786.697 331.4 945.15 331.4H1150.4V577.699H986.2C941.045 577.699 904.1 614.644 904.1 659.799V823.999H1150.4V1070.3H904.1V1640.89C1318.7 1599.84 1643 1250.1 1643 823.999Z" fill="#0D6AE2"></path>
+                                                            </svg>
+                                                            <span>Facebook Leads</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="py-1">
+                                                        <a class="dropdown-item cursor-pointer" id="website_lead" data-type="5">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                                <g>
+                                                                    <circle cx="256" cy="256" r="225.229" fill="#a3defe" opacity="1" data-original="#a3defe" class=""></circle>
+                                                                    <path fill="#7acefa" d="M178.809 44.35C92.438 75.858 30.771 158.727 30.771 256c0 124.39 100.838 225.229 225.229 225.229 57.256 0 109.512-21.377 149.251-56.569C139.58 395.298 125.639 142.906 178.809 44.35z" opacity="1" data-original="#7acefa" class=""></path>
+                                                                    <path fill="#f7ef87" d="M476.093 194.583H35.907c-15.689 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407h440.186c15.689 0 28.407-12.718 28.407-28.407v-66.02c0-15.689-12.718-28.407-28.407-28.407z" opacity="1" data-original="#f7ef87" class=""></path>
+                                                                    <path fill="#efd176" d="M35.907 194.583c-15.688 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407H275.1c-30.164-19.995-42.899-74.938-30.332-122.834z" opacity="1" data-original="#efd176"></path>
+                                                                    <path d="M478.365 187.162c-7.871-25.404-20.202-49.361-36.162-70.662a7.54 7.54 0 0 0-1.274-1.69c-12.438-16.293-27.011-30.994-43.35-43.536-40.914-31.404-89.87-48.003-141.576-48.004H256c-37.727 0-75.195 9.237-108.352 26.712a7.501 7.501 0 0 0 6.993 13.27c25.118-13.237 52.887-21.417 81.291-24.048-20.694 20.712-39.721 45.999-55.546 73.422H92.203a217.914 217.914 0 0 1 32.761-30.524 7.5 7.5 0 0 0-9.037-11.973C98.942 82.95 83.84 98.072 71.012 114.886c-.424.434-.792.92-1.101 1.446-16.016 21.332-28.38 45.339-36.276 70.83C14.891 188.339 0 203.954 0 222.989v66.02c0 19.036 14.891 34.651 33.635 35.828 7.87 25.402 20.201 49.359 36.16 70.659a7.515 7.515 0 0 0 1.277 1.694c12.438 16.293 27.01 30.993 43.35 43.534 40.915 31.404 89.871 48.004 141.578 48.004 41.421 0 82.096-11.021 117.626-31.872a7.502 7.502 0 0 0 2.673-10.265 7.502 7.502 0 0 0-10.265-2.673c-27.467 16.12-58.229 25.95-89.957 28.878 20.689-20.713 39.715-46.003 55.539-73.424h88.276a220.539 220.539 0 0 1-25.259 24.523 7.5 7.5 0 0 0 4.782 13.281 7.47 7.47 0 0 0 4.775-1.72c35.239-29.132 60.797-67.287 74.178-110.619C497.11 323.659 512 308.045 512 289.01v-66.02c0-19.036-14.892-34.651-33.635-35.828zm-46.581-59.535c13.235 18.111 23.688 38.206 30.796 59.456h-98.057c-6.252-20.083-14.64-40.166-24.673-59.456zm-43.34-44.452a217.733 217.733 0 0 1 31.348 29.452h-88.177c-15.831-27.434-34.867-52.729-55.57-73.445 40.938 3.694 79.458 18.708 112.399 43.993zM256 40.77c21.52 19.485 41.514 44.384 58.222 71.857H197.777C214.485 85.154 234.479 60.255 256 40.77zm-66.878 86.857h133.756c10.472 19.162 19.286 39.271 25.896 59.456H163.226c6.61-20.185 15.424-40.294 25.896-59.456zm-108.911 0h91.938c-10.033 19.29-18.421 39.372-24.673 59.456H49.419c7.111-21.266 17.56-41.352 30.792-59.456zm.005 256.746c-13.235-18.111-23.688-38.207-30.796-59.456h98.058c6.252 20.083 14.639 40.166 24.672 59.456zm43.34 44.452c-11.42-8.765-21.915-18.657-31.348-29.452h88.177c15.829 27.43 34.862 52.728 55.558 73.444-40.933-3.696-79.449-18.709-112.387-43.992zM256 471.23c-21.521-19.485-41.515-44.384-58.223-71.858h116.445C297.514 426.846 277.52 451.745 256 471.23zm66.878-86.857H189.122c-10.472-19.162-19.288-39.272-25.9-59.456h185.556c-6.612 20.184-15.428 40.294-25.9 59.456zm109.049 0H339.85c10.033-19.29 18.42-39.372 24.672-59.456h98.067a216.097 216.097 0 0 1-30.662 59.456zM497 289.01c0 11.528-9.379 20.907-20.907 20.907H35.906C24.379 309.917 15 300.538 15 289.01v-66.02c0-11.527 9.379-20.906 20.907-20.906h3.319l.028.002.024-.002h319.653l.024.002.028-.002h113.74l.024.002.028-.002h3.318c11.528 0 20.907 9.379 20.907 20.906zm-308.316-68.473a7.502 7.502 0 0 0-9.613 4.482l-13.636 37.467-13.637-37.467a7.5 7.5 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.684-56.83a7.501 7.501 0 0 0-4.483-9.613zm222.501 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.637-37.467a7.5 7.5 0 0 0-14.095 5.131l20.685 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.504 7.504 0 0 0-4.484-9.613zm-111.25 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0L256 249.514l13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.503 7.503 0 0 0-4.483-9.614z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                                                                </g>
+                                                            </svg>
+                                                            <span> Website Lead Setting</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
-                                        <div class="big_circle_fb_list all_circle_plus_list all_circle_plus_list1 bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
-                                            <form>
-                                                <!-- <div class="col-12">
+
+                                        <div class="big_circle_fb_outer position-relative logo-1">
+                                            <div class="big_circle_fb cursor-pointer">
+                                                <div class="big_circle_fb_inner p-5 rounded-circle position-relative profile_div">
+
+                                                    <div class="z-2 position-relative fb_div_hide">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                            <g>
+                                                                <path fill-rule="evenodd" d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z" fill="#ffffff" data-original="#000000" opacity="1" class=""></path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+
+                                                    <!-- <img src="https://ajasys.com/img/favicon.png" class="w-100 h-100 object-fit-contain rounded-circle"> -->
+                                                </div>
+                                            </div>
+                                            <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+                                                <?php if (isset($fb_account) && !empty($fb_account)) { ?>
+                                                    <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
+                                                        Name</label>
+                                                    <div class="main-selectpicker">
+                                                        <select id="user_agent" class="selectpicker form-control form-main user_agent" data-live-search="true">
+                                                            <?php foreach ($fb_account as $key => $value) {
+                                                                echo "<option value=" . $value['accessToken'] . " data-user_id=" . $value['userid'] . " data-username='" . $value['username'] . "'>" . $value['username'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="text-end mt-3 fb_user_next">
+                                                        <button class="btn-primary big_falcebook_circle_sbt" data-master_id=<?php if (isset($fb_account[0]['master_id'])) {
+                                                                                                                                echo $fb_account[0]['master_id'];
+                                                                                                                            } ?>>Next</button>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="text-end mt-2">
+                                                        <fb:login-button onlogin="myFacebookLogin();"></fb:login-button>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+                                            <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
+                                                <b>Facebook Lead Connection</b>
+                                            </h6>
+                                        </div>
+
+                                        <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
+                                            <div class="btn-primary-rounded add_next_big_plus_1">
+                                                <i class="bi bi-plus"></i>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- ===========facebook-way======= -->
+                                    <div class="big_list_add_outer_main big_list_add_outer_main_2 position-relative">
+                                        <div class="big_circle_fb_outer position-relative">
+                                            <div class="big_circle_fb cursor-pointer">
+                                                <div class="big_circle_fb_inner p-5 rounded-circle position-relative page-profile">
+                                                    <div class="z-2 position-relative fb_div_hide1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="80" height="80" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                            <g>
+                                                                <path fill-rule="evenodd" d="M255.182 7.758q69.23.79 125.086 34.03a249.734 249.734 0 0 1 88.89 89.434q33.037 56.191 33.825 125.843-1.962 95.3-60.117 162.79c-38.77 44.995-88.425 72.83-139.827 83.501V325.23h48.597l10.99-70h-73.587v-45.848a39.844 39.844 0 0 1 8.474-26.323q8.827-11.253 31.09-11.829h44.436v-61.318q-.957-.308-18.15-2.434a360.743 360.743 0 0 0-39.16-2.434q-44.433.205-70.281 25.068-25.85 24.855-26.409 71.92v53.198h-56v70h56v178.127c-63.115-10.67-112.77-38.506-151.54-83.5S8.691 320.598 7.383 257.065q.785-69.655 33.824-125.843a249.739 249.739 0 0 1 88.891-89.435q55.854-33.233 125.084-34.03z" fill="#ffffff" data-original="#000000" opacity="1" class=""></path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+                                                <form>
+                                                    <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
+                                                        Name</label>
+                                                    <div class="main-selectpicker">
+                                                        <select id="fb_conn_id" class="selectpicker form-control form-main fb_conn_id" required>
+                                                            <option value="">select Connection</option>
+                                                            <?php foreach ($conn_rows as $key => $value) {
+                                                                echo "<option value=" . $value['id'] . "  data-access-token=" . $value['access_token'] . " data-connection-check=" . $value['verification_status'] . ">" . $value['fb_app_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="d-flex mt-2 justify-content-between">
+                                                        <div>
+                                                            <label class="form-label main-label fs-14 text-nowrap">Page</label><sup class="validationn">*</sup>
+                                                        </div>
+                                                        <div>
+                                                            <i class="fa fa-refresh text-success page-referesh" aria-hidden="true"></i>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="main-selectpicker">
+                                                        <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
+                                                            <option value="">select Page</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="form-label main-label fs-14 text-nowrap">Form</label><sup class="validationn">*</sup>
+                                                    <div class="main-selectpicker">
+                                                        <select id="facebookform" class="selectpicker form-control form-main" data-live-search="true" required>
+                                                            <option value="">select Form</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="text-end mt-3 page_frm_save">
+                                                        <button class="btn-primary d-inline-block big_falcebook_circle_2_sbt" edit-id="">Save</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
+                                                <b>Facebook Pages & Forms</b>
+                                            </h6>
+                                        </div>
+                                        <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
+                                            <div class="btn-primary-rounded add_next_big_plus_2">
+                                                <i class="bi bi-plus"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ===========website-way======== -->
+                                    <div class="big_list_add_outer_main big_list_add_outer_main_4 position-relative">
+                                        <div class="big_circle_fb_outer position-relative">
+                                            <div class="big_circle_fb cursor-pointer">
+                                                <div class="big_circle_fb_inner p-5 rounded-circle position-relative page-profile">
+                                                    <div class="z-2 position-relative fb_div_hide1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                            <g>
+                                                                <circle cx="256" cy="256" r="225.229" fill="#a3defe" opacity="1" data-original="#a3defe" class=""></circle>
+                                                                <path fill="#7acefa" d="M178.809 44.35C92.438 75.858 30.771 158.727 30.771 256c0 124.39 100.838 225.229 225.229 225.229 57.256 0 109.512-21.377 149.251-56.569C139.58 395.298 125.639 142.906 178.809 44.35z" opacity="1" data-original="#7acefa" class=""></path>
+                                                                <path fill="#f7ef87" d="M476.093 194.583H35.907c-15.689 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407h440.186c15.689 0 28.407-12.718 28.407-28.407v-66.02c0-15.689-12.718-28.407-28.407-28.407z" opacity="1" data-original="#f7ef87" class=""></path>
+                                                                <path fill="#efd176" d="M35.907 194.583c-15.688 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407H275.1c-30.164-19.995-42.899-74.938-30.332-122.834z" opacity="1" data-original="#efd176"></path>
+                                                                <path d="M478.365 187.162c-7.871-25.404-20.202-49.361-36.162-70.662a7.54 7.54 0 0 0-1.274-1.69c-12.438-16.293-27.011-30.994-43.35-43.536-40.914-31.404-89.87-48.003-141.576-48.004H256c-37.727 0-75.195 9.237-108.352 26.712a7.501 7.501 0 0 0 6.993 13.27c25.118-13.237 52.887-21.417 81.291-24.048-20.694 20.712-39.721 45.999-55.546 73.422H92.203a217.914 217.914 0 0 1 32.761-30.524 7.5 7.5 0 0 0-9.037-11.973C98.942 82.95 83.84 98.072 71.012 114.886c-.424.434-.792.92-1.101 1.446-16.016 21.332-28.38 45.339-36.276 70.83C14.891 188.339 0 203.954 0 222.989v66.02c0 19.036 14.891 34.651 33.635 35.828 7.87 25.402 20.201 49.359 36.16 70.659a7.515 7.515 0 0 0 1.277 1.694c12.438 16.293 27.01 30.993 43.35 43.534 40.915 31.404 89.871 48.004 141.578 48.004 41.421 0 82.096-11.021 117.626-31.872a7.502 7.502 0 0 0 2.673-10.265 7.502 7.502 0 0 0-10.265-2.673c-27.467 16.12-58.229 25.95-89.957 28.878 20.689-20.713 39.715-46.003 55.539-73.424h88.276a220.539 220.539 0 0 1-25.259 24.523 7.5 7.5 0 0 0 4.782 13.281 7.47 7.47 0 0 0 4.775-1.72c35.239-29.132 60.797-67.287 74.178-110.619C497.11 323.659 512 308.045 512 289.01v-66.02c0-19.036-14.892-34.651-33.635-35.828zm-46.581-59.535c13.235 18.111 23.688 38.206 30.796 59.456h-98.057c-6.252-20.083-14.64-40.166-24.673-59.456zm-43.34-44.452a217.733 217.733 0 0 1 31.348 29.452h-88.177c-15.831-27.434-34.867-52.729-55.57-73.445 40.938 3.694 79.458 18.708 112.399 43.993zM256 40.77c21.52 19.485 41.514 44.384 58.222 71.857H197.777C214.485 85.154 234.479 60.255 256 40.77zm-66.878 86.857h133.756c10.472 19.162 19.286 39.271 25.896 59.456H163.226c6.61-20.185 15.424-40.294 25.896-59.456zm-108.911 0h91.938c-10.033 19.29-18.421 39.372-24.673 59.456H49.419c7.111-21.266 17.56-41.352 30.792-59.456zm.005 256.746c-13.235-18.111-23.688-38.207-30.796-59.456h98.058c6.252 20.083 14.639 40.166 24.672 59.456zm43.34 44.452c-11.42-8.765-21.915-18.657-31.348-29.452h88.177c15.829 27.43 34.862 52.728 55.558 73.444-40.933-3.696-79.449-18.709-112.387-43.992zM256 471.23c-21.521-19.485-41.515-44.384-58.223-71.858h116.445C297.514 426.846 277.52 451.745 256 471.23zm66.878-86.857H189.122c-10.472-19.162-19.288-39.272-25.9-59.456h185.556c-6.612 20.184-15.428 40.294-25.9 59.456zm109.049 0H339.85c10.033-19.29 18.42-39.372 24.672-59.456h98.067a216.097 216.097 0 0 1-30.662 59.456zM497 289.01c0 11.528-9.379 20.907-20.907 20.907H35.906C24.379 309.917 15 300.538 15 289.01v-66.02c0-11.527 9.379-20.906 20.907-20.906h3.319l.028.002.024-.002h319.653l.024.002.028-.002h113.74l.024.002.028-.002h3.318c11.528 0 20.907 9.379 20.907 20.906zm-308.316-68.473a7.502 7.502 0 0 0-9.613 4.482l-13.636 37.467-13.637-37.467a7.5 7.5 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.684-56.83a7.501 7.501 0 0 0-4.483-9.613zm222.501 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.637-37.467a7.5 7.5 0 0 0-14.095 5.131l20.685 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.504 7.504 0 0 0-4.484-9.613zm-111.25 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0L256 249.514l13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.503 7.503 0 0 0-4.483-9.614z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="big_circle_fb_list all_circle_plus_list all_circle_plus_list1 bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+                                                <form>
+                                                    <!-- <div class="col-12">
                                                     <label class="form-label main-label fs-14 text-nowrap mt-3">Website URL <sup class="validationn">*</sup></label>
                                                     <input type="url" class="form-control main-control" name="website_url" placeholder="Enter your website URL" id="website_url" required>
                                                 </div> -->
-                                                <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
-                                                    Name</label>
+                                                    <label class="form-label main-label fs-14 text-nowrap mb-2">Connection
+                                                        Name</label>
+                                                    <div class="main-selectpicker">
+                                                        <select id="web_conn_id" class="selectpicker form-control form-main web_conn_id" required>
+                                                            <option value="">select Connection</option>
+                                                            <?php foreach ($webconn_rows as $key => $value) {
+                                                                echo "<option value=" . $value['id'] . "  data-access-token=" . $value['access_token'] . " data-connection-check=" . $value['verification_status'] . ">" . $value['website_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-12 webDiv">
+                                                        <label class="form-label main-label fs-14 text-nowrap d-flex justify-content-between"><span>API</span>
+                                                            <!-- <a class="btn-primary rounded-circle border border-secondary fs-10 p-1 px-2" data-toggle="tooltip" data-placement="top" title="API Document" href="<?php echo base_url(); ?>assets/document/WebsiteAPIDocument.pdf" download><i class="fa-solid fa-arrow-down"></i></a> -->
+                                                        </label>
+                                                        <textarea id="web_api" rows="3" class="form-control form-main" placeholder="" readonly>curl -X POST -d  "<?php echo base_url(); ?>web_integrate?name=<name_value>&mobileno=<mobileno_value>&email=<email_value>&description=<description_value>&access_token=<access_token_value>"</textarea>
+                                                    </div>
+                                                    <div class="col-12 webDiv">
+                                                        <label class="form-label main-label fs-14 text-nowrap">Access Token</label>
+                                                        <textarea id="web_token" rows="3" class="form-control form-main" placeholder="" readonly></textarea>
+                                                    </div>
+
+                                                    <div class="text-end mt-3 page_frm_save">
+                                                        <button class="btn-primary d-inline-block big_falcebook_circle_2_sbt" edit-id="">Save</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
+                                                <b>Website Connection</b>
+                                            </h6>
+                                        </div>
+                                        <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
+                                            <div class="btn-primary-rounded add_next_big_plus_2">
+                                                <i class="bi bi-plus"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="lead_module_devider lead_module_devider_2"></div>
+                                    <div class="big_list_add_outer_main big_list_add_outer_main_3 position-relative">
+                                        <div class="big_circle_fb_outer position-relative">
+                                            <div class="big_circle_fb after-none cursor-pointer">
+                                                <div class="big_circle_fb_inner bg-white shadow-none p-5 rounded-circle position-relative">
+                                                    <div class="position-relative">
+                                                        <img src="https://ajasys.com/img/favicon.png" alt="" width="80">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
+
+                                                <label class="form-label main-label fs-14 text-nowrap mt-2">Interested Product</label> <sup class="validationn">*</sup>
                                                 <div class="main-selectpicker">
-                                                    <select id="web_conn_id" class="selectpicker form-control form-main web_conn_id" required>
-                                                        <option value="">select Connection</option>
-                                                        <?php foreach ($webconn_rows as $key => $value) {
-                                                            echo "<option value=" . $value['id'] . "  data-access-token=" . $value['access_token'] . " data-connection-check=" . $value['verification_status'] . ">" . $value['website_name'] . "</option>";
+                                                    <select id="product" class="selectpicker form-control form-main product" data-live-search="true" required>
+                                                        <option value="0">Select Interested Product</option>
+                                                        <?php
+                                                        if (isset($product)) {
+                                                            foreach ($product as $product_key => $product_value) {
+                                                                echo '<option data-product_option_id="' . $product_value["id"] . '" value="' . $product_value["id"] . '">' . $product_value["product_name"] . '</option>';
+                                                            }
                                                         }
                                                         ?>
                                                     </select>
                                                 </div>
 
-                                                <div class="col-12 webDiv">
-                                                    <label class="form-label main-label fs-14 text-nowrap d-flex justify-content-between"><span>API</span>
-                                                        <!-- <a class="btn-primary rounded-circle border border-secondary fs-10 p-1 px-2" data-toggle="tooltip" data-placement="top" title="API Document" href="<?php echo base_url(); ?>assets/document/WebsiteAPIDocument.pdf" download><i class="fa-solid fa-arrow-down"></i></a> -->
-                                                    </label>
-                                                    <textarea id="web_api" rows="3" class="form-control form-main" placeholder="" readonly>curl -X POST -d  "<?php echo base_url(); ?>web_integrate?name=<name_value>&mobileno=<mobileno_value>&email=<email_value>&description=<description_value>&access_token=<access_token_value>"</textarea>
-                                                </div>
-                                                <div class="col-12 webDiv">
-                                                    <label class="form-label main-label fs-14 text-nowrap">Access Token</label>
-                                                    <textarea id="web_token" rows="3" class="form-control form-main" placeholder="" readonly></textarea>
+                                                <label class="form-label main-label fs-14 text-nowrap mt-2">Assign
+                                                    to <sup class="validationn">*</sup></label>
+                                                <div class="main-selectpicker">
+                                                    <select id="assign_to" class="selectpicker form-control form-main assign_to" data-live-search="true" required>
+                                                        <option class="dropdown-item" data-sourcetype_name="employee" value="0">Roll Over Staff
+                                                        </option>
+                                                        <option class="dropdown-item" data-sourcetype_name="employee" value="1">Assign To Staff
+                                                        </option>
+                                                    </select>
                                                 </div>
 
-                                                <div class="text-end mt-3 page_frm_save">
-                                                    <button class="btn-primary d-inline-block big_falcebook_circle_2_sbt" edit-id="">Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <h6 class="position-absolute top-100 start-50 translate-middle text-nowrap mt-4">
-                                            <b>Website Connection</b>
-                                        </h6>
-                                    </div>
-                                    <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
-                                        <div class="btn-primary-rounded add_next_big_plus_2">
-                                            <i class="bi bi-plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="lead_module_devider lead_module_devider_2"></div>
-                                <div class="big_list_add_outer_main big_list_add_outer_main_3 position-relative">
-                                    <div class="big_circle_fb_outer position-relative">
-                                        <div class="big_circle_fb after-none cursor-pointer">
-                                            <div class="big_circle_fb_inner bg-white shadow-none p-5 rounded-circle position-relative">
-                                                <div class="position-relative">
-                                                    <img src="https://ajasys.com/img/favicon.png" alt="" width="80">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="big_circle_fb_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 px-3 ms-3 top-50 start-100 translate-middle-y">
-
-                                            <label class="form-label main-label fs-14 text-nowrap mt-2">Interested Product</label> <sup class="validationn">*</sup>
-                                            <div class="main-selectpicker">
-                                                <select id="product" class="selectpicker form-control form-main product" data-live-search="true" required>
-                                                    <option value="0">Select Interested Product</option>
-                                                    <?php
-                                                    if (isset($product)) {
-                                                        foreach ($product as $product_key => $product_value) {
-                                                            echo '<option data-product_option_id="' . $product_value["id"] . '" value="' . $product_value["id"] . '">' . $product_value["product_name"] . '</option>';
+                                                <label class="form-label main-label fs-14 text-nowrap mt-2 staff">Staff<sup class="validationn">*</sup></label>
+                                                <div class="main-selectpicker multiple-select staff">
+                                                    <select class="selectpicker form-control form-main staff_to" multiple id="staff_to" name="staff_to" data-live-search="true" required>
+                                                        <?php
+                                                        if (isset($user_data)) {
+                                                            foreach ($user_data as $type_key => $user_value) {
+                                                                echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
+                                                            }
                                                         }
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
+                                                        ?>
+                                                    </select>
+                                                </div>
 
-                                            <label class="form-label main-label fs-14 text-nowrap mt-2">Assign
-                                                to <sup class="validationn">*</sup></label>
-                                            <div class="main-selectpicker">
-                                                <select id="assign_to" class="selectpicker form-control form-main assign_to" data-live-search="true" required>
-                                                    <option class="dropdown-item" data-sourcetype_name="employee" value="0">Roll Over Staff
-                                                    </option>
-                                                    <option class="dropdown-item" data-sourcetype_name="employee" value="1">Assign To Staff
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <label class="form-label main-label fs-14 text-nowrap mt-2 staff">Staff<sup class="validationn">*</sup></label>
-                                            <div class="main-selectpicker multiple-select staff">
-                                                <select class="selectpicker form-control form-main staff_to" multiple id="staff_to" name="staff_to" data-live-search="true" required>
-                                                    <?php
-                                                    if (isset($user_data)) {
-                                                        foreach ($user_data as $type_key => $user_value) {
-                                                            echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
-                                                        }
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-
-                                            <div class="text-end mt-3">
-                                                <button class="btn-primary big_falcebook_circle_4_sbt">Save</button>
+                                                <div class="text-end mt-3">
+                                                    <button class="btn-primary big_falcebook_circle_4_sbt">Save</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
-                                        <div class="btn-primary-rounded add_next_big_plus_2">
-                                            <i class="bi bi-plus"></i>
+                                        <div class="add_next_big_plus_outer position-absolute ms-3 top-50 start-100 translate-middle-y">
+                                            <div class="btn-primary-rounded add_next_big_plus_2">
+                                                <i class="bi bi-plus"></i>
+                                            </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                    <div class="p-2 bg-white rounded-2 mx-2 pages_list">
-                    </div>
+                        </form>
+                    <?php
+                    }
+                    ?>
 
+                    <?php
+                    if ((in_array('leads', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                    ?>
+                        <div class="p-2 bg-white rounded-2 mx-2 pages_list">
+                        </div>
+                    <?php
+                    }
+                    ?>
                     <div class="delete_div">
                         <div class="border-bottom m-3"></div>
                         <div class="p-2 bg-white rounded-2 mx-2">

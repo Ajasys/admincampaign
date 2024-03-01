@@ -1866,7 +1866,6 @@ if (!function_exists('tableCreateAndTableUpdate2')) {
 if (!function_exists('get_roll_id_to_roll')) {
 
     function get_roll_id_to_roll($user_id)
-
     {
 
         $db = db_connect();
@@ -3417,4 +3416,26 @@ function fb_page_img($page_id,$access_token)
     }
 
     return json_encode($result_array, true);
+}
+
+
+if (!function_exists('get_asset_permission')) {
+
+    function get_asset_permission($user_id)
+    {
+        $db = db_connect();
+        $secondDb = \Config\Database::connect('second');
+        $username = session_username($_SESSION['username']);
+        $query = $secondDb->query('SELECT GROUP_CONCAT(DISTINCT assetpermission_name) AS asset_permissions FROM ' . $username . '_platform_assetpermission WHERE user_id =' . $user_id.' GROUP BY user_id');
+        $get_user_role_table = $query->getResultArray();
+        $userroledata = $get_user_role_table[0];
+        $exp_value = array();
+        $assign_duty = array();
+        if (isset($userroledata['asset_permissions']) && !empty($userroledata['asset_permissions'])) {
+
+            $exp_value = explode(",", $userroledata['asset_permissions']);
+        }
+        return $exp_value;
+    }
+
 }

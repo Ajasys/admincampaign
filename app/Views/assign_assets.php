@@ -14,17 +14,14 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 }
 $table_username = session_username($_SESSION['username']);
 $db_connection = \Config\Database::connect('second');
-
 $query = "SELECT * FROM " . $table_username . "_platform_integration WHERE `verification_status`=1 AND `platform_status`=2";
 $rows = $db_connection->query($query);
 $resultdata = $rows->getResultArray();
-
 $user_get = "SELECT * FROM " . $table_username . "_user WHERE switcher_active = 'active' AND role NOT IN (1)  ORDER BY id ASC";
 $user_result = $db_connection->query($user_get);
 $user_data = $user_result->getResultArray();
 ?>
 <div class="main-dashbord p-3">
-
     <div class="container-fluid p-0">
         <div class="mb-2">
             <div class="col-xl-12 d-flex justify-content-between">
@@ -40,7 +37,6 @@ $user_data = $user_result->getResultArray();
             </div>
         </div>
     </div>
-
     <div class="bg-white rounded-2 p-3">
         <div class="attendence-search mb-1 d-flex align-items-center flex-wrap justify-content-between">
             <div class="dataTables_length" id="project_length">
@@ -74,14 +70,9 @@ $user_data = $user_result->getResultArray();
                 </tr>
             </thead>
             <tbody id="">
-
             </tbody>
         </table>
     </div>
-
-
-
-
     <!-- Modal one -->
     <div class="modal fade" id="assign_user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -110,7 +101,6 @@ $user_data = $user_result->getResultArray();
             </div>
         </div>
     </div>
-
     <!-- Modal two-->
     <div class="modal fade" id="assign_asset" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -122,6 +112,7 @@ $user_data = $user_result->getResultArray();
                 <div class="modal-body m-0 p-0">
                     <input type="hidden" name="select_user" id="select_user">
                     <input type="hidden" name="asset_array" id="asset_array">
+                    <input type="hidden" name="asset_ids" id="asset_ids">
                     <div class="p-2">
                         <div class="col-12 d-flex flex-wrap">
                             <!-- first-div -->
@@ -134,7 +125,6 @@ $user_data = $user_result->getResultArray();
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="accordion" id="accordionExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
@@ -156,7 +146,6 @@ $user_data = $user_result->getResultArray();
                                                     <div class="accordion-body p-0">
                                                         <div class="accordion" id="accordionExample_two">
                                                             <div class="accordion-item">
-
                                                                 <h2 class="accordion-header">
                                                                     <button class="accordion-button m-0 p-2 ps-4 pe-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne_in" aria-expanded="true" aria-controls="collapseOne_in">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -168,8 +157,6 @@ $user_data = $user_result->getResultArray();
                                                                         <p class="ms-2"><?php echo $fbdata['fb_app_name']; ?></p>
                                                                     </button>
                                                                 </h2>
-
-
                                                                 <div id="collapseOne_in" class="accordion-collapse collapse" data-bs-parent="#accordionExample_two" data-id="<?php echo $fbdata['id']; ?>" data-connection-check="<?php echo $fbdata['verification_status']; ?>">
                                                                     <div class="accordion-body p-0">
                                                                         <div class="border-to pages_div btn_dark border-bottom rounded-1 p-2">
@@ -177,10 +164,7 @@ $user_data = $user_result->getResultArray();
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
-
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 <?php
@@ -188,7 +172,6 @@ $user_data = $user_result->getResultArray();
                                                 ?>
                                             </div>
                                         </div>
-
                                         <div class="accordion-item">
                                             <h2 class="accordion-header">
                                                 <button class="accordion-button collapsed m-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -237,7 +220,6 @@ $user_data = $user_result->getResultArray();
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -263,7 +245,6 @@ $user_data = $user_result->getResultArray();
                                             </h2>
                                             <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
-
                                                 </div>
                                             </div>
                                         </div>
@@ -274,7 +255,6 @@ $user_data = $user_result->getResultArray();
                                     <div class="border-top instagram_div btn_dark border-bottom rounded-1 p-2">
                                         <p>instagram</p>
                                     </div> -->
-
                                 </div>
                             </div>
                             <!-- Pages_div -->
@@ -300,12 +280,9 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                         <div class="col-12 overflow-x-hidden" style="height:500px;">
                                             <ul class="page_asset_list overflow-y-scroll" style="height:490px;">
-
-
                                             </ul>
                                         </div>
                                     </div>
-
                                     <!-- instagram div  -->
                                     <div class="instagram_div_to d-none">
                                         <div class="d-flex justify-content-between ms-3 me-3 mt-2">
@@ -314,7 +291,6 @@ $user_data = $user_result->getResultArray();
                                             </div>
                                             <div><i class="bi bi-search"></i></div>
                                         </div>
-
                                         <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
                                             <div class="d-flex align-items-center" style="height: 45px;">
                                                 <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
@@ -325,12 +301,10 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                         <div class="ms-3 me-3 mt-2 d-flex align-items-center">
                                             <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
-
                                             <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
                                             <p>@ajasystechnologiies</p>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <!-- third-div -->
@@ -343,9 +317,7 @@ $user_data = $user_result->getResultArray();
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="card-body">
-
                                         <!-- Pages_div -->
                                         <div class=" Pages_div col-12 overflow-y-scroll" style="height:90vh;">
                                             <div>
@@ -399,11 +371,9 @@ $user_data = $user_result->getResultArray();
                                                 </div>
                                             </div>
                                         </div>
-
                                         <!-- instagram -->
                                         <div class="instagram_div_to d-non col-12 overflow-y-scroll" style="height:90vh;">
                                             <div>
-
                                                 <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
                                                         <label class="switch_toggle_primary">
@@ -464,19 +434,13 @@ $user_data = $user_result->getResultArray();
                                                         <p class="ms-3">See how the Instagram account, content and ads perform.</p>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -485,11 +449,7 @@ $user_data = $user_result->getResultArray();
             </div>
         </div>
     </div>
-
 </div>
-
-
-
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
@@ -497,18 +457,26 @@ $user_data = $user_result->getResultArray();
         $(this).addClass('active-account-box');
         $(this).siblings().removeClass('active-account-box');
     });
-
-
     $(document).ready(function() {
         $('#selectall').click(function() {
             $('.selectedId').prop('checked', this.checked);
         });
 
-        $('.selectedId').change(function() {
-            var check = ($('.selectedId').filter(":checked").length == $('.selectedId').length);
-            $('#selectall').prop("checked", check);
+        var checkedValues = [];
+        $(document).on('change', '.selectedId', function() {
+            var check = $('.selectedId:checked').length === $('.selectedId').length;
+            $('#selectall').prop('checked', check);
+            var value = $(this).val();
+            if ($(this).is(':checked')) {
+                checkedValues.push(value);
+            } else {
+                var index = checkedValues.indexOf(value);
+                if (index !== -1) {
+                    checkedValues.splice(index, 1);
+                }
+            }
+            $('#asset_ids').val(checkedValues);
         });
-
         $("body").on("click", ".pages_div", function() {
             $(".Pages_div").removeClass("d-none");
             $(".instagram_div_to").addClass("d-none");
@@ -517,24 +485,17 @@ $user_data = $user_result->getResultArray();
             $(".Pages_div").addClass("d-none");
             $(".instagram_div_to").removeClass("d-none");
         });
-
         $("body").on("click", ".assign_asset", function() {
-            var userid = $('#user').find(':selected').val();
-            alert(userid);
-            if(userid>0)
-            {
+            var userid = $('#assign_user #user').find(':selected').val();
+            if (userid > 0) {
                 $('#select_user').val(userid);
-            }
-            else
-            {
+            } else {
                 $('#select_user').val(0);
             }
         });
-
         $("body").on("click", "#collapseOne_in", function() {
             var connection_id = $(this).attr('data-id');
             var fb_check_conn = $(this).attr('data-connection-check');
-
             $('.loader').show();
             $.ajax({
                 type: "post",
@@ -560,77 +521,62 @@ $user_data = $user_result->getResultArray();
                 }
             });
         });
-
         var selectedValues = [];
-        // Attach click event listener to toggle-checkbox checkboxes
         $('.toggle-checkbox').on('click', function() {
             var value = $(this).val();
             if ($(this).is(':checked')) {
-                // Checkbox is checked, add its value to the array
                 selectedValues.push(value);
             } else {
-                // Checkbox is unchecked, remove its value from the array
                 var index = selectedValues.indexOf(value);
                 if (index !== -1) {
                     selectedValues.splice(index, 1);
                 }
             }
-            console.log(selectedValues);
             $('#asset_array').val(selectedValues);
-            
         });
-
         $("body").on("click", "#assign_permission", function() {
             var userId = $('#select_user').val();
             var asset_array = $('#asset_array').val();
-           
-            var checkbox = $('.selectedId:checked');
-
-            if (checkbox.length > 0) {
-                var checkbox_value = [];
-                $(checkbox).each(function () {
-                    checkbox_value.push($(this).val());
-                });
-
-                alert(checkbox_value+'---------pagevalue');
-                alert(asset_array+'---------asset_array');
-
-                if(asset_array.length>0)
-                {
+            var asset_ids = $('#asset_ids').val();
+            if (asset_ids.length > 0) {
+                if (asset_array.length > 0) {
                     $.ajax({
                         type: "post",
                         url: "<?= site_url('assign_asset_permission'); ?>",
                         data: {
                             action: 'insert',
                             user_id: userId,
-                            page_id: checkbox_value,
+                            page_id: asset_ids,
                             asset_array: asset_array,
                         },
                         success: function(res) {
                             var result = JSON.parse(res);
-                            if(result.responce==1)
+                            if (result.responce == 1) {
+                                iziToast.success({
+                                    title: result.msg
+                                });
+                            }
+                            else
                             {
-                                alert('success');
+                                iziToast.error({
+                                    title: result.msg
+                                });
                             }
                         },
                         error: function(error) {
                             $('.loader').hide();
                         }
                     });
+                } else {
+                    iziToast.error({
+                        title: 'Please assign any permission..!'
+                    });
                 }
-                else
-                {
-                    //assign anypermission
-                }
-              
+            } else {
+                iziToast.error({
+                    title: 'Please any select assets..!'
+                });
             }
-            else
-            {
-                //please select your assets
-            }
-
-
-            
         });
     });
 </script>

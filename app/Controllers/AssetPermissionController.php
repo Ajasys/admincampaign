@@ -71,23 +71,48 @@ class AssetPermissionController extends BaseController
     {
         $this->db = \Config\Database::connect('second');
         $action = $this->request->getPost("action");
-        $userId = $this->request->getPost("userId");
-        $page_id = $this->request->getPost("page_id");
+        $userId = $this->request->getPost("user_id");
+        $page_ids = explode(",", $this->request->getPost("page_id"));
         $asset_array = $this->request->getPost("asset_array");
         $result_array = array();
-        if (isset($userId) && is_array($asset_array) && $page_id) {
-            foreach ($page_id as $id) {
-                $insert_data['asset_id'] = $id;
-                $insert_data['master_id'] = $_SESSION['master'];
-                $insert_data['user_id'] = $userId;
-                $insert_data['assetpermission_name'] = $asset_array;
-                $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $table_username . '_platform_assetpermission');
-                // $update_data['user_id'] = $userId;
-                // $update_data['assetpermission_name'] = $asset_array;
-                // $departmentUpdatedata = $this->MasterInformationModel->update_entry($id, $update_data, $this->username . '_platform_assets');
+
+        if ($action == "insert" && $userId && is_array($page_ids) && $asset_array) {
+            foreach ($page_ids as $index => $page_id) {
+
+                $query = $this->db->query("SELECT * FROM " . $this->username . "_platform_assetpermission where user_id=" . $userId . " AND asset_id=".$page_id);
+                $result_data = $query->getResult();
+
+                if((!empty($result_data)))
+                {
+                    $update_data['assetpermission_name'] = $asset_array;
+                    $departmentUpdatedata = $this->MasterInformationModel->update_entry2($result_data[0]->id, $update_data, $this->username . '_platform_assetpermission');
+                
+                    if ($departmentUpdatedata) {
+                        $result_array['responce'] = 1;
+                        $result_array['msg'] = "Assign assets permission successfully";
+                    } else {
+                        $result_array['responce'] = 0;
+                        $result_array['msg'] = "Error while assigning assets permission";
+                    }
+                }
+                else
+                {
+                    $insert_data['asset_id'] = $page_id;
+                    $insert_data['master_id'] = $_SESSION['master'];
+                    $insert_data['user_id'] = $userId;
+                    $insert_data['assetpermission_name'] = $asset_array;
+                    $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $this->username. '_platform_assetpermission');
+                    
+                    if ($departmentUpdatedata) {
+                        $result_array['responce'] = 1;
+                        $result_array['msg'] = "Assign assets permission successfully";
+                    } else {
+                        $result_array['responce'] = 0;
+                        $result_array['msg'] = "Error while assigning assets permission";
+                    }
+                }
+                 
             }
-            $result_array['responce'] = 1;
-            $result_array['msg'] = "Assign assets permission successfully";
         } else {
             $result_array['responce'] = 0;
             $result_array['msg'] = "Please Check any asset or permission..!";

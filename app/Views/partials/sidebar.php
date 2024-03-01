@@ -3,9 +3,11 @@
 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
    $get_roll_id_to_roll_duty_var = array();
+   $get_asset_permission = array();
 } else {
 
    $get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
+   $get_asset_permission = get_asset_permission($_SESSION['id']);
 }
 
 ?>
@@ -441,9 +443,13 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <p class="text-white dp-title"></p>
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>assign_assets" ?>Assign Assets & Permission</a> </li>
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>integration" ?>Social Media Accounts</a> </li>
-                     <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>lead_module">Lead Integration</a>
-                     </li>
+
+                     <?php if ((in_array('leads', $get_asset_permission) || in_array('create_scenarios', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+                        <li>
+                           <a class="dropdown-item" href="<?= base_url(); ?>lead_module">Lead Integration</a>
+                        </li>
+                     <?php } ?>
+
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>whatsapp">WhatsApp Manager</a>
                      </li>
@@ -465,8 +471,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>EmailConversions" ?>Email Manager</a>
                      </li>
                      <!-- <li> <a class="dropdown-item" href="<?= base_url(); ?>email_history" ?>Email Conversion</a> </li> -->
-
-
                   </ul>
 
                </div>
