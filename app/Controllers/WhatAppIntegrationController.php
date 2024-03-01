@@ -448,7 +448,7 @@ class WhatAppIntegrationController extends BaseController
     public function WhatsAppAccountsContactList()
     {
         $listdatastatus = 0;
-        if(isset($_POST['status'])){
+        if (isset($_POST['status'])) {
             $listdatastatus = $_POST['status'];
         }
         $id = $_POST['id'];
@@ -456,7 +456,7 @@ class WhatAppIntegrationController extends BaseController
         $name = $_POST['name'];
         $table_username = getMasterUsername2();
         $Database = \Config\Database::connect('second');
-        $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . " AND boatstatus = ".$listdatastatus.") AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE account_phone_no = '" . $phoneno . "' AND conversation_account_id = '" . $id . "' AND boatstatus = ".$listdatastatus."  ORDER BY last_inserted_id DESC;
+        $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . " AND boatstatus = " . $listdatastatus . ") AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE account_phone_no = '" . $phoneno . "' AND conversation_account_id = '" . $id . "' AND boatstatus = " . $listdatastatus . "  ORDER BY last_inserted_id DESC;
         ";
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
@@ -507,7 +507,7 @@ class WhatAppIntegrationController extends BaseController
                         function is_json($string)
                         {
                             json_decode($string);
-                            return (json_last_error() == JSON_ERROR_NONE);
+                            return(json_last_error() == JSON_ERROR_NONE);
                         }
                     }
 
@@ -1874,13 +1874,13 @@ class WhatAppIntegrationController extends BaseController
                             <td class="align-middle text-truncate messeging-content d-none" style="max-width: 150px;"
                                 scope="col-2">10 k customers</td>
                             <td class="align-middle" scope="col-1">' . $countryName . '</td>';
-                    $full_data =  any_id_to_full_data($username . "_platform_integration", $value['id']);
+                    $full_data = any_id_to_full_data($username . "_platform_integration", $value['id']);
                     if (isset($full_data['bot_id']) && !empty($full_data['bot_id'])) {
                         $bot_id = $full_data['bot_id'];
                     } else {
                         $bot_id = '';
                     }
-                    $get_bot_full_data =  any_id_to_full_data($username . "_bot", $bot_id);
+                    $get_bot_full_data = any_id_to_full_data($username . "_bot", $bot_id);
 
                     // pre();
                     if (isset($get_bot_full_data['name']) && !empty($get_bot_full_data['name'])) {
@@ -1898,13 +1898,13 @@ class WhatAppIntegrationController extends BaseController
                         $NamebGcOLOR = 'text-bg-danger';
                         $PenAndPlus = 1;
 
-                        if($get_bot_full_data['active'] == '1'){
-                            $html .= '<i class="fa-solid fa-check fa-xl me-2 fw-bold" style="color: #198754;font-weight:bold;"></i>'; 
+                        if ($get_bot_full_data['active'] == '1') {
+                            $html .= '<i class="fa-solid fa-check fa-xl me-2 fw-bold" style="color: #198754;font-weight:bold;"></i>';
                             $NamebGcOLOR = 'text-bg-success';
-                        }else{
+                        } else {
                             $html .= '<i class="bi bi-question-diamond-fill fa-xl me-2 fw-bold text-danger" style="font-weight:bold;"></i>';
                         }
-                        $html .= '<span class="badge rounded-pill '.$NamebGcOLOR.' ">' . $bot_full_name . '</span></div>';
+                        $html .= '<span class="badge rounded-pill ' . $NamebGcOLOR . ' ">' . $bot_full_name . '</span></div>';
                     } else {
                         $html .= '
                                 <div class="d-flex align-items-center">
@@ -1915,12 +1915,12 @@ class WhatAppIntegrationController extends BaseController
 
                     $html .= '  <button class="btn ms-2 p-0 chat_bot text-center" data-bs-toggle="modal" id="chat_bot" data-bot_editid="' . $value['id'] . '" data-bs-target="#exampleModal2">';
 
-                    if($PenAndPlus == '0'){
+                    if ($PenAndPlus == '0') {
                         $html .= '<i class="bi bi-plus-circle fa-lg fs-14"></i><span class="fs-14 ps-1">Add Bot</span>';
-                    }else{
+                    } else {
                         $html .= '<i class="fas fa-pencil-alt fa-lg fs-14"></i>';
                     }
-                    
+
                     $html .= '</button></td>';
                     $html .= '
                             <td class="align-middle" scope="col-1">
@@ -1964,8 +1964,6 @@ class WhatAppIntegrationController extends BaseController
     }
     public function WhatsAppListConverstion()
     {
-
-
         $MetaUrl = config('App')->metaurl;
         $contact_no = $_POST['contact_no'];
         $conversation_account_id = $_POST['conversation_account_id'];
@@ -1973,6 +1971,7 @@ class WhatAppIntegrationController extends BaseController
         $Database = \Config\Database::connect('second');
         $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
 
+		$db_connection = \Config\Database::connect('second');
 
         // pre($sql);
 
@@ -2090,7 +2089,7 @@ class WhatAppIntegrationController extends BaseController
                     function is_json($string)
                     {
                         json_decode($string);
-                        return (json_last_error() == JSON_ERROR_NONE);
+                        return(json_last_error() == JSON_ERROR_NONE);
                     }
                 }
 
@@ -2394,25 +2393,82 @@ class WhatAppIntegrationController extends BaseController
                     </div> ';
                     }
                 }
+            }elseif($msgtype == '8'){
+                if ($sent_recieved_status == '1') {
+                    $html .= '   <div class="d-flex mb-4 justify-content-end">
+                    <div class="col-9 text-end">
+                    <span style="font-size:12px;">'.$formattedtime.'</span>
+                        <span class="px-3 py-2 rounded-3 text-white " style="background:#005c4b; display: inline-block; width:200px; ">
+                            <div>
+                                <span class="text-start" style="display: inline-block;">'.$msgtext.'</span>
+                            </div>
+                            <div class="border-top mt-2 p-2 d-flex justify-content-center RadioBtnSelectionClickClass" id="'.$value['id'].'">
+                                <i class="fa-solid fa-bars mt-1 mx-1"></i><span>Select</span>
+                            </div>
+                        </span>
+                    </div>
+                </div> ';
+                }
+            }elseif ($msgtype == '9') {
+                if ($sent_recieved_status == '1') {
+                    if($value['assest_id'] != ''){
+                        $buttondata = json_decode($value['assest_id'], true);
+                        if(isset($buttondata['single_choice_option_value'])){
+                            $html .= ' <div class="d-flex mb-4 justify-content-end">
+                            <div class="col-9 text-end">
+                            <span style="font-size:12px;">'.$formattedtime.'</span>
+                                <span class="px-3 py-2 rounded-3 text-white" style=" display: inline-block; width:200px; ">
+                                <div class="my-2 p-1 rounded" style="background:#005c4b;">'.$msgtext.'</div>';
+                                foreach ($buttondata['single_choice_option_value'] as $item) {
+                            $html .= '<div class="my-2 p-1 text-center rounded" style="background:#005c4b;">'.$item['option'].'</div>';
+                                }
+                            $html .= '</span>
+                                    </div>
+                                </div> ';
+                        }
+                    }
+                }
+            }elseif($msgtype == '11'){
+                // if ($sent_recieved_status == '2') {
+                //     if(isset($value['conversation_id'])){
+                //         $preid = $value['conversation_id'];
+                //         $preqry = $db_connection->query("SELECT * FROM `".$table_username."_messages` WHERE conversation_id = '".$preid."'");
+                        
+                //         //01-03-2024 SELECT * FROM `admin_messages` WHERE conversation_id = 'wamid.HBgMOTE5NTEyMTgwMzU1FQIAEhggREFGQjA0QTk0RTI2NTJEOTNCNEFFNzE5MTk0NTQ2NUUA';
+                //     }
+                // }
             }
         }
 
         if ($html != '') {
             $html .= '
-        
         <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom(); $(".massage_input").val("");</script> ';
         } else {
             $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
         }
+ 
+        $html .= ' <div class="d-flex mb-4 justify-content-end">
+                        <div class="col-9 text-end">
+                            <span style="font-size:12px;">12:30 PM</span>
+                                <span class="px-3 py-2 rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; ">
+                                    <div class="text-start d-inline-block p-2 rounded" style="background:rgba(0, 0, 0, 0.4); height:65px; width:100%;">
+                                        <span>Ajasys Technology</span>
+                                        <span>Button_text</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-start" style="display: inline-block;">Lorem ipsum dolor</span>
+                                    </div>
+                                </span>
+                             </span>
+                        </div>
+                    </div>';
 
-        // pre($MsgSendStatus);
         if ($MsgSendStatus == '0') {
             $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill d-inline-block " style="background:#f3f3f3;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
             <script>$(".WhatsApp24HourButton").prop("disabled", true); $(".TextInputTastbar").addClass("d-none"); $(".chat_bord").addClass("chat_bordClass");</script>';
         } else {
             $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false); $(".TextInputTastbar").removeClass("d-none"); $(".chat_bord").removeClass("chat_bordClass");</script>';
         }
-
 
         if ($counttrigger > 0) {
             $html .= '  <script>
@@ -2883,7 +2939,7 @@ class WhatAppIntegrationController extends BaseController
             $username = session_username($_SESSION['username']);
             $table_name = $this->request->getPost('table');
 
-            $full_data =  any_id_to_full_data($username . "_" . $table_name, $main_id);
+            $full_data = any_id_to_full_data($username . "_" . $table_name, $main_id);
             if (isset($full_data['bot_id']) && !empty($full_data['bot_id'])) {
                 $edit_id = $full_data['bot_id'];
             } else {
@@ -2901,7 +2957,7 @@ class WhatAppIntegrationController extends BaseController
     public function bulk_whatsapp_template_send()
     {
 
-       
+
         $connectionid = $_POST['connectionid'];
         $template_name = $_POST['Template_name'];
         $language = $_POST['language'];
@@ -2909,9 +2965,9 @@ class WhatAppIntegrationController extends BaseController
         $originalHTML = $_POST['originalHTML'];
 
         $template_id = $_POST['template_id'];
-       
 
-     
+
+
         $ReturnResult = 0;
 
         $MetaUrl = config('App')->metaurl;
@@ -2936,33 +2992,33 @@ class WhatAppIntegrationController extends BaseController
             $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
 
             $bodydivvalues1 = $_POST['bodydivvalues'];
-           
+
 
             $final_array = explode(';', $bodydivvalues1);
             $bodydivvalues = [];
-           
-            
+
+
             foreach ($final_array as $values_str) {
                 $bodydivvalues[] = explode(',', $values_str);
             }
-    
+
             if ($uploadedFile['type'] === 'text/csv') {
                 $csvData = file_get_contents($uploadedFile['tmp_name']);
                 $phoneNumbers = explode("\n", trim($csvData));
                 array_shift($phoneNumbers);
-                    $phoneNumbers = array_values($phoneNumbers);
-                
-                foreach ($phoneNumbers as $index => $phoneNumber) {
-                if (isset($bodydivvalues[$index])) {
-                    $current_values = $bodydivvalues[$index];
+                $phoneNumbers = array_values($phoneNumbers);
 
-                    $parameters = [];
-                    foreach ($current_values as $value) {
-                        $parameters[] = [
-                            "type" => "text",
-                            "text" => $value
-                        ];
-                    }
+                foreach ($phoneNumbers as $index => $phoneNumber) {
+                    if (isset($bodydivvalues[$index])) {
+                        $current_values = $bodydivvalues[$index];
+
+                        $parameters = [];
+                        foreach ($current_values as $value) {
+                            $parameters[] = [
+                                "type" => "text",
+                                "text" => $value
+                            ];
+                        }
 
                         $postData = json_encode([
                             "messaging_product" => "whatsapp",
@@ -3143,79 +3199,79 @@ class WhatAppIntegrationController extends BaseController
     }
 
     public function bulk_set_variable_value()
-{
-    $uploadedFile = $_FILES['uploade_file'];
-    if ($uploadedFile['type'] === 'text/csv') {
-        $csvData = file_get_contents($uploadedFile['tmp_name']);
-        $phoneNumbers = explode("\n", trim($csvData));
-    }
-
-    $db_connection = \Config\Database::connect('second');
-
-    $post_data = $_POST;
-    $originalHTML = $post_data['originalHTML'];
-
-    $inputString = $_SESSION['username'];
-    $parts = explode("_", $inputString);
-    $username = $parts[0];
-
-    $resultArray = array();
-
-    foreach ($phoneNumbers as $phoneNumber) {
-        $phoneNumber = trim($phoneNumber);
-
-        $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
-        $result = $db_connection->query($sqlquery, [$phoneNumber]);
-
-        $row = $result->getRow();
-
-        if ($row) {
-            $name = $row->full_name;
-            $mobileno1 = $row->mobileno;
-            $address = $row->address;
-            $intrested_product = $row->intrested_product;
-            $nxt_follow_up = $row->nxt_follow_up;
-            $dob = $row->dob;
-
-            $placeholders = array(
-                '{{phone_no}}' => $mobileno1,
-                '{{address}}' => $address,
-                '{{Name}}' => $name,
-                '{{product_Name}}' => $intrested_product,
-                '{{Next_FollowupDate}}' => $nxt_follow_up,
-                '{{date_of_birth}}' => $dob,
-            );
-
-            $modifiedHTML = $originalHTML;
-            foreach ($placeholders as $placeholder => $value) {
-                $modifiedHTML = str_replace($placeholder, $value, $modifiedHTML);
-            }
-
-            $return_array = array();
-            foreach ($placeholders as $placeholder => $value) {
-                if (strpos($originalHTML, $placeholder) !== false) {
-                    $return_array[$placeholder] = $value;
-                }
-            }
-            $json_string = json_encode($return_array, true);
-
-            $decoded_array = json_decode($json_string, true);
-
-            $values['variablevalues'] = array();
-            preg_match_all('/\{\{(.*?)\}\}/', $originalHTML, $matches);
-            foreach ($matches[1] as $placeholder) {
-                if (isset($decoded_array["{{" . $placeholder . "}}"])) {
-                    $values['variablevalues'][] = $decoded_array["{{" . $placeholder . "}}"];
-                }
-            }
-
-            $values['modifiedHTML'] = $modifiedHTML;
-
-            $resultArray[] = $values; 
+    {
+        $uploadedFile = $_FILES['uploade_file'];
+        if ($uploadedFile['type'] === 'text/csv') {
+            $csvData = file_get_contents($uploadedFile['tmp_name']);
+            $phoneNumbers = explode("\n", trim($csvData));
         }
-    }
 
-    return json_encode($resultArray, true);
-}
+        $db_connection = \Config\Database::connect('second');
+
+        $post_data = $_POST;
+        $originalHTML = $post_data['originalHTML'];
+
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+
+        $resultArray = array();
+
+        foreach ($phoneNumbers as $phoneNumber) {
+            $phoneNumber = trim($phoneNumber);
+
+            $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
+            $result = $db_connection->query($sqlquery, [$phoneNumber]);
+
+            $row = $result->getRow();
+
+            if ($row) {
+                $name = $row->full_name;
+                $mobileno1 = $row->mobileno;
+                $address = $row->address;
+                $intrested_product = $row->intrested_product;
+                $nxt_follow_up = $row->nxt_follow_up;
+                $dob = $row->dob;
+
+                $placeholders = array(
+                    '{{phone_no}}' => $mobileno1,
+                    '{{address}}' => $address,
+                    '{{Name}}' => $name,
+                    '{{product_Name}}' => $intrested_product,
+                    '{{Next_FollowupDate}}' => $nxt_follow_up,
+                    '{{date_of_birth}}' => $dob,
+                );
+
+                $modifiedHTML = $originalHTML;
+                foreach ($placeholders as $placeholder => $value) {
+                    $modifiedHTML = str_replace($placeholder, $value, $modifiedHTML);
+                }
+
+                $return_array = array();
+                foreach ($placeholders as $placeholder => $value) {
+                    if (strpos($originalHTML, $placeholder) !== false) {
+                        $return_array[$placeholder] = $value;
+                    }
+                }
+                $json_string = json_encode($return_array, true);
+
+                $decoded_array = json_decode($json_string, true);
+
+                $values['variablevalues'] = array();
+                preg_match_all('/\{\{(.*?)\}\}/', $originalHTML, $matches);
+                foreach ($matches[1] as $placeholder) {
+                    if (isset($decoded_array["{{" . $placeholder . "}}"])) {
+                        $values['variablevalues'][] = $decoded_array["{{" . $placeholder . "}}"];
+                    }
+                }
+
+                $values['modifiedHTML'] = $modifiedHTML;
+
+                $resultArray[] = $values;
+            }
+        }
+
+        return json_encode($resultArray, true);
+    }
 
 }
