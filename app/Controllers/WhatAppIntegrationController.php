@@ -1881,6 +1881,8 @@ class WhatAppIntegrationController extends BaseController
                         $bot_id = '';
                     }
                     $get_bot_full_data =  any_id_to_full_data($username . "_bot", $bot_id);
+
+                    // pre();
                     if (isset($get_bot_full_data['name']) && !empty($get_bot_full_data['name'])) {
                         $bot_full_name = $get_bot_full_data['name'];
                     } else {
@@ -1888,22 +1890,38 @@ class WhatAppIntegrationController extends BaseController
                     }
                     $html .= '<td class="align-middle" scope="col-2">' . $verified_name . '</td>';
                     $html .= '<td class="d-flex align-items-center">';
+
+                    $PenAndPlus = 0;
+
                     if (isset($get_bot_full_data['name']) && !empty($get_bot_full_data['name'])) {
-                        $html .= ' <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-check fa-xl me-2 fw-bold" style="color: #198754;font-weight:bold;"></i>
-                                    <span class="badge rounded-pill text-bg-success">' . $bot_full_name . '</span>
-                                    
-                                </div>
-                               ';
+                        $html .= ' <div class="d-flex align-items-center">';
+                        $NamebGcOLOR = 'text-bg-danger';
+                        $PenAndPlus = 1;
+
+                        if($get_bot_full_data['active'] == '1'){
+                            $html .= '<i class="fa-solid fa-check fa-xl me-2 fw-bold" style="color: #198754;font-weight:bold;"></i>'; 
+                            $NamebGcOLOR = 'text-bg-success';
+                        }else{
+                            $html .= '<i class="bi bi-question-diamond-fill fa-xl me-2 fw-bold text-danger" style="font-weight:bold;"></i>';
+                        }
+                        $html .= '<span class="badge rounded-pill '.$NamebGcOLOR.' ">' . $bot_full_name . '</span></div>';
                     } else {
                         $html .= '
                                 <div class="d-flex align-items-center">
                                     <span class="badge text-bg-success"></span>
                                 </div>';
                     }
-                    $html .= '  <button class="btn ms-2 p-0 chat_bot text-center" data-bs-toggle="modal" id="chat_bot" data-bot_editid="' . $value['id'] . '" data-bs-target="#exampleModal2">
-                            <i class="fas fa-pencil-alt fa-lg fs-14"></i>
-                        </button></td>';
+
+
+                    $html .= '  <button class="btn ms-2 p-0 chat_bot text-center" data-bs-toggle="modal" id="chat_bot" data-bot_editid="' . $value['id'] . '" data-bs-target="#exampleModal2">';
+
+                    if($PenAndPlus == '0'){
+                        $html .= '<i class="bi bi-plus-circle fa-lg fs-14"></i><span class="fs-14 ps-1">Add Bot</span>';
+                    }else{
+                        $html .= '<i class="fas fa-pencil-alt fa-lg fs-14"></i>';
+                    }
+                    
+                    $html .= '</button></td>';
                     $html .= '
                             <td class="align-middle" scope="col-1">
                                 <button class="btn p-0 DelectConnection"  table="' . $table_name . '" id="' . $value['id'] . '">
@@ -2420,17 +2438,12 @@ class WhatAppIntegrationController extends BaseController
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
-
         $table_name = $username . '_platform_integration';
-
         $ConnectionData = get_editData2($table_name, $DataSenderId);
-        // pre($ConnectionData);
-        // die();
         $access_token = '';
         $business_account_id = '';
         $phone_number_id = '';
         if (isset($ConnectionData) && !empty($ConnectionData)) {
-
             if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
                 $access_token = $ConnectionData['access_token'];
                 $business_account_id = $ConnectionData['business_account_id'];
@@ -2466,7 +2479,6 @@ class WhatAppIntegrationController extends BaseController
                     $insert_data['message_type'] = '1';
                     $insert_data['sent_recieved_status'] = '1';
                     $jsonmsg = '{"body":' . json_encode($massage_input) . '}';
-
                     $insert_data['message_contant'] = $jsonmsg;
                     $this->MasterInformationModel->insert_entry2($insert_data, $username . '_messages');
                 }
