@@ -344,7 +344,7 @@ $user_data = $user_result->getResultArray();
                                                         <label class="form-label main-label fs-14 text-nowrap">Page</label><sup class="validationn">*</sup>
                                                     </div>
                                                     <div>
-                                                    <i class="fa fa-refresh text-success" aria-hidden="true"></i>
+                                                        <i class="fa fa-refresh text-success page-referesh" aria-hidden="true"></i>
                                                     </div>
                                                 </div>
 
@@ -1437,7 +1437,25 @@ $user_data = $user_result->getResultArray();
         }
     });
 
+    $('body').on('click', '.page-referesh', function() {
+        var fb_access_token = $('#fb_conn_id').find(':selected').data('access-token');
+        var fb_check_conn = $('#fb_conn_id').find(':selected').data('connection-check');
+        if (fb_access_token != '') {
+            getPagesList(fb_access_token, fb_check_conn);
+            // iziToast.success({
+            //     title: 'Page List Referesh Successfully..!'
+            // });
+        } else {
+            iziToast.error({
+                title: 'Please select your connection..!'
+            });
+        }
+
+    });
+
+
     function getPagesList(fb_access_token, fb_check_conn, connection_id) {
+        $('.loader').show();
         $.ajax({
             type: "post",
             url: "<?= site_url('facebook_user'); ?>",

@@ -328,11 +328,13 @@ class Home extends BaseController
             'id int primary key AUTO_INCREMENT',
             'platform_id int(11) NOT NULL',
             'master_id int(11) NOT NULL',
+            'user_id int(11) NOT NULL',
             "asset_type text NOT NULL",
             "asset_id text NOT NULL",
             "access_token longtext NOT NULL",
             "asset_img text NOT NULL",
             "name text NOT NULL",
+            "asset_permission text NOT NULL",
         ];
         $foreign_keys = [
             'FOREIGN KEY (platform_id) REFERENCES '.$table_username . '_platform_integration(id)',
