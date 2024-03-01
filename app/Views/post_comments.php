@@ -542,7 +542,8 @@ $get_facebook_page = $result->getResultArray();
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Auto share (optional)</h5>
-                        <form class="needs-validation" id="share_form" name="share_form" method="POST" novalidate>
+                        <form class="needs-validation" id="share_form" name="share_form" method="POST" enctype="multipart/form-data" novalidate>
+                       
                             <button type="button" class="close btn btn-transparent fs-4" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -645,20 +646,11 @@ $get_facebook_page = $result->getResultArray();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
         <script>
-            // $(document).ready(function() {
-            //     $('body').on('click', '#Scedual', function() {
-            //         $(this).bootstrapMaterialDatePicker({
-            //             format: 'DD-MM-YYYY',
-            //             time: false,
-            //             clearButton: true
-            //         });
-            //     });
+          
+                // $('body').on('click','.messanger',function()
+                // {
 
-            // });
-                $('body').on('click','.messanger',function()
-                {
-
-                });
+                // });
 
             $('.sebmite-siduale').hide();
             $(document).on('click', '.clickshare', function() {
@@ -720,14 +712,20 @@ $get_facebook_page = $result->getResultArray();
             });
 
             $('body').on('click', '.comment_send', function() {
-                var data_post_id = $(this).attr('data-post_id');
-                var input_comment = $("#comment-modal #input_comment").val();
+                // alert();
+            var data_post_id = $(this).attr('data-post_id');
+            var input_comment = $(".comment_input").val().trim(); 
+            
+            console.log('Input comment:', input_comment);// Trim any leading or trailing whitespace
+            if (input_comment !== '') { // Check if input_comment is not empty
+                // Encode input_comment as UTF-8
+                input_comment = encodeURIComponent(input_comment);
                 $.ajax({
                     type: 'post',
                     url: '<?= base_url('comment_replay_send') ?>',
                     data: {
                         data_post_id: data_post_id,
-                        'input_comment': input_comment,
+                        input_comment: input_comment,
                     },
                     success: function(res) {
                         var result = JSON.parse(res);
@@ -737,11 +735,33 @@ $get_facebook_page = $result->getResultArray();
                             iziToast.success({
                                 title: 'Comment Successfully'
                             });
+                        } else {
+                            // Handle error response
+                            iziToast.error({
+                                title: 'Error',
+                                message: 'Failed to post comment: ' + result.error
+                            });
                         }
-
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle AJAX error
+                        console.error(xhr.responseText);
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Failed to make AJAX request.'
+                        });
                     }
                 });
-            });
+            } else {
+                // Handle empty input_comment
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Please enter a comment.'
+                });
+            }
+        });
+
+
             $('body').on('click', '.add_buttonn', function() {
                 $('.create_comment').attr('data-publish_id', '');
                 $('.create_comment').attr('data-access_id', '');
