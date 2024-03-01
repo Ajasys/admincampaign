@@ -233,6 +233,7 @@ $admin_bot = json_decode($admin_bot, true);
         width: 20px;
         height: 20px;
     }
+
     .second-li {
         height: 30px;
     }
@@ -244,6 +245,7 @@ $admin_bot = json_decode($admin_bot, true);
     .bot_box_name {
         background-color: #f4f4f6;
     }
+
     /* select, option {
     width: 250px!important;
 }
@@ -299,7 +301,7 @@ option {
                                 </div>
                             </div>
 
-                            
+
 
                             <div class="col-1 d-none">
                                 <button class="btn-primary-rounded mx-1 All_memberPlusBtn" id="plus_btn" data-bs-toggle="modal" datamno="" data-bs-target="#add-member">
@@ -1254,7 +1256,7 @@ option {
 
 
                 <div class="col-12 col-lg-8 p-1 ">
-                    <div class="main-task col-12 border rounded-3 bg-white overflow-y-scroll  ps-3 overflow-y-scroll bot_list" style="height:80vh" style="max-height:546.8px"  ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="main-task col-12 border rounded-3 bg-white overflow-y-scroll  ps-3 overflow-y-scroll bot_list" style="height:80vh" style="max-height:546.8px" ondrop="drop(event)" ondragover="allowDrop(event)">
                         <!-- <div class="col-12 w-100 d-flex flex-wrap p-2">
                             <div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
                                 <div class="col-10 d-flex flex-wrap align-items-center">
@@ -1549,7 +1551,7 @@ option {
                     <div class="tab-content col-12 edit-data-panal">
                         <div class="tab-pane active" id="basic-edit" role="tabpanel" aria-labelledby="basic-tab" tabindex="0">
                             <div class="col-12 d-flex flex-wrap p-1">
-                                
+
                                 <!--Whatsapp-->
                                 <!-- <div class="col-12 d-flex flex-wrap px-3">
                                     <div class="form-check form-switch d-flex flex-wrap align-items-center">
@@ -3448,31 +3450,32 @@ option {
         $encoded_options = json_encode($options);
         ?>
 
-        var row_counter = 0; 
+        var row_counter = 0;
 
         function table_html() {
-            row_counter++;
+            // row_counter++;
+            var row_counter = $('.get-length').length + 1
             <?php $randomNumbers = rand(1, 100) .  rand(1, 100) . rand(1, 100); ?>
             var randomNumbers = '<?php echo $randomNumbers; ?>';
-            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_counter + '" placeholder="Enter the option" value=""></td><td class="col-3"><select Counts ="'+randomNumbers+'" class="form-select bot_idd_append CommonFirstSelctpicker FirstSlectpicker'+randomNumbers+'" aria-label="Default select example" id="bot_idd_append_' + row_counter + '">';
+            var main_table_html = '<tr class="col-12 main-plan"><td class="col-3"><input type="text" class="form-control row-option-value single_choice_options_' + row_counter + '" placeholder="Enter the option" value=""></td><td class="col-3"><select Counts ="' + randomNumbers + '" class="form-select bot_idd_append CommonFirstSelctpicker FirstSlectpicker' + randomNumbers + '" aria-label="Default select example" id="bot_idd_append_' + row_counter + '">';
 
             <?php
             if (isset($admin_bot)) {
                 foreach ($admin_bot as $key_bot => $value_bot) {
                     $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
-                    echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" '.$selected.'>' . $value_bot["name"] . '</option>\';';
+                    echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
                 }
             }
             ?>
 
-            main_table_html += '</select></td><td class="col-3"><div Counts ="'+randomNumbers+'"  class="main-selectpicker CommonSecondSelctpicker SecondSlectpicker'+randomNumbers+'  bot_quotation_list_append_' + row_counter + '" ><select class="form-select  question_select_second_' + row_counter + ' question_flow_' + row_counter + '" aria-label="Default select example">';
+            main_table_html += '</select></td><td class="col-3"><div Counts ="' + randomNumbers + '"  class="main-selectpicker CommonSecondSelctpicker SecondSlectpicker' + randomNumbers + '  bot_quotation_list_append_' + row_counter + '" ><select class="form-select  question_select_second_' + row_counter + ' question_flow_' + row_counter + '" aria-label="Default select example">';
 
             var options = <?php echo $encoded_options; ?>;
             options.forEach(function(option) {
                 main_table_html += '<option value="' + option.id + '">' + option.question + '</option>';
             });
 
-            
+
             main_table_html += '</select></div></td><td class="col-2"><button type="button" class="btn btn-danger remove-btn"><i class="fa fa-trash cursor-pointer"></i></button></td></tr>';
             $(".tbody").append(main_table_html);
         }
@@ -4253,14 +4256,14 @@ option {
 
 
                         // menu_message.single_choice_option_value.forEach(function(item, index) {
-                          
+
                         //     var optionsValue = item.option;
-                         
+
                         //     $('.single_choice_options_' + index).val(optionsValue);
                         //     console.log(optionsValue);
                         // });
 
-                
+
                         if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                             if (menu_message && menu_message.single_choice_option_value) {
                                 console.log(menu_message);
@@ -4276,35 +4279,35 @@ option {
                                     var optionsValue = item.option;
                                     // var subflowvalue = item.sub-flow;
                                     // console.log(subflowvalue);
-                                    var sub_flow_value = item.sub_flow;  
+                                    var sub_flow_value = item.sub_flow;
                                     console.log(sub_flow_value);
 
-                                    var row_numbers = index === 0 ? '' : $('.main-plan').length;
+                                    var row_numbers = index === 0 ? '' : index;
                                     var main_table_html =
-                                        '<tr class="col-12 main-plan">' +
+                                        '<tr class="col-12 main-plan get-length">' +
                                         '<td class="col-3">' +
                                         '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + optionsValue + '">' +
                                         '</td>' +
                                         '<td class="col-3">' +
-                                        '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">' +
+                                        '<select class="form-select bot_idd_append ' + (row_numbers ? '' : 'bot_idd') + '" ' + (row_numbers ? 'id="bot_idd_append_' + row_numbers + '"' : '') + ' aria-label="Default select example" id="bot_idd">' +
                                         '<option selected>Main Flow</option>';
-                                        <?php
-                                        if (isset($admin_bot)) {
-                                            foreach ($admin_bot as $key_bot => $value_bot) {
-                                                $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
-                                             
-                                                echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
-                                            }
+                                    <?php
+                                    if (isset($admin_bot)) {
+                                        foreach ($admin_bot as $key_bot => $value_bot) {
+                                            $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+
+                                            echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
                                         }
-                                        ?>
-                                        main_table_html +=
-                                            '</select>' +
-                                            '</td>' +
-                                            '<td class="col-4">' +
-                                            '<div class="main-selectpicker bot_quotation_list">' +
-                                            '<select class="form-select question_select_second" aria-label="Default select example">';
-                                        '<option></option>' +
-                                    
+                                    }
+                                    ?>
+                                    main_table_html +=
+                                        '</select>' +
+                                        '</td>' +
+                                        '<td class="col-4">' +
+                                        '<div class="main-selectpicker bot_quotation_list">' +
+                                        '<select class="form-select '+(row_numbers ? 'question_flow_' + row_numbers : 'question_select_second')+'" aria-label="Default select example">';
+                                    '<option></option>' +
+
                                     // Build options dynamically
                                     admin_bot_setup.forEach(function(bot_setup, bot_index) {
                                         if (bot_setup.bot_id == <?php echo $botId; ?>) {
@@ -4365,14 +4368,15 @@ option {
                         //                 '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">' +
                         //                 '<option selected>Main Flow</option>';
                         //                 <?php
-                        //                 if (isset($admin_bot)) {
-                        //                     foreach ($admin_bot as $key_bot => $value_bot) {
-                        //                         $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
-                                             
-                        //                         echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
-                        //                     }
-                        //                 }
-                        //                 ?>
+                                            //                 if (isset($admin_bot)) {
+                                            //                     foreach ($admin_bot as $key_bot => $value_bot) {
+                                            //                         $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+
+                                            //                         echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
+                                            //                     }
+                                            //                 }
+                                            //                 
+                                            ?>
                         //                 main_table_html +=
                         //                     '</select>' +
                         //                     '</td>' +
@@ -4380,7 +4384,7 @@ option {
                         //                     '<div class="main-selectpicker bot_quotation_list">' +
                         //                     '<select class="form-select question_select_second" aria-label="Default select example">';
                         //                 '<option></option>' +
-                                    
+
                         //             // Build options dynamically
                         //             admin_bot_setup.forEach(function(bot_setup, bot_index) {
                         //                 if (bot_setup.bot_id == <?php echo $botId; ?>) {
@@ -4784,55 +4788,56 @@ option {
             console.log(comined);
 
             var comined_sub_flow = {};
-            comined_sub_flow.options = ''; 
+            comined_sub_flow.options = '';
             var options = $('.bot_idd').val();
-            comined_sub_flow.options = options; 
-            var firstOptionSelected = true; 
+            comined_sub_flow.options = options;
+            // var firstOptionSelected = true; 
             for (var i = 1; i <= 100; i++) {
                 var options_i = $('#bot_idd_append_' + i).val();
                 if (options_i) {
-                    if (!firstOptionSelected) { 
-                        if (comined_sub_flow.options !== "") {
-                            comined_sub_flow.options += ";";
-                        }
-                        comined_sub_flow.options += options_i;
-                    } else {
-                        firstOptionSelected = false; 
+                    console.log(options_i);
+                    // if (!firstOptionSelected) { 
+                    if (comined_sub_flow.options !== "") {
+                        comined_sub_flow.options += ";";
                     }
+                    comined_sub_flow.options += options_i;
+                    // } else {
+                    //     firstOptionSelected = false; 
+                    // }
                 }
             }
-            console.log(comined_sub_flow);
+            // console.log(comined_sub_flow);
 
             var comined_jump_flow = {};
-            comined_jump_flow.options = ''; 
+            comined_jump_flow.options = '';
             var options = $('.question_select_second').val();
-            comined_jump_flow.options = options; 
-            var firstOptionSelected = true; 
+            comined_jump_flow.options = options;
+            var firstOptionSelected = true;
 
             for (var i = 1; i <= 100; i++) {
-                var options_i = $('.question_flow_' + i).val() || ''; 
-          
-                if (options_i && !comined_jump_flow.options.includes(options_i)) {
-                    if (!firstOptionSelected) { 
+                var options_i = $('.question_flow_' + i).val() || '';
+
+                if (options_i) {
+                    if (!firstOptionSelected) {
                         if (comined_jump_flow.options !== "") {
                             comined_jump_flow.options += ";";
                         }
-                       
+
                         comined_jump_flow.options += options_i;
                     } else {
-                  
+
                         comined_jump_flow.options += (comined_jump_flow.options === "" ? "" : ";") + options_i;
-                        firstOptionSelected = false; 
+                        firstOptionSelected = false;
                     }
                 }
             }
 
-            console.log(comined_jump_flow);
-  
+            // console.log(comined_jump_flow);
 
 
 
-           
+
+
             var combinedArray = [];
             var single_choice_option = [];
             for (var i = 0; i < 100; i++) {
@@ -4853,11 +4858,11 @@ option {
                 single_choice_option_value: single_choice_option
             };
 
+            console.log(dataToStore);
             localStorage.setItem('single_choice_option', JSON.stringify(dataToStore));
             var retrievedData = JSON.parse(localStorage.getItem('single_choice_option'));
             var options_value = JSON.stringify(retrievedData);
             // console.log(options_value);
-            // die();
             var selectedOptions = comined_jump_flow.options.split(';').join(',');
         }
 
@@ -5229,15 +5234,15 @@ option {
                 return $(this).val();
             }).get();
 
-            var human_slot_from_timing  = $(".human_slot_from_timing").val();
-            var human_slot_to_timing  = $(".human_slot_to_timing").val();
-            var human_timezone  = $(".human_timezone").val();
-            var out_of_office_message  = $(".out_of_office_message").val();
-            var human_bot_flow  = $(".human_bot_flow").val();    
-            var human_question_select  = $(".human_question_select").val();        
-            var first_busy_message  = $(".first_busy_message").val();
-            var second_busy_message  = $(".second_busy_message").val();
-            var third_busy_message  = $(".third_busy_message").val();
+            var human_slot_from_timing = $(".human_slot_from_timing").val();
+            var human_slot_to_timing = $(".human_slot_to_timing").val();
+            var human_timezone = $(".human_timezone").val();
+            var out_of_office_message = $(".out_of_office_message").val();
+            var human_bot_flow = $(".human_bot_flow").val();
+            var human_question_select = $(".human_question_select").val();
+            var first_busy_message = $(".first_busy_message").val();
+            var second_busy_message = $(".second_busy_message").val();
+            var third_busy_message = $(".third_busy_message").val();
 
             var row = {
                 human_slot_from_timing: human_slot_from_timing,
@@ -5338,11 +5343,11 @@ option {
                     $('.loader').hide();
                     // $("form[name='question_update_form']")[0].reset();
                     $("form[name='question_update_form']").removeClass("was-validated");
-                    $(".btn-close").trigger("click");
+                    // $(".btn-close").trigger("click");
                     iziToast.success({
                         title: 'Update Successfully'
                     });
-                    bot_list_data();
+                    // bot_list_data();
                     // } else {
                     //     $('.loader').hide();
                     //     $(".btn-close").trigger("click");
@@ -5398,11 +5403,11 @@ option {
                     // $(".bot_idd").val(response[0].next_bot_id);
 
                     if (!response[0].next_questions) {
-                            $(".OccupationInputClass").val(1); 
-                        } else {
-                            $(".OccupationInputClass").val(response[0].next_questions);
-                        }
-                                      
+                        $(".OccupationInputClass").val(1);
+                    } else {
+                        $(".OccupationInputClass").val(response[0].next_questions);
+                    }
+
 
                     if (!response[0].next_bot_id) {
                         $("#bot_idd").val(response[0].bot_id);
@@ -5603,21 +5608,22 @@ option {
                         // console.log("Split next_questions:", nextQuestionsArray);
 
                         if (menu_message && menu_message.options_value && menu_message.options_value.options) {
-                           
+
                             var optionsArray = menu_message.options_value.options.split(';');
                             $(".main-plan").remove();
                             var id_array = response[0].next_questions;
                             id_array = id_array.split(",");
                             var admin_bot_setup = <?= json_encode($admin_bot_setup) ?>;
                             optionsArray.forEach(function(option, index) {
-                                var row_numbers = index === 0 ? '' : $('.main-plan').length;
+                                var row_numbers = index === 0 ? '' : index;
+                                console.log(row_numbers);
                                 var main_table_html =
                                     '<tr class="col-12 main-plan">' +
                                     '<td class="col-3 p-2 ">' +
                                     '<input type="text" class="form-control single_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
                                     '</td>' +
                                     '<td class="col-3 p-2">' +
-                                    '<select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">' +
+                                    '<select class="form-select bot_idd" aria-label="Default select example" id="' + (row_numbers ? 'bot_idd_append_' + row_numbers : 'bot_idd') + '">' +
                                     '<option selected>Main Flow</option>';
                                 <?php
                                 if (isset($admin_bot)) {
@@ -5632,25 +5638,25 @@ option {
                                     '</td>' +
                                     '<td class="col-4 p-2 ">' +
                                     '<div class="main-selectpicker bot_quotation_list">' +
-                                    '<select class="form-select question_select_second_1" aria-label="Default select example">';
+                                    '<select class="form-select ' + (row_numbers ? 'question_flow_' + row_numbers : 'question_select_second') + '" aria-label="Default select example">';
                                 '<option></option>' +
                                 // Build options dynamically
                                 admin_bot_setup.forEach(function(bot_setup, bot_index) {
                                     // console.log(admin_bot_setup);
                                     // if (bot_setup.bot_id == <?php echo $botId; ?>) {
-                                        console.log(bot_setup.bot_id);
-                                        if (bot_setup.id == id_array[index]) {
-                                            // console.log(bot_setup);
-                                            var isSelected = bot_setup.id == id_array[index];
-                                            // console.log(isSelected);
-                                            main_table_html += '<option value="' + bot_setup.id + '"';
-                                            if (isSelected) {
-                                                main_table_html += ' selected';
-                                            }
-                                            main_table_html += '>' + bot_setup.question + '</option>';
-                                        } else {
-                                            main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
+                                    // console.log(bot_setup.bot_id);
+                                    if (bot_setup.id == id_array[index]) {
+                                        // console.log(bot_setup);
+                                        var isSelected = bot_setup.id == id_array[index];
+                                        // console.log(isSelected);
+                                        main_table_html += '<option value="' + bot_setup.id + '"';
+                                        if (isSelected) {
+                                            main_table_html += ' selected';
                                         }
+                                        main_table_html += '>' + bot_setup.question + '</option>';
+                                    } else {
+                                        main_table_html += '<option value="' + bot_setup.id + '">' + bot_setup.question + '</option>';
+                                    }
                                     // }
                                 });
 
@@ -5711,7 +5717,7 @@ option {
             selectedOptions = [selectedOptions];
         }
         var next_bot_id = $('.bot_idd').val();
-        
+
 
         // die();
         if (update_id != "") {
@@ -5987,8 +5993,6 @@ option {
                                             </button>
                                         </td>
                                     </tr>
-
-
                                 </tbody>
                             </table>
                         </div>
@@ -7564,13 +7568,13 @@ option {
                                     <div class="col-4 me-2">
                                         <select class="form-select bot_idd human_bot_flow" aria-label="Default select example" id="bot_idd">
                                            <?php
-                                           if (isset($admin_bot)) {
-                                               foreach ($admin_bot as $key_bot => $value_bot) {
-                                                   $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
-                                                   echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
-                                               }
-                                           }
-                                           ?>
+                                            if (isset($admin_bot)) {
+                                                foreach ($admin_bot as $key_bot => $value_bot) {
+                                                    $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                    echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                }
+                                            }
+                                            ?>
                                        </select>
                                     </div>
                                     <div class="col-4 bot_quotation_list">
@@ -7848,10 +7852,16 @@ option {
             var miantext = $(this).text();
             var questio_text = $(this).attr('data-question_value');
 
-            var question = $('.first-li').attr('data-question_value',questio_text);
-            $(this).css({"background": "#724ebf", "color": "white"})
+            var question = $('.first-li').attr('data-question_value', questio_text);
+            $(this).css({
+                    "background": "#724ebf",
+                    "color": "white"
+                })
                 .siblings(".second-li")
-                .css({"background": "white", "color": "black"});
+                .css({
+                    "background": "white",
+                    "color": "black"
+                });
             $(this).closest(".min-selectbox").prev(".first-li").text(miantext);
             $(this).closest(".min-selectbox").prev(".first-li").attr(questio_text);
             $(this).closest(".min-selectbox").addClass('d-none');
@@ -7882,8 +7892,9 @@ option {
 
 
     $('body').on('change', '.bot_idd_append', function(e) {
-        var row_counter = $(this).attr('id').split('_').pop(); 
+        var row_counter = $(this).attr('id').split('_').pop();
         var bot_idd = $(this).val();
+        var bot_html = $(this).closest('tr').find('.bot_quotation_list')
         // var uniquenumber = $(this).attr('Counts');
         // console.log(uniquenumber);
         $.ajax({
@@ -7895,13 +7906,12 @@ option {
                 // 'uniquenumber': uniquenumber
             },
             success: function(res) {
-                var response = JSON.parse(res);              
-                $('.bot_quotation_list_append_' + row_counter).html(response.html);
+                var response = JSON.parse(res);
+                $(bot_html).html(response.html);
+                // $('.bot_quotation_list_append_' + row_counter).html(response.html);
                 // $('.bot_quotation_list_append_' + uniquenumber).html(response.html);
 
             }
         });
     });
-
-    
 </script>
