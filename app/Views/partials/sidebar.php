@@ -439,7 +439,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
                   <ul>
                      <p class="text-white dp-title"></p>
-                     <li> <a class="dropdown-item" href="<?= base_url(); ?>assign_assets" ?>Assign Assets Permission</a> </li>
+                     <li> <a class="dropdown-item" href="<?= base_url(); ?>assign_assets" ?>Assign Assets & Permission</a> </li>
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>integration" ?>Social Media Accounts</a> </li>
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>lead_module">Lead Integration</a>

@@ -175,7 +175,7 @@ class FaceBookController extends BaseController
                     $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages' AND platform_id=" . $connection_id;
                     $asset_result = $this->db->query($asset_query);
                     $pageresult = $asset_result->getResultArray();
-                    if (isset($user_data)) {
+                    if (isset($pageresult)) {
                         foreach ($pageresult as $aa_key => $aa_value) {
                             $longLivedAccessToken = $aa_value['access_token'];
                             $html .= '<option value="' . $aa_value['asset_id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
