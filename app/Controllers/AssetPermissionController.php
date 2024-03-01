@@ -120,4 +120,33 @@ class AssetPermissionController extends BaseController
         echo json_encode($result_array, true);
         die();
     }
+    public function show_list_data()
+	{
+		$table_name = $_POST['table'];
+        $query = $this->db->query('SELECT (SELECT firstname FROM admin_user where id=p.user_id) as username,GROUP_CONCAT(DISTINCT p.assetpermission_name) AS asset_permissions 
+        FROM ' . $this->username . '_platform_assetpermission p GROUP BY p.user_id');
+        $departmentdisplaydata = $query->getResultArray();
+		$i = 1;
+		$html = "";
+		foreach ($departmentdisplaydata as $key => $value) {
+            $asset_permissions_array = explode(',', $value['asset_permissions']);
+            $unique_asset_permissions = array_unique($asset_permissions_array);
+            $asset_permissions_string = implode(',', $unique_asset_permissions);
+			$html .= '<tr>';
+			$html .= '
+					<td class="align-middle">
+                    ' . $value['username'] . '
+					</td>
+					<td>'.$asset_permissions_string.'
+					</td>';
+			$html .= '</tr>';
+			$i++;
+		}
+		if (!empty($html)) {
+			echo $html;
+		} else {
+			echo '<td></td><td style="text-align:center;">Data Not Found </td>';
+		}
+		die();
+	}
 }

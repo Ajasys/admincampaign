@@ -27,7 +27,7 @@ $user_data = $user_result->getResultArray();
             <div class="col-xl-12 d-flex justify-content-between">
                 <div class="title-1  d-flex align-items-center">
                     <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 25px"></i>
-                    <h2>Assign Assets & Permission</h2>
+                    <h2>Assign Assets & Permission </h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
                     <button class="btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#assign_user">
@@ -38,39 +38,14 @@ $user_data = $user_result->getResultArray();
         </div>
     </div>
     <div class="bg-white rounded-2 p-3">
-        <div class="attendence-search mb-1 d-flex align-items-center flex-wrap justify-content-between">
-            <div class="dataTables_length" id="project_length">
-                <label>
-                    Show
-                    <select name="project_length" id="fb_length_show" aria-controls="project" class="table_length_select_check_2">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    Records
-                    <span class="list_count"></span>
-                </label>
-            </div>
-            <div id="people_wrapper" class="dataTables_wrapper no-footer">
-                <div id="fb_filter" class="dataTables_filter justify-content-end d-flex py-1 py-sm-0">
-                    <label>Search:<input type="search" class="" placeholder="" aria-controls="project"></label>
-                </div>
-            </div>
-        </div>
-        <table id="" class="table main-table w-100">
+        <table id="assetTable" class="table main-table w-100" aria-describedby="example_info">
             <thead>
                 <tr>
                     <th class="p-2 text-nowrap"><span>User Name</span></th>
-                    <th class="p-2 text-nowrap"><span>User Id </span></th>
-                    <th class="p-2 text-nowrap"><span>Assets Pemission</span></th>
-                    <th class="p-2 text-nowrap"><span></span></th>
-                    <th class="p-2 text-nowrap"><span>Status</span></th>
-                    <th class="p-2 text-nowrap text-center"><span></span></th>
+                    <th class="p-2 text-nowrap"><span>Pemission Name</span></th>
                 </tr>
             </thead>
-            <tbody id="">
-            </tbody>
+            <tbody id="asset_permissionlist"></tbody>
         </table>
     </div>
     <!-- Modal one -->
@@ -453,11 +428,21 @@ $user_data = $user_result->getResultArray();
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
+    $('#assetTable').DataTable({
+        columnDefs: [{
+            'targets': [0],
+            /* column index [0,1,2,3]*/
+            'orderable': false,
+            /* true or false */
+        }],
+    });
+
     $('body').on('click', '.account-box', function() {
         $(this).addClass('active-account-box');
         $(this).siblings().removeClass('active-account-box');
     });
     $(document).ready(function() {
+        list_data();
         $('#selectall').click(function() {
             $('.selectedId').prop('checked', this.checked);
         });
@@ -555,9 +540,7 @@ $user_data = $user_result->getResultArray();
                                 iziToast.success({
                                     title: result.msg
                                 });
-                            }
-                            else
-                            {
+                            } else {
                                 iziToast.error({
                                     title: result.msg
                                 });
@@ -579,4 +562,22 @@ $user_data = $user_result->getResultArray();
             }
         });
     });
+
+    function list_data() {
+        $('.loader').show();
+        $.ajax({
+            datatype: 'json',
+            method: "post",
+            url: "<?= site_url('asset_permissionlisting'); ?>",
+            data: {
+                'table': 'platform_assetpermission',
+                'action': true
+            },
+            success: function(data) {
+                $('#assetTable').DataTable().destroy();
+                $('#asset_permissionlist').html(data);
+                $('.loader').hide();
+            }
+        });
+    }
 </script>

@@ -615,8 +615,9 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 	//assign asset permission
 	$routes->post('/facebook_pageasset', 'AssetPermissionController::facebook_pageasset');
 	$routes->post('/assign_asset_permission', 'AssetPermissionController::assign_asset_permission');
+	$routes->post('/asset_permissionlisting', 'AssetPermissionController::show_list_data');
 	
-
+	
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
 	$routes->post('/whatsapp_bot_id_update', 'WhatAppIntegrationController::whatsapp_bot_id_update');
