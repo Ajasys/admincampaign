@@ -585,6 +585,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
+	$routes->get('/instagram_connection', 'Home::instagram_connection');
 	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
 	$routes->post('/facebook_user', 'FacebookController::facebook_user');
 	$routes->post('/facebook_page', 'FacebookController::facebook_page');
