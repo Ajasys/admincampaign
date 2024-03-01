@@ -147,8 +147,10 @@ class CreateController extends BaseController
                     CURLOPT_POSTFIELDS => array_merge($attachments_data, array(
                         'access_token' => $access_token,
                         'caption' => $event_address // Message to be posted
-                    )),
-                ));
+                    )
+                    ),
+                )
+                );
 
                 // pre(json_encode($attachments_data));
                 // Execute the POST request
@@ -182,7 +184,8 @@ class CreateController extends BaseController
                 ),
                 CURLOPT_POSTFIELDS => http_build_query($post_array),
 
-            ));
+            )
+            );
             $re = curl_exec($curll);
             // $re = postSocialData($api,$post_array);
 
@@ -317,12 +320,12 @@ class CreateController extends BaseController
             if (isset($value['full_picture'])) {
                 $fb_upload_img = ($value['full_picture']);
             } else {
-                $fb_upload_img =  "";
+                $fb_upload_img = "";
             }
             if (isset($value->message)) {
                 $fb_titile = ($value->message);
             } else {
-                $fb_titile =  "";
+                $fb_titile = "";
             }
 
             $timestamp = $value['created_time'];
@@ -437,7 +440,7 @@ class CreateController extends BaseController
                     </button>
                 </div>
             <div class=" mb-2 mb-md-0 p-0 px-1" style="width:fit-content;data-toggle="modal" data-target="#sharemodal" >
-            <div class="btn w-100 text-muted d-flex p-0 border-0" data-toggle="modal"  data-attachment_post="'  .$fb_upload_img .'" data-target="#sharemodal"  id="post_commnet_modal"><i class="fa-solid fa-share mx-2 my-auto"></i><div class="my-auto">share</div></div>
+            <div class="btn w-100 text-muted d-flex p-0 border-0" data-toggle="modal"  data-attachment_post="' . $fb_upload_img . '" data-target="#sharemodal"  id="post_commnet_modal"><i class="fa-solid fa-share mx-2 my-auto"></i><div class="my-auto">share</div></div>
         </div>
             
             
@@ -478,23 +481,23 @@ class CreateController extends BaseController
         $like_comment_count = "";
         $comments_html = "";
         $img_show_comment = "";
-        $like_comment = getSocialData('https://graph.facebook.com/v19.0/'.$post_idd.'?fields=comments.limit(0).summary(true),likes.limit(0).summary(true)&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD','');
-        
+        $like_comment = getSocialData('https://graph.facebook.com/v19.0/' . $post_idd . '?fields=comments.limit(0).summary(true),likes.limit(0).summary(true)&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD', '');
+
         // Decode JSON response
         // $data = json_decode($url, true);
 
         // Extract comment and like counts
         // if(isset)
         if (isset($like_comment['comments']['summary']['total_count']) && !empty($like_comment['comments']['summary']['total_count'])) {
-                $commentCount = $like_comment['comments']['summary']['total_count'];
+            $commentCount = $like_comment['comments']['summary']['total_count'];
         } else {
-                    $commentCount = '';
-                }
-                if (isset($like_comment['likes']['summary']['total_count']) && !empty($like_comment['likes']['summary']['total_count'])) {
-                $likeCount = $like_comment['likes']['summary']['total_count'];
+            $commentCount = '';
+        }
+        if (isset($like_comment['likes']['summary']['total_count']) && !empty($like_comment['likes']['summary']['total_count'])) {
+            $likeCount = $like_comment['likes']['summary']['total_count'];
         } else {
-                    $likeCount = '';
-                }
+            $likeCount = '';
+        }
         $like_comment_count .=
             '<div class="col-12 d-flex justify-content-between align-items-center">
     <div class="col d-flex justify-content-start align-items-center">
@@ -659,13 +662,13 @@ class CreateController extends BaseController
         if (isset($_POST['post_id'])) {
             $data_edit_id = ($_POST['post_id']);
         } else {
-            $data_edit_id =  "";
+            $data_edit_id = "";
         }
 
         if (isset($_POST['page_id'])) {
             $data_page_id = ($_POST['page_id']);
         } else {
-            $data_page_id =  "";
+            $data_page_id = "";
         }
         if (isset($_POST['access_token'])) {
             $accesss_tocken = $_POST['access_token'];
@@ -738,36 +741,37 @@ class CreateController extends BaseController
     {
         // Initialize an empty response array
         $result = array();
-    
+
         // Check if data_post_id and input_comment are set in the POST request
         if (isset($_POST['data_post_id'], $_POST['input_comment'])) {
             $comment_id = $_POST['data_post_id'];
             $input_comment = $_POST['input_comment'];
-    
+
             // Access token for posting comments
             $access_token = 'EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
             // URL for posting the comment reply
             $url = "https://graph.facebook.com/v13.0/{$comment_id}/comments";
-    
+
             // Data to be sent in the POST request
             $data = array(
                 'message' => $input_comment,
                 'access_token' => $access_token
             );
-    
+
             // Initialize cURL session
             $ch = curl_init($url);
-    
+
             // Set cURL options
             curl_setopt_array($ch, array(
                 CURLOPT_POST => 1,
                 CURLOPT_POSTFIELDS => http_build_query($data),
                 CURLOPT_RETURNTRANSFER => true
-            ));
-    
+            )
+            );
+
             // Execute the POST request
             $response = curl_exec($ch);
-    
+
             // Check for errors
             if ($response !== false) {
                 $response_data = json_decode($response, true);
@@ -784,7 +788,7 @@ class CreateController extends BaseController
                 $result['response'] = 0;
                 $result['error'] = "Failed to make request.";
             }
-    
+
             // Close cURL session
             curl_close($ch);
         } else {
@@ -792,35 +796,36 @@ class CreateController extends BaseController
             $result['response'] = 0;
             $result['error'] = "Missing parameters.";
         }
-    
+
         // Return the result as JSON
         return json_encode($result);
     }
-    
 
-    public function ShareOfPost() {
+
+    public function ShareOfPost()
+    {
         // Check if the request method is POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Get the attachment from the form data
             $attachment = $_FILES['attachment'];
-    
+
             // Construct the URL for the Facebook Graph API endpoint
             $page_id = '196821650189891';
             $access_token = 'EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD';
 
-    
+
             // Initialize cURL session
             $curl = curl_init();
-    
+
             // Set the file as multipart/form-data
             $file_data = array(
                 'source' => curl_file_create($attachment['tmp_name'], $attachment['type'], $attachment['name']),
                 'message' => 'Your message here' // Optional: Add a message to the post
             );
-    
+
             // Set cURL options
             curl_setopt_array($curl, array(
-                CURLOPT_URL =>'https://developers.facebook.com/docs/graph-api/reference/v2.2/' . $page_id . '/feed',
+                CURLOPT_URL => 'https://developers.facebook.com/docs/graph-api/reference/v2.2/' . $page_id . '/feed',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -830,12 +835,14 @@ class CreateController extends BaseController
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => array_merge($file_data, array(
                     'access_token' => $access_token
-                )),
-            ));
-    
+                )
+                ),
+            )
+            );
+
             // Execute the POST request
             $response = curl_exec($curl);
-    
+
             // Check for errors
             if ($response === false) {
                 $error = curl_error($curl);
@@ -843,7 +850,7 @@ class CreateController extends BaseController
             } else {
                 echo "Post sent successfully.";
             }
-    
+
             // Close cURL session
             curl_close($curl);
         } else {
@@ -876,7 +883,8 @@ class CreateController extends BaseController
                 'Authorization: Bearer EAADNF4vVgk0BO78lRPy6esK4KZCXdEuZB7ZCds7af8hZAXCDA5HyOfkghG4jZBAbvNa8T5YcYPweb3sZAaE23B8qeGJjDZBi2T1WZA1ZBA3IhTevK2MJMaZCRCgy0qAgou4EZAa7gAOuZCh6ZAVue31jqMnfTNJKdZA4kIMPAs3rgZA5azH5WXfIMJj5PBKKUZAlJXjyTZBMWRDEtoF0ZD',
                 'Cookie: ps_l=0; ps_n=0'
             ),
-        ));
+        )
+        );
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -923,63 +931,7 @@ class CreateController extends BaseController
             }
         }
     }
-    // public function schedule_insert_data()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         // Retrieve data from the POST request
-    //         $attachments = $_FILES['attachment']; 
 
-    //         // Set your page ID and access token
-    //         $page_id = '196821650189891';
-    //         $access_token='EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
-
-    //         // Check if attachment file is present in the request
-    //         if (isset($attachments['name']) && $attachments['error'] === UPLOAD_ERR_OK) { 
-    //             // Get the current time in Unix timestamp format
-    //             $utc_date_string = date('d-m-Y H:i', strtotime($_POST['scheduled_time']));
-    //             // $utcconverted = UtcTime('d-m-Y H:i', timezonedata(), $utc_date_string);
-    //             $date = DateTime::createFromFormat('d-m-Y H:i:s', $utc_date_string.':00');
-    //             $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
-    //             $formatted_date = $date->format('c');
-    //             $formatted_date = strtotime($formatted_date);
-    //             echo "Scheduled Time: ".$utc_date_string;
-    //             echo "Scheduled Time: ".strtotime($formatted_date);
-
-
-    //             $uploaded_file_path = '/path/to/uploaded/files/' . $attachments['name']; // Set the path where you 
-    //             move_uploaded_file($attachments['tmp_name'], $uploaded_file_path);
-
-    //             $attachment_link = 'https://example.com/uploaded_files/' . $attachments['name'];
-               
-    //                 $post_data = json_encode(array(
-    //                     "message" => "Schedule Post",
-    //                     "link" => $attachment_link,
-    //                     "published" => "false",
-    //                     "scheduled_publish_time" => "$formatted_date"
-    //                 ));
-
-    //             // echo $post_data;
-                    
-    //             $url = 'https://graph.facebook.com/v19.0/'.  $page_id.'/feed/?access_token='. $access_token .'';
-    //             $Result = postSocialData($url, $post_data);
-
-    //             // pre($Result);
-    //             // echo "Scheduled Time: $formatted_date\n"; 
-
-           
-    //             echo "Facebook API Response: ";
-                
-    //             if ($Result === false) {
-    //                 echo "Error: Failed to make the request.";
-    //             } else {
-    //                 // Here, $Result is already an array, so you don't need to decode it again
-    //                 echo "Successfully scheduled the post.";
-    //             }
-    //         } else {
-    //             echo "No attachment file uploaded."; // Handle case when no attachment file is uploaded
-    //         }
-    //     }
-    // }
 
     public function schedule_insert_data()
     {
@@ -989,137 +941,73 @@ class CreateController extends BaseController
     
             // Set your page ID and access token
             $page_id = '196821650189891';
-            $access_token = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+            $access_token='EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
     
-            // Check if attachment file is present in the request
-            // Check if attachment file is present in the request
+    
             if (isset($attachments['name']) && $attachments['error'] === UPLOAD_ERR_OK) { 
-                // Get the scheduled time from the POST data
                 $utc_date_string = date('d-m-Y H:i', strtotime($_POST['scheduled_time']));
                 $date = DateTime::createFromFormat('d-m-Y H:i:s', $utc_date_string . ':00');
                 $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
                 $formatted_date = $date->format('c');
-
+    
                 echo "Scheduled Time: $utc_date_string\n"; // Echo the scheduled time
-
-                $attachments_data = array();
-
-                if (is_array($attachments['tmp_name'])) { // Check if it's an array
-                    foreach ($attachments['tmp_name'] as $index => $tmp_name) {
-                        // Set the file as multipart/form-data
-                        $attachments_data["attached_media[$index]"] = curl_file_create($tmp_name, $attachments['type'][$index], $attachments['name'][$index]);
+    
+                // Check if the file has been uploaded
+                if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ERR_OK) {
+                   
+                    $uploadDirectory = 'assets/facebook_image/'; 
+    
+                    if (!is_dir($uploadDirectory)) {
+                        mkdir($uploadDirectory, 0777, true);
+                    }
+    
+                    // Move the uploaded image file to the specified directory
+                    $sourceFilePath = $_FILES['attachment']['tmp_name'];
+                    $fileName = $_FILES['attachment']['name'];
+                    $targetFilePath = $uploadDirectory . $fileName;
+                    
+                    if (move_uploaded_file($sourceFilePath, $targetFilePath)) {
+                    
+                        echo "Image file uploaded successfully.";
+                        $imageURL = 'https://yourdomain.com/' . $targetFilePath;
+                        // pre($imageURL);
+                      
+                        $post_data = array(
+                            "message" => "Schedule Post",
+                            "link" => $imageURL, 
+                            "published" => "false",
+                            "scheduled_publish_time" => $formatted_date, // Append Indian Standard Time offset
+                        );
+                        // pre($post_data);
+                        // Convert post data to JSON
+                        $post_data_json = json_encode($post_data);
+                        
+                        // Set cURL options for the request
+                        $url = "https://graph.facebook.com/v19.0/$page_id/feed/?access_token=$access_token";
+                        $Result = postSocialData($url, $post_data_json);
+                        pre($Result);
+    
+                        echo "Facebook API Response: ";
+    
+                        if ($Result === false) {
+                            echo "Error: Failed to make the request.";
+                        } else {
+                            echo "Successfully scheduled the post.";
+                        }
+                    } else {
+                        // Error handling if file copy operation failed
+                        echo "Error: Failed to upload image file.";
                     }
                 } else {
-                    // Handle case when only a single attachment is uploaded
-                    $attachments_data["attached_media[0]"] = curl_file_create($attachments['tmp_name'], $attachments['type'], $attachments['name']);
+                    echo "No attachment file uploaded."; // Handle case when no attachment file is uploaded
                 }
-
-                // Rest of your code remains unchanged
-            }
-
-                // Prepare post data for creating the scheduled post
-                $post_data = array(
-                    "message" => "Schedule Post",
-                    "published" => "false",
-                    "scheduled_publish_time" => $formatted_date,
-                );
-    
-                // Merge attachments data with post data
-                $post_data = array_merge($post_data, $attachments_data);
-    
-                // Convert post data to JSON
-                $post_data_json = json_encode($post_data);
-                
-                // Set cURL options for the request
-                $url = "https://graph.facebook.com/v19.0/$page_id/feed/?access_token=$access_token";
-                $Result = postSocialData($url, $post_data_json);
-    
-                echo "Facebook API Response: ";
-    
-                if ($Result === false) {
-                    echo "Error: Failed to make the request.";
-                } else {
-                    echo "Successfully scheduled the post.";
-                }
-            } else {
-                echo "No attachment file uploaded."; // Handle case when no attachment file is uploaded
             }
         }
+    }
+    
 
-    // public function schedule_insert_data()
-    // {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         // Retrieve data from the POST request
-    //         $attachments = $_FILES['attachment']; 
-    
-    //         // Set your page ID and access token
-    //         $page_id = '196821650189891';
-    //         $access_token = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
-    
-    //         // Check if attachment file is present in the request
-    //         if (isset($attachments['name']) && $attachments['error'] === UPLOAD_ERR_OK) { 
-    //             // Get the scheduled time from the POST data
-    //             $scheduled_time = strtotime($_POST['scheduled_time']);
-    //             $current_time = time();
-    //             $max_allowed_delay = 15 * 60; // 15 minutes in seconds
-    
-    //             // Ensure the scheduled time is within the allowed range
-    //             if ($scheduled_time > $current_time && $scheduled_time <= $current_time + $max_allowed_delay) {
-    //                 // Scheduled time is within the next 15 minutes and in the future
-    
-    //                 $utc_date_string = date('d-m-Y H:i', $scheduled_time);
-    //                 $date = DateTime::createFromFormat('d-m-Y H:i:s', $utc_date_string . ':00');
-    //                 $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
-    //                 $formatted_date = $date->format('c');
-    
-    //                 echo "Scheduled Time: $utc_date_string\n"; // Echo the scheduled time
-    
-    //                 // Process the uploaded image file
-    //                 $image_data = file_get_contents($attachments['tmp_name']);
-    //                 $image_mime_type = mime_content_type($attachments['tmp_name']);
-    //                 $image_filename = $attachments['name'];
-    
-    //                 // Set up attachment data for Facebook API
-    //                 $attachment_file = new \CURLFile($attachments['tmp_name'], $image_mime_type, $image_filename);
-    //                 $attachments_data["attached_media[0]"] = $attachment_file;
-    
-    //                 // Prepare post data for creating the scheduled post
-    //                 $post_data = array(
-    //                     "message" => "Schedule Post",
-    //                     "link" => $attachments_data,
-    //                     "published" => "false",
-    //                     "scheduled_publish_time" => $formatted_date,
-    //                 );
-    
-    //                 // Merge attachments data with post data
-    //                 $post_data = array_merge($post_data, $attachments_data);
-    
-    //                 // Convert post data to JSON
-    //                 $post_data_json = json_encode($post_data);
-    
-    //                 // Set cURL options for the request
-    //                 $url = "https://graph.facebook.com/v19.0/$page_id/feed/?access_token=$access_token";
-    //                 $Result = postSocialData($url, $post_data_json);
-    
-    //                 echo "Facebook API Response: ";
-    
-    //                 if ($Result === false) {
-    //                     echo "Error: Failed to make the request.";
-    //                 } else {
-    //                     echo "Successfully scheduled the post.";
-    //                 }
-    //             } else {
-    //                 // Scheduled time is not within the next 15 minutes or not in the future
-    //                 echo "Error: Scheduled time must be within the next 15 minutes and in the future.";
-    //             }
-    //         } else {
-    //             echo "No attachment file uploaded."; // Handle case when no attachment file is uploaded
-    //         }
-    //     }
-    // }
-    
-    
-    
+
+
 
     public function duplicate_data($data, $table_name)
     {
