@@ -6240,11 +6240,19 @@ option {
                                             <input type="text" class="form-control terrible" id="" placeholder="" value="Terrible">
                                         </td>
                                         <td class="col-3">
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="form-select" aria-label="Default select example bot_idd_append">
                                                 <option value="1">Main-flow</option>
+                                                <?php
+                                                if (isset($admin_bot)) {
+                                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                        echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </td>
-                                        <td class="col-4">
+                                        <td class="col-4 bot_quotation_list">
                                             <select class="form-select question_select_1" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
@@ -6270,11 +6278,19 @@ option {
                                             <input type="text" class="form-control bad" id="" placeholder="" value="Bad">
                                         </td>
                                         <td class="col-3">
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="form-select" aria-label="Default select example bot_idd_append">
                                                 <option value="1">Main-flow</option>
+                                                <?php
+                                                if (isset($admin_bot)) {
+                                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                        echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </td>
-                                        <td class="col-4">
+                                        <td class="col-4 bot_quotation_list">
                                             <select class="form-select question_select_2" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
@@ -6300,11 +6316,19 @@ option {
                                             <input type="text" class="form-control okay" id="" placeholder="" value="Okay">
                                         </td>
                                         <td class="col-3">
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="form-select" aria-label="Default select example bot_idd_append">
                                                 <option value="1">Main-flow</option>
+                                                <?php
+                                                if (isset($admin_bot)) {
+                                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                        echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </td>
-                                        <td class="col-4">
+                                        <td class="col-4 bot_quotation_list">
                                             <select class="form-select question_select_3" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
@@ -6330,11 +6354,19 @@ option {
                                             <input type="text" class="form-control good" id="" placeholder="" value="Good">
                                         </td>
                                         <td class="col-3">
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="form-select" aria-label="Default select example bot_idd_append">
                                                 <option value="1">Main-flow</option>
+                                                <?php
+                                                if (isset($admin_bot)) {
+                                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                        echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </td>
-                                        <td class="col-4">
+                                        <td class="col-4 bot_quotation_list">
                                             <select class="form-select question_select_4" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
@@ -6360,11 +6392,19 @@ option {
                                             <input type="text" class="form-control great" id="" placeholder="" value="Great">
                                         </td>
                                         <td class="col-3">
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="form-select" aria-label="Default select example bot_idd_append">
                                                 <option value="1">Main-flow</option>
+                                                <?php
+                                                if (isset($admin_bot)) {
+                                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                        echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </td>
-                                        <td class="col-4">
+                                        <td class="col-4 bot_quotation_list">
                                             <select class="form-select question_select_5" aria-label="Default select example">
                                                 <option selected>No Jump</option>
                     
