@@ -3081,6 +3081,84 @@ class WhatAppIntegrationController extends BaseController
         echo $ReturnResult;
     }
 
+    public function set_variable_value()
+    {
+        $db_connection = \Config\Database::connect('second');
+
+        $post_data = $_POST;
+        $phone_no = $post_data['phone_no'];
+        $originalHTML = $post_data['originalHTML'];
+
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
+
+        $result = $db_connection->query($sqlquery, [$phone_no]);
+
+        if ($result->getNumRows() > 0) {
+            $row = $result->getRow();
+
+            $name = $row->full_name;
+            $anni_date = $row->anni_date;
+            $intrested_product = $row->intrested_product;
+            $appointment_date = $row->appointment_date;
+            $dob = $row->dob;
+
+            $placeholders = array(
+                '{{Name}}' => $name,
+                '{{product_Name}}' => $intrested_product,
+                '{{Appointment_date}}' => $appointment_date,
+                '{{date_of_birth}}' => $dob,
+                '{{Anniversary_date}}' => $anni_date,
+            );
+
+            $modifiedHTML = $originalHTML;
+            foreach ($placeholders as $placeholder => $value) {
+                if (empty($value)) {
+                    $value =  $placeholder;
+                }
+                $modifiedHTML = str_replace($placeholder, $value, $modifiedHTML);
+            }
+
+            $return_array = array();
+            foreach ($placeholders as $placeholder => $value) {
+                if (strpos($originalHTML, $placeholder) !== false) {
+                    if (empty($value)) {
+                        $value =  $placeholder;
+                    }
+                    $return_array[$placeholder] = $value;
+                }
+            }
+
+            $json_string = json_encode($return_array, true);
+            $decoded_array = json_decode($json_string, true);
+
+            $values['variablevalues'] = array();
+            preg_match_all('/\{\{(.*?)\}\}/', $originalHTML, $matches);
+            foreach ($matches[1] as $placeholder) {
+                if (isset($decoded_array["{{" . $placeholder . "}}"])) {
+                    $value = $decoded_array["{{" . $placeholder . "}}"];
+                    if (empty($value)) {
+                        $value =  $placeholder;
+                    }
+                    $values['variablevalues'][] = $value;
+                }
+            }
+
+            $values['modifiedHTML'] = $modifiedHTML;
+        } else {
+            $values['variablevalues'] = array();
+            preg_match_all('/\{\{(.*?)\}\}/', $originalHTML, $matches);
+            foreach ($matches[1] as $placeholder) {
+                $values['variablevalues'][] = "{{" . $placeholder . "}}";
+            }
+            $values['modifiedHTML'] = $originalHTML;
+        }
+
+        return json_encode($values, true);
+    }
+
     // public function set_variable_value()
     // {
     //     $db_connection = \Config\Database::connect('second');
@@ -3137,66 +3215,66 @@ class WhatAppIntegrationController extends BaseController
     //     return json_encode($values, true);
     // }
 
-    public function set_variable_value()
-    {
+    // public function set_variable_value()
+    // {
 
-        $db_connection = \Config\Database::connect('second');
+    //     $db_connection = \Config\Database::connect('second');
 
-        $post_data = $_POST;
-        $phone_no = $post_data['phone_no'];
-        $originalHTML = $post_data['originalHTML'];
+    //     $post_data = $_POST;
+    //     $phone_no = $post_data['phone_no'];
+    //     $originalHTML = $post_data['originalHTML'];
 
-        $inputString = $_SESSION['username'];
-        $parts = explode("_", $inputString);
-        $username = $parts[0];
-        $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
+    //     $inputString = $_SESSION['username'];
+    //     $parts = explode("_", $inputString);
+    //     $username = $parts[0];
+    //     $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
 
-        $result = $db_connection->query($sqlquery, [$phone_no]);
+    //     $result = $db_connection->query($sqlquery, [$phone_no]);
 
-        $row = $result->getRow();
+    //     $row = $result->getRow();
 
-        $name = $row->full_name;
-        $mobileno1 = $row->mobileno;
-        $address = $row->address;
-        $intrested_product = $row->intrested_product;
-        $nxt_follow_up = $row->nxt_follow_up;
-        $dob = $row->dob;
+    //     $name = $row->full_name;
+    //     $mobileno1 = $row->mobileno;
+    //     $address = $row->address;
+    //     $intrested_product = $row->intrested_product;
+    //     $nxt_follow_up = $row->nxt_follow_up;
+    //     $dob = $row->dob;
 
-        $placeholders = array(
-            '{{phone_no}}' => $mobileno1,
-            '{{address}}' => $address,
-            '{{Name}}' => $name,
-            '{{product_Name}}' => $intrested_product,
-            '{{Next_FollowupDate}}' => $nxt_follow_up,
-            '{{date_of_birth}}' => $dob,
-        );
+    //     $placeholders = array(
+    //         '{{phone_no}}' => $mobileno1,
+    //         '{{address}}' => $address,
+    //         '{{Name}}' => $name,
+    //         '{{product_Name}}' => $intrested_product,
+    //         '{{Next_FollowupDate}}' => $nxt_follow_up,
+    //         '{{date_of_birth}}' => $dob,
+    //     );
 
-        $modifiedHTML = $originalHTML;
-        foreach ($placeholders as $placeholder => $value) {
-            $modifiedHTML = str_replace($placeholder, $value, $modifiedHTML);
-        }
+    //     $modifiedHTML = $originalHTML;
+    //     foreach ($placeholders as $placeholder => $value) {
+    //         $modifiedHTML = str_replace($placeholder, $value, $modifiedHTML);
+    //     }
 
-        $return_array = array();
-        foreach ($placeholders as $placeholder => $value) {
-            if (strpos($originalHTML, $placeholder) !== false) {
-                $return_array[$placeholder] = $value;
-            }
-        }
-        $json_string = json_encode($return_array, true);
+    //     $return_array = array();
+    //     foreach ($placeholders as $placeholder => $value) {
+    //         if (strpos($originalHTML, $placeholder) !== false) {
+    //             $return_array[$placeholder] = $value;
+    //         }
+    //     }
+    //     $json_string = json_encode($return_array, true);
 
-        $decoded_array = json_decode($json_string, true);
+    //     $decoded_array = json_decode($json_string, true);
 
-        $values['variablevalues'] = array();
-        preg_match_all('/\{\{(.*?)\}\}/', $originalHTML, $matches);
-        foreach ($matches[1] as $placeholder) {
-            if (isset($decoded_array["{{" . $placeholder . "}}"])) {
-                $values['variablevalues'][] = $decoded_array["{{" . $placeholder . "}}"];
-            }
-        }
+    //     $values['variablevalues'] = array();
+    //     preg_match_all('/\{\{(.*?)\}\}/', $originalHTML, $matches);
+    //     foreach ($matches[1] as $placeholder) {
+    //         if (isset($decoded_array["{{" . $placeholder . "}}"])) {
+    //             $values['variablevalues'][] = $decoded_array["{{" . $placeholder . "}}"];
+    //         }
+    //     }
 
-        $values['modifiedHTML'] = $modifiedHTML;
-        return json_encode($values, true);
-    }
+    //     $values['modifiedHTML'] = $modifiedHTML;
+    //     return json_encode($values, true);
+    // }
 
     public function bulk_set_variable_value()
     {

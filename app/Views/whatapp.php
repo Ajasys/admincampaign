@@ -977,7 +977,7 @@ if (!empty($connections)) {
                                                                     <p class="word-wrap single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue text-break">
                                                                         Message Header Section</p>
                                                                     <img class="rounded-3 preview-header-VIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
-                                                                    <p contenteditable="false" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break">
+                                                                    <p contenteditable="false" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break" id="newbody">
                                                                         Message Body Section</p>
                                                                     <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue text-break" contenteditable="false">Message Footer Section
                                                                     </p>
@@ -1054,7 +1054,7 @@ if (!empty($connections)) {
                                                                                 </g>
                                                                             </svg>
                                                                         </a> </label>
-                                                                  
+
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <label for="" class="main-label main-label ">Upload CSV <sup class="validationn">*</sup></label>
                                                                         <input type="file" class="form-control main-control" id="import_file" name="import_file" placeholder="Details" required="">
@@ -1293,7 +1293,7 @@ if (!empty($connections)) {
                                                                         <p class="word-wrap single-t-user-chat user msg fs-16 m-0 p-l-10 p-r-5 headervalue text-break">
                                                                             Message Header Section</p>
                                                                         <img class="rounded-3 preview-header-VIDEO" src="" style="width:150px;height:150px;object-fit: contain;">
-                                                                        <p contenteditable="false" id="sdf" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break">
+                                                                        <p contenteditable="false" id="newbody" class="word-wrap single-t-text-chat message msg m-0 p-l-10 p-r-5 BodyValue text-break">
                                                                             Message Body Section</p>
                                                                         <p class="user-name-chat-footer message msg fs-10 m-0 p-l-10 p-r-5 footervalue text-break" contenteditable="false">Message Footer Section
                                                                         </p>
@@ -1597,10 +1597,10 @@ if (!empty($connections)) {
                                             <select class="form-select form-select-sm col-12 my-1 body-select-picker" aria-label="Small select example">
                                                 <option selected>Add Variable</option>
                                                 <option value="1">Name</option>
-                                                <option value="2">phone_no</option>
-                                                <option value="3">product_Name </option>
-                                                <option value="4">Next_FollowupDate</option>
-                                                <option value="5">date_of_birth</option>
+                                                <option value="2">product_Name </option>
+                                                <option value="3">Appointment_date</option>
+                                                <option value="4">date_of_birth</option>
+                                                <option value="5">Anniversary_date</option>
 
                                             </select>
                                         </div>
@@ -1758,7 +1758,7 @@ if (!empty($connections)) {
                                         <div ng-if="media_footer_text.length > 0 " class="user-name-chat-header message msg  m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
                                     </div>
                                     <!-- <img class="rounded-3 preview-header-paragraphVIDEO" src="" style="width:150px;height:150px;object-fit: contain;"> -->
-                                    <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope" id="bodychange11">
+                                    <div ng-if="final_bodyPreviewValue.length > 0" class="msg-text-chat message msg m-0 p-l-10 p-r-5 ng-scope newbody" id="bodychange11">
                                     </div>
                                     <div class="preview-footer-paragraph p-1" ng-if="submitParamDetails" class="ng-scope" style="">
                                         <div ng-if="media_footer_text.length > 0 " class="user-name-chat-footer message msg font-size-12 m-0 p-l-10 p-r-5 ng-binding ng-scope" contenteditable="false" style=""></div>
@@ -1786,8 +1786,8 @@ if (!empty($connections)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary Add_editModelTitle" templatename="" templateid="" action="insert">Submit</button>
-                    <button class="btn  btn-primary   Elbtn EditTemplateButtonClass" name="" id=""><i class="bi bi-pencil"></i></button>
                     <button type="button" class="btn btn-primary TemplateDeleteBtnDiv" id="" name="">Delete</button>
+                    <button class="btn  btn-primary   Elbtn EditTemplateButtonClass" name="" id=""><i class="bi bi-pencil"></i></button>
                     <!-- <button type="button" class="btn btn-secondary CloseBtnModelAdd" data-bs-dismiss="modal">Close</button> -->
                     <span class="btn-primary Template_send_whatsapp" id="sendbtn" varvalues="" datastatus="" name="" value="Send">Send</span>
                 </div>
@@ -1888,24 +1888,16 @@ if (!empty($connections)) {
             $('#sendbtn').addClass('d-none')
             $('.inputypeBody').addClass('d-none')
             var Body1 = $(this).attr('Bodytext');
+            $('.msg-text-chat').text(Body1);
 
+            console.log(Body1);
             var Bodytextvalue = JSON.parse($(this).attr('Bodytextvalue'));
-            console.log(Bodytextvalue);
 
             for (var i = 0; i < Bodytextvalue.length; i++) {
                 var placeholder = new RegExp('{{[' + (i + 1) + ']}}', 'g');
                 Body1 = Body1.replace(placeholder, '{{' + Bodytextvalue[i] + '}}');
 
             }
-
-            $('.msg-text-chat').text(Body1);
-
-
-
-
-
-
-
 
 
 
@@ -2096,7 +2088,7 @@ if (!empty($connections)) {
             var matches = body.match(regex);
             if (matches) {
                 $('#dynamicInputsContainer').empty();
-                for (var i = 1; i <= matches.length; i++) {
+                for (var i = 0; i <= matches.length; i++) {
                     var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-2" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
                     $('#dynamicInputsContainer').append(inputField);
                 }
@@ -2526,16 +2518,17 @@ if (!empty($connections)) {
             // var body = body1.replace(/\{\{Name\}\}/g, '{{1}}')
             //     .replace(/\{\{Phone_no\}\}/g, '{{2}}')
             //     .replace(/\{\{address\}\}/g, '{{3}}');
-            var body = replaceDynamicSequences(body1);
             var action = $(this).attr('action');
             var templatename = $(this).attr('templatename');
             var templateid = $(this).attr('templateid');
+            var body = replaceDynamicSequences(body1);
             var regex = /\{\{([^}]+)\}\}/g;
             var matches = [];
             var match;
             while ((match = regex.exec(body1)) !== null) {
                 matches.push(match[1]);
             }
+            // 1000
             // var regex = /\{\{([^}]+)\}\}/g;
             // if (name.trim() === '') {
             //     $('.CheckTemplateNameAlertPTag').hide();
@@ -2977,6 +2970,7 @@ if (!empty($connections)) {
             // utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
         });
         // --------------------------------------------------------------
+        originalHTML = '';
         $('body').on('click', '.Template_send', function() {
 
             var bodydivvalues = [];
@@ -2984,26 +2978,29 @@ if (!empty($connections)) {
                 var bodydivvalue = $(this).val();
                 bodydivvalues.push(bodydivvalue);
             });
-            if (!originalHTML) {
-                originalHTML = $('.preview-chat-paragraph .BodyValue').html();
-            }
-            var body = $('.preview-chat-paragraph .BodyValue').text();
+            // if (!originalHTML) {
+            //     originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+            // }
+            var originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+
             $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
             var fullmsg = $('.preview-chat-paragraph').html();
-            var newbody = JSON.stringify(body);
-            var header = $('.header_div').val();
+            // var newbody = JSON.stringify(body);
             var template_id = $('.header_div option:selected').attr('DataMNo');
             var phone_no = $('.phone_number_div').val();
             var language = $('.language_div').val();
             var countrey_code = $('.iti__selected-dial-code').text();
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
             $('.preview-chat-paragraph').html(fullmsg);
+
             if (header !== "" && phone_no !== "" && language !== "" && WhatsAppConnectionsDropDown !== '') {
+
                 $('#view_modal').modal('show');
                 $('.EditTemplateButtonClass').addClass('d-none');
                 $('.Add_editModelTitle').addClass('d-none');
                 $('.TemplateDeleteBtnDiv').addClass('d-none');
                 $('.preview-header-paragraphVIDEO').hide();
+
             } else {
                 $(".membershipDiv").addClass("was-validated");
             }
@@ -3017,14 +3014,39 @@ if (!empty($connections)) {
                     originalHTML: originalHTML
                 },
                 success: function(res) {
+
+
                     var modifiedHTML = res.modifiedHTML;
                     var variablevalue = res.variablevalues;
-                    // console.log(variablevalue);
+
+console.log(variablevalue);
+                    var body = replaceDynamicSequences(modifiedHTML);
+                        var regex = /\{\{([^}]+)\}\}/g;
+                        var matches = [];
+                        var match;
+                     
+                    var matches = body.match(regex);
+
+                    $('.inputypeBody').hide();
+
+                    if (matches) {
+                        $('#dynamicInputsContainer1').empty();
+                        for (var i = 1; i <= matches.length; i++){
+                            var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-1" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
+                            $('#dynamicInputsContainer1').append(inputField);
+                            $('.inputypeBody').show();
+                        }
+                    }
+
+
+                       
+
+                            console.log(bodydivvalues);
+
                     var varvalues = $('#sendbtn').attr('varvalues');
                     $('#sendbtn').attr('varvalues', variablevalue.join(','));
 
-
-                    var body = $('.preview-chat-paragraph .BodyValue').html(modifiedHTML);
+                    $('.preview-chat-paragraph #newbody').html(modifiedHTML);
 
                 },
             });
@@ -3055,40 +3077,40 @@ if (!empty($connections)) {
             // formData.append('shedualdate', shedualdate);
             // formData.append('shedualtime', shedualtime);
             formData.append('action', true);
-             
-           
+
+
             if (Template_name != "" && uploade_file != "" && language != "") {
-            $.ajax({
-                dataType: 'json',
-                method: "POST",
-                url: "bulk_set_variable_value",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(res) {
-                    $('#view_modal').modal('show');
-                    $('.EditTemplateButtonClass').addClass('d-none');
-                $('.Add_editModelTitle').addClass('d-none');
-                $('.TemplateDeleteBtnDiv').addClass('d-none');
-                $('.preview-header-paragraphVIDEO').hide();
-                    console.log(res);
+                $.ajax({
+                    dataType: 'json',
+                    method: "POST",
+                    url: "bulk_set_variable_value",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(res) {
+                        $('#view_modal').modal('show');
+                        $('.EditTemplateButtonClass').addClass('d-none');
+                        $('.Add_editModelTitle').addClass('d-none');
+                        $('.TemplateDeleteBtnDiv').addClass('d-none');
+                        $('.preview-header-paragraphVIDEO').hide();
+                        console.log(res);
 
-                    var variablevalues = res.map(item => item.variablevalues);
-                    var modifiedHTML = res.modifiedHTML;
+                        var variablevalues = res.map(item => item.variablevalues);
+                        var modifiedHTML = res.modifiedHTML;
 
-                    var allValues = variablevalues.map(function(values) {
-                        return values.join(',');
-                    }).join(';'); 
+                        var allValues = variablevalues.map(function(values) {
+                            return values.join(',');
+                        }).join(';');
 
-                    $('#sendbtn').attr('varvalues', allValues);
-                    var body = $('.preview-chat-paragraph .BodyValue').html(modifiedHTML);
+                        $('#sendbtn').attr('varvalues', allValues);
+                        var body = $('.preview-chat-paragraph .BodyValue').html(modifiedHTML);
 
-                },
-            });
-        }else{
-            $(".membershipDiv").addClass("was-validated");
+                    },
+                });
+            } else {
+                $(".membershipDiv").addClass("was-validated");
 
-        }
+            }
 
         });
         var SendURL;
@@ -3099,15 +3121,17 @@ if (!empty($connections)) {
             var variableValuesArray = $(this).attr('varvalues');
             bodydivvalues = variableValuesArray.split(',');
 
-            
+
+            $('.inputypeBody').each(function() {
+                    var bodydivvalue = $(this).val();
+                    bodydivvalues.push(bodydivvalue);
+                });
+
+                bodydivvalues = bodydivvalues.filter(function(value) {
+                    return !(/\{\{.*\}\}/.test(value));
+                });
+                console.log(bodydivvalues);
             if (DataStatus === '3') {
-
-
-                // $('.inputypeBody').each(function() {
-                //     var bodydivvalue = $(this).val();
-                //     bodydivvalues.push(bodydivvalue);
-                // });
-
 
                 if (!originalHTML) {
                     originalHTML = $('.preview-chat-paragraph .BodyValue').html();
@@ -3140,9 +3164,12 @@ if (!empty($connections)) {
                         'originalHTML': originalHTML,
                     },
                     success: function(res) {
+                        $('.preview-chat-paragraph .BodyValue').html('');
+
                         $('#view_modal').modal('hide');
                         $('#mobile_code').val('');
                         $('.header_div').html('');
+                        $('.BodyValue').html('');
                         $('.language_div').val('');
                         list_data();
                         $('.loader').hide();
@@ -3199,8 +3226,8 @@ if (!empty($connections)) {
                 // formData.append('shedualtime', shedualtime);
                 formData.append('action', true);
 
-         
-            
+
+
                 $.ajax({
                     method: "post",
                     url: "bulk_whatsapp_template_send",
@@ -3381,6 +3408,8 @@ if (!empty($connections)) {
             $('.CheckTemplateNameAlertPTag').hide();
         });
         $('body').on('click', '.EditTemplateButtonClass', function() {
+            $('.Add_editModelTitle').removeClass('d-none')
+
             $('.loader').show();
             var name = $(this).attr('name');
             var id = $(this).attr('id');
@@ -3735,16 +3764,21 @@ if (!empty($connections)) {
         $('body').on('click', '.refresh-btn', function() {
             $(this).toggleClass('rounded-btn');
         });
-        var originalHTML = '';
+
+
+        var body = '';
         $('#dynamicInputsContainer1').on('input', '.inputypeBody', function() {
             var inputId = $(this).attr('Dataid');
-            if (!originalHTML) {
-                originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+            if (!body) {
+                body = $('.preview-chat-paragraph .BodyValue').html();
                 // originalHTML = $('.preview-chat-paragraph .BodyValue').html();
             }
+            var originalHTML = replaceDynamicSequences(body);
+            
             // var originalHTML = $('.preview-chat-paragraph ').html();
             // var bodyText1 = $(this).val();
             var regex = new RegExp("{{[" + inputId + "]}}");
+            console.log(regex);
             var form = $('#dynamicInputsContainer1')[0];
             var formdata = new FormData(form);
             formdata.append('regex', regex);
@@ -3765,12 +3799,21 @@ if (!empty($connections)) {
                 }
             });
         });
+
+
+
+
+
+
+
+
         var originalHTML = '';
         $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
             var inputId = $(this).attr('Dataid');
             if (!originalHTML) {
                 originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
             }
+            
             // var originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
             // var bodyText1 = $(this).val();
             var regex = new RegExp("{{[" + inputId + "]}}");
@@ -3800,7 +3843,6 @@ if (!empty($connections)) {
             $('#import_file').val('');
             $(".selectpicker-validation").removeClass("selectpicker-validation");
             $("form[name='master_membership_update_form']").removeClass("was-validated");
-            // $('.refreshit').html('');
             list_data();
         });
     </script>
