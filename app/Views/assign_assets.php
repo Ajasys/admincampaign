@@ -24,15 +24,16 @@ $user_result = $db_connection->query($user_get);
 $user_data = $user_result->getResultArray();
 ?>
 <div class="main-dashbord p-3">
+
     <div class="container-fluid p-0">
         <div class="mb-2">
             <div class="col-xl-12 d-flex justify-content-between">
                 <div class="title-1  d-flex align-items-center">
-                    <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 35px"></i>
+                    <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 25px"></i>
                     <h2>Assign Assets Permission</h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
-                    <button class="btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal_one">
+                    <button class="btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal_to">
                         Assign assets
                     </button>
                 </div>
@@ -64,7 +65,7 @@ $user_data = $user_result->getResultArray();
         <table id="" class="table main-table w-100">
             <thead>
                 <tr>
-                <th class="p-2 text-nowrap"><span>User Name</span></th>
+                    <th class="p-2 text-nowrap"><span>User Name</span></th>
                     <th class="p-2 text-nowrap"><span>User Id </span></th>
                     <th class="p-2 text-nowrap"><span>Assets Pemission</span></th>
                     <th class="p-2 text-nowrap"><span></span></th>
@@ -78,7 +79,38 @@ $user_data = $user_result->getResultArray();
         </table>
     </div>
 
-    <!-- Modal -->
+
+
+
+    <!-- Modal one -->
+    <div class="modal fade" id="exampleModal_to" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
+                        <option value="0">Select User</option>
+                        <?php
+                        if (isset($user_data)) {
+                            foreach ($user_data as $type_key => $user_value) {
+                                echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal_one">Assign assets</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal two-->
     <div class="modal fade" id="exampleModal_one" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
@@ -139,13 +171,13 @@ $user_data = $user_result->getResultArray();
                                                     $page_imgdata = fb_page_img($pagelist_data->id, $pagelist_data->access_token);
                                                     // pre($page_imgdata);
                                                     $page_imgdata = json_decode($page_imgdata);
-                                                    ?>
-                                                     <li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
+                                            ?>
+                                                    <li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
                                                         <input type="checkbox" class="me-2 rounded-3 selectedId" name="selectedId" style="width:18px;height:18px;">
-                                                        <img class="rounded-circle me-1" src="<?php echo $page_imgdata->page_img;?>" alt="" style="width:30px;height:30px">
-                                                        <p class="col"><?php echo $pagelist_data->name;?></p>
+                                                        <img class="rounded-circle me-1" src="<?php echo $page_imgdata->page_img; ?>" alt="" style="width:30px;height:30px">
+                                                        <p class="col"><?php echo $pagelist_data->name; ?></p>
                                                     </li>
-                                                    <?php
+                                            <?php
                                                 }
                                             }
                                             ?>
@@ -192,20 +224,6 @@ $user_data = $user_result->getResultArray();
                                     </div>
 
                                     <div class="card-body ">
-                                        <div class="col-12 Pages_div d-flex justify-content-end border-bottom">
-                                            <div class="main-selectpicker col-7 d-flex align-items-center" style="height: 45px;">
-                                                <select id="facebookpages" class="selectpicker form-control form-main" data-live-search="true" required>
-                                                <option value="0">Select User</option>
-                                                <?php
-                                                    if (isset($user_data)) {
-                                                        foreach ($user_data as $type_key => $user_value) {
-                                                            echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
-                                                        }
-                                                    }
-                                                ?>
-                                                </select>
-                                            </div>
-                                        </div>
 
                                         <!-- Pages_div -->
                                         <div class=" Pages_div col-12 overflow-y-scroll" style="height:90vh;">
