@@ -29,7 +29,8 @@ $get_facebook_page = $result->getResultArray();
         width: 50px;
         height: 50px;
     }
-
+</style>
+<style>
     body {
         background-color: #f3f3f3;
     }
@@ -133,25 +134,18 @@ $get_facebook_page = $result->getResultArray();
     .cursor-pointer {
         cursor: pointer;
     }
-
     .btn-text {
-        white-space: nowrap;
-        /* Prevent text from wrapping */
-        overflow: hidden;
-        /* Hide overflowing text */
-        text-overflow: ellipsis;
-        /* Add ellipsis (...) to indicate truncated text */
-        max-width: 100%;
-        /* Limit the maximum width of the text */
-        font-size: 16px;
-        /* Default font size */
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Add ellipsis (...) to indicate truncated text */
+        max-width: 100%; /* Limit the maximum width of the text */
+        font-size: 16px; /* Default font size */
     }
 
     /* Media query for smaller screens (up to 576px) */
     @media (max-width: 576px) {
         .btn-text {
-            font-size: 14px;
-            /* Reduce font size for smaller screens */
+            font-size: 14px; /* Reduce font size for smaller screens */
         }
     }
 </style>
@@ -549,7 +543,7 @@ $get_facebook_page = $result->getResultArray();
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Auto share (optional)</h5>
                         <form class="needs-validation" id="share_form" name="share_form" method="POST" enctype="multipart/form-data" novalidate>
-
+                       
                             <button type="button" class="close btn btn-transparent fs-4" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -613,15 +607,15 @@ $get_facebook_page = $result->getResultArray();
                             </div>
                         </div>
                         <div class="d-flex  rounded-3 p-2 align-items-center col-12">
-                            <div class="m-2 col-3 d-flex flex-wrap justify-content-center border rounded-3 p-3 whatsapp">
-                                <div class=" d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-whatsapp fs-3"></i></div>
-                                <div>whatsapp</div>
-                            </div>
-                            <div class="m-2 col-3 d-flex flex-wrap justify-content-center rounded-3 border p-3 messanger">
-                                <div class=" d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-facebook-messenger fs-3"></i></div>
-                                <div>messanger</div>
-                            </div>
-                        </div>
+                                    <div class="m-2 col-3 d-flex flex-wrap justify-content-center border rounded-3 p-3 whatsapp">
+                                            <div class=" d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-whatsapp fs-3"></i></div>
+                                            <div>whatsapp</div>
+                                        </div>
+                                        <div class="m-2 col-3 d-flex flex-wrap justify-content-center rounded-3 border p-3 messanger">
+                                            <div class=" d-flex justify-content-center align-items-center p-3 " style="width:40px; height:40px;"><i class="fa-brands fa-facebook-messenger fs-3"></i></div>
+                                            <div>messanger</div>
+                                        </div>
+                                </div>
                         <div class="d-flex justify-content-between mt-3">
                             <div class="d-flex" style="height:40px">
                                 <div class="border rounded p-2 mx-1"><i class="fa-solid fa-hashtag"></i>hastags</div>
@@ -652,10 +646,12 @@ $get_facebook_page = $result->getResultArray();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
         <script>
-            // $('body').on('click','.messanger',function()
-            // {
+          
+                // $('body').on('click','.messanger',function()
+                // {
 
-            // });
+                // });
+               
 
             $('.sebmite-siduale').hide();
             $(document).on('click', '.clickshare', function() {
@@ -717,54 +713,53 @@ $get_facebook_page = $result->getResultArray();
             });
 
             $('body').on('click', '.comment_send', function() {
-                // alert();
-                var data_post_id = $(this).attr('data-post_id');
-                var input_comment = $(".comment_input").val().trim();
+    // Show the comment loader
+    $('.comment_loader').show();
+    
+    var data_post_id = $(this).attr('data-post_id');
+    var input_comment = $(".comment_input").val().trim(); 
 
-                console.log('Input comment:', input_comment); // Trim any leading or trailing whitespace
-                if (input_comment !== '') { // Check if input_comment is not empty
-                    // Encode input_comment as UTF-8
-                    input_comment = encodeURIComponent(input_comment);
-                    $.ajax({
-                        type: 'post',
-                        url: '<?= base_url('comment_replay_send') ?>',
-                        data: {
-                            data_post_id: data_post_id,
-                            input_comment: input_comment,
-                        },
-                        success: function(res) {
-                            var result = JSON.parse(res);
-                            $('.loader').hide();
-                            if (result.response == "1") {
-                                $("#comment-modal .comment_btn_close").trigger("click");
-                                iziToast.success({
-                                    title: 'Comment Successfully'
-                                });
-                            } else {
-                                // Handle error response
-                                iziToast.error({
-                                    title: 'Error',
-                                    message: 'Failed to post comment: ' + result.error
-                                });
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle AJAX error
-                            console.error(xhr.responseText);
-                            iziToast.error({
-                                title: 'Error',
-                                message: 'Failed to make AJAX request.'
-                            });
-                        }
+    if (input_comment !== '') { 
+        input_comment = encodeURIComponent(input_comment);
+        $.ajax({
+            type: 'post',
+            url: '<?= base_url('comment_replay_send') ?>',
+            data: {
+                data_post_id: data_post_id,
+                input_comment: input_comment,
+            },
+            success: function(res) {
+                var result = JSON.parse(res);
+                // Hide the comment loader
+                $('.comment_loader').hide();
+              
+                if (result.response == "1") {
+                    $("#comment-modal .comment_btn_close").trigger("click");
+                    iziToast.success({
+                        title: 'Comment Successfully'
                     });
                 } else {
-                    // Handle empty input_comment
                     iziToast.error({
                         title: 'Error',
-                        message: 'Please enter a comment.'
+                        message: 'Failed to post comment: ' + result.error
                     });
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                iziToast.error({
+                    title: 'Error',
+                    message: 'Failed to make AJAX request.'
+                });
+            }
+        });
+    } else {
+        iziToast.error({
+            title: 'Error',
+            message: 'Please enter a comment.'
+        });
+    }
+});
 
 
             $('body').on('click', '.add_buttonn', function() {
@@ -803,6 +798,7 @@ $get_facebook_page = $result->getResultArray();
                         });
                         $('.img_show_comment').html(response.img_show_comment);
                         $('.like_comment_count').html(response.like_comment_count);
+                        $('.like_count').hide();
 
 
 
@@ -1332,5 +1328,8 @@ $get_facebook_page = $result->getResultArray();
                         console.error(xhr.responseText);
                     }
                 });
+            })
+            $('body').on('click','.like_show',function () {
+                $('.like_count').show();
             })
         </script>

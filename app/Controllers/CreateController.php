@@ -429,7 +429,7 @@ class CreateController extends BaseController
                     <button class="btn like_button d-flex p-0 border-0">
                         <i class="fa-regular fa-thumbs-up mx-1 my-auto" id="like_icon"></i>
                         <i class="fa-solid fa-thumbs-up d-none mx-1 my-auto" id="like_icon_lite"></i>
-                        <div class="my-auto btn-text">Like</div>
+                        <div class="my-auto btn-text comment_like_count">Like</div>
                     </button>
                 </div>
         
@@ -540,8 +540,11 @@ class CreateController extends BaseController
         </button>
     </span>
 </div>';
+        if(isset($comments_responce['data'])){
 
+        
         foreach ($comments_responce['data'] as $key => $comment_value) {
+            // pre($comment_value);
             // die();
             $timestamp_comment = $comment_value['created_time'];
             $date_comment = new DateTime($timestamp_comment, new DateTimeZone('UTC'));
@@ -580,9 +583,15 @@ class CreateController extends BaseController
                                                 <span class="fw-semibold fs-12"> ' . $comment_value['from']['name'] . '</span>
                     <p class="fs-12 fw-normal">' . $comment_value['message'] . '</p>
 </div>
-                    <div class="col-12 d-flex align-content-center flex-wrap my-2">
-                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><span class="mx-1 text-muted fw-normal">' . $facebook_comment_time . '</span><span class="mx-2 text-muted fw-bold">Like</span></div>
-                        <div class="col d-flex flex-wrap"><span class="mx-2 text-muted fs-12 Replay_btn fdsfgdfg fw-bold"  style="cursor:pointer;">Reply</span></div>
+                    <div class="col-12 d-flex align-items-center-center flex-wrap my-2">
+                        <div class="d-flex flex-wrap fs-12 align-items-center" style="cursor:pointer;"><span class="mx-1 text-muted fw-normal">' . $facebook_comment_time . '</span><span class="mx-2 text-muted fw-bold like_show">Like</span></div>
+                        <div class="col d-flex flex-wrap justify-content-between">
+                            <span class="mx-2 text-muted fs-12 Replay_btn fdsfgdfg fw-bold"  style="cursor:pointer;">Reply</span>
+                            <span class="mx-2 text-muted fs-12 Replay_btn fdsfgdfg fw-bold like_count"  style="cursor:pointer;">
+                              <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 48 48" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><linearGradient id="a" x1="24" x2="24" y1="42" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0064e1"></stop><stop offset=".994" stop-color="#26b7ff"></stop></linearGradient><circle cx="24" cy="24" r="18" fill="url(#a)" opacity="1" data-original="url(#a)" class=""></circle><g fill="#fff"><rect width="5.781" height="11.647" x="13.219" y="22.315" rx="1.839" fill="#ffffff" opacity="1" data-original="#ffffff"></rect><path d="M35 24.556c0-.749-.332-1.411-.843-1.862.385-.388.624-.921.624-1.51a2.148 2.148 0 0 0-2.146-2.145h-3.678v-2.452c0-1.138-.316-2.085-.94-2.815a2.202 2.202 0 0 0-2.462-.629 2.27 2.27 0 0 0-1.502 2.143v3.14c0 1.694-2.41 3.276-3.34 3.743-.302.151-.49.858-.338 1.16v6.13l1.914 2.168a3.044 3.044 0 0 0 2.167.898h6.954a2.148 2.148 0 0 0 2.145-2.146c0-.166-.025-.328-.062-.487a2.138 2.138 0 0 0 .664-3.475c.511-.45.843-1.113.843-1.861z" fill="#ffffff" opacity="1" data-original="#ffffff"></path></g></g></svg>
+                              <span class="mx-1">1</span>
+                            </span>
+                        </div>
                     </div>
                     <div class="col-10 d-flex d-none">
                         <div class="me-2" style="width:max-content;">
@@ -601,12 +610,17 @@ class CreateController extends BaseController
                                             </div>
                                             <div class="col-10 comment_box d-none mt-1 mb-2 w-100">
                                                 <div class="d-flex justify-content-start align-content-center w-100">
-                                                    <div class="me-1 mt-1" style="width:max-content;">
+                                                <div class="me-1 mt-1" style="width:max-content;">
                                                         <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=5mIr9vvPKjoAX-zrvYj&amp;_nc_oc=AQl6mR6y2pjIoGKmOR7fdu7zLgCBmH2vprbxILHxch3EcDKIw2dNoMlXRjIbv8rITPVDcwSSDac73ClROnRdBptx&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfD6iLdF10SSWXxBASqUk3ZYhyyYKA-_1rv919_YAYlj3g&amp;oe=65DC2E85" alt="#" style="width:28px;height:28px;">
                                                     </div>
                                                     <div class="border rounded-3 input-group-sm col-11 d-flex" style = "background-color:#ededed;">
                                                         <input style = "background-color:#ededed;" type="text" value="" id="input_comment" class="comment_input form-control-sm p-2 w-100 border-0 " placeholder="Add comment...">
-                                                        <button class="btn btn-sm btn-link comment-send-btn comment_send" data-post_id =' . $comment_value['id'] . '><i class="bi bi-send text-primary" style="color: blue;"></i></button>
+                                                        <button class="btn btn-sm btn-link comment-send-btn comment_send d-flex align-items-center" data-post_id =' . $comment_value['id'] . '><div class="spinner-border text-primary mx-2 comment_loader" style=" width: 20px; height: 20px;" role="status">
+                                                        <span class="visually-hidden" >Loading...</span>
+                                                      </div><i class="bi bi-send text-primary " data-bs-dismiss="modal" style="color: blue;"></i></button>
+                        </div>
+                                                   
+                                                    
                         </div>
                     </div>
 </div>
@@ -614,16 +628,11 @@ class CreateController extends BaseController
 
                                     </div>
                                     <div class="d-flex col-12 justify-content-start align-content-center">
-                                        <div class="me-1 mt-1" style="width:max-content;">
-                                            <img class="rounded-circle" src="https://scontent.famd15-2.fna.fbcdn.net/v/t39.30808-1/420455313_122097378152192565_8221030983682159636_n.jpg?stp=c0.0.50.50a_cp0_dst-jpg_p50x50&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=4da83f&amp;_nc_ohc=5mIr9vvPKjoAX-zrvYj&amp;_nc_oc=AQl6mR6y2pjIoGKmOR7fdu7zLgCBmH2vprbxILHxch3EcDKIw2dNoMlXRjIbv8rITPVDcwSSDac73ClROnRdBptx&amp;_nc_ht=scontent.famd15-2.fna&amp;edm=AOf6bZoEAAAA&amp;oh=00_AfD6iLdF10SSWXxBASqUk3ZYhyyYKA-_1rv919_YAYlj3g&amp;oe=65DC2E85" alt="#" style="width:35px;height:35px;">
-                                        </div>
-                                        <div class="border rounded-3 col-11 d-flex" style = "background-color:#ededed;">
-                                            <input style = "background-color:#ededed;" type="text" value="" id="input_comment" class="comment_input p-2 w-100 border-0 " placeholder="Add comment...">
-                                            <button class="btn btn-link comment-send-btn comment_send" data-post_id =' . $comment_value['id'] . '><i class="bi bi-send text-primary" style="color: blue;"></i></button>
-                </div>
+                                        
             </div>
         </div>';
         }
+    }
 
         if (isset($data['attachments']['data']) && !empty($data['attachments']['data'])) {
             $attachments = $data['attachments']['data'];
@@ -938,7 +947,7 @@ class CreateController extends BaseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Retrieve data from the POST request
             $attachments = $_FILES['attachment']; 
-    
+            $event_address = $_POST['event_address'];
             // Set your page ID and access token
             $page_id = '196821650189891';
             $access_token='EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
@@ -973,7 +982,7 @@ class CreateController extends BaseController
                         // pre($imageURL);
                       
                         $post_data = array(
-                            "message" => "Schedule Post",
+                            "message" =>$event_address,
                             "link" => $imageURL, 
                             "published" => "false",
                             "scheduled_publish_time" => $formatted_date, // Append Indian Standard Time offset
