@@ -146,9 +146,8 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     $get_asset_permission = array();
 } else {
     $get_asset_permission = get_asset_permission($_SESSION['id']);
-    if(!in_array('create_scenarios', $get_asset_permission) || !in_array('leads', $get_asset_permission))
-    {
-        header('Location:'.base_url('logout').'');
+    if (!in_array('create_scenarios', $get_asset_permission) || !in_array('leads', $get_asset_permission)) {
+        header('Location:' . base_url('logout') . '');
     }
 }
 $product = json_decode($product, true);
@@ -1428,11 +1427,40 @@ $user_data = $user_result->getResultArray();
     $('body').on('click', '.page-referesh', function() {
         var fb_access_token = $('#fb_conn_id').find(':selected').data('access-token');
         var fb_check_conn = $('#fb_conn_id').find(':selected').data('connection-check');
+        var connection_id = $("#fb_conn_id option:selected").val();
         if (fb_access_token != '') {
-            getPagesList(fb_access_token, fb_check_conn);
-            // iziToast.success({
-            //     title: 'Page List Referesh Successfully..!'
-            // });
+            // getPagesList(fb_access_token, fb_check_conn);
+
+            $('.loader').show();
+            $.ajax({
+                type: "post",
+                url: "<?= site_url('facebook_user'); ?>",
+                data: {
+                    fb_access_token: fb_access_token,
+                    fb_check_conn: fb_check_conn,
+                    connection_id: connection_id,
+                    action: 'refresh'
+                },
+                success: function(res) {
+                    $('.loader').hide();
+                    var result = JSON.parse(res);
+                    if (result.response == 1) {
+                        iziToast.success({
+                            title: 'Page List Referesh Successfully..!'
+                        });
+                        $('#facebookpages').html(result.html);
+                        $('#facebookpages').selectpicker('refresh');
+                    } else {
+                        iziToast.error({
+                            title: result.message
+                        });
+                    }
+                },
+                error: function(error) {
+                    $('.loader').hide();
+                }
+            });
+
         } else {
             iziToast.error({
                 title: 'Please select your connection..!'
@@ -1440,6 +1468,7 @@ $user_data = $user_result->getResultArray();
         }
 
     });
+
 
 
     function getPagesList(fb_access_token, fb_check_conn, connection_id) {

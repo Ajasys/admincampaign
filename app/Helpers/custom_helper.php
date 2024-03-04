@@ -3434,7 +3434,7 @@ if (!function_exists('get_asset_permission')) {
         if (isset($userroledata['asset_permissions']) && !empty($userroledata['asset_permissions'])) {
             $asset_permissions_array = explode(',', $userroledata['asset_permissions']);
             $unique_asset_permissions = array_unique($asset_permissions_array);
-            $exp_value = implode(',', $unique_asset_permissions);
+            $exp_value = $unique_asset_permissions;
         }
         return $exp_value;
     }

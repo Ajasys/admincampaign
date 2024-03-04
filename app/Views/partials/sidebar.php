@@ -3,7 +3,7 @@
 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 
    $get_roll_id_to_roll_duty_var = array();
-   $get_asset_permission = array();
+   $get_asset_permission = [];
 } else {
 
    $get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
@@ -462,9 +462,12 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>bot">Manage Bot</a>
                      </li>
-                     <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>post_comments">Manage Post & Comments</a>
-                     </li>
+                     <?php if ((in_array('post_comments', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+
+                        <li>
+                           <a class="dropdown-item" href="<?= base_url(); ?>post_comments">Manage Post & Comments</a>
+                        </li>
+                     <?php } ?>
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>manage_audience">Manage Audience</a>
                      </li>

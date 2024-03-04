@@ -30,7 +30,15 @@ class AssetPermissionController extends BaseController
         $resultff['message'] = $errorMsg;
         $html = "";
         if ($action == "user") {
-            $html .= '';
+            $html .= '<div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
+                        <div class="d-flex align-items-center" style="height: 45px;">
+                            <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                            <div class="col fs-6 fw-semibold">
+                                Select all
+                            </div>
+                        </div>
+                    </div><div class="col-12 overflow-x-hidden" style="height:500px;">
+                    <ul class="overflow-y-scroll" style="height:490px;">';
             if ($connection_id > 0) {
                 $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages' AND platform_id=" . $connection_id;
                 $asset_result = $this->db->query($asset_query);
@@ -60,6 +68,9 @@ class AssetPermissionController extends BaseController
                     $Msg = 'Page list Succesfully..';
                 }
             }
+            $html.='</ul>
+            </div>';
+
             $resultff['response'] = 1;
             $resultff['message'] = $Msg;
         }

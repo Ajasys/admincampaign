@@ -171,24 +171,42 @@ class FaceBookController extends BaseController
         if ($action == "user" && $fb_access_token) {
             $html .= '<option value="0">Select Page</option>';
             if (isset($fb_access_token) && $fb_check_conn == 1) {
+
+                $permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $this->username . "_platform_assetpermission WHERE FIND_IN_SET('create_scenarios', assetpermission_name) > 0 AND user_id =" . $_SESSION['id'];
+                $permission_result = $this->db->query($permission_query);
+                $per_result = $permission_result->getResult();
+                $perasset_data = [];
+                if (isset($per_result[0])) {
+                    $perasset_data = explode(',', $per_result[0]->asset_id);
+                }
+
                 if ($connection_id > 0) {
                     $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages' AND platform_id=" . $connection_id;
                     $asset_result = $this->db->query($asset_query);
                     $pageresult = $asset_result->getResultArray();
                     if (isset($pageresult)) {
+
                         foreach ($pageresult as $aa_key => $aa_value) {
-                            $longLivedAccessToken = $aa_value['access_token'];
-                            $html .= '<option value="' . $aa_value['asset_id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
+                            if ((in_array($aa_value['id'], $perasset_data)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                                $longLivedAccessToken = $aa_value['access_token'];
+                                $html .= '<option value="' . $aa_value['asset_id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
+                            }
                         }
                         $Msg = 'Page list Successfully..';
+                        $resultff['response'] = 1;
+                        $resultff['message'] = $Msg;
                     } else {
-                        $Msg = 'Page does not exist..!';
+                        $Msg = 'Please give page asset permission ..!';
+                        $resultff['response'] = 0;
+                        $resultff['message'] = $Msg;
                     }
                 } else {
                     $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
                     foreach ($pageresult['data'] as $aa_key => $aa_value) {
-                        $longLivedAccessToken = $aa_value['access_token'];
-                        $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
+                        if ((in_array($aa_value['id'], $perasset_data)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                            $longLivedAccessToken = $aa_value['access_token'];
+                            $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
+                        }
                     }
                     if (isset($result['error']['message'])) {
                         $Msg = $result['error']['message'];
@@ -196,8 +214,6 @@ class FaceBookController extends BaseController
                         $Msg = 'Page list Succesfully..';
                     }
                 }
-                $resultff['response'] = 1;
-                $resultff['message'] = $Msg;
             } else {
                 $resultff['response'] = 0;
                 $resultff['message'] = 'Please check your access token..!';
@@ -209,26 +225,54 @@ class FaceBookController extends BaseController
             $appresult = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' . $longLivedToken . '&access_token=' . $longLivedToken);
             if (isset($appresult['data'])) {
                 $fbdata = $appresult['data'];
-                $profile_pictures = getSocialData('https://graph.facebook.com/v19.0/'.$appresult ['user_id'].'/picture?redirect=false&&access_token=' . $longLivedToken. '');
-                    
+                $profile_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $appresult['user_id'] . '/picture?redirect=false&&access_token=' . $longLivedToken . '');
+
                 $query = $this->db->query('SELECT * FROM ' . $this->username . '_platform_integration WHERE fb_app_id = "' . $fbdata['app_id'] . '" AND platform_status=2');
                 $count_num = $query->getNumRows();
                 if ($count_num > 0) {
                     $result_facebook_data = $query->getResultArray()[0];
                     if ($result_facebook_data['verification_status'] == 1) {
-                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET profile_img='".$profile_pictures['data']['url']."',access_token = '" . $longLivedToken . "',fb_app_name='" . $fbdata['application'] . "',fb_app_type='" . $fbdata['type'] . "'  WHERE fb_app_id = '" . $fbdata['app_id'] . "' AND platform_status=2");
+                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET profile_img='" . $profile_pictures['data']['url'] . "',access_token = '" . $longLivedToken . "',fb_app_name='" . $fbdata['application'] . "',fb_app_type='" . $fbdata['type'] . "'  WHERE fb_app_id = '" . $fbdata['app_id'] . "' AND platform_status=2");
                         $resultff['response'] = 2;
                         $resultff['message'] = $result_facebook_data['fb_app_name'] . ' facebook app connection already exists..!';
                     } else {
-                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET profile_img='".$profile_pictures['data']['url']."',access_token = '" . $longLivedToken . "',fb_app_name='" . $fbdata['application'] . "',fb_app_type='" . $fbdata['type'] . "'  WHERE fb_app_id = '" . $fbdata['app_id'] . "' AND platform_status=2");
+                        $query = $this->db->query("UPDATE " . $this->username . "_platform_integration  SET profile_img='" . $profile_pictures['data']['url'] . "',access_token = '" . $longLivedToken . "',fb_app_name='" . $fbdata['application'] . "',fb_app_type='" . $fbdata['type'] . "'  WHERE fb_app_id = '" . $fbdata['app_id'] . "' AND platform_status=2");
                         $resultff['response'] = 1;
                         $resultff['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
                     }
-                    
-                    $delete_aasset = "DELETE FROM " . $this->username . "_platform_assets where asset_type='pages' AND platform_id='".$result_facebook_data['id']."'";
-                    $delete_aassetresult = $this->db->query($delete_aasset);
 
-                    $asset_insert_data['platform_id'] = $result_facebook_data['id'];
+                    //store updated page assets
+                    $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $longLivedToken);
+                    $permission_query = "SELECT GROUP_CONCAT(`asset_id`)as pageasset_id FROM `admin_platform_assets` WHERE `platform_id`=" . $result_facebook_data['id'];
+                    $permission_result = $this->db->query($permission_query);
+                    $per_result = $permission_result->getResult();
+                    $perasset_data = [];
+                    if (isset($per_result[0])) {
+                        $perasset_data = explode(',', $per_result[0]->pageasset_id);
+                    }
+                    // Delete pages that are not in the $pageresult['data'] array
+                    foreach ($perasset_data as $page_id) {
+                        if (!in_array($page_id, array_column($pageresult['data'], 'id'))) {
+                            $delete_aasset = "DELETE FROM " . $this->username . "_platform_assets WHERE asset_type='pages' AND asset_id='" . $page_id . "'";
+                            $delete_aassetresult = $this->db->query($delete_aasset);
+                        }
+                    }
+
+                    // Add pages that are in the $pageresult['data'] array but not in $perasset_data
+                    foreach ($pageresult['data'] as $aa_value) {
+                        if (!in_array($aa_value['id'], $perasset_data)) {
+                            // Add page
+                            $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $aa_value['id'] . '/picture?redirect=false&&access_token=' . $aa_value['access_token'] . '');
+                            $asset_insert_data['platform_id'] = $result_facebook_data['id'];
+                            $asset_insert_data['master_id'] = $_SESSION['master'];
+                            $asset_insert_data['asset_type'] = 'pages';
+                            $asset_insert_data['asset_id'] = $aa_value['id'];
+                            $asset_insert_data['access_token'] = $aa_value['access_token'];
+                            $asset_insert_data['asset_img'] = $response_pictures['data']['url'];
+                            $asset_insert_data['name'] = $aa_value['name'];
+                            $response_status_log = $this->MasterInformationModel->insert_entry2($asset_insert_data, $this->username . '_platform_assets');
+                        }
+                    }
                 } else {
                     $insert_data['access_token'] = $longLivedToken;
                     $insert_data['master_id'] = $_SESSION['master'];
@@ -243,24 +287,84 @@ class FaceBookController extends BaseController
                     $resultff['response'] = 1;
                     $resultff['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
                 }
-                //store page assets
-                $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $longLivedToken);
-                foreach ($pageresult['data'] as $aa_key => $aa_value) {
-                    $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $aa_value['id'] . '/picture?redirect=false&&access_token=' . $aa_value['access_token'] . '');
-                    $asset_insert_data['master_id'] = $_SESSION['master'];
-                    $asset_insert_data['asset_type'] = 'pages';
-                    $asset_insert_data['asset_id'] = $aa_value['id'];
-                    $asset_insert_data['access_token'] = $aa_value['access_token'];
-                    $asset_insert_data['asset_img'] = $response_pictures['data']['url'];
-                    $asset_insert_data['name'] = $aa_value['name'];
-                    $response_status_log = $this->MasterInformationModel->insert_entry2($asset_insert_data, $this->username . '_platform_assets');
-                }
             } else {
                 if (isset($result['error']['message'])) {
                     $errorMsg = $result['error']['message'];
                 }
                 $resultff['response'] = 0;
                 $resultff['message'] = $errorMsg;
+            }
+        } else if ($action == "refresh") {
+            $html .= '<option value="0">Select Page</option>';
+            if (isset($fb_access_token) && $fb_check_conn == 1) {
+                $permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $this->username . "_platform_assetpermission WHERE FIND_IN_SET('create_scenarios', assetpermission_name) > 0 AND user_id =" . $_SESSION['id'];
+                $permission_result = $this->db->query($permission_query);
+                $per_result = $permission_result->getResult();
+                $perasset_data = [];
+                if (isset($per_result[0])) {
+                    $perasset_data = explode(',', $per_result[0]->asset_id);
+                }
+
+                if ($connection_id > 0) {
+                    //store updated page assets
+                    $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
+                    $asset_query = "SELECT GROUP_CONCAT(`asset_id`)as pageasset_id FROM `admin_platform_assets` WHERE `platform_id`=" . $connection_id;
+                    $asset_result = $this->db->query($asset_query);
+                    $assetper_result = $asset_result->getResult();
+                    $asset_data = [];
+                    if (isset($assetper_result[0])) {
+                        $asset_data = explode(',', $assetper_result[0]->pageasset_id);
+                    }
+                    // Delete pages that are not in the $pageresult['data'] array
+                    foreach ($asset_data as $page_id) {
+                        if (!in_array($page_id, array_column($pageresult['data'], 'id'))) {
+                            $delete_aasset = "DELETE FROM " . $this->username . "_platform_assets WHERE asset_type='pages' AND asset_id='" . $page_id . "'";
+                            $delete_aassetresult = $this->db->query($delete_aasset);
+                        }
+                    }
+
+                    // Add pages that are in the $pageresult['data'] array but not in $perasset_data
+                    foreach ($pageresult['data'] as $aa_value) {
+                        if (!in_array($aa_value['id'], $asset_data)) {
+                            // Add page
+                            $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $aa_value['id'] . '/picture?redirect=false&&access_token=' . $aa_value['access_token'] . '');
+                            $asset_insert_data['platform_id'] = $connection_id;
+                            $asset_insert_data['master_id'] = $_SESSION['master'];
+                            $asset_insert_data['asset_type'] = 'pages';
+                            $asset_insert_data['asset_id'] = $aa_value['id'];
+                            $asset_insert_data['access_token'] = $aa_value['access_token'];
+                            $asset_insert_data['asset_img'] = $response_pictures['data']['url'];
+                            $asset_insert_data['name'] = $aa_value['name'];
+                            $response_status_log = $this->MasterInformationModel->insert_entry2($asset_insert_data, $this->username . '_platform_assets');
+                        }
+                    }
+
+                    $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages' AND platform_id=" . $connection_id;
+                    $asset_result = $this->db->query($asset_query);
+                    $pageresult = $asset_result->getResultArray();
+                    if (isset($pageresult)) {
+                        foreach ($pageresult as $aa_key => $aa_value) {
+                            if ((in_array($aa_value['id'], $perasset_data)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                                $longLivedAccessToken = $aa_value['access_token'];
+                                $html .= '<option value="' . $aa_value['asset_id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
+                            }
+                        }
+                        $Msg = 'Page list Successfully..';
+                        $resultff['response'] = 1;
+                        $resultff['message'] = $Msg;
+                    } else {
+                        $Msg = 'Please give page asset permission ..!';
+                        $resultff['response'] = 0;
+                        $resultff['message'] = $Msg;
+                    }
+                } else {
+                    $resultff['response'] = 0;
+                    $resultff['message'] = 'Please check your connection..!';
+                }
+                
+            } else {
+                $resultff['response'] = 0;
+                $resultff['message'] = 'Please check your access token..!';
             }
         }
         $resultff['html'] = $html;

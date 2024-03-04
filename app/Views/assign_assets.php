@@ -339,7 +339,7 @@ $user_data = $user_result->getResultArray();
                                         Data not Found
                                     </div>
                                     <!-- pades div  -->
-                                    <div class="Pages_div">
+                                    <div class="Pages_div page_asset_list">
                                         <!-- <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
                                             <div class="d-flex align-items-center" style="height: 45px;">
                                                 <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
@@ -348,10 +348,10 @@ $user_data = $user_result->getResultArray();
                                                 </div>
                                             </div>
                                         </div> -->
-                                        <div class="col-12 overflow-x-hidden" style="height:500px;">
+                                        <!-- <div class="col-12 overflow-x-hidden" style="height:500px;">
                                             <ul class="page_asset_list overflow-y-scroll" style="height:490px;">
                                             </ul>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <!-- instagram div  -->
                                     <div class="instagram_div_to d-none">
@@ -454,7 +454,7 @@ $user_data = $user_result->getResultArray();
                                                     </div>
                                                     <div class="col-11">
                                                         <p class="col ms-3 fw-bold fs-14">Messages</p>
-                                                        <p class="ms-3">Manage page messages.</p>
+                                                        <p class="ms-3">Manage facebook page messages.</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -574,7 +574,8 @@ $user_data = $user_result->getResultArray();
     });
     $(document).ready(function () {
         list_data();
-        $('#selectall').click(function () {
+        
+        $('body').on('click', '#selectall', function () {
             $('.selectedId').prop('checked', this.checked);
         });
 
