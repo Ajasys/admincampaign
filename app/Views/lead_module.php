@@ -355,9 +355,9 @@ $user_data = $user_result->getResultArray();
                                     <div class="big_list_add_outer_main big_list_add_outer_main_4 position-relative">
                                         <div class="big_circle_fb_outer position-relative">
                                             <div class="big_circle_fb cursor-pointer">
-                                                <div class="big_circle_fb_inner p-5 rounded-circle position-relative page-profile">
+                                                <div class="big_circle_fb_inner p-5 rounded-circle position-relative page-profile d-flex align-items-center justify-content-center p-0">
                                                     <div class="z-2 position-relative fb_div_hide1">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="85" height="85" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                             <g>
                                                                 <circle cx="256" cy="256" r="225.229" fill="#a3defe" opacity="1" data-original="#a3defe" class=""></circle>
                                                                 <path fill="#7acefa" d="M178.809 44.35C92.438 75.858 30.771 158.727 30.771 256c0 124.39 100.838 225.229 225.229 225.229 57.256 0 109.512-21.377 149.251-56.569C139.58 395.298 125.639 142.906 178.809 44.35z" opacity="1" data-original="#7acefa" class=""></path>
