@@ -1580,7 +1580,7 @@ class FaceBookController extends BaseController
         $return_array['response'] = 0;
         if (isset($_POST['id'])) {
             $delete_data = $this->MasterInformationModel->delete_entry2($this->username . "_platform_integration", $_POST['id']);
-            $update_data = $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `is_status`=4,connection_id=0 WHERE connection_id=' . $_POST['id']);
+            $update_data = $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `is_status`=4,connection_id=0 WHERE connection_id='.$_POST['id']);
             if ($delete_data && $update_data) {
                 $return_array['response'] = 1;
             }
