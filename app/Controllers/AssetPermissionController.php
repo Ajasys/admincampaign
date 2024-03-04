@@ -65,10 +65,10 @@ class AssetPermissionController extends BaseController
 
                         $longLivedAccessToken = $aa_value['access_token'];
                         $html .=  '<li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
-                        <input type="checkbox" class="me-2 rounded-3 selectedId" name="page_id" value="' . $aa_value['id'] . '" style="width:18px;height:18px;"  ' . $cheked . '>
-                        <img class="rounded-circle me-1" src="' . $aa_value['asset_img'] . '" alt="" style="width:30px;height:30px">
-                        <p class="col">' . $aa_value['name'] . '</p>
-                    </li>';
+                                    <input type="checkbox" class="me-2 rounded-3 selectedId" name="page_id" value="' . $aa_value['id'] . '" style="width:18px;height:18px;"  ' . $cheked . '>
+                                    <img class="rounded-circle me-1" src="' . $aa_value['asset_img'] . '" alt="" style="width:30px;height:30px">
+                                    <p class="col">' . $aa_value['name'] . '</p>
+                                </li>';
                     }
 
                     // for assign permission

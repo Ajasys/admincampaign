@@ -579,7 +579,7 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 	$routes->post('/new_delete_pages_fb', 'NewFaceBookController::delete_pages_fb');
 	$routes->post('/new_facebook_form', 'NewFaceBookController::facebook_form');
 	$routes->post('/new_queue_list_add', 'NewFaceBookController::queue_list_add');
-	$routes->post('/lead_list', 'NewFaceBookController::lead_list');
+	// $routes->post('/lead_list', 'NewFaceBookController::lead_list');
 
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
