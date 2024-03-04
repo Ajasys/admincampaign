@@ -1191,6 +1191,51 @@ class Bot_Controller extends BaseController
 					}
 
 					
+					if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
+						$menuOptions = json_decode($value['menu_message'], true);
+
+						if (isset($menuOptions['options'])) {
+							$options = explode(';', $menuOptions['options']);
+							$html .= '<div class="col-12 mb-2 option-wrapper">';
+							foreach ($options as $option) {
+								$html .= '<div class="col-12 d-flex flex-wrap align-items-end chat_again_continue my-1">
+														<div class="d-inline-block px-3 py-2 col-6 btn-secondary rounded-3 mx-2">
+															<div class="col-12">
+																<input type="checkbox" class="me-2 main-form option-check rounded-circle" value="' . $option . '">' . $option . '
+															</div>
+														</div>
+													</div>';
+							}
+							$html .= '<div class="col-6 text-center mt-2 mx-2">
+													<button class="text-white btn bg-primary col-12" onclick="submitOptions()">Submit</button>
+												</div>
+											</div>';
+						}
+					}
+
+					if (!empty($value['menu_message']) && $value['type_of_question'] == 9) {
+						// pre($value['menu_message']);
+						$menuOptions = json_decode($value['menu_message'], true);
+
+						if (isset($menuOptions['options'])) {
+							$options = explode(';', $menuOptions['options']);
+							$html .= '<div class="col-12 mb-2 option-wrapper">';
+							foreach ($options as $option) {
+								$html .= '<div class="col-12 d-flex flex-wrap align-items-end chat_again_continue my-1">
+														<div class="d-inline-block px-3 py-2 col-6 btn-secondary rounded-3 mx-2">
+															<div class="col-12">
+																<input type="checkbox" class="me-2 main-form option-check rounded-circle" value="' . $option . '">' . $option . '
+															</div>
+														</div>
+													</div>';
+							}
+							$html .= '<div class="col-6 text-center mt-2 mx-2">
+													<button class="text-white btn bg-primary col-12" onclick="submitOptions()">Submit</button>
+												</div>
+											</div>';
+						}
+					}
+
 					$html .= '<script>
 								
 								function selectOption(button, value) {
@@ -1200,7 +1245,15 @@ class Bot_Controller extends BaseController
 									
 									insertAnswer(nextQuestion);
 								}
-
+								function submitOptions() {
+									var selectedOptions = [];
+									$(".option-check:checked").each(function() {
+										selectedOptions.push($(this).val());
+									});
+									var selectedOptionsString = selectedOptions.join(" , "); 
+									$(".answer_chat").val(selectedOptionsString);
+									insertAnswer();
+								}
 							</script>';
 				} else {
 
@@ -1886,6 +1939,29 @@ class Bot_Controller extends BaseController
 					
 					
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
+						$menuOptions = json_decode($value['menu_message'], true);
+
+						if (isset($menuOptions['options'])) {
+							$options = explode(';', $menuOptions['options']);
+							$html .= '<div class="col-12 mb-2 option-wrapper">';
+							foreach ($options as $option) {
+								$html .= '<div class="col-12 d-flex flex-wrap align-items-end chat_again_continue my-1">
+														<div class="d-inline-block px-3 py-2 col-6 btn-secondary rounded-3 mx-2">
+															<div class="col-12">
+																<input type="checkbox" class="me-2 main-form option-check rounded-circle" value="' . $option . '">' . $option . '
+															</div>
+														</div>
+													</div>';
+							}
+							$html .= '<div class="col-6 text-center mt-2 mx-2">
+													<button class="text-white btn bg-primary col-12" onclick="submitOptions()">Submit</button>
+												</div>
+											</div>';
+						}
+					}
+
+					if (!empty($value['menu_message']) && $value['type_of_question'] == 9) {
+						pre($value['menu_message']);
 						$menuOptions = json_decode($value['menu_message'], true);
 
 						if (isset($menuOptions['options'])) {

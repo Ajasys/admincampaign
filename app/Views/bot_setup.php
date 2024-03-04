@@ -466,7 +466,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add d-none" data-qu="In which slot would you like to book the appointment?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="In which slot would you like to book the appointment?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-clock icon"></i>
@@ -1567,6 +1567,7 @@ option {
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="fifthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="sixthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="eighthquestion"></div>
+                                <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="ninethquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="tenthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="twelthquestion"></div>
                                 <div class="col-12 d-flex flex-wrap px-1 px-md-3" id="senenthquestion"></div>
@@ -3511,7 +3512,7 @@ option {
             }
             ?>
 
-            main_table_html += '</select></td><td class="col-3"><div Counts ="' + randomNumbers + '"  class="main-selectpicker CommonSecondSelctpicker SecondSlectpicker' + randomNumbers + '  bot_quotation_list_append_' + row_counter + '" ><select class="form-select  question_select_second_' + row_counter + ' question_flow_' + row_counter + '" aria-label="Default select example">';
+            main_table_html += '</select></td><td class="col-3"><div Counts ="' + randomNumbers + '"  class="main-selectpicker CommonSecondSelctpicker SecondSlectpicker' + randomNumbers + '  bot_quotation_list" ><select class="form-select  question_select_second_' + row_counter + ' question_flow_' + row_counter + '" aria-label="Default select example">';
 
             var options = <?php echo $encoded_options; ?>;
             options.forEach(function(option) {
@@ -3583,6 +3584,31 @@ option {
             $(this).closest('tr').remove();
         });
 
+
+        //slot time 
+        slot = 1;
+        function slot_time_html(index) {
+            var row_numbers = $('.slot_time_add').length;
+            var multiple_table_row = '<tr class="col-12 slot_time_add"><td class="col-3"><input type="text" class="form-control multiple-row-option-value slot_time_select_' + row_numbers + '" id="" placeholder="Enter the option" value=""></td><td class="col-2"><button type="button" class="btn btn-danger slot-remove-btn"><i class="fa fa-trash  cursor-pointer"></i></button></td></tr>';
+            $(".multiple-table-body").append(multiple_table_row);
+
+            $('.slot_time_select_' + row_numbers).bootstrapMaterialDatePicker({
+                date: false,
+                format: 'hh:mm A',
+                clearButton: true
+            });
+            
+        }
+        slot_time_html();
+
+        $('body').on('click', '.slot_time_add_button', function() {
+            slot++;
+            slot_time_html();
+        });
+
+        $('body').on('click', '.slot-remove-btn', function() {
+            $(this).closest('tr').remove();
+        });
 
 
         //forms
@@ -4515,6 +4541,32 @@ option {
 
                         }
 
+                        if (type_of_question == 9) {
+                            if (menu_message.options != "") {
+                                var optionsArray = menu_message.options.split(';');
+                                $(".slot_time_add").remove();
+                                optionsArray.forEach(function(option, index) {
+                                    var row_numbers = index === 0 ? '' : $('.slot_time_add').length;
+                                    var main_table_html =
+                                        '<tr class="col-12 slot_time_add">' +
+                                        '<td class="col-3">' +
+                                        '<input type="text" class="form-control slot_time_select' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
+                                        '</td>' +
+                                        '<td class="col-2">' +
+                                        '<button type="button" class="btn btn-danger slot-remove-btn">' +
+                                        '<i class="fa fa-trash cursor-pointer"></i>' +
+                                        '</button>' +
+                                        '</td>' +
+                                        '</tr>';
+                                    $(".slot_multiple").append(main_table_html);
+                                });
+                            } else {
+                                // $(".is_strict_validation").prop("checked", false);
+                            }
+
+                        }
+
+
 
                         if (type_of_question == 7) {
                             // console.log(type_of_question);
@@ -4980,10 +5032,6 @@ option {
 
             // console.log(comined_jump_flow);
 
-
-
-
-
             var combinedArray = [];
             var single_choice_option = [];
             for (var i = 0; i < 100; i++) {
@@ -5139,6 +5187,26 @@ option {
             };
 
             var options_value = JSON.stringify(dateRangeObject);
+        }
+
+
+        if (type_of_question == "9") {
+            var comined = {};
+            var options = $('.slot_time_select').val();
+            comined.options = options;
+            for (var i = 1; i <= 3; i++) {
+                var options_i = $('.slot_time_select_' + i).val();
+                if (options_i) {
+                    if (comined.options !== "") {
+                        comined.options += ";";
+                    }
+                    comined.options += options_i;
+                }
+            }
+            var options_value = JSON.stringify(comined);
+            if (options_value === 'undefined') {
+                options_value = '';
+            }
         }
 
         if (type_of_question == "15") {
@@ -5867,6 +5935,7 @@ option {
             11: "#sixthquestion",
             7: "#senenthquestion",
             8: "#eighthquestion",
+            9: "#ninethquestion",
             10: "#tenthquestion",
             14: "#tenthquestion",
             12: "#twelthquestion",
@@ -5892,7 +5961,7 @@ option {
     });
 
     function clearQuestions() {
-        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion, #twentythreequestion, #twentyfourquestion ,#twentysevenquestion, #twentyeightquestion, #thirtyethquestion, #fourythreequestion, #fouryfourquestion,#twentysixquestion, #twentyfivequestion, #fourtyonequestion, #thirtysixquestion").html("");
+        $("#firstquestion, #secondquestion, #thirdquestion, #fourthquestion, #fifthquestion, #sixthquestion, #senenthquestion, #eighthquestion, #ninethquestion, #twelthquestion, #tenthquestion ,#sixteenquestion, #seventeenquestion, #fifteenquestion, #eighteenquestion, #twentyonequestion, #twentythreequestion, #twentyfourquestion ,#twentysevenquestion, #twentyeightquestion, #thirtyethquestion, #fourythreequestion, #fouryfourquestion,#twentysixquestion, #twentyfivequestion, #fourtyonequestion, #thirtysixquestion").html("");
     }
 
     function getQuestionHTML(type_of_question) {
@@ -6022,28 +6091,36 @@ option {
                                             <input type="text" class="form-control single_choice_options" placeholder="Enter the option" value="">
                                         </td>
                                         <td class="col-3">
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option value="1">Main-flow</option>
-                                            </select>
-                                        </td>
-                                        <td class="col-4">
-                                            <select class="form-select question_select" aria-label="Default select example">
-                                                <option selected>No Jump</option>
-                    
+                                            <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">
                                                 <?php
-                                                if (isset($admin_bot_setup)) {
-                                                    foreach ($admin_bot_setup as $type_key => $type_value) {
-                                                        // pre($type_value);
-
-                                                        if ($type_value['bot_id'] == $botId) {
-
-                                                            echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
-                                                        }
+                                                if (isset($admin_bot)) {
+                                                    foreach ($admin_bot as $key_bot => $value_bot) {
+                                                        $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                        echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
                                                     }
                                                 }
                                                 ?>
-
                                             </select>
+                                        </td>
+                                        <td class="col-4">
+                                            <div class="main-selectpicker bot_quotation_list">
+                                                <select class="form-select question_select_second" aria-label="Default select example">
+                                                    
+                                                    <option>No Jump</option>
+                                                    <?php
+                                                    if (isset($admin_bot_setup)) {
+                                                        foreach ($admin_bot_setup as $type_key => $type_value) {
+
+
+                                                            if ($type_value['bot_id'] == $botId) {
+
+                                                                echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
                                         </td>
                                         <td class="col-2">
                                             <button type="button" class="btn btn-danger">
@@ -6114,17 +6191,7 @@ option {
                 return `
                 <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
                     <div class="col-12 d-flex flex-wrap single-choice">
-                        <div class="col-12 d-flex flex-wrap">
-                            <div class="col-4 col-sm-3 p-1">
-                                <label class="form-check-label fw-semibold d-flex align-items-center py-2 single-choice-show-options">Show Options</label>
-                            </div>
-                            <div class="col-4 col-sm-3 p-1">
-                                <button type="button" class="btn-primary w-100">Vertically</button>
-                            </div>
-                            <div class="col-4 col-sm-3 p-1">
-                                <button type="button" class="btn-primary w-100">Dropdown</button>
-                            </div>
-                        </div>
+                        
                         <div class="col-12 d-flex flex-wrap my-3">
                             <table class="table w-100 col-12">
                                 <thead>
@@ -6618,6 +6685,41 @@ option {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </form>
+                `;
+            case "9":
+                return `
+                <form class="needs-validation" name="question_update_form" enctype="multipart/form-data" method="POST" novalidate="">
+                    <div class="col-12 d-flex flex-wrap single-choice">
+                        
+                        <div class="col-12 d-flex flex-wrap my-3">
+                            <table class="table w-100 col-12">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Options</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="multiple-table-body slot_multiple">
+                                    <tr class="col-12 slot_time_add">
+                                        <td class="col-3">
+                                            <input type="text" class="form-control slot_time_select" placeholder="Enter the option" value="">
+                                        </td>
+                                        <td class="col-2">
+                                            <button type="button" class="btn btn-danger">
+                                                <i class="fa fa-trash  cursor-pointer"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <div class="col-2">
+                                <button type="button" class="btn-primary slot_time_add_button">add</button>
+                            </div>
+                        </div>                     
                     </div>
                 </form>
                 `;
@@ -7680,7 +7782,7 @@ option {
                                 <input type="text" class="form-control add_more_button" id="formGroupExampleInput" value="Add More" placeholder="Add More" disabled>
                             </div>
                             <div class="col-3">
-                                <select class="form-select bot_idd add_more_button_flow" aria-label="Default select example">
+                                <select class="form-select bot_idd add_more_button_flow" id="bot_idd" aria-label="Default select example">
                                    
                                         <?php
                                         if (isset($admin_bot)) {
@@ -7705,8 +7807,6 @@ option {
 
                                                     if ($type_value['bot_id'] == $botId) {
                                                         echo '<option class="show_value" value="' . $type_value["id"] . '" data-bot_id="'.$type_value['bot_id'].'">' . $type_value["question"] . '</option>';
-                                                    }else{
-                                                        echo '<option class="hide_value" value="' . $type_value["id"] . '" data-bot_id="'.$type_value['bot_id'].'">' . $type_value["question"] . '</option>';
                                                     }
                                                 }
                                             }
@@ -7723,7 +7823,7 @@ option {
                                 <input type="text" class="form-control submit_button" id="formGroupExampleInput" value="Submit" placeholder="Submit" disabled>
                             </div>
                             <div class="col-3">
-                                <select class="form-select bot_idd submit_button_flow" aria-label="Default select example">
+                                <select class="form-select bot_idd submit_button_flow" id="bot_idd" aria-label="Default select example">
                        
                                         <?php
                                             if (isset($admin_bot)) {
@@ -7746,7 +7846,6 @@ option {
                                                     // pre($type_value);
 
                                                     if ($type_value['bot_id'] == $botId) {
-
                                                         echo '<option value="' . $type_value["id"] . '" data-bot_id="'.$type_value['bot_id'].'">' . $type_value["question"] . '</option>';
                                                     }
                                                 }
@@ -7796,6 +7895,15 @@ option {
             clearButton: true
         });
     })
+    $('body').on('click', '.slot_time_select', function() {
+        // alert();
+        $(this).bootstrapMaterialDatePicker({
+            date: false,
+            format: 'hh:mm A',
+            clearButton: true
+        });
+    })
+    
 
     // $('.start_date_range').bootstrapMaterialDatePicker({
     //     format: 'DD-MM-YYYY',
@@ -7910,6 +8018,25 @@ option {
             }
         });
     });
+
+
+    $("body").on('change', '.bot_idd_append_rating', function(e) {
+        // alert("df");
+        var bott_idd = $(this).val();
+        var que_html = $(this).closest('tr').find('.bot_quotation_list');
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('bot_id_to_quotation'); ?>",
+            data: {
+                'id': bott_idd
+            },
+            success: function(res) {
+                var response = JSON.parse(res);
+                $(que_html).html(response.html);
+            }
+        });
+    });
+
 
 
     $('body').on('change', '.bot_idd_append', function(e) {
