@@ -407,7 +407,7 @@ $user_data = $user_result->getResultArray();
                                         Data not Found
                                     </div>
                                     <!-- pades div  -->
-                                    <div class="Pages_div">
+                                    <div class="Pages_div page_asset_list">
                                         <!-- <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
                                             <div class="d-flex align-items-center" style="height: 45px;">
                                                 <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
