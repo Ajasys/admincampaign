@@ -79,9 +79,6 @@ class WebAPIController extends BaseController
                         $rows_data = $results->getResultArray();
                         if (!empty($rows_data)) {
                             $rows = (object) $rows_data[0];
-
-
-
                             
                             if ($conn->tableExists($row['username'] . "_fb_pages")) {
                             } else {
@@ -256,7 +253,7 @@ class WebAPIController extends BaseController
                                         $search = array_search($assign_id, $assignIds);
                                         $next = $assignIds[(1 + $search) % $count];
                                         $cccd = 1;
-                                        break;
+                                        // break;
                                         // }
                                     }
                                 }
