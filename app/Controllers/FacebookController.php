@@ -185,7 +185,6 @@ class FaceBookController extends BaseController
                     $asset_result = $this->db->query($asset_query);
                     $pageresult = $asset_result->getResultArray();
                     if (isset($pageresult)) {
-
                         foreach ($pageresult as $aa_key => $aa_value) {
                             if ((in_array($aa_value['id'], $perasset_data)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
                                 $longLivedAccessToken = $aa_value['access_token'];

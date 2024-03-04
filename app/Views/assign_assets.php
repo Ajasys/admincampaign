@@ -693,6 +693,7 @@ $user_data = $user_result->getResultArray();
                 data: {
                     fb_check_conn: fb_check_conn,
                     connection_id: connection_id,
+                    user_id:$('#select_user').val(),
                     action: 'user'
                 },
                 success: function (res) {
@@ -700,6 +701,7 @@ $user_data = $user_result->getResultArray();
                     var result = JSON.parse(res);
                     if (result.response == 1) {
                         $('.page_asset_list').html(result.html);
+                        $('.active-part1').html(result.permission_html);
                     } else {
                         iziToast.error({
                             title: result.message
