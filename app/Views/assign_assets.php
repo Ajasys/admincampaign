@@ -264,8 +264,75 @@ $user_data = $user_result->getResultArray();
                                                                 data-bs-parent="#accordionExample_two">
                                                                 <div class="accordion-body p-0">
                                                                     <div
-                                                                        class="border-to instagram_div btn_dark border-bottom rounded-1 p-2">
-                                                                        <p class="ms-5">instagram</p>
+                                                                        class="border-to instagram_div btn_dark border-bottom rounded-1 p-2 active-part d-flex  align-items-center ps-5">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="35" height="35" viewBox="0 0 35 35"
+                                                                            fill="none">
+                                                                            <g clip-path="url(#clip0_483_415)">
+                                                                                <path
+                                                                                    d="M17.5 35C27.165 35 35 27.165 35 17.5C35 7.83502 27.165 0 17.5 0C7.83502 0 0 7.83502 0 17.5C0 27.165 7.83502 35 17.5 35Z"
+                                                                                    fill="#B3C5C3" />
+                                                                                <path
+                                                                                    d="M35.0001 17.4996C35.0001 15.9978 34.8109 14.5401 34.4551 13.1492L29.2513 7.94531L5.74902 26.1852L14.2649 34.701C15.3318 34.9001 16.4148 35.0001 17.5001 34.9996C27.1651 34.9996 35.0001 27.1646 35.0001 17.4996Z"
+                                                                                    fill="#94A8A6" />
+                                                                                <path
+                                                                                    d="M17.4021 10.3125L5.74902 10.9816V26.1874H17.5213L18.3388 19.2493L17.5803 10.3225L17.4021 10.3125Z"
+                                                                                    fill="white" />
+                                                                                <path
+                                                                                    d="M29.2514 10.9787L17.5215 10.3164V26.1845H29.2514V10.9787Z"
+                                                                                    fill="#E9EDF5" />
+                                                                                <path
+                                                                                    d="M5.74902 7.94531V10.9794H17.5803L17.9103 9.46241L17.5213 7.94531H5.74902Z"
+                                                                                    fill="#918CE1"
+                                                                                    fill-opacity="0.72" />
+                                                                                <path
+                                                                                    d="M17.5215 7.94531H29.2514V10.9794H17.5215V7.94531Z"
+                                                                                    fill="#7369C3"
+                                                                                    fill-opacity="0.87" />
+                                                                                <path
+                                                                                    d="M7.13812 10.1962C7.54393 10.1962 7.87291 9.86717 7.87291 9.46136C7.87291 9.05554 7.54393 8.72656 7.13812 8.72656C6.7323 8.72656 6.40332 9.05554 6.40332 9.46136C6.40332 9.86717 6.7323 10.1962 7.13812 10.1962Z"
+                                                                                    fill="white" />
+                                                                                <path
+                                                                                    d="M9.26116 10.1962C9.66698 10.1962 9.99596 9.86717 9.99596 9.46136C9.99596 9.05554 9.66698 8.72656 9.26116 8.72656C8.85535 8.72656 8.52637 9.05554 8.52637 9.46136C8.52637 9.86717 8.85535 10.1962 9.26116 10.1962Z"
+                                                                                    fill="white" />
+                                                                                <path
+                                                                                    d="M11.3842 10.1962C11.79 10.1962 12.119 9.86717 12.119 9.46136C12.119 9.05554 11.79 8.72656 11.3842 8.72656C10.9784 8.72656 10.6494 9.05554 10.6494 9.46136C10.6494 9.86717 10.9784 10.1962 11.3842 10.1962Z"
+                                                                                    fill="white" />
+                                                                                <path
+                                                                                    d="M8.10352 12.8828H12.7359V17.5152H8.10352V12.8828Z"
+                                                                                    fill="#DBCBCC" />
+                                                                                <path
+                                                                                    d="M8.10352 19.4844H12.7359V24.1167H8.10352V19.4844Z"
+                                                                                    fill="#B5EFFF" />
+                                                                                <path
+                                                                                    d="M22.2637 12.8828H26.896V17.5152H22.2637V12.8828Z"
+                                                                                    fill="#FFCE00"
+                                                                                    fill-opacity="0.58" />
+                                                                                <path
+                                                                                    d="M22.2637 19.4844H26.896V24.1167H22.2637V19.4844Z"
+                                                                                    fill="#80DBFF" />
+                                                                                <path
+                                                                                    d="M15.1836 12.8828V17.5151H17.5799L17.9099 15.3179L17.5799 12.8828H15.1836Z"
+                                                                                    fill="#AFB4C8" />
+                                                                                <path
+                                                                                    d="M17.5215 12.8828H19.8164V17.5152H17.5215V12.8828Z"
+                                                                                    fill="#7E8596" />
+                                                                                <path
+                                                                                    d="M15.1836 19.4844V24.1167H17.5799L17.9099 22.0195L17.5799 19.4844H15.1836Z"
+                                                                                    fill="#FF8287" />
+                                                                                <path
+                                                                                    d="M17.5215 19.4844H19.8164V24.1167H17.5215V19.4844Z"
+                                                                                    fill="#FF5A5F"
+                                                                                    fill-opacity="0.85" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_483_415">
+                                                                                    <rect width="35" height="35"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                        <p class="ms-1">instagram</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -335,11 +402,12 @@ $user_data = $user_result->getResultArray();
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-wrap w-100 h-100 justify-content-center align-items-center data-404">
+                                    <div
+                                        class="d-flex flex-wrap w-100 h-100 justify-content-center align-items-center data-404">
                                         Data not Found
                                     </div>
                                     <!-- pades div  -->
-                                    <div class="Pages_div page_asset_list">
+                                    <div class="Pages_div">
                                         <!-- <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
                                             <div class="d-flex align-items-center" style="height: 45px;">
                                                 <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
@@ -598,8 +666,11 @@ $user_data = $user_result->getResultArray();
             $(".Pages_div").removeClass("d-none");
             $(".instagram_div_to").addClass("d-none");
             $('.active-part1').removeClass('d-none');
-            $('.data-404').addClass('d-none');
+// $('.data-404').addClass('d-none');
         });
+        $('body').on('click', '.active-part', function () {
+            $('.data-404').addClass('d-none');
+        })
         $("body").on("click", ".instagram_div", function () {
             $(".Pages_div").addClass("d-none");
             $(".instagram_div_to").removeClass("d-none");
