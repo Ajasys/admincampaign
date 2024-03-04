@@ -5064,44 +5064,39 @@ option {
         }
 
         if (type_of_question == "7") {
-            var Terrible = {
-                reaction: $('.terrible').val(),
-                question_select: $('.question_select_1').val()
-            };
-            var Bad = {
-                reaction: $('.bad').val(),
-                question_select: $('.question_select_2').val()
-            };
-            var Okay = {
-                reaction: $('.okay').val(),
-                question_select: $('.question_select_3').val()
-            };
-            var Good = {
-                reaction: $('.good').val(),
-                question_select: $('.question_select_4').val()
-            };
-            var Great = {
-                reaction: $('.great').val(),
-                question_select: $('.question_select_5').val()
-            };
+            var options = [];
+            var jumpQuestions = []; 
+            
+            $('tbody tr').each(function(index, row) {
+                var reactionInput = $(row).find('input[type="text"]');
+                var reaction = reactionInput.val(); 
 
-            var rating_type = {};
+                if (reactionInput.length && reaction.trim() !== '') {
+                    var sub_flow = $(row).find('.bot_idd_append_rating').val(); 
+                    var jump_question = $(row).find('.bot_quotation_list select').val();
 
-            var selectedList = $('.list-group-item.active').attr('value');
+                    jumpQuestions.push(jump_question);
 
-            var reactionArray = [Terrible, Bad, Okay, Good, Great];
+                    var option = {
+                        reaction: reaction,
+                        sub_flow: sub_flow,
+                        jump_question: jump_question
+                    };
 
+                    options.push(option);
+                }
+            });
+            var rating_type = $('.list-group-item.active').attr('value');
             var valuesArray = {
-                reaction: reactionArray,
-                rating_type: selectedList
-
+                options: options,
+                rating_type: rating_type
             };
             var options_value = JSON.stringify(valuesArray);
+            var selectedOptions = jumpQuestions.join(',');
             if (options_value === 'undefined') {
                 options_value = '';
             }
         }
-
 
 
 
@@ -5408,21 +5403,40 @@ option {
 
         if (type_of_question == "41") {
             var rowData = [];
+            var jumpQuestions = []; 
+
+            // Loop through each row
+            $('.for_jump').each(function(index, row) {
+                var jump_question = $(row).find('.jump_all select').val();
+                jumpQuestions.push(jump_question);
+            });
+
             var add_more_button = $(".add_more_button").val();
             var add_more_button_jump = $(".add_more_button_jump").val();
-
+            var add_more_button_flow = $(".add_more_button_flow").val();
             var submit_button = $(".submit_button").val();
-            var quantity_button_jump = $(".quantity_button_jump").val();
-
+            var submit_button_jump = $(".submit_button_jump").val();
+            var submit_button_flow = $(".submit_button_flow").val();
             var edit_quantity_button = $(".edit_quantity_button").val();
-            var row = {
+            var addMoreButtonObj = {
                 add_more_button: add_more_button,
-                add_more_button_jump: add_more_button_jump,
-                submit_button: submit_button,
-                quantity_button_jump: quantity_button_jump,
-                edit_quantity_button: edit_quantity_button
+                sub_flow: add_more_button_flow, 
+                jump_question: jumpQuestions[0] || '' 
             };
-            var options_value = JSON.stringify(row);
+            var submitButtonObj = {
+                submit_button: submit_button,
+                sub_flow: submit_button_flow, 
+                jump_question: jumpQuestions[1] || '' 
+            };
+            var removeItemObj = {
+                remove_item: edit_quantity_button
+            };
+            rowData.push(addMoreButtonObj);
+            rowData.push(submitButtonObj);
+            rowData.push(removeItemObj);
+
+            var options_value = JSON.stringify({ cart: rowData });
+            var selectedOptions = jumpQuestions.join(',');
         }
 
         if (type_of_question == "26") {
@@ -5488,9 +5502,9 @@ option {
                 success: function(res) {
                     // if (res == true) {
                     $('.loader').hide();
-                    // $("form[name='question_update_form']")[0].reset();
+                    $("form[name='question_update_form']")[0].reset();
                     $("form[name='question_update_form']").removeClass("was-validated");
-                    // $(".btn-close").trigger("click");
+                    $(".btn-close").trigger("click");
                     iziToast.success({
                         title: 'Update Successfully'
                     });
@@ -5555,12 +5569,22 @@ option {
                         $(".OccupationInputClass").val(response[0].next_questions);
                     }
 
-
-                    if (!response[0].next_bot_id) {
-                        $("#bot_idd").val(response[0].bot_id);
+                    
+                    if (response[0].next_bot_id == 0) {
+                        $(".dropdown-item").hide(); 
+                        $(".bot_" + response[0].bot_id).show();
+                        $(".bot_idd").val(response[0].bot_id);
                     } else {
+                        $(".dropdown-item").hide(); 
+                        $(".bot_" + response[0].next_bot_id).show(); 
                         $(".bot_idd").val(response[0].next_bot_id);
                     }
+
+                    // if (!response[0].next_bot_id) {
+                    //     $("#bot_idd").val(response[0].bot_id);
+                    // } else {
+                    //     $(".bot_idd").val(response[0].next_bot_id);
+                    // }
 
                     $('.selectpicker').selectpicker('refresh');
 
@@ -8061,4 +8085,12 @@ option {
             }
         });
     });
+
+    $(document).ready(function() {
+    $('.bot_idd').change(function() {
+        var selectedBotId = $(this).val();
+        $('.question_select option').hide(); 
+        $('.question_select option[data-bot="' + selectedBotId + '"]').show(); 
+    });
+});
 </script>
