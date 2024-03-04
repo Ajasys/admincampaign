@@ -490,36 +490,41 @@ $user_data = $user_result->getResultArray();
                         </div>
                     <?php
                     }
+                    if ((isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
                     ?>
-                    <div class="delete_div">
-                        <div class="border-bottom m-3"></div>
-                        <div class="p-2 bg-white rounded-2 mx-2">
-                            <div class="mb-2">
-                                <h2 class="fs-14 text-gray">Recently deleted</h2>
+                        <div class="delete_div">
+                            <div class="border-bottom m-3"></div>
+                            <div class="p-2 bg-white rounded-2 mx-2">
+                                <div class="mb-2">
+                                    <h2 class="fs-14 text-gray">Recently deleted</h2>
+                                </div>
+                                <div class="deleted_pages_list"></div>
                             </div>
-                            <div class="deleted_pages_list"></div>
                         </div>
-                    </div>
 
-                    <div class="update_div">
-                        <div class="border-bottom m-3"></div>
-                        <div class="p-2 bg-white rounded-2 mx-2">
-                            <div class="mb-2">
-                                <h2 class="fs-14 text-gray">Before updated Form</h2>
+                        <div class="update_div">
+                            <div class="border-bottom m-3"></div>
+                            <div class="p-2 bg-white rounded-2 mx-2">
+                                <div class="mb-2">
+                                    <h2 class="fs-14 text-gray">Before updated Form</h2>
+                                </div>
+                                <div class="updated_pages_list"></div>
                             </div>
-                            <div class="updated_pages_list"></div>
                         </div>
-                    </div>
 
-                    <div class="draft_div">
-                        <div class="border-bottom m-3"></div>
-                        <div class="p-2 bg-white rounded-2 mx-2">
-                            <div class="mb-2">
-                                <h2 class="fs-14 text-gray">Saved Drafts</h2>
+                        <div class="draft_div">
+                            <div class="border-bottom m-3"></div>
+                            <div class="p-2 bg-white rounded-2 mx-2">
+                                <div class="mb-2">
+                                    <h2 class="fs-14 text-gray">Saved Drafts</h2>
+                                </div>
+                                <div class="draft_pages_list"></div>
                             </div>
-                            <div class="draft_pages_list"></div>
                         </div>
-                    </div>
+                    <?php
+                    }
+                    ?>
+
                 </div>
             </div>
         </div>

@@ -360,7 +360,6 @@ class FaceBookController extends BaseController
                     $resultff['response'] = 0;
                     $resultff['message'] = 'Please check your connection..!';
                 }
-                
             } else {
                 $resultff['response'] = 0;
                 $resultff['message'] = 'Please check your access token..!';
@@ -514,133 +513,138 @@ class FaceBookController extends BaseController
                 WHERE p.master_id = '" . $_SESSION['master'] . "' AND p.is_status=0");
         $result_facebook_data = $query->getResultArray();
         $count_num = $query->getNumRows();
-        if ($count_num > 0) {
-            foreach ($result_facebook_data as $key => $value) {
-                $integrationData = $this->MasterInformationModel->edit_entry2($this->username . '_platform_integration', $value['connection_id']);
-                $integrationData = get_object_vars($integrationData[0]);
-                $platform_status = $integrationData['platform_status'];
-                if ($value['user_id'] == 0) {
-                    $assign_id = 0;
-                    $staff_id = '';
-                } else {
-                    $assign_id = 1;
-                    $staff_id = $value['user_id'];
-                }
-                if ($platform_status == 2) {
-                    $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
-                    FROM " . $this->username . "_integration
-                    WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
-                    $count_lead = $queryd->getResultArray();
-                    $count = 0;
-                    if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
-                        $count = $count_lead[0]['form_count'];
-                    }
-                    $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
-                            FROM " . $this->username . "_integration
-                            WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
-                    $count_leads = $queryds->getResultArray();
-                    $counts = 0;
-                    if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
-                        $counts = $count_leads[0]['form_counts'];
-                    }
-                    $form_name = "";
-                    if (isset($value['form_name']) && !empty($value['form_name'])) {
-                        $form_name = $value['form_name'];
-                    }
-                    if (isset($value['page_img']) && !empty($value['page_img'])) {
-                        $page_img = $value['page_img'];
+        if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+            $get_asset_permission = array();
+        } else {
+            $get_asset_permission = get_asset_permission($_SESSION['id']);
+        }
+        if (in_array('leads', $get_asset_permission) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+
+            if ($count_num > 0) {
+                foreach ($result_facebook_data as $key => $value) {
+                    $integrationData = $this->MasterInformationModel->edit_entry2($this->username . '_platform_integration', $value['connection_id']);
+                    $integrationData = get_object_vars($integrationData[0]);
+                    $platform_status = $integrationData['platform_status'];
+                    if ($value['user_id'] == 0) {
+                        $assign_id = 0;
+                        $staff_id = '';
                     } else {
-                        $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                        $assign_id = 1;
+                        $staff_id = $value['user_id'];
                     }
-                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                                    <g>
-                                        <g data-name="Layer 2">
-                                            <g data-name="01.facebook">
-                                                <circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1" data-original="#3a559f"></circle>
-                                                <path fill="#ffffff" d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z" opacity="1" data-original="#ffffff"></path>
+                    if ($platform_status == 2) {
+                        $queryd = $this->db->query("SELECT form_id, COUNT(*) AS form_count
+                        FROM " . $this->username . "_integration
+                        WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=1");
+                        $count_lead = $queryd->getResultArray();
+                        $count = 0;
+                        if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
+                            $count = $count_lead[0]['form_count'];
+                        }
+                        $queryds = $this->db->query("SELECT form_id, COUNT(*) AS form_counts
+                                FROM " . $this->username . "_integration
+                                WHERE form_id = " . $value['form_id'] . "  AND page_id != '' AND fb_update=2");
+                        $count_leads = $queryds->getResultArray();
+                        $counts = 0;
+                        if (isset($count_leads[0]['form_counts']) && !empty($count_leads[0]['form_counts'])) {
+                            $counts = $count_leads[0]['form_counts'];
+                        }
+                        $form_name = "";
+                        if (isset($value['form_name']) && !empty($value['form_name'])) {
+                            $form_name = $value['form_name'];
+                        }
+                        if (isset($value['page_img']) && !empty($value['page_img'])) {
+                            $page_img = $value['page_img'];
+                        } else {
+                            $page_img = "https://dev.realtosmart.com/assets/images/f_intigration.svg";
+                        }
+                        $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                        <g>
+                                            <g data-name="Layer 2">
+                                                <g data-name="01.facebook">
+                                                    <circle cx="88" cy="88" r="88" fill="#3a559f" opacity="1" data-original="#3a559f"></circle>
+                                                    <path fill="#ffffff" d="m115.88 77.58-1.77 15.33a2.87 2.87 0 0 1-2.82 2.57h-16l-.08 45.45a2.05 2.05 0 0 1-2 2.07H77a2 2 0 0 1-2-2.08V95.48H63a2.87 2.87 0 0 1-2.84-2.9l-.06-15.33a2.88 2.88 0 0 1 2.84-2.92H75v-14.8C75 42.35 85.2 33 100.16 33h12.26a2.88 2.88 0 0 1 2.85 2.92v12.9a2.88 2.88 0 0 1-2.85 2.92h-7.52c-8.13 0-9.71 4-9.71 9.78v12.81h17.87a2.88 2.88 0 0 1 2.82 3.25z" opacity="1" data-original="#ffffff"></path>
+                                                </g>
                                             </g>
                                         </g>
-                                    </g>
-                                </svg>';
-                    $page_img_div = '<div class="mx-1">
-                                        <img src="' . $page_img . '">
-                                    </div>';
-                    $connection_name = $value['page_name'] . '(' . $form_name . ')';
-                    $leadlist_urlId = $value['form_id'];
-                } else if ($platform_status == 5) {
-                    $queryd = $this->db->query("SELECT COUNT(*) AS form_count
-                    FROM " . $this->username . "_integration
-                    WHERE platform = 'website' AND page_id=" . $value['id']);
-                    $count_lead = $queryd->getResultArray();
-                    $count = 0;
-                    if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
-                        $count = $count_lead[0]['form_count'];
+                                    </svg>';
+                        $page_img_div = '<div class="mx-1">
+                                            <img src="' . $page_img . '">
+                                        </div>';
+                        $connection_name = $value['page_name'] . '(' . $form_name . ')';
+                        $leadlist_urlId = $value['form_id'];
+                    } else if ($platform_status == 5) {
+                        $queryd = $this->db->query("SELECT COUNT(*) AS form_count
+                        FROM " . $this->username . "_integration
+                        WHERE platform = 'website' AND page_id=" . $value['id']);
+                        $count_lead = $queryd->getResultArray();
+                        $count = 0;
+                        if (isset($count_lead[0]['form_count']) && !empty($count_lead[0]['form_count'])) {
+                            $count = $count_lead[0]['form_count'];
+                        }
+                        $connection_name = $integrationData['website_name'];
+                        $page_img_div = '';
+                        $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                        <g>
+                            <circle cx="256" cy="256" r="225.229" fill="#a3defe" opacity="1" data-original="#a3defe" class=""></circle>
+                            <path fill="#7acefa" d="M178.809 44.35C92.438 75.858 30.771 158.727 30.771 256c0 124.39 100.838 225.229 225.229 225.229 57.256 0 109.512-21.377 149.251-56.569C139.58 395.298 125.639 142.906 178.809 44.35z" opacity="1" data-original="#7acefa" class=""></path>
+                            <path fill="#f7ef87" d="M476.093 194.583H35.907c-15.689 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407h440.186c15.689 0 28.407-12.718 28.407-28.407v-66.02c0-15.689-12.718-28.407-28.407-28.407z" opacity="1" data-original="#f7ef87" class=""></path>
+                            <path fill="#efd176" d="M35.907 194.583c-15.688 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407H275.1c-30.164-19.995-42.899-74.938-30.332-122.834z" opacity="1" data-original="#efd176"></path>
+                            <path d="M478.365 187.162c-7.871-25.404-20.202-49.361-36.162-70.662a7.54 7.54 0 0 0-1.274-1.69c-12.438-16.293-27.011-30.994-43.35-43.536-40.914-31.404-89.87-48.003-141.576-48.004H256c-37.727 0-75.195 9.237-108.352 26.712a7.501 7.501 0 0 0 6.993 13.27c25.118-13.237 52.887-21.417 81.291-24.048-20.694 20.712-39.721 45.999-55.546 73.422H92.203a217.914 217.914 0 0 1 32.761-30.524 7.5 7.5 0 0 0-9.037-11.973C98.942 82.95 83.84 98.072 71.012 114.886c-.424.434-.792.92-1.101 1.446-16.016 21.332-28.38 45.339-36.276 70.83C14.891 188.339 0 203.954 0 222.989v66.02c0 19.036 14.891 34.651 33.635 35.828 7.87 25.402 20.201 49.359 36.16 70.659a7.515 7.515 0 0 0 1.277 1.694c12.438 16.293 27.01 30.993 43.35 43.534 40.915 31.404 89.871 48.004 141.578 48.004 41.421 0 82.096-11.021 117.626-31.872a7.502 7.502 0 0 0 2.673-10.265 7.502 7.502 0 0 0-10.265-2.673c-27.467 16.12-58.229 25.95-89.957 28.878 20.689-20.713 39.715-46.003 55.539-73.424h88.276a220.539 220.539 0 0 1-25.259 24.523 7.5 7.5 0 0 0 4.782 13.281 7.47 7.47 0 0 0 4.775-1.72c35.239-29.132 60.797-67.287 74.178-110.619C497.11 323.659 512 308.045 512 289.01v-66.02c0-19.036-14.892-34.651-33.635-35.828zm-46.581-59.535c13.235 18.111 23.688 38.206 30.796 59.456h-98.057c-6.252-20.083-14.64-40.166-24.673-59.456zm-43.34-44.452a217.733 217.733 0 0 1 31.348 29.452h-88.177c-15.831-27.434-34.867-52.729-55.57-73.445 40.938 3.694 79.458 18.708 112.399 43.993zM256 40.77c21.52 19.485 41.514 44.384 58.222 71.857H197.777C214.485 85.154 234.479 60.255 256 40.77zm-66.878 86.857h133.756c10.472 19.162 19.286 39.271 25.896 59.456H163.226c6.61-20.185 15.424-40.294 25.896-59.456zm-108.911 0h91.938c-10.033 19.29-18.421 39.372-24.673 59.456H49.419c7.111-21.266 17.56-41.352 30.792-59.456zm.005 256.746c-13.235-18.111-23.688-38.207-30.796-59.456h98.058c6.252 20.083 14.639 40.166 24.672 59.456zm43.34 44.452c-11.42-8.765-21.915-18.657-31.348-29.452h88.177c15.829 27.43 34.862 52.728 55.558 73.444-40.933-3.696-79.449-18.709-112.387-43.992zM256 471.23c-21.521-19.485-41.515-44.384-58.223-71.858h116.445C297.514 426.846 277.52 451.745 256 471.23zm66.878-86.857H189.122c-10.472-19.162-19.288-39.272-25.9-59.456h185.556c-6.612 20.184-15.428 40.294-25.9 59.456zm109.049 0H339.85c10.033-19.29 18.42-39.372 24.672-59.456h98.067a216.097 216.097 0 0 1-30.662 59.456zM497 289.01c0 11.528-9.379 20.907-20.907 20.907H35.906C24.379 309.917 15 300.538 15 289.01v-66.02c0-11.527 9.379-20.906 20.907-20.906h3.319l.028.002.024-.002h319.653l.024.002.028-.002h113.74l.024.002.028-.002h3.318c11.528 0 20.907 9.379 20.907 20.906zm-308.316-68.473a7.502 7.502 0 0 0-9.613 4.482l-13.636 37.467-13.637-37.467a7.5 7.5 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.684-56.83a7.501 7.501 0 0 0-4.483-9.613zm222.501 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.637-37.467a7.5 7.5 0 0 0-14.095 5.131l20.685 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.504 7.504 0 0 0-4.484-9.613zm-111.25 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0L256 249.514l13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.503 7.503 0 0 0-4.483-9.614z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
+                        </g>
+                    </svg>';
+                        $leadlist_urlId = $value['id'];
                     }
-                    $connection_name = $integrationData['website_name'];
-                    $page_img_div = '';
-                    $logo_img = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
-                    <g>
-                        <circle cx="256" cy="256" r="225.229" fill="#a3defe" opacity="1" data-original="#a3defe" class=""></circle>
-                        <path fill="#7acefa" d="M178.809 44.35C92.438 75.858 30.771 158.727 30.771 256c0 124.39 100.838 225.229 225.229 225.229 57.256 0 109.512-21.377 149.251-56.569C139.58 395.298 125.639 142.906 178.809 44.35z" opacity="1" data-original="#7acefa" class=""></path>
-                        <path fill="#f7ef87" d="M476.093 194.583H35.907c-15.689 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407h440.186c15.689 0 28.407-12.718 28.407-28.407v-66.02c0-15.689-12.718-28.407-28.407-28.407z" opacity="1" data-original="#f7ef87" class=""></path>
-                        <path fill="#efd176" d="M35.907 194.583c-15.688 0-28.407 12.718-28.407 28.407v66.02c0 15.689 12.718 28.407 28.407 28.407H275.1c-30.164-19.995-42.899-74.938-30.332-122.834z" opacity="1" data-original="#efd176"></path>
-                        <path d="M478.365 187.162c-7.871-25.404-20.202-49.361-36.162-70.662a7.54 7.54 0 0 0-1.274-1.69c-12.438-16.293-27.011-30.994-43.35-43.536-40.914-31.404-89.87-48.003-141.576-48.004H256c-37.727 0-75.195 9.237-108.352 26.712a7.501 7.501 0 0 0 6.993 13.27c25.118-13.237 52.887-21.417 81.291-24.048-20.694 20.712-39.721 45.999-55.546 73.422H92.203a217.914 217.914 0 0 1 32.761-30.524 7.5 7.5 0 0 0-9.037-11.973C98.942 82.95 83.84 98.072 71.012 114.886c-.424.434-.792.92-1.101 1.446-16.016 21.332-28.38 45.339-36.276 70.83C14.891 188.339 0 203.954 0 222.989v66.02c0 19.036 14.891 34.651 33.635 35.828 7.87 25.402 20.201 49.359 36.16 70.659a7.515 7.515 0 0 0 1.277 1.694c12.438 16.293 27.01 30.993 43.35 43.534 40.915 31.404 89.871 48.004 141.578 48.004 41.421 0 82.096-11.021 117.626-31.872a7.502 7.502 0 0 0 2.673-10.265 7.502 7.502 0 0 0-10.265-2.673c-27.467 16.12-58.229 25.95-89.957 28.878 20.689-20.713 39.715-46.003 55.539-73.424h88.276a220.539 220.539 0 0 1-25.259 24.523 7.5 7.5 0 0 0 4.782 13.281 7.47 7.47 0 0 0 4.775-1.72c35.239-29.132 60.797-67.287 74.178-110.619C497.11 323.659 512 308.045 512 289.01v-66.02c0-19.036-14.892-34.651-33.635-35.828zm-46.581-59.535c13.235 18.111 23.688 38.206 30.796 59.456h-98.057c-6.252-20.083-14.64-40.166-24.673-59.456zm-43.34-44.452a217.733 217.733 0 0 1 31.348 29.452h-88.177c-15.831-27.434-34.867-52.729-55.57-73.445 40.938 3.694 79.458 18.708 112.399 43.993zM256 40.77c21.52 19.485 41.514 44.384 58.222 71.857H197.777C214.485 85.154 234.479 60.255 256 40.77zm-66.878 86.857h133.756c10.472 19.162 19.286 39.271 25.896 59.456H163.226c6.61-20.185 15.424-40.294 25.896-59.456zm-108.911 0h91.938c-10.033 19.29-18.421 39.372-24.673 59.456H49.419c7.111-21.266 17.56-41.352 30.792-59.456zm.005 256.746c-13.235-18.111-23.688-38.207-30.796-59.456h98.058c6.252 20.083 14.639 40.166 24.672 59.456zm43.34 44.452c-11.42-8.765-21.915-18.657-31.348-29.452h88.177c15.829 27.43 34.862 52.728 55.558 73.444-40.933-3.696-79.449-18.709-112.387-43.992zM256 471.23c-21.521-19.485-41.515-44.384-58.223-71.858h116.445C297.514 426.846 277.52 451.745 256 471.23zm66.878-86.857H189.122c-10.472-19.162-19.288-39.272-25.9-59.456h185.556c-6.612 20.184-15.428 40.294-25.9 59.456zm109.049 0H339.85c10.033-19.29 18.42-39.372 24.672-59.456h98.067a216.097 216.097 0 0 1-30.662 59.456zM497 289.01c0 11.528-9.379 20.907-20.907 20.907H35.906C24.379 309.917 15 300.538 15 289.01v-66.02c0-11.527 9.379-20.906 20.907-20.906h3.319l.028.002.024-.002h319.653l.024.002.028-.002h113.74l.024.002.028-.002h3.318c11.528 0 20.907 9.379 20.907 20.906zm-308.316-68.473a7.502 7.502 0 0 0-9.613 4.482l-13.636 37.467-13.637-37.467a7.5 7.5 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.684-56.83a7.501 7.501 0 0 0-4.483-9.613zm222.501 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.637-37.467a7.5 7.5 0 0 0-14.095 5.131l20.685 56.83a7.5 7.5 0 0 0 14.096 0l13.637-37.467 13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.504 7.504 0 0 0-4.484-9.613zm-111.25 0a7.496 7.496 0 0 0-9.613 4.482l-13.637 37.467-13.637-37.467a7.499 7.499 0 0 0-14.096 0l-13.637 37.467-13.636-37.467a7.5 7.5 0 0 0-14.096 5.131l20.684 56.83a7.5 7.5 0 0 0 14.096 0L256 249.514l13.637 37.467a7.5 7.5 0 0 0 14.096 0l20.685-56.83a7.503 7.503 0 0 0-4.483-9.614z" fill="#000000" opacity="1" data-original="#000000" class=""></path>
-                    </g>
-                </svg>';
-                    $leadlist_urlId = $value['id'];
-                }
-                $html .= '
-                      <div class="lead_list p-2 rounded-2 position-relative">
-                        <div class="d-flex align-items-center justify-content-end">
-                            <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
-                            <div class="mx-1">
-                            ' . $logo_img . '
-                           </div>
-                        ' . $page_img_div . '
-                               <div class="load-icon center">
-                                	<span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                	<span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                    <span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                	<span><i class="bi bi-caret-right-fill fs-10"></i></span>
-                                </div>          
+                    $html .= '
+                          <div class="lead_list p-2 rounded-2 position-relative">
+                            <div class="d-flex align-items-center justify-content-end">
+                                <div class="lead_list_img d-flex align-items-center justify-content-start me-3">
                                 <div class="mx-1">
-                                   <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
+                                ' . $logo_img . '
+                               </div>
+                            ' . $page_img_div . '
+                                   <div class="load-icon center">
+                                        <span><i class="bi bi-caret-right-fill fs-10"></i></span>
+                                        <span><i class="bi bi-caret-right-fill fs-10"></i></span>
+                                        <span><i class="bi bi-caret-right-fill fs-10"></i></span>
+                                        <span><i class="bi bi-caret-right-fill fs-10"></i></span>
+                                    </div>          
+                                    <div class="mx-1">
+                                       <img src="https://ajasys.com/img/favicon.png" style="width: 45px;">
+                                    </div>
                                 </div>
-                            </div>
-                            <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="' . base_url() . 'leadlist?id=' . $leadlist_urlId . '&platform=' . $platform_status . '">
-                                <p class="d-block col-12 text-dark">' . $connection_name . '</p>
-                                <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
-                                <i class="bi bi-gear me-1"></i>
-                                <span class="me-2">' . $count . '</span>
-                                    <i class="bi bi-person me-1"></i>
-                                    <span>'  . $_SESSION['username'] .  '</span>
-                                </div>
-                            </a>';
-                $html .= '<div class="lead_list_switch d-flex align-items-center flex-wrap">';
-                // <label class="switch_toggle mx-2">
-                // if ($value['status'] == 1) {
-                //     $html .= ' <input type="checkbox" class="page_actiive" value="1" data-form_id=' . $value['form_id'] . ' checked>';
-                // } else {
-                //     $html .= ' <input type="checkbox" class="page_actiive" value="0" data-form_id=' . $value['form_id'] . ' >';
-                // }
-                // <span class="check_input round"></span>
-                // </label>
-                $html .= '<div class="dropdown">
-                                    <button class="bg-transparent border-2 rounded-2 border p-1 dropdown-toggle after-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-caret-down-fill fs-12 text-secondary-emphasis"></i>
-                                    </button>
-                                    <ul class="dropdown-menu py-2">
-                                        <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $platform_status . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
-                                        <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . '><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                                <a class="lead_list_content d-flex align-items-center flex-wrap flex-fill" href="' . base_url() . 'leadlist?id=' . $leadlist_urlId . '&platform=' . $platform_status . '">
+                                    <p class="d-block col-12 text-dark">' . $connection_name . '</p>
+                                    <div class="d-flex align-items-center col-12 text-secondary-emphasis fs-12">
+                                    <i class="bi bi-gear me-1"></i>
+                                    <span class="me-2">' . $count . '</span>
+                                        <i class="bi bi-person me-1"></i>
+                                        <span>'  . $_SESSION['username'] .  '</span>
+                                    </div>
+                                </a>';
+
+                    if ((in_array('leads', $get_asset_permission) || in_array('create_scenarios', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                        $html .= '<div class="lead_list_switch d-flex align-items-center flex-wrap">
+                        <div class="dropdown">
+                            <button class="bg-transparent border-2 rounded-2 border p-1 dropdown-toggle after-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-caret-down-fill fs-12 text-secondary-emphasis"></i>
+                            </button>
+                            <ul class="dropdown-menu py-2">
+                                <li onclick="EditScenarios(\'' . $value['page_ids'] . '\',\'' . $platform_status . '\');"><a class="dropdown-item edit_page" data-edit_id=' . $value['page_ids'] . '><i class="fas fa-pencil-alt me-2"></i>Edit</a></li>
+                                <li><a class="dropdown-item delete_page" data-delete_id=' . $value['page_ids'] . '><i class="bi bi-trash3 me-2" ></i>Delete</a></li>
+                            </ul>
                         </div>
                     </div>';
+                    }
+
+                    $html .= '</div>
+                        </div>';
+                }
+            } else {
+                $html .= '<p>No Data Found</p>';
             }
-        } else {
-            $html .= '<p>No Data Found</p>';
         }
+
         $result_array = array(
             'pages_list' => $html,
         );
