@@ -301,7 +301,7 @@ option {
                                 </div>
                             </div>
 
-
+                            
 
                             <div class="col-1 d-none">
                                 <button class="btn-primary-rounded mx-1 All_memberPlusBtn" id="plus_btn" data-bs-toggle="modal" datamno="" data-bs-target="#add-member">
@@ -466,7 +466,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="In which slot would you like to book the appointment?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add d-none" data-qu="In which slot would you like to book the appointment?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-clock icon"></i>
@@ -485,7 +485,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Where do you live?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add d-none" data-qu="Where do you live?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-location-dot icon"></i>
@@ -523,7 +523,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Can you upload a file?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add d-none" data-qu="Can you upload a file?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-upload icon"></i>
@@ -637,7 +637,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="Pick an item of your choices">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add d-none" data-qu="Pick an item of your choices">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-list icon"></i>
@@ -656,7 +656,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="This will call your api and show the response to the user">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add d-none" data-qu="This will call your api and show the response to the user">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-bullseye icon"></i>
@@ -675,7 +675,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="This will call your api and show the search result in real time to the user">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add d-none" data-qu="This will call your api and show the search result in real time to the user">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa fa-search icon"></i>
@@ -694,7 +694,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add" data-qu="When would you like to book your appointment?">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3  p-2 question_add d-none" data-qu="When would you like to book your appointment?">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-calendar-check icon"></i>
@@ -854,7 +854,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Our Logo">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="Our Logo">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-file icon"></i>
@@ -892,7 +892,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="URL Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="URL Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-scissors icon"></i>
@@ -911,7 +911,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Country Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="Country Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-earth-americas icon"></i>
@@ -930,7 +930,7 @@ option {
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Action Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="Action Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-signs-post icon"></i>
@@ -949,17 +949,17 @@ option {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-center">
+                            <div class="col-12 d-flex justify-content-center d-none">
                                 <button type="button" class="btn-primary">Setup Menu Options</button>
                             </div>
                         </form>
 
-                        <div class="col-12 my-3 d-flex justify-content-center">
+                        <div class="col-12 my-3 d-flex justify-content-center d-none">
                             <span><b>FAQs Setup</b></span>
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
-                            <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
+                            <div class="col-12 d-flex flex-wrap p-3 d-none">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-regular fa-circle-question icon"></i>
@@ -980,12 +980,12 @@ option {
                             </div>
                         </form>
 
-                        <div class="col-12 my-3 d-flex justify-content-center">
+                        <div class="col-12 my-3 d-flex justify-content-center d-none">
                             <span><b>AI Enabled</b></span>
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-wpexplorer icon"></i>
@@ -1005,17 +1005,17 @@ option {
                                 </div>
 
                             </div>
-                            <div class="col-12 d-flex justify-content-center">
+                            <div class="col-12 d-flex justify-content-center d-none">
                                 <button type="button" class="btn-primary">Map Intents</button>
                             </div>
                         </form>
 
-                        <div class="col-12 my-3 d-flex justify-content-center">
+                        <div class="col-12 my-3 d-flex justify-content-center d-none">
                             <span><b>Live Agent</b></span>
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
-                            <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Talk to out live agent">
+                            <div class="col-12 d-flex flex-wrap p-3 d-none">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="Talk to out live agent">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-headphones icon"></i>
@@ -1033,7 +1033,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-diamond-turn-right icon"></i>
@@ -1059,7 +1059,7 @@ option {
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Choose one template">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="Choose one template">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-comment-dots icon"></i>
@@ -1077,7 +1077,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Whatsapp Message Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="Whatsapp Message Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-users icon"></i>
@@ -1185,7 +1185,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="WhatsApp Ad Based Flow">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="WhatsApp Ad Based Flow">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-rectangle-ad icon"></i>
@@ -1207,12 +1207,12 @@ option {
                             </div>
                         </form>
 
-                        <div class="col-12 my-3 d-flex justify-content-center">
+                        <div class="col-12 my-3 d-flex justify-content-center d-none">
                             <span><b>Only For Instagram</b></span>
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
                             <div class="col-12 d-flex flex-wrap p-3">
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-instagram icon"></i>
@@ -1230,7 +1230,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-brands fa-instagram icon"></i>
@@ -1256,7 +1256,7 @@ option {
 
 
                 <div class="col-12 col-lg-8 p-1 ">
-                    <div class="main-task col-12 border rounded-3 bg-white overflow-y-scroll  ps-3 overflow-y-scroll bot_list" style="height:80vh" style="max-height:546.8px" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="main-task col-12 border rounded-3 bg-white overflow-y-scroll  ps-3 overflow-y-scroll bot_list" style="height:80vh" style="max-height:546.8px"  ondrop="drop(event)" ondragover="allowDrop(event)">
                         <!-- <div class="col-12 w-100 d-flex flex-wrap p-2">
                             <div class="col-12 droppable d-flex flex-wrap my-2 p-2 border rounded-3 bot-flow-setup">
                                 <div class="col-10 d-flex flex-wrap align-items-center">
@@ -2494,22 +2494,21 @@ option {
             </div>
 
 
-            <div class="modal-body1 p-3">
+            <!-- <div class="modal-body1 p-3">
                 <div class="mb-3">
                     <label for="formGroupExampleInput" class="form-label">Question</label>
                     <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect" disabled>
-                </div>
-                <div class="row conditional_flow_single_hide">
+                </div> -->
+                <!-- <div class="row conditional_flow_single_hide">
                     <div class="col-4">
                         <label for="formGroupExampleInput" class="form-label">Subflows</label>
                         <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">
-                            <!-- <option selected>Main Flow</option> -->
+                   
                             <?php
                             if (isset($admin_bot)) {
                                 foreach ($admin_bot as $key_bot => $value_bot) {
                                     $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
-                                    // $botName = $value_bot["name"] . ($selected ? ' (this bot)' : ''); 
-                                    // pre($botName);
+                                   
                                     echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot['name'] . '</option>';
                                 }
                             }
@@ -2526,7 +2525,7 @@ option {
                                 <?php
                                 if (isset($admin_bot_setup)) {
                                     foreach ($admin_bot_setup as $type_key => $type_value) {
-                                        // pre($type_value);
+                                  
                                         if ($type_value['bot_id'] == $botId) {
                                             echo '<option class="dropdown-item" id="quotattion_type" value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                         }
@@ -2535,8 +2534,48 @@ option {
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
+                <div class="modal-body1 p-3">
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Question</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="URL Auto Redirect" disabled>
+                </div>
+                <div class="row conditional_flow_single_hide">
+                    <div class="col-4">
+                        <label for="bot_idd" class="form-label">Subflows</label>
+                        <select class="form-select bot_idd" aria-label="Default select example" id="bot_idd">
+                                                    <?php
+                            if (isset($admin_bot)) {
+                                foreach ($admin_bot as $key_bot => $value_bot) {
+                                    $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                    
+                                    echo '<option value="' . $value_bot["id"] . '" data-bot="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot['name'] . '</option>';
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-8">
+                        <label for="occupation" class="form-label">Next Question jump</label>
+                        <div class="main-selectpicker bot_quotation_list">
+                            <select id="occupation" class="OccupationInputClass form-control main-control from-main selectpicker question_select occupation_add" data-live-search="true">
+                                <?php
+                                if (isset($admin_bot_setup)) {
+                                    foreach ($admin_bot_setup as $type_key => $type_value) {
+                                        if ($type_value['bot_id'] == $botId) {
+                                            echo '<option class="dropdown-item bot_' . $type_value["bot_id"] . '" value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                        } else {
+                                            echo '<option class="dropdown-item bot_' . $type_value["bot_id"] . '" value="' . $type_value["id"] . '" >' . $type_value["question"] . '</option>';
+                                        }
+                                    }
+                                }
+                            
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -2555,6 +2594,10 @@ option {
 
                     </tbody>
                 </table>
+            </div>
+
+            <div class="cart_summry_html">
+
             </div>
             <!-- Conditional Flow -->
             <!-- <div class="model-body2 p-3">
@@ -4041,6 +4084,30 @@ option {
             editorElement.style.backgroundImage = 'none';
         }
 
+
+        $("body").on('click','.add_more_button_jump ',function(e){
+            var dataBotId = $('.show_value').data("bot_id");
+            var botId = '<?php echo $botId; ?>';
+            console.log(dataBotId);
+            console.log(botId);
+            if (dataBotId == botId) {
+                $('.show_value').show();
+            } else {
+                $('.hide_value').hide();
+            }
+        })
+        // $('.show_value, .hide_value').each(function() {
+        //     var dataBotId = $(this).data("bot_id");
+        //     console.log(dataBotId);
+        //     var botId = '<?php echo $botId; ?>';
+        //     if (dataBotId == botId) {
+        //         $(this).show();
+        //     } else {
+        //         $(this).hide();
+        //     }
+        // });
+
+
         if (edit_value != "") {
             $('.loader').show();
             $.ajax({
@@ -4068,22 +4135,23 @@ option {
                     if (menu_message != '') {
                         var menu_message = JSON.parse(response[0].menu_message);
 
-                        var reactions = menu_message.reaction;
-                        if (reactions && reactions.length >= 5) {
-                            var firstReaction = reactions[0];
-                            var secondReaction = reactions[1];
-                            var thirdReaction = reactions[2];
-                            var fourthReaction = reactions[3];
-                            var fifthReaction = reactions[4];
+                        // var reactions = menu_message.reaction;
+                        // if (reactions && reactions.length >= 5) {
+                        //     var firstReaction = reactions[0];
+                        //     var secondReaction = reactions[1];
+                        //     var thirdReaction = reactions[2];
+                        //     var fourthReaction = reactions[3];
+                        //     var fifthReaction = reactions[4];
 
-                            $(".terrible").val(firstReaction.reaction);
-                            $(".bad").val(secondReaction.reaction);
-                            $(".okay").val(thirdReaction.reaction);
-                            $(".good").val(fourthReaction.reaction);
-                            $(".great").val(fifthReaction.reaction);
-                        } else {
+                        //     $(".terrible").val(firstReaction.reaction);
+                        //     $(".bad").val(secondReaction.reaction);
+                        //     $(".okay").val(thirdReaction.reaction);
+                        //     $(".good").val(fourthReaction.reaction);
+                        //     $(".great").val(fifthReaction.reaction);
+                        // } else {
 
-                        }
+                        // }
+
                         if (menu_message != '') {
                             var menu_message = JSON.parse(response[0].menu_message);
 
@@ -4344,6 +4412,8 @@ option {
                             }
                         }
 
+
+
                         // console.log(menu_message.single_choice_option_value);
                         // if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                         //     if (menu_message && menu_message.single_choice_option_value) {
@@ -4444,6 +4514,64 @@ option {
                                 // $(".is_strict_validation").prop("checked", false);
                             }
 
+                        }
+
+
+                        if (type_of_question == 7) {
+                            // console.log(type_of_question);
+                            var menu_message = JSON.parse(response[0].menu_message);
+                            var options = menu_message.options;
+                            // console.log(menu_message);
+                            // console.log(options);
+
+                            var reactions = [];
+                            var subFlows = [];
+                            var jumpQuestions = [];
+
+                            for (var i = 0; i < options.length; i++) {
+                                reactions.push(options[i].reaction);
+                                subFlows.push(options[i].sub_flow);
+                                jumpQuestions.push(options[i].jump_question);
+                            }
+
+                            if (reactions.length >= 5) {
+                                $(".terrible").val(reactions[0]);
+                                $(".bad").val(reactions[1]);
+                                $(".okay").val(reactions[2]);
+                                $(".good").val(reactions[3]);
+                                $(".great").val(reactions[4]);
+                            }
+
+                            if (subFlows.length >= 5) {
+                                $(".terrible-sub-flow").val(subFlows[0]);
+                                $(".bad-sub-flow").val(subFlows[1]);
+                                $(".okay-sub-flow").val(subFlows[2]);
+                                $(".good-sub-flow").val(subFlows[3]);
+                                $(".great-sub-flow").val(subFlows[4]);
+                            }
+
+                            if (jumpQuestions.length >= 5) {
+                                $(".terrible-jump_question").val(jumpQuestions[0]);
+                                $(".bad-jump_question").val(jumpQuestions[1]);
+                                $(".okay-jump_question").val(jumpQuestions[2]);
+                                $(".good-jump_question").val(jumpQuestions[3]);
+                                $(".great-jump_question").val(jumpQuestions[4]);
+                            }
+
+                            // $('.bot_quotation_list').each(function(index) {
+                            //     var selectElementJumpQuestion = $(this).find('select');
+                            //     console.log(selectElementJumpQuestion);
+                            //     var sub_flow_value = subFlows[index];
+
+                            //     selectElementJumpQuestion.find('option').each(function() {
+                            //         var bot_id = $(this).data('bot_id');
+                            //         if (bot_id == sub_flow_value) {
+                            //             $(this).show();
+                            //         } else {
+                            //             $(this).hide();
+                            //         }
+                            //     });
+                            // });
                         }
 
                         // console.log(menu_message.questions);
@@ -4716,6 +4844,25 @@ option {
                             });
                             $(".contact_div").append(contact_table_html);
                         }
+
+                        if (type_of_question == 41) {
+                            var menu_message = JSON.parse(response[0].menu_message);
+                            var cartArray = menu_message.cart;
+                            cartArray.forEach(function(item, index) {
+                                if (item.hasOwnProperty('sub_flow')) {
+                                    var sub_flow_value = item.sub_flow;
+                                    console.log(sub_flow_value);
+                                    var selectElementSubFlow = $('.bot_idd.add_more_button_flow').eq(index);
+                                    selectElementSubFlow.val(sub_flow_value);
+                                }
+                                if (item.hasOwnProperty('jump_question')) {
+                                    var jump_question_value = item.jump_question;
+                                    var selectElementJumpQuestion = $('.for_jump').eq(index).find('select');
+                                    selectElementJumpQuestion.val(jump_question_value);
+                                }
+                            });
+                        }
+
                     }
 
                     var skip_question = response[0].skip_question;

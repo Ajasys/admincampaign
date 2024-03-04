@@ -1116,20 +1116,22 @@ class Bot_Controller extends BaseController
 
 										if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 											$menuOptions = json_decode($value['menu_message'], true);
-					
-											if (isset($menuOptions['options_value']['options'])) {
-												$options = explode(';', $menuOptions['options_value']['options']);
-												$nextQuestionsArray = explode(',', $value['next_questions']);
-					
-												foreach ($options as $index => $option) {
-													$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
-													// pre($nextQuestion);
+											// pre($menuOptions);
+											
+											if (isset($menuOptions['single_choice_option_value'])) {
+												$options = $menuOptions['single_choice_option_value'];
+										
+												foreach ($options as $option) {
+													$buttonValue = $option['option'];
+													$nextQuestion = $option['jump_question'];
+
 													$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
-																<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
+																<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $buttonValue . '\')">' . $buttonValue . '</button>
 															  </div>';
 												}
 											}
 										}
+										
 
 					if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
 						$html .= '<div class="col-12 mb-2 mt-1">
@@ -1150,24 +1152,45 @@ class Bot_Controller extends BaseController
 					';
 
 
-					if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
-							$menu_list_Data = json_decode($value['menu_message'], true);
-							if(isset($menu_list_Data['options_value']['options'])){
-								$optionsArray = explode(';', $menu_list_Data['options_value']['options']);
-								$nextQuestionsArray = explode(',', $value['next_questions']);
+					// if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
+					// 		$menu_list_Data = json_decode($value['menu_message'], true);
+					// 		if(isset($menu_list_Data['options_value']['options'])){
+					// 			$optionsArray = explode(';', $menu_list_Data['options_value']['options']);
+					// 			$nextQuestionsArray = explode(',', $value['next_questions']);
 
-								foreach ($optionsArray as $index => $option) {
-									$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
-									$html .= '
-									<div class="col-12">
-										<button class="btn bg-primary rounded-3 text-white col-6 my-1" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $option . '\')">
-										'.$option.'
-										</button>
-									</div>';
-								}
+					// 			foreach ($optionsArray as $index => $option) {
+					// 				$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
+					// 				$html .= '
+					// 				<div class="col-12">
+					// 					<button class="btn bg-primary rounded-3 text-white col-6 my-1" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $option . '\')">
+					// 					'.$option.'
+					// 					</button>
+					// 				</div>';
+					// 			}
+					// 		}
+					// }
+
+
+					if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
+						$menuOptions = json_decode($value['menu_message'], true);
+						// pre($menuOptions);
+						
+						if (isset($menuOptions['single_choice_option_value'])) {
+							$options = $menuOptions['single_choice_option_value'];
+					
+							foreach ($options as $option) {
+								$buttonValue = $option['option'];
+								$nextQuestion = $option['jump_question'];
+					
+								// Generate HTML for each button
+								$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
+											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $buttonValue . '\')">' . $buttonValue . '</button>
+										  </div>';
 							}
+						}
 					}
 
+					
 					$html .= '<script>
 								
 								function selectOption(button, value) {
@@ -1713,24 +1736,24 @@ class Bot_Controller extends BaseController
 											</span>
 										';
 
-							$menu_list_Data = json_decode($value['menu_message'], true);
-							
-							if(isset($menu_list_Data['options_value']['options'])){
-								$optionsArray = explode(';', $menu_list_Data['options_value']['options']);
-								$nextQuestionsArray = explode(',', $value['next_questions']);
+						$menuOptions = json_decode($value['menu_message'], true);
 
-								foreach ($optionsArray as $index => $option) {
-									$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
-									$html .= '
-									<div class="col-12">
-										<button class="btn bg-primary rounded-3 text-white col-6 my-1" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $option . '\')">
-										'.$option.'
-										</button>
-									</div>';
-								}
+						if (isset($menuOptions['single_choice_option_value'])) {
+							$options = $menuOptions['single_choice_option_value'];
+					
+							foreach ($options as $option) {
+								$buttonValue = $option['option'];
+								$nextQuestion = $option['jump_question'];
+					
+								// Generate HTML for each button
+								$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
+											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $buttonValue . '\')">' . $buttonValue . '</button>
+										  </div>';
 							}
+						}
 					}
 					
+
 					else {
 					
 						$html .= '<div class="col">
@@ -1820,21 +1843,23 @@ class Bot_Controller extends BaseController
 
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 						$menuOptions = json_decode($value['menu_message'], true);
-						
-						
-						if (isset($menuOptions['options_value']['options'])) {
-							$options = explode(';', $menuOptions['options_value']['options']);
-							$nextQuestionsArray = explode(',', $value['next_questions']);
-
-							foreach ($options as $index => $option) {
-								$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
-								// pre($nextQuestion);
+						// pre($menuOptions);
+					
+						if (isset($menuOptions['single_choice_option_value'])) {
+							$options = $menuOptions['single_choice_option_value'];
+					
+							foreach ($options as $option) {
+								$buttonValue = $option['option'];
+								$nextQuestion = $option['jump_question'];
+					
+								// Generate HTML for each button
 								$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
-											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $option . '\')">' . $option . '</button>
+											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $buttonValue . '\')">' . $buttonValue . '</button>
 										  </div>';
 							}
 						}
 					}
+					
 					
 					
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
