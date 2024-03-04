@@ -276,7 +276,7 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('audience_facebook_data', 'AudianceController::audience_facebook_data');
 	$routes->post('audience_view_data_facebook', 'AudianceController::audience_view_data_facebook');
 	$routes->post('view_integrate_lead_audience', 'AudianceController::view_integrate_lead_audience');
-
+    $routes->post('audience_increase_data', 'AudianceController::audience_increase_data');
 	$routes->post('edit_data_audience', 'AudianceController::edit_data_audience');
 	$routes->post('update_data_audience', 'AudianceController::update_data_audience');
     $routes->post('audio_file', 'AudianceController::audio_file');

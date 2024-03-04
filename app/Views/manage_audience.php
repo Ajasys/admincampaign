@@ -675,10 +675,10 @@ $get_facebook_page = $result->getResultArray();
                   </div>
                </div>
                <!--Facebook Synchronize-->
-               <div class="col-12 mt-3">
+               <!-- <div class="col-12 mt-3">
                   <div class="main-selectpicker">
                      <label for="#">
-                        <!-- <input type="checkbox" class="me-2 per_face_drop1" id="per_face_drop1" name="option_facebook"value="1" > -->
+                        <input type="checkbox" class="me-2 per_face_drop1" id="per_face_drop1" name="option_facebook"value="1" >
                         Facebook Synchronize<sup class="validationn">*</sup>
                      </label>
                      <div class="col-12 platform_selecter1 mt-2 ">
@@ -702,7 +702,7 @@ $get_facebook_page = $result->getResultArray();
                         </div>
                      </div>
                   </div>
-               </div>
+               </div> -->
             </form>
          </div>
          <div class="modal-footer">
@@ -785,11 +785,8 @@ $get_facebook_page = $result->getResultArray();
                $('.loader').hide();
                var response = JSON.parse(res);
                $('.lead_list_modal .name').text(response.name);
-
-
                $('.lead_list_modal .type').text(response.source);
                $('.lead_list_modal .size').text(response.sub_count);
-
                // $('.lead_list_modal .created_at').text(response.created_at);
                dateString = response.created_at;
                var parts = dateString.split(' ');
@@ -812,10 +809,9 @@ $get_facebook_page = $result->getResultArray();
                var newDateFormatupdate = day + '-' + month + '-' + year + ' ' + timePart;
                $('.lead_list_modal .last_updated').text(newDateFormatupdate);
                $('.lead_list_modal .source').text(response.inquiry_type_name); // Update the element with class 'source' with the inquiry_type_name value
-
                $('.edt').attr('data-edit_id', response.id);
                $('.selectpicker').selectpicker('refresh');
-               $('.edt').attr('disabled', false)
+               // $('.edt').attr('disabled', false)
             },
          });
       } else {
@@ -990,6 +986,28 @@ $get_facebook_page = $result->getResultArray();
          }
       });
    });
+
+ function increaseAudienceData() {
+    $.ajax({
+      url: "<?= site_url('audience_increase_data'); ?>",
+        type: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            // Handle the response from the server
+            if (response.success) {
+                // Display success message or perform any other actions
+                console.log(response.message);
+            } else {
+                // Display error message or perform any other actions
+                console.error(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            // Handle AJAX error
+            console.error(error);
+        }
+    });
+}
 
 
 </script>
@@ -1278,7 +1296,7 @@ $get_facebook_page = $result->getResultArray();
             $('#lead_list_modal .created_at').text(leadData.time_created);
             $('#lead_list_modal .last_updated').text(leadData.time_updated);
             $('#lead_list_modal .source').text(leadData.name);
-            $('.edt').attr('disabled', true)
+            // $('.edt').attr('disabled', true)
 
          },
          error: function (error) {

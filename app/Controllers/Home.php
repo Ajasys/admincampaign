@@ -869,6 +869,8 @@ class Home extends BaseController
             'address varchar(255) NOT NULL',
             'source varchar(255) NOT NULL',
             'inquiry_data int(11) NOT NULL',
+            'pages_name varchar(255) NOT NULL',
+            'facebook_syncro int(11) NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_username . '_audience', '', $columns_audience);
         $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2('admin_master_inquiry_type');
