@@ -2429,14 +2429,43 @@ class WhatAppIntegrationController extends BaseController
                     }
                 }
             }elseif($msgtype == '11'){
-                // if ($sent_recieved_status == '2') {
-                //     if(isset($value['conversation_id'])){
-                //         $preid = $value['conversation_id'];
-                //         $preqry = $db_connection->query("SELECT * FROM `".$table_username."_messages` WHERE conversation_id = '".$preid."'");
-                        
-                //         //01-03-2024 SELECT * FROM `admin_messages` WHERE conversation_id = 'wamid.HBgMOTE5NTEyMTgwMzU1FQIAEhggREFGQjA0QTk0RTI2NTJEOTNCNEFFNzE5MTk0NTQ2NUUA';
-                //     }
-                // }
+                if ($sent_recieved_status == '2') {
+                if(isset($value['conversation_id'])){
+                $preid = $value['conversation_id'];
+                $preqry = $db_connection->query("SELECT * FROM `".$table_username."_messages` WHERE conversation_id = '".$preid."'");
+                        $predataarray = $preqry->getResultArray();
+                        if(isset($predataarray) && !empty($predataarray) && isset($predataarray[0]['message_contant']) ){
+                            $msgtext2 = '';
+                            if (is_json($predataarray[0]['message_contant'])) {
+                                $data2 = json_decode($predataarray[0]['message_contant'], true);
+                                if (isset($data2['body'])) {
+                                    $msgtext2 = $data2['body'];
+                                }
+        } else {
+            $msgtext2 = $predataarray[0]['message_contant'];
+                            }
+
+                            $msgtext2 = $predataarray[0]['message_contant'];
+
+        $html .= ' <div class="d-flex mb-4 justify-content-start">
+                        <div class="col-9 text-start">
+                                <span class="px-3 py-2 rounded-3 text-black bg-white" style="background:#f3f3f; display: inline-block; width:200px; ">
+                                    <div class="text-start d-inline-block p-2 rounded" style="background:rgba(0, 0, 0, 0.4); height:65px; width:100%;">
+                                        <span class="d-none">Ajasys Technology</span>
+                                        <span>'.$msgtext2.'</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-start" style="display: inline-block;">'.$msgtext.'</span>
+                                    </div>
+                                </span>
+<span style="font-size:12px;">'.$formattedtime.'</span>
+
+                             </span>
+                        </div>
+                    </div>';
+}
+                    }
+                }
             }
         }
 
@@ -2446,22 +2475,6 @@ class WhatAppIntegrationController extends BaseController
         } else {
             $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
         }
- 
-        $html .= ' <div class="d-flex mb-4 justify-content-end">
-                        <div class="col-9 text-end">
-                            <span style="font-size:12px;">12:30 PM</span>
-                                <span class="px-3 py-2 rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; ">
-                                    <div class="text-start d-inline-block p-2 rounded" style="background:rgba(0, 0, 0, 0.4); height:65px; width:100%;">
-                                        <span>Ajasys Technology</span>
-                                        <span>Button_text</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-start" style="display: inline-block;">Lorem ipsum dolor</span>
-                                    </div>
-                                </span>
-                             </span>
-                        </div>
-                    </div>';
 
         if ($MsgSendStatus == '0') {
             $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill d-inline-block " style="background:#f3f3f3;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
