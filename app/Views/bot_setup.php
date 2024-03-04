@@ -1113,7 +1113,7 @@ option {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="======Cart Summery======">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="======Cart Summery======">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center" draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-cart-shopping icon"></i>
