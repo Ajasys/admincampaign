@@ -235,6 +235,8 @@ class AssetPermissionController extends BaseController
                             <p class="ms-3">Create and manage as the Whatsapp account</p>
                         </div>
                     </div>';
+
+                    $Msg='Permisiion list succesafully...!';
             }
 
             $resultff['response'] = 1;
