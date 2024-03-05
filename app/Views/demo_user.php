@@ -29,7 +29,7 @@ $product = json_decode($product, true);
                 </div>
             </div>
         </div>
-        <div class="px-3 py-2 bg-white rounded-2 mx-2 mb-2">
+        <div class="px-0 px-sm-3 py-2 bg-white rounded-2 mx-2 mb-2">
             <!-- data -->
             <div class="navigation col-12 overflow-auto my-2 product_tab">
                 <ul class="d-flex navtab_primary_sm w-100 flex-xl-wrap flex-nowrap" id="status-main-tab">

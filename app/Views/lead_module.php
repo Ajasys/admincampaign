@@ -116,6 +116,8 @@
         background-color: var(--all-white);
     }
 
+    
+
     .big_circle_fb::after {
         background-color: #1876ef;
     }
@@ -137,6 +139,21 @@
         width: 176px;
         height: 176px;
     }
+    .svg-plus{
+        top:50%; left:100%;
+    }
+
+@media (max-width:576px){
+    .svg-plus{
+        top: 140%;
+    left: -36%;
+    }
+    .all_circle_plus_list::after {
+        top: 0%;
+        right: 50%;
+        
+    }
+}
 </style>
 
 <?php
@@ -190,7 +207,7 @@ $user_data = $user_result->getResultArray();
                                 <i class="fa-solid fa-angle-left position-absolute top-0 start-0 translate-middle m-4 fs-4 text-secondary-emphasis cursor-pointer discard-tag" data-bs-toggle="modal" data-bs-target="#discard_main_box"></i>
 
                                 <!--updated ka code  -->
-                                <div class="d-flex justify-content-center align-items-center gap-3 py-4">
+                                <div class="d-flex justify-content-md-center justify-content-start align-items-center gap-3 py-4">
 
                                     <div class="big_list_add_outer_main big_list_add_outer_main_1 position-relative">
 
@@ -206,7 +223,7 @@ $user_data = $user_result->getResultArray();
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="big_circle_plus_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 ms-3 top-50 start-100 translate-middle-y">
+                                            <div class="big_circle_plus_list all_circle_plus_list bg-white border-0 rounded-2 shadow position-absolute py-2 ms-3 translate-middle-y svg-plus" >
                                                 <ul class="position-relative px-3">
                                                     <li class="py-1">
                                                         <a class="dropdown-item cursor-pointer" id="facebook_lead_drop_1" data-type="2">
