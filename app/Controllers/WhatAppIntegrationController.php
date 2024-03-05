@@ -2354,30 +2354,30 @@ class WhatAppIntegrationController extends BaseController
                     //     </div>
                     // ';
 
-                    // $html .= '
-                    //     <div class="d-flex mb-4 col-12 justify-content-end">
-                    //         <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
-                    //             <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
-                    //                 <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
-                    //                 ' . $msgtext . '
-                    //                 </p>
-                    //                 <span class="position-absolute bottom-0 end-0 me-1">
-                    //                 <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                    //                 <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
-                    //                 </span>
-                    //             </span>
-                    //         </div>
-                    //     </div>';
-
-                    $html .= ' <div class="d-flex mb-4 col-12 justify-content-end ">
-                            <div class="col-9 text-start">
-                                <span class="px-3 py-2 rounded-3 text-white" style="background:#f3f3f3; display: inline-block; width:200px; overflow: hidden;">
-                                    <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
+                    $html .= '
+                        <div class="d-flex mb-4 col-12 justify-content-end">
+                            <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                    <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+                                    ' . $msgtext . '
+                                    </p>
+                                    <span class="position-absolute bottom-0 end-0 me-1">
+                                    <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                    <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                                    </span>
                                 </span>
-                                <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                    
                             </div>
                         </div>';
+
+                    // $html .= ' <div class="d-flex mb-4 col-12 justify-content-START">
+                    //         <div class="col-9 text-start">
+                    //             <span class="px-3 py-2 rounded-3 text-white" style="background:#f3f3f3; display: inline-block; width:200px; overflow: hidden;">
+                    //                 <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
+                    //             </span>
+                    //             <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                    
+                    //         </div>
+                    //     </div>';
                 }
             } elseif ($msgtype == '3') {
                 if ($sent_recieved_status == '2') {
@@ -2385,15 +2385,19 @@ class WhatAppIntegrationController extends BaseController
                     //21022024                  $uploadDir .= 'assets/' . $username . '_folder/WhatsAppAssets/'; base_url()
                     if ($value['assets_type'] != '') {
                         if (strpos(strtolower($value['assets_type']), 'image') !== false) {
-                            $html .= ' <div class="d-flex mb-4 ">
-                            <div class="col-9 text-start">
-                                <span class="px-3 py-2 rounded-3 text-white" style="background:#f3f3f3; display: inline-block; width:200px; overflow: hidden;">
-                                    <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
-                                </span>
-                                <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                    
-                            </div>
-                        </div>';
+                            $html .= '
+                            <div class="d-flex mb-4 col-12 justify-content-start ">
+                                <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-start text-wrap align-items-center">
+                                    <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#f3f3f3;overflow-wrap: break-word;min-width:76px">
+                                        <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap" style="width:200px;overflow: hidden;">
+                                        <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
+                                        </p>
+                                        <span class="position-absolute bottom-0 end-0 me-1">
+                                            <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>';
                         }
                         if (strpos(strtolower($value['assets_type']), 'video') !== false) {
 
@@ -2415,14 +2419,30 @@ class WhatAppIntegrationController extends BaseController
                             $html .= '  <div class="d-flex mb-4 justify-content-end ">
                                 <div class="col-9 text-end">
 									<span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                
                                 <span class="px-3 py-2 rounded-3 text-white" style="background:#DBF8C6; display: inline-block; width:200px; overflow: hidden;">
                                     <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
                                     ' . $readrecieptsymbole . '
                                     </span> 
-
                                 </div>
                             </div>';
+
+                            $html .= '
+                            <div class="d-flex mb-4 col-12 justify-content-end ">
+                                <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                                    <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative " style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                        <p class=" pb-3 fw-medium fs-14 text-start flex-wrap" style="width:200px;overflow: hidden;">
+                                        <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
+                                        </p>
+                                        <span class="position-absolute bottom-0 end-0 me-1">
+                                            <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                            <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                    
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>'; 
+
+
                         }
                         if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type']) == 'avi' || strtolower($value['assets_type']) == 'mkv' || strtolower($value['assets_type']) == 'mov' || strtolower($value['assets_type']) == 'wmv') {
                             $html .= '   <div class="d-flex mb-4 justify-content-end">
@@ -2823,6 +2843,7 @@ $html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
                                                 </p>
                                                 <span class="position-absolute bottom-0 end-0 me-1">
                                                     <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                                    
                                                 </span>
                                         </span>
                                     </div>
@@ -2840,7 +2861,6 @@ $html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
         } else {
             $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
         }
-
         if ($MsgSendStatus == '0') {
             $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-3 d-inline-block " style="background:#E1F2FA;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
             <script>$(".WhatsApp24HourButton").prop("disabled", true); $(".TextInputTastbar").addClass("d-none"); $(".chat_bord").addClass("chat_bordClass");</script>';
