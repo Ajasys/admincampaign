@@ -1845,22 +1845,28 @@ class WhatAppIntegrationController extends BaseController
         $query90 = "SELECT * FROM $table_name WHERE platform_status = 1";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
+
+        // pre($total_dataa_userr_22);
+        // die();
+
         if (isset($total_dataa_userr_22[0])) {
             $settings_data = $result->getResultArray();
         } else {
             $settings_data = array();
         }
         $count = 0;
+
+            // pre();
+
+
         if (!empty($settings_data)) {
+
             foreach ($settings_data as $key => $value) {
                 $phone_number_id = $value['phone_number_id'];
                 $business_account_id = $value['business_account_id'];
                 $access_token = $value['access_token'];
                 $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
                 $DataArray = getSocialData($url);
-                // pre($url);
-                // pre($DataArray);
-                // die();
                 if (isset($DataArray['data'])) {
                     $display_phone_number = '';
                     $verified_name = '';
@@ -1880,6 +1886,9 @@ class WhatAppIntegrationController extends BaseController
                     }
                     $phoneNumber = $display_phone_number; // Replace with the actual phone number
                     $countryCode = substr($phoneNumber, 0, 3); // Extract the first three characters
+
+                    $db_connection->query("UPDATE `".$username."_platform_integration` SET `verification_status`='1' WHERE id = '".$value['id']."' ");
+
                     $countryMapping = [
                         '+93' => 'Afghanistan',
                         '+355' => 'Albania',
@@ -2640,7 +2649,7 @@ class WhatAppIntegrationController extends BaseController
                                         </div>
                                     </div>                                            
                             </span>
-                            <span class="me-2" style="font-size: 12px;">12:30 PM</span>
+                            <span class="me-2" style="font-size: 12px;">'.$formattedtime.'</span>
                         </div>
                     </div>';
                     }
@@ -3798,5 +3807,28 @@ $html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
     //     }
     // }
 
-
+    public function WhatsAppConnectionEntry()
+    {
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $table_name = $username . '_platform_integration';
+        if ($_POST['action'] == 'insert') {
+            $whatapp_phone_number_id = $_POST['whatapp_phone_number_id'];
+            $whatapp_business_account_id = $_POST['whatapp_business_account_id'];
+            $whatapp_access_token = $_POST['whatapp_access_token'];
+            $isduplicate = 1;
+            $insertdata['phone_number_id'] = $whatapp_phone_number_id;
+            $insertdata['business_account_id'] = $whatapp_business_account_id;
+            $insertdata['access_token'] = $whatapp_access_token;
+            $insertdata['platform_status'] = 1;
+            $isduplicate = $this->duplicate_data2($insertdata, $table_name);
+            if ($isduplicate == 0) {
+                $response = $this->MasterInformationModel->insert_entry2($insertdata, $table_name);
+                echo 1;
+            } else {
+                echo 0;
+            }
+        }
+    }
 }

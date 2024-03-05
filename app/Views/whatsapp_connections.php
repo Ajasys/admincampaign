@@ -159,7 +159,7 @@ $admin_bot = json_decode($admin_bot, true);
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -202,10 +202,8 @@ $admin_bot = json_decode($admin_bot, true);
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="<?= base_url('integration') ?>">
-                    <button type="button" class="btn-secondary mx-0" id="cancel" name="">Back</button>
-                </a>
-                <button type="button" class="btn btn-primary SubmitWhatAppIntegrationData" action="insert" EditId="" id="SubmitWhatAppIntegrationData">Submit</button>
+                    <button type="button" class="btn-secondary mx-0" id="cancel" data-bs-dismiss="modal" aria-label="Close" name="">Cancle</button>
+                <button type="button" class="btn btn-primary SubmitWhatAppIntegrationData" action="insert" EditId="" id="SubmitWhatAppIntegrationData">Connect</button>
             </div>
         </div>
     </div>
