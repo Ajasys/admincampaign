@@ -1,28 +1,37 @@
 <!-- Sweet Alerts js -->
-
 <script src="https://rudrram.com/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
-<!-- Sweet alert init js-->
+<!-- ===bootstrap-links -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script> -->
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<!-- Sweet alert init js-->
 <script src="https://rudrram.com/assets/js/pages/sweet-alerts.init.js"></script>
 <script src="https://rudrram.com/assets/js/jquery.dataTables.min.js"></script>
 <script src="https://rudrram.com/assets/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://rudrram.com/assets/js/bootstrap-select.min.js"></script>
-<!-- <script src="https://rudrram.com/assets/js/countrystatecity.js?v2"></script> -->
 <script src="https://rudrram.com/assets/js/iziToast.js"></script>
 <script src="https://rudrram.com/assets/js/sidebar.js"></script>
-<!-- <script src="https://rudrram.com/assets/js/ckeditor.js"></script>    -->
 <script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="https://rudrram.com/assets/datetimepicker/js/materialDateTimePicker.js"></script>
+
+<!-- ===ckediter== -->
+<!-- <script src="https://rudrram.com/assets/js/ckeditor.js"></script>    -->
+
 <!-- celender -->
 <script src="https://rudrram.com/assets/js/fullcalendar.min.js"></script>
+
 <!-- country name and code -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput-jquery.min.js"></script>
+<!-- <script src="https://rudrram.com/assets/js/countrystatecity.js?v2"></script> -->
+
 <!-- swiper-slider -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- ======select-picker====== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+<!-- <script src="https://rudrram.com/assets/js/bootstrap-select.min.js"></script> -->
+
 <!-- comun-css -->
 <style>
     .first-container {
