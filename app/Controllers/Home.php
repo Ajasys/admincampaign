@@ -360,6 +360,7 @@ class Home extends BaseController
         $table_assetpermission = $table_username . '_platform_assetpermission';
         $columns_assetpermission = [
             'id int primary key AUTO_INCREMENT',
+            'platform_type varchar(255) NOT NULL',
             'asset_id int(11) NOT NULL',
             'master_id int(11) NOT NULL',
             'user_id int(11) NOT NULL',

@@ -34,70 +34,70 @@ class AssetPermissionController extends BaseController
         if ($action == "user") {
 
             if ($type == "facebook") {
-                $html .= '<div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
+                $html .= '<div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center h-100 overflow-hidden">
                 <div class="d-flex align-items-center" style="height: 45px;">
                     <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
                     <div class="col fs-6 fw-semibold">
                         Select all
                     </div>
                 </div>
-                        </div><div class="col-12 overflow-x-hidden" style="height:500px;">
-                        <ul class="overflow-y-scroll" style="height:490px;">';
+            </div><div class="col-12 " >
+            <ul class="">';
 
-                            $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages'";
-                            $asset_result = $this->db->query($asset_query);
-                            $pageresult = $asset_result->getResultArray();
-                            if (isset($pageresult)) {
-                                $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`)as asset_id,GROUP_CONCAT(`assetpermission_name`)as assetpermission_name FROM " . $this->username . "_platform_assetpermission WHERE `user_id`=" . $_POST['user_id'];
-                                $assetpermission_result = $this->db->query($assetpermission_query);
-                                $per_result = $assetpermission_result->getResult();
-                                $perassetid_data = [];
-                                $perassetname_data = [];
-                                if (isset($per_result[0])) {
-                                    $perassetid_data = explode(',', $per_result[0]->asset_id);
-                                }
-                                if (isset($per_result[0])) {
-                                    $perassetname_data = explode(',', $per_result[0]->assetpermission_name);
-                                }
+                $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages'";
+                $asset_result = $this->db->query($asset_query);
+                $pageresult = $asset_result->getResultArray();
+                if (isset($pageresult)) {
+                    $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`)as asset_id,GROUP_CONCAT(`assetpermission_name`)as assetpermission_name FROM " . $this->username . "_platform_assetpermission WHERE `user_id`=" . $_POST['user_id'];
+                    $assetpermission_result = $this->db->query($assetpermission_query);
+                    $per_result = $assetpermission_result->getResult();
+                    $perassetid_data = [];
+                    $perassetname_data = [];
+                    if (isset($per_result[0])) {
+                        $perassetid_data = explode(',', $per_result[0]->asset_id);
+                    }
+                    if (isset($per_result[0])) {
+                        $perassetname_data = explode(',', $per_result[0]->assetpermission_name);
+                    }
 
-                                foreach ($pageresult as $aa_key => $aa_value) {
-                                    $cheked = '';
-                                    if (in_array($aa_value['id'], $perassetid_data)) {
-                                        $cheked = 'checked';
-                                    }
+                    foreach ($pageresult as $aa_key => $aa_value) {
+                        $cheked = '';
+                        if (in_array($aa_value['id'], $perassetid_data)) {
+                            $cheked = 'checked';
+                        }
 
-                                    $longLivedAccessToken = $aa_value['access_token'];
-                                    $html .=  '<li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
+                        $longLivedAccessToken = $aa_value['access_token'];
+                        $html .=  '<li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
                                         <input type="checkbox" class="me-2 rounded-3 selectedId" name="page_id" value="' . $aa_value['id'] . '" style="width:18px;height:18px;"  ' . $cheked . '>
                                         <img class="rounded-circle me-1" src="' . $aa_value['asset_img'] . '" alt="" style="width:30px;height:30px">
                                         <p class="col">' . $aa_value['name'] . '</p>
                                     </li>';
-                                }
+                    }
 
-                                // for assign permission
-                                $create_scenarios = '';
-                                $leads = '';
-                                $post = '';
-                                $comments = '';
-                                $messages = '';
-                                if (in_array('create_scenarios', $perassetname_data)) {
-                                    $create_scenarios = 'checked';
-                                }
-                                if (in_array('leads', $perassetname_data)) {
-                                    $leads = 'checked';
-                                }
-                                if (in_array('fbpost', $perassetname_data)) {
-                                    $post = 'checked';
-                                }
-                                if (in_array('fbcomments', $perassetname_data)) {
-                                    $comments = 'checked';
-                                }
-                                if (in_array('fbmessages', $perassetname_data)) {
-                                    $messages = 'checked';
-                                }
+                    // for assign permission
+                    $create_scenarios = '';
+                    $leads = '';
+                    $post = '';
+                    $comments = '';
+                    $messages = '';
+                    if (in_array('create_scenarios', $perassetname_data)) {
+                        $create_scenarios = 'checked';
+                    }
+                    if (in_array('leads', $perassetname_data)) {
+                        $leads = 'checked';
+                    }
+                    if (in_array('fbpost', $perassetname_data)) {
+                        $post = 'checked';
+                    }
+                    if (in_array('fbcomments', $perassetname_data)) {
+                        $comments = 'checked';
+                    }
+                    if (in_array('fbmessages', $perassetname_data)) {
+                        $messages = 'checked';
+                    }
 
 
-                                $permission_html = '<div class="col-12 p-2 d-flex align-items-center">
+                    $permission_html = '<div class="col-12 p-2 d-flex align-items-center">
                                                 <div class="col-1">
                                                     <label class="switch_toggle_primary">
                                                         <input
@@ -169,17 +169,15 @@ class AssetPermissionController extends BaseController
                                                     <p class="ms-3">Manage facebook page messages.</p>
                                                 </div>
                                             </div>';
-                                $Msg = 'Page list Successfully..';
-                            } else {
-                                $Msg = 'Page does not exist..!';
-                            }
+                    $Msg = 'Page list Successfully..';
+                } else {
+                    $Msg = 'Page does not exist..!';
+                }
 
 
-                            $html .= '</ul>
+                $html .= '</ul>
                 </div>';
-            }
-            else if ($type == "whatsapp") {
-                
+            } else if ($type == "whatsapp") {
             }
 
 
@@ -206,43 +204,45 @@ class AssetPermissionController extends BaseController
         $this->db = \Config\Database::connect('second');
         $action = $this->request->getPost("action");
         $userId = $this->request->getPost("user_id");
+        $asset_type = $this->request->getPost("asset_type");
         $page_ids = explode(",", $this->request->getPost("page_id"));
         $asset_array = $this->request->getPost("asset_array");
         $result_array = array();
 
         if ($action == "insert" && $userId && is_array($page_ids) && $asset_array) {
-            foreach ($page_ids as $index => $page_id) {
+                foreach ($page_ids as $index => $page_id) {
+                    $query = $this->db->query("SELECT * FROM " . $this->username . "_platform_assetpermission where user_id=" . $userId . " AND asset_id=" . $page_id . " AND platform_type='" . $asset_type . "'");
+                    $result_data = $query->getResult();
 
-                $query = $this->db->query("SELECT * FROM " . $this->username . "_platform_assetpermission where user_id=" . $userId . " AND asset_id=" . $page_id);
-                $result_data = $query->getResult();
+                    if ((!empty($result_data))) {
+                        $update_data['assetpermission_name'] = $asset_array;
+                        $departmentUpdatedata = $this->MasterInformationModel->update_entry2($result_data[0]->id, $update_data, $this->username . '_platform_assetpermission');
 
-                if ((!empty($result_data))) {
-                    $update_data['assetpermission_name'] = $asset_array;
-                    $departmentUpdatedata = $this->MasterInformationModel->update_entry2($result_data[0]->id, $update_data, $this->username . '_platform_assetpermission');
-
-                    if ($departmentUpdatedata) {
-                        $result_array['responce'] = 1;
-                        $result_array['msg'] = "Assign assets permission successfully";
+                        if ($departmentUpdatedata) {
+                            $result_array['responce'] = 1;
+                            $result_array['msg'] = "Assign assets permission successfully";
+                        } else {
+                            $result_array['responce'] = 0;
+                            $result_array['msg'] = "Error while assigning assets permission";
+                        }
                     } else {
-                        $result_array['responce'] = 0;
-                        $result_array['msg'] = "Error while assigning assets permission";
-                    }
-                } else {
-                    $insert_data['asset_id'] = $page_id;
-                    $insert_data['master_id'] = $_SESSION['master'];
-                    $insert_data['user_id'] = $userId;
-                    $insert_data['assetpermission_name'] = $asset_array;
-                    $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_platform_assetpermission');
+                        $insert_data['platform_type'] = $asset_type;
+                        $insert_data['asset_id'] = $page_id;
+                        $insert_data['master_id'] = $_SESSION['master'];
+                        $insert_data['user_id'] = $userId;
+                        $insert_data['assetpermission_name'] = $asset_array;
+                        $departmentUpdatedata = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_platform_assetpermission');
 
-                    if ($departmentUpdatedata) {
-                        $result_array['responce'] = 1;
-                        $result_array['msg'] = "Assign assets permission successfully";
-                    } else {
-                        $result_array['responce'] = 0;
-                        $result_array['msg'] = "Error while assigning assets permission";
+                        if ($departmentUpdatedata) {
+                            $result_array['responce'] = 1;
+                            $result_array['msg'] = "Assign assets permission successfully";
+                        } else {
+                            $result_array['responce'] = 0;
+                            $result_array['msg'] = "Error while assigning assets permission";
+                        }
                     }
                 }
-            }
+           
         } else {
             $result_array['responce'] = 0;
             $result_array['msg'] = "Please Check any asset or permission..!";

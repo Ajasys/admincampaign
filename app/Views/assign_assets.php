@@ -7,6 +7,16 @@
     .accordion-button-arrow::after {
         display: none !important;
     }
+    @media (max-width:575px) {
+        .page_asset_list{
+            height: 80%;
+        }
+    }
+    @media (min-width:1200px) {
+        .page_asset_list{
+            height: 91%;
+        }
+    }
 </style>
 <?php
 
@@ -62,16 +72,18 @@ $user_data = $user_result->getResultArray();
                 <div class="modal-body">
                     <small>Select user to give assets and permission. Then assign their access and which accounts and
                         tools they can use.</small>
-                    <select id="user" name="user" class="selectpicker form-control form-main pt-3" data-live-search="true" required>
-                        <option value="0">Select User</option>
-                        <?php
-                        if (isset($user_data)) {
-                            foreach ($user_data as $type_key => $user_value) {
-                                echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
+                    <div class="main-selectpicker mt-2 mt-3">
+                        <select id="user" name="user" class="selectpicker form-control form-main " data-live-search="true" required>
+                            <option class="dropdown-item" value="0">Select User</option>
+                            <?php
+                            if (isset($user_data)) {
+                                foreach ($user_data as $type_key => $user_value) {
+                                    echo '<option class="dropdown-item" value="' . $user_value["id"] . '" >' . $user_value["firstname"] . '</option>';
+                                }
                             }
-                        }
-                        ?>
-                    </select>
+                            ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -92,6 +104,7 @@ $user_data = $user_result->getResultArray();
                     <input type="hidden" name="select_user" id="select_user">
                     <input type="hidden" name="asset_array" id="asset_array">
                     <input type="hidden" name="asset_ids" id="asset_ids">
+                    <input type="hidden" name="asset_type" id="asset_type">
                     <div class="p-2">
                         <div class="col-12 d-flex flex-wrap">
                             <!-- first-div -->
@@ -364,19 +377,8 @@ $user_data = $user_result->getResultArray();
                                         Data not Found
                                     </div>
                                     <!-- pades div  -->
-                                    <div class="Pages_div page_asset_list">
-                                        <!-- <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
-                                            <div class="d-flex align-items-center" style="height: 45px;">
-                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
-                                                <div class="col fs-6 fw-semibold">
-                                                    Select all
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        <!-- <div class="col-12 overflow-x-hidden" style="height:500px;">
-                                            <ul class="page_asset_list overflow-y-scroll" style="height:490px;">
-                                            </ul>
-                                        </div> -->
+                                    <div class="Pages_div page_asset_list overflow-y-scroll d-none">
+                                       
                                     </div>
                                     <!-- instagram div  -->
                                     <div class="instagram_div_to d-none">
@@ -435,7 +437,6 @@ $user_data = $user_result->getResultArray();
                                                     <?php
                                                 }
                                             }
-
                                         ?>
                                        
                                     </div>
@@ -455,56 +456,7 @@ $user_data = $user_result->getResultArray();
                                         <!-- Pages_div -->
                                         <div class="Pages_div col-12 overflow-y-scroll" style="height:90vh;">
                                             <div class="active-part1 d-none">
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop create_scenarios" type="checkbox" value="create_scenarios">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Create Scenarios</p>
-                                                        <p class="ms-3">Create, manage or delete scenarios for lead
-                                                            retrieval.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop leads" type="checkbox" value="leads">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Leads</p>
-                                                        <p class="ms-3">Access and view leads.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop post_comments" type="checkbox" value="post_comments">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Post & Comments</p>
-                                                        <p class="ms-3">Create, view and manage post and their comments.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop messages" type="checkbox" value="messages">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Messages</p>
-                                                        <p class="ms-3">Manage facebook page messages.</p>
-                                                    </div>
-                                                </div>
+                                               
                                             </div>
                                             <div class="d-flex flex-wrap w-100 h-100 justify-content-center align-items-center data-404">
                                                 Data not Found
@@ -559,12 +511,12 @@ $user_data = $user_result->getResultArray();
                                                 <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
                                                         <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" value="wh_message" type="checkbox">
                                                             <span class="check_input_primary round"></span>
                                                         </label>
                                                     </div>
                                                     <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Messages </p>
+                                                        <p class="col ms-3 fw-bold fs-14">Messages</p>
                                                         <p class="ms-3">Send and respond to direct messages as the
                                                             Whatsapp account.</p>
                                                     </div>
@@ -572,26 +524,13 @@ $user_data = $user_result->getResultArray();
                                                 <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
                                                         <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" value="wh_template" type="checkbox">
                                                             <span class="check_input_primary round"></span>
                                                         </label>
                                                     </div>
                                                     <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Post</p>
-                                                        <p class="ms-3">Create, manage or delete posts, stories and more as the Instagram account. View posts from other Instagram accounts that this account follows.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Comments</p>
-                                                        <p class="ms-3">Create and manage comment for the Instagram
-                                                            account.</p>
+                                                        <p class="col ms-3 fw-bold fs-14">Templates</p>
+                                                        <p class="ms-3">Create and manage as the Whatsapp account</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -600,11 +539,6 @@ $user_data = $user_result->getResultArray();
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reloadPage()">Close</button>
-                    <buaddClassbutton" class="btn btn-primary assign_permission" id="assign_permission">Save
-                    <buaddClassbutton" class="btn btn-primary assign_pinstagram_div_tossign_permission">Save
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reloadPage()">Close</button>
@@ -699,6 +633,8 @@ $user_data = $user_result->getResultArray();
         });
         $("body").on("click", ".list_asset_permission", function() {
             var type = $(this).attr('data-asset-type');
+            $('#asset_type').val(type);
+            
             if(type=='facebook')
             {
                 var fb_check_conn = $(this).attr('data-connection-check');
@@ -726,12 +662,17 @@ $user_data = $user_result->getResultArray();
                         {
                             $('.page_asset_list').html(result.html);
                             $('.active-part1').html(result.permission_html);
+                            selectedValues = result.permission_name.split(',');
+                            $('#asset_array').val(selectedValues.join(','));
+                            checkedValues = result.asset_id.split(',');
+                            updateAssetIds();
+                        }
+                        else if(type=='whatsapp')
+                        {
+
                         }
                        
-                        selectedValues = result.permission_name.split(',');
-                        $('#asset_array').val(selectedValues.join(','));
-                        checkedValues = result.asset_id.split(',');
-                        updateAssetIds();
+                        
                     } else {
                         iziToast.error({
                             title: result.message
@@ -744,6 +685,7 @@ $user_data = $user_result->getResultArray();
             });
         });
         $("body").on("click", "#assign_permission", function() {
+            var asset_type = $('#asset_type').val();
             var userId = $('#select_user').val();
             var asset_array = $('#asset_array').val();
             var asset_ids = $('#asset_ids').val();
@@ -754,6 +696,7 @@ $user_data = $user_result->getResultArray();
                         url: "<?= site_url('assign_asset_permission'); ?>",
                         data: {
                             action: 'insert',
+                            asset_type:asset_type,
                             user_id: userId,
                             page_id: asset_ids,
                             asset_array: asset_array,
