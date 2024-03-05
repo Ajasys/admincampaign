@@ -631,6 +631,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 </g>
                                             </svg>
                                             <P class="ms-2">Facebook</P>
+                                            <div class="col text-end">
+                                                <i class="fa-solid fa-arrows-rotate fs-5 me-2 text-primary fb-refresh" data-api="true"></i>
+                                            </div>
                                         </button>
                                     </h2>
                                     <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">

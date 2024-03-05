@@ -2612,8 +2612,8 @@ class Bot_Controller extends BaseController
 			$return = array();
 			if (isset($data['error']['code']) && $data['error']['code'] == 10) {
 				$return['status'] = 0;
-				$return['msg'] = "You Dont't Have Permission To Send Message in This Page.";
-				$return['text'] = "<br><span>Request to Facebook for permission <b>PAGES_MESSAGING</b></span>";
+				$return['msg'] = "You don't have permission to send messages from this page.";
+				$return['text'] = '<br><span>Request to Facebook for approval "<b>pages_messaging</b>" permission.</span>';
 			} else {
 				$time = date('H:i a');
 				$return['status'] = 1;
