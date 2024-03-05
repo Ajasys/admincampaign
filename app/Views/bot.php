@@ -230,7 +230,7 @@
             </div>
             <div class="modal-body d-flex justify-content-center flex-wrap position-relative ">
                 <div class="col-12">
-                    <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-bot_type="2" data-toggle="modal" data-target="#bot_name_model" data-bs-dismiss="modal">
+                    <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-bot_type="2" data-bs-toggle="modal" data-bs-target="#bot_name_model" data-bs-dismiss="modal">
                         <div style="width:50px;height:50px;" class="border rounded-circle d-flex justify-content-center align-items-center">
                             <i class="bi bi-funnel fs-2"></i>
                         </div>
@@ -238,7 +238,7 @@
                             <p class="fs-6 text-dark fs-semibold">Get Lead By Chat Bots</p>
                         </div>
                     </div>
-                    <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-bot_type="2" data-toggle="modal" data-target="#bot_name_model" data-bs-dismiss="modal">
+                    <div class="w-100 col-11 p-3 d-flex flex-wrap align-items-center my-2 border rounded-3 modal-card" data-bot_type="2" data-bs-toggle="modal" data-bs-target="#bot_name_model" data-bs-dismiss="modal">
                         <div style="width:50px;height:50px;" class="border rounded-circle d-flex justify-content-center align-items-center">
                             <i class="bi bi-headset fs-2"></i>
                         </div>
@@ -248,7 +248,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn-primary bot_preview" data-bot_type="2" data-toggle="modal" data-target="#bot_name_model" data-bs-dismiss="modal">Custom Bot</button>
+                <button type="button" class="btn-primary bot_preview" data-bot_type="2" data-bs-toggle="modal" data-bs-target="#bot_name_model" data-bs-dismiss="modal">Custom Bot</button>
 
             </div>
         </div>
