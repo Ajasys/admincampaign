@@ -1887,7 +1887,7 @@ class WhatAppIntegrationController extends BaseController
                     $phoneNumber = $display_phone_number; // Replace with the actual phone number
                     $countryCode = substr($phoneNumber, 0, 3); // Extract the first three characters
 
-                    $db_connection->query("UPDATE `".$username."_platform_integration` SET `verification_status`='1' WHERE id = '".$value['id']."' ");
+                    $db_connection->query("UPDATE `".$username."_platform_integration` SET `verification_status`='1' `whatsapp_name` = '".$verified_name."' `whatsapp_number` = '".$display_phone_number."' WHERE id = '".$value['id']."' ");
 
                     $countryMapping = [
                         '+93' => 'Afghanistan',
