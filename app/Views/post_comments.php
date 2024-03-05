@@ -713,53 +713,55 @@ $get_facebook_page = $result->getResultArray();
             });
 
             $('body').on('click', '.comment_send', function() {
-    // Show the comment loader
-    $('.comment_loader').show();
-    
-    var data_post_id = $(this).attr('data-post_id');
-    var input_comment = $(".comment_input").val().trim(); 
-
-    if (input_comment !== '') { 
-        input_comment = encodeURIComponent(input_comment);
-        $.ajax({
-            type: 'post',
-            url: '<?= base_url('comment_replay_send') ?>',
-            data: {
-                data_post_id: data_post_id,
-                input_comment: input_comment,
-            },
-            success: function(res) {
-                var result = JSON.parse(res);
-                // Hide the comment loader
-                $('.comment_loader').hide();
-              
-                if (result.response == "1") {
-                    $("#comment-modal .comment_btn_close").trigger("click");
-                    iziToast.success({
-                        title: 'Comment Successfully'
-                    });
-                } else {
-                    iziToast.error({
-                        title: 'Error',
-                        message: 'Failed to post comment: ' + result.error
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+                // alert();
+            var data_post_id = $(this).attr('data-post_id');
+            var input_comment = $(".comment_input").val().trim(); 
+            
+            // console.log('Input comment:', input_comment);// Trim any leading or trailing whitespace
+            if (input_comment !== '') { // Check if input_comment is not empty
+                // Encode input_comment as UTF-8
+                input_comment = encodeURIComponent(input_comment);
+                $.ajax({
+                    type: 'post',
+                    url: '<?= base_url('comment_replay_send') ?>',
+                    data: {
+                        data_post_id: data_post_id,
+                        input_comment: input_comment,
+                    },
+                    success: function(res) {
+                        var result = JSON.parse(res);
+                        // $('.loader').hide();
+                        if (result.response == "1") {
+                            $("#comment-modal .comment_btn_close").trigger("click");
+                            iziToast.success({
+                                title: 'Comment Successfully'
+                                // $('.loader').show();
+                            });
+                        } else {
+                            // Handle error response
+                            iziToast.error({
+                                title: 'Error',
+                                message: 'Failed to post comment: ' + result.error
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle AJAX error
+                        console.error(xhr.responseText);
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Failed to make AJAX request.'
+                        });
+                    }
+                });
+            } else {
+                // Handle empty input_comment
                 iziToast.error({
                     title: 'Error',
-                    message: 'Failed to make AJAX request.'
+                    message: 'Please enter a comment.'
                 });
             }
         });
-    } else {
-        iziToast.error({
-            title: 'Error',
-            message: 'Please enter a comment.'
-        });
-    }
-});
 
 
             $('body').on('click', '.add_buttonn', function() {

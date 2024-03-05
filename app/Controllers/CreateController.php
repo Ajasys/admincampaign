@@ -615,9 +615,10 @@ class CreateController extends BaseController
                                                     </div>
                                                     <div class="border rounded-3 input-group-sm col-11 d-flex" style = "background-color:#ededed;">
                                                         <input style = "background-color:#ededed;" type="text" value="" id="input_comment" class="comment_input form-control-sm p-2 w-100 border-0 " placeholder="Add comment...">
-                                                        <button class="btn btn-sm btn-link comment-send-btn comment_send d-flex align-items-center" data-post_id =' . $comment_value['id'] . '><div class="spinner-border text-primary mx-2 comment_loader" style=" width: 20px; height: 20px;" role="status">
+                                                        <button class="btn btn-sm btn-link comment-send-btn comment_send d-flex align-items-center" data-post_id =' . $comment_value['id'] . '>
                                                         <span class="visually-hidden" >Loading...</span>
-                                                      </div><i class="bi bi-send text-primary " data-bs-dismiss="modal" style="color: blue;"></i></button>
+                                                        <i class="bi bi-send text-primary " data-bs-dismiss="modal" style="color: blue;"></i>
+                                                      </div></button>
                         </div>
                                                    
                                                     
