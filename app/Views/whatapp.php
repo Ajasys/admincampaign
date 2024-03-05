@@ -650,7 +650,7 @@ if (!empty($connections)) {
                                         </li>
                                     </ul>       
                                 </li> -->
-                            <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle bg-body-secondary nav-item Tab1Class" role="presentation">
+                            <li class="col-12 d-flex my-2 flex-wrap active p-2 rounded-3 border border-light-subtle menu-toggle bg-body-secondary nav-item Tab1Class singletabactive" role="presentation">
                                 <div class="col-12 d-flex" DataStatus='1' data-table="exercise_type" data-bs-toggle="pill" data-bs-toggle="modal" data-bs-target="#pills-ex-single-tab" type="button" role="tab" aria-controls="#pills-ex-single-tab" aria-selected="true">
                                     <p>
                                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -1605,7 +1605,7 @@ if (!empty($connections)) {
                                         <div class="col-12 mb-3">
                                             <label for="form-memberships" class="main-label">Header</label>
                                             <div class="main-selectpicker">
-                                                <select class="selectpicker form-control main-control header_div HeaderSelectionDD Template_header1" id="Template_header" name="header" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
+                                                <select class="selectpicker form-control main-control  HeaderSelectionDD Template_header1" id="Template_header" name="header" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
                                                     <option class="dropdown-item" value="">Please Select Your Header
                                                         Type
                                                     </option>
@@ -1651,7 +1651,7 @@ if (!empty($connections)) {
                                         <div class="col-12 ">
                                             <label for="form-memberships" class="main-label">Button</label>
                                             <div class="main-selectpicker">
-                                                <select class="selectpicker form-control main-control ButtonSelctionDropDown header_div" id="Button_make_picker" name="Button" ng-model="selectedHeader" ng-change="handleHeaderChange()">
+                                                <select class="selectpicker form-control main-control ButtonSelctionDropDown " id="Button_make_picker" name="Button" ng-model="selectedHeader" ng-change="handleHeaderChange()">
                                                     <option class="dropdown-item" DataStaticId="1" value="">Please
                                                         Select
                                                         Button Type</option>
@@ -3346,7 +3346,7 @@ if (!empty($connections)) {
             $('.TemplateLanguageDDList').val('');
             $('.TemplateLanguageDDList').selectpicker('refresh');
             $('.HeaderSelectionDD').val('');
-            $('.HeaderSelectionDD').selectpicker('refresh');
+            // $('.HeaderSelectionDD').selectpicker('refresh');
             $('.ClassHeaderTEXT').val('');
             $('.TemplateBodyClass').val('');
             $('.FotterTextDIvClass').val('');
@@ -3360,6 +3360,8 @@ if (!empty($connections)) {
             $(".selectpicker-validation").removeClass("selectpicker-validation");
             $('.emptyname').hide();
             $('.CheckTemplateNameAlertPTag').hide();
+            $('.Add_editModelTitle').removeClass('d-none')
+
         });
         $('body').on('click', '.EditTemplateButtonClass', function() {
             $('.Add_editModelTitle').removeClass('d-none')
@@ -3404,7 +3406,7 @@ if (!empty($connections)) {
                             if (component.format) {
                                 headerformat = component.format;
                                 $('.HeaderSelectionDD').val(headerformat);
-                                $('.HeaderSelectionDD').selectpicker('refresh');
+                                // $('.HeaderSelectionDD').selectpicker('refresh');
                                 if (headerformat == 'TEXT') {
                                     $('.file_upload').addClass('d-none');
                                     $('.text-comment').removeClass('d-none');
@@ -3603,7 +3605,7 @@ if (!empty($connections)) {
                             if (component.format) {
                                 headerformat = component.format;
                                 $('.HeaderSelectionDD').val(headerformat);
-                                $('.HeaderSelectionDD').selectpicker('refresh');
+                                // $('.HeaderSelectionDD').selectpicker('refresh');
                                 if (headerformat == 'TEXT') {
                                     $('.file_upload').addClass('d-none');
                                     $('.text-comment').removeClass('d-none');

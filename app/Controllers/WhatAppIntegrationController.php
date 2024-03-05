@@ -3397,9 +3397,17 @@ $html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
             $appointment_date = $row->appointment_date;
             $dob = $row->dob;
 
+            $product_Name = '';
+            if ($intrested_product == 1) {
+                $product_Name = 'Realtosmart';
+            } elseif ($intrested_product == 2) {
+                $product_Name = 'Gymsmart';
+            } elseif ($intrested_product == 3) {
+                $product_Name = 'Leam Management';
+            }
             $placeholders = array(
                 '{{Name}}' => $name,
-                '{{product_Name}}' => $intrested_product,
+                '{{product_Name}}' => $product_Name,
                 '{{Appointment_date}}' => $appointment_date,
                 '{{date_of_birth}}' => $dob,
                 '{{Anniversary_date}}' => $anni_date,
