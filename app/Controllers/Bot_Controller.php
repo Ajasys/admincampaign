@@ -722,6 +722,7 @@ class Bot_Controller extends BaseController
 	}
 
 
+	//bot question delete
 	public function bot_question_delete_data()
 	{
 		$delete_id = $this->request->getPost('id');
@@ -742,6 +743,53 @@ class Bot_Controller extends BaseController
 		echo $response;
 		die();
 	}
+
+
+	//delete perticular option value
+	public function bot_particular_option_delete()
+	{
+		$delete_id = $this->request->getPost('id');
+		$option_value = $this->request->getPost('option_value');
+		$table = $this->request->getPost('table');
+
+		$json_data = $this->MasterInformationModel->get_json_data($delete_id);
+
+		$data = json_decode($json_data, true);
+
+		// for single_choice_option_value field
+		if (isset($data['single_choice_option_value'])) {
+			foreach ($data['single_choice_option_value'] as $key => $value) {
+				if ($value['option'] === $option_value) {
+					unset($data['single_choice_option_value'][$key]);
+					$data['single_choice_option_value'] = array_values($data['single_choice_option_value']);
+					break; 
+				}
+			}
+		}
+
+		// for options field
+		if (isset($data['options'])) {
+			$optionsArray = explode(';', $data['options']);
+			foreach ($optionsArray as $key => $value) {
+				if ($value === $option_value) {
+					unset($optionsArray[$key]);
+					$data['options'] = implode(';', $optionsArray);
+					break; 
+				}
+			}
+		}
+
+		$updated_json_data = json_encode($data);
+		$success = $this->MasterInformationModel->update_entry_bot2($delete_id, $updated_json_data, $table);
+		
+		if ($success) {
+			
+		} else {
+			
+		}
+	}
+
+
 
 
 	//bot list question

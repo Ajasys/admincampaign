@@ -2598,8 +2598,7 @@ option {
                 </form>
             </div>
 
-            <div class="cart_summry_html">
-
+            <div class="rating_question_html"> 
             </div>
             <!-- Conditional Flow -->
             <!-- <div class="model-body2 p-3">
@@ -4348,9 +4347,13 @@ option {
 
                                     var optionsValue = item.option;
                                     // var subflowvalue = item.sub-flow;
-                                    // console.log(subflowvalue);
+                                    // console.log(optionsValue);
                                     var sub_flow_value = item.sub_flow;
-                                    // console.log(sub_flow_value);
+                                    
+                                    var bot_id = '<?php echo $botId; ?>';
+
+                                    $sub_flow_value = item.sub_flow;
+                                    // console.log($sub_flow_value);
 
                                     var row_numbers = index === 0 ? '' : index;
                                     var main_table_html =
@@ -4360,12 +4363,11 @@ option {
                                         '</td>' +
                                         '<td class="col-3">' +
                                         '<select class="form-select bot_idd_append ' + (row_numbers ? '' : 'bot_idd') + '" ' + (row_numbers ? 'id="bot_idd_append_' + row_numbers + '"' : '') + ' aria-label="Default select example" id="bot_idd">' +
-                                        '<option selected>Main Flow</option>';
-                                    <?php
-                                    if (isset($admin_bot)) {
-                                        foreach ($admin_bot as $key_bot => $value_bot) {
-                                            $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
-
+                                        '<option selected>Main Flow</option>';                                       
+                                    <?php                                    
+                                    if (isset($admin_bot)) {                                                                            
+                                        foreach ($admin_bot as $key_bot => $value_bot) {                                                                                       
+                                            $selected = ($value_bot["id"] == $botId) ? 'selected' : '';                                          
                                             echo 'main_table_html += \'<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>\';';
                                         }
                                     }
@@ -4401,7 +4403,7 @@ option {
                                         '</div>' +
                                         '</td>' +
                                         '<td class="col-2">' +
-                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                        '<button type="button" class="btn btn-danger multiple-remove-btn" data-questinid="'+edit_value+'"  data-option="'+optionsValue+'">' +
                                         '<i class="fa fa-trash cursor-pointer"></i>' +
                                         '</button>' +
                                         '</td>' +
@@ -4496,8 +4498,12 @@ option {
                         if (type_of_question == 4) {
                             if (menu_message.options != "") {
                                 var optionsArray = menu_message.options.split(';');
+
                                 $(".multiple_main-plan").remove();
                                 optionsArray.forEach(function(option, index) {
+                                    var optionValue = optionsArray[index];
+
+                                    console.log(optionValue);
                                     var row_numbers = index === 0 ? '' : $('.multiple_main-plan').length;
                                     var main_table_html =
                                         '<tr class="col-12 multiple_main-plan">' +
@@ -4505,7 +4511,7 @@ option {
                                         '<input type="text" class="form-control multiple_choice_options' + (row_numbers ? '_' + row_numbers : '') + '" placeholder="Enter the option" value="' + option + '">' +
                                         '</td>' +
                                         '<td class="col-2">' +
-                                        '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                        '<button type="button" class="btn btn-danger multiple-remove-btn" data-questinid="'+edit_value+'"  data-option="'+optionValue+'">' +
                                         '<i class="fa fa-trash cursor-pointer"></i>' +
                                         '</button>' +
                                         '</td>' +
@@ -5615,7 +5621,6 @@ option {
                     } else {
                         $(".OccupationInputClass").val(response[0].next_questions);
                     }
-
                     
                     if (response[0].next_bot_id == 0) {
                         $(".dropdown-item").hide(); 
@@ -5634,17 +5639,19 @@ option {
                     // }
 
                     $('.selectpicker').selectpicker('refresh');
-
-                    if (type_of_question == 1 || type_of_question == 3 || type_of_question == 4 || type_of_question == 5 || type_of_question == 6 || type_of_question == 7 || type_of_question == 8 || type_of_question == 9 || type_of_question == 10 || type_of_question == 11 || type_of_question == 12 || type_of_question == 13 || type_of_question == 14 || type_of_question == 15 || type_of_question == 16 || 
+                    
+                    if (type_of_question == 1 || type_of_question == 3 || type_of_question == 4 || type_of_question == 5 || type_of_question == 6 || type_of_question == 8 || type_of_question == 9 || type_of_question == 10 || type_of_question == 11 || type_of_question == 12 || type_of_question == 13 || type_of_question == 14 || type_of_question == 15 || type_of_question == 16 || 
                     type_of_question == 17 || type_of_question == 18 || type_of_question == 19 || type_of_question == 20 || type_of_question == 21 || type_of_question == 22 || type_of_question == 23 || type_of_question == 24 || type_of_question == 25 || type_of_question == 26 || type_of_question == 27 || type_of_question == 28 || type_of_question == 29 || type_of_question == 30 || type_of_question == 31 ||
                     type_of_question == 32 || type_of_question == 33 || type_of_question == 34 || type_of_question == 35 || type_of_question == 36 || type_of_question == 37 || type_of_question == 38 || type_of_question == 39 || type_of_question == 41 || type_of_question == 43 || type_of_question == 44 || type_of_question == 45 || type_of_question == 46 || type_of_question == 47) {
                         $(".conditional_flow_single").hide();
+                        $(".rating_question_html").hide();
                         $(".conditional_flow_single_hide").show();
                     }
-                   
+                    console.log(type_of_question);
                     var menu_message = response[0].menu_message;
                     if (type_of_question == 2 || type_of_question == 40 || type_of_question == 42) {
                         $(".conditional_flow_single_hide").hide();
+                        $(".rating_question_html").hide();
                         $(".conditional_flow_single").show();
                         var menu_message = JSON.parse(response[0].menu_message);
                         var next_questions = response[0].next_questions;
@@ -5713,7 +5720,7 @@ option {
                                     '</div>' +
                                     '</td>' +
                                     '<td class="col-2">' +
-                                    '<button type="button" class="btn btn-danger multiple-remove-btn">' +
+                                    '<button type="button" class="btn btn-danger multiple-remove-btn" data-questinid="'+edit_value+'"  data-option="'+optionsValue+'">' +
                                     '<i class="fa fa-trash cursor-pointer"></i>' +
                                     '</button>' +
                                     '</td>' +
@@ -5721,13 +5728,222 @@ option {
 
                                 $(".conditional_flow_single").append(main_table_html);
                             });
-                        } else {
-                            // $(".is_strict_validation").prop("checked", false);
-                        }
-
+                        } 
+                       
                     }
 
+                    if (type_of_question == 7) {
+                            $(".conditional_flow_single").hide();
+                            $(".conditional_flow_single_hide").hide();
+                            $(".rating_question_html").show();
+                            var ratingquetions_html = `
+                                <div class="col-12 d-flex flex-wrap my-3">
+                                    <table class="table w-100 col-12">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Options</th>
+                                                <th scope="col">Sub-Flow</th>
+                                                <th scope="col">Jump To</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="">
+                                            <tr class="col-12">
+                                                <td class="col-4">
+                                                    <input type="text" class="form-control terrible" id="" placeholder="" value="Terrible">
+                                                </td>
+                                                <td class="col-3">
+                                                    <select class="form-select bot_idd_append" aria-label="Default select example bot_idd_append">
+                                                        <option value="1">Main-flow</option>
+                                                        <?php
+                                                        if (isset($admin_bot)) {
+                                                            foreach ($admin_bot as $key_bot => $value_bot) {
+                                                                $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                                echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <td class="col-4 bot_quotation_list">
+                                                    <select class="form-select bot_quotation_list question_select_1" aria-label="Default select example">
+                                                        <option selected>No Jump</option>
+                            
+                                                        <?php
+                                                        if (isset($admin_bot_setup)) {
+                                                            foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                                // pre($type_value);
 
+                                                                if ($type_value['bot_id'] == $botId) {
+
+                                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="col-12">
+                                                <td class="col-4">
+                                                    <input type="text" class="form-control bad" id="" placeholder="" value="Bad">
+                                                </td>
+                                                <td class="col-3">
+                                                    <select class="form-select bot_idd_append" aria-label="Default select example bot_idd_append">
+                                                        <option value="1">Main-flow</option>
+                                                        <?php
+                                                        if (isset($admin_bot)) {
+                                                            foreach ($admin_bot as $key_bot => $value_bot) {
+                                                                $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                                echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <td class="col-4 bot_quotation_list">
+                                                    <select class="form-select bot_quotation_list question_select_2" aria-label="Default select example">
+                                                        <option selected>No Jump</option>
+                            
+                                                        <?php
+                                                        if (isset($admin_bot_setup)) {
+                                                            foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                                // pre($type_value);
+
+                                                                if ($type_value['bot_id'] == $botId) {
+
+                                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="col-12">
+                                                <td class="col-4">
+                                                    <input type="text" class="form-control okay" id="" placeholder="" value="Okay">
+                                                </td>
+                                                <td class="col-3">
+                                                    <select class="form-select bot_idd_append" aria-label="Default select example bot_idd_append">
+                                                        <option value="1">Main-flow</option>
+                                                        <?php
+                                                        if (isset($admin_bot)) {
+                                                            foreach ($admin_bot as $key_bot => $value_bot) {
+                                                                $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                                echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <td class="col-4 bot_quotation_list">
+                                                    <select class="form-select bot_quotation_list question_select_3" aria-label="Default select example">
+                                                        <option selected>No Jump</option>
+                            
+                                                        <?php
+                                                        if (isset($admin_bot_setup)) {
+                                                            foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                                // pre($type_value);
+
+                                                                if ($type_value['bot_id'] == $botId) {
+
+                                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="col-12">
+                                                <td class="col-4">
+                                                    <input type="text" class="form-control good" id="" placeholder="" value="Good">
+                                                </td>
+                                                <td class="col-3">
+                                                    <select class="form-select bot_idd_append" aria-label="Default select example bot_idd_append">
+                                                        <option value="1">Main-flow</option>
+                                                        <?php
+                                                        if (isset($admin_bot)) {
+                                                            foreach ($admin_bot as $key_bot => $value_bot) {
+                                                                $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                                echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <td class="col-4 bot_quotation_list">
+                                                    <select class="form-select bot_quotation_list question_select_4" aria-label="Default select example">
+                                                        <option selected>No Jump</option>
+                            
+                                                        <?php
+                                                        if (isset($admin_bot_setup)) {
+                                                            foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                                // pre($type_value);
+
+                                                                if ($type_value['bot_id'] == $botId) {
+
+                                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="col-12">
+                                                <td class="col-4">
+                                                    <input type="text" class="form-control great" id="" placeholder="" value="Great">
+                                                </td>
+                                                <td class="col-3">
+                                                    <select class="form-select bot_idd_append" name="bot_list[5]" aria-label="Default select example bot_idd_append">
+                                                        <option value="1">Main-flow</option>
+                                                        <?php
+                                                        if (isset($admin_bot)) {
+                                                            foreach ($admin_bot as $key_bot => $value_bot) {
+                                                                $selected = ($value_bot["id"] == $botId) ? 'selected' : '';
+                                                                echo '<option value="' . $value_bot["id"] . '" ' . $selected . '>' . $value_bot["name"] . '</option>';
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <td class="col-4 bot_quotation_list">
+                                                    <select class="form-select bot_quotation_list question_select_5" aria-label="Default select example">
+                                                        <option selected>No Jump</option>
+                            
+                                                        <?php
+                                                        if (isset($admin_bot_setup)) {
+                                                            foreach ($admin_bot_setup as $type_key => $type_value) {
+                                                                // pre($type_value);
+
+                                                                if ($type_value['bot_id'] == $botId) {
+
+                                                                    echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>`;
+                        $(".rating_question_html").html(ratingquetions_html);
+                        console.log(ratingquetions_html);
+                    }
+
+                    
                 },
 
                 error: function(error) {
@@ -5938,6 +6154,62 @@ option {
             },
         });
     });
+
+
+    //delete perticular option value
+    // $('body').on('click', '.question_delete', function() {
+    //     var questionId = $(this).data('question');
+      
+    //     var bot_id = '<?php echo $botId; ?>';
+        
+    //     $.ajax({
+    //         method: "post",
+    //         url: "<?= site_url('bot_question_delete_data'); ?>",
+    //         data: {
+    //             action: 'delete',
+    //             id: questionId,
+    //             table: table,
+    //             bot_id: bot_id
+    //         },
+    //         success: function(data) {
+    //             iziToast.error({
+    //                 title: 'Deleted Successfully'
+    //             });
+    //             $(".close_btn").trigger("click");
+    //             bot_list_data();
+    //         }
+    //     });
+
+    // });
+
+
+    $('body').on('click', '.multiple-remove-btn', function() {
+        var questionId = $(this).data('questinid');
+        var optionValueToDelete = $(this).data('option'); 
+
+        var bot_id = '<?php echo $botId; ?>';
+        var table = '<?php echo getMasterUsername2(); ?>_bot_setup';
+
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('bot_particular_option_delete'); ?>",
+            data: {
+                action: 'delete',
+                id: questionId,
+                table: table,
+                bot_id: bot_id,
+                option_value: optionValueToDelete 
+            },
+            success: function(data) {
+                iziToast.error({
+                    title: 'Deleted Successfully'
+                });
+                $(".close_btn").trigger("click");
+                bot_list_data();
+            }
+        });
+    });
+
 
 
     //delete question
@@ -7906,7 +8178,7 @@ option {
                                 <input type="text" class="form-control submit_button" id="formGroupExampleInput" value="Submit" placeholder="Submit" disabled>
                             </div>
                             <div class="col-3">
-                                <select class="form-select bot_idd submit_button_flow" aria-label="Default select example">
+                                <select class="form-select bot_idd add_more_button_flow submit_button_flow" aria-label="Default select example">
                        
                                         <?php
                                             if (isset($admin_bot)) {

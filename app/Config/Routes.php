@@ -551,6 +551,8 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 	$routes->post('duplicate_Question', 'Bot_Controller::duplicate_Question');
 	$routes->post('bot_delete_data', 'Bot_Controller::bot_delete_data');
 	$routes->post('bot_question_delete_data', 'Bot_Controller::bot_question_delete_data');
+	$routes->post('bot_particular_option_delete', 'Bot_Controller::bot_particular_option_delete');
+
 	$routes->post('update_sequence', 'Bot_Controller::update_sequence');
 	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');

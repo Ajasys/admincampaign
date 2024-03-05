@@ -197,7 +197,36 @@ class MasterInformationModel extends Model
         return $result;
 
     }
-  
+    
+
+    public function get_json_data($delete_id)
+    {
+        $db = \Config\Database::connect('second');
+
+        $query = $db->table('admin_bot_setup')
+                    ->select('menu_message')
+                    ->where('id', $delete_id)
+                    ->get();
+        if ($query->getResult()) {
+            $row = $query->getRowArray();
+            return $row['menu_message'];
+        } else {
+            return null;
+        }
+    }
+
+    public function update_entry_bot2($id, $data, $tablename)
+    {
+        $secondDb = \Config\Database::connect('second');
+        $result = $secondDb
+            ->table($tablename)
+            ->where(["id" => $id])
+            ->set('menu_message', $data) 
+            ->update();
+    
+        return $result;
+    }
+
     public function update_entry_by_name($name, $data, $tablename)
     {
         $secondDb = \Config\Database::connect('second');
