@@ -225,90 +225,90 @@ class AudianceController extends BaseController
         }
     }
 
-    public function audience_list_data()
-    {
-        $table_name = $_POST["table"];
-        $username = session_username($_SESSION["username"]);
-        $action = $_POST["action"];
-        $i = 1;
-        $html = "";
-        $departmentdisplaydata = $this->MasterInformationModel->display_all_records2(
-            $username . "_" . $table_name
-        );
-        $departmentdisplaydata = json_decode($departmentdisplaydata, true);
-        $sql2 =
-            "SELECT COUNT(*) as sub_count, name FROM " . $this->username . "_audience GROUP BY name";
-        $user_db_connection = \Config\Database::connect("second");
-        $sql_run = $user_db_connection->query($sql2);
-        $paydone_data_get = $sql_run->getResultArray();
-        $uniqueCombinations = [];
-        foreach ($departmentdisplaydata as $key => $value) {
-            $combination =
-                $value["name"] .
-                "-" .
-                $value["inquiry_status"] .
-                "-" .
-                $value["retansion"] .
-                "-" .
-                $value["source"] .
-                "-" .
-                $value["is_status_active"];
+    // public function audience_list_data()
+    // {
+    //     $table_name = $_POST["table"];
+    //     $username = session_username($_SESSION["username"]);
+    //     $action = $_POST["action"];
+    //     $i = 1;
+    //     $html = "";
+    //     $departmentdisplaydata = $this->MasterInformationModel->display_all_records2(
+    //         $username . "_" . $table_name
+    //     );
+    //     $departmentdisplaydata = json_decode($departmentdisplaydata, true);
+    //     $sql2 =
+    //         "SELECT COUNT(*) as sub_count, name FROM " . $this->username . "_audience GROUP BY name";
+    //     $user_db_connection = \Config\Database::connect("second");
+    //     $sql_run = $user_db_connection->query($sql2);
+    //     $paydone_data_get = $sql_run->getResultArray();
+    //     $uniqueCombinations = [];
+    //     foreach ($departmentdisplaydata as $key => $value) {
+    //         $combination =
+    //             $value["name"] .
+    //             "-" .
+    //             $value["inquiry_status"] .
+    //             "-" .
+    //             $value["retansion"] .
+    //             "-" .
+    //             $value["source"] .
+    //             "-" .
+    //             $value["is_status_active"];
 
-            // Skip if the current row's combination has already been encountered
-            if (in_array($combination, $uniqueCombinations)) {
-                continue; // Skip this row if it's a duplicate combination
-            }
+    //         // Skip if the current row's combination has already been encountered
+    //         if (in_array($combination, $uniqueCombinations)) {
+    //             continue; // Skip this row if it's a duplicate combination
+    //         }
 
-            // Check if the value of facebook_syncro is 0
-            if ($value["facebook_syncro"] == 0) {
-                $ts = "";
-                $ts .=
-                    '<tr class="audiance_view audiance_show_data cursor-pinter" data-view_id="' .
-                    $value["id"] .
-                    '"data-edit_id="' .
-                    $value["id"] .
-                    '">
-                    <td><img src="https://ajasys.com/img/favicon.png" style="width:15px;height:15px;"></td>
-                        <td class="p-1 text-nowrap"> ' .
-                    $value["name"] .
-                    '</td>
-                        <td class="p-1 text-nowrap">' .
-                    $value["source"] .
-                    "</td>";
+    //         // Check if the value of facebook_syncro is 0
+    //         if ($value["facebook_syncro"] == 0) {
+    //             $ts = "";
+    //             $ts .=
+    //                 '<tr class="audiance_view audiance_show_data cursor-pinter" data-view_id="' .
+    //                 $value["id"] .
+    //                 '"data-edit_id="' .
+    //                 $value["id"] .
+    //                 '">
+    //                 <td><img src="https://ajasys.com/img/favicon.png" style="width:15px;height:15px;"></td>
+    //                     <td class="p-1 text-nowrap"> ' .
+    //                 $value["name"] .
+    //                 '</td>
+    //                     <td class="p-1 text-nowrap">' .
+    //                 $value["source"] .
+    //                 "</td>";
 
-                // Iterate through the results of the SQL query to match the inquiry_status
-                foreach ($paydone_data_get as $status) {
-                    if ($value["name"] == $status["name"]) {
-                        $ts .= "<td>" . $status["sub_count"] . "</td>";
-                        break; // Once the match is found, break out of the loop
-                    }
-                }
+    //             // Iterate through the results of the SQL query to match the inquiry_status
+    //             foreach ($paydone_data_get as $status) {
+    //                 if ($value["name"] == $status["name"]) {
+    //                     $ts .= "<td>" . $status["sub_count"] . "</td>";
+    //                     break; // Once the match is found, break out of the loop
+    //                 }
+    //             }
 
-                $ts .=
-                    '<td class="p-1 text-nowrap fs-12"><span class=" text-muted d-block">Last Edited</span>' .
-                    date("d-m-Y H:i", strtotime($value["updated_at"])) .
-                    '</td>
-                    <td class="p-1 text-nowrap"> ' .
-                    date("d-m-Y H:i", strtotime($value["created_at"])) .
-                    '</td>
-                    <td class="p-1 text-nowrap"> </td>
-                ';
-                $ts .= "</tr>";
-                $html .= $ts;
-            }
+    //             $ts .=
+    //                 '<td class="p-1 text-nowrap fs-12"><span class=" text-muted d-block">Last Edited</span>' .
+    //                 date("d-m-Y H:i", strtotime($value["updated_at"])) .
+    //                 '</td>
+    //                 <td class="p-1 text-nowrap"> ' .
+    //                 date("d-m-Y H:i", strtotime($value["created_at"])) .
+    //                 '</td>
+    //                 <td class="p-1 text-nowrap"> </td>
+    //             ';
+    //             $ts .= "</tr>";
+    //             $html .= $ts;
+    //         }
 
-            // Add the current combination to the list of encountered combinations
-            $uniqueCombinations[] = $combination;
+    //         // Add the current combination to the list of encountered combinations
+    //         $uniqueCombinations[] = $combination;
 
-            $i++;
-        }
+    //         $i++;
+    //     }
 
-        if (!empty($html)) {
-            echo $html;
-        } else {
-            echo '<p style="text-align:center;">Data Not Found </p>';
-        }
-    }
+    //     if (!empty($html)) {
+    //         echo $html;
+    //     } else {
+    //         echo '<p style="text-align:center;">Data Not Found </p>';
+    //     }
+    // }
 
     public function updateSyncStatus($audience_name)
     {
@@ -1077,6 +1077,8 @@ class AudianceController extends BaseController
         $source = $_POST["source"];
         $facebook_syncro = $_POST["facebook_syncro"];
         $pages_name = $_POST["pages_name"];
+        // pre($pages_name);
+        // die();
         $currentDateTime = date("Y-m-d H:i:s");
         if (isset($_FILES["import_file"])) {
             if ($_FILES["import_file"]["error"] === UPLOAD_ERR_OK) {
@@ -1330,7 +1332,7 @@ class AudianceController extends BaseController
                 
                 // Define the schema
                 $schema = ["EMAIL", "DATA_PROCESSING_OPTIONS"];
-                $selected_page_id = $_POST['pages_name'];
+                $selected_page_id = $pages_name;
                 // Define the payload data
                 $usersPostData = [
                     "schema" => $schema,

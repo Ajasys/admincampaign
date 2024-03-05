@@ -3,6 +3,7 @@
 <?php
 $admin_product = json_decode($admin_product, true);
 $master_inquiry_status = json_decode($master_inquiry_status, true);
+$platform_assets = json_decode($platform_assets, true);
 ?>
 <?php
 $username = session_username($_SESSION['username']);
@@ -97,12 +98,12 @@ $get_facebook_page = $result->getResultArray();
                <div class="main-selectpicker fs-12">
                   <select class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12">
                      <?php
-                     // if (isset($get_facebook_page) && !empty($get_facebook_page)) {
-                     //    foreach ($get_facebook_page as $key => $value) {
-                     //       echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
-                     //            ' . $value['fb_app_name'] . '</option>';
-                     //    }
-                     // }
+                     if (isset($get_facebook_page) && !empty($get_facebook_page)) {
+                        foreach ($get_facebook_page as $key => $value) {
+                           echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
+                                ' . $value['fb_app_name'] . '</option>';
+                        }
+                     }
                      ?>
                   </select>
                </div>
@@ -433,16 +434,12 @@ $get_facebook_page = $result->getResultArray();
                               name="pages_name">
                               <option value="0">Select pages</option>
                               <?php
-                              $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
-                              $fb_page_list = fb_page_list($token);
-                              $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                              $i = 0;
-                              foreach ($fb_page_list['page_list'] as $key => $value) {
-                                 ?>
-                                 <option value="<?php echo $value->id; ?>">
-                                    <?php echo $value->name; ?>
-                                 </option>
-                              <?php } ?>
+                              if (isset($platform_assets)) {
+                                    foreach ($platform_assets as $type_key => $type_value) {
+                                       echo '<option class="dropdown-item" value="' . $type_value["asset_id"] . '">' . $type_value["name"] . '</option>';
+                                    }
+                                 }
+                              ?>
                            </select>
                         </div>
                      </div>
@@ -487,16 +484,12 @@ $get_facebook_page = $result->getResultArray();
                                     name="pages_name">
                                     <option value="0">Select pages</option>
                                     <?php
-                                    $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
-                                    $fb_page_list = fb_page_list($token);
-                                    $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                                    $i = 0;
-                                    foreach ($fb_page_list['page_list'] as $key => $value) {
-                                       ?>
-                                       <option value="<?php echo $value->id; ?>">
-                                          <?php echo $value->name; ?>
-                                       </option>
-                                    <?php } ?>
+                                    if (isset($platform_assets)) {
+                                       foreach ($platform_assets as $type_key => $type_value) {
+                                          echo '<option class="dropdown-item" value="' . $type_value["asset_id"] . '">' . $type_value["name"] . '</option>';
+                                       }
+                                    }
+                                 ?>
                                  </select>
                               </div>
                            </div>
@@ -613,7 +606,7 @@ $get_facebook_page = $result->getResultArray();
             <p id="active" class="fs-14">Changing your customer list custom audience will also update any ad sets or
                lookalike audiences that use it. This won't reset your campaign learning phase.
             </p>
-            <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+            <!-- <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
                <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
                      class="fa-regular fa-circle-user fs-1"></i></div>
                <div class="mt-2 write-div">
@@ -622,9 +615,9 @@ $get_facebook_page = $result->getResultArray();
                      audience.
                   </div>
                </div>
-            </div>
+            </div> -->
             <!----add customer--->
-            <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+            <!-- <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
                <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
                      class="fa-solid fa-circle-plus fs-1"></i></div>
                <div class="mt-2 write-div">
@@ -633,9 +626,9 @@ $get_facebook_page = $result->getResultArray();
                      audience.
                   </div>
                </div>
-            </div>
+            </div> -->
             <!---------remove customer-------------->
-            <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+            <!-- <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
                <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
                      class="fa-solid fa-circle-minus fs-1"></i></div>
                <div class="mt-2 write-div">
@@ -644,7 +637,7 @@ $get_facebook_page = $result->getResultArray();
                      audience.
                   </div>
                </div>
-            </div>
+            </div> -->
             <!-------- edit audience name---------->
             <form class="needs-validation" name="audience_edit" method="POST" novalidate="">
                <div class="fw-bold mt-4">Edit audience name</div>
@@ -655,7 +648,7 @@ $get_facebook_page = $result->getResultArray();
                      <span class="input-group-text bg-transparent">13/50</span>
                   </div>
                </div>
-               <div class="col-12 mt-3">
+               <!-- <div class="col-12 mt-3">
                   <div class="main-selectpicker">
                      <div class="fw-bold mt-4">Edit inquiry audience<sup class="validationn">*</sup></div>
                      <div class="col-12 d-flex align-items-center">
@@ -673,7 +666,7 @@ $get_facebook_page = $result->getResultArray();
                         </div>
                      </div>
                   </div>
-               </div>
+               </div> -->
                <!--Facebook Synchronize-->
                <!-- <div class="col-12 mt-3">
                   <div class="main-selectpicker">
@@ -764,7 +757,7 @@ $get_facebook_page = $result->getResultArray();
    }
 
    // Call both functions when the page loads
-   list_dataa();
+   list_data();
 
 
 

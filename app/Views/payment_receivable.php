@@ -3,11 +3,13 @@
 
 
 <style>
-
+::-webkit-scrollbar {
+    height: 5px;
+}
 </style>
 
 <div class="main-dashbord p-2">
-    <div class="container-fluid">
+    <div class="container-fluid" >
         <div class="row m-0">
             <div class="col-xl-12 d-flex justify-content-between">
                 <div class="user-icon d-flex align-items-center">
@@ -25,8 +27,8 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white shadow rounded-2 p-3 mt-3 payment-calender">
-            <div id="calendar"></div>
+        <div class="bg-white shadow rounded-2 p-3 mt-3 payment-calender" style="overflow:auto;">
+            <div id="calendar" style="min-width:550px;"></div>
         </div>
     </div>
 </div>

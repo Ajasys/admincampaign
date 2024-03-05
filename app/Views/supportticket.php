@@ -3,7 +3,6 @@
 <?= $this->include('partials/sidebar') ?>
 
 <style>
-
      .cursor-pointer {
 
           cursor: pointer;
@@ -229,7 +228,6 @@
           border-radius: 6px;
 
      }
-
 </style>
 
 <div class="main-dashbord p-2">
@@ -248,29 +246,25 @@
 
           </div> -->
 
-          <div class="col-12 p-2" style="height: calc(100vh - 187.5px);">
+          <div class="col-12 p-2" style="max-height:590px;">
 
                <div class="chat-outer-main bg-white rounded-2 border overflow-hidden h-100">
 
                     <div class="row flex-nowrap m-0 overflow-hidden h-100">
 
-                         <div class="col-12 col-lg-4 border-end px-3" id="chat_nav_search_bar">
+                         <div class="col-12 col-md-4 border-end px-3" id="chat_nav_search_bar">
 
                               <div class="chat-nav-search-bar p-3 border-bottom">
 
-                                   <div class="d-flex justify-content-between align-items-center">
+                                   <div class="d-flex flex-wrap justify-content-between align-items-center">
 
-                                        <div class="d-flex align-items-center">
+                                        <div class="d-flex align-items-center col-12 col-sm-7 mx-2 col-md-12 col-lg-7">
 
                                              <div class="dropdown">
 
-                                                  <div class="chat-main-user d-flex justify-content-center align-items-center bg-opacity-75 bg-dark    rounded-circle cursor-pointer"
+                                                  <div class="chat-main-user d-flex justify-content-center align-items-center bg-opacity-75 bg-dark    rounded-circle cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                                       data-bs-toggle="dropdown" aria-expanded="false">
-
-                                                       <img src="https://admin.realtosmart.com/assets/images/chat-user.svg"
-
-                                                            alt="" class="">
+                                                       <img src="https://admin.realtosmart.com/assets/images/chat-user.svg" alt="" class="">
 
                                                   </div>
 
@@ -278,15 +272,11 @@
 
                                              <div class="chat-nav-search position-relative ms-3">
 
-                                                       <input type="search" name="" id="searchbar"
+                                                  <input type="search" name="" id="searchbar" class="form-control border rounded-pill py-1 pe-1 lh-lg text-body-secondary serchbar_div" placeholder="Search a member" aria-controls="DataTables_Table_0">
 
-                                                            class="form-control border rounded-pill py-1 pe-1 lh-lg text-body-secondary serchbar_div"
+                                                  <i class="bi bi-search position-absolute top-50 translate-middle"></i>
 
-                                                            placeholder="Search a member" aria-controls="DataTables_Table_0" >
-
-                                                       <i class="bi bi-search position-absolute top-50 translate-middle"></i>
-
-                                                  </div>
+                                             </div>
 
                                         </div>
 
@@ -294,15 +284,11 @@
 
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-12 col-sm-4 col-md-12 col-lg-4 mt-2">
 
                                              <div class="main-selectpicker w-100">
 
-                                                  <select name="" id=""
-
-                                                       class="selectpicker form-control form-main ticket_status_div1"
-
-                                                       required="" tabindex="-98">
+                                                  <select name="" id="" class="selectpicker form-control form-main ticket_status_div1" required="" tabindex="-98">
 
                                                        <option value="" class="ticket_status_div" selected>All Ticket
 
@@ -340,37 +326,27 @@
 
                          </div>
 
-                         <div class="col-12 col-lg-8 chat-inner-box-img p-0 overflow-hidden" id="main_chat_inner_box">
+                         <div class="col-12 col-md-8 chat-inner-box-img p-0 overflow-hidden" id="main_chat_inner_box">
 
-                              <div class="main-chat-inner-box d-flex justify-content-between flex-column h-100">
+                              <div class="main-chat-inner-box d-flex justify-content-between flex-column h-100 col-12">
 
-                                   <div class="col-12 main-chat-header p-3 bg-white shadow-sm header_of_chat_div"
+                                   <div class="col-12 main-chat-header p-3 bg-white shadow-sm header_of_chat_div" style="display:none">
 
-                                        style="display:none">
+                                        <div class="d-flex justify-content-star align-items-center flex-wrap">
 
-                                        <div class="d-flex justify-content-star align-items-center">
-
-                                             <i class="bi bi-arrow-left me-2 fs-6 cursor-pointer d-lg-none d-block"
-
-                                                  id="back_to_user_chat"></i>
+                                             <i class="bi bi-arrow-left me-2 fs-6 cursor-pointer d-lg-none d-block" id="back_to_user_chat"></i>
 
                                              <div class="dropdown">
 
-                                                  <div class="chat-main-user d-flex justify-content-center align-items-center bg-opacity-75 bg-secondary rounded-circle  cursor-pointer"
+                                                  <div class="chat-main-user d-flex justify-content-center align-items-center bg-opacity-75 bg-secondary rounded-circle  cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                                       data-bs-toggle="dropdown" aria-expanded="false">
-
-                                                       <img src="http://localhost/RealtoSmartDev/assets/images/user_profile_pic/noprofile.jpg"
-
-                                                            alt="" class="chatbox_profile_div rounded-circle">
+                                                       <img src="http://localhost/RealtoSmartDev/assets/images/user_profile_pic/noprofile.jpg" alt="" class="chatbox_profile_div rounded-circle">
 
                                                   </div>
 
                                                   <div class="dropdown-menu p-2">
 
-                                                       <img src="http://localhost/RealtoSmartDev/assets/images/user_profile_pic/noprofile.jpg"
-
-                                                            alt="" class="w-100 chatbox_profile_div">
+                                                       <img src="http://localhost/RealtoSmartDev/assets/images/user_profile_pic/noprofile.jpg" alt="" class="w-100 chatbox_profile_div">
 
                                                   </div>
 
@@ -386,31 +362,21 @@
 
                                              <div class="dropdown ms-auto file-drop">
 
-                                                  <button class="btn-primary me-2 go_status_change_btn" chat_id=""
+                                                  <button class="btn-primary me-2 go_status_change_btn" chat_id="" data_status="">Ticket-Closed</button>
 
-                                                       data_status="">Ticket-Closed</button>
-
-                                                  <a href="#" role="button" data-bs-toggle="dropdown"
-
-                                                       data-bs-auto-close="outside" aria-expanded="false">
+                                                  <a href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
 
                                                        <i class="bi bi-link-45deg text-dark"></i>
 
                                                   </a>
 
-                                                  <ul class="dropdown-menu py-2 px-3 attachment_display_div"
-
-                                                       style="width: 300px;">
+                                                  <ul class="dropdown-menu py-2 px-3 attachment_display_div" style="width: 300px;">
 
                                                        <li class="m-2">
 
-                                                            <div
+                                                            <div class="pgf-attach-main bg-light rounded-2 px-3 py-2 cursor-pointer">
 
-                                                                 class="pgf-attach-main bg-light rounded-2 px-3 py-2 cursor-pointer">
-
-                                                                 <p class="fw-medium text-nowrap" href=""
-
-                                                                      data-file-name=""> No Any Attchment</p>
+                                                                 <p class="fw-medium text-nowrap" href="" data-file-name=""> No Any Attchment</p>
 
                                                             </div>
 
@@ -424,35 +390,19 @@
 
                                    </div>
 
-                                   <div class="col-12 flex-fill py-3 px-4  bg-opacity-10 overflow-y-scroll scroll-none chat_main_wrapper_div"
-
-                                        id="chat_main_wrapper">
+                                   <div class="col-12 flex-fill py-3 px-4  bg-opacity-10 overflow-y-scroll scroll-none chat_main_wrapper_div" id="chat_main_wrapper">
 
                                    </div>
 
-                                   <div class="col-12 main-chat-input p-3 bg-white shadow-sm chat_input_div"
-
-                                        id="#chat_form" style="display:none">
+                                   <div class="col-12 main-chat-input p-3 bg-white shadow-sm chat_input_div" id="#chat_form" style="display:none">
 
                                         <div class="d-flex justify-content-star align-items-center ">
 
-                                             <input type="text"
+                                             <input type="text" class="form-control chat_box_input_div px-3 me-3 chat_sender_dic_backend" id="chat_sender_id" placeholder="Type Your Message...">
 
-                                                  class="form-control chat_box_input_div px-3 me-3 chat_sender_dic_backend"
+                                             <i class="fa-solid fa-location-arrow px-3 py-2 fs-6 rounded text-white cursor-pointer chat_send_btn_div" chat_id="" user_id="" id="chat_submit_id"></i>
 
-                                                  id="chat_sender_id" placeholder="Type Your Message...">
-
-                                             <i class="fa-solid fa-location-arrow px-3 py-2 fs-6 rounded text-white cursor-pointer chat_send_btn_div"
-
-                                                  chat_id="" user_id="" id="chat_submit_id"></i>
-
-                                             <i class="fa-solid bi bi-paperclip px-3 py-2 fs-6 m-2 rounded text-white cursor-pointer send_attachment_div"
-
-                                                  id="" message_user_id="" data-bs-target="#exampleModal"
-
-                                                  data-bs-toggle="modal"
-
-                                                  style="background-color:#724ebf !important"></i>
+                                             <i class="fa-solid bi bi-paperclip px-3 py-2 fs-6 m-2 rounded text-white cursor-pointer send_attachment_div" id="" message_user_id="" data-bs-target="#exampleModal" data-bs-toggle="modal" style="background-color:#724ebf !important"></i>
 
                                         </div>
 
@@ -484,9 +434,7 @@
 
                     <h1 class="modal-title">Choose Attachment</h1>
 
-                    <button type="button" class="btn-close btn-close-attch" data-bs-dismiss="modal"
-
-                         aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-attch" data-bs-dismiss="modal" aria-label="Close"></button>
 
                </div>
 
@@ -494,9 +442,7 @@
 
                     <form class="attachment_form">
 
-                         <input class="form-control main-control mt-2 attachment_div_again" type="file" placeholder=""
-
-                              name="attachment[]" multiple>
+                         <input class="form-control main-control mt-2 attachment_div_again" type="file" placeholder="" name="attachment[]" multiple>
 
                     </form>
 
@@ -525,8 +471,15 @@
 <?= $this->include('partials/vendor-scripts') ?>
 
 <script>
-
-     $('body').on('click', '.clear_all_filter', function () {
+     $('body').on('click','.click_event_div_list',function(){
+          $('#chat_nav_search_bar').addClass('d-none d-md-block');
+          $('#main_chat_inner_box').show();
+     })
+     $('body').on('click','#back_to_user_chat',function(){
+          $('#chat_nav_search_bar').removeClass('d-none');
+          $('#main_chat_inner_box').hide();
+     })
+     $('body').on('click', '.clear_all_filter', function() {
 
           $(".filter_form_div")[0].reset();
 
@@ -536,7 +489,7 @@
 
      $(".ticket_status_ul").hide();
 
-     $('body').on('click', '.ticket_status_check', function () {
+     $('body').on('click', '.ticket_status_check', function() {
 
           var ticket_status_check = $(this).attr('value_id');
 
@@ -546,7 +499,7 @@
 
      var input = document.getElementById("chat_sender_id");
 
-     input.addEventListener("keypress", function (event) {
+     input.addEventListener("keypress", function(event) {
 
           if (event.key === "Enter") {
 
@@ -566,7 +519,7 @@
 
      }
 
-     $('.attachment_div_again').on('change', function () {
+     $('.attachment_div_again').on('change', function() {
 
           var files = $(this).prop('files');
 
@@ -583,22 +536,18 @@
           $('.attachment_conversation_div').val(storage);
 
      });
-
 </script>
 
 <script>
+     $(document).ready(function() {
 
-     $(document).ready(function () {
-
-          $("body").on('click', '#chat_submit', function () {
+          $("body").on('click', '#chat_submit', function() {
 
                if ($('#chat_sender').val() < 1) {
 
                     $('#chat_sender').addClass('');
 
-               }
-
-               else {
+               } else {
 
                     var message = $('#chat_sender').val();
 
@@ -606,7 +555,11 @@
 
                     var chat_time = new Date();
 
-                    var chat_full_time = chat_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+                    var chat_full_time = chat_time.toLocaleString('en-US', {
+                         hour: 'numeric',
+                         minute: 'numeric',
+                         hour12: true
+                    });
 
                     $('#chat_wrapper').append('<div class="user-chat-box col-12 user-right-chat w-100 text-end mb-2"><div class="user-chat bg-white rounded-2 p-2 shadow-sm d-inline-block position-relative text-start">' + message + '<div class="user-chat-time text-body-tertiary d-inline-block text-lowercase">' + chat_full_time + '</div>')
 
@@ -626,7 +579,7 @@
 
                $("#main_chat_inner_box").hide();
 
-               $(".chat-nav-users .nav-link").click(function () {
+               $(".chat-nav-users .nav-link").click(function() {
 
                     $("#chat_nav_search_bar").hide();
 
@@ -634,7 +587,7 @@
 
                });
 
-               $("#back_to_user_chat").click(function () {
+               $("#back_to_user_chat").click(function() {
 
                     $("#chat_nav_search_bar").show();
 
@@ -652,7 +605,7 @@
 
      }
 
-     $('body').on('click', '.filter_save_btn', function () {
+     $('body').on('click', '.filter_save_btn', function() {
 
           list_data_s();
 
@@ -686,7 +639,7 @@
 
                },
 
-               success: function (response) {
+               success: function(response) {
 
                     $('.clint_chat_div').html(response);
 
@@ -698,7 +651,7 @@
 
      list_data_s();
 
-     $('body').on('click', '.click_event_div_list', function () {
+     $('body').on('click', '.click_event_div_list', function() {
 
           $('.header_of_chat_div').show();
 
@@ -758,7 +711,7 @@
 
                var html = '';
 
-               $.each(filenameArray, function (index, filename) {
+               $.each(filenameArray, function(index, filename) {
 
                     html += '<li class="m-2"> <div class="pgf-attach-main bg-light rounded-2 px-3 py-2 cursor-pointer"> <p class="fw-medium text-nowrap file_attachment_div" href="' + href + filename + '" data-file-name="">' + filename + '</p> </div> </li>';
 
@@ -804,7 +757,7 @@
 
      });
 
-     $('body').on('click', '.file_attachment_open_div', function (event) {
+     $('body').on('click', '.file_attachment_open_div', function(event) {
 
           var pdfUrl = $(this).attr('href');
 
@@ -816,7 +769,7 @@
 
      });
 
-     $('body').on('click', '.file_attachment_div', function (event) {
+     $('body').on('click', '.file_attachment_div', function(event) {
 
           var pdfUrl = $(this).attr('href');
 
@@ -828,7 +781,7 @@
 
      });
 
-     $('body').on('click', '.go_status_change_btn', function () {
+     $('body').on('click', '.go_status_change_btn', function() {
 
           var data_status = $(this).attr('data_status');
 
@@ -854,7 +807,7 @@
 
                     },
 
-                    success: function (response) {
+                    success: function(response) {
 
                          $(".three-dot").trigger("click");
 
@@ -882,13 +835,16 @@
 
      });
 
-     $('#searchbar').on('input', function (event) {
+     $('#searchbar').on('input', function(event) {
 
           var searchText = $(this).val();
 
           if (searchText === '') {
 
-               var enterKeyEvent = $.Event('keydown', { keyCode: 13, which: 13 });
+               var enterKeyEvent = $.Event('keydown', {
+                    keyCode: 13,
+                    which: 13
+               });
 
                $(this).trigger(enterKeyEvent);
 
@@ -896,7 +852,7 @@
 
      });
 
-     $(".serchbar_div").keydown(function (e) {
+     $(".serchbar_div").keydown(function(e) {
 
           var searchText = $(this).val();
 
@@ -910,13 +866,13 @@
 
      });
 
-     $('.ticket_status_div1').on('change', function () {
+     $('.ticket_status_div1').on('change', function() {
 
           list_data_s();
 
      });
 
-     $('body').on('click', '.chat_send_btn_div', function () {
+     $('body').on('click', '.chat_send_btn_div', function() {
 
           var edit_id = $(this).attr("chat_id");
 
@@ -966,7 +922,7 @@
 
                     },
 
-                    success: function (res) {
+                    success: function(res) {
 
                          $('.chat_box_input_div').val("");
 
@@ -1018,7 +974,7 @@
 
                },
 
-               success: function (res) {
+               success: function(res) {
 
                     $('.loader').hide();
 
@@ -1030,13 +986,13 @@
 
      }
 
-     $('body').on('click', '.send_attachment_div', function () {
+     $('body').on('click', '.send_attachment_div', function() {
 
           $(".attachment_form")[0].reset();
 
      });
 
-     $('body').on('click', '.add_attchment_div', function () {
+     $('body').on('click', '.add_attchment_div', function() {
 
           const now = new Date();
 
@@ -1088,7 +1044,7 @@
 
                processData: false,
 
-               success: function (data) {
+               success: function(data) {
 
                     $(".attachment_form")[0].reset();
 
@@ -1107,7 +1063,7 @@
           });
 
      });
-	setInterval(function () {
-		list_data();
-	}, 60000);
+     setInterval(function() {
+          list_data();
+     }, 60000);
 </script>

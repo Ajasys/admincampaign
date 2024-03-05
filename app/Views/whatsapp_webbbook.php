@@ -507,7 +507,7 @@ if (isset($response['entry'][0])) {
                                                                         "type": "text",
                                                                         "text": { 
                                                                         "preview_url": false,
-                                                                        "body": "' . $textOfbody . '"
+                                                                        "body": "' . strip_tags($BotNextQuestionDataArray['question']) . '"
                                                                         }
                                                                     }';
                                                                     $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
@@ -736,20 +736,16 @@ if (isset($response['entry'][0])) {
                                                                         $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '9','1', '".$textOfbody."', '".$JsonDataStringBoat."')");
                                                                     }
                                                                 }elseif($NextQuestionType == '9'){
-
                                                                     $textOfbody = strip_tags($BotNextQuestionDataArray['question']);
                                                                     $textOfbody1 = strip_tags($BotNextQuestionDataArray['question']);
-
                                                                     $parsed_data = json_decode($BotNextQuestionDataArray['menu_message'], true);
                                                                     $options_str = $parsed_data["options"];
                                                                     $time_values = explode(';', $options_str);
                                                                     $count  = 0;
                                                                     foreach ($time_values as $time_value) {
-                                                                        // echo $time_value . "\n";
                                                                         $count ++ ;
                                                                         $textOfbody .= '*'.$count.'.* '.$time_value.' ';
                                                                         $textOfbody1 .= ''.$count.'. '.$time_value.' ';
-
                                                                     }
 
                                                                     $JsonDataStringBoat = '{
@@ -777,10 +773,11 @@ if (isset($response['entry'][0])) {
                                                                     $CountsMultipleSelection = 0;
                                                                     foreach ($optionsArray as $option) {
                                                                         $CountsMultipleSelection ++ ;
-                                                                        $textOfbody .= '*'.$CountsMultipleSelection.'.* '.$option.' Just let me know the number corresponding to your choice! ';
-                                                                        $textOfbody1 .= ''.$CountsMultipleSelection.'. '.$option.' Just let me know the number corresponding to your choice!';
+                                                                        $textOfbody .= ' *'.$CountsMultipleSelection.'.* '.$option.'  ';
+                                                                        $textOfbody1 .= ' '.$CountsMultipleSelection.'. '.$option.' ';
                                                                     }
-
+                                                                    $textOfbody .= 'Just let me know the number corresponding to your choice! ';
+                                                                    $textOfbody1 .= 'Just let me know the number corresponding to your choice! ';
                                                                     $JsonDataStringBoat = '{
                                                                         "messaging_product": "whatsapp",
                                                                         "recipient_type": "individual",
@@ -886,7 +883,6 @@ if (isset($response['entry'][0])) {
                                                         }
 
                                                         if($QuestionType == '22'){
-                                                            writeToFile('! Step = 1');
                                                             $JsonDataStringBoat = '{
                                                                 "messaging_product": "whatsapp",
                                                                 "recipient_type": "individual",
@@ -1163,17 +1159,19 @@ if (isset($response['entry'][0])) {
                                                                 $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
                                                             }
                                                         }elseif($QuestionType == '4'){
-                                                            $textOfbody = strip_tags($final_error_text);
+                                                            $textOfbody = strip_tags($final_error_text) .'
+                                                            ';
                                                             $textOfbody1 = strip_tags($final_error_text);
                                                             $jsonDDSelectionData = json_decode($menu_message, true);
                                                             $optionsArray = explode(';', $jsonDDSelectionData['options']);
                                                             $CountsMultipleSelection = 0;
                                                             foreach ($optionsArray as $option) {
                                                                 $CountsMultipleSelection ++ ;
-                                                                $textOfbody .= '*'.$CountsMultipleSelection.'.* '.$option.' Just let me know the number corresponding to your choice! ';
-                                                                $textOfbody1 .= ''.$CountsMultipleSelection.'. '.$option.' Just let me know the number corresponding to your choice!';
+                                                                $textOfbody .= '*'.$CountsMultipleSelection.'.* '.$option.'   ';
+                                                                $textOfbody1 .= ' '.$CountsMultipleSelection.'. '.$option.' ';
                                                             }
-
+                                                            $textOfbody .= ' Just let me know the number corresponding to your choice!';
+                                                            $textOfbody1 .= 'Just let me know the number corresponding to your choice!';
                                                             $JsonDataStringBoat = '{
                                                                 "messaging_product": "whatsapp",
                                                                 "recipient_type": "individual",
