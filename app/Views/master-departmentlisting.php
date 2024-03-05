@@ -41,7 +41,7 @@
                         <input type="text" class="form-control main-control" id="shortdepartmentname" name="shortdepartmentname" placeholder="Short Department Name" required="">
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 px-2 d-flex justify-content-start align-items-end">
-                        <button class=" btn-primary" name="department_add" value="department_add" id="add_department" type="submit">Add Department</button>
+                        <button class="mt-2 btn-primary" name="department_add" value="department_add" id="add_department" type="submit">Add Department</button>
                     </div>
                 </div>
             </form>
@@ -49,7 +49,7 @@
     </div>
 
     <div class="px-3 py-2 bg-white rounded-2 mx-2 mb-2">
-        <table id="management-department" class="table main-table w-100" aria-describedby="example_info">
+        <table id="management-department" class="table main-table w-100" aria-describedby="example_info" style="min-width:470px; overflow:auto;">
             <thead>
                 <tr>
                     <th> <input class="mx-3" type="checkbox" id="select-all" /></th>

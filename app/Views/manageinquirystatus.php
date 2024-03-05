@@ -25,14 +25,14 @@
         </div>
         <div class="px-3 py-2 bg-white rounded-2 mx-2 mb-2">
             <form action="" class="formsize needs-validation" name="inquirystatus" novalidate>
-                <div class="d-flex justify-content-start align-items-end">
+                <div class="d-flex flex-wrap justify-content-start align-items-end">
                     <div class="col-lg-4 col-md-4 col-sm-6 px-2">
-                        <label class="main-label">Add Inquiry Status</label>
+                        <label class="main-label text-nowrap">Add Inquiry Status</label>
                         <input type="text" class="form-control main-control" id="inquiryname" name="inquiry_status"
                             placeholder="Inquiry Status" required>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 px-2">
-                        <button class="btn-primary" name="inquirystatus_add" value="inquirystatus_add" type="submit">Add
+                    <div class="col-lg-4 col-md-4 col-sm-6 px-2 ">
+                        <button class="btn-primary mt-2 text-nowrap" name="inquirystatus_add" value="inquirystatus_add" type="submit" >Add
                             Inquiry Status</button>
                     </div>
                 </div>

@@ -22,13 +22,13 @@
         </div>
         <div class="px-3 py-2 bg-white rounded-2 mx-2 mb-2">
             <form class="formsize needs-validation" name="inquirytype" novalidate>
-                <div class="d-flex justify-content-start align-items-end">
+                <div class="d-flex flex-wrap justify-content-start align-items-end">
                     <div class="col-lg-4 col-md-4 col-sm-6 px-2">
-                        <label class="mian-label">Add Inquiry Type</label>
+                        <label class="mian-label text-nowrap">Add Inquiry Type</label>
                         <input type="text" class="form-control main-control" id="inquiryname" name="inquiry_details" placeholder="Inquiry Name" required>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 px-2">
-                        <button class="btn-primary" name="inquirytype_add" value="inquiry_add" id="inquiry_add" type="submit">Add Inquiry</button>
+                        <button class="btn-primary text-nowrap mt-2" name="inquirytype_add" value="inquiry_add" id="inquiry_add" type="submit">Add Inquiry</button>
                     </div>
                 </div>
             </form>

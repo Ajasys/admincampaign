@@ -31,7 +31,14 @@
       color: #888;
 
    }
-
+   .form-check-input:checked {
+    background-color: var(--first-color) !important;
+    border-color: #000000;
+}
+.form-check-input:focus {
+ 
+    box-shadow: 0 0 0 2.2px rgb(153 96 255 / 25%);
+}
 
 
    #integration_type {
@@ -162,7 +169,7 @@
 
                <div class="d-flex flex-wrap mb-2 ">
 
-                  <div class="col-lg-6 col-md-12 col-sm-12 p-0 pe-3">
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12 p-0 pe-3">
 
                      <label class="main-label">Plan Name :</label>
 
@@ -172,7 +179,7 @@
 
                   </div>
 
-                  <div class="col-lg-6 col-md-12 col-sm-12  p-0 pe-3" id="">
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12  p-0 pe-3" id="">
 
                      <label class="main-label">User :</label>
 
@@ -184,7 +191,7 @@
 
                   </div>
 
-                  <div class="col-lg-6 col-md-12 col-sm-12  p-0 pe-3">
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12  p-0 pe-3">
 
                      <label class="main-label">Project :</label>
 
@@ -228,7 +235,7 @@
 
                   </div>
 
-                  <div class="col-lg-6 col-md-12 col-sm-12  p-0 pe-3">
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12  p-0 pe-3">
 
                      <label class="main-label">Property listing :</label>
 
@@ -240,7 +247,7 @@
 
                   </div>
 
-                  <div class="col-lg-6 col-md-12 col-sm-12  p-0 pe-3">
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12  p-0 pe-3">
 
                      <label class="main-label">Plan In Rupees (₹):</label>
 
@@ -251,7 +258,7 @@
                         name="plan_price" min="0" id="plan_price" value="" required>
 
                   </div>
-                  <div class="col-lg-6 col-md-12 col-sm-12  p-0 pe-3">
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12 p-0 pe-3">
 
                      <label class="main-label">Price in Dollar ($) :</label>
 
@@ -263,7 +270,7 @@
 
                   </div>
 
-                  <div class="col-lg-6 col-md-12 col-sm-12  p-0 pe-3">
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12  p-0 pe-3">
 
                      <label class="main-label">Validity :</label>
 
@@ -274,7 +281,7 @@
                         min="0" id="validity" value="" required>
 
                   </div>
-                  <div class="col-lg-6 col-md-12 col-sm-12  p-0 pe-3">
+                  <div class="col-lg-6 col-md-12 col-sm-12 col-12  p-0 pe-3">
 
                      <label class="main-label"> Crm :</label>
 
@@ -301,15 +308,15 @@
 
                </div>
 
-               <div class="col-lg-12 col-md-12 col-sm-12 d-flex p-0 align-items-center ">
+               <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap flex-sm-nowrap p-0 align-items-center ">
 
-                  <div class="col-lg-3 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-3 col-md-4 col-sm-5 col-12 d-flex hr_form p-0 align-items-center">
 
                      <h6 for="HR" class="form-label form-labell pe-3">HR Management:</h6>
 
                   </div>
 
-                  <div class="col-lg-9 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-9 col-md-8 col-sm-7 col-12 d-flex hr_form p-0 align-items-center">
 
                      <input type="checkbox" class="ms-2 form-check-input bb" id="hr_yes" name="hr_form" value=1>
 
@@ -327,15 +334,15 @@
 
                </div>
 
-               <div class="col-lg-12 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+               <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap flex-sm-nowrap  hr_form p-0 align-items-center">
 
-                  <div class="col-lg-3 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-3 col-md-4 col-sm-5 col-12 d-flex hr_form p-0 align-items-center">
 
                      <h6 for="HR" class="form-label form-labell pe-2">Account module :</h6>
 
                   </div>
 
-                  <div class="col-lg-9 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-9 col-md-8 col-sm-7 col-12 d-flex hr_form p-0 align-items-center">
 
                      <input type="checkbox" class="ms-2 form-check-input bb" id="acount_module_yes"
 
@@ -357,15 +364,15 @@
 
                </div>
 
-               <div class="col-lg-12 col-md-12 col-sm-12 p-0 d-flex align-items-center">
+               <div class="col-lg-12 col-md-12 col-sm-12 p-0 d-flex flex-wrap flex-sm-nowrap align-items-center">
 
-                  <div class="col-lg-3 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-3 col-md-4 col-sm-5 col-12 d-flex hr_form p-0 align-items-center">
 
                      <h6 for="project_type" class="form-label form-labell pe-3">Leads Integration:</h6>
 
                   </div>
 
-                  <div class="col-lg-9 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-9 col-md-8 col-sm-7 col-12 d-flex hr_form p-0 align-items-center">
 
                      <input type="checkbox" class="ms-2 form-check-input bb" id="annual" name="integration_type[]"
 
@@ -385,15 +392,15 @@
 
                </div>
 
-               <div class="col-lg-12 col-md-12 col-sm-12 d-flex p-0 align-items-center ">
+               <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap flex-sm-nowrap p-0 align-items-center ">
 
-                  <div class="col-lg-3 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-3 col-md-4 col-sm-5 col-12 d-flex hr_form p-0 align-items-center">
 
                      <h6 for="Email" class="form-label form-labell pe-3">Intregration Setting :</h6>
 
                   </div>
 
-                  <div class="col-lg-9 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-9 col-md-8 col-sm-7 col-12 d-flex hr_form p-0 align-items-center">
 
                      <input type="checkbox" class="ms-2 form-check-input bb" id="email_yes" name="email" value=1>
 
@@ -411,45 +418,45 @@
 
                </div>
 
-               <div class="col-lg-12 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+               <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap flex-sm-nowrap pt-2 hr_form p-0 align-items-center">
 
-                  <div class="col-lg-3 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-3 col-md-4 col-sm-5 col-12 d-flex hr_form p-0 align-items-center">
 
                      <h6 for="HR" class="form-label form-labell pe-1">Reports :</h6>
 
                   </div>
 
-                  <div class="col-lg-9 col-md-12 col-sm-12 d-flex hr_form p-0 align-items-center">
+                  <div class="col-lg-9 col-md-8 col-sm-7 col-12 d-flex flex-wrap hr_form p-0 align-items-center">
 
-                     <input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
+                     <div class="d-flex"><input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
 
                         value="inq report">
 
-                     <label for="" class="pt-1 ps-2">Inqury </label><br>
+                     <label for="" class="pt-1 ps-2">Inqury </label></div><br>
 
-                     <input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
+                     <div class="d-flex"><input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
 
                         value="site report">
 
-                     <label for="" class="pt-1 ps-2">Site </label><br>
+                     <label for="" class="pt-1 ps-2">Site </label></div><br>
 
-                     <input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
+                     <div class="d-flex"><input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
 
                         value="perfomance report">
 
-                     <label for="" class="pt-1 ps-2">Performance </label><br>
+                     <label for="" class="pt-1 ps-2">Performance </label></div><br>
 
-                     <input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
+                     <div class="d-flex"><input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
 
                         value="site conversation">
 
-                     <label for="" class="pt-1 ps-2"> Site Conversation </label><br>
+                     <label for="" class="pt-1 ps-2 text-nowrap"> Site Conversation </label></div><br>
 
-                     <input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
+                     <div class="d-flex"><input type="checkbox" id="annual" class="ms-2 form-check-input bb" name="reports_name[]"
 
                         value="user conversation">
 
-                     <label for="" class="pt-1 ps-2"> User Conversation </label><br>
+                     <label for="" class="pt-1 ps-2 text-nowrap"> User Conversation </label></div><br>
 
                   </div>
 
@@ -1609,7 +1616,7 @@
 
          if ($(".bb").is(":checked")) {
 
-            $(this).closest(".hr_form").find(".bb").css("border", "1px solid green")
+            $(this).closest(".hr_form").find(".bb").css("border", "1px solid #280378")
 
          } else {
 

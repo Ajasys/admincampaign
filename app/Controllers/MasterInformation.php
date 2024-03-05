@@ -97,15 +97,15 @@ class MasterInformation extends BaseController
 						<input class="checkbox mx-3 mt-0" type="checkbox" value="' . $value['id'] . '"/>
 					</td>
 					<td>
-						<div class="px-0 py-0 w-100 ' . $table_name . '_edt" data-edit_id="' . $value['id'] . '"';
+						<div class="px-0 py-0 w-100 col-12 ' . $table_name . '_edt" data-edit_id="' . $value['id'] . '"';
 			if (in_array('departmentinformation_child_edit_access', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
 				$html .= '	 data-bs-toggle="modal" data-bs-target="#' . $table_name . '_view"';
 			};
-			$html .= '>	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-5">';
+			$html .= '>	<div class="col-12 d-flex">';
 			$ts = "";
 			foreach ($value as $k => $v) {
 				if (in_array($k, $allow_data)) {
-					$ts .= '<div class="col"><span class="mx-1 text-wrap w-100">' . $v . '</span></div>';
+					$ts .= '<div class="col-4"><span class="mx-1 text-wrap w-100 text-center">' . $v . '</span></div>';
 				}
 			}
 			$html .= $ts;
