@@ -358,7 +358,7 @@ if (isset($response['entry'][0])) {
                                                     if ($QuestionAstSequence == '1') {
                                                         $QuestionValidation = 1; // Same Question
                                                     } else {
-                                                        if ($QuestionType == '1' || $QuestionType == '10' || $QuestionType == '22' || $QuestionType == '23' || $QuestionType == '4') {
+                                                        if ($QuestionType == '1' || $QuestionType == '10' || $QuestionType == '22' || $QuestionType == '23' || $QuestionType == '4' ||  $QuestionType == '44' ) {
                                                             $QuestionValidation = 0;
                                                         } elseif ($QuestionType == '5') {
                                                             if (isset($RecievedMessageArray['messages'][0]['text']['body'])) {
@@ -377,7 +377,7 @@ if (isset($response['entry'][0])) {
                                                             } else {
                                                                 $QuestionValidation = 1;
                                                             }
-                                                        } elseif ($QuestionType == '2') {
+                                                        } elseif ($QuestionType == '2' || $QuestionType == '40') {
                                                             $SingleChoiseMsgID = 0;
                                                             if($RecievedMessageArray['messages'][0]['interactive']['list_reply']['title']){
                                                                 $jsonDDSelectionData = json_decode($menu_message, true);
@@ -499,7 +499,7 @@ if (isset($response['entry'][0])) {
                                                             $BotNextQuestionDataArray = $BotNextQuestionData->fetch_assoc();
                                                             if (intval($BotNextQuestionDataRow) > 0 && isset($BotNextQuestionDataArray) && !empty($BotNextQuestionDataArray)) {
                                                                 $NextQuestionType = $BotNextQuestionDataArray['type_of_question'];
-                                                                if ($NextQuestionType == '1' || $NextQuestionType == '5' || $NextQuestionType == '3' || $NextQuestionType == '10' || $NextQuestionType == '22' || $NextQuestionType == '6' || $NextQuestionType == '13') {
+                                                                if ($NextQuestionType == '1' || $NextQuestionType == '5' || $NextQuestionType == '3' || $NextQuestionType == '10' || $NextQuestionType == '22' || $NextQuestionType == '6' || $NextQuestionType == '13' || $NextQuestionType == '44') {
                                                                     $textOfbody = strip_tags($BotNextQuestionDataArray['question']);
                                                                     $JsonDataStringBoat = '{
                                                                         "messaging_product": "whatsapp",
@@ -522,7 +522,7 @@ if (isset($response['entry'][0])) {
 
                                                                     
 
-                                                                } elseif ($NextQuestionType == '4' || $NextQuestionType == '2') {
+                                                                } elseif ($NextQuestionType == '4' || $NextQuestionType == '2' || $NextQuestionType == '40') {
                                                                     $jsonDDSelectionData = json_decode($BotNextQuestionDataArray['menu_message'], true);
                                                                     $arraydatas = '';
                                                                     foreach ($jsonDDSelectionData['single_choice_option_value'] as $item) {
@@ -900,7 +900,7 @@ if (isset($response['entry'][0])) {
                                                             }
                                                         }
 
-                                                        if ($QuestionType == '1' || $QuestionType == '5' || $QuestionType == '3' || $QuestionType == '10' || $QuestionType == '22' || $QuestionType == '6' ||$QuestionType == '13' ) {
+                                                        if ($QuestionType == '1' || $QuestionType == '5' || $QuestionType == '3' || $QuestionType == '10' || $QuestionType == '22' || $QuestionType == '6' ||$QuestionType == '13' || $QuestionType == '44' ) {
                                                             $JsonDataStringBoat = '{
                                                                 "messaging_product": "whatsapp",
                                                                 "recipient_type": "individual",
@@ -918,7 +918,7 @@ if (isset($response['entry'][0])) {
                                                             if (isset($ReturnResult['messages'][0]['id'])) {
                                                                 $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
                                                             }
-                                                        } elseif ($QuestionType == '4' || $QuestionType == '2') {
+                                                        } elseif ($QuestionType == '4' || $QuestionType == '2' || $QuestionType == '40' ) {
                                                             $arraydatas = '';
                                                             $jsonDDSelectionData = json_decode($menu_message, true);
                                                             foreach ($jsonDDSelectionData['single_choice_option_value'] as $item) {

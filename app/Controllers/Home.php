@@ -630,8 +630,13 @@ class Home extends BaseController
                     if (isset($DataArray['data'][0]['quality_rating'])) {
                         $$qualityColor = $DataArray['data'][0]['quality_rating'];
                     }
+
+                    $msgchecksql = $db_connection->query("SELECT * FROM `".$table_username."_messages`");
+                    $msgchecksql = $msgchecksql->getNumRows();
+                    
+
                     $phoneNumber = $display_phone_number;
-                    if ($display_phone_number != '' && $value['id'] != '' && $verified_name != '') {
+                    if ($display_phone_number != '' && $value['id'] != '' && $verified_name != '' && $msgchecksql > 0) {
                         $connection_ids = $value['id'];
                         $id = $value['id'];
                         $phoneno = str_replace([' ', '+'], '', $display_phone_number);
