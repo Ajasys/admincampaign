@@ -242,12 +242,12 @@ $get_facebook_page = $result->getResultArray();
 
 
                                                     $token = $hometoaccesstoken;
-                                                    // $fb_page_list = fb_insta_page_list($token);
-                                                    // $fb_page_list = get_object_vars(json_decode($fb_page_list));
+                                                    $fb_page_list = fb_insta_page_list($token);
+                                                    $fb_page_list = get_object_vars(json_decode($fb_page_list));
                                                     $i = 0;
                                                     foreach ($fb_page_list['page_list'] as $key => $value) {
                                                         //permission line
-                                                        if ((in_array($value->id, $perasset_data)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                                                        // if ((in_array($value->id )) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
                                                             if (isset($value->instagram_business_account)) {
                                                             } else {
                                                                 $pageprofile = fb_page_img($value->id, $value->access_token);
@@ -281,7 +281,7 @@ $get_facebook_page = $result->getResultArray();
                                                             }
                                                         }
                                                     }
-                                                } ?>
+                                                 ?>
                                             </div>
                                         </div>
                                     </div>

@@ -29,6 +29,9 @@ class CreateController extends BaseController
         $edit = $_POST['action'];
         // Check if the request method is POST  
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         
+         
+// pre($get_page_data);
 
             $page_id = '196821650189891';
             $access_token = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
@@ -280,6 +283,23 @@ class CreateController extends BaseController
     public function list_post_pagewise()
     {
 
+        // $this->db = \Config\Database::connect('second');
+        // $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+        // $get_access_token_array = $this->db->query($get_token);
+        // $data_count = $get_access_token_array->getNumRows();
+        // $fb_account_data = $get_access_token_array->getResultArray()[0];
+        // $token = $fb_account_data['access_token'];
+        // // pre( $token);
+        // $asset_table_name = $this->username . '_platform_assets';
+
+        // $platform_id = $fb_account_data['id'];
+        // $master_id = $_SESSION['master'];
+        // $get_page_data = "SELECT * FROM $asset_table_name WHERE platform_id = $platform_id AND master_id = $master_id";
+        // // pre($platform_id);
+        // $get_page_data = $this->db->query($get_page_data);
+        // $get_page_data = $get_page_data->getResultArray();
+        // pre($get_page_data);
+            
         if (isset($_POST['access_tocken'])) {
             $accesss_tocken = $_POST['access_tocken'];
         } else {
@@ -372,7 +392,7 @@ class CreateController extends BaseController
                             <ul class="dropdown-menu bg-transparent text-end border-0">
                                 <div class="d-flex flex-wrap bg-white border p-1 rounded-2">
                                 <div class="col-12 d-flex justify-content-start">
-                                    <button class="bg-transparent text-start ps-1 col-12 border-0 delete_post_facebook" data-delete_id="' . $value['id'] . '"><i class="fa-solid fa-trash-can me-2"></i>Delete</button>
+                                    <button class="bg-transparent text-start ps-1 col-12 border-0 delete_post_facebook" data-delete_id="' . $value['id'] . '" data-access_token="' . $accesss_tocken_comment . '" ><i class="fa-solid fa-trash-can me-2"></i>Delete</button>
                                     </div>
                                     <div class="col-12 d-flex justify-content-start">
                                     <button class="bg-transparent text-start ps-1 col-12 border-0 edit_post_facebook" data-edit_id="' . $value['id'] . '" data-page_id="' . $pagee_idd . '" data-access_token="' . $accesss_tocken_comment . '" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash-can me-2"></i>Edit</button>
@@ -542,6 +562,7 @@ class CreateController extends BaseController
         </button>
     </span>
 </div>';
+
         if(isset($comments_responce['data'])){
 
         
@@ -591,8 +612,8 @@ class CreateController extends BaseController
                             <span class="mx-2 text-muted fs-12 Replay_btn fdsfgdfg fw-bold"  style="cursor:pointer;">Reply</span>
                             <span class="mx-2 text-muted fs-12 Replay_btn fdsfgdfg fw-bold like_count"  style="cursor:pointer;">
                               <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 48 48" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><linearGradient id="a" x1="24" x2="24" y1="42" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0064e1"></stop><stop offset=".994" stop-color="#26b7ff"></stop></linearGradient><circle cx="24" cy="24" r="18" fill="url(#a)" opacity="1" data-original="url(#a)" class=""></circle><g fill="#fff"><rect width="5.781" height="11.647" x="13.219" y="22.315" rx="1.839" fill="#ffffff" opacity="1" data-original="#ffffff"></rect><path d="M35 24.556c0-.749-.332-1.411-.843-1.862.385-.388.624-.921.624-1.51a2.148 2.148 0 0 0-2.146-2.145h-3.678v-2.452c0-1.138-.316-2.085-.94-2.815a2.202 2.202 0 0 0-2.462-.629 2.27 2.27 0 0 0-1.502 2.143v3.14c0 1.694-2.41 3.276-3.34 3.743-.302.151-.49.858-.338 1.16v6.13l1.914 2.168a3.044 3.044 0 0 0 2.167.898h6.954a2.148 2.148 0 0 0 2.145-2.146c0-.166-.025-.328-.062-.487a2.138 2.138 0 0 0 .664-3.475c.511-.45.843-1.113.843-1.861z" fill="#ffffff" opacity="1" data-original="#ffffff"></path></g></g></svg>
-                              <span class="mx-1">1</span>
-                            </span>
+                              <span class="mx-1"> '. $likeCount .'</span>
+                                </span>
                         </div>
                     </div>
                     <div class="col-10 d-flex d-none">
