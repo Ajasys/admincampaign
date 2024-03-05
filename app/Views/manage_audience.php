@@ -98,12 +98,12 @@ $get_facebook_page = $result->getResultArray();
                <div class="main-selectpicker fs-12">
                   <select class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12">
                      <?php
-                     // if (isset($get_facebook_page) && !empty($get_facebook_page)) {
-                     //    foreach ($get_facebook_page as $key => $value) {
-                     //       echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
-                     //            ' . $value['fb_app_name'] . '</option>';
-                     //    }
-                     // }
+                     if (isset($get_facebook_page) && !empty($get_facebook_page)) {
+                        foreach ($get_facebook_page as $key => $value) {
+                           echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
+                                ' . $value['fb_app_name'] . '</option>';
+                        }
+                     }
                      ?>
                   </select>
                </div>
