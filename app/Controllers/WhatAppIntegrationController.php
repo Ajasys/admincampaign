@@ -33,11 +33,38 @@ class WhatAppIntegrationController extends BaseController
             }
         }
     }
-
+    public function WhatsAppConnectionEntry()
+    {
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $table_name = $username . '_platform_integration';
+        if ($_POST['action'] == 'insert') {
+            $whatapp_phone_number_id = $_POST['whatapp_phone_number_id'];
+            $whatapp_business_account_id = $_POST['whatapp_business_account_id'];
+            $whatapp_access_token = $_POST['whatapp_access_token'];
+            $isduplicate = 1;
+            $insertdata['phone_number_id'] = $whatapp_phone_number_id;
+            $insertdata['business_account_id'] = $whatapp_business_account_id;
+            $insertdata['access_token'] = $whatapp_access_token;
+            $insertdata['platform_status'] = 1;
+            $isduplicate = $this->duplicate_data2($insertdata, $table_name);
+            if ($isduplicate == 0) {
+                $response = $this->MasterInformationModel->insert_entry2($insertdata, $table_name);
+                echo 1;
+            } else {
+                echo 0;
+            }
+        }
+    }
 
     public function GetWhatAppIntegrationInformation()
     {
-        $GetData = get_editData2('admin_generale_setting', 1);
+
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];   
+        $GetData = get_editData2(''.$username.'_generale_setting', 1);
         $whatapp_phone_number_id = '';
         $whatapp_business_account_id = '';
         $whatapp_access_token = '';
@@ -60,14 +87,18 @@ class WhatAppIntegrationController extends BaseController
 
     public function SubmitWhatAppIntegrationResponse()
     {
-        $GetData = get_editData2('admin_generale_setting', 1);
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+
+        $GetData = get_editData2(''.$username.'_generale_setting', 1);
         if (isset($GetData) && !empty($GetData)) {
             $UpdateData = $_POST;
-            $response = $this->MasterInformationModel->update_entry2('1', $UpdateData, 'admin_generale_setting');
+            $response = $this->MasterInformationModel->update_entry2('1', $UpdateData, ''.$username.'_generale_setting');
         } else {
             $InsertData = $_POST;
             // $InsertData['whatapp_created_at_account'] = date('Y-m-d H:i:s', time());
-            $response = $this->MasterInformationModel->insert_entry2($InsertData, 'admin_generale_setting');
+            $response = $this->MasterInformationModel->insert_entry2($InsertData, ''.$username.'_generale_setting');
         }
 
 
@@ -380,7 +411,7 @@ class WhatAppIntegrationController extends BaseController
             }
         }
 
-        $Sent_messagae_data = $this->MasterInformationModel->display_all_records2('admin_sent_message_detail');
+        $Sent_messagae_data = $this->MasterInformationModel->display_all_records2(''.$username.'_sent_message_detail');
         $sentmsgdisplaydata = json_decode($Sent_messagae_data, true);
 
         $html1 = '';
@@ -469,7 +500,7 @@ class WhatAppIntegrationController extends BaseController
             $MasgDateNdTime = "";
             $sent_recieved_status = '';
             $last_createdate = '';
-            $lastmsggetsql = 'SELECT * FROM `admin_messages` WHERE contact_no = "' . $value['contact_no'] . '" AND platform_account_id = "' . $id . '" ORDER BY id DESC LIMIT 1;';
+            $lastmsggetsql = 'SELECT * FROM `'.$table_username.'_messages` WHERE contact_no = "' . $value['contact_no'] . '" AND platform_account_id = "' . $id . '" ORDER BY id DESC LIMIT 1;';
             $GerDataLastMsg = $Database->query($lastmsggetsql);
             $GerDataLastMsg = $GerDataLastMsg->getResultArray();
 
@@ -1139,7 +1170,7 @@ class WhatAppIntegrationController extends BaseController
 
         $table_username = getMasterUsername();
         $db_connection = \Config\Database::connect('second');
-        $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
+        $query90 = "SELECT * FROM ".$table_username."_generale_setting WHERE id IN(1)";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
         if (isset($total_dataa_userr_22[0])) {

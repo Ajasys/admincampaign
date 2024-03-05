@@ -652,7 +652,7 @@ $routes->get('/bot_chat', 'Home::bot_chat');
     $routes->post('/set_variable_value', 'WhatAppIntegrationController::set_variable_value');
     $routes->post('/bulk_set_variable_value', 'WhatAppIntegrationController::bulk_set_variable_value');
     $routes->post('/bulk_whatsapp_template_send', 'WhatAppIntegrationController::bulk_whatsapp_template_send');
-
+	$routes->post('/WhatsAppConnectionEntry', 'WhatAppIntegrationController::WhatsAppConnectionEntry');
 	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
 
 	// aaksh
@@ -660,7 +660,6 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 	$routes->get('/whatsapp_connections', 'Home::whatsapp_connections');
 	$routes->get('/assign_assets', 'Home::assign_assets');
 	// $routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
-	$routes->post('/WhatsAppConnectionEntry', 'WhatAppAakashController::WhatsAppConnectionEntry');
 
 	// get live message
     $routes->post('check_new_data_Available','CommonController::check_new_data_Available');
