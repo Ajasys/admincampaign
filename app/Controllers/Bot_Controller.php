@@ -2254,9 +2254,12 @@ class Bot_Controller extends BaseController
 									</div>
 									<div
 										class="card-body d-flex flex-wrap py-1 px-2 justify-content-sm-between justify-content-center align-items-center">
-										<div class="form-check form-switch mx-2">
-											<input class="form-check-input bot_active dfg toggle-switch" type="checkbox" role="switch" id="is_active"
+										<div class="form-check form-switch mx-2 d-flex flex-wrap align-items-center">
+											<label class="switch_toggle_primary me-2">
+												<input class="toggle-checkbox fs-3 bot_active dfg toggle-switch" type="checkbox" value="create_scenarios" type="checkbox" role="switch" id="is_active"
 												' . ($value['active'] == 1 ? 'checked' : '') . ' data-update_id="' . $value['id'] . '">
+												<span class="check_input_primary round"></span>
+											</label>
 											<label class="form-check-label toggle-label" id="toggleStatus" for="is_active">Inactive</label>
 										</div>
 
@@ -2264,10 +2267,8 @@ class Bot_Controller extends BaseController
 										$(document).ready(function() {
 											$(".toggle-switch").each(function() {
 												const $checkbox = $(this);
-												const $label = $checkbox.siblings(".toggle-label");
-												
+												const $label = $checkbox.closest(".switch_toggle_primary").siblings(".toggle-label");
 												$label.html($checkbox.prop("checked") ? "Active" : "Inactive");
-										
 												$checkbox.click(function() {
 													$label.html($(this).prop("checked") ? "Active" : "Inactive");
 												});
