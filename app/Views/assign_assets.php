@@ -27,13 +27,13 @@ $user_data = $user_result->getResultArray();
 <div class="main-dashbord p-3">
     <div class="container-fluid p-0">
         <div class="mb-2">
-            <div class="col-xl-12 d-flex justify-content-between">
-                <div class="title-1  d-flex align-items-center">
-                    <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 25px"></i>
+            <div class="col-xl-12 d-flex justify-content-between flex-wrap">
+                <div class="title-1  d-flex align-items-center text-nowrap">
+                    <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 20px"></i>
                     <h2>Assign Assets & Permission </h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
-                    <button class="btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#assign_user">
+                    <button class="btn-primary mx-2 mt-2" data-bs-toggle="modal" data-bs-target="#assign_user">
                         Assign To User
                     </button>
                 </div>
