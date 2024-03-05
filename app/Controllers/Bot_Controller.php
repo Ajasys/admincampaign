@@ -2678,8 +2678,8 @@ class Bot_Controller extends BaseController
 			$row_counter = '1';
 		}
 
-		$html .= '<select class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_flow_' . $row_counter . ' question_select_second_' . $i . '_' . $row_counter . ' occupation_add" aria-label="Default select example">
-		<option>No Jump</option>';
+		$html .= '<select class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_flow_' . $row_counter . ' question_select_second_' . $i . '_' . $row_counter . ' occupation_add" id="question_flow_' . $row_counter . '" aria-label="Default select example">
+		<option value="0">No Jump</option>';
 
 		if (isset($bot_data_get)) {
 			foreach ($bot_data_get as $type_key => $type_value) {
