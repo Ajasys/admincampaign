@@ -224,7 +224,7 @@ class FaceBookController extends BaseController
             $appresult = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' . $longLivedToken . '&access_token=' . $longLivedToken);
             if (isset($appresult['data'])) {
                 $fbdata = $appresult['data'];
-                $profile_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $appresult['user_id'] . '/picture?redirect=false&&access_token=' . $longLivedToken . '');
+                $profile_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $appresult['data']['user_id'] . '/picture?redirect=false&&access_token=' . $longLivedToken . '');
 
                 $query = $this->db->query('SELECT * FROM ' . $this->username . '_platform_integration WHERE fb_app_id = "' . $fbdata['app_id'] . '" AND platform_status=2');
                 $count_num = $query->getNumRows();
@@ -1574,17 +1574,22 @@ class FaceBookController extends BaseController
         }
         echo json_encode($return_array);
     }
-    //Delete connections..
-    public function delete_fb_connection()
-    {
-        $return_array['response'] = 0;
-        if (isset($_POST['id'])) {
-            $delete_data = $this->MasterInformationModel->delete_entry2($this->username . "_platform_integration", $_POST['id']);
-            $update_data = $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `is_status`=4,connection_id=0 WHERE connection_id='.$_POST['id']);
-            if ($delete_data && $update_data) {
-                $return_array['response'] = 1;
-            }
-        }
-        echo json_encode($return_array);
-    }
+   //Delete connections..
+   public function delete_fb_connection()
+   {
+       $return_array['response'] = 0;
+       if (isset($_POST['id'])) {
+
+           // $delete_data = $this->MasterInformationModel->delete_entry2($this->username . "_platform_integration", $_POST['id']);
+           $this->MasterInformationModel->delete_entry2($this->username . "_platform_assets", $_POST['id'],'platform_id');
+           $delete_data = $this->MasterInformationModel->delete_entry2($this->username . "_platform_integration", $_POST['id']);
+
+           // $delete = $this->db->query('DELETE FROM ' . $this->username . '_platform_assets WHERE `platform_id`='.$_POST['id']);
+           $update_data = $this->db->query('UPDATE ' . $this->username . '_fb_pages SET `is_status`=4,connection_id=0 WHERE connection_id='.$_POST['id']);
+           if ($delete_data && $update_data) {
+               $return_array['response'] = 1;
+           }
+       }
+       echo json_encode($return_array);
+   }
 }

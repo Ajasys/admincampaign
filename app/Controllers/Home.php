@@ -352,10 +352,10 @@ class Home extends BaseController
             'next_boat_question int(255) NOT NULL DEFAULT 0 COMMENT "0-No question && Others Means Have next question"',
             'boat_question_id int(255) NOT NULL DEFAULT 0',
         ];
-        $foreign_keysasset = [
-            'FOREIGN KEY (platform_id) REFERENCES '.$table_username . '_platform_integration(id)',
-        ];
-        $table = tableCreateAndTableUpdate2($table_asset, '', $columns_asset, $foreign_keysasset);
+        // $foreign_keysasset = [
+        //     'FOREIGN KEY (platform_id) REFERENCES '.$table_username . '_platform_integration(id)',
+        // ];
+        $table = tableCreateAndTableUpdate2($table_asset, '', $columns_asset);
 
         $table_assetpermission = $table_username . '_platform_assetpermission';
         $columns_assetpermission = [
@@ -365,10 +365,10 @@ class Home extends BaseController
             'user_id int(11) NOT NULL',
             "assetpermission_name text NOT NULL",
         ];
-        $foreign_keyspermission = [
-            'FOREIGN KEY (asset_id) REFERENCES '.$table_username . '_platform_assets(id)',
-        ];
-        $table = tableCreateAndTableUpdate2($table_assetpermission, '', $columns_assetpermission, $foreign_keyspermission);
+        // $foreign_keyspermission = [
+        //     'FOREIGN KEY (asset_id) REFERENCES '.$table_username . '_platform_assets(id)',
+        // ];
+        $table = tableCreateAndTableUpdate2($table_assetpermission, '', $columns_assetpermission);
 
 
         $table_name11 = $table_username . '_task_status';

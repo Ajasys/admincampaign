@@ -456,7 +456,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <!-- <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>">Email Integration</a>
                      </li> -->
-                     <?php if ((in_array('messages', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+                     <?php if ((in_array('fbmessages', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
 
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>messenger">Messenger</a>
@@ -465,7 +465,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>bot">Manage Bot</a>
                      </li>
-                     <?php if ((in_array('post_comments', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+                     <?php if ((in_array('fbpost', $get_asset_permission) || (in_array('fbcomments', $get_asset_permission))) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                         <li>
                            <a class="dropdown-item" href="<?= base_url(); ?>post_comments">Manage Post & Comments</a>
                         </li>

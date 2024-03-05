@@ -391,7 +391,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         success: function(res) {
                             var result = JSON.parse(res);
                             if (result.response == 1) {
-                                iziToast.error({
+                                iziToast.success({
                                     title: 'Facebook app connection has been deleted successfully..!',
                                 });
                                 list_data();

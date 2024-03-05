@@ -74,7 +74,8 @@ class AssetPermissionController extends BaseController
                     // for assign permission
                     $create_scenarios = '';
                     $leads = '';
-                    $post_comments = '';
+                    $post = '';
+                    $comments = '';
                     $messages = '';
                     if (in_array('create_scenarios', $perassetname_data)) {
                         $create_scenarios = 'checked';
@@ -82,10 +83,13 @@ class AssetPermissionController extends BaseController
                     if (in_array('leads', $perassetname_data)) {
                         $leads = 'checked';
                     }
-                    if (in_array('post_comments', $perassetname_data)) {
-                        $post_comments = 'checked';
+                    if (in_array('fbpost', $perassetname_data)) {
+                        $post = 'checked';
                     }
-                    if (in_array('messages', $perassetname_data)) {
+                    if (in_array('fbcomments', $perassetname_data)) {
+                        $comments = 'checked';
+                    }
+                    if (in_array('fbmessages', $perassetname_data)) {
                         $messages = 'checked';
                     }
 
@@ -122,14 +126,14 @@ class AssetPermissionController extends BaseController
                                             <div class="col-1">
                                                 <label class="switch_toggle_primary">
                                                     <input
-                                                        class="toggle-checkbox fs-3 on_off_btn_Desktop post_comments"
-                                                        type="checkbox" value="post_comments"  ' . $post_comments . '>
+                                                        class="toggle-checkbox fs-3 on_off_btn_Desktop fbpost"
+                                                        type="checkbox" value="fbpost"  '.$post.'>
                                                     <span class="check_input_primary round"></span>
                                                 </label>
                                             </div>
                                             <div class="col-11">
-                                                <p class="col ms-3 fw-bold fs-14">Post & Comments</p>
-                                                <p class="ms-3">Create, view and manage post and their comments.
+                                                <p class="col ms-3 fw-bold fs-14">Post</p>
+                                                <p class="ms-3">Create, view and manage their post.
                                                 </p>
                                             </div>
                                         </div>
@@ -137,8 +141,23 @@ class AssetPermissionController extends BaseController
                                             <div class="col-1">
                                                 <label class="switch_toggle_primary">
                                                     <input
-                                                        class="toggle-checkbox fs-3 on_off_btn_Desktop messages"
-                                                        type="checkbox" value="messages"  ' . $messages . '>
+                                                        class="toggle-checkbox fs-3 on_off_btn_Desktop fbcomments"
+                                                        type="checkbox" value="fbcomments"  ' . $comments . '>
+                                                    <span class="check_input_primary round"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-11">
+                                                <p class="col ms-3 fw-bold fs-14">Comments</p>
+                                                <p class="ms-3">Create, view and manage their comments.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 p-2 d-flex align-items-center">
+                                            <div class="col-1">
+                                                <label class="switch_toggle_primary">
+                                                    <input
+                                                        class="toggle-checkbox fs-3 on_off_btn_Desktop fbmessages"
+                                                        type="checkbox" value="fbmessages"  ' . $messages . '>
                                                     <span class="check_input_primary round"></span>
                                                 </label>
                                             </div>
