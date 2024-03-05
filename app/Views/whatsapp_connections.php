@@ -24,6 +24,12 @@
         overflow-x: scroll;
         /* min-width: 632px; */
     }
+    /* Style for thin scrollbar */
+::-webkit-scrollbar {
+    height: 5px;
+}
+
+
 </style>
 
 <?php

@@ -160,7 +160,7 @@
                 </li>
             </ul>
         </div> -->
-        <div class="col-12  d-flex flex-wrap justify-content-sm-center justify-content-lg-start mt-2">
+        <div class="col-12  d-flex flex-wrap justify-content-center justify-content-lg-start mt-2">
             <div class="first-container slide-toggle me-2">
             <div class="col-12 email_account_show"></div>
 
@@ -211,7 +211,7 @@
                 </div>
             </div>
             <!-- old-design-whith backend -->
-            <div class="col-9 col-md">
+            <div class="col-12 col-sm-10 col-md-6 mt-2 col-md">
                 <div class="col-12 ps-1 d-none main-panel1">
                     <div class="tab-content p-0 " id="pills-tabContent">
                         <div class="tab-pane fade show active" id="inquiry_alert_main" role="tabpanel" aria-labelledby="inquiry_alert_tab" tabindex="0">
