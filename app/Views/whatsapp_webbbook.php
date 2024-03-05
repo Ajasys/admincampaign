@@ -521,7 +521,7 @@ if (isset($response['entry'][0])) {
 
                                                                     
 
-                                                                } elseif ($NextQuestionType == '4' || $NextQuestionType == '2' || $NextQuestionType == '40') {
+                                                                }elseif ( $NextQuestionType == '2' || $NextQuestionType == '40') {
                                                                     $jsonDDSelectionData = json_decode($BotNextQuestionDataArray['menu_message'], true);
                                                                     $arraydatas = '';
                                                                     foreach ($jsonDDSelectionData['single_choice_option_value'] as $item) {
@@ -769,7 +769,36 @@ if (isset($response['entry'][0])) {
                                                                     if (isset($ReturnResult['messages'][0]['id'])) {
                                                                         $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
                                                                     }
-                                                                }
+                                                                }elseif($NextQuestionType == '4'){
+                                                                    $textOfbody = strip_tags($BotNextQuestionDataArray['question']);
+                                                                    $textOfbody1 = strip_tags($BotNextQuestionDataArray['question']);
+                                                                    $jsonDDSelectionData = json_decode($BotNextQuestionDataArray['menu_message'], true);
+                                                                    $optionsArray = explode(';', $jsonDDSelectionData['options']);
+                                                                    $CountsMultipleSelection = 0;
+                                                                    foreach ($optionsArray as $option) {
+                                                                        $CountsMultipleSelection ++ ;
+                                                                        $textOfbody .= '*'.$CountsMultipleSelection.'.* '.$option.' Just let me know the number corresponding to your choice! ';
+                                                                        $textOfbody1 .= ''.$CountsMultipleSelection.'. '.$option.' Just let me know the number corresponding to your choice!';
+                                                                    }
+
+                                                                    $JsonDataStringBoat = '{
+                                                                        "messaging_product": "whatsapp",
+                                                                        "recipient_type": "individual",
+                                                                        "to": "' . $sendercontact . '",
+                                                                        "type": "text",
+                                                                        "text": { 
+                                                                        "preview_url": false,
+                                                                        "body": "' . $textOfbody . '"
+                                                                        }
+                                                                    }';
+                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $Result = postSocialData($url, $JsonDataStringBoat);
+                                                                    $ReturnResult = $Result;
+                                                                    $jsonmsg = '{"body":' . json_encode($textOfbody1) . '}';
+                                                                    if (isset($ReturnResult['messages'][0]['id'])) {
+                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
+                                                                    }
+                                                                } 
                                                                 
                                                                 // else if ($QuestionType == '42') {
                                                                 //     // here 
@@ -917,7 +946,7 @@ if (isset($response['entry'][0])) {
                                                             if (isset($ReturnResult['messages'][0]['id'])) {
                                                                 $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
                                                             }
-                                                        } elseif ($QuestionType == '4' || $QuestionType == '2' || $QuestionType == '40' ) {
+                                                        } elseif ( $QuestionType == '2' || $QuestionType == '40' ) {
                                                             $arraydatas = '';
                                                             $jsonDDSelectionData = json_decode($menu_message, true);
                                                             foreach ($jsonDDSelectionData['single_choice_option_value'] as $item) {
@@ -1133,7 +1162,41 @@ if (isset($response['entry'][0])) {
                                                             if (isset($ReturnResult['messages'][0]['id'])) {
                                                                 $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
                                                             }
+                                                        }elseif($QuestionType == '4'){
+                                                            $textOfbody = strip_tags($final_error_text);
+                                                            $textOfbody1 = strip_tags($final_error_text);
+                                                            $jsonDDSelectionData = json_decode($menu_message, true);
+                                                            $optionsArray = explode(';', $jsonDDSelectionData['options']);
+                                                            $CountsMultipleSelection = 0;
+                                                            foreach ($optionsArray as $option) {
+                                                                $CountsMultipleSelection ++ ;
+                                                                $textOfbody .= '*'.$CountsMultipleSelection.'.* '.$option.' Just let me know the number corresponding to your choice! ';
+                                                                $textOfbody1 .= ''.$CountsMultipleSelection.'. '.$option.' Just let me know the number corresponding to your choice!';
+                                                            }
+
+                                                            $JsonDataStringBoat = '{
+                                                                "messaging_product": "whatsapp",
+                                                                "recipient_type": "individual",
+                                                                "to": "' . $sendercontact . '",
+                                                                "type": "text",
+                                                                "text": { 
+                                                                "preview_url": false,
+                                                                "body": "' . $textOfbody . '"
+                                                                }
+                                                            }';
+                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                            $Result = postSocialData($url, $JsonDataStringBoat);
+                                                            $ReturnResult = $Result;
+                                                            $jsonmsg = '{"body":' . json_encode($textOfbody1) . '}';
+                                                            if (isset($ReturnResult['messages'][0]['id'])) {
+                                                                $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
+                                                            }
                                                         }
+
+
+                                                        
+
+
                                                         //  else if ($QuestionType == '42') {
                                                         //     if (isset($RecievedMessageArray['messages'][0]['id'])) {
                                                         //         $jsonData = json_decode($menu_message, true);
