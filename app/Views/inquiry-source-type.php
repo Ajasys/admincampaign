@@ -23,14 +23,14 @@
         </div>
         <div class="px-3 py-2 bg-white rounded-2 mx-2 mb-2">
             <form action="" class="formsize needs-validation" name="inquirysource">
-                <div class="d-flex justify-content-start align-items-end">
+                <div class="d-flex flex-wrap justify-content-start align-items-end">
                     <div class="col-lg-4 col-md-4 col-sm-6 px-2">
-                        <label class="main-label">Add Inquiry source type</label>
+                        <label class="main-label text-nowrap">Add Inquiry source type</label>
                         <input type="text" class="form-control main-control" id="inquiryname" name="inquiry_source_type"
                             placeholder="Inquiry source" required>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 px-2">
-                        <button class=" btn-primary btn-primary button-add" name="inquirysource_add"
+                        <button class=" btn-primary btn-primary button-add text-nowrap mt-2" name="inquirysource_add"
                             value="occupation-add" type="submit">Add source type</button>
                     </div>
                 </div>

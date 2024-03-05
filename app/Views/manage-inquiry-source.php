@@ -27,8 +27,8 @@
       </div>
       <div class="px-3 py-2 bg-white rounded-2 mx-2 mb-2">
          <form action="" class="formsize needs-validation" name="inquirysource" novalidate>
-            <div class="d-flex justify-content-start align-items-end">
-               <div class="col-lg-3 col-md-3 col-sm-6 px-2">
+            <div class="d-flex flex-wrap  justify-content-start align-items-end">
+               <div class="col-lg-3 col-md-3 col-sm-6 col-12 px-2">
                   <label for="occupationname" class="form-label main-label">Source</label>
                   <div class="main-selectpicker">
                      <select name="inquiry_source_type" id="inquirysource-select"
@@ -48,17 +48,17 @@
                      </select>
                   </div>
                </div>
-               <div class="col-lg-3 col-md-3 col-sm-6 px-2">
+               <div class="col-lg-3 col-md-3 col-sm-6 col-12 px-2">
                   <label class="main-label">Title</label>
                   <input type="text" class="form-control main-control" id="inquirytitle" name="source"
                      placeholder="Enter Title" required>
                </div>
-               <div class="col-lg-3 col-md-3 col-sm-6 px-2">
+               <div class="col-lg-3 col-md-3 col-sm-6 col-12 px-2">
                   <label class="main-label">Description</label>
                   <input type="text" class="form-control main-control" id="inquiryDescription" name="description"
                      placeholder="Enter Description" required>
                </div>
-               <div class="col-lg-3 col-md-3 col-sm-6 px-2">
+               <div class="col-lg-3 col-md-3 col-sm-6 col-12 px-2 mt-2">
                   <button class=" btn-primary inquiry-btn" name="inquirysource_add" value="inquirysource_add"
                      type="submit">Add</button>
                </div>

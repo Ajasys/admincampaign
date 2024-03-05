@@ -40,13 +40,13 @@ $username = session_username($_SESSION['username']);
                               <input type="text" class="form-control main-control" id="inquiryclose_description" name="inquiry_close_reason_description" placeholder="Inquiry Close Reason Description">
                          </div>
                          <div class="col-lg-4 col-md-4 col-sm-6 px-2">
-                              <button class="btn-primary" name="inquiryclose_add" value="occupation-add" type="submit">Inq Close Reason</button>
+                              <button class="btn-primary mt-2" name="inquiryclose_add" value="occupation-add" type="submit">Inq Close Reason</button>
                          </div>
                     </div>
                </form>
           </div>
           <div class="px-3 py-2 bg-white rounded-2 mx-2 mb-2">
-               <table id="inquiry_closing" class="table main-table w-100">
+               <table id="inquiry_closing" class="table main-table w-100" style="min-width:600px; overflow:auto;">
                     <thead>
                          <tr>
                               <th>

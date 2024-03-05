@@ -182,7 +182,7 @@ class UserInformation extends BaseController {
                                             <p>Role : </p>
                                             <span class="mx-1">'.$role.'</span>
                                         </div>
-                                        <div class="d-flex align-items-center col-md-4 col-lg-3  col-sm-6 col-12">
+                                        <div class="d-flex flex-wrap align-items-center col-md-4 col-lg-3  col-sm-6 col-12">
                                             <p>Department : </p>
                                             <span class="mx-1">'.$value['department'].'</span>
                                         </div>
@@ -246,7 +246,7 @@ class UserInformation extends BaseController {
                                             <p>Role : </p>
                                             <span class="mx-1">'.$role.'</span>
                                         </div>
-                                        <div class="d-flex align-items-center col-md-4 col-lg-3  col-sm-6 col-12">
+                                        <div class="d-flex flex-wrap align-items-center col-md-4 col-lg-3  col-sm-6 col-12">
                                             <p>Department : </p>
                                             <span class="mx-1">'.$value['department'].'</span>
                                         </div>
