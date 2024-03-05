@@ -40,8 +40,8 @@ class AssetPermissionController extends BaseController
                         </div>
                     </div><div class="col-12 overflow-x-hidden" style="height:500px;">
                     <ul class="overflow-y-scroll" style="height:490px;">';
-            if ($connection_id > 0) {
-                $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages' AND platform_id=" . $connection_id;
+            
+                $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages'";
                 $asset_result = $this->db->query($asset_query);
                 $pageresult = $asset_result->getResultArray();
                 if (isset($pageresult)) {
@@ -151,18 +151,19 @@ class AssetPermissionController extends BaseController
                 } else {
                     $Msg = 'Page does not exist..!';
                 }
-            } else {
-                $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
-                foreach ($pageresult['data'] as $aa_key => $aa_value) {
-                    $longLivedAccessToken = $aa_value['access_token'];
-                    $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
-                }
-                if (isset($result['error']['message'])) {
-                    $Msg = $result['error']['message'];
-                } else {
-                    $Msg = 'Page list Succesfully..';
-                }
-            }
+             
+            // else {
+            //     $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
+            //     foreach ($pageresult['data'] as $aa_key => $aa_value) {
+            //         $longLivedAccessToken = $aa_value['access_token'];
+            //         $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
+            //     }
+            //     if (isset($result['error']['message'])) {
+            //         $Msg = $result['error']['message'];
+            //     } else {
+            //         $Msg = 'Page list Succesfully..';
+            //     }
+            // }
             $html .= '</ul>
             </div>';
 
@@ -171,6 +172,15 @@ class AssetPermissionController extends BaseController
         }
         $resultff['html'] = $html;
         $resultff['permission_html'] = $permission_html;
+        if (isset($per_result[0]))
+        {
+            $asset_permissions_array = explode(',', $per_result[0]->assetpermission_name);
+            $unique_asset_permissions = array_unique($asset_permissions_array);
+            $asset_permissions_string = implode(',', $unique_asset_permissions);
+            $resultff['permission_name'] = $asset_permissions_string;
+            $resultff['asset_id'] = $per_result[0]->asset_id;
+        }
+       
         return json_encode($resultff);
         die();
     }
