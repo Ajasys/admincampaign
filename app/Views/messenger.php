@@ -631,15 +631,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         <div class="col-12  px-0 scroll-none" style="max-height: 100%;">
                             <div class="accordion " id="accordionExample">
                                 <div class="accordion-item border-0 border-bottom FbListedMessage">
-                                    <h2 class="accordion-header">
-                                        <button
-                                            class="accordion-button collapsed border-0 shadow-none fw-medium rounded-0 px-3 py-2"
-                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                            aria-expanded="true" aria-controls="collapseOne">
-                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px"
-                                                x="0" y="0" viewBox="0 0 512 512"
-                                                style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                    <h2 class="accordion-header position-relative">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium rounded-0 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
                                                     <path fill="#1877f2"
                                                         d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z"
@@ -650,9 +644,9 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                                 </g>
                                             </svg>
                                             <P class="ms-2">Facebook</P>
-                                            <div class="col text-end">
-                                                <i class="fa-solid fa-arrows-rotate fs-5 me-2 text-primary fb-refresh"
-                                                    data-api="true"></i>
+                                            </button>
+                                        <div class="col text-end position-absolute" style="right: 0;top: 50%;transform: translate(-134%, -50%);z-index: 9;">
+                                                <i class="fa-solid fa-arrows-rotate fs-5 me-2 text-primary fb-refresh" data-api="true"></i>
                                             </div>
                                         </button>
                                     </h2>
@@ -2262,23 +2256,27 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 page_access_token: page_access_token,
                 platform: platform,
             },
-            beforeSend: function () {
+            beforeSend: function() {
+if(api == false) {
+
                 if (action == 'account_list') {
                     $('.acc_loader').show();
                 } else if (action == 'chat_list') {
                     $('.chat_list').html('');
                     $('.chat_list_loader').show();
+}
                 }
             },
-            success: function (data) {
+            success: function(data) {
                 // ====kjhsdhj==
                 $('.acc_loader').hide();
+$('.fb-refresh').removeClass('fa-spin');
                 var obj = JSON.parse(data);
                 if (action == 'account_list') {
                     $('.account_list').html(obj.chat_list_html);
                     $('.IG_account_list').html(obj.IG_chat_list_html);
                     var last_page_id = getCookie('last_account_id');
-                    if (last_page_id != '') {
+                    if (api == false && last_page_id != '') {
                         $('.account-nav[data-page_id="' + last_page_id + '"]').trigger('click');
                     }
                 } else if (action == 'chat_list') {
@@ -2287,14 +2285,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     $('.chatNoData').hide();
                     var last_chat_id = getCookie('last_chat_id');
                     var last_page_id = getCookie('last_account_id');
-                    if (last_chat_id != '' && last_page_id != '') {
+                    if (api == false  && last_chat_id != '' && last_page_id != '') {
                         $('.chat_list[data-sender_id="' + last_chat_id + '"]').trigger('click');
                     }
                 }
-
-                // if ($('.chat-box').css('display') !== 'none') {
-                //     $('.common-options').removeClass('linked-page');
-                // }
             }
         });
     }
@@ -2390,10 +2384,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         $('.noRecourdFound').hide();
                         $('.username').text(user_name);
                         $('.in_chat_page_name').text(page_name + '(' + platform + ')');
-                        $('.send_massage').attr("data-conversion_id", conversion_id);
-                        $('.send_massage').attr("data-page_token", page_access_token);
-                        $('.send_massage').attr("data-page_id", page_id);
-                        $('.send_massage').attr("data-sender_id", sender_id);
+                        $('.send_massage').data("conversion_id", conversion_id);
+                        $('.send_massage').data("page_token", page_access_token);
+                        $('.send_massage').data("page_id", page_id);
+                        $('.send_massage').data("sender_id", sender_id);
                         // $('.send_massage').attr("data-massage_id", massage_id);
                     }
                 });
@@ -2422,7 +2416,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         page_id: page_id,
                         massage: massage_input,
                     },
-                    success: function (data) {
+                    success: function(data) {
                         var obj = JSON.parse(data);
                         if (obj.status == 0) {
                             // iziToast.error({
@@ -2444,7 +2438,17 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         });
     });
 
-    $('body').on('click', '.WA_account_listTab', function () {
+    $('body').on('click','.fb-refresh', function (e) {
+        e.stopPropagation();
+        // alert();
+        $(this).addClass('fa-spin');
+        list_data(true,'account_list');
+        // var collapse = $('.FbListedMessage').find('.accordion-collapse');
+        // collapse.collapse('show');
+
+    });
+
+    $('body').on('click', '.WA_account_listTab', function() {
         $('.chat_bord').html('');
         $('.in_chat_page_name').text('');
         $('.UserChatName').text('User Name');

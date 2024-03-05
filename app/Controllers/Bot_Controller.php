@@ -2334,70 +2334,96 @@ class Bot_Controller extends BaseController
 			// $token = 'edrftgyhjk,l.;/'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 
 			$this->db = \Config\Database::connect('second');
-			$get_token = "SELECT access_token FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
 			$data_count = $get_access_token_array->getNumRows();
+			$access_api = isset($_POST['api']) ? $_POST['api'] : false;
 			if ($data_count > 0) {
-				$token = $get_access_token_array->getResultArray()[0]['access_token'];
-				$fileds = 'instagram_business_account{id,username,profile_picture_url},profile_picture_url,access_token,name,id';
-				$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
-				// $fb_page_list = fb_page_list($token);
-				// $fb_page_list = get_object_vars(json_decode($fb_page_list));
-				// pre($url);
-				$cache_data = $cache->get($_SESSION['id'] . '_fb_data');
-				if (!empty($cache_data)) {
-					$fb_page_list = $cache_data;
-					// echo 'yes';
-				} else {
-					$fb_page_list = getSocialData($url);
+				$unread_msg_data = array();
+				$fb_account_data = $get_access_token_array->getResultArray();
+				foreach ($fb_account_data as $account_key => $account_value) {
+					// pre($account_value);
+					// continue;
+					$token = $account_value['access_token'];
+					// pre($token);
+					// $fileds = 'instagram_business_account{id,username,profile_picture_url},profile_picture_url,access_token,name,id';
+					// $url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
+					// $fb_page_list = fb_page_list($token);
+					// $fb_page_list = get_object_vars(json_decode($fb_page_list));
+					// pre($url);
+					$asset_table_name = $this->username . '_platform_assets';
+					$platform_id = $account_value['id'];
+					$master_id = $_SESSION['master'];
+					$get_page_data = "SELECT * FROM $asset_table_name WHERE platform_id = $platform_id AND master_id = $master_id";
+					$get_page_data = $this->db->query($get_page_data);
+					$get_page_data = $get_page_data->getResultArray();
+					// pre($get_page_data);
+					$cache_data = $cache->get($_SESSION['id'] . '_fb_data');
+					// pre($cache_data);
+					// if (!empty($cache_data) && $access_api == false) {
+					// 	$fb_page_list = $cache_data;
+					// 	// echo 'yes';
+					// } else {
+					// $fb_page_list = getSocialData($url);
+					$fb_page_list['data'] = $get_page_data;
 					// echo 'no';
-				}
-				$fb_chat_list_html = '';
-				$IG_chat_list_html = '';
-				$return_result = array();
-				$IG_data = array();
-				// pre($fb_page_list);
-				foreach ($fb_page_list['data'] as $key => $value) {
-					$unread_msg = 0;
-					// pre($con_data);
-					if (!empty($cache_data)) {
-						$unread_msg = $value['unread_count'];
-						$page_img = $value['page_img'];
-					} else {
-						$url = 'https://graph.facebook.com/' . $value['id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
-						$con_data = getSocialData($url);
-						if (isset($con_data['data'])) {
-							foreach ($con_data['data'] as $con_key => $con_value) {
-								// pre($value);
-								$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
+					// }
+					$fb_chat_list_html = '';
+					$IG_chat_list_html = '';
+					$return_result = array();
+					$IG_data = array();
+					// pre($fb_page_list);
+					foreach ($fb_page_list['data'] as $key => $value) {
+						$unread_msg = 0;
+						// pre($con_data);
+						// if (!empty($cache_data) && $access_api == false) {
+						// 	$unread_msg = $value['unread_count'];
+						// 	$page_img = $value['page_img'];
+						// } else {
+						// echo $access_api.'<br>';
+						if ($access_api === 'true') {
+							$url = 'https://graph.facebook.com/' . $value['asset_id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
+							$con_data = getSocialData($url);
+							if (isset($con_data['data'])) {
+								foreach ($con_data['data'] as $con_key => $con_value) {
+									// pre($value);
+									$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
+								}
 							}
+							$unread_msg_data[$value['asset_id']] = $unread_msg;
+							// echo $unread_msg.'<br>';
+						} else {
+							$unread_msg = isset($cache_data[$value['asset_id']]) ? $cache_data[$value['asset_id']] : 0;
+							$unread_msg_data[$value['asset_id']] = $unread_msg;
 						}
-						$page_data = fb_page_img($value['id'], $value['access_token']);
-						$page_data = json_decode($page_data);
-						$page_img = $page_data->page_img;
-					}
+						// $page_data = fb_page_img($value['id'], $value['access_token']);
+						// $page_data = json_decode($page_data);
+						// $page_img = $page_data->page_img;
+						$page_img = $value['asset_img'];
+						// }
 
-					$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
+						$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['asset_id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
 										<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 												<img src="' . $page_img . '" alt="" width="45">
 											</a>
 											<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
 											</p>';
-					if ($unread_msg  != 0) {
-						$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
-					}
-					$fb_chat_list_html .= '</div>
+						if ($unread_msg  != 0) {
+							$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
+						}
+						$fb_chat_list_html .= '</div>
 									</div>';
-					if (isset($value['instagram_business_account'])) {
-						$value['instagram_business_account']['access_token'] = $value['access_token'];
-						$value['instagram_business_account']['fb_page_id'] = $value['id'];
-						$IG_data[] = $value['instagram_business_account'];
-					}
+						if (isset($value['instagram_business_account'])) {
+							$value['instagram_business_account']['access_token'] = $value['access_token'];
+							$value['instagram_business_account']['fb_page_id'] = $value['asset_id'];
+							$IG_data[] = $value['instagram_business_account'];
+						}
 
-					if (empty($cache_data)) {
-						$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
-						$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
+						// if (empty($cache_data) && $access_api == false) {
+						// 	$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
+						// 	$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
+						// }
 					}
 				}
 
@@ -2414,8 +2440,10 @@ class Bot_Controller extends BaseController
 								</div>
 									';
 				}
-
-				$cache->save($_SESSION['id'] . '_fb_data', $fb_page_list, 3600 * 24);
+				// pre($unread_msg_data);
+				if (!empty($unread_msg_data)) {
+					$cache->save($_SESSION['id'] . '_fb_data', $unread_msg_data, 3600);
+				}
 
 				// pre($IG_data);
 			} else {
@@ -2553,7 +2581,7 @@ class Bot_Controller extends BaseController
 					$html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-3" style="background:#f3f3f3;">' . $dayOfWeek . '</div>';
 					$dates = $date;
 				}
-				$time = $dateTime->format('H:i a');
+				$time = $dateTime->format('h:i a');
 				// pre($date);
 				// pre($time);
 				$message = $massage_value['message'];
@@ -2616,15 +2644,16 @@ class Bot_Controller extends BaseController
 				$return['msg'] = "You don't have permission to send messages from this page.";
 				$return['text'] = '<br><span>Request to Facebook for approval "<b>pages_messaging</b>" permission.</span>';
 			} else {
-				$time = date('H:i a');
+				$time = date('h:i a');
 				$return['status'] = 1;
 				$return['msg'] = "Successfully Inserted!";
 				$return['html'] = '
-				<div class="d-flex mb-4 justify-content-end" >
-				<div class="col-lg-9 col-11 text-end d-flex d-inline-flex justify-content-end align-items-center">
-					<span class="me-2 text-center text-nowrap" style="font-size:12px;">' . $time . '</span> <span class="px-2 py-2 rounded-4 text-wrap text-start text-white fs-12" style="background:rgb(10, 124, 255);overflow-wrap: anywhere;">' . $message . ' </span> 
-				</div>
-			</div>';
+							<div class="d-flex mb-4 justify-content-end" >
+								<div class="col-lg-9 col-11 text-end d-flex d-inline-flex justify-content-end align-items-center">
+									<span class="me-2 text-center text-nowrap" style="font-size:12px;">' . $time . '</span> <span class="px-2 py-2 rounded-4 text-wrap text-start text-white fs-12" style="background:rgb(10, 124, 255);overflow-wrap: anywhere;">' . $message . ' </span> 
+								</div>
+							</div>';
+				$return['data'] = json_encode($data);
 			}
 		} else {
 			$msg = '';
