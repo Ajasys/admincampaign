@@ -114,8 +114,26 @@ class Home extends BaseController
             'link_event varchar(50) NOT NULL',
             'terms_event varchar(50) NOT NULL',
         ];
-        tableCreateAndTableUpdate2($table_username . '_create_post', '', $columns_mesures);
-        return view('post_comments');
+        tableCreateAndTableUpdate2($table_username . '_create_post', '', $columns_mesures);        
+
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        $Database = \Config\Database::connect('second');
+        $sql2 = 'SELECT * FROM `' . $username . '_platform_integration` WHERE platform_status = "2" AND verification_status = "1"';
+        $Getresult = $Database->query($sql2);
+        $predataarray = $Getresult->getResultArray();
+        $access_token = '';
+
+        if(isset($predataarray[0]['access_token']) && $predataarray[0]['access_token'] != '' ){
+            $access_token = $predataarray[0]['access_token'];
+
+        }
+        $data['fbndinsta'] = json_encode($predataarray);
+        $data['hometoaccesstoken'] = $access_token;
+        // pre
+        // $data = json_encode($data);
+        return view('post_comments', $data);
     }
     public function posts()
     {

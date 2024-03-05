@@ -664,6 +664,7 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 
 	// get live message
     $routes->post('check_new_data_Available','CommonController::check_new_data_Available');
+	$routes->post('/SetPostDataAccountList', 'SocialPostController::SetPostDataAccountList');
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');
