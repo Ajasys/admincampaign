@@ -1043,7 +1043,7 @@ if (!empty($connections)) {
                                                                     <label class=" pull-left full-width text-left m-b-15"><b>Note:
                                                                         </b> follow <a href="<?php echo base_url('/assets/whatsappbulkmessage.csv'); ?>" download='whatsappbulkmessage.csv' target="_blank">csv</a>
                                                                         format for
-                                                                        reference <a href="<?php echo base_url('/assets/whatsappbulkmessage.csv'); ?>" download='whatsappbulkmessage.csv' class="text-secondary mx-1 mb-1 add_property_js add_user_role_css add_user-role-pdf">
+                                                                        send bulk messages    <a href="<?php echo base_url('/assets/whatsappbulkmessage.csv'); ?>" download='whatsappbulkmessage.csv' class="text-secondary mx-1 mb-1 add_property_js add_user_role_css add_user-role-pdf">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="28" height="28" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                                                 <g>
                                                                                     <path d="M496 432.011H272c-8.832 0-16-7.168-16-16v-320c0-8.832 7.168-16 16-16h224c8.832 0 16 7.168 16 16v320c0 8.832-7.168 16-16 16z" style="" fill="#eceff1" data-original="#eceff1"></path>
@@ -1265,7 +1265,7 @@ if (!empty($connections)) {
                                                                     <div class="modal-footer justify-content-end my-1">
                                                                         <!-- <span class="btn-primary nextbutton  d-none" id="memberships_add_btn1" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">Preview</span> -->
 
-                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">import</button>
+                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">Send</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
