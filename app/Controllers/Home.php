@@ -114,7 +114,7 @@ class Home extends BaseController
             'link_event varchar(50) NOT NULL',
             'terms_event varchar(50) NOT NULL',
         ];
-        tableCreateAndTableUpdate2($table_username . '_create_post', '', $columns_mesures);        
+        tableCreateAndTableUpdate2($table_username . '_create_post', '', $columns_mesures);
 
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
@@ -125,7 +125,7 @@ class Home extends BaseController
         $predataarray = $Getresult->getResultArray();
         $access_token = '';
 
-        if(isset($predataarray[0]['access_token']) && $predataarray[0]['access_token'] != '' ){
+        if (isset($predataarray[0]['access_token']) && $predataarray[0]['access_token'] != '') {
             $access_token = $predataarray[0]['access_token'];
 
         }
@@ -215,7 +215,7 @@ class Home extends BaseController
     public function index()
     {
 
-       
+
         $table_username = session_username($_SESSION['username']);
 
 
@@ -242,7 +242,7 @@ class Home extends BaseController
             'timestamp varchar(400)',
             'latitude longtext',
             'longitude longtext',
-'msg_read_status int(255) NOT NULL DEFAULT 0 COMMENT "0-unread & 1-read"',
+            'msg_read_status int(255) NOT NULL DEFAULT 0 COMMENT "0-unread & 1-read"',
         ];
         $table = tableCreateAndTableUpdate2($table_username . '_messages', '', $messages);
 
@@ -606,6 +606,14 @@ class Home extends BaseController
             $settings_data = array();
         }
         $count = 0;
+
+
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $table_username = $parts[0];
+        $Database = \Config\Database::connect('second');
+
+
         if (!empty($settings_data)) {
             foreach ($settings_data as $key => $value) {
                 $phone_number_id = $value['phone_number_id'];
@@ -631,19 +639,19 @@ class Home extends BaseController
                         $$qualityColor = $DataArray['data'][0]['quality_rating'];
                     }
 
-                    $msgchecksql = $db_connection->query("SELECT * FROM `".$table_username."_messages`");
+                    $msgchecksql = $db_connection->query("SELECT * FROM `" . $table_username . "_messages`");
                     $msgchecksql = $msgchecksql->getNumRows();
-                    
+
+                    $msgchecksql2 = $db_connection->query("SELECT * FROM `" . $table_username . "_platform_assets` WHERE asset_type	 = 'contact'");
+                    $msgchecksql2 = $msgchecksql2->getNumRows();
 
                     $phoneNumber = $display_phone_number;
-                    if ($display_phone_number != '' && $value['id'] != '' && $verified_name != '' && $msgchecksql > 0) {
-                        $connection_ids = $value['id'];
+                    $phoneno = str_replace([' ', '+'], '', $display_phone_number);
+                    $connection_ids = $value['id'];
+
+                    if ($display_phone_number != '' && $value['id'] != '' && $verified_name != '' && $msgchecksql > 0 && $msgchecksql2 > 0) {
                         $id = $value['id'];
-                        $phoneno = str_replace([' ', '+'], '', $display_phone_number);
-                        $inputString = $_SESSION['username'];
-                        $parts = explode("_", $inputString);
-                        $table_username = $parts[0];
-                        $Database = \Config\Database::connect('second');
+
                         $sql = "SELECT " . $table_username . "_platform_assets.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_platform_assets.contact_no AND platform_account_id = " . $id . " AND boatstatus = '0') AS last_inserted_id FROM " . $table_username . "_platform_assets WHERE  account_phone_no = '" . $phoneno . "' AND boatstatus = '0' AND conversation_account_id = '" . $id . "' ORDER BY last_inserted_id DESC;
                         ";
                         $Getresult = $Database->query($sql);
@@ -663,25 +671,28 @@ class Home extends BaseController
                                 }
                             }
                         }
-                 
+
                         $responseArray[] = array(
                             'display_phone_number' => $phoneno,
                             'id' => $connection_ids,
                             'verified_name' => $verified_name,
-'count' => $counts,
+                            'count' => $counts,
                         );
-
+                    } else {
+                        $responseArray[] = array(   
+                            'display_phone_number' => $phoneno,
+                            'id' => $connection_ids,
+                            'verified_name' => $verified_name,
+                            'count' => '0',
+                        );
                     }
                 }
             }
         }
-
-
         $responseArray = json_encode($responseArray);
         $data['WhatsAppAccounts'] = $responseArray;
-
         return view('messenger', $data);
-}
+    }
 
     public function bot_chat()
     {
@@ -756,13 +767,13 @@ class Home extends BaseController
                                     }
                                 }
                             }
-                                $responseArray[] = array(
-                                    'display_phone_number' => $phoneno,
-                                    'id' => $connection_ids,
-                                    'verified_name' => $verified_name,
-                                    'count' => $counts,
-                                    'botid' =>  $accountBotID,
-                                );
+                            $responseArray[] = array(
+                                'display_phone_number' => $phoneno,
+                                'id' => $connection_ids,
+                                'verified_name' => $verified_name,
+                                'count' => $counts,
+                                'botid' => $accountBotID,
+                            );
                         }
                     }
 
@@ -1227,7 +1238,7 @@ class Home extends BaseController
         $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
         $find_Array_all = "SELECT * FROM " . $username . "_fb_account  where master_id='" . $_SESSION['master'] . "' ";
         $find_Array_all = $this->db->query($find_Array_all);
-		$data['fb_account'] = $find_Array_all->getResultArray();
+        $data['fb_account'] = $find_Array_all->getResultArray();
         return view('newlead_module', $data);
     }
     public function leadlist()
