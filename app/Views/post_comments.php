@@ -2,7 +2,7 @@
 <?= $this->include('partials/sidebar') ?>
 <?php
 $db_connection = \Config\Database::connect('second');
-$queryy = 'SELECT * FROM admin_platform_integration WHERE platform_status =2';
+$queryy = 'SELECT * FROM admin_platform_assets WHERE platform_id =32';
 $result = $db_connection->query($queryy);
 $get_facebook_page = $result->getResultArray();
 
@@ -10,7 +10,7 @@ $get_facebook_page = $result->getResultArray();
 
 <style>
     textarea:focus {
-        outline: none;
+        outline: none;  
     }
 
     .nav-item {
@@ -866,7 +866,7 @@ $get_facebook_page = $result->getResultArray();
                                                         <?php echo $value->name ?>
                                                     </div>
                                                 </div>
-                                            <?php endif; ?>
+                                            <?php endif; ?> 
                                             <?php $i++;
                                     } ?>
                                     </div>

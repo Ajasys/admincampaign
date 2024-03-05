@@ -37,7 +37,7 @@ class SocialPostController extends BaseController
             $parts = explode("_", $inputString);
             $username = $parts[0];
             $Database = \Config\Database::connect('second');
-            $sql2 = 'SELECT * FROM `' . $username . '_platform_integration` WHERE platform_status = "2" AND verification_status = "1"';
+            $sql2 = 'SELECT * FROM `' . $username . '_platform_assets` WHERE platform_status = "2" AND verification_status = "1"';
             $Getresult = $Database->query($sql2);
             $predataarray = $Getresult->getResultArray();
             if(isset($predataarray) && !empty($predataarray)){
@@ -57,7 +57,7 @@ class SocialPostController extends BaseController
                 $parts = explode("_", $inputString);
                 $username = $parts[0];
                 $Database = \Config\Database::connect('second');
-                $sql2 = 'SELECT * FROM `' . $username . '_platform_integration` WHERE platform_status = "2" AND verification_status = "1"';
+                $sql2 = 'SELECT * FROM `' . $username . '_platform_assets` WHERE platform_status = "2" AND verification_status = "1"';
                 $Getresult = $Database->query($sql2);
                 $predataarray = $Getresult->getResultArray();
                 if(isset($predataarray) && !empty($predataarray)){
@@ -84,7 +84,7 @@ class SocialPostController extends BaseController
         $Database = \Config\Database::connect('second');
         $html = '';
         if($SocialMediaPlatformStatus == '2' && $SelectionMenuSecondClass != ""){
-            $sql2 = 'SELECT * FROM `' . $username . '_platform_integration` WHERE id = "'.$SelectionMenuSecondClass.'" ';
+            $sql2 = 'SELECT * FROM `' . $username . '_platform_assets` WHERE id = "'.$SelectionMenuSecondClass.'" ';
             $Getresult = $Database->query($sql2);
             $predataarray = $Getresult->getResultArray();
             $html .= '
@@ -112,7 +112,7 @@ class SocialPostController extends BaseController
                     </select>
                 </div>';
         }else if($SocialMediaPlatformStatus == 'instagram'){
-            $sql2 = 'SELECT * FROM `' . $username . '_platform_integration` WHERE id = "'.$SelectionMenuSecondClass.'" ';
+            $sql2 = 'SELECT * FROM `' . $username . '_platform_assets` WHERE id = "'.$SelectionMenuSecondClass.'" ';
             $Getresult = $Database->query($sql2);
             $predataarray = $Getresult->getResultArray();
             $html .= '
@@ -165,7 +165,7 @@ class SocialPostController extends BaseController
         $username = $parts[0];
         $id = $_POST['id'];
         $Database = \Config\Database::connect('second');
-        $sql2 = 'SELECT * FROM `' . $username . '_platform_integration` WHERE  id = "'.$id.'"';
+        $sql2 = 'SELECT * FROM `' . $username . '_platform_assets` WHERE  id = "'.$id.'"';
         $Getresult = $Database->query($sql2);
         $predataarray = $Getresult->getResultArray();
         if(isset($predataarray[0]['id'])){
