@@ -783,8 +783,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     <div class="col-12 border  bg-white position-relative rounded-3 overflow-hidden position-relative"
                         style="height:80vh">
                         <div class="chat-nav-search-bar chat-header p-2 col-12 text-white">
-                            <div class="d-flex justify-content-between  align-items-center">
-                            <div class="d-xl-none">
+                            <div class="d-flex justify-content-start  align-items-center">
+                            <div class="d-lg-none">
                                     <button class="back-button text-white border-0 bg-transparent py-1 px-1">
                                         <i class="fa-solid fa-angle-left fs-6 fa-lg" ></i>
                                     </button>
@@ -798,7 +798,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1 px-0 scroll-none">
+                        <div class="col-12 overflow-y-scroll scroll-sm chat_list p-1 px-0 scroll-none" style="height:80vh">
 
                         </div>
                         <!-- <div class="m-auto  text-center">
@@ -1724,7 +1724,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         </div>
 
                         <div
-                            class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-5 mb-xl-3 px-3 TextInputTastbar">
+                            class="justify-content-center col-12 position-absolute bottom-0 start-0 mb-3 mb-xl-3 px-3 TextInputTastbar">
                             <div class="d-flex bg-white rounded-pill py-1 border">
                                 <div class="d-flex col-12 align-items-center">
                                     <div class="ps-2">
@@ -1768,7 +1768,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
                         <div class="chat-nav-search-bar Setchatheadercolorclass  chat-header  p-2 col-12 text-white ">
                             <div
-                                class="d-flex justify-content-between RemoveHeaderBorderDiv align-items-center text-white ">
+                                class="d-flex justify-content-start RemoveHeaderBorderDiv align-items-center text-white ">
                                 <div class="d-xl-none">
                                     <button class="back-button1 text-white border-0 bg-transparent py-1 px-1">
                                         <i class="fa-solid fa-angle-left fs-6 fa-lg" ></i>

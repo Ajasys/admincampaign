@@ -2470,7 +2470,7 @@ class Bot_Controller extends BaseController
 							<div class=" fw-semibold fs-12 chat-nav-search-bar col-12 chat-account-box p-1 pe-3
 							 chat_list linked-page1" data-conversion_id="' . $conversion_value['id'] . '" data-page_token="' . $page_access_token . '" data-page_id="' . $page_id . '" data-user_name="' . $conversion_value['participants']['data'][$key][$name] . '" data-platform="' . $platform . '" data-sender_id="' . $conversion_value['participants']['data'][$key]['id'] . '">
 							<div class="d-flex flex justify-content-between align-items-center col-12">
-										<div class="col-2 p-1">';
+										<div class="col-2 col-md-1 col-lg-2 p-1">';
 					if ($platform == 'messenger') {
 						$chat_list_html .= '<svg class="w-100" xmlns="http://www.w3.org/2000/svg" version="1.1"
 											xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0"
@@ -2492,7 +2492,7 @@ class Bot_Controller extends BaseController
 						$chat_list_html .= '<img src="' . base_url() . 'assets/images/instagram.svg' . '" style="width:40px;height:40px">';
 					}
 					$chat_list_html .= '</div>
-									<div class="col-10 d-flex flex-wrap justify-content-between align-items-center">
+									<div class="col-10 col-md-11 col-lg-10 d-flex flex-wrap justify-content-between align-items-center">
 <div class="w-75">
 									<p class="col-12 ps-2" style="font-size:16px;">' . $conversion_value['participants']['data'][$key][$name] . '</p>
 										<p class="col-10 ps-2 d-flex fs-12 text-secondary-emphasis"><span class="text-truncate">' . $conversion_value['messages']['data'][0]['message'] . '</span> <span class="col-3 ms-2">' . $time_count_text . '</span> </p>
@@ -2561,14 +2561,14 @@ class Bot_Controller extends BaseController
 					if ($_POST['page_id'] == $massage_value['from']['id']) {
 						$html .= '
 								<div class="d-flex mb-4 justify-content-end" >
-                                <div class="col-9 text-end d-flex flex-row justify-content-end align-items-center">
+                                <div class="col-lg-9 col-11 text-end d-flex flex-row justify-content-end align-items-center">
 									<span class="me-2 text-center text-nowrap" style="font-size:12px;">' . $time . '</span> <span class="px-2 py-2 rounded-4 text-wrap text-start text-white fs-12" style="background:rgb(10, 124, 255);overflow-wrap: anywhere;">' . $message . ' </span> 
                                 </div>
                             </div>';
 					} else {
 						$html .= '
 							<div class="d-flex mb-4 justify-content-start align-items-center ">
-								<div class="col-9 text-start d-flex d-inline-flex align-items-center">
+								<div class="col-lg-9 col-11 text-start d-flex d-inline-flex align-items-center">
 									<span class="px-2 py-2 rounded-4 text-wrap d-inline-flex text-start text-dark fs-12" style="background:#f3f3f3;overflow-wrap: anywhere;">' . $message . ' </span> <span class="ms-2 text-center text-nowrap" style="font-size:12px;">' . $time . '</span>
 								</div>
 							</div>';
@@ -2621,7 +2621,7 @@ class Bot_Controller extends BaseController
 				$return['msg'] = "Successfully Inserted!";
 				$return['html'] = '
 				<div class="d-flex mb-4 justify-content-end" >
-				<div class="col-9 text-end d-flex d-inline-flex justify-content-end align-items-center">
+				<div class="col-lg-9 col-11 text-end d-flex d-inline-flex justify-content-end align-items-center">
 					<span class="me-2 text-center text-nowrap" style="font-size:12px;">' . $time . '</span> <span class="px-2 py-2 rounded-4 text-wrap text-start text-white fs-12" style="background:rgb(10, 124, 255);overflow-wrap: anywhere;">' . $message . ' </span> 
 				</div>
 			</div>';
