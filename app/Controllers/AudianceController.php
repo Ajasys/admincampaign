@@ -1026,31 +1026,31 @@ class AudianceController extends BaseController
                             $noSpaces_value .
                             '">
                                     <ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">';
-                        foreach ($columnNames as $columnName) {
-                            if (
-                                !preg_match("/id/", $columnName) &&
-                                !preg_match("/date/", $columnName) &&
-                                !preg_match("/status/", $columnName) &&
-                                !preg_match("/type/", $columnName) &&
-                                !preg_match("/amount/", $columnName) &&
-                                !preg_match("/inquiry/", $columnName) &&
-                                !preg_match("/buy/", $columnName) &&
-                                !preg_match("/pay/", $columnName) &&
-                                !preg_match("/created/", $columnName) &&
-                                !preg_match("/head/", $columnName) &&
-                                !preg_match("/unit/", $columnName) &&
-                                !preg_match("/follow/", $columnName) &&
-                                !preg_match("/is/", $columnName) &&
-                                !preg_match("/tooltip/", $columnName) &&
-                                !preg_match("/site_/", $columnName) &&
-                                !preg_match("/area_/", $columnName)
-                            ) {
-                                $html .=
-                                    '<li><button class="dropdown-item list_item" type="button"><span>' .
-                                    $columnName .
-                                    "</span></button></li>";
-                            }
-                        }
+                                    foreach ($columnNames as $columnName) {
+                                        // Check if column name should be excluded
+                                        if (
+                                            strpos($columnName, "id") === false &&
+                                            strpos($columnName, "date") === false &&
+                                            strpos($columnName, "status") === false &&
+                                            strpos($columnName, "type") === false &&
+                                            strpos($columnName, "amount") === false &&
+                                            strpos($columnName, "inquiry") === false &&
+                                            strpos($columnName, "buy") === false &&
+                                            strpos($columnName, "pay") === false &&
+                                            strpos($columnName, "created") === false &&
+                                            strpos($columnName, "head") === false &&
+                                            strpos($columnName, "unit") === false &&
+                                            strpos($columnName, "follow") === false &&
+                                            strpos($columnName, "is") === false &&
+                                            strpos($columnName, "tooltip") === false &&
+                                            strpos($columnName, "site_") === false &&
+                                            strpos($columnName, "area_") === false &&
+                                            $columnName !== "name" // Exclude "name" field
+                                        ) {
+                                            // Add column name to dropdown list
+                                            $html .= '<li><button class="dropdown-item list_item" type="button"><span>' . $columnName . '</span></button></li>';
+                                        }
+                                    }
                         $html .= '</ul>
                                 </div>
                             </div>
