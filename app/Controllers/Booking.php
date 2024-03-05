@@ -876,6 +876,8 @@ class Booking extends BaseController
 								$inquiry_data_audience['name'] = $all_data_audience[0]['name'];
 								$inquiry_data_audience['source'] = $all_data_audience[0]['source'];
 								$inquiry_data_audience['inquiry_data'] = 2;
+								$inquiry_data_audience['pages_name'] = $all_data_audience[0]['pages_name'];
+								$inquiry_data_audience['facebook_syncro'] = 0;
 								$response_audience = $this->MasterInformationModel->insert_entry2($inquiry_data_audience, $this->username . "_audience");
 							}
 						}
@@ -894,6 +896,8 @@ class Booking extends BaseController
 								$inquiry_data_live['name'] = $all_data_live[0]['name'];
 								$inquiry_data_live['source'] = $all_data_live[0]['source'];
 								$inquiry_data_live['inquiry_data'] = 3;
+								$inquiry_data_live['pages_name'] = $all_data_live[0]['pages_name'];
+								$inquiry_data_live['facebook_syncro'] = 0;
 								$response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
 							} else {
 									// pre('mital');
@@ -907,6 +911,8 @@ class Booking extends BaseController
 								$inquiry_data_live['name'] = $all_data_live[0]['name'];
 								$inquiry_data_live['source'] = $all_data_live[0]['source'];
 								$inquiry_data_live['inquiry_data'] = 3;
+								$inquiry_data_live['pages_name'] = $all_data_live[0]['pages_name'];
+								$inquiry_data_live['facebook_syncro'] = 0;
 								$response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
 								
 							}

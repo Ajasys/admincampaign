@@ -180,7 +180,6 @@ class AudianceController extends BaseController
                     // pre($audience_data);
                     // Iterate over custom audiences data and build HTML
                     foreach ($audience_data['data'] as $conversion_value) {
-                       
                         $chat_list_html = "";
                         $lower_bound = $conversion_value['approximate_count_lower_bound'];
                         $upper_bound = $conversion_value['approximate_count_upper_bound'];
@@ -311,72 +310,6 @@ class AudianceController extends BaseController
         }
     }
 
-
-    public function audience_show_data()
-    {
-        $table_name = $_POST["table"];
-        $username = session_username($_SESSION["username"]);
-        $action = $_POST["action"];
-        $FilterStock = $_POST["FilterStock"];
-        $selectedAudienceType = $_POST["show_array"];
-        $i = 1;
-        $html = "";
-
-        $secondDb = \Config\Database::connect("second");
-        $builder = $secondDb->table($this->username . '_all_inquiry');
-
-        $FilterStockArray = explode(",", $FilterStock);
-        $builder->whereIn("intrested_product", $FilterStockArray);
-
-        if ($selectedAudienceType == "1") {
-            $builder->where("lead_list", 1);
-        } elseif ($selectedAudienceType == "2") {
-            $builder->where("qualified", 1);
-        } elseif ($selectedAudienceType == "3") {
-            $builder->where("prospect", 1);
-        } elseif ($selectedAudienceType == "4") {
-            $builder->where("contacted", 1);
-        } elseif ($selectedAudienceType == "5") {
-            $builder->where("block_list", 1);
-        }
-
-        $result = $builder->get();
-        $departmentdisplaydata = $result->getResultArray();
-
-        foreach ($departmentdisplaydata as $key => $value) {
-            $ts =
-                '<tr class="audiance_view" data-view_id="' .
-                $value["id"] .
-                '" data-bs-toggle="modal" data-bs-target="#lead_list_modal">
-					<td class="p-2 text-nowrap">' .
-                $value["created_at"] .
-                '</td>
-					<td class="p-2 text-nowrap">' .
-                $value["user_id"] .
-                '</td>
-					<td class="p-2 text-nowrap">' .
-                $value["full_name"] .
-                '</td>
-					<td class="p-2 text-nowrap">' .
-                $value["mobileno"] .
-                '</td>
-					<td class="p-2 text-nowrap">' .
-                $value["intrested_product"] .
-                '</td>
-					<td class="p-2 text-nowrap">' .
-                $value["inquiry_type"] .
-                '</td>
-				</tr>';
-            $html .= $ts;
-            $i++;
-        }
-
-        if (!empty($html)) {
-            echo $html;
-        } else {
-            echo '<p style="text-align:center;">Data Not Found </p>';
-        }
-    }
     public function updateSyncStatus($audience_name)
     {
         $db = \Config\Database::connect('second');
@@ -388,15 +321,46 @@ class AudianceController extends BaseController
 
         return $result;
     }
-     public function audience_increase_data()
+    public function fetchAudienceData($master_username)
     {
         $first_db = \Config\Database::connect('second');
-        // Query to retrieve distinct audience names from the audience table where facebook_syncro = 0
-        $query = "SELECT name, email, mobileno FROM " . $this->username . "_audience WHERE facebook_syncro = 0";
+        $query = "SELECT name, email, mobileno FROM " . $master_username . "_audience WHERE facebook_syncro = 0 AND inquiry_data = 2";
         $result = $first_db->query($query);
+        return $result->getResultArray();
+    }
 
-        // Fetch the result set
-        $departmentdisplaydata = $result->getResultArray();
+    public function livefetchAudienceData($master_username)
+    {
+        $first_db = \Config\Database::connect('second');
+        $query = "SELECT name, email, mobileno FROM " . $master_username . "_audience WHERE facebook_syncro = 0 AND inquiry_data = 3";
+        $result = $first_db->query($query);
+        return $result->getResultArray();
+    }
+    public function audience_increase_data()
+    {
+        $master_data = $this->MasterInformationModel->display_all_records2('master_user');
+        $master_data = json_decode($master_data, true);
+    
+        foreach ($master_data as $key => $value) {
+            $master_username = $value['username'];
+            // Fetch audience data
+            $departmentdisplaydata = $this->fetchAudienceData($master_username);
+            if (!empty($departmentdisplaydata)) {
+                $this->audience_add_data($departmentdisplaydata);
+            } else {
+                echo "No records found to process";
+            }
+    
+            $livedisplaydata = $this->livefetchAudienceData($master_username);
+            if (!empty($livedisplaydata)) {
+                $this->audience_live_data($livedisplaydata);
+            } else {
+                echo "No records found to process";
+            }
+        }
+    }
+     public function audience_add_data($departmentdisplaydata)
+    {
 
         // Check if there are records to process
         if (!empty($departmentdisplaydata)) {
@@ -540,6 +504,7 @@ class AudianceController extends BaseController
                 
                     curl_close($curl_users);
                 }
+                pre($responses);
                 return $responses;
                 
             } else {
@@ -549,7 +514,168 @@ class AudianceController extends BaseController
             return "No records found to process";
         }
     }
-    
+    public function audience_live_data($livedisplaydata)
+    {
+        if (!empty($livedisplaydata)) {
+            // Initialize an array to store processed audience names
+            $processedAudiences = [];
+            $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L'; // Replace with your Facebook access token
+            // Fetch user data including ad accounts
+            $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
+            $response = file_get_contents($url);
+            $data = json_decode($response, true);
+
+            if (isset($data['adaccounts']['data'])) {
+                // Initialize an array to store URLs for each audience ID
+                $usersUrls = [];
+                $ii = 0;
+                foreach ($livedisplaydata as $record) {
+                    $audience_name = $record['name']; // Adjust this based on your database field
+
+                    // Check if this audience name has already been processed
+                    if (in_array($audience_name, $processedAudiences)) {
+                        continue; // Skip this iteration
+                    }
+                    // Reset matching audience ID for each record
+                    $matching_audience_ids = [];
+                    $matching_audience_names = [];
+
+                    // Check if 'adaccounts' data exists and iterate over each ad account
+                    foreach ($data['adaccounts']['data'] as $ad_account) {
+                        $account_id = $ad_account['id'];
+                        // Fetch custom audiences for each ad account
+                        $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+                        $response = file_get_contents($url);
+                        $audience_datas = json_decode($response, true);
+                        // pre($audience_datas);
+                        // Iterate over fetched custom audiences to find a match
+                        foreach ($audience_datas['data'] as $api_audience) {
+                            if ($api_audience['name'] == $audience_name) {
+                                // Matching audience found, retrieve the ID
+                                $matching_audience_ids[] = $api_audience['id'];
+                                $matching_audience_names[] = $api_audience['name'];
+                                // Add the processed audience name to the array
+                                $processedAudiences[] = $audience_name;
+                            }
+                        }
+                    }
+
+                    foreach ($matching_audience_ids as $key => $audience_id) {
+                        $replaceUrls[$ii]['url'] = "https://graph.facebook.com/v19.0/$audience_id/usersreplace?access_token=$token";
+                        $replaceUrls[$ii]['audience_id'] = $audience_id;
+                        $replaceUrls[$ii]['name'] = $matching_audience_names[$key];
+                        $ii++;
+                    }
+                }
+
+                $responses = [];
+
+                foreach ($replaceUrls as $usersUrl) {
+                    $estimated_total = 0;
+                    $allUsersData = [];
+                
+                    foreach ($livedisplaydata as $record) {
+                        $full_name = $record['name']; // Assuming 'name' is the correct key
+                        if ($usersUrl['name'] == $full_name) {
+                            // Access other data using correct keys
+                            $first_name = $record['name']; // Assuming 'name' is the correct key for first_name
+                            $email = $record['email'];
+                            $mobileno = $record['mobileno'];
+                
+                            // Hash the values
+                            $hashed_first_name = hash('sha256', $first_name);
+                            $hashed_email = hash('sha256', $email);
+                            $hashed_mobileno = hash('sha256', $mobileno);
+                
+                            // Construct payload data for the current user
+                            $userPayloadData = [
+                                $hashed_first_name, // Hashed first name
+                                $hashed_email, // Hashed email address
+                                $hashed_mobileno, // Hashed mobile number
+                            ];
+                
+                            // Add the payload data for the current user to the array
+                            $allUsersData[] = $userPayloadData;
+                
+                            // Increment the estimated total count
+                            $estimated_total++;
+                        }
+                    }
+                    $sessions_id = hexdec(substr(uniqid(), 0, 16));
+                    // Construct the payload
+                    $payload = [
+                        "session" => [
+                            "session_id" => $sessions_id,
+                            "batch_seq" => 1, // Adjust this as necessary
+                            "last_batch_flag" => true,
+                            "estimated_num_total" => count($allUsersData) // Use the count of processed users
+                        ],
+                        "payload" => [
+                            "schema" => ["FN", "EMAIL", "PHONE"],
+                            "data" => $allUsersData
+                        ]
+                    ];
+            
+                    // Convert payload data to JSON format
+                    $payloadJson = json_encode($payload);
+                    // pre($payloadJson);
+                    // continue;
+                
+                    // Initialize cURL session for adding users to the custom audience
+                    $curl_users = curl_init();
+                
+                    // Set cURL options for adding users to the custom audience
+                    curl_setopt_array($curl_users, [
+                        CURLOPT_URL => $usersUrl['url'],
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_POST => true,
+                        CURLOPT_POSTFIELDS => $payloadJson, // Pass the JSON string here as 'payload'
+                        CURLOPT_HTTPHEADER => [
+                            'Content-Type: application/json',
+                        ],
+                    ]);
+                
+                    // Execute cURL request to add users to the custom audience
+                    $users_response = curl_exec($curl_users);
+                    // pre($users_response);
+                    // continue;
+                
+                    // Store the response for this URL
+                    $responses[] = $users_response;
+                    // pre($responses);
+                
+                    // Check for errors in cURL request for adding users
+                    if (curl_errno($curl_users)) {
+                        $error = curl_error($curl_users);
+                        curl_close($curl_users);
+                        // Handle the error gracefully, you can log it or display a message
+                        $responses[] = "cURL Error adding users: $error\n";
+                    } else {
+                        // Check for Facebook API errors
+                        $response_data = json_decode($users_response, true);
+                        if (isset($response_data['error'])) {
+                            // Handle Facebook API error
+                            $error_message = $response_data['error']['message'];
+                            $responses[] = "Facebook API Error: $error_message";
+                        } else {
+                            // Update the database to mark the audience as synced with Facebook
+                            $audience_name = $usersUrl['name'];
+                            $this->updateSyncStatus($audience_name);
+                        }
+                    }
+                
+                    curl_close($curl_users);
+                }
+                pre($responses);
+                return $responses;
+                
+            } else {
+                return "No ad accounts found for the user.";
+            }
+        } else {
+            return "No records found to process";
+        }
+    }
       
     public function audience_insert_data()
     {

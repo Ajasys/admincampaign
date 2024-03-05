@@ -130,6 +130,8 @@ class Inquiryinformation extends BaseController
 							$inquiry_datas_audience['name'] = $all_datas_audience[0]['name'];
 							$inquiry_datas_audience['source'] = $all_datas_audience[0]['source'];
 							$inquiry_datas_audience['inquiry_data'] = 2;
+							$inquiry_datas_audience['pages_name'] = $all_datas_audience[0]['pages_name'];
+							$inquiry_datas_audience['facebook_syncro'] = 0;
 							$response_audience = $this->MasterInformationModel->insert_entry2($inquiry_datas_audience, $this->username . "_audience");
 						}
 					}
@@ -149,6 +151,8 @@ class Inquiryinformation extends BaseController
 							$inquiry_data_live['name'] = $all_data_live[0]['name'];
 							$inquiry_data_live['source'] = $all_data_live[0]['source'];
 							$inquiry_data_live['inquiry_data'] = 3;
+							$inquiry_data_live['pages_name'] = $all_data_live[0]['pages_name'];
+							$inquiry_data_live['facebook_syncro'] = 0;
 							// Update the existing data in the audience table
 							$response_audience1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
 						}
@@ -2001,6 +2005,8 @@ class Inquiryinformation extends BaseController
 						$inquiry_data_live['name'] = $all_data_live[0]['name'];
 						$inquiry_data_live['source'] = $all_data_live[0]['source'];
 						$inquiry_data_live['inquiry_data'] = 3;
+						$inquiry_data_live['pages_name'] = $all_data_live[0]['pages_name'];
+						$inquiry_data_live['facebook_syncro'] = 0;
 						$response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
 					} else {
 							// pre('mital');
@@ -2014,6 +2020,8 @@ class Inquiryinformation extends BaseController
 						$inquiry_data_live['name'] = $all_data_live[0]['name'];
 						$inquiry_data_live['source'] = $all_data_live[0]['source'];
 						$inquiry_data_live['inquiry_data'] = 3;
+						$inquiry_data_live['pages_name'] = $all_data_live[0]['pages_name'];
+						$inquiry_data_live['facebook_syncro'] = 0;
 						$response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
 						
 					}
@@ -2027,6 +2035,8 @@ class Inquiryinformation extends BaseController
 						$inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
 						$inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
 						$inquiry_dataas_live['inquiry_data'] = 3; 
+						$inquiry_dataas_live['pages_name'] = $all_dataas_live[0]['pages_name'];
+						$inquiry_dataas_live['facebook_syncro'] = 0;
 						$response_alert2 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");
 					} else {
 							// pre('mital');
@@ -2040,6 +2050,8 @@ class Inquiryinformation extends BaseController
 						$inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
 						$inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
 						$inquiry_dataas_live['inquiry_data'] = 3;
+						$inquiry_dataas_live['pages_name'] = $all_dataas_live[0]['pages_name'];
+						$inquiry_dataas_live['facebook_syncro'] = 0;
 						$response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_dataas_live, $this->username . "_audience");
 						
 					}
