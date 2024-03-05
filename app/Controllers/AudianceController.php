@@ -159,8 +159,13 @@ class AudianceController extends BaseController
         // $i = 1;
         $html = "";
         if ($_POST['action'] == 'facebook_list') {
-            $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-
+            $this->db = \Config\Database::connect('second');
+			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+			$get_access_token_array = $this->db->query($get_token);
+			$data_count = $get_access_token_array->getNumRows();
+            $fb_account_data = $get_access_token_array->getResultArray()[0];
+			$token = $fb_account_data['access_token'];
+        
             // Fetch user data including ad accounts
             $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
             $response = file_get_contents($url);
@@ -366,7 +371,12 @@ class AudianceController extends BaseController
         if (!empty($departmentdisplaydata)) {
             // Initialize an array to store processed audience names
             $processedAudiences = [];
-            $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L'; // Replace with your Facebook access token
+            $this->db = \Config\Database::connect('second');
+			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+			$get_access_token_array = $this->db->query($get_token);
+			$data_count = $get_access_token_array->getNumRows();
+            $fb_account_data = $get_access_token_array->getResultArray()[0];
+			$token = $fb_account_data['access_token'];
             // Fetch user data including ad accounts
             $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
             $response = file_get_contents($url);
@@ -519,7 +529,13 @@ class AudianceController extends BaseController
         if (!empty($livedisplaydata)) {
             // Initialize an array to store processed audience names
             $processedAudiences = [];
-            $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L'; // Replace with your Facebook access token
+            $this->db = \Config\Database::connect('second');
+			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+			$get_access_token_array = $this->db->query($get_token);
+			$data_count = $get_access_token_array->getNumRows();
+            $fb_account_data = $get_access_token_array->getResultArray()[0];
+			$token = $fb_account_data['access_token'];
+            // $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L'; // Replace with your Facebook access token
             // Fetch user data including ad accounts
             $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
             $response = file_get_contents($url);
@@ -775,7 +791,26 @@ class AudianceController extends BaseController
                         true
                     );
                     if ($facebook_syncro == 1) {
-                        $accessToken = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+                        $this->db = \Config\Database::connect('second');
+                        $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+                        $get_access_token_array = $this->db->query($get_token);
+                        $data_count = $get_access_token_array->getNumRows();
+                        $fb_account_data = $get_access_token_array->getResultArray()[0];
+                        $accessToken = $fb_account_data['access_token'];
+                        // $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$accessToken";
+                        // $response = file_get_contents($url);
+                        // $data = json_decode($response, true);
+            
+                        // // Check if 'adaccounts' data exists and iterate over each ad account
+                        // if (isset($data['adaccounts']['data'])) {
+                        //     $chat_list_html = '';
+                        //     foreach ($data['adaccounts']['data'] as $ad_account) {
+                        //         pre($ad_account);
+                        //         $adAccountId = $ad_account['id'];
+                        //     }
+                        // }
+                        // pre($adAccountId);
+                        // die();
                         $adAccountId = '6331751513513589';
                         $url = "https://graph.facebook.com/v19.0/act_$adAccountId/customaudiences";
                         $postData = [
@@ -818,7 +853,7 @@ class AudianceController extends BaseController
                             // $updateQuery = "UPDATE admin_audience SET audience_id = ?";
                             // $secondDb->query($updateQuery, [$audience_id]);
                             // Construct the correct URL for adding users to the custom audience
-                            $usersUrl = "https://graph.facebook.com/v19.0/$audience_id/users?access_token=EAADNF4vVgk0BOZBn1W1arQv6ZCHt2bW6CjIRMW6I6QKMtDD6AUwisR0q8QNvbMFCUI1GBwJoWWklhol2CZCDgbPkTdjH7LT8qtEaUTADn4SZBzvbkg9m8cZBTcNLvc0ZABZBDRvSmRNqtns26nd2yyZAmsGpnmgcJZA7SV2UpWZCWQ252xk6RDMQJtwuLdbEQxaYhSMTbeW7EZD";
+                            $usersUrl = "https://graph.facebook.com/v19.0/$audience_id/users?access_token=$accessToken";
                         
                             // Reset the estimated total count
                             $estimated_total = 0;
@@ -1270,7 +1305,12 @@ class AudianceController extends BaseController
                     $result["response"] = 1;
                     $result["msg"] = "Data Inserted Success";
                 }
-                $accessToken = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+                $this->db = \Config\Database::connect('second');
+                $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+                $get_access_token_array = $this->db->query($get_token);
+                $data_count = $get_access_token_array->getNumRows();
+                $fb_account_data = $get_access_token_array->getResultArray()[0];
+                $accessToken = $fb_account_data['access_token'];
                 $adAccountId = '6331751513513589';
                 $url = "https://graph.facebook.com/v12.0/act_$adAccountId/customaudiences";
                 $postData = [
@@ -1309,7 +1349,7 @@ class AudianceController extends BaseController
                 $audience_id = $response_data['id'];
     
                 // Now, add users to the custom audience
-                $usersUrl = "https://graph.facebook.com/v12.0/$audience_id/users?access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD";
+                $usersUrl = "https://graph.facebook.com/v12.0/$audience_id/users?access_token=$accessToken";
 
                 $allUsersData = [];
 
