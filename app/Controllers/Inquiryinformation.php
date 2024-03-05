@@ -936,7 +936,7 @@ class Inquiryinformation extends BaseController
 									<div class="inquiry-list-topbar d-flex align-items-center justify-content-between flex-wrap">
 										<div class="inquiry-list-topbar-id-name d-flex align-items-center col-12 col-xl-4 flex-wrap">
 										<p>' . $value['id'] . '</p>
-										<h6 class="mx-2">' . $value['full_name'] . '</h6>';
+										<h6 class="mx-2 ">' . $value['full_name'] . '</h6>';
 					if (in_array('all_inquiry_information_child_followup_child_access', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
 						$html .= '<div class="call-btn view-model-btn call-reset-tab inquiry_all_status_call" id="call-btn" product_type = "' . $value['intrested_product'] . '"  inquiry_pno = "' . $value['mobileno'] . '" inquiry_email="' . $value['email'] . '" data-bs-toggle="modal"
 													data-bs-target="#callmodal" data-call_id="' . $value['id'] . '">
@@ -972,53 +972,53 @@ class Inquiryinformation extends BaseController
 					if (in_array('all_inquiry_information_child_view_access', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
 						$html .= '	 data-bs-toggle="modal" data-bs-target="#view_inquery_list"';
 					};
-					$html .= '>		<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
-										<p><i class="fa-solid fa-user-tie text-black me-1"></i> : </p>
-										<span class="mx-1">' . $assign_name . '</span>
+					$html .= '>		<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3 ">
+										<p class="text-nowrap"><i class="fa-solid fa-user-tie text-black me-1"></i> : </p>
+										<span class="mx-1 text-nowrap">' . $assign_name . '</span>
 									</div>
 									<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
-										<p><i class="bi bi-calendar-plus text-black me-1"></i> : </p>
-										<span class="mx-1 text-wrap">' . followup_date_convert_indian_date($value['created_at']) . '</span>
+										<p class="text-nowrap"><i class="bi bi-calendar-plus text-black me-1"></i> : </p>
+										<span class="mx-1 text-nowrap">' . followup_date_convert_indian_date($value['created_at']) . '</span>
 									</div>
 									<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
-										<p><i class="bi bi-telephone-fill me-1 text-success"></i> : </p>
-										<span class="mx-1">' . followup_date_convert_indian_date($value['nxt_follow_up']) . '</span>
+										<p class="text-nowrap"><i class="bi bi-telephone-fill me-1 text-success"></i> : </p>
+										<span class="mx-1 text-nowrap">' . followup_date_convert_indian_date($value['nxt_follow_up']) . '</span>
 									</div>
 									<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
-										<p><i class="bi bi-currency-rupee text-black me-1"></i> : </p>
-										<span class="mx-1">' . $value['budget'] . '</span>
+										<p class="text-nowrap"><i class="bi bi-currency-rupee text-black me-1"></i> : </p>
+										<span class="mx-1 text-nowrap">' . $value['budget'] . '</span>
 									</div>
 									<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
-										<p>Inq type : </p>
-										<span class="mx-1">' . $inquiry_details . '</span>
+										<p class="text-nowrap">Inq type : </p>
+										<span class="mx-1 text-nowrap">' . $inquiry_details . '</span>
 									</div>
 									<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
-										<p>Int Product : </p>
-										<span class="mx-1">' . $intrested_product . '</span>
+										<p class="text-nowrap">Int Product : </p>
+										<span class="mx-1 text-nowrap">' . $intrested_product . '</span>
 										</div>
-	<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
+									<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
 
-										<p>Inq Area : </p>
+										<p class="text-nowrap">Inq Area : </p>
 
-										<span class="mx-1">' .  $value['area'] . '</span>
+										<span class="mx-1 text-nowrap">' .  $value['area'] . '</span>
 
 									</div>
 
 									<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
 
-										<p>Inq City : </p>
+										<p class="text-nowrap">Inq City : </p>
 
-										<span class="mx-1">' .  $value['city'] . '</span>
+										<span class="mx-1 text-nowrap">' .  $value['city'] . '</span>
 
 									</div>
 
 									<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3 flex-wp">
-										<p>Subscription : </p>
+										<p class="text-nowrap">Subscription : </p>
 										<span class="mx-1">' . $value['subscription'] . '</span>
 									</div>
 									<div class="d-flex align-items-center col-12 col-md-4 col-md-6 col-xl-3">
-										<p>Purpose of Buying : </p>
-										<span class="mx-1">' . $value['buying_as'] . '</span>
+										<p class="text-nowrap">Purpose of Buying : </p>
+										<span class="mx-1 text-nowrap">' . $value['buying_as'] . '</span>
 									</div>
 								</div>
 							</div>

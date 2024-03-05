@@ -614,11 +614,11 @@ $username = session_username($_SESSION['username']);
 				</div>
 				<div class="modal-body modal-body-secondery">
 					<div class="modal-body-card justify-content-between align-items-end">
-						<div class="col-4">
+						<div class="col-12 col-sm-4">
 							<label for="" class="form-label main-label">Inq CSV upload :</label>
 							<input type="file" class="form-control form-controll" id="import_file" name="import_file" placeholder="Details" required="">
 						</div>
-						<div class="col-4 d-flex align-items-end justify-content-end">
+						<div class="col-12 d-flex align-items-end justify-content-end">
 							<a class="cursor-pointer add_property_js add_user_role_css add_user-role-pdf" href="<?php echo base_url('/assets/import_inq.csv'); ?>" download='import_inq.csv'>
 								<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="28" height="28" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
 									<g>
@@ -633,7 +633,7 @@ $username = session_username($_SESSION['username']);
 					</div>
 					<h6 class="modal-body-title">CST Interest</h6>
 					<div class="modal-body-card">
-						<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 							<label for="intrested_area" class="form-label main-label">Int Area</label>
 							<div class="main-selectpicker">
 								<!-- <select name="intrested_area" id="intrested_area" class="selectpicker form-control form-main" data-live-search="true" required>
@@ -672,7 +672,7 @@ $username = session_username($_SESSION['username']);
 								Looks good!
 							</div>
 						</div> -->
-						<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 							<label for="intrested_site" class="form-label main-label">Int Product</label>
 							<div class="main-selectpicker">
 								<select name="intrested_site" id="intrested_site" class="selectpicker form-control form-main" data-live-search="true" required>
@@ -691,7 +691,7 @@ $username = session_username($_SESSION['username']);
 								Looks good!
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 							<label for="assign_id" class="form-label main-label">Assign Id</label>
 							<div class="main-selectpicker">
 								<select class="selectpicker form-control form-main" id="assign_id" name="assign_id" data-live-search="true" required="">
@@ -711,7 +711,7 @@ $username = session_username($_SESSION['username']);
 								Looks good!
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 							<label for="owner_id" class="form-label main-label">Owner Id</label>
 							<div class="main-selectpicker">
 								<select class="selectpicker form-control form-main" id="owner_id" name="owner_id" data-live-search="true" required="">
@@ -734,7 +734,7 @@ $username = session_username($_SESSION['username']);
 					</div>
 					<h6 class="modal-body-title">Inquiry Information</h6>
 					<div class="modal-body-card">
-						<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 							<label for="inquiry_type" class="form-label main-label">Inquiry
 								Type</label>
 							<div class="main-selectpicker">
@@ -753,7 +753,7 @@ $username = session_username($_SESSION['username']);
 								Looks good!
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 							<label for="inquiry_source_type" class="form-label main-label">Inquiry
 								Source</label>
 							<div class="main-selectpicker">
@@ -772,7 +772,7 @@ $username = session_username($_SESSION['username']);
 								Looks good!
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="col-lg-4 col-md-4 col-sm-6 col-12">
 							<div class="custom_Date_class">
 								<label for="nxt_follow_up" class="form-label main-label">Next Follow up</label>
 								<input type="text" class="nxt_follow_up min-datetime form-control main-control input-main " placeholder="DD/MM/YYYY HH:MM" id="nxt_follow_up" name="nxt_follow_up" value="" required="" />
@@ -1528,7 +1528,8 @@ $username = session_username($_SESSION['username']);
 	<form method="post" class="d-flex flex-column h-100" name="filter_form">
 		<div class="offcanvas-header set-bg-color bg-pink">
 			<h5 class="offcanvas-title text-white" id="offcanvasRightLabel">filter</h5>
-			<button type="button" class="modal-close-btn" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			
+			<button type="button" class="modal-close-btn text-light d-block d-sm-none" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
 		</div>
 		<div class="offcanvas-body filter_data">
 			<div class="input-type my-2">
