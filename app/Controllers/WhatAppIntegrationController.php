@@ -2183,160 +2183,931 @@ class WhatAppIntegrationController extends BaseController
         $departmentdisplaydata = json_decode($departmentdisplaydata, true);
         $response = 1;
     }
-    public function WhatsAppListConverstion()
-    {
-        $MetaUrl = config('App')->metaurl;
-        $contact_no = $_POST['contact_no'];
-        $conversation_account_id = $_POST['conversation_account_id'];
-        $table_username = getMasterUsername2();
-        $Database = \Config\Database::connect('second');
-        $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
+//     public function WhatsAppListConverstion()
+//     {
+//         $MetaUrl = config('App')->metaurl;
+//         $contact_no = $_POST['contact_no'];
+//         $conversation_account_id = $_POST['conversation_account_id'];
+//         $table_username = getMasterUsername2();
+//         $Database = \Config\Database::connect('second');
+//         $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
 
-        $db_connection = \Config\Database::connect('second');
+//         $db_connection = \Config\Database::connect('second');
 
-        // pre($sql);
+//         // pre($sql);
 
 
-        // pre(json_decode("ud83dudc4du2728ud83dudc4f Hiiii ud83dude4fud83dude4fud83dude4fud83dude4f"));
-        // die();
-        $Getresult = $Database->query($sql);
-        $GetData = $Getresult->getResultArray();
-        $html = '';
-        $dates = '';
-        $HourStatus = '';
-        $MsgSendStatus = 0;
-        $HourSql = 'SELECT * FROM `' . $table_username . '_messages` WHERE platform_account_id = ' . $conversation_account_id . ' AND contact_no = ' . $contact_no . ' AND sent_recieved_status = 2 ORDER BY created_at DESC LIMIT 1;
-        ';
-        $HourData = $Database->query($HourSql);
-        $HourData = $HourData->getResultArray();
-        if (isset($HourData) && !empty($HourData)) {
-            if (isset($HourData[0]['created_at'])) {
-                $dateStr1 = gmdate('Y-m-d H:i:s');
-                $dateStr2 = $HourData[0]['created_at'];
-                $datetime1 = new \DateTime($dateStr1);
-                $datetime2 = new \DateTime($dateStr2);
-                $timeDifferenceHours = ($datetime1->getTimestamp() - $datetime2->getTimestamp()) / 3600;
-                if ($timeDifferenceHours >= 0 && $timeDifferenceHours <= 24) {
-                    $MsgSendStatus = 1;
-                } else {
-                }
-            }
-        }
-        $MetaUrl = config('App')->metaurl;
-        $inputString = $_SESSION['username'];
-        $parts = explode("_", $inputString);
-        $username = $parts[0];
+//         // pre(json_decode("ud83dudc4du2728ud83dudc4f Hiiii ud83dude4fud83dude4fud83dude4fud83dude4f"));
+//         // die();
+//         $Getresult = $Database->query($sql);
+//         $GetData = $Getresult->getResultArray();
+//         $html = '';
+//         $dates = '';
+//         $HourStatus = '';
+//         $MsgSendStatus = 0;
+//         $HourSql = 'SELECT * FROM `' . $table_username . '_messages` WHERE platform_account_id = ' . $conversation_account_id . ' AND contact_no = ' . $contact_no . ' AND sent_recieved_status = 2 ORDER BY created_at DESC LIMIT 1;
+//         ';
+//         $HourData = $Database->query($HourSql);
+//         $HourData = $HourData->getResultArray();
+//         if (isset($HourData) && !empty($HourData)) {
+//             if (isset($HourData[0]['created_at'])) {
+//                 $dateStr1 = gmdate('Y-m-d H:i:s');
+//                 $dateStr2 = $HourData[0]['created_at'];
+//                 $datetime1 = new \DateTime($dateStr1);
+//                 $datetime2 = new \DateTime($dateStr2);
+//                 $timeDifferenceHours = ($datetime1->getTimestamp() - $datetime2->getTimestamp()) / 3600;
+//                 if ($timeDifferenceHours >= 0 && $timeDifferenceHours <= 24) {
+//                     $MsgSendStatus = 1;
+//                 } else {
+//                 }
+//             }
+//         }
+//         $MetaUrl = config('App')->metaurl;
+//         $inputString = $_SESSION['username'];
+//         $parts = explode("_", $inputString);
+//         $username = $parts[0];
 
-        $table_name = $username . '_platform_integration';
+//         $table_name = $username . '_platform_integration';
 
-        $ConnectionData = get_editData2($table_name, $conversation_account_id);
+//         $ConnectionData = get_editData2($table_name, $conversation_account_id);
 
-        $access_token = '';
-        $business_account_id = '';
-        $phone_number_id = '';
-        if (isset($ConnectionData) && !empty($ConnectionData)) {
+//         $access_token = '';
+//         $business_account_id = '';
+//         $phone_number_id = '';
+//         if (isset($ConnectionData) && !empty($ConnectionData)) {
 
-            if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
-                $access_token = $ConnectionData['access_token'];
-                $business_account_id = $ConnectionData['business_account_id'];
-                $phone_number_id = $ConnectionData['phone_number_id'];
-            }
-        }
-        $counttrigger = 0;
+//             if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+//                 $access_token = $ConnectionData['access_token'];
+//                 $business_account_id = $ConnectionData['business_account_id'];
+//                 $phone_number_id = $ConnectionData['phone_number_id'];
+//             }
+//         }
+//         $counttrigger = 0;
 
-        // pre($GetData);
-        // die();
-        foreach ($GetData as $key => $value) {
+//         // pre($GetData);
+//         // die();
+//         foreach ($GetData as $key => $value) {
 
-            if ($value['msg_read_status'] == '0' && $value['sent_recieved_status'] == '2') {
-                if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
-                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
-                    $JsonDataString = '
-                        {
-                        "messaging_product": "whatsapp",
-                        "status": "read",
-                        "message_id": "' . $value['conversation_id'] . '"
-                      }
-                    ';
-                    $Result = postSocialData($url, $JsonDataString);
-                    if (isset($Result['success'])) {
-                        $UpdateReadsql = 'UPDATE `' . $username . '_messages` SET `read_date_time`="' . gmdate('Y-m-d H:i:s') . '",`msg_read_status`="1" WHERE id = "' . $value['id'] . '"';
-                        $Database->query($UpdateReadsql);
-                        $counttrigger++;
-                    }
-                }
-            }
+//             if ($value['msg_read_status'] == '0' && $value['sent_recieved_status'] == '2') {
+//                 if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
+//                     $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+//                     $JsonDataString = '
+//                         {
+//                         "messaging_product": "whatsapp",
+//                         "status": "read",
+//                         "message_id": "' . $value['conversation_id'] . '"
+//                       }
+//                     ';
+//                     $Result = postSocialData($url, $JsonDataString);
+//                     if (isset($Result['success'])) {
+//                         $UpdateReadsql = 'UPDATE `' . $username . '_messages` SET `read_date_time`="' . gmdate('Y-m-d H:i:s') . '",`msg_read_status`="1" WHERE id = "' . $value['id'] . '"';
+//                         $Database->query($UpdateReadsql);
+//                         $counttrigger++;
+//                     }
+//                 }
+//             }
 
-            $sent_recieved_status = $value['sent_recieved_status'];
-            $formattedDate = Utctodate('Y-m-d h:i A', timezonedata(), $value['created_at']);
-            $dateTime = new \DateTime($formattedDate);
-            $last7DaysStart = new \DateTime('-7 days');
-            $today = new \DateTime();
-            $date = $dateTime->format('d/m/Y');
-            $isWithinLast7Days = $dateTime >= $last7DaysStart;
-            if ($date != $dates) {
-                if ($isWithinLast7Days) {
-                    $dayOfWeek = $dateTime->format('l');
-                } else {
-                    $dayOfWeek = $dateTime->format('d, F Y');
-                }
-                $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill " style="background:#f3f3f3;">' . $dayOfWeek . '</div>';
-                $dates = $date;
-            }
+//             $sent_recieved_status = $value['sent_recieved_status'];
+//             $formattedDate = Utctodate('Y-m-d h:i A', timezonedata(), $value['created_at']);
+//             $dateTime = new \DateTime($formattedDate);
+//             $last7DaysStart = new \DateTime('-7 days');
+//             $today = new \DateTime();
+//             $date = $dateTime->format('d/m/Y');
+//             $isWithinLast7Days = $dateTime >= $last7DaysStart;
+//             if ($date != $dates) {
+//                 if ($isWithinLast7Days) {
+//                     $dayOfWeek = $dateTime->format('l');
+//                 } else {
+//                     $dayOfWeek = $dateTime->format('d, F Y');
+//                 }
+//                 $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill " style="background:#f3f3f3;">' . $dayOfWeek . '</div>';
+//                 $dates = $date;
+//             }
 
-            $readrecieptsymbole = "";
-            if ($value['message_status'] == '0') {
+//             $readrecieptsymbole = "";
+//             if ($value['message_status'] == '0') {
 
-                $readrecieptsymbole .= '
-                                 <i class="fa-solid text-white fa-check fa-xs align-self-end" style="color: #fff;"></i>';
-            } elseif ($value['message_status'] == '1') {
-                $readrecieptsymbole .= '
-                                <i class="fa-solid text-white fa-check-double fa-xs align-self-end" style="color: #fff;"></i>';
-            } elseif ($value['message_status'] == '2') {
-                $readrecieptsymbole .= '
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#63cad8" fill-rule="evenodd" d="M16.68 6.266a1 1 0 0 1 .054 1.414l-9.007 9.723a1.83 1.83 0 0 1-2.704 0l-3.757-4.055a1 1 0 0 1 1.468-1.36l3.641 3.932 8.891-9.6a1 1 0 0 1 1.414-.054zm5 0a1 1 0 0 1 .054 1.414l-9.006 9.723a1 1 0 0 1-1.468-1.36l9.007-9.723a1 1 0 0 1 1.413-.054z" clip-rule="evenodd" opacity="1" data-original="#000000" class=""></path></g></svg>';
+//                 $readrecieptsymbole .= '
+//                                  <i class="fa-solid text-white fa-check fa-xs align-self-end" style="color: #fff;"></i>';
+//             } elseif ($value['message_status'] == '1') {
+//                 $readrecieptsymbole .= '
+//                                 <i class="fa-solid text-white fa-check-double fa-xs align-self-end" style="color: #fff;"></i>';
+//             } elseif ($value['message_status'] == '2') {
+//                 $readrecieptsymbole .= '
+//                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#63cad8" fill-rule="evenodd" d="M16.68 6.266a1 1 0 0 1 .054 1.414l-9.007 9.723a1.83 1.83 0 0 1-2.704 0l-3.757-4.055a1 1 0 0 1 1.468-1.36l3.641 3.932 8.891-9.6a1 1 0 0 1 1.414-.054zm5 0a1 1 0 0 1 .054 1.414l-9.006 9.723a1 1 0 0 1-1.468-1.36l9.007-9.723a1 1 0 0 1 1.413-.054z" clip-rule="evenodd" opacity="1" data-original="#000000" class=""></path></g></svg>';
+//             } else {
+//                 $readrecieptsymbole .= '
+//                                 <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
+//             }
+
+//             $formattedtime = date('h:i A', strtotime($formattedDate));
+//             $msgtype = $value['message_type'];
+//             if ($msgtype == 1) {
+//                 $msgtext = '';
+
+//                 if (!function_exists('\App\Controllers\is_json')) {
+//                     // Function to check if a string is JSON
+//                     function is_json($string)
+//                     {
+//                         json_decode($string);
+//                         return (json_last_error() == JSON_ERROR_NONE);
+//                     }
+//                 }
+
+//                 // Your code snippet
+//                 if (is_json($value['message_contant'])) {
+//                     $data1 = json_decode($value['message_contant'], true);
+//                     if (isset($data1['body'])) {
+//                         $msgtext = $data1['body'];
+//                     }
+//                 } else {
+//                     $msgtext = $value['message_contant'];
+//                 }
+//                 if ($sent_recieved_status == '2') {
+//                     // $html .= '
+//                     //     <div class="d-flex mb-4 ">
+//                     //         <div class="col-9 text-start">
+//                     //             <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $msgtext . ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
+//                     //         </div>
+//                     //     </div>';
+
+//                     $html .= '
+//                         <div class="d-flex mb-4 col-12 justify-content-start ">
+//                             <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-start text-wrap align-items-center">
+//                                 <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#f3f3f3;overflow-wrap: break-word;min-width:76px">
+//                                     <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+//                                     ' . $msgtext . '
+//                                     </p>
+//                                     <span class="position-absolute bottom-0 end-0 me-1">
+//                                         <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+//                                     </span>
+//                                 </span>
+//                             </div>
+//                         </div>';
+//                 }
+//                 if ($sent_recieved_status == '1') {
+//                     // $html .= '
+//                     //     <div class="d-flex mb-4 justify-content-end">
+//                     //         <div class="col-9 text-end position-relative">
+//                     //             <span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> 
+//                     //             <span class="ps-3 pe-1 py-2 rounded-3 text-white container" style="background:#005c4b;">' . $msgtext . '
+//                     //                 <span class="mx-1 align-self-end">' . $readrecieptsymbole . '</span>
+//                     //             </span>
+//                     //         </div>
+
+//                     //     </div>
+//                     // ';
+
+//                     $html .= '
+//                         <div class="d-flex mb-4 col-12 justify-content-end">
+//                             <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+//                                 <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+//                                     <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+//                                     ' . $msgtext . '
+//                                     </p>
+//                                     <span class="position-absolute bottom-0 end-0 me-1">
+//                                     <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+//                                     <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+//                                     </span>
+//                                 </span>
+//                             </div>
+//                         </div>';
+
+//                     // $html .= ' <div class="d-flex mb-4 col-12 justify-content-START">
+//                     //         <div class="col-9 text-start">
+//                     //             <span class="px-3 py-2 rounded-3 text-white" style="background:#f3f3f3; display: inline-block; width:200px; overflow: hidden;">
+//                     //                 <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
+//                     //             </span>
+//                     //             <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                    
+//                     //         </div>
+//                     //     </div>';
+//                 }
+//             } elseif ($msgtype == '3') {
+//                 if ($sent_recieved_status == '2') {
+//                     // assets_type	  if();                 var imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'mp4', 'avi', 'mkv', 'mov', 'wmv'];
+//                     //21022024                  $uploadDir .= 'assets/' . $username . '_folder/WhatsAppAssets/'; base_url()
+//                     if ($value['assets_type'] != '') {
+//                         if (strpos(strtolower($value['assets_type']), 'image') !== false) {
+//                             $html .= '
+//                             <div class="d-flex mb-4 col-12 justify-content-start ">
+//                                 <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-start text-wrap align-items-center">
+//                                     <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#f3f3f3;overflow-wrap: break-word;min-width:76px">
+//                                         <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap" style="width:200px;overflow: hidden;">
+//                                         <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
+//                                         </p>
+//                                         <span class="position-absolute bottom-0 end-0 me-1">
+//                                             <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+//                                         </span>
+//                                     </span>
+//                                 </div>
+//                             </div>';
+//                         }
+//                         if (strpos(strtolower($value['assets_type']), 'video') !== false) {
+
+
+//                             $html .= '                                <div class="d-flex mb-4 justify-content-start">
+//                             <div class="col-9 text-start">
+//                                 <span class="px-2 py-2 rounded-3 text-white bg-white" style="background:white; display: inline-block; width:200px; ">
+//                                     <video controls src="https://www.shutterstock.com/shutterstock/videos/1082503873/preview/stock-footage-loading-wheel-animation-animated-spinning-load-icon-with-alpha-layer-transparent-background.webm" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
+//                                 </span>
+//                                 <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+//                             </div>
+//                         </div>';
+//                         }
+//                     }
+//                 }
+//                 if ($sent_recieved_status == '1') {
+//                     if ($value['assets_type'] != '' && $value['asset_file_name'] != '') {
+//                         if (strtolower($value['assets_type']) == 'jpg' || strtolower($value['assets_type']) == 'jpeg' || strtolower($value['assets_type']) == 'png' || strtolower($value['assets_type']) == 'gif' || strtolower($value['assets_type']) == 'bmp' || strtolower($value['assets_type']) == 'tiff') {
+//                             $html .= '  <div class="d-flex mb-4 justify-content-end ">
+//                                 <div class="col-9 text-end">
+// 									<span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+//                                 <span class="px-3 py-2 rounded-3 text-white" style="background:#DBF8C6; display: inline-block; width:200px; overflow: hidden;">
+//                                     <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
+//                                     ' . $readrecieptsymbole . '
+//                                     </span> 
+//                                 </div>
+//                             </div>';
+
+//                             $html .= '
+//                             <div class="d-flex mb-4 col-12 justify-content-end ">
+//                                 <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-end text-wrap align-items-center">
+//                                     <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative " style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+//                                         <p class=" pb-3 fw-medium fs-14 text-start flex-wrap" style="width:200px;overflow: hidden;">
+//                                         <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
+//                                         </p>
+//                                         <span class="position-absolute bottom-0 end-0 me-1">
+//                                             <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+//                                             <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                    
+//                                         </span>
+//                                     </span>
+//                                 </div>
+//                             </div>'; 
+
+
+//                         }
+//                         if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type']) == 'avi' || strtolower($value['assets_type']) == 'mkv' || strtolower($value['assets_type']) == 'mov' || strtolower($value['assets_type']) == 'wmv') {
+//                             $html .= '   <div class="d-flex mb-4 justify-content-end">
+//                             <div class="col-9 text-end">
+//                                 <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+//                                 <span class="px-2 py-2 rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; ">
+//                                     <video controls src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
+//                                         ' . $readrecieptsymbole . '
+//                                 </span>
+//                             </div>
+//                         </div>';
+//                         }
+//                     }
+//                 }
+//             } elseif ($msgtype == '4') {
+//                 if ($sent_recieved_status == '2') {
+//                     //     $html .= '
+//                     //     <div class=" mb-4 justify-content-start">
+//                     //     <div class="col-9 text-start">
+//                     //         <span class="p-2 pb-3 rounded-3 bg-white text-white"
+//                     //             style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
+//                     //             <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
+//                     //                 style="width:100%; height:auto;">
+//                     //                 <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+//                     //                 <div class="col-5 mx-4">
+//                     //                     <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+//                     //                     <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+//                     //                 </div>
+//                     //                 <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+//                     //                     style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+//                     //             </div>
+//                     //         </span>
+//                     //         <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+
+//                     //     </div>
+//                     // </div>    
+//                     //     ';
+//                     $html .= '
+//                         <div class="d-flex mb-4 col-12 justify-content-end">
+//                             <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+//                                 <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+//                                     <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
+//                                         <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+//                                         <div class="col-5 mx-4">
+//                                             <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+//                                             <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+//                                         </div>
+//                                         <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+//                                             style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+//                                     </div>
+//                                     <span class="position-absolute bottom-0 end-0 me-1">
+//                                         <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+//                                         <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+//                                     </span>
+//                                 </span>
+//                             </div>
+//                         </div>
+//                     ';
+//                 }
+//                 if ($sent_recieved_status == '1') {
+//                     //     $html .= '<div class="d-flex mb-4 justify-content-end">
+//                     //     <div class="col-9 text-end">
+//                     //         <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+//                     //         <span class="p-2 pb-3 rounded-3 text-white"
+//                     //             style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
+//                     //             <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
+//                     //                 style="width:100%; height:auto;">
+//                     //                 <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path></g></svg></div>
+//                     //                 <div class="col-5 mx-4">
+//                     //                     <div class="text-start">' . $value['asset_file_name'] . '</div>
+//                     //                     <div class="fs-10  text-start" style="color:lightgray">PNG . 11KB</div>
+//                     //                 </div>
+//                     //                 <div class="border-light border rounded-circle d-flex justify-content-center align-items-center px-3"
+//                     //                     style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+//                     //                     ' . $readrecieptsymbole . '
+//                     //             </div>
+//                     //         </span>
+//                     //     </div>
+//                     // </div>';
+//                     $html .= '
+//                         <div class="d-flex mb-4 col-12 justify-content-end">
+//                             <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+//                                 <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+//                                     <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
+//                                         <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+//                                         <div class="col-5 mx-4">
+//                                             <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+//                                             <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+//                                         </div>
+//                                         <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+//                                             style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+//                                     </div>
+//                                     <span class="position-absolute bottom-0 end-0 me-1">
+//                                         <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+//                                         <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+//                                     </span>
+//                                 </span>
+//                             </div>
+//                         </div>
+//                     ';
+//                     $html .= '
+//                         <div class="d-flex mb-4 col-12 justify-content-end">
+//                             <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+//                                 <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+//                                     <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
+//                                         <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+//                                         <div class="col-5 mx-4">
+//                                             <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+//                                             <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+//                                         </div>
+//                                         <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+//                                             style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+//                                     </div>
+//                                     <span class="position-absolute bottom-0 end-0 me-1">
+//                                         <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+//                                         <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+//                                     </span>
+//                                 </span>
+//                             </div>
+//                         </div>
+//                     ';
+//                 }
+//             } elseif ($msgtype == '5') {
+
+
+//                 $Digi10Number = substr(str_replace([' ', '+'], '', $value['assest_id']), -10);
+//                 $MobileNoCount = strlen((string) str_replace([' ', '+'], '', $value['assest_id']));
+//                 $MobileNoOutput = str_replace([' ', '+'], '', $value['assest_id']);
+//                 if (intval($MobileNoCount) == '10') {
+//                     $MobileNoOutput = '91' . str_replace([' ', '+'], '', $value['assest_id']);
+//                 }
+//                 $sql2 = 'SELECT * FROM `' . $table_username . '_platform_assets` WHERE conversation_account_id = "' . $_POST['conversation_account_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
+//                 $Getresult = $Database->query($sql2);
+
+
+//                 if ($sent_recieved_status == '2') {
+//                     $html .= '<div class="d-flex align-items-center pb-3">
+//                     <div class="border rounded-2 bg-white ps-4 pe-4" style="width:max-content;">
+//                         <div class="d-flex p-2 border-bottom ">
+//                             <div>
+//                                 <i class="bi bi-person-circle" style="font-size: 30px;"></i>
+//                             </div>
+//                             <div class="d-flex align-items-center ms-3">
+//                                 <p>' . $value['asset_file_name'] . '</p>
+//                             </div>
+//                         </div>';
+//                     if ($Getresult->getNumRows() > 0) {
+//                         $html .= '
+//                             <div class="p-2 d-flex justify-content-center">
+//                                 <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "' . $Digi10Number . '" style="list-style: none;">Message</p>
+//                             </div>
+//                         ';
+//                     } else {
+//                         $html .= '
+//                             <div class="p-2 d-flex justify-content-center">
+//                                 <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "' . substr($_POST['contact_no'], -10) . '" connection_id = "' . $_POST['conversation_account_id'] . '" name="' . $value['asset_file_name'] . '" phone_no = "' . $MobileNoOutput . '" >Add Contact</p>
+//                             </div>
+//                         ';
+//                     }
+
+//                     $html .= '
+//                 </div>
+//                 <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
+//                 </div>
+//                 ';
+//                 } elseif ($msgtype == '6') {
+//                     if ($sent_recieved_status == '2') {
+//                         $html .= ' <div class="d-flex mb-4 justify-content-start">
+//                         <div class="col-9 text-start">
+//                             <span class="px-1 rounded-3 text-white" style="background: #ffffff; display: inline-block; width: 350px; height: 60px;">
+                                
+//                                     <div class="c-wa-message bg-white">
+//                                         <div class="c-wa-audio">
+//                                             <div class="c-wa-audio__wrapper">
+//                                                 <div class="c-wa-audio__photo-container">
+//                                                     <div class="c-wa-audio__photo"></div>
+//                                                     <i class="c-wa-audio__photo-mic fas fa-microphone"></i>
+//                                                 </div>
+//                                                 <div class="c-wa-audio__control-container">
+//                                                     <i class="c-wa-audio__control-play fas fa-play"></i>
+//                                                 </div>
+//                                                 <div class="c-wa-audio__time-container">
+//                                                     <span class="c-wa-audio__time-current text-gray">0:00</span>
+//                                                     <div class="c-wa-audio__time-slider" data-direction="horizontal">
+//                                                         <div class="c-wa-audio__time-progress">
+//                                                             <div class="c-wa-audio__time-pin" id="progress-pin" data-method="rewind"></div>
+//                                                         </div>
+//                                                     </div>
+                                                    
+//                                                 </div>
+//                                             </div>
+//                                             <audio crossorigin>
+//                                                 <source src="https://ajasys.in/assets/smpleaudio.mp3" type="audio/mpeg">
+//                                             </audio>
+//                                         </div>
+//                                     </div>                                            
+//                             </span>
+//                             <span class="me-2" style="font-size: 12px;">'.$formattedtime.'</span>
+//                         </div>
+//                     </div>';
+//                     }
+//                     if ($sent_recieved_status == '1') {
+//                         $html .= '   <div class="d-flex mb-4 justify-content-end">
+//                         <div class="col-9 text-end">
+//                             <span class="me-2" style="font-size: 12px;">12:30 PM</span>
+//                             <span class="px-1 rounded-3 text-white" style="background: #005c4b; display: inline-block; width: 350px; height: 60px;">
+                                
+//                                     <div class="c-wa-message" style="background: #005c4b; ">
+//                                         <div class="c-wa-audio">
+//                                             <div class="c-wa-audio__wrapper">
+//                                                 <div class="c-wa-audio__photo-container">
+//                                                     <div class="c-wa-audio__photo"></div>
+//                                                     <i class="c-wa-audio__photo-mic fas fa-microphone"></i>
+//                                                 </div>
+//                                                 <div class="c-wa-audio__control-container">
+//                                                     <i class="c-wa-audio__control-play fas fa-play"></i>
+//                                                 </div>
+//                                                 <div class="c-wa-audio__time-container">
+//                                                     <span class="c-wa-audio__time-current text-light">0:00</span>
+//                                                     <div class="c-wa-audio__time-slider" data-direction="horizontal">
+//                                                         <div class="c-wa-audio__time-progress">
+//                                                             <div class="c-wa-audio__time-pin" id="progress-pin" data-method="rewind"></div>
+//                                                         </div>
+//                                                     </div>
+                                                    
+//                                                 </div>
+//                                             </div>
+//                                             <audio crossorigin>
+//                                                 <source src="https://ajasys.in/assets/smpleaudio.mp3" type="audio/mpeg">
+//                                             </audio>
+//                                         </div>
+//                                     </div>                                            
+//                             </span>
+//                             ' . $readrecieptsymbole . '
+//                         </div>
+//                     </div>
+//             ';
+//                     }
+//                 }
+//                 if ($sent_recieved_status == '1') {
+//                     $html .= '
+//                     <div class="d-flex justify-content-end align-items-center pb-3">
+//                     <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+//                     <div class="border rounded-2 ps-4 pe-4 position-relative " style="width:max-content; background-color: #005c4b;">
+//                         <div class="d-flex p-2 border-bottom">
+//                             <div>
+//                                 <i class="bi bi-person-circle" style="font-size: 30px;"></i>
+//                             </div>
+//                             <div class="d-flex align-items-center ms-3">
+//                                 <p class="text-white">' . $value["asset_file_name"] . '</p>
+//                             </div>
+//                         </div>';
+//                     if ($Getresult->getNumRows() > 0) {
+//                         $html .= '
+//                                 <div class="p-2 d-flex justify-content-center">
+//                                     <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "' . $Digi10Number . '"  style="list-style: none;">Message</p>
+//                                 </div>
+//                             ';
+//                     } else {
+//                         $html .= '
+//                                 <div class="p-2 d-flex justify-content-center">
+//                                     <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "' . substr($_POST['contact_no'], -10) . '" connection_id = "' . $_POST['conversation_account_id'] . '" name="' . $value['asset_file_name'] . '" phone_no = "' . $MobileNoOutput . '" >Add Contact</p>
+//                                 </div>
+//                             ';
+//                     }
+
+//                     $html .= '
+//                         <span class="justify-contant-end position-absolute bottom-0 end-0 pe-2 " style="">' . $readrecieptsymbole . '</span>
+//                     </div>
+//                 </div>';
+//                 }
+//             } elseif ($msgtype == '7') {
+//                 // pre('dishant');
+//                 if ($sent_recieved_status == '2') {
+//                     if ($value['latitude'] != '' && $value['longitude'] != '') {
+//                         $html .= '        <div class="d-flex mb-4 mt-2 mt-md-0 mx-2">
+//                         <div class="col-9 text-start d-flex justify-content-start">
+//                             <div class="px-3 py-2 rounded-3 border border-2"
+//                                 style="background:#DBF8C6; width:fit-content; position:relative;">
+//                                 <span class="user-message" style="position: relative; display: inline-block;">
+//                                     <a href="https://www.google.com/maps?q=' . $value['latitude'] . ',' . $value['longitude'] . '" target="_blank">
+//                                         <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
+//                                     </a>
+//                                 </span> 
+//                             </div>
+//                             <span class="ms-2 text-nowrap mt-auto" style="font-size:10px;">' . $formattedtime . '</span>
+//                         </div>
+//                     </div> ';
+//                     }
+//                 }
+//             } elseif ($msgtype == '8') {
+//                 if ($sent_recieved_status == '1') {
+//                     //     $html .= '   <div class="d-flex mb-4 justify-content-end">
+//                     //     <div class="col-9 text-end">
+//                     //     <span style="font-size:12px;">' . $formattedtime . '</span>
+//                     //         <span class="px-3 py-2 rounded-3 text-white " style="background:#005c4b; display: inline-block; width:200px; ">
+//                     //             <div>
+//                     //                 <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
+//                     //             </div>
+//                     //             <div class="border-top mt-2 p-2 d-flex justify-content-center RadioBtnSelectionClickClass" id="' . $value['id'] . '">
+//                     //                 <i class="fa-solid fa-bars mt-1 mx-1"></i><span>Select</span>
+//                     //             </div>
+//                     //         </span>
+//                     //     </div>
+//                     // </div> ';
+//                     $html .= '   <div class="d-flex mb-4 col-12 justify-content-end">
+//                                 <div class="col-9 d-flex flex-wrap justify-content-end">
+//                                     <div class="d-flex rounded-2 p-1 flex-wrap justify-content-start" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+//                                         <span class="fs-14 fw-medium p-1 text-start position-relative pe-2 w-100">
+//                                             <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+//                                             ' . $msgtext . '
+//                                             </p>
+//                                             <span class="position-absolute bottom-0 end-0 me-1">
+//                                                 <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+//                                                 <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+//                                             </span>
+//                                         </span>
+//                                         <span class="col-12 border-top my-1"></span>
+//                                         <span class="col-12 p-0 mt-1">
+//                                             <button type="button" class="btn w-100 d-flex text-center justify-content-center align-items-center p-0 m-0 pb-2" style="--bs-btn-hover-border-color: transparent; --bs-btn-active-border-color: transparent;">
+//                                             <i class="fa-solid fa-list-ul text-primary fa-lg"></i>
+//                                             <span class="text-primary fw-semibold fs-6 mx-2">Select</span>
+//                                             </button>
+//                                         </span>
+//                                     </div>
+//                                 </div>
+//                 </div> ';
+//                 }
+//             } elseif ($msgtype == '9') {
+//                 if ($sent_recieved_status == '1') {
+//                     if ($value['assest_id'] != '') {
+//                         $buttondata = json_decode($value['assest_id'], true);
+//                         if (isset($buttondata['single_choice_option_value'])) {
+//                             $html .= ' <div class="d-flex mb-4 justify-content-end">
+//                             <div class="col-9 text-end">
+//                             <span style="font-size:12px;">' . $formattedtime . '</span>
+//                                 <span class="px-3 py-2 rounded-3 text-white" style=" display: inline-block; width:200px; ">
+//                                 <div class="my-2 p-1 rounded" style="background:#005c4b;">' . $msgtext . '</div>';
+//                             foreach ($buttondata['single_choice_option_value'] as $item) {
+//                                 $html .= '<div class="my-2 p-1 text-center rounded" style="background:#005c4b;">' . $item['option'] . '</div>';
+//                             }
+//                             $html .= '</span>
+//                                     </div>
+//                                 </div> ';
+//                         }
+//                     }
+//                 }
+//             } elseif ($msgtype == '11') {
+//                 if ($sent_recieved_status == '2') {
+//                     if (isset($value['conversation_id'])) {
+//                         $preid = $value['conversation_id'];
+//                         $preqry = $db_connection->query("SELECT * FROM `" . $table_username . "_messages` WHERE conversation_id = '" . $preid . "'");
+//                         $predataarray = $preqry->getResultArray();
+//                         if (isset($predataarray) && !empty($predataarray) && isset($predataarray[0]['message_contant'])) {
+//                             $msgtext2 = '';
+//                             if (is_json($predataarray[0]['message_contant'])) {
+//                                 $data2 = json_decode($predataarray[0]['message_contant'], true);
+//                                 if (isset($data2['body'])) {
+//                                     $msgtext2 = $data2['body'];
+//                                 }
+//                             } else {
+//                                 $msgtext2 = $predataarray[0]['message_contant'];
+//                             }
+
+//                             $msgtext2 = str_replace('"', '',$predataarray[0]['message_contant']);
+
+//                             //                             $html .= ' <div class="d-flex mb-4 justify-content-start">
+// //                         <div class="col-9 text-start">
+// //                                 <span class="px-3 py-2 rounded-3 text-black bg-white" style="background:#f3f3f; display: inline-block; width:200px; ">
+// //                                     <div class="text-start d-inline-block p-2 rounded" style="background:rgba(0, 0, 0, 0.4); height:65px; width:100%;">
+// //                                         <span class="d-none">Ajasys Technology</span>
+// //                                         <span>' . $msgtext2 . '</span>
+// //                                     </div>
+// //                                     <div>
+// //                                         <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
+// //                                     </div>
+// //                                 </span>
+// // <span style="font-size:12px;">' . $formattedtime . '</span>
+
+//                             //                              </span>
+// //                         </div>
+// //                     </div>';
+// $html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
+//                                 <div class="col-9 d-flex flex-wrap justify-content-start">
+//                                     <div class="d-flex rounded-2 p-1 flex-wrap justify-content-start" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
+//                                         <div class="rounded-2 bg-transparent shadow-sm col-12 border-start border-4 px-2 py-2 d-flex flex-wrap" style="background:#FFF;min-width:76px;border-color:#724EBF !important;">
+//                                             <span class="col-12 px-1 fw-bold fs-6 text-primary ReplayMSGaccountName">
+//                                             Ajasys Technology
+//                                             </span>
+//                                             <span class="col-12 px-1 fw-normal fs-6 text-secondary-emphasis text-wrap">
+//                                             ' . $msgtext . '
+//                                             </span>
+//                                         </div>
+//                                         <span class="col-12"></span>
+//                                         <span class="fs-14 mt-1 fw-medium p-1 col-12 rounded-2 text-start position-relative pe-2" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
+//                                                 <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+//                                                 ' . $msgtext2 . '
+//                                                 </p>
+//                                                 <span class="position-absolute bottom-0 end-0 me-1">
+//                                                     <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                                    
+//                                                 </span>
+//                                         </span>
+//                                     </div>
+//                                 </div>
+//                 </div> ';
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+
+//         if ($html != '') {
+//             $html .= '
+//         <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom(); $(".massage_input").val(""); var ReplayMSGaccountName = $(".WhatsAppAccountName").text(); $(".ReplayMSGaccountName").text(ReplayMSGaccountName);</script> ';
+//         } else {
+//             $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
+//         }
+//         if ($MsgSendStatus == '0') {
+//             $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-3 d-inline-block " style="background:#E1F2FA;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
+//             <script>$(".WhatsApp24HourButton").prop("disabled", true); $(".TextInputTastbar").addClass("d-none"); $(".chat_bord").addClass("chat_bordClass");</script>';
+//         } else {
+//             $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false); $(".TextInputTastbar").removeClass("d-none"); $(".chat_bord").removeClass("chat_bordClass");</script>';
+//         }
+
+//         if ($counttrigger > 0) {
+//             $html .= '  <script>
+//                             $(".Count' . substr($_POST['contact_no'], -10) . '").addClass("d-none");     
+//                                 var count = $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text();
+//                                 count = parseInt(count) - 1;
+//                                 if(count == "0"){
+//                                     $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").addClass("d-none");
+//                                 }else{
+//                                     $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text(count);
+//                                 }
+//                         </script>';
+//         }
+//         echo $html;
+//     }
+public function WhatsAppListConverstion()
+{
+    $MetaUrl = config('App')->metaurl;
+    $contact_no = $_POST['contact_no'];
+    $conversation_account_id = $_POST['conversation_account_id'];
+    $table_username = getMasterUsername2();
+    $Database = \Config\Database::connect('second');
+    $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
+
+    $db_connection = \Config\Database::connect('second');
+
+    // pre($sql);
+
+
+    // pre(json_decode("ud83dudc4du2728ud83dudc4f Hiiii ud83dude4fud83dude4fud83dude4fud83dude4f"));
+    // die();
+    $Getresult = $Database->query($sql);
+    $GetData = $Getresult->getResultArray();
+    $html = '';
+    $dates = '';
+    $HourStatus = '';
+    $MsgSendStatus = 0;
+    $HourSql = 'SELECT * FROM `' . $table_username . '_messages` WHERE platform_account_id = ' . $conversation_account_id . ' AND contact_no = ' . $contact_no . ' AND sent_recieved_status = 2 ORDER BY created_at DESC LIMIT 1;
+    ';
+    $HourData = $Database->query($HourSql);
+    $HourData = $HourData->getResultArray();
+    if (isset($HourData) && !empty($HourData)) {
+        if (isset($HourData[0]['created_at'])) {
+            $dateStr1 = gmdate('Y-m-d H:i:s');
+            $dateStr2 = $HourData[0]['created_at'];
+            $datetime1 = new \DateTime($dateStr1);
+            $datetime2 = new \DateTime($dateStr2);
+            $timeDifferenceHours = ($datetime1->getTimestamp() - $datetime2->getTimestamp()) / 3600;
+            if ($timeDifferenceHours >= 0 && $timeDifferenceHours <= 24) {
+                $MsgSendStatus = 1;
             } else {
-                $readrecieptsymbole .= '
-                                <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
             }
+        }
+    }
+    $MetaUrl = config('App')->metaurl;
+    $inputString = $_SESSION['username'];
+    $parts = explode("_", $inputString);
+    $username = $parts[0];
 
-            $formattedtime = date('h:i A', strtotime($formattedDate));
-            $msgtype = $value['message_type'];
-            if ($msgtype == 1) {
-                $msgtext = '';
+    $table_name = $username . '_platform_integration';
 
-                if (!function_exists('\App\Controllers\is_json')) {
-                    // Function to check if a string is JSON
-                    function is_json($string)
+    $ConnectionData = get_editData2($table_name, $conversation_account_id);
+
+    $access_token = '';
+    $business_account_id = '';
+    $phone_number_id = '';
+    if (isset($ConnectionData) && !empty($ConnectionData)) {
+
+        if (isset($ConnectionData['access_token']) && !empty($ConnectionData['access_token']) && isset($ConnectionData['phone_number_id']) && !empty($ConnectionData['phone_number_id']) && isset($ConnectionData['business_account_id']) && !empty($ConnectionData['business_account_id'])) {
+            $access_token = $ConnectionData['access_token'];
+            $business_account_id = $ConnectionData['business_account_id'];
+            $phone_number_id = $ConnectionData['phone_number_id'];
+        }
+    }
+    $counttrigger = 0;
+
+    // pre($GetData);
+    // die();
+    foreach ($GetData as $key => $value) {
+
+        if ($value['msg_read_status'] == '0' && $value['sent_recieved_status'] == '2') {
+            if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
+                $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                $JsonDataString = '
                     {
-                        json_decode($string);
-                        return (json_last_error() == JSON_ERROR_NONE);
-                    }
+                    "messaging_product": "whatsapp",
+                    "status": "read",
+                    "message_id": "' . $value['conversation_id'] . '"
+                  }
+                ';
+                $Result = postSocialData($url, $JsonDataString);
+                if (isset($Result['success'])) {
+                    $UpdateReadsql = 'UPDATE `' . $username . '_messages` SET `read_date_time`="' . gmdate('Y-m-d H:i:s') . '",`msg_read_status`="1" WHERE id = "' . $value['id'] . '"';
+                    $Database->query($UpdateReadsql);
+                    $counttrigger++;
                 }
+            }
+        }
 
-                // Your code snippet
-                if (is_json($value['message_contant'])) {
-                    $data1 = json_decode($value['message_contant'], true);
-                    if (isset($data1['body'])) {
-                        $msgtext = $data1['body'];
-                    }
-                } else {
-                    $msgtext = $value['message_contant'];
-                }
-                if ($sent_recieved_status == '2') {
-                    // $html .= '
-                    //     <div class="d-flex mb-4 ">
-                    //         <div class="col-9 text-start">
-                    //             <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $msgtext . ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
-                    //         </div>
-                    //     </div>';
 
-                    $html .= '
+        $msgtext = '';
+
+        if (!function_exists('\App\Controllers\is_json')) {
+            // Function to check if a string is JSON
+            function is_json($string)
+            {
+                json_decode($string);
+                return(json_last_error() == JSON_ERROR_NONE);
+            }
+        }
+
+        // Your code snippet
+        if (is_json($value['message_contant'])) {
+            $data1 = json_decode($value['message_contant'], true);
+            if (isset($data1['body'])) {
+                $msgtext = $data1['body'];
+            }
+        } else {
+            $msgtext = $value['message_contant'];
+        }
+
+
+        $sent_recieved_status = $value['sent_recieved_status'];
+        $formattedDate = Utctodate('Y-m-d h:i A', timezonedata(), $value['created_at']);
+        $dateTime = new \DateTime($formattedDate);
+        $last7DaysStart = new \DateTime('-7 days');
+        $today = new \DateTime();
+        $date = $dateTime->format('d/m/Y');
+        $isWithinLast7Days = $dateTime >= $last7DaysStart;
+        if ($date != $dates) {
+            if ($isWithinLast7Days) {
+                $dayOfWeek = $dateTime->format('l');
+            } else {
+                $dayOfWeek = $dateTime->format('d, F Y');
+            }
+            $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill " style="background:#f3f3f3;">' . $dayOfWeek . '</div>';
+            $dates = $date;
+        }
+
+        $readrecieptsymbole = "";
+        if ($value['message_status'] == '0') {
+
+            $readrecieptsymbole .= '
+                             <i class="fa-solid text-white fa-check fa-xs align-self-end" style="color: #fff;"></i>';
+        } elseif ($value['message_status'] == '1') {
+            $readrecieptsymbole .= '
+                            <i class="fa-solid text-white fa-check-double fa-xs align-self-end" style="color: #fff;"></i>';
+        } elseif ($value['message_status'] == '2') {
+            $readrecieptsymbole .= '
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#63cad8" fill-rule="evenodd" d="M16.68 6.266a1 1 0 0 1 .054 1.414l-9.007 9.723a1.83 1.83 0 0 1-2.704 0l-3.757-4.055a1 1 0 0 1 1.468-1.36l3.641 3.932 8.891-9.6a1 1 0 0 1 1.414-.054zm5 0a1 1 0 0 1 .054 1.414l-9.006 9.723a1 1 0 0 1-1.468-1.36l9.007-9.723a1 1 0 0 1 1.413-.054z" clip-rule="evenodd" opacity="1" data-original="#000000" class=""></path></g></svg>';
+        } else {
+            $readrecieptsymbole .= '
+                            <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
+        }
+
+        $formattedtime = date('h:i A', strtotime($formattedDate));
+        $msgtype = $value['message_type'];
+
+
+        if ($msgtype == 1) {
+
+
+
+
+
+            if ($sent_recieved_status == '2') {
+                // $html .= '
+                //     <div class="d-flex mb-4 ">
+                //         <div class="col-9 text-start">
+                //             <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $msgtext . ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
+                //         </div>
+                //     </div>';
+
+                $html .= '
+                    <div class="d-flex mb-4 col-12 justify-content-start ">
+                        <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-start text-wrap align-items-center">
+                            <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#f3f3f3;overflow-wrap: break-word;min-width:76px">
+                                <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+                                ' . $msgtext . '
+                                </p>
+                                <span class="position-absolute bottom-0 end-0 me-1">
+                                    <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>';
+            }
+            if ($sent_recieved_status == '1') {
+                // $html .= '
+                //     <div class="d-flex mb-4 justify-content-end">
+                //         <div class="col-9 text-end position-relative">
+                //             <span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> 
+                //             <span class="ps-3 pe-1 py-2 rounded-3 text-white container" style="background:#005c4b;">' . $msgtext . '
+                //                 <span class="mx-1 align-self-end">' . $readrecieptsymbole . '</span>
+                //             </span>
+                //         </div>
+
+                //     </div>
+                // ';
+
+                $html .= '
+                    <div class="d-flex mb-4 col-12 justify-content-end">
+                        <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                            <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+                                ' . $msgtext . '
+                                </p>
+                                <span class="position-absolute bottom-0 end-0 me-1">
+                                <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>';
+
+                // $html .= ' <div class="d-flex mb-4 col-12 justify-content-START">
+                //         <div class="col-9 text-start">
+                //             <span class="px-3 py-2 rounded-3 text-white" style="background:#f3f3f3; display: inline-block; width:200px; overflow: hidden;">
+                //                 <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
+                //             </span>
+                //             <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+
+                //         </div>
+                //     </div>';
+            }
+        } elseif ($msgtype == '3') {
+            if ($sent_recieved_status == '2') {
+                // assets_type	  if();                 var imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'mp4', 'avi', 'mkv', 'mov', 'wmv'];
+                //21022024                  $uploadDir .= 'assets/' . $username . '_folder/WhatsAppAssets/'; base_url()
+                if ($value['assets_type'] != '') {
+                    if (strpos(strtolower($value['assets_type']), 'image') !== false) {
+                        $html .= '
                         <div class="d-flex mb-4 col-12 justify-content-start ">
                             <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-start text-wrap align-items-center">
                                 <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#f3f3f3;overflow-wrap: break-word;min-width:76px">
-                                    <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
-                                    ' . $msgtext . '
+                                    <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap" style="width:200px;overflow: hidden;">
+                                    <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
                                     </p>
                                     <span class="position-absolute bottom-0 end-0 me-1">
                                         <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
@@ -2344,548 +3115,494 @@ class WhatAppIntegrationController extends BaseController
                                 </span>
                             </div>
                         </div>';
-                }
-                if ($sent_recieved_status == '1') {
-                    // $html .= '
-                    //     <div class="d-flex mb-4 justify-content-end">
-                    //         <div class="col-9 text-end position-relative">
-                    //             <span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> 
-                    //             <span class="ps-3 pe-1 py-2 rounded-3 text-white container" style="background:#005c4b;">' . $msgtext . '
-                    //                 <span class="mx-1 align-self-end">' . $readrecieptsymbole . '</span>
-                    //             </span>
-                    //         </div>
-
-                    //     </div>
-                    // ';
-
-                    $html .= '
-                        <div class="d-flex mb-4 col-12 justify-content-end">
-                            <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
-                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
-                                    <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
-                                    ' . $msgtext . '
-                                    </p>
-                                    <span class="position-absolute bottom-0 end-0 me-1">
-                                    <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                                    <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>';
-
-                    // $html .= ' <div class="d-flex mb-4 col-12 justify-content-START">
-                    //         <div class="col-9 text-start">
-                    //             <span class="px-3 py-2 rounded-3 text-white" style="background:#f3f3f3; display: inline-block; width:200px; overflow: hidden;">
-                    //                 <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
-                    //             </span>
-                    //             <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                    
-                    //         </div>
-                    //     </div>';
-                }
-            } elseif ($msgtype == '3') {
-                if ($sent_recieved_status == '2') {
-                    // assets_type	  if();                 var imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'mp4', 'avi', 'mkv', 'mov', 'wmv'];
-                    //21022024                  $uploadDir .= 'assets/' . $username . '_folder/WhatsAppAssets/'; base_url()
-                    if ($value['assets_type'] != '') {
-                        if (strpos(strtolower($value['assets_type']), 'image') !== false) {
-                            $html .= '
-                            <div class="d-flex mb-4 col-12 justify-content-start ">
-                                <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-start text-wrap align-items-center">
-                                    <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#f3f3f3;overflow-wrap: break-word;min-width:76px">
-                                        <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap" style="width:200px;overflow: hidden;">
-                                        <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
-                                        </p>
-                                        <span class="position-absolute bottom-0 end-0 me-1">
-                                            <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>';
-                        }
-                        if (strpos(strtolower($value['assets_type']), 'video') !== false) {
+                    }
+                    if (strpos(strtolower($value['assets_type']), 'video') !== false) {
 
 
-                            $html .= '                                <div class="d-flex mb-4 justify-content-start">
-                            <div class="col-9 text-start">
-                                <span class="px-2 py-2 rounded-3 text-white bg-white" style="background:white; display: inline-block; width:200px; ">
-                                    <video controls src="https://www.shutterstock.com/shutterstock/videos/1082503873/preview/stock-footage-loading-wheel-animation-animated-spinning-load-icon-with-alpha-layer-transparent-background.webm" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
-                                </span>
-                                <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                            </div>
-                        </div>';
-                        }
+                        $html .= '                                <div class="d-flex mb-4 justify-content-start">
+                        <div class="col-9 text-start">
+                            <span class="px-2 py-2 rounded-3 text-white bg-white" style="background:white; display: inline-block; width:200px; ">
+                                <video controls src="https://www.shutterstock.com/shutterstock/videos/1082503873/preview/stock-footage-loading-wheel-animation-animated-spinning-load-icon-with-alpha-layer-transparent-background.webm" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
+                            </span>
+                            <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                        </div>
+                    </div>';
                     }
                 }
-                if ($sent_recieved_status == '1') {
-                    if ($value['assets_type'] != '' && $value['asset_file_name'] != '') {
-                        if (strtolower($value['assets_type']) == 'jpg' || strtolower($value['assets_type']) == 'jpeg' || strtolower($value['assets_type']) == 'png' || strtolower($value['assets_type']) == 'gif' || strtolower($value['assets_type']) == 'bmp' || strtolower($value['assets_type']) == 'tiff') {
-                            $html .= '  <div class="d-flex mb-4 justify-content-end ">
-                                <div class="col-9 text-end">
-									<span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                                <span class="px-3 py-2 rounded-3 text-white" style="background:#DBF8C6; display: inline-block; width:200px; overflow: hidden;">
-                                    <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
-                                    ' . $readrecieptsymbole . '
-                                    </span> 
-                                </div>
-                            </div>';
-
-                            $html .= '
-                            <div class="d-flex mb-4 col-12 justify-content-end ">
-                                <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-end text-wrap align-items-center">
-                                    <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative " style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
-                                        <p class=" pb-3 fw-medium fs-14 text-start flex-wrap" style="width:200px;overflow: hidden;">
-                                        <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
-                                        </p>
-                                        <span class="position-absolute bottom-0 end-0 me-1">
-                                            <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                                            <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
-                    
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>'; 
-
-
-                        }
-                        if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type']) == 'avi' || strtolower($value['assets_type']) == 'mkv' || strtolower($value['assets_type']) == 'mov' || strtolower($value['assets_type']) == 'wmv') {
-                            $html .= '   <div class="d-flex mb-4 justify-content-end">
+            }
+            if ($sent_recieved_status == '1') {
+                if ($value['assets_type'] != '' && $value['asset_file_name'] != '') {
+                    if (strtolower($value['assets_type']) == 'jpg' || strtolower($value['assets_type']) == 'jpeg' || strtolower($value['assets_type']) == 'png' || strtolower($value['assets_type']) == 'gif' || strtolower($value['assets_type']) == 'bmp' || strtolower($value['assets_type']) == 'tiff') {
+                        $html .= '  <div class="d-flex mb-4 justify-content-end ">
                             <div class="col-9 text-end">
                                 <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                                <span class="px-2 py-2 rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; ">
-                                    <video controls src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
-                                        ' . $readrecieptsymbole . '
+                            <span class="px-3 py-2 rounded-3 text-white" style="background:#DBF8C6; display: inline-block; width:200px; overflow: hidden;">
+                                <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
+                                ' . $readrecieptsymbole . '
+                                </span> 
+                            </div>
+                        </div>';
+
+                        $html .= '
+                        <div class="d-flex mb-4 col-12 justify-content-end ">
+                            <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative " style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                    <p class=" pb-3 fw-medium fs-14 text-start flex-wrap" style="width:200px;overflow: hidden;">
+                                    <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
+                                    </p>
+                                    <span class="position-absolute bottom-0 end-0 me-1">
+                                        <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                        <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                
+                                    </span>
                                 </span>
                             </div>
                         </div>';
-                        }
+
+
+                    }
+                    if (strtolower($value['assets_type']) == 'mp4' || strtolower($value['assets_type']) == 'avi' || strtolower($value['assets_type']) == 'mkv' || strtolower($value['assets_type']) == 'mov' || strtolower($value['assets_type']) == 'wmv') {
+                        $html .= '   <div class="d-flex mb-4 justify-content-end">
+                        <div class="col-9 text-end">
+                            <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                            <span class="px-2 py-2 rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; ">
+                                <video controls src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;"></video>
+                                    ' . $readrecieptsymbole . '
+                            </span>
+                        </div>
+                    </div>';
                     }
                 }
-            } elseif ($msgtype == '4') {
-                if ($sent_recieved_status == '2') {
-                    //     $html .= '
-                    //     <div class=" mb-4 justify-content-start">
-                    //     <div class="col-9 text-start">
-                    //         <span class="p-2 pb-3 rounded-3 bg-white text-white"
-                    //             style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
-                    //             <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
-                    //                 style="width:100%; height:auto;">
-                    //                 <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
-                    //                 <div class="col-5 mx-4">
-                    //                     <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
-                    //                     <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
-                    //                 </div>
-                    //                 <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
-                    //                     style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
-                    //             </div>
-                    //         </span>
-                    //         <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+            }
+        } elseif ($msgtype == '4') {
+            if ($sent_recieved_status == '2') {
+                //     $html .= '
+                //     <div class=" mb-4 justify-content-start">
+                //     <div class="col-9 text-start">
+                //         <span class="p-2 pb-3 rounded-3 bg-white text-white"
+                //             style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
+                //             <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
+                //                 style="width:100%; height:auto;">
+                //                 <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+                //                 <div class="col-5 mx-4">
+                //                     <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+                //                     <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+                //                 </div>
+                //                 <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+                //                     style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                //             </div>
+                //         </span>
+                //         <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
 
-                    //     </div>
-                    // </div>    
-                    //     ';
-                    $html .= '
-                        <div class="d-flex mb-4 col-12 justify-content-end">
-                            <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
-                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
-                                    <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
-                                        <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
-                                        <div class="col-5 mx-4">
-                                            <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
-                                            <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
-                                        </div>
-                                        <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
-                                            style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                //     </div>
+                // </div>    
+                //     ';
+                $html .= '
+                    <div class="d-flex mb-4 col-12 justify-content-end">
+                        <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                            <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
+                                    <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+                                    <div class="col-5 mx-4">
+                                        <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+                                        <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
                                     </div>
-                                    <span class="position-absolute bottom-0 end-0 me-1">
-                                        <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                                        <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
-                                    </span>
+                                    <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+                                        style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                                </div>
+                                <span class="position-absolute bottom-0 end-0 me-1">
+                                    <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                    <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
                                 </span>
-                            </div>
+                            </span>
+                        </div>
+                    </div>
+                ';
+            }
+            if ($sent_recieved_status == '1') {
+                //     $html .= '<div class="d-flex mb-4 justify-content-end">
+                //     <div class="col-9 text-end">
+                //         <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                //         <span class="p-2 pb-3 rounded-3 text-white"
+                //             style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
+                //             <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
+                //                 style="width:100%; height:auto;">
+                //                 <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path></g></svg></div>
+                //                 <div class="col-5 mx-4">
+                //                     <div class="text-start">' . $value['asset_file_name'] . '</div>
+                //                     <div class="fs-10  text-start" style="color:lightgray">PNG . 11KB</div>
+                //                 </div>
+                //                 <div class="border-light border rounded-circle d-flex justify-content-center align-items-center px-3"
+                //                     style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                //                     ' . $readrecieptsymbole . '
+                //             </div>
+                //         </span>
+                //     </div>
+                // </div>';
+                $html .= '
+                    <div class="d-flex mb-4 col-12 justify-content-end">
+                        <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                            <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
+                                    <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+                                    <div class="col-5 mx-4">
+                                        <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+                                        <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+                                    </div>
+                                    <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+                                        style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                                </div>
+                                <span class="position-absolute bottom-0 end-0 me-1">
+                                    <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                    <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                ';
+                $html .= '
+                    <div class="d-flex mb-4 col-12 justify-content-end">
+                        <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                            <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
+                                    <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+                                    <div class="col-5 mx-4">
+                                        <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+                                        <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+                                    </div>
+                                    <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+                                        style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                                </div>
+                                <span class="position-absolute bottom-0 end-0 me-1">
+                                    <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                    <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                ';
+            }
+        } elseif ($msgtype == '5') {
+
+
+            $Digi10Number = substr(str_replace([' ', '+'], '', $value['assest_id']), -10);
+            $MobileNoCount = strlen((string) str_replace([' ', '+'], '', $value['assest_id']));
+            $MobileNoOutput = str_replace([' ', '+'], '', $value['assest_id']);
+            if (intval($MobileNoCount) == '10') {
+                $MobileNoOutput = '91' . str_replace([' ', '+'], '', $value['assest_id']);
+            }
+            $sql2 = 'SELECT * FROM `' . $table_username . '_platform_assets` WHERE conversation_account_id = "' . $_POST['conversation_account_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
+            $Getresult = $Database->query($sql2);
+
+
+            if ($sent_recieved_status == '2') {
+                $html .= '<div class="d-flex align-items-center pb-3">
+                <div class="border rounded-2 bg-white ps-4 pe-4" style="width:max-content;">
+                    <div class="d-flex p-2 border-bottom ">
+                        <div>
+                            <i class="bi bi-person-circle" style="font-size: 30px;"></i>
+                        </div>
+                        <div class="d-flex align-items-center ms-3">
+                            <p>' . $value['asset_file_name'] . '</p>
+                        </div>
+                    </div>';
+                if ($Getresult->getNumRows() > 0) {
+                    $html .= '
+                        <div class="p-2 d-flex justify-content-center">
+                            <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "' . $Digi10Number . '" style="list-style: none;">Message</p>
                         </div>
                     ';
+                } else {
+                    $html .= '
+                        <div class="p-2 d-flex justify-content-center">
+                            <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "' . substr($_POST['contact_no'], -10) . '" connection_id = "' . $_POST['conversation_account_id'] . '" name="' . $value['asset_file_name'] . '" phone_no = "' . $MobileNoOutput . '" >Add Contact</p>
+                        </div>
+                    ';
+                }
+
+                $html .= '
+            </div>
+            <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
+            </div>
+            ';
+            } elseif ($msgtype == '6') {
+                if ($sent_recieved_status == '2') {
+                    $html .= ' <div class="d-flex mb-4 justify-content-start">
+                    <div class="col-9 text-start">
+                        <span class="px-1 rounded-3 text-white" style="background: #ffffff; display: inline-block; width: 350px; height: 60px;">
+                            
+                                <div class="c-wa-message bg-white">
+                                    <div class="c-wa-audio">
+                                        <div class="c-wa-audio__wrapper">
+                                            <div class="c-wa-audio__photo-container">
+                                                <div class="c-wa-audio__photo"></div>
+                                                <i class="c-wa-audio__photo-mic fas fa-microphone"></i>
+                                            </div>
+                                            <div class="c-wa-audio__control-container">
+                                                <i class="c-wa-audio__control-play fas fa-play"></i>
+                                            </div>
+                                            <div class="c-wa-audio__time-container">
+                                                <span class="c-wa-audio__time-current text-gray">0:00</span>
+                                                <div class="c-wa-audio__time-slider" data-direction="horizontal">
+                                                    <div class="c-wa-audio__time-progress">
+                                                        <div class="c-wa-audio__time-pin" id="progress-pin" data-method="rewind"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <audio crossorigin>
+                                            <source src="https://ajasys.in/assets/smpleaudio.mp3" type="audio/mpeg">
+                                        </audio>
+                                    </div>
+                                </div>                                            
+                        </span>
+                        <span class="me-2" style="font-size: 12px;">' . $formattedtime . '</span>
+                    </div>
+                </div>';
                 }
                 if ($sent_recieved_status == '1') {
-                    //     $html .= '<div class="d-flex mb-4 justify-content-end">
-                    //     <div class="col-9 text-end">
-                    //         <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                    //         <span class="p-2 pb-3 rounded-3 text-white"
-                    //             style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
-                    //             <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
-                    //                 style="width:100%; height:auto;">
-                    //                 <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path></g></svg></div>
-                    //                 <div class="col-5 mx-4">
-                    //                     <div class="text-start">' . $value['asset_file_name'] . '</div>
-                    //                     <div class="fs-10  text-start" style="color:lightgray">PNG . 11KB</div>
-                    //                 </div>
-                    //                 <div class="border-light border rounded-circle d-flex justify-content-center align-items-center px-3"
-                    //                     style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
-                    //                     ' . $readrecieptsymbole . '
-                    //             </div>
-                    //         </span>
-                    //     </div>
-                    // </div>';
-                    $html .= '
-                        <div class="d-flex mb-4 col-12 justify-content-end">
-                            <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
-                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
-                                    <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
-                                        <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
-                                        <div class="col-5 mx-4">
-                                            <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
-                                            <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+                    $html .= '   <div class="d-flex mb-4 justify-content-end">
+                    <div class="col-9 text-end">
+                        <span class="me-2" style="font-size: 12px;">12:30 PM</span>
+                        <span class="px-1 rounded-3 text-white" style="background: #005c4b; display: inline-block; width: 350px; height: 60px;">
+                            
+                                <div class="c-wa-message" style="background: #005c4b; ">
+                                    <div class="c-wa-audio">
+                                        <div class="c-wa-audio__wrapper">
+                                            <div class="c-wa-audio__photo-container">
+                                                <div class="c-wa-audio__photo"></div>
+                                                <i class="c-wa-audio__photo-mic fas fa-microphone"></i>
+                                            </div>
+                                            <div class="c-wa-audio__control-container">
+                                                <i class="c-wa-audio__control-play fas fa-play"></i>
+                                            </div>
+                                            <div class="c-wa-audio__time-container">
+                                                <span class="c-wa-audio__time-current text-light">0:00</span>
+                                                <div class="c-wa-audio__time-slider" data-direction="horizontal">
+                                                    <div class="c-wa-audio__time-progress">
+                                                        <div class="c-wa-audio__time-pin" id="progress-pin" data-method="rewind"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
                                         </div>
-                                        <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
-                                            style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                                        <audio crossorigin>
+                                            <source src="https://ajasys.in/assets/smpleaudio.mp3" type="audio/mpeg">
+                                        </audio>
                                     </div>
-                                    <span class="position-absolute bottom-0 end-0 me-1">
-                                        <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                                        <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
-                                    </span>
-                                </span>
-                            </div>
+                                </div>                                            
+                        </span>
+                        ' . $readrecieptsymbole . '
+                    </div>
+                </div>
+        ';
+                }
+            }
+            if ($sent_recieved_status == '1') {
+                $html .= '
+                <div class="d-flex justify-content-end align-items-center pb-3">
+                <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                <div class="border rounded-2 ps-4 pe-4 position-relative " style="width:max-content; background-color: #005c4b;">
+                    <div class="d-flex p-2 border-bottom">
+                        <div>
+                            <i class="bi bi-person-circle" style="font-size: 30px;"></i>
                         </div>
-                    ';
+                        <div class="d-flex align-items-center ms-3">
+                            <p class="text-white">' . $value["asset_file_name"] . '</p>
+                        </div>
+                    </div>';
+                if ($Getresult->getNumRows() > 0) {
                     $html .= '
-                        <div class="d-flex mb-4 col-12 justify-content-end">
-                            <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
-                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
-                                    <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
-                                        <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
-                                        <div class="col-5 mx-4">
-                                            <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
-                                            <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
-                                        </div>
-                                        <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
-                                            style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
-                                    </div>
-                                    <span class="position-absolute bottom-0 end-0 me-1">
-                                        <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                                        <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                    ';
-                }
-            } elseif ($msgtype == '5') {
-
-
-                $Digi10Number = substr(str_replace([' ', '+'], '', $value['assest_id']), -10);
-                $MobileNoCount = strlen((string) str_replace([' ', '+'], '', $value['assest_id']));
-                $MobileNoOutput = str_replace([' ', '+'], '', $value['assest_id']);
-                if (intval($MobileNoCount) == '10') {
-                    $MobileNoOutput = '91' . str_replace([' ', '+'], '', $value['assest_id']);
-                }
-                $sql2 = 'SELECT * FROM `' . $table_username . '_platform_assets` WHERE conversation_account_id = "' . $_POST['conversation_account_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
-                $Getresult = $Database->query($sql2);
-
-
-                if ($sent_recieved_status == '2') {
-                    $html .= '<div class="d-flex align-items-center pb-3">
-                    <div class="border rounded-2 bg-white ps-4 pe-4" style="width:max-content;">
-                        <div class="d-flex p-2 border-bottom ">
-                            <div>
-                                <i class="bi bi-person-circle" style="font-size: 30px;"></i>
-                            </div>
-                            <div class="d-flex align-items-center ms-3">
-                                <p>' . $value['asset_file_name'] . '</p>
-                            </div>
-                        </div>';
-                    if ($Getresult->getNumRows() > 0) {
-                        $html .= '
                             <div class="p-2 d-flex justify-content-center">
-                                <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "' . $Digi10Number . '" style="list-style: none;">Message</p>
+                                <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "' . $Digi10Number . '"  style="list-style: none;">Message</p>
                             </div>
                         ';
-                    } else {
-                        $html .= '
+                } else {
+                    $html .= '
                             <div class="p-2 d-flex justify-content-center">
                                 <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "' . substr($_POST['contact_no'], -10) . '" connection_id = "' . $_POST['conversation_account_id'] . '" name="' . $value['asset_file_name'] . '" phone_no = "' . $MobileNoOutput . '" >Add Contact</p>
                             </div>
                         ';
-                    }
+                }
 
-                    $html .= '
+                $html .= '
+                    <span class="justify-contant-end position-absolute bottom-0 end-0 pe-2 " style="">' . $readrecieptsymbole . '</span>
                 </div>
-                <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
-                </div>
-                ';
-                } elseif ($msgtype == '6') {
-                    if ($sent_recieved_status == '2') {
-                        $html .= ' <div class="d-flex mb-4 justify-content-start">
-                        <div class="col-9 text-start">
-                            <span class="px-1 rounded-3 text-white" style="background: #ffffff; display: inline-block; width: 350px; height: 60px;">
-                                
-                                    <div class="c-wa-message bg-white">
-                                        <div class="c-wa-audio">
-                                            <div class="c-wa-audio__wrapper">
-                                                <div class="c-wa-audio__photo-container">
-                                                    <div class="c-wa-audio__photo"></div>
-                                                    <i class="c-wa-audio__photo-mic fas fa-microphone"></i>
-                                                </div>
-                                                <div class="c-wa-audio__control-container">
-                                                    <i class="c-wa-audio__control-play fas fa-play"></i>
-                                                </div>
-                                                <div class="c-wa-audio__time-container">
-                                                    <span class="c-wa-audio__time-current text-gray">0:00</span>
-                                                    <div class="c-wa-audio__time-slider" data-direction="horizontal">
-                                                        <div class="c-wa-audio__time-progress">
-                                                            <div class="c-wa-audio__time-pin" id="progress-pin" data-method="rewind"></div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            <audio crossorigin>
-                                                <source src="https://ajasys.in/assets/smpleaudio.mp3" type="audio/mpeg">
-                                            </audio>
-                                        </div>
-                                    </div>                                            
-                            </span>
-                            <span class="me-2" style="font-size: 12px;">'.$formattedtime.'</span>
+            </div>';
+            }
+        } elseif ($msgtype == '7') {
+            // pre('dishant');
+            if ($sent_recieved_status == '2') {
+                if ($value['latitude'] != '' && $value['longitude'] != '') {
+                    $html .= '        <div class="d-flex mb-4 mt-2 mt-md-0 mx-2">
+                    <div class="col-9 text-start d-flex justify-content-start">
+                        <div class="px-3 py-2 rounded-3 border border-2"
+                            style="background:#DBF8C6; width:fit-content; position:relative;">
+                            <span class="user-message" style="position: relative; display: inline-block;">
+                                <a href="https://www.google.com/maps?q=' . $value['latitude'] . ',' . $value['longitude'] . '" target="_blank">
+                                    <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
+                                </a>
+                            </span> 
                         </div>
-                    </div>';
-                    }
-                    if ($sent_recieved_status == '1') {
-                        $html .= '   <div class="d-flex mb-4 justify-content-end">
-                        <div class="col-9 text-end">
-                            <span class="me-2" style="font-size: 12px;">12:30 PM</span>
-                            <span class="px-1 rounded-3 text-white" style="background: #005c4b; display: inline-block; width: 350px; height: 60px;">
-                                
-                                    <div class="c-wa-message" style="background: #005c4b; ">
-                                        <div class="c-wa-audio">
-                                            <div class="c-wa-audio__wrapper">
-                                                <div class="c-wa-audio__photo-container">
-                                                    <div class="c-wa-audio__photo"></div>
-                                                    <i class="c-wa-audio__photo-mic fas fa-microphone"></i>
-                                                </div>
-                                                <div class="c-wa-audio__control-container">
-                                                    <i class="c-wa-audio__control-play fas fa-play"></i>
-                                                </div>
-                                                <div class="c-wa-audio__time-container">
-                                                    <span class="c-wa-audio__time-current text-light">0:00</span>
-                                                    <div class="c-wa-audio__time-slider" data-direction="horizontal">
-                                                        <div class="c-wa-audio__time-progress">
-                                                            <div class="c-wa-audio__time-pin" id="progress-pin" data-method="rewind"></div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            <audio crossorigin>
-                                                <source src="https://ajasys.in/assets/smpleaudio.mp3" type="audio/mpeg">
-                                            </audio>
-                                        </div>
-                                    </div>                                            
-                            </span>
-                            ' . $readrecieptsymbole . '
-                        </div>
+                        <span class="ms-2 text-nowrap mt-auto" style="font-size:10px;">' . $formattedtime . '</span>
                     </div>
-            ';
-                    }
-                }
-                if ($sent_recieved_status == '1') {
-                    $html .= '
-                    <div class="d-flex justify-content-end align-items-center pb-3">
-                    <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                    <div class="border rounded-2 ps-4 pe-4 position-relative " style="width:max-content; background-color: #005c4b;">
-                        <div class="d-flex p-2 border-bottom">
-                            <div>
-                                <i class="bi bi-person-circle" style="font-size: 30px;"></i>
-                            </div>
-                            <div class="d-flex align-items-center ms-3">
-                                <p class="text-white">' . $value["asset_file_name"] . '</p>
-                            </div>
-                        </div>';
-                    if ($Getresult->getNumRows() > 0) {
-                        $html .= '
-                                <div class="p-2 d-flex justify-content-center">
-                                    <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover DirecttoMsg" phoneno = "' . $Digi10Number . '"  style="list-style: none;">Message</p>
-                                </div>
-                            ';
-                    } else {
-                        $html .= '
-                                <div class="p-2 d-flex justify-content-center">
-                                    <p href="" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover AddWhatsAppContactNO" activeno = "' . substr($_POST['contact_no'], -10) . '" connection_id = "' . $_POST['conversation_account_id'] . '" name="' . $value['asset_file_name'] . '" phone_no = "' . $MobileNoOutput . '" >Add Contact</p>
-                                </div>
-                            ';
-                    }
-
-                    $html .= '
-                        <span class="justify-contant-end position-absolute bottom-0 end-0 pe-2 " style="">' . $readrecieptsymbole . '</span>
-                    </div>
-                </div>';
-                }
-            } elseif ($msgtype == '7') {
-                // pre('dishant');
-                if ($sent_recieved_status == '2') {
-                    if ($value['latitude'] != '' && $value['longitude'] != '') {
-                        $html .= '        <div class="d-flex mb-4 mt-2 mt-md-0 mx-2">
-                        <div class="col-9 text-start d-flex justify-content-start">
-                            <div class="px-3 py-2 rounded-3 border border-2"
-                                style="background:#DBF8C6; width:fit-content; position:relative;">
-                                <span class="user-message" style="position: relative; display: inline-block;">
-                                    <a href="https://www.google.com/maps?q=' . $value['latitude'] . ',' . $value['longitude'] . '" target="_blank">
-                                        <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
-                                    </a>
-                                </span> 
-                            </div>
-                            <span class="ms-2 text-nowrap mt-auto" style="font-size:10px;">' . $formattedtime . '</span>
-                        </div>
-                    </div> ';
-                    }
-                }
-            } elseif ($msgtype == '8') {
-                if ($sent_recieved_status == '1') {
-                    //     $html .= '   <div class="d-flex mb-4 justify-content-end">
-                    //     <div class="col-9 text-end">
-                    //     <span style="font-size:12px;">' . $formattedtime . '</span>
-                    //         <span class="px-3 py-2 rounded-3 text-white " style="background:#005c4b; display: inline-block; width:200px; ">
-                    //             <div>
-                    //                 <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
-                    //             </div>
-                    //             <div class="border-top mt-2 p-2 d-flex justify-content-center RadioBtnSelectionClickClass" id="' . $value['id'] . '">
-                    //                 <i class="fa-solid fa-bars mt-1 mx-1"></i><span>Select</span>
-                    //             </div>
-                    //         </span>
-                    //     </div>
-                    // </div> ';
-                    $html .= '   <div class="d-flex mb-4 col-12 justify-content-end">
-                                <div class="col-9 d-flex flex-wrap justify-content-end">
-                                    <div class="d-flex rounded-2 p-1 flex-wrap justify-content-start" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
-                                        <span class="fs-14 fw-medium p-1 text-start position-relative pe-2 w-100">
-                                            <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
-                                            ' . $msgtext . '
-                                            </p>
-                                            <span class="position-absolute bottom-0 end-0 me-1">
-                                                <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                                                <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
-                                            </span>
-                                        </span>
-                                        <span class="col-12 border-top my-1"></span>
-                                        <span class="col-12 p-0 mt-1">
-                                            <button type="button" class="btn w-100 d-flex text-center justify-content-center align-items-center p-0 m-0 pb-2" style="--bs-btn-hover-border-color: transparent; --bs-btn-active-border-color: transparent;">
-                                            <i class="fa-solid fa-list-ul text-primary fa-lg"></i>
-                                            <span class="text-primary fw-semibold fs-6 mx-2">Select</span>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
                 </div> ';
                 }
-            } elseif ($msgtype == '9') {
-                if ($sent_recieved_status == '1') {
-                    if ($value['assest_id'] != '') {
-                        $buttondata = json_decode($value['assest_id'], true);
-                        if (isset($buttondata['single_choice_option_value'])) {
-                            $html .= ' <div class="d-flex mb-4 justify-content-end">
-                            <div class="col-9 text-end">
-                            <span style="font-size:12px;">' . $formattedtime . '</span>
-                                <span class="px-3 py-2 rounded-3 text-white" style=" display: inline-block; width:200px; ">
-                                <div class="my-2 p-1 rounded" style="background:#005c4b;">' . $msgtext . '</div>';
-                            foreach ($buttondata['single_choice_option_value'] as $item) {
-                                $html .= '<div class="my-2 p-1 text-center rounded" style="background:#005c4b;">' . $item['option'] . '</div>';
-                            }
-                            $html .= '</span>
-                                    </div>
-                                </div> ';
+            }
+        } elseif ($msgtype == '8') {
+            if ($sent_recieved_status == '1') {
+                //     $html .= '   <div class="d-flex mb-4 justify-content-end">
+                //     <div class="col-9 text-end">
+                //     <span style="font-size:12px;">' . $formattedtime . '</span>
+                //         <span class="px-3 py-2 rounded-3 text-white " style="background:#005c4b; display: inline-block; width:200px; ">
+                //             <div>
+                //                 <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
+                //             </div>
+                //             <div class="border-top mt-2 p-2 d-flex justify-content-center RadioBtnSelectionClickClass" id="' . $value['id'] . '">
+                //                 <i class="fa-solid fa-bars mt-1 mx-1"></i><span>Select</span>
+                //             </div>
+                //         </span>
+                //     </div>
+                // </div> ';
+                $html .= '   <div class="d-flex mb-4 col-12 justify-content-end">
+                            <div class="col-9 d-flex flex-wrap justify-content-end">
+                                <div class="d-flex rounded-2 p-1 flex-wrap justify-content-start" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                    <span class="fs-14 fw-medium p-1 text-start position-relative pe-2 w-100">
+                                        <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+                                        ' . $msgtext . '
+                                        </p>
+                                        <span class="position-absolute bottom-0 end-0 me-1">
+                                            <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                            <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                                        </span>
+                                    </span>
+                                    <span class="col-12 border-top my-1"></span>
+                                    <span class="col-12 p-0 mt-1">
+                                        <button type="button" class="btn w-100 d-flex text-center justify-content-center align-items-center p-0 m-0 pb-2" style="--bs-btn-hover-border-color: transparent; --bs-btn-active-border-color: transparent;">
+                                        <i class="fa-solid fa-list-ul text-primary fa-lg"></i>
+                                        <span class="text-primary fw-semibold fs-6 mx-2">Select</span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+            </div> ';
+            }
+        } elseif ($msgtype == '9') {
+            if ($sent_recieved_status == '1') {
+                if ($value['assest_id'] != '') {
+                    $buttondata = json_decode($value['assest_id'], true);
+                    if (isset($buttondata['single_choice_option_value'])) {
+                        $html .= ' <div class="d-flex mb-4 justify-content-end">
+                        <div class="col-9 text-end">
+                        <span style="font-size:12px;">' . $formattedtime . '</span>
+                            <span class="px-3 py-2 rounded-3 text-white" style=" display: inline-block; width:200px; ">
+                            <div class="my-2 p-1 rounded" style="background:#005c4b;">' . $msgtext . '</div>';
+                        foreach ($buttondata['single_choice_option_value'] as $item) {
+                            $html .= '<div class="my-2 p-1 text-center rounded" style="background:#005c4b;">' . $item['option'] . '</div>';
                         }
+                        $html .= '</span>
+                                </div>
+                            </div> ';
                     }
                 }
-            } elseif ($msgtype == '11') {
-                if ($sent_recieved_status == '2') {
-                    if (isset($value['conversation_id'])) {
-                        $preid = $value['conversation_id'];
-                        $preqry = $db_connection->query("SELECT * FROM `" . $table_username . "_messages` WHERE conversation_id = '" . $preid . "'");
-                        $predataarray = $preqry->getResultArray();
-                        if (isset($predataarray) && !empty($predataarray) && isset($predataarray[0]['message_contant'])) {
-                            $msgtext2 = '';
-                            if (is_json($predataarray[0]['message_contant'])) {
-                                $data2 = json_decode($predataarray[0]['message_contant'], true);
-                                if (isset($data2['body'])) {
-                                    $msgtext2 = $data2['body'];
+            }
+        } elseif ($msgtype == '11') {
+            if ($sent_recieved_status == '2') {
+                if (isset($value['conversation_id'])) {
+                    $preid = $value['conversation_id'];
+
+                    $preqry = $db_connection->query("SELECT * FROM `" . $table_username . "_messages` WHERE conversation_id = '" . $preid . "'");
+                    $predataarray = $preqry->getResultArray();
+
+
+
+
+                    if (isset($predataarray) && !empty($predataarray) && isset($predataarray[0]['message_contant'])) {
+                        $msgtext2 = '';
+                        if (is_json($predataarray[0]['message_contant'])) {
+                            $data2 = json_decode($predataarray[0]['message_contant'], true);
+                            if (isset($data2['body'])) {
+                                $msgtext2 = $data2['body'];
+                            }
+                        } else {
+                            $msgtext2 = $predataarray[0]['message_contant'];
+                        }
+
+
+                        $msgtext2 = str_replace('"', '', $predataarray[0]['message_contant']);
+
+
+                        $preqry1 = $db_connection->query("SELECT * FROM `" . $table_username . "_messages` WHERE conversation_id = '" . $predataarray[0]['replay_message_id'] . "'");
+                        $predataarray1 = $preqry1->getResultArray();
+                        $msgtext3 = '';
+                        if (isset($predataarray1) && !empty($predataarray1) && isset($predataarray1[0]['message_contant'])) {
+                            if (is_json($predataarray1[0]['message_contant'])) {
+                                $data3 = json_decode($predataarray1[0]['message_contant'], true);
+                                if (isset($data3['body'])) {
+                                    $msgtext3 = $data3['body'];
                                 }
                             } else {
-                                $msgtext2 = $predataarray[0]['message_contant'];
+                                $msgtext3 = $predataarray1[0]['message_contant'];
                             }
-
-                            $msgtext2 = str_replace('"', '',$predataarray[0]['message_contant']);
-
-                            //                             $html .= ' <div class="d-flex mb-4 justify-content-start">
-//                         <div class="col-9 text-start">
-//                                 <span class="px-3 py-2 rounded-3 text-black bg-white" style="background:#f3f3f; display: inline-block; width:200px; ">
-//                                     <div class="text-start d-inline-block p-2 rounded" style="background:rgba(0, 0, 0, 0.4); height:65px; width:100%;">
-//                                         <span class="d-none">Ajasys Technology</span>
-//                                         <span>' . $msgtext2 . '</span>
-//                                     </div>
-//                                     <div>
-//                                         <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
-//                                     </div>
-//                                 </span>
-// <span style="font-size:12px;">' . $formattedtime . '</span>
-
-                            //                              </span>
-//                         </div>
-//                     </div>';
-$html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
-                                <div class="col-9 d-flex flex-wrap justify-content-start">
-                                    <div class="d-flex rounded-2 p-1 flex-wrap justify-content-start" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
-                                        <div class="rounded-2 bg-transparent shadow-sm col-12 border-start border-4 px-2 py-2 d-flex flex-wrap" style="background:#FFF;min-width:76px;border-color:#724EBF !important;">
-                                            <span class="col-12 px-1 fw-bold fs-6 text-primary ReplayMSGaccountName">
-                                            Ajasys Technology
-                                            </span>
-                                            <span class="col-12 px-1 fw-normal fs-6 text-secondary-emphasis text-wrap">
-                                            ' . $msgtext . '
-                                            </span>
-                                        </div>
-                                        <span class="col-12"></span>
-                                        <span class="fs-14 mt-1 fw-medium p-1 col-12 rounded-2 text-start position-relative pe-2" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
-                                                <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
-                                                ' . $msgtext2 . '
-                                                </p>
-                                                <span class="position-absolute bottom-0 end-0 me-1">
-                                                    <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                                                    
-                                                </span>
-                                        </span>
-                                    </div>
-                                </div>
-                </div> ';
                         }
+                        $html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
+                                                    <div class="col-9 d-flex flex-wrap justify-content-start">
+                                                        <div class="d-flex rounded-2 p-1 flex-wrap justify-content-start" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
+                                                            <div class="rounded-2 bg-transparent shadow-sm col-12 border-start border-4 px-2 py-2 d-flex flex-wrap" style="background:#FFF;min-width:76px;border-color:#724EBF !important;">
+                                                                <span class="col-12 px-1 fw-bold fs-6 text-primary ReplayMSGaccountName">
+                                                                Ajasys Technology
+                                                                </span>
+                                                                <span class="col-12 px-1 fw-normal fs-6 text-secondary-emphasis text-wrap">
+                                                                ' . $msgtext3 . '
+                                                                </span>
+                                                            </div>
+                                                            <span class="col-12"></span>
+                                                            <span class="fs-14 mt-1 fw-medium p-1 col-12 rounded-2 text-start position-relative pe-2" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
+                                                                    <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+                                                                    ' . $msgtext2 . '
+                                                                    </p>
+                                                                    <span class="position-absolute bottom-0 end-0 me-1">
+                                                                        <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                                                        
+                                                                    </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                    </div> ';
                     }
                 }
             }
         }
-
-        if ($html != '') {
-            $html .= '
-        <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom(); $(".massage_input").val(""); var ReplayMSGaccountName = $(".WhatsAppAccountName").text(); $(".ReplayMSGaccountName").text(ReplayMSGaccountName);</script> ';
-        } else {
-            $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
-        }
-        if ($MsgSendStatus == '0') {
-            $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-3 d-inline-block " style="background:#E1F2FA;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
-            <script>$(".WhatsApp24HourButton").prop("disabled", true); $(".TextInputTastbar").addClass("d-none"); $(".chat_bord").addClass("chat_bordClass");</script>';
-        } else {
-            $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false); $(".TextInputTastbar").removeClass("d-none"); $(".chat_bord").removeClass("chat_bordClass");</script>';
-        }
-
-        if ($counttrigger > 0) {
-            $html .= '  <script>
-                            $(".Count' . substr($_POST['contact_no'], -10) . '").addClass("d-none");     
-                                var count = $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text();
-                                count = parseInt(count) - 1;
-                                if(count == "0"){
-                                    $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").addClass("d-none");
-                                }else{
-                                    $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text(count);
-                                }
-                        </script>';
-        }
-        echo $html;
     }
+
+    if ($html != '') {
+        $html .= '
+    <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom(); $(".massage_input").val(""); var ReplayMSGaccountName = $(".WhatsAppAccountName").text(); $(".ReplayMSGaccountName").text(ReplayMSGaccountName);</script> ';
+    } else {
+        $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
+    }
+    if ($MsgSendStatus == '0') {
+        $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-3 d-inline-block " style="background:#E1F2FA;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
+        <script>$(".WhatsApp24HourButton").prop("disabled", true); $(".TextInputTastbar").addClass("d-none"); $(".chat_bord").addClass("chat_bordClass");</script>';
+    } else {
+        $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false); $(".TextInputTastbar").removeClass("d-none"); $(".chat_bord").removeClass("chat_bordClass");</script>';
+    }
+
+    if ($counttrigger > 0) {
+        $html .= '  <script>
+                        $(".Count' . substr($_POST['contact_no'], -10) . '").addClass("d-none");     
+                            var count = $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text();
+                            count = parseInt(count) - 1;
+                            if(count == "0"){
+                                $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").addClass("d-none");
+                            }else{
+                                $(".WhatsAppAccountListTab  .active-account-box .CountFinalText").text(count);
+                            }
+                    </script>';
+    }
+    echo $html;
+}
 
     public function SendWhatsAppChatMessage()
     {
