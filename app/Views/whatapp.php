@@ -1036,7 +1036,7 @@ if (!empty($connections)) {
                                         <div class="col-12 hello">
                                             <div class="d-flex flex-wrap align-items-start p-3 justify-content-center">
                                                 <div class="col-6">
-                                                    <form class="needs-validation membershipDiv" name="master_membership_update_form" method="POST" novalidate>
+                                                    <form class="needs-validation membershipDiv" name="master_membership_update_form" id="validationid" method="POST" novalidate>
                                                         <div class="modal-content">
                                                             <div class="modal-body-secondery justify-content-center">
                                                                 <div class="modal-body-card justify-content-center">
@@ -1057,9 +1057,9 @@ if (!empty($connections)) {
 
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <label for="" class="main-label main-label ">Upload CSV <sup class="validationn">*</sup></label>
-                                                                        <input type="file" class="form-control main-control" id="import_file" name="import_file" placeholder="Details" required="">
+                                                                        <input type="file" class="form-control main-control" id="import_file" name="import_file" placeholder="Details" required>
                                                                     </div>
-                                                                    <div class="col-12">
+                                                                    <!-- <div class="col-12">
                                                                         <div class="col-12 mb-3 mt-2">
                                                                             <select class="form-control main-control templatesnamelistddclass header_div" id="header12" name="header" value="" ng-model="selectedHeader" ng-change="handleHeaderChange()" required>
                                                                                 <option value="" selected disabled>Please
@@ -1252,23 +1252,58 @@ if (!empty($connections)) {
                                                                                 </option>
                                                                             </select>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <!-- <div class="col-12 mb-3">
                                                                     <input type="text" class="form-control main-control campaign_name_div" id="campaign_name" placeholder="campaign name..." name="" required>
                                                                 </div> -->
                                                                     <div class=" col-6 mb-3 d-none">
                                                                         <input type="text" name="" id="fromDate_edit" class="date-picker form-control main-control " placeholder="DD-MM-YYYY">
                                                                     </div>
-                                                                    <div class="col-6 mb-3 d-none">
+                                                                    <!-- <div class="col-6 mb-3 d-none">
                                                                         <input type="text" name="daily_time" id="daily_time" class="form-control main-control dailyinputfields daily-time" placeholder="Select Time" required>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <div class="modal-footer justify-content-end my-1">
-                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">Preview</button>
+                                                                        <!-- <span class="btn-primary nextbutton  d-none" id="memberships_add_btn1" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">Preview</span> -->
+
+                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">import</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </form>
+                                                    <!-- <div class="container-fluid p-0">
+                                                        
+                                                        <div class="px-3 py-2 bg-white rounded-2 mx-2 mt-2 col-lg-6 col-12">
+                                                            <div class="d-flex justify-content-between align-items-center my-2 flex-wrap w-100">
+                                                                <div class="title-1">
+                                                                    <i class="fa-solid fa-table-columns"></i>
+                                                                    <h2>File Column Handling</h2>
+                                                                </div>
+                                                                <div class="title-side-icons column-btn">
+                          
+                                                                </div>
+                                                            </div>
+                                                            <form name="column_data_form" id="column_data_form" class="needs-validation" method="POST" novalidate="">
+                                                                <div class="mt-3 file_columns">
+                                                                 
+                                                                   
+                                                                </div>
+                                                                <div class="mt-3 custome_column">
+                                                                    <div class="text-start">
+                                                                        <span class="fs-6">Custome Columns</span>
+                                                                    </div>
+                                                                  
+                                                                </div>
+                                                            </form>
+                                                            <div class="justify-content-between d-flex">
+                                                                <button class=" btn-primary custome_col" type="submit" id="custome_col" name="custome_col">Add Custome
+                                                                    Column</button>
+                                                                <button class=" btn-primary import_btn" type="submit" id="import_btn" name="import_btn">Import
+                                                                    Data</button>
+                                                            </div>
+
+                                                        </div>
+                                                    </div> -->
                                                 </div>
                                                 <div class="col-12 col-xl-6 d-flex px-0 px-lg-4 my-2  my-2 my-xxl-0 justify-content-center">
                                                     <!-- whatsapp   .. -->
@@ -1736,6 +1771,8 @@ if (!empty($connections)) {
                                 <p class="font-size-12">The provided example values will be submitted to Facebook as part of the template submission process. If no relevant examples are provided, templates may be rejected by Facebook.</p>
                             </div> -->
                         </div>
+
+
                     </div>
                     <div class="col-6">
                         <div class="preview-chat-section rounded-0">
@@ -1789,7 +1826,7 @@ if (!empty($connections)) {
                     <button type="button" class="btn btn-primary TemplateDeleteBtnDiv" id="" name="">Delete</button>
                     <button class="btn  btn-primary   Elbtn EditTemplateButtonClass" name="" id=""><i class="bi bi-pencil"></i></button>
                     <!-- <button type="button" class="btn btn-secondary CloseBtnModelAdd" data-bs-dismiss="modal">Close</button> -->
-                    <span class="btn-primary Template_send_whatsapp" id="sendbtn" varvalues="" datastatus="" name="" value="Send">Send</span>
+                    <span class="btn-primary Template_send_whatsapp" id="sendbtn" modifiedhtml="" varvalues="" datastatus="" name="" value="Send">Send</span>
                 </div>
             </div>
         </div>
@@ -3019,19 +3056,19 @@ if (!empty($connections)) {
                     var modifiedHTML = res.modifiedHTML;
                     var variablevalue = res.variablevalues;
 
-console.log(variablevalue);
+                    console.log(variablevalue);
                     var body = replaceDynamicSequences(modifiedHTML);
-                        var regex = /\{\{([^}]+)\}\}/g;
-                        var matches = [];
-                        var match;
-                     
+                    var regex = /\{\{([^}]+)\}\}/g;
+                    var matches = [];
+                    var match;
+
                     var matches = body.match(regex);
 
                     $('.inputypeBody').hide();
 
                     if (matches) {
                         $('#dynamicInputsContainer1').empty();
-                        for (var i = 1; i <= matches.length; i++){
+                        for (var i = 1; i <= matches.length; i++) {
                             var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-1" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
                             $('#dynamicInputsContainer1').append(inputField);
                             $('.inputypeBody').show();
@@ -3039,9 +3076,9 @@ console.log(variablevalue);
                     }
 
 
-                       
 
-                            console.log(bodydivvalues);
+
+                    console.log(bodydivvalues);
 
                     var varvalues = $('#sendbtn').attr('varvalues');
                     $('#sendbtn').attr('varvalues', variablevalue.join(','));
@@ -3054,65 +3091,49 @@ console.log(variablevalue);
 
 
         });
+
+
+
         $('.SaveBtnDiv').on('click', function(e) {
-            e.preventDefault();
-            var Template_name = $('#header12').val();
-            var language = $('.language_div').val();
-            var shedualdate = $('#fromDate_edit').val();
-            var shedualtime = $('.dailyinputfields').val();
-            var uploade_file = $('#import_file').prop('files')[0];
-            var fullmsg = $('.preview-chat-paragraph').html();
-            if (!originalHTML) {
-                originalHTML = $('.preview-chat-paragraph .BodyValue').html();
-            }
-            $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
-            $('.preview-chat-paragraph').html(fullmsg);
-            var form = $("form[name='master_membership_update_form']")[0];
-            var formData = new FormData(form);
-            formData.append('Template_name', Template_name);
-            formData.append('language', language);
-            formData.append('uploade_file', uploade_file);
-            formData.append('originalHTML', originalHTML);
+    e.preventDefault();
+    
+    var uploade_file = $('#import_file').prop('files')[0];
+    
+    if (uploade_file) { // Check if uploade_file is not empty
+        var fullmsg = $('.preview-chat-paragraph').html();
+        if (!originalHTML) {
+            originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+        }
+        $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
+        $('.preview-chat-paragraph').html(fullmsg);
+        var form = $("form[name='master_membership_update_form']")[0];
+        var formData = new FormData(form);
+        formData.append('uploade_file', uploade_file);
+        formData.append('action', true);
 
-            // formData.append('shedualdate', shedualdate);
-            // formData.append('shedualtime', shedualtime);
-            formData.append('action', true);
-
-
-            if (Template_name != "" && uploade_file != "" && language != "") {
-                $.ajax({
-                    dataType: 'json',
-                    method: "POST",
-                    url: "bulk_set_variable_value",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(res) {
-                        $('#view_modal').modal('show');
-                        $('.EditTemplateButtonClass').addClass('d-none');
-                        $('.Add_editModelTitle').addClass('d-none');
-                        $('.TemplateDeleteBtnDiv').addClass('d-none');
-                        $('.preview-header-paragraphVIDEO').hide();
-                        console.log(res);
-
-                        var variablevalues = res.map(item => item.variablevalues);
-                        var modifiedHTML = res.modifiedHTML;
-
-                        var allValues = variablevalues.map(function(values) {
-                            return values.join(',');
-                        }).join(';');
-
-                        $('#sendbtn').attr('varvalues', allValues);
-                        var body = $('.preview-chat-paragraph .BodyValue').html(modifiedHTML);
-
-                    },
-                });
-            } else {
-                $(".membershipDiv").addClass("was-validated");
-
-            }
-
+        $.ajax({
+            dataType: 'json',
+            method: "POST",
+            url: "bulk_set_variable_value",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(res) {
+                $('.loader').hide();
+                $('#sendbtn').attr('modifiedhtml', res.modifiedHTML);
+                $('#view_modal').modal('show');
+                $('.EditTemplateButtonClass').addClass('d-none');
+                $('.Add_editModelTitle').addClass('d-none');
+                $('.TemplateDeleteBtnDiv').addClass('d-none');
+                $('.preview-header-paragraphVIDEO').hide();
+            },
         });
+    } else {
+        $("#validationid").addClass("was-validated");
+    }
+});
+
+
         var SendURL;
         $('.Template_send_whatsapp').on('click', function(e) {
             e.preventDefault();
@@ -3123,14 +3144,14 @@ console.log(variablevalue);
 
 
             $('.inputypeBody').each(function() {
-                    var bodydivvalue = $(this).val();
-                    bodydivvalues.push(bodydivvalue);
-                });
+                var bodydivvalue = $(this).val();
+                bodydivvalues.push(bodydivvalue);
+            });
 
-                bodydivvalues = bodydivvalues.filter(function(value) {
-                    return !(/\{\{.*\}\}/.test(value));
-                });
-                console.log(bodydivvalues);
+            bodydivvalues = bodydivvalues.filter(function(value) {
+                return !(/\{\{.*\}\}/.test(value));
+            });
+            console.log(bodydivvalues);
             if (DataStatus === '3') {
 
                 if (!originalHTML) {
@@ -3194,6 +3215,7 @@ console.log(variablevalue);
                 var bodydivvalues = [];
                 var variableValuesArray = $(this).attr('varvalues');
                 bodydivvalues = variableValuesArray.split(',');
+                var originalHTML = $(this).attr('modifiedhtml');
 
                 // var bodydivvalues = [];
                 // $('.inputypeBody').each(function() {
@@ -3202,12 +3224,12 @@ console.log(variablevalue);
                 // });
                 var template_id = $('#header12 option:selected').attr('DataMNo');
                 console.log(template_id);
-                var Template_name = $('#header12').val();
-                var language = $('.language_div').val();
+                // var Template_name = $('#header12').val();
+                // var language = $('.language_div').val();
                 var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
-                if (!originalHTML) {
-                    originalHTML = $('.preview-chat-paragraph .BodyValue').html();
-                }
+                // if (!originalHTML) {
+                //     originalHTML = $('.preview-chat-paragraph .BodyValue').html();
+                // }
                 // var shedualdate = $('#fromDate_edit').val();
                 // var shedualtime = $('.dailyinputfields').val();
                 var uploade_file = $('#import_file').prop('files')[0];
@@ -3215,8 +3237,8 @@ console.log(variablevalue);
                 $('.preview-chat-paragraph').html(fullmsg);
                 var form = $("form[name='master_membership_update_form']")[0];
                 var formData = new FormData(form);
-                formData.append('Template_name', Template_name);
-                formData.append('language', language);
+                // formData.append('Template_name', Template_name);
+                // formData.append('language', language);
                 formData.append('uploade_file', uploade_file);
                 formData.append('connectionid', WhatsAppConnectionsDropDown);
                 formData.append('originalHTML', originalHTML);
@@ -3774,7 +3796,7 @@ console.log(variablevalue);
                 // originalHTML = $('.preview-chat-paragraph .BodyValue').html();
             }
             var originalHTML = replaceDynamicSequences(body);
-            
+
             // var originalHTML = $('.preview-chat-paragraph ').html();
             // var bodyText1 = $(this).val();
             var regex = new RegExp("{{[" + inputId + "]}}");
@@ -3813,7 +3835,7 @@ console.log(variablevalue);
             if (!originalHTML) {
                 originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
             }
-            
+
             // var originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
             // var bodyText1 = $(this).val();
             var regex = new RegExp("{{[" + inputId + "]}}");
@@ -3845,4 +3867,79 @@ console.log(variablevalue);
             $("form[name='master_membership_update_form']").removeClass("was-validated");
             list_data();
         });
+
+        // $('body').on('click', '#import_btn', function (e) {
+        //     e.preventDefault();
+        //     var import_form = $('form[name="import_inquiry_csv"]')[0];
+        //     var col_data_form = $('form[name="column_data_form"]')[0];
+        //     var import_formdata = new FormData(import_form);
+        //     var col_data_formdata = new FormData(col_data_form);
+        //     col_data_formdata.forEach(function (value, key) {
+        //         import_formdata.append(key, value);
+        //     });
+        //     var totalData = [];
+        //     var header_name = [];
+
+
+        //     // if(file != ''){
+        //     $.ajax({
+        //         method: "post",
+        //         url: "<?= site_url('import_file_datawhatsapp'); ?>",
+        //         data: import_formdata,
+        //         processData: false,
+        //         contentType: false,
+        //         beforeSend: function (f) {
+        //             $('.loader').show();
+        //         },
+        //         success: function (res) {
+        //             var responce = JSON.parse(res);
+        //             $('.loader').hide();
+        //             $('.modal-close-btn').trigger('click');
+        //             $('.selectpicker').selectpicker('refresh');
+        //             if (responce.export_data) {
+        //                 Swal.fire({
+        //                     title: 'Are you Duplicate Data Export csv File?',
+        //                     html: "<p style='color:green;margin:0px;'><b>" + responce.import_data + "</b>Data successfully Imported</p><p style='color:red;margin:0px;'>" + responce.csv_data + "</b> Duplicate Data</p>",
+        //                     icon: 'warning',
+        //                     showCancelButton: true,
+        //                     confirmButtonText: 'Export File!',
+        //                     cancelButtonText: 'No, cancel!',
+        //                     confirmButtonClass: 'btn btn-success mt-2',
+        //                     cancelButtonClass: 'btn btn-danger ms-2 mt-2',
+        //                     buttonsStyling: false,
+        //                 }).then(function (result) {
+        //                     if (result.value) {
+        //                         if (responce.export_data) {
+        //                             totalData = totalData.concat(responce.export_data);
+        //                             generateCSV(totalData);
+        //                             window.location.href = '<?= base_url('data_module') ?>';
+        //                         }
+        //                         iziToast.success({
+        //                             title: responce.msg,
+        //                         });
+        //                     } else if (result.dismiss === Swal.DismissReason.cancel) {
+        //                         iziToast.error({
+        //                             title: 'Your Argument Cancle :)',
+        //                         });
+        //                     }
+        //                     window.location.href = '<?= base_url('data_module') ?>';
+        //                 });
+        //             } else {
+        //                 iziToast.success({
+        //                     title: responce.msg,
+        //                 });
+        //                 window.location.href = '<?= base_url('data_module') ?>';
+        //             }
+
+        //         },
+        //     });
+        // });
+        //     $('body').on('click', '.list_item', function (e) {
+        //         e.preventDefault();
+        //         var text = $(this).text();
+        //         console.log(text);
+        //         text = text.replace('+ add123', '');
+        //         $(this).closest('.main-selectpicker').find('input').val(text);
+        //     });
+        // 
     </script>

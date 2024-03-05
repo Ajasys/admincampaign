@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\MasterInformationModel;
 use CodeIgniter\CLI\Console;
 use Config\Database;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 
 class WhatAppIntegrationController extends BaseController
 {
@@ -33,38 +35,222 @@ class WhatAppIntegrationController extends BaseController
             }
         }
     }
-    public function WhatsAppConnectionEntry()
+    public function bulk_whatsapp_template_send()
     {
+        $connectionid = $_POST['connectionid'];
+        // $language = $_POST['language'];
+        $uploadedFile = $_FILES['uploade_file'];
+        $template_id = $_POST['template_id'];
+        $ReturnResult = 0;
+
+        $MetaUrl = config('App')->metaurl;
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
+
         $table_name = $username . '_platform_integration';
-        if ($_POST['action'] == 'insert') {
-            $whatapp_phone_number_id = $_POST['whatapp_phone_number_id'];
-            $whatapp_business_account_id = $_POST['whatapp_business_account_id'];
-            $whatapp_access_token = $_POST['whatapp_access_token'];
-            $isduplicate = 1;
-            $insertdata['phone_number_id'] = $whatapp_phone_number_id;
-            $insertdata['business_account_id'] = $whatapp_business_account_id;
-            $insertdata['access_token'] = $whatapp_access_token;
-            $insertdata['platform_status'] = 1;
-            $isduplicate = $this->duplicate_data2($insertdata, $table_name);
-            if ($isduplicate == 0) {
-                $response = $this->MasterInformationModel->insert_entry2($insertdata, $table_name);
-                echo 1;
-            } else {
-                echo 0;
+
+        $ConnectionData = get_editData2($table_name, $connectionid);
+        $access_token = '';
+        $business_account_id = '';
+        $phone_number_id = '';
+
+        if (!empty($ConnectionData) && isset($ConnectionData['access_token'], $ConnectionData['phone_number_id'], $ConnectionData['business_account_id'])) {
+            $access_token = $ConnectionData['access_token'];
+            $business_account_id = $ConnectionData['business_account_id'];
+            $phone_number_id = $ConnectionData['phone_number_id'];
+        }
+
+        if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
+            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+
+
+            if ($uploadedFile['type'] === 'text/csv') {
+                $csvData = file_get_contents($uploadedFile['tmp_name']);
+                $csvRows = str_getcsv($csvData, "\n");
+                $csvHeaders = str_getcsv(array_shift($csvRows));
+
+                foreach ($csvRows as $csvRow) {
+                    $rowData = str_getcsv($csvRow);
+                    if (!empty(array_filter($rowData))) {
+
+                        $phone_number = $rowData[array_search('phone_number', $csvHeaders)];
+
+
+                        $template_name = $rowData[array_search('template_name', $csvHeaders)];
+                        $language = $rowData[array_search('language', $csvHeaders)];
+                        $countrey_code = $rowData[array_search('countrey_code', $csvHeaders)];
+
+
+                        $url1 = $MetaUrl . $business_account_id . "/message_templates?name=" . urlencode($template_name) . "&access_token=" . $access_token;
+
+                        $templateDetails = json_decode(file_get_contents($url1), true);
+
+                        if (isset($templateDetails['data'][0])) {
+                            $templateData = $templateDetails['data'][0];
+
+                            $components = $templateData['components'];
+                            $parameterTexts = [];
+
+                            foreach ($components as $component) {
+                                if ($component['type'] === 'BODY' && isset($component['example']['body_text'][0])) {
+                                    $example = $component['example']['body_text'][0];
+                                    foreach ($example as $paramName) {
+                                        if (($key = array_search('{{' . $paramName . '}}', $csvHeaders)) !== false) {
+                                            $parameterTexts[] = $rowData[$key];
+                                        }
+                                    }
+                                }
+                            }
+                            $parameters = [];
+                            foreach ($parameterTexts as $value) {
+                                $parameters[] = [
+                                    "type" => "text",
+                                    "text" => $value
+                                ];
+                            }
+                            if (!empty($parameters)) {
+                                $postData = json_encode([
+                                    "messaging_product" => "whatsapp",
+                                    "recipient_type" => "individual",
+                                    "to" => "+" . $countrey_code . $phone_number,
+                                    "type" => "template",
+                                    "template" => [
+                                        "name" => $template_name,
+                                        "language" => [
+                                            "code" => $language
+                                        ],
+                                        "components" => [
+                                            [
+                                                "type" => "body",
+                                                "parameters" => $parameters
+                                            ]
+                                        ]
+                                    ]
+                                ]);
+                            } else {
+                                $postData = json_encode([
+                                    "messaging_product" => "whatsapp",
+                                    "recipient_type" => "individual",
+                                    "to" => "+" . $countrey_code . $phone_number,
+                                    "type" => "template",
+                                    "template" => [
+                                        "name" => $template_name,
+                                        "language" => [
+                                            "code" => $language
+                                        ]
+                                    ]
+                                ]);
+                            }
+
+                            $Result = postSocialData($url, $postData);
+                            // print_r($Result);
+
+                            if (isset($Result['contacts'], $Result['messages'])) {
+                                $ReturnResult = 1;
+                                $db_connection = \Config\Database::connect('second');
+                                foreach ($Result['contacts'] as $contact) {
+                                    $receiver_number = $contact['wa_id'];
+                                    foreach ($Result['messages'] as $message) {
+                                        $WhatsApp_Message_id = $message['id'];
+                                        $WhatsApp_Response = $message['message_status'];
+                                        $cuurrenttime = date('Y-m-d H:i:s');
+                                        $sql = "INSERT INTO " . $username . "_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat, connection_id) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime', '$connectionid')";
+                                        $db_connection->query($sql);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
+
+        echo $ReturnResult;
     }
 
-    public function GetWhatAppIntegrationInformation()
+
+    public function bulk_set_variable_value()
     {
+        $return_array = array();
+        $html = '';
+        $btn_html = '';
 
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
-        $username = $parts[0];   
-        $GetData = get_editData2(''.$username.'_generale_setting', 1);
+        $username = $parts[0];
+        $table_name = $username . '_all_inquiry';
+
+        if (isset($_FILES['uploade_file'])) {
+            if ($_FILES['uploade_file']['error'] === UPLOAD_ERR_OK) {
+                $db_connection = \Config\Database::connect('second');
+                $tmpFilePath = $_FILES['uploade_file']['tmp_name'];
+                $spreadsheet = IOFactory::load($tmpFilePath);
+                $worksheet = $spreadsheet->getActiveSheet();
+                $highestColumn = $worksheet->getHighestColumn();
+                $headerRow = $worksheet->rangeToArray('A1:' . $highestColumn . '1', null, true, false);
+
+                $query = $db_connection->table($table_name)->get();
+                if ($query->getNumRows() > 0) {
+                    $columnNames = $query->getFieldNames();
+                } else {
+                    $columnNames = array();
+                }
+
+
+                $html .= '<span class="text-danger">Note : Dont Give id name og column in to columns fileds</span>';
+                $btn_html .= '<button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add_form" aria-controls="column_add_form">
+                                + Add Column
+                            </button>';
+                $html .= '<div class="col-12 d-sm-flex d-none flex-wrap mb-2">
+                                <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 text-center">
+                                    <span class="fs-6">From</span>
+                                </div>
+                                <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 text-center">
+                                    <span class="fs-6">to</span>
+                                </div>
+                            </div>';
+                $i = 0;
+                foreach ($headerRow[0] as $key => $value) {
+                    if ($value != '') {
+                        $noSpaces_value = preg_replace('/\s+/', '', $value);
+                        $readOnly = ($key < 4) ? 'readonly' : '';
+                        $defaultValue = ($key < 4) ? $value : '';
+                        $html .= '<div class="col-12 d-flex flex-wrap mb-2">
+                                        <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1">
+                                            <input type="text" class="form-control main-control" id="' . $noSpaces_value . '_file" name="" placeholder="File Column name" value="' . $value . '" readonly required>
+                                        </div>
+                                        <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">
+                                            <span class="mx-auto col-1">to</span>
+                                            <div class="main-selectpicker col-11 dropdown">
+                                                <input type="text" id="list" class="form-control list main-control dropdown-toggle file_columns_input" data-bs-toggle="dropdown" aria-expanded="false" name="' . $i . '" id="' . $noSpaces_value . '" placeholder="' . $noSpaces_value . '" ' . $readOnly . ' value="' . $defaultValue . '">
+                                                <ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">';
+                        $html .= '<button class="dropdown-item list_item" type="button"><span>Name</span></button>
+                                                <button class="dropdown-item list_item" type="button"><span>product_Name</span></button>
+                                                <button class="dropdown-item list_item" type="button"><span>Appointment_date</span></button>
+                                                <button class="dropdown-item list_item" type="button"><span>date_of_birth</span></button>
+                                                <button class="dropdown-item list_item" type="button"><span>Anniversary_date</span></button>';
+                        $html .= '</ul>
+                                            </div>
+                                        </div>
+                                    </div>';
+                        $i++;
+                    }
+                }
+            } else {
+                $html = 'File upload error. Error code: ' . $_FILES['uploade_file']['error'];
+            }
+        }
+
+        $return_array['html'] = $html;
+        $return_array['btn_html'] = $btn_html;
+        return json_encode($return_array, JSON_FORCE_OBJECT);
+    }
+
+
+    public function GetWhatAppIntegrationInformation()
+    {
+        $GetData = get_editData2('admin_generale_setting', 1);
         $whatapp_phone_number_id = '';
         $whatapp_business_account_id = '';
         $whatapp_access_token = '';
@@ -91,14 +277,14 @@ class WhatAppIntegrationController extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
 
-        $GetData = get_editData2(''.$username.'_generale_setting', 1);
+        $GetData = get_editData2('' . $username . '_generale_setting', 1);
         if (isset($GetData) && !empty($GetData)) {
             $UpdateData = $_POST;
-            $response = $this->MasterInformationModel->update_entry2('1', $UpdateData, ''.$username.'_generale_setting');
+            $response = $this->MasterInformationModel->update_entry2('1', $UpdateData, '' . $username . '_generale_setting');
         } else {
             $InsertData = $_POST;
             // $InsertData['whatapp_created_at_account'] = date('Y-m-d H:i:s', time());
-            $response = $this->MasterInformationModel->insert_entry2($InsertData, ''.$username.'_generale_setting');
+            $response = $this->MasterInformationModel->insert_entry2($InsertData, '' . $username . '_generale_setting');
         }
 
 
@@ -411,7 +597,7 @@ class WhatAppIntegrationController extends BaseController
             }
         }
 
-        $Sent_messagae_data = $this->MasterInformationModel->display_all_records2(''.$username.'_sent_message_detail');
+        $Sent_messagae_data = $this->MasterInformationModel->display_all_records2('' . $username . '_sent_message_detail');
         $sentmsgdisplaydata = json_decode($Sent_messagae_data, true);
 
         $html1 = '';
@@ -500,7 +686,7 @@ class WhatAppIntegrationController extends BaseController
             $MasgDateNdTime = "";
             $sent_recieved_status = '';
             $last_createdate = '';
-            $lastmsggetsql = 'SELECT * FROM `'.$table_username.'_messages` WHERE contact_no = "' . $value['contact_no'] . '" AND platform_account_id = "' . $id . '" ORDER BY id DESC LIMIT 1;';
+            $lastmsggetsql = 'SELECT * FROM `' . $table_username . '_messages` WHERE contact_no = "' . $value['contact_no'] . '" AND platform_account_id = "' . $id . '" ORDER BY id DESC LIMIT 1;';
             $GerDataLastMsg = $Database->query($lastmsggetsql);
             $GerDataLastMsg = $GerDataLastMsg->getResultArray();
 
@@ -538,7 +724,7 @@ class WhatAppIntegrationController extends BaseController
                         function is_json($string)
                         {
                             json_decode($string);
-                            return(json_last_error() == JSON_ERROR_NONE);
+                            return (json_last_error() == JSON_ERROR_NONE);
                         }
                     }
 
@@ -1170,7 +1356,7 @@ class WhatAppIntegrationController extends BaseController
 
         $table_username = getMasterUsername();
         $db_connection = \Config\Database::connect('second');
-        $query90 = "SELECT * FROM ".$table_username."_generale_setting WHERE id IN(1)";
+        $query90 = "SELECT * FROM " . $table_username . "_generale_setting WHERE id IN(1)";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
         if (isset($total_dataa_userr_22[0])) {
@@ -2002,7 +2188,7 @@ class WhatAppIntegrationController extends BaseController
         $Database = \Config\Database::connect('second');
         $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
 
-		$db_connection = \Config\Database::connect('second');
+        $db_connection = \Config\Database::connect('second');
 
         // pre($sql);
 
@@ -2120,7 +2306,7 @@ class WhatAppIntegrationController extends BaseController
                     function is_json($string)
                     {
                         json_decode($string);
-                        return(json_last_error() == JSON_ERROR_NONE);
+                        return (json_last_error() == JSON_ERROR_NONE);
                     }
                 }
 
@@ -2424,77 +2610,77 @@ class WhatAppIntegrationController extends BaseController
                     </div> ';
                     }
                 }
-            }elseif($msgtype == '8'){
+            } elseif ($msgtype == '8') {
                 if ($sent_recieved_status == '1') {
                     $html .= '   <div class="d-flex mb-4 justify-content-end">
                     <div class="col-9 text-end">
-                    <span style="font-size:12px;">'.$formattedtime.'</span>
+                    <span style="font-size:12px;">' . $formattedtime . '</span>
                         <span class="px-3 py-2 rounded-3 text-white " style="background:#005c4b; display: inline-block; width:200px; ">
                             <div>
-                                <span class="text-start" style="display: inline-block;">'.$msgtext.'</span>
+                                <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
                             </div>
-                            <div class="border-top mt-2 p-2 d-flex justify-content-center RadioBtnSelectionClickClass" id="'.$value['id'].'">
+                            <div class="border-top mt-2 p-2 d-flex justify-content-center RadioBtnSelectionClickClass" id="' . $value['id'] . '">
                                 <i class="fa-solid fa-bars mt-1 mx-1"></i><span>Select</span>
                             </div>
                         </span>
                     </div>
                 </div> ';
                 }
-            }elseif ($msgtype == '9') {
+            } elseif ($msgtype == '9') {
                 if ($sent_recieved_status == '1') {
-                    if($value['assest_id'] != ''){
+                    if ($value['assest_id'] != '') {
                         $buttondata = json_decode($value['assest_id'], true);
-                        if(isset($buttondata['single_choice_option_value'])){
+                        if (isset($buttondata['single_choice_option_value'])) {
                             $html .= ' <div class="d-flex mb-4 justify-content-end">
                             <div class="col-9 text-end">
-                            <span style="font-size:12px;">'.$formattedtime.'</span>
+                            <span style="font-size:12px;">' . $formattedtime . '</span>
                                 <span class="px-3 py-2 rounded-3 text-white" style=" display: inline-block; width:200px; ">
-                                <div class="my-2 p-1 rounded" style="background:#005c4b;">'.$msgtext.'</div>';
-                                foreach ($buttondata['single_choice_option_value'] as $item) {
-                            $html .= '<div class="my-2 p-1 text-center rounded" style="background:#005c4b;">'.$item['option'].'</div>';
-                                }
+                                <div class="my-2 p-1 rounded" style="background:#005c4b;">' . $msgtext . '</div>';
+                            foreach ($buttondata['single_choice_option_value'] as $item) {
+                                $html .= '<div class="my-2 p-1 text-center rounded" style="background:#005c4b;">' . $item['option'] . '</div>';
+                            }
                             $html .= '</span>
                                     </div>
                                 </div> ';
                         }
                     }
                 }
-            }elseif($msgtype == '11'){
+            } elseif ($msgtype == '11') {
                 if ($sent_recieved_status == '2') {
-                if(isset($value['conversation_id'])){
-                $preid = $value['conversation_id'];
-                $preqry = $db_connection->query("SELECT * FROM `".$table_username."_messages` WHERE conversation_id = '".$preid."'");
+                    if (isset($value['conversation_id'])) {
+                        $preid = $value['conversation_id'];
+                        $preqry = $db_connection->query("SELECT * FROM `" . $table_username . "_messages` WHERE conversation_id = '" . $preid . "'");
                         $predataarray = $preqry->getResultArray();
-                        if(isset($predataarray) && !empty($predataarray) && isset($predataarray[0]['message_contant']) ){
+                        if (isset($predataarray) && !empty($predataarray) && isset($predataarray[0]['message_contant'])) {
                             $msgtext2 = '';
                             if (is_json($predataarray[0]['message_contant'])) {
                                 $data2 = json_decode($predataarray[0]['message_contant'], true);
                                 if (isset($data2['body'])) {
                                     $msgtext2 = $data2['body'];
                                 }
-        } else {
-            $msgtext2 = $predataarray[0]['message_contant'];
+                            } else {
+                                $msgtext2 = $predataarray[0]['message_contant'];
                             }
 
                             $msgtext2 = $predataarray[0]['message_contant'];
 
-        $html .= ' <div class="d-flex mb-4 justify-content-start">
+                            $html .= ' <div class="d-flex mb-4 justify-content-start">
                         <div class="col-9 text-start">
                                 <span class="px-3 py-2 rounded-3 text-black bg-white" style="background:#f3f3f; display: inline-block; width:200px; ">
                                     <div class="text-start d-inline-block p-2 rounded" style="background:rgba(0, 0, 0, 0.4); height:65px; width:100%;">
                                         <span class="d-none">Ajasys Technology</span>
-                                        <span>'.$msgtext2.'</span>
+                                        <span>' . $msgtext2 . '</span>
                                     </div>
                                     <div>
-                                        <span class="text-start" style="display: inline-block;">'.$msgtext.'</span>
+                                        <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
                                     </div>
                                 </span>
-<span style="font-size:12px;">'.$formattedtime.'</span>
+<span style="font-size:12px;">' . $formattedtime . '</span>
 
                              </span>
                         </div>
                     </div>';
-}
+                        }
                     }
                 }
             }
@@ -2617,9 +2803,9 @@ class WhatAppIntegrationController extends BaseController
                     $insert_data['account_phone_no'] = $_POST['account_phone_no'];
 
                     $insert_data['platform_id'] = $_POST['connection_id'];
-                    if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
+                    if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         $insert_data['master_id'] = '1';
-                    }else{
+                    } else {
                         $insert_data['master_id'] = $_SESSION['id'];
                     }
                     $insert_data['asset_type'] = 'contact';
@@ -3005,132 +3191,10 @@ class WhatAppIntegrationController extends BaseController
         die();
     }
 
-    public function bulk_whatsapp_template_send()
-    {
-
-
-        $connectionid = $_POST['connectionid'];
-        $template_name = $_POST['Template_name'];
-        $language = $_POST['language'];
-        $uploadedFile = $_FILES['uploade_file'];
-        $originalHTML = $_POST['originalHTML'];
-
-        $template_id = $_POST['template_id'];
 
 
 
-        $ReturnResult = 0;
 
-        $MetaUrl = config('App')->metaurl;
-        $inputString = $_SESSION['username'];
-        $parts = explode("_", $inputString);
-        $username = $parts[0];
-
-        $table_name = $username . '_platform_integration';
-
-        $ConnectionData = get_editData2($table_name, $connectionid);
-        $access_token = '';
-        $business_account_id = '';
-        $phone_number_id = '';
-
-        if (!empty($ConnectionData) && isset($ConnectionData['access_token'], $ConnectionData['phone_number_id'], $ConnectionData['business_account_id'])) {
-            $access_token = $ConnectionData['access_token'];
-            $business_account_id = $ConnectionData['business_account_id'];
-            $phone_number_id = $ConnectionData['phone_number_id'];
-        }
-
-        if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
-            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
-
-            $bodydivvalues1 = $_POST['bodydivvalues'];
-
-
-            $final_array = explode(';', $bodydivvalues1);
-            $bodydivvalues = [];
-
-
-            foreach ($final_array as $values_str) {
-                $bodydivvalues[] = explode(',', $values_str);
-            }
-
-            if ($uploadedFile['type'] === 'text/csv') {
-                $csvData = file_get_contents($uploadedFile['tmp_name']);
-                $phoneNumbers = explode("\n", trim($csvData));
-                array_shift($phoneNumbers);
-                $phoneNumbers = array_values($phoneNumbers);
-
-                foreach ($phoneNumbers as $index => $phoneNumber) {
-                    if (isset($bodydivvalues[$index])) {
-                        $current_values = $bodydivvalues[$index];
-
-                        $parameters = [];
-                        foreach ($current_values as $value) {
-                            $parameters[] = [
-                                "type" => "text",
-                                "text" => $value
-                            ];
-                        }
-
-                        $postData = json_encode([
-                            "messaging_product" => "whatsapp",
-                            "recipient_type" => "individual",
-                            "to" => "+91" . $phoneNumber,
-                            "type" => "template",
-                            "template" => [
-                                "name" => $template_name,
-                                "language" => [
-                                    "code" => $language
-                                ],
-                                "components" => [
-                                    [
-                                        "type" => "body",
-                                        "parameters" => $parameters
-                                    ]
-                                ]
-                            ]
-                        ]);
-                    } else {
-                        foreach ($phoneNumbers as $phoneNumber) {
-
-                            $postData = json_encode([
-                                "messaging_product" => "whatsapp",
-                                "recipient_type" => "individual",
-                                "to" => "+91" . $phoneNumber,
-                                "type" => "template",
-                                "template" => [
-                                    "name" => $template_name,
-                                    "language" => [
-                                        "code" => $language
-                                    ],
-                                ]
-                            ]);
-                        }
-                    }
-
-                    $Result = postSocialData($url, $postData);
-
-                    if (isset($Result['error_data'])) {
-                        // Handle error data
-                    } elseif (isset($Result['contacts'], $Result['messages'])) {
-                        $ReturnResult = 1;
-                        $db_connection = \Config\Database::connect('second');
-                        foreach ($Result['contacts'] as $contact) {
-                            $receiver_number = $contact['wa_id'];
-                            foreach ($Result['messages'] as $message) {
-                                $WhatsApp_Message_id = $message['id'];
-                                $WhatsApp_Response = $message['message_status'];
-                                $cuurrenttime = date('Y-m-d H:i:s');
-                                $sql = "INSERT INTO " . $username . "_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat, connection_id) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime', '$connectionid')";
-                                $db_connection->query($sql);
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-        echo $ReturnResult;
-    }
 
     public function set_variable_value()
     {
@@ -3327,80 +3391,244 @@ class WhatAppIntegrationController extends BaseController
     //     return json_encode($values, true);
     // }
 
-    public function bulk_set_variable_value()
-    {
-        $uploadedFile = $_FILES['uploade_file'];
-        if ($uploadedFile['type'] === 'text/csv') {
-            $csvData = file_get_contents($uploadedFile['tmp_name']);
-            $phoneNumbers = explode("\n", trim($csvData));
-        }
+    // public function bulk_set_variable_value()
+    // {
+    //     $uploadedFile = $_FILES['uploade_file'];
+    //     if ($uploadedFile['type'] === 'text/csv') {
+    //         $csvData = file_get_contents($uploadedFile['tmp_name']);
+    //         $phoneNumbers = explode("\n", trim($csvData));
+    //     }
 
-        $db_connection = \Config\Database::connect('second');
+    //     $db_connection = \Config\Database::connect('second');
 
-        $post_data = $_POST;
-        $originalHTML = $post_data['originalHTML'];
+    //     $post_data = $_POST;
+    //     $originalHTML = $post_data['originalHTML'];
 
-        $inputString = $_SESSION['username'];
-        $parts = explode("_", $inputString);
-        $username = $parts[0];
+    //     $inputString = $_SESSION['username'];
+    //     $parts = explode("_", $inputString);
+    //     $username = $parts[0];
 
-        $resultArray = array();
+    //     $resultArray = array();
 
-        foreach ($phoneNumbers as $phoneNumber) {
-            $phoneNumber = trim($phoneNumber);
+    //     foreach ($phoneNumbers as $phoneNumber) {
+    //         $phoneNumber = trim($phoneNumber);
 
-            $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
-            $result = $db_connection->query($sqlquery, [$phoneNumber]);
+    //         $sqlquery = "SELECT * FROM " . $username . "_all_inquiry WHERE mobileno = ?";
+    //         $result = $db_connection->query($sqlquery, [$phoneNumber]);
 
-            $row = $result->getRow();
+    //         $row = $result->getRow();
 
-            if ($row) {
-                $name = $row->full_name;
-                $mobileno1 = $row->mobileno;
-                $address = $row->address;
-                $intrested_product = $row->intrested_product;
-                $nxt_follow_up = $row->nxt_follow_up;
-                $dob = $row->dob;
+    //         if ($row) {
+    //             $name = $row->full_name;
+    //             $mobileno1 = $row->mobileno;
+    //             $address = $row->address;
+    //             $intrested_product = $row->intrested_product;
+    //             $nxt_follow_up = $row->nxt_follow_up;
+    //             $dob = $row->dob;
 
-                $placeholders = array(
-                    '{{phone_no}}' => $mobileno1,
-                    '{{address}}' => $address,
-                    '{{Name}}' => $name,
-                    '{{product_Name}}' => $intrested_product,
-                    '{{Next_FollowupDate}}' => $nxt_follow_up,
-                    '{{date_of_birth}}' => $dob,
-                );
+    //             $placeholders = array(
+    //                 '{{phone_no}}' => $mobileno1,
+    //                 '{{address}}' => $address,
+    //                 '{{Name}}' => $name,
+    //                 '{{product_Name}}' => $intrested_product,
+    //                 '{{Next_FollowupDate}}' => $nxt_follow_up,
+    //                 '{{date_of_birth}}' => $dob,
+    //             );
 
-                $modifiedHTML = $originalHTML;
-                foreach ($placeholders as $placeholder => $value) {
-                    $modifiedHTML = str_replace($placeholder, $value, $modifiedHTML);
-                }
+    //             $modifiedHTML = $originalHTML;
+    //             foreach ($placeholders as $placeholder => $value) {
+    //                 $modifiedHTML = str_replace($placeholder, $value, $modifiedHTML);
+    //             }
 
-                $return_array = array();
-                foreach ($placeholders as $placeholder => $value) {
-                    if (strpos($originalHTML, $placeholder) !== false) {
-                        $return_array[$placeholder] = $value;
-                    }
-                }
-                $json_string = json_encode($return_array, true);
+    //             $return_array = array();
+    //             foreach ($placeholders as $placeholder => $value) {
+    //                 if (strpos($originalHTML, $placeholder) !== false) {
+    //                     $return_array[$placeholder] = $value;
+    //                 }
+    //             }
+    //             $json_string = json_encode($return_array, true);
 
-                $decoded_array = json_decode($json_string, true);
+    //             $decoded_array = json_decode($json_string, true);
 
-                $values['variablevalues'] = array();
-                preg_match_all('/\{\{(.*?)\}\}/', $originalHTML, $matches);
-                foreach ($matches[1] as $placeholder) {
-                    if (isset($decoded_array["{{" . $placeholder . "}}"])) {
-                        $values['variablevalues'][] = $decoded_array["{{" . $placeholder . "}}"];
-                    }
-                }
+    //             $values['variablevalues'] = array();
+    //             preg_match_all('/\{\{(.*?)\}\}/', $originalHTML, $matches);
+    //             foreach ($matches[1] as $placeholder) {
+    //                 if (isset($decoded_array["{{" . $placeholder . "}}"])) {
+    //                     $values['variablevalues'][] = $decoded_array["{{" . $placeholder . "}}"];
+    //                 }
+    //             }
 
-                $values['modifiedHTML'] = $modifiedHTML;
+    //             $values['modifiedHTML'] = $modifiedHTML;
 
-                $resultArray[] = $values;
-            }
-        }
+    //             $resultArray[] = $values;
+    //         }
+    //     }
 
-        return json_encode($resultArray, true);
-    }
+    //     return json_encode($resultArray, true);
+    // }
+
+
+
+    // public function bulk_set_variable_value()
+    // {
+    //     $uploadedFile = $_FILES['uploade_file'];
+    //     if ($uploadedFile['type'] === 'text/csv') {
+    //         $csvData = file_get_contents($uploadedFile['tmp_name']);
+    //         $phoneNumbers = explode("\n", trim($csvData));
+    //     }
+
+
+    // public function import_file_datawhatsapp()
+    // {
+
+    //     $uploadedFile = $_FILES['import_file'];
+
+    //     if ($uploadedFile['type'] === 'text/csv') {
+    //         $csvData = file_get_contents($uploadedFile['tmp_name']);
+    //         $csvRows = str_getcsv($csvData, "\n");
+    //         $csvHeaders = str_getcsv(array_shift($csvRows));
+    //     }
+
+
+    //     if (isset($_FILES['import_file'])) {
+    //         if ($_FILES['import_file']['error'] === UPLOAD_ERR_OK) {
+    //             $db_connection = \Config\Database::connect('second');
+    //              $tmpFilePath = $_FILES['import_file']['tmp_name'];
+    //             $spreadsheet = IOFactory::load($tmpFilePath); 
+    //             $worksheet = $spreadsheet->getActiveSheet();
+    //             $rows = $worksheet->toArray();
+
+    //             // foreach ($rows as $row) {
+    //             $new_column = array();
+    //             $post_data = $_POST;
+
+
+    //             // pre($_POST);
+    //             // die();
+    //             $num_col = 1;
+    //             $export_data = array();
+    //             $header_export_data = array();
+    //             $custome_column = '';
+    //             $custome_column_value = array();
+    //             $new_column[0] = 'id int primary key AUTO_INCREMENT';
+    //             // pre($_POST);
+    //             $col_names = array();
+    //             foreach ($post_data as $key => $value) {
+
+    //                 if(!empty($value) && !preg_match("/_value/", $key)){
+    //                     if(!in_array($value,$col_names)) {
+    //                         $new_column[$num_col] = $value . ' varchar(255)';
+    //                     }
+    //                     $col_names[] = $value;
+    //                     $num_col++;
+    //                     $header_export_data[] = $value;
+    //                     if(preg_match("/_col/", $key)){
+    //                         $custome_column = $value;
+    //                     }
+    //                 }
+    //                 if(preg_match("/_value/", $key)){
+    //                     $custome_column_value[$custome_column] = $value;
+    //                     $custome_column = '';
+    //                 }
+    //             }
+    //             $custome_column_value = array_filter($custome_column_value);
+
+    //             // pre($custome_column_value);
+    //             // die();
+    //             $export_data[] = $header_export_data;
+    //             $result = array();
+    //             $duplicate_data_count = 0;
+    //             $none_duplicate_data_count = 0;
+    //             $duplicate_data = 0;
+    //             $table_names = $this->username . '_data';
+    //             $duplicate_table = '';
+    //             $table_check = tableCreateAndTableUpdate($table_names, $duplicate_table, $new_column);
+    //             // die();
+    //             $duplicate_data_cols = array();
+    //             if (isset($rows) && !empty($rows)) {
+    //                 foreach ($rows as $row_key => $row_value) {
+    //                     $row_value = preg_replace('/\s+/', '', $row_value);
+    //                     if ($row_key != 0) {
+    //                         $insert_data = array();
+    //                         $final_insert_data = array();
+    //                         $num_col = 0; // Initialize the column count for each row
+    //                         $duplicate_check = 0; // Initialize duplicate check for each row
+
+    //                         foreach ($row_value as $value_key => $value_value) {
+    //                             $value_key += 1;
+
+    //                             foreach ($post_data as $key => $value) {
+    //                                 if (!empty($value) && !preg_match("/_value/", $key) && !preg_match("/_col/", $key)) {
+    //                                     $key += 1;
+    //                                     if ($key == $value_key) {
+    //                                         $checkduplicate = 0;
+
+    //                                         if (preg_match("/mobile/", $value) || preg_match("/phone/", $value)) {
+    //                                             // $check_mobile = 1;
+    //                                             $mobile_nffo_remove = str_replace(" ", "", $value_value);
+    //                                             $mobile_nffo = substr($mobile_nffo_remove, -10);
+
+    //                                             // $duplicate_data_cols[$value] = $mobile_nffo;
+    //                                             // $checkduplicate = $this->duplicate_data_check_mobile_and_extra_data($this->username . '_data', $duplicate_data_cols);
+    //                                             // if($checkduplicate['response'] == 1){
+    //                                             //     $duplicate_data = 1;
+    //                                             //     $duplicate_data_count++;
+    //                                             // } else {
+    //                                             //     $duplicate_data = 0;
+    //                                             // }
+    //                                             // Use $last_10_digits in place of $value_value
+    //                                             if (preg_match('/^\d{10}$/', $mobile_nffo)) {
+    //                                                 $insert_data[$value] = $mobile_nffo;
+    //                                             } else {
+    //                                                 $insert_data[$value] = $value_value;
+    //                                             }
+    //                                             // pre($value_value);
+    //                                         } else {
+    //                                             $insert_data[$value] = $value_value;
+    //                                         }
+    //                                         $num_col++;
+    //                                         $duplicate_check = 1;
+    //                                         // }
+    //                                     }
+    //                                 }
+    //                             }
+    //                         }
+
+    //                         // return $insert_data;
+    //                         if ($duplicate_data != 1) {
+    //                             // Insert the data only if it's not a duplicate
+    //                             $final_insert_data = array_merge($insert_data,$custome_column_value);
+    //                             $insert = $this->MasterInformationModel->insert_entry($final_insert_data, $table_names);
+    //                             $none_duplicate_data_count++;
+    //                         } else {
+    //                             $export_data[] = $insert_data;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //             // die();
+
+    //             if($none_duplicate_data_count > 0 && $duplicate_data_count > 0){
+    //                 $result['import_data'] = $none_duplicate_data_count;
+    //                 $result['csv_data'] = $duplicate_data_count;
+    //                 $result['export_data'] = $export_data;
+    //                 $result['response'] = 1;
+    //                 $result['msg'] = 'Data Inserted and '.$duplicate_data_count.' Duplicate Data Found';
+    //             } if($duplicate_data_count > 0){
+    //                 $result['import_data'] = $none_duplicate_data_count;
+    //                 $result['csv_data'] = $duplicate_data_count;
+    //                 $result['export_data'] = $export_data;
+    //                 $result['response'] = 0;
+    //                 $result['msg'] = ''.$duplicate_data_count.' Duplicate Data Found';
+    //             } else {
+    //                 $result['response'] = 1;
+    //                 $result['msg'] = 'Data Inserted Success';
+    //             }
+
+    //             return json_encode($result);
+    //         }
+    //     }
+    // }
+
 
 }
