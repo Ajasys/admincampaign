@@ -298,7 +298,6 @@ class Bot_Controller extends BaseController
 												</div>
 											</div>';
 					}
-
 				}
 
 
@@ -575,7 +574,7 @@ class Bot_Controller extends BaseController
 
 	public function bot_question_update()
 	{
-		
+
 		$post_data = $this->request->getPost();
 		// pre($post_data);
 		$table_name = $this->request->getPost("table");
@@ -592,7 +591,7 @@ class Bot_Controller extends BaseController
 			$integration_type2 = $_POST['integration_type'];
 			$integrations_type = implode(',', $integration_type2);
 		}
-		$menu_message="";
+		$menu_message = "";
 		if (isset($_POST['menu_message'])) {
 			$menu_message = json_decode($_POST['menu_message'], true); // Decode JSON string to array
 			if (isset($menu_message['audioFileName'])) {
@@ -629,7 +628,7 @@ class Bot_Controller extends BaseController
 				// pre($imageFileName);
 				// Specify the directory where you want to save the image files
 				$uploadDirectory = 'assets/bot_image/'; // Adjust the path as needed
-				
+
 				// Create the upload directory if it doesn't exist
 				if (!is_dir($uploadDirectory)) {
 					mkdir($uploadDirectory, 0777, true);
@@ -637,7 +636,7 @@ class Bot_Controller extends BaseController
 				// Move the uploaded image file to the specified directory
 				$sourceFilePath = $_FILES['imageFile']['tmp_name'];
 				$targetFilePath = $uploadDirectory . $imageFileName;
-				
+
 				if (move_uploaded_file($sourceFilePath, $targetFilePath)) {
 					// File copied successfully
 					$response['status'] = 'success';
@@ -650,33 +649,33 @@ class Bot_Controller extends BaseController
 			}
 		}
 		$files = $_FILES;
-			if (!empty($files) && isset($_FILES["images"]["name"])) {
-				$uploadDir = 'assets/bot_image/';
-				if (!is_dir($uploadDir)) {
-					mkdir($uploadDir, 0777, true);
-				}
-				$filesArr = $_FILES["images"];
-				if (is_array($filesArr['name'])) {
-					$fileNames = array_filter($filesArr['name']);
-				} else {
-					$fileNames = array($filesArr['name']); // Convert the string to an array
-				}
-				$uploadedFile = '';
-				foreach ($fileNames as $key => $fileName) {
-					$fileName = basename($fileName);
-					if (!empty($fileName)) {
-						$targetFilePath = $uploadDir . $fileName;
-						$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-						if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
-							$uploadedFile .= $fileName;
-						} else {
-							$uploadStatus = 0;
-							$response['message'] = 'Sorry, there was an error uploading your file.';
-						}
+		if (!empty($files) && isset($_FILES["images"]["name"])) {
+			$uploadDir = 'assets/bot_image/';
+			if (!is_dir($uploadDir)) {
+				mkdir($uploadDir, 0777, true);
+			}
+			$filesArr = $_FILES["images"];
+			if (is_array($filesArr['name'])) {
+				$fileNames = array_filter($filesArr['name']);
+			} else {
+				$fileNames = array($filesArr['name']); // Convert the string to an array
+			}
+			$uploadedFile = '';
+			foreach ($fileNames as $key => $fileName) {
+				$fileName = basename($fileName);
+				if (!empty($fileName)) {
+					$targetFilePath = $uploadDir . $fileName;
+					$fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+					if (move_uploaded_file($filesArr["tmp_name"][$key], $targetFilePath)) {
+						$uploadedFile .= $fileName;
+					} else {
+						$uploadStatus = 0;
+						$response['message'] = 'Sorry, there was an error uploading your file.';
 					}
 				}
 			}
-		
+		}
+
 		if ($this->request->getPost("action") == "update") {
 			//print_r($_POST);
 			unset($_POST['action']);
@@ -698,7 +697,6 @@ class Bot_Controller extends BaseController
 				$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
 				$departmentdisplaydata = json_decode($departmentdisplaydata, true);
 				$response = 1;
-
 			}
 		}
 		echo json_encode($response);
@@ -726,18 +724,18 @@ class Bot_Controller extends BaseController
 	public function bot_question_delete_data()
 	{
 		$delete_id = $this->request->getPost('id');
-		
+
 		if ($this->request->getPost("action") == "delete") {
 			$delete_id = $this->request->getPost('id');
 			$table_name = $this->request->getPost('table');
-			$bot_id = $this->request->getPost('bot_id'); 
+			$bot_id = $this->request->getPost('bot_id');
 
-			$delete_sequence = $this->MasterInformationModel->get_sequence_by_id($table_name, $delete_id); 
-			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id); 
+			$delete_sequence = $this->MasterInformationModel->get_sequence_by_id($table_name, $delete_id);
+			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
 
 			$this->MasterInformationModel->delete_question_sequence($table_name, $bot_id, $delete_sequence);
-			
-			$response = 1; 
+
+			$response = 1;
 		}
 
 		echo $response;
@@ -762,7 +760,7 @@ class Bot_Controller extends BaseController
 				if ($value['option'] === $option_value) {
 					unset($data['single_choice_option_value'][$key]);
 					$data['single_choice_option_value'] = array_values($data['single_choice_option_value']);
-					break; 
+					break;
 				}
 			}
 		}
@@ -774,18 +772,16 @@ class Bot_Controller extends BaseController
 				if ($value === $option_value) {
 					unset($optionsArray[$key]);
 					$data['options'] = implode(';', $optionsArray);
-					break; 
+					break;
 				}
 			}
 		}
 
 		$updated_json_data = json_encode($data);
 		$success = $this->MasterInformationModel->update_entry_bot2($delete_id, $updated_json_data, $table);
-		
+
 		if ($success) {
-			
 		} else {
-			
 		}
 	}
 
@@ -944,7 +940,6 @@ class Bot_Controller extends BaseController
 
 
 				$html .= '</div>';
-
 			}
 		}
 		$result['html'] = $html;
@@ -1004,19 +999,19 @@ class Bot_Controller extends BaseController
 		$sequence = $_POST['sequence'];
 
 		$html = '';
-		
-		if(isset($_POST['answer'])){
+
+		if (isset($_POST['answer'])) {
 			$answer = $_POST['answer'];
 		}
-		
-		
+
+
 
 		if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
 			$nextQuestion = $_POST['nextQuestion'];
 			// pre($nextQuestion);
 		}
 
-		
+
 		if (isset($_POST['next_question_id'])) {
 			$next_questions = $_POST['next_questions'];
 		}
@@ -1024,7 +1019,7 @@ class Bot_Controller extends BaseController
 		if (isset($_POST['next_question_id'])) {
 			$next_question_id = $_POST['next_question_id'];
 		}
-	
+
 		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
@@ -1036,18 +1031,18 @@ class Bot_Controller extends BaseController
 			$sequence = isset($result) ? 1 : $sequence - 1;
 			// pre($sequence);
 			$db_connection = \Config\Database::connect('second');
-			
+
 			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['next_questions'] != "0" && $_POST['next_questions'] != "0,0") {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 				// pre($sql);
 				// $nextQuestionsStr = implode(',', $_POST['next_questions']);
-        		// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
+				// $sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' OR type_of_question IN (' . $_POST['next_questions'] . ') ORDER BY sequence';
 				// pre($sql);
-			}else {
+			} else {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE  bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' ORDER BY sequence';
 			}
 
-			
+
 			// if(isset($_POST['nextQuestion'])){
 			// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND type_of_question = ' . $_POST['nextQuestion'] . ' ORDER BY sequence';
 			// }else{
@@ -1062,7 +1057,7 @@ class Bot_Controller extends BaseController
 			$db_connection = \Config\Database::connect('second');
 			$result = $db_connection->query($sql);
 			$bot_chat_data = $result->getResultArray();
-		
+
 			// Retrieve parent-child data
 			$sql_parent_child = 'SELECT parent.id AS parent_id, child.id AS child_id, child.question, parent.answer
 				FROM admin_bot_setup AS child
@@ -1077,13 +1072,13 @@ class Bot_Controller extends BaseController
 		$bot_chat_data_ss = !empty($bot_chat_data_ss) ? $bot_chat_data_ss : '';
 		$html = '';
 		$last_que_id = 0;
-		$bot_chat_data_ss_index = 0;		
-		
+		$bot_chat_data_ss_index = 0;
+
 		if (!empty($bot_chat_data)) {
-			
+
 			foreach ($bot_chat_data as $value) {
-				
-				if(isset($_POST['answer'])){
+
+				if (isset($_POST['answer'])) {
 					$value['answer'] = $_POST['answer'];
 					// pre($value['answer']);
 				}
@@ -1103,14 +1098,14 @@ class Bot_Controller extends BaseController
 				$last_que_id = $value['id'];
 				// continue;
 				if (isset($test_pr_que) && !empty($test_pr_que)) {
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="'.$value['next_bot_id'].'" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $asasasf[0]['id'] . '" data-sequence="' . $asasasf[0]['sequence'] . '">
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="' . $value['next_bot_id'] . '" data-next_questions="' . $value['next_questions'] . '" data-next_question_id="' . $value['next_question_id'] . '" data-conversation-id="' . $asasasf[0]['id'] . '" data-sequence="' . $asasasf[0]['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
 
 					$html .= '<div class="col">
 									<div class="col-12 mb-2">
-										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="'.$asasasf[0]['sequence'].'" data-conversation-id="' . $asasasf[0]['id'] . '">
+										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="' . $asasasf[0]['sequence'] . '" data-conversation-id="' . $asasasf[0]['id'] . '">
 											' . $test_pr_que . '
 										</span>';
 					if ($asasasf[0]['type_of_question'] == 1 && $asasasf[0]['skip_question'] == 1) {
@@ -1136,10 +1131,10 @@ class Bot_Controller extends BaseController
 					<div class="messege2 d-flex flex-wrap mt-2 ds">
 						<div class="col ">';
 
-					
-						if ($value['answer'] != '' ) {
-							// pre($value['answer']);
-							$html .= '<div class="col-12 mb-2 text-end">
+
+					if ($value['answer'] != '') {
+						// pre($value['answer']);
+						$html .= '<div class="col-12 mb-2 text-end">
 														<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
 														' . $_POST['answer'] . '
 														</span>
@@ -1149,37 +1144,37 @@ class Bot_Controller extends BaseController
 													<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 												</div>
 											</div>';
-								// pre($html);			
-						}
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="'.$value['next_bot_id'].'" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+						// pre($html);			
+					}
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="' . $value['next_bot_id'] . '" data-next_questions="' . $value['next_questions'] . '" data-next_question_id="' . $value['next_question_id'] . '" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
-					
+
 					$html .= '<div class="col">
 									<div class="col-12 mb-2">
-										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="'.$value['sequence'].'" data-conversation-id="' . $value['id'] . '">
+										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="' . $value['sequence'] . '" data-conversation-id="' . $value['id'] . '">
 											' . $value['question'] . '
 										</span>';
 
-										if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
-											$menuOptions = json_decode($value['menu_message'], true);
-											// pre($menuOptions);
-											
-											if (isset($menuOptions['single_choice_option_value'])) {
-												$options = $menuOptions['single_choice_option_value'];
-										
-												foreach ($options as $option) {
-													$buttonValue = $option['option'];
-													$nextQuestion = $option['jump_question'];
+					if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
+						$menuOptions = json_decode($value['menu_message'], true);
+						// pre($menuOptions);
 
-													$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
+						if (isset($menuOptions['single_choice_option_value'])) {
+							$options = $menuOptions['single_choice_option_value'];
+
+							foreach ($options as $option) {
+								$buttonValue = $option['option'];
+								$nextQuestion = $option['jump_question'];
+
+								$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
 																<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $buttonValue . '\')">' . $buttonValue . '</button>
 															  </div>';
-												}
-											}
-										}
-										
+							}
+						}
+					}
+
 
 					if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
 						$html .= '<div class="col-12 mb-2 mt-1">
@@ -1187,8 +1182,7 @@ class Bot_Controller extends BaseController
 															Skip
 														</button>
 													</div>';
-					}
-					else{
+					} else {
 						$html .= '<div class="col-12 mb-2 mt-1" hidden>
 														<button class="btn bg-primary rounded-3 text-white skip_questioned">
 															Skip
@@ -1219,17 +1213,17 @@ class Bot_Controller extends BaseController
 					// }
 
 
-					if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
+					if ($value['type_of_question'] == "40" || $value['type_of_question'] == "42") {
 						$menuOptions = json_decode($value['menu_message'], true);
 						// pre($menuOptions);
-						
+
 						if (isset($menuOptions['single_choice_option_value'])) {
 							$options = $menuOptions['single_choice_option_value'];
-					
+
 							foreach ($options as $option) {
 								$buttonValue = $option['option'];
 								$nextQuestion = $option['jump_question'];
-					
+
 								// Generate HTML for each button
 								$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
 											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $buttonValue . '\')">' . $buttonValue . '</button>
@@ -1238,7 +1232,7 @@ class Bot_Controller extends BaseController
 						}
 					}
 
-					
+
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
 						$menuOptions = json_decode($value['menu_message'], true);
 
@@ -1309,10 +1303,10 @@ class Bot_Controller extends BaseController
 					<div class="messege2 d-flex flex-wrap mt-2 ds">
 						<div class="col ">';
 
-					
-						if ($value['answer'] != '' ) {
-							// pre($value['answer']);
-							$html .= '<div class="col-12 mb-2 text-end">
+
+					if ($value['answer'] != '') {
+						// pre($value['answer']);
+						$html .= '<div class="col-12 mb-2 text-end">
 														<span class="p-2 rounded-3 text-white d-inline-block bg-secondary px-3">
 														' . $_POST['answer'] . '
 														</span>
@@ -1322,10 +1316,10 @@ class Bot_Controller extends BaseController
 													<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 												</div>
 											</div>';
-								// pre($html);			
-						}
+						// pre($html);			
+					}
 
-					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="'.$value['next_bot_id'].'" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
+					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="' . $value['next_bot_id'] . '" data-next_questions="' . $value['next_questions'] . '" data-next_question_id="' . $value['next_question_id'] . '" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
@@ -1348,11 +1342,10 @@ class Bot_Controller extends BaseController
 														</span>
 													</div>';
 						}
-						
 					} else if ($value['type_of_question'] == "17") {
 						// pre($value['type_of_question']);
 						$formData = json_decode($value['menu_message'], true);
-						
+
 						$html .= '<div class="col">
 									<div class="col-12 mb-2">
 										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
@@ -1382,11 +1375,10 @@ class Bot_Controller extends BaseController
 								}
 							}
 						}
-					
+
 						$html .= '<button class="btn bg-primary rounded-3 text-white skip_questioned hide_skip_btn my-2" onclick="formvalue()">Submit</button>
 								</form>
 							</div>';
-
 					} else if ($value['type_of_question'] == "18") {
 						$formData = json_decode($value['menu_message'], true);
 						$imageSrc = isset($formData[0]['fileInput']) ? base_url('') . '/assets/bot_image/' . $formData[0]['fileInput'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
@@ -1406,55 +1398,54 @@ class Bot_Controller extends BaseController
 										</div>
 									</div>
 								</div>';
+					} else if ($value['type_of_question'] == "8") {
+						$datepickerData = json_decode($value['menu_message'], true);
+						// pre($value['type_of_question'] == "8");
 
-							}  else if ($value['type_of_question'] == "8") {
-								$datepickerData = json_decode($value['menu_message'], true);
-								// pre($value['type_of_question'] == "8");
-								
-								$html .= '<div class="col">
+						$html .= '<div class="col">
 											<div class="col-12 mb-2">
 												<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
 													' . $value['question'] . '
 												</span>
 											</div>';
-		
-											if (
-												isset($datepickerData['date_range']) &&
-												isset($datepickerData['period']) &&
-												isset($datepickerData['weekdays']) &&
-												isset($datepickerData['date_output_format'])
-											) {
-												$dateRange = $datepickerData['date_range'];
-												$period = $datepickerData['period'];
-												$weekdays = json_encode($datepickerData['weekdays']);
-												list($start_date_str, $end_date_str) = $dateRange;
-											
-												// Check if period is empty
-												if (empty($period)) {
-													// Set future_days and past_days to 0
-													$future_days = 0;
-													$past_days = 0;
-												} else {
-													$future_days = $period[0];
-													$past_days = $period[1];
-												}
-												
-												
-												$start_date = \DateTime::createFromFormat('Y-m-d', $start_date_str);
-												$end_date = \DateTime::createFromFormat('Y-m-d', $end_date_str);
-												// pre($start_date);
-												if ($start_date === false || $end_date === false) {
-													echo "Error: Unable to parse date strings.";
-												} else {
-													$start_date->modify("-$future_days days");
-													$end_date->modify("+$past_days days");
-											
-													$start_date_iso = $start_date->format('Y-m-d');
-													$end_date_iso = $end_date->format('Y-m-d');
-											
-													$interval = $start_date->diff($end_date);
-													$num_days = $interval->days;
-		
+
+						if (
+							isset($datepickerData['date_range']) &&
+							isset($datepickerData['period']) &&
+							isset($datepickerData['weekdays']) &&
+							isset($datepickerData['date_output_format'])
+						) {
+							$dateRange = $datepickerData['date_range'];
+							$period = $datepickerData['period'];
+							$weekdays = json_encode($datepickerData['weekdays']);
+							list($start_date_str, $end_date_str) = $dateRange;
+
+							// Check if period is empty
+							if (empty($period)) {
+								// Set future_days and past_days to 0
+								$future_days = 0;
+								$past_days = 0;
+							} else {
+								$future_days = $period[0];
+								$past_days = $period[1];
+							}
+
+
+							$start_date = \DateTime::createFromFormat('Y-m-d', $start_date_str);
+							$end_date = \DateTime::createFromFormat('Y-m-d', $end_date_str);
+							// pre($start_date);
+							if ($start_date === false || $end_date === false) {
+								echo "Error: Unable to parse date strings.";
+							} else {
+								$start_date->modify("-$future_days days");
+								$end_date->modify("+$past_days days");
+
+								$start_date_iso = $start_date->format('Y-m-d');
+								$end_date_iso = $end_date->format('Y-m-d');
+
+								$interval = $start_date->diff($end_date);
+								$num_days = $interval->days;
+
 								$html .= ' <div class="container">
 											<div class="row d-flex justify-content" style="position: relative; box-shadow:rgba(70, 93, 239, 0.34) 0px 3px 15px; width:400px" >
 											<div class="col-12 d-flex overflow-hidden" id="calender-month" style="padding:0px !important">
@@ -1528,18 +1519,18 @@ class Bot_Controller extends BaseController
 												<button class="btn btn-primary d-flex justify-content-center align-items-center next-btn" style="position:absolute; top:0px; right:0px; width:33px; height:33px;">></button>
 												</div>
 												</div>';
-		
-												
-												
-				
-										$html .= '<script>
+
+
+
+
+								$html .= '<script>
 										$(document).ready(function() {
 		
 											function daysInMonth(month, year) {
 												return new Date(year, month + 1, 0).getDate();
 											}
 										
-											var weekdays = '.$weekdays.';
+											var weekdays = ' . $weekdays . ';
 									
 											function generateDays(monthId, month, year) {
 												const daysCount = daysInMonth(month, year);
@@ -1556,8 +1547,8 @@ class Bot_Controller extends BaseController
 													ul.append("<li></li>");
 												}
 									
-												const startDate = new Date("'. $start_date_iso .'");
-												const endDate = new Date("'. $end_date_iso .'");
+												const startDate = new Date("' . $start_date_iso . '");
+												const endDate = new Date("' . $end_date_iso . '");
 									
 												for (let i = 1; i <= daysCount; i++) {
 													const currentDate = new Date(year, month, i);
@@ -1665,9 +1656,9 @@ class Bot_Controller extends BaseController
 		
 										
 										</script>';
-									}
-								}
-							} else if($value['type_of_question'] == "23"){
+							}
+						}
+					} else if ($value['type_of_question'] == "23") {
 
 						$html .= '<div class="col">
 										
@@ -1676,55 +1667,52 @@ class Bot_Controller extends BaseController
 												<div>
 													<span>' . $value['question'] . '</span>
 												</div>';
-							
-												$urlnavigatroData = json_decode($value['menu_message'], true);
 
-												if (isset($urlnavigatroData[0]['url_navigator_select'])) {									
-												
-													$html .= '<div class="d-flex flex-wrap mt-2">';
-													foreach ($urlnavigatroData as $data) {
-														$imageName = $data['url_navigator_select'];
-														if($imageName == "Facebook"){
-															$imageSrc = "https://www.page.smatbot.com/assets/facebook-b1c48260.svg";
-														}else if($imageName == "Instagram"){
-															$imageSrc = "https://www.page.smatbot.com/assets/instagram-b79de51b.svg";
-														}else if($imageName == "Twitter"){
-															$imageSrc = "https://www.page.smatbot.com/assets/twiter-5c5e8b47.svg";
-														}else if($imageName == "Linkedin"){
-														
-														}else if($imageName == "Youtube"){
-														
-														}else if($imageName == "Messenger"){
-															$imageSrc = "https://www.page.smatbot.com/assets/messanger-a053b50d.svg";
-														}else if($imageName == "Google_Plus"){
-															$imageSrc = "https://www.page.smatbot.com/assets/twiter-5c5e8b47.svg";
-														}else if($imageName == "Call"){
-															$imageSrc = "https://www.page.smatbot.com/assets/call-cb6467cb.svg";
-														}else if($imageName == "Whatsapp"){
-															
-														}else if($imageName == "URL"){
-															$imageSrc = "https://www.page.smatbot.com/assets/link-4ffb5844.svg";
-														}else if($imageName == "Refresh_chat"){
-															$imageSrc = "https://www.page.smatbot.com/assets/reload-ec94a148.svg";
-														}else if($imageName == "close_Chat"){
-															$imageSrc = "https://www.page.smatbot.com/assets/delete-0612a90c.svg";
-														}
-														
-														$html .= '<div class="me-2 text-center">
+						$urlnavigatroData = json_decode($value['menu_message'], true);
+
+						if (isset($urlnavigatroData[0]['url_navigator_select'])) {
+
+							$html .= '<div class="d-flex flex-wrap mt-2">';
+							foreach ($urlnavigatroData as $data) {
+								$imageName = $data['url_navigator_select'];
+								if ($imageName == "Facebook") {
+									$imageSrc = "https://www.page.smatbot.com/assets/facebook-b1c48260.svg";
+								} else if ($imageName == "Instagram") {
+									$imageSrc = "https://www.page.smatbot.com/assets/instagram-b79de51b.svg";
+								} else if ($imageName == "Twitter") {
+									$imageSrc = "https://www.page.smatbot.com/assets/twiter-5c5e8b47.svg";
+								} else if ($imageName == "Linkedin") {
+								} else if ($imageName == "Youtube") {
+								} else if ($imageName == "Messenger") {
+									$imageSrc = "https://www.page.smatbot.com/assets/messanger-a053b50d.svg";
+								} else if ($imageName == "Google_Plus") {
+									$imageSrc = "https://www.page.smatbot.com/assets/twiter-5c5e8b47.svg";
+								} else if ($imageName == "Call") {
+									$imageSrc = "https://www.page.smatbot.com/assets/call-cb6467cb.svg";
+								} else if ($imageName == "Whatsapp") {
+								} else if ($imageName == "URL") {
+									$imageSrc = "https://www.page.smatbot.com/assets/link-4ffb5844.svg";
+								} else if ($imageName == "Refresh_chat") {
+									$imageSrc = "https://www.page.smatbot.com/assets/reload-ec94a148.svg";
+								} else if ($imageName == "close_Chat") {
+									$imageSrc = "https://www.page.smatbot.com/assets/delete-0612a90c.svg";
+								}
+
+								$html .= '<div class="me-2 text-center">
 																	<a href="' . $data['url_link'] . '" class="d-block">
 																		<img src="' . $imageSrc . '" alt="#" style="width:30px;height:30px" class="rounded-circle">
 																		<p class="text-dark">' . $data['url_text'] . '</p>
 																	</a>
 																</div>';
-													}
-												
-													$html .= '</div></div></div>';
-												}												
+							}
 
-							$html .= '<div class="shadow-lg"></div>';
-							
+							$html .= '</div></div></div>';
+						}
+
+						$html .= '<div class="shadow-lg"></div>';
+
 						// }
-					} else if($value['type_of_question'] == "24"){
+					} else if ($value['type_of_question'] == "24") {
 						$formData = json_decode($value['menu_message'], true);
 						$html .= '<div class="col">
 									<div class="col-12 mb-2">
@@ -1732,7 +1720,7 @@ class Bot_Controller extends BaseController
 											' . $value['question'] . '
 										</span>
 									</div>';
-						
+
 						$product_image = isset($formData[0]['product_image']) ? base_url('') . '/assets/bot_image/' . $formData[0]['product_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
 						$product_title = isset($formData[0]['product_title']) ? $formData[0]['product_title'] : '';
 						$product_button_text = isset($formData[0]['product_button_text']) ? $formData[0]['product_button_text'] : '';
@@ -1740,21 +1728,21 @@ class Bot_Controller extends BaseController
 						$product_button_url = isset($formData[0]['product_button_url']) ? $formData[0]['product_button_url'] : '';
 						$product_url = isset($formData[0]['product_url']) ? $formData[0]['product_url'] : '';
 
-						if(isset($formData[0]['product_image']) || isset($formData[0]['product_button_text'])){
+						if (isset($formData[0]['product_image']) || isset($formData[0]['product_button_text'])) {
 							$html .= '
 										<div class="col-12 text-center">
 											<div class="position-relative bg-white border rounded-3 overflow-hidden" style="width:200px;height:200px">
 												<img src="' . $product_image . '" alt="" class="w-100 h-100 opacity-50">
 												<div class="position-absolute bottom-0 start-50 translate-middle  col-12 px-3">
-													<a href="'.$product_url.'" class="d-block text-start ms-4 text-dark">' . $product_title . '</a>
-													<a href="'.$product_url.'" class="d-block mb-2 text-start ms-4 text-dark">' . $product_description . '</a>
-													<a href="'.$product_button_url.'" class="btn-primary col-12">' . $product_button_text . '</a>
+													<a href="' . $product_url . '" class="d-block text-start ms-4 text-dark">' . $product_title . '</a>
+													<a href="' . $product_url . '" class="d-block mb-2 text-start ms-4 text-dark">' . $product_description . '</a>
+													<a href="' . $product_button_url . '" class="btn-primary col-12">' . $product_button_text . '</a>
 												</div>
 											</div>
 										</div>
 									</div>';
 						}
-					}else if($value['type_of_question'] == "25"){
+					} else if ($value['type_of_question'] == "25") {
 						$html .= '<div class="col">
 									<div class="col-12 mb-2">
 										<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
@@ -1764,15 +1752,15 @@ class Bot_Controller extends BaseController
 
 						$carouselData = json_decode($value['menu_message'], true);
 						$carousel_image = isset($carouselData[0]['carousel_image']) ? base_url('') . '/assets/bot_image/' . $carouselData[0]['carousel_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
-						if(isset($carouselData[0]['carousel_image'])){
+						if (isset($carouselData[0]['carousel_image'])) {
 							$html .= '<div class="col-12 text-center">
 											<div class="position-relative bg-white border rounded-3 overflow-hidden" style="width:200px;height:200px">
 												<img src="' . $carousel_image . '" alt="" class="w-100 h-100 opacity-50 skip_questioned">
 											</div>
 										</div>
 									</div>';
-						}	
-					}else if ($value['type_of_question'] == "27") {
+						}
+					} else if ($value['type_of_question'] == "27") {
 						$contactsData = json_decode($value['menu_message'], true);
 						$html .= '<div class="bg-white p-2 position-absolute tabel_div top-0 bottom-0 start-0 end-0 m-auto rounded-2 overflow-x-scroll d-none" style="width: max-content; height: 200px;">
 									<div class="d-flex justify-content-end close_btn">
@@ -1783,14 +1771,14 @@ class Bot_Controller extends BaseController
 											<th class="border p-2">Name</th>
 											<th class="border p-2">Contact(s)</th>
 										</tr>';
-					
+
 						foreach ($contactsData as $contact) {
 							$html .= '<tr class="border p-2 rounded-2">
 										<td class="border p-2">' . $contact['contact_name'] . '</td>
 										<td class="border p-2">' . $contact['contact_number'] . '</td>
 									</tr>';
 						}
-							
+
 						$html .= '</table>
 								</div> 
 								<div class="col ">
@@ -1804,32 +1792,29 @@ class Bot_Controller extends BaseController
 											</div>
 										</span>
 									</div>';
-
-					}else if ($value['type_of_question'] == "29") {
+					} else if ($value['type_of_question'] == "29") {
 						$html .= '<div class="col">
 										<div class="col-12 mb-2">
 											<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
 												' . $value['question'] . '
 											</span>
 										';
-							$fileData = json_decode($value['menu_message'], true);
-							if(isset($fileData['file_upload'])){
-								$html .= '<a href="'.$fileData['file_upload'].'">' . $fileData['file_upload'] . '</a>
+						$fileData = json_decode($value['menu_message'], true);
+						if (isset($fileData['file_upload'])) {
+							$html .= '<a href="' . $fileData['file_upload'] . '">' . $fileData['file_upload'] . '</a>
 								</div>';
-							}
-					}
-					else if($value['type_of_question'] == "30"){
+						}
+					} else if ($value['type_of_question'] == "30") {
 						$url_redirect_Data = json_decode($value['menu_message'], true);
 						$url_reditrect = isset($url_redirect_Data['redirect_url']) ? $url_redirect_Data['redirect_url'] : '';
-					
+
 						$html .= '<div class="col">
 												<div class="col-12 mb-2">
-													<a href="'.$url_reditrect.'" class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id text-dark" data-conversation-id="' . $value['id'] . '">
+													<a href="' . $url_reditrect . '" class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id text-dark" data-conversation-id="' . $value['id'] . '">
 														' . $value['question'] . '
 													</a>
 												</div>';
-												
-					}else if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
+					} else if ($value['type_of_question'] == "40" || $value['type_of_question'] == "42") {
 						$html .= '<div class="col">
 										<div class="col-12 mb-2">
 											<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
@@ -1841,29 +1826,25 @@ class Bot_Controller extends BaseController
 
 						if (isset($menuOptions['single_choice_option_value'])) {
 							$options = $menuOptions['single_choice_option_value'];
-					
+
 							foreach ($options as $option) {
 								$buttonValue = $option['option'];
 								$nextQuestion = $option['jump_question'];
-					
+
 								// Generate HTML for each button
 								$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
 											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $buttonValue . '\')">' . $buttonValue . '</button>
 										  </div>';
 							}
 						}
-					}
-					
+					} else {
 
-					else {
-					
 						$html .= '<div class="col">
 												<div class="col-12 mb-2">
 													<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
 														' . $value['question'] . '
 													</span>
 												</div>';
-												
 					}
 
 					if (($value['type_of_question'] == 6 && $value['skip_question'] == 1) || ($value['type_of_question'] == 10 && $value['skip_question'] == 1) || ($value['type_of_question'] == 11 && $value['skip_question'] == 1) || ($value['type_of_question'] == 12 && $value['skip_question'] == 1) || ($value['type_of_question'] == 13 && $value['skip_question'] == 1) || ($value['type_of_question'] == 14 && $value['skip_question'] == 1)) {
@@ -1880,28 +1861,28 @@ class Bot_Controller extends BaseController
 						$menuOptions = json_decode($value['menu_message'], true);
 						$next_question = $value['next_questions'];
 						$next_question_values = explode(',', $next_question);
-					
+
 						$reactions = $menuOptions['options'];
 						$reaction_values = array_column($reactions, 'reaction');
-					
+
 						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 									<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 									<div class="text-center pt-4">Please rate</div>
 									<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
 										<div class="col-2 mb-2 option-wrapper">
-											<button class="bg-transparent fs-14" onclick="rating(this, \''.$reaction_values[4].'\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important">😍</button>
+											<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[4] . '\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important">😍</button>
 										</div>
 										<div class="col-2 mb-2 option-wrapper">
-											<button class="bg-transparent fs-14" onclick="rating(this, \''.$reaction_values[3].'\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important">😃</button>
+											<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[3] . '\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important">😃</button>
 										</div>
 										<div class="col-2 mb-2 option-wrapper">
-											<button class="bg-transparent fs-14" onclick="rating(this, \''.$reaction_values[2].'\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important">😊</button>
+											<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[2] . '\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important">😊</button>
 										</div>
 										<div class="col-2 mb-2 option-wrapper">
-											<button class="bg-transparent fs-14" onclick="rating(this, \''.$reaction_values[1].'\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important">😞</button>
+											<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[1] . '\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important">😞</button>
 										</div>
 										<div class="col-2 mb-2 option-wrapper">
-											<button class="bg-transparent fs-14" onclick="rating(this, \''.$reaction_values[0].'\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important">😪</button>
+											<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[0] . '\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important">😪</button>
 										</div>
 									</div>
 									</div>
@@ -1910,47 +1891,47 @@ class Bot_Controller extends BaseController
 					} else if (isset($menuOptions['rating_type']) == "stars") {
 						$next_question = $value['next_questions'];
 						$next_question_values = explode(',', $next_question);
-					
+
 						$reactions = $menuOptions['options'];
 						$reaction_values = array_column($reactions, 'reaction');
-					
+
 						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 											<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 												<div class="text-center pt-4">Please rate</div>
 													<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[4].'\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[3].'\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[2].'\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[1].'\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[0].'\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[4] . '\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[3] . '\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[2] . '\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[1] . '\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
+														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[0] . '\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
 													</div>
 												
 												</div>';
 					} else if (isset($menuOptions['rating_type']) == "numbers") {
 						$next_question = $value['next_questions'];
 						$next_question_values = explode(',', $next_question);
-					
+
 						$reactions = $menuOptions['options'];
 						$reaction_values = array_column($reactions, 'reaction');
-					
+
 						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 										<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 											<div class="text-center pt-4">Please rate</div>
 												<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[4].'\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important">1</button>
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[3].'\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important">2</button>
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[2].'\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important">3</button>
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[1].'\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important">4</button>
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \''.$reaction_values[0].'\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important">5</button>
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[4] . '\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important">1</button>
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[3] . '\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important">2</button>
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[2] . '\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important">3</button>
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[1] . '\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important">4</button>
+													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[0] . '\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important">5</button>
 												</div>  
 											</div>';
 					} else if (isset($menuOptions['rating_type']) == "options") {
 						$next_question = $value['next_questions'];
 						$next_question_values = explode(',', $next_question);
-					
+
 						$reactions = $menuOptions['options'];
 						$reaction_values = array_column($reactions, 'reaction');
-					
+
 						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 										<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 											<div class="text-center pt-4">Please rate</div>
@@ -1968,14 +1949,14 @@ class Bot_Controller extends BaseController
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 						$menuOptions = json_decode($value['menu_message'], true);
 						// pre($menuOptions);
-					
+
 						if (isset($menuOptions['single_choice_option_value'])) {
 							$options = $menuOptions['single_choice_option_value'];
-					
+
 							foreach ($options as $option) {
 								$buttonValue = $option['option'];
 								$nextQuestion = $option['jump_question'];
-					
+
 								// Generate HTML for each button
 								$html .= '<div class="col-12 mb-2 mt-2 option-wrapper">
 											<button class="btn bg-primary rounded-3 text-white option-button" data-next_questions="' . $nextQuestion . '" onclick="selectOption(this, \'' . $buttonValue . '\')">' . $buttonValue . '</button>
@@ -1983,9 +1964,9 @@ class Bot_Controller extends BaseController
 							}
 						}
 					}
-					
-					
-					
+
+
+
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
 						$menuOptions = json_decode($value['menu_message'], true);
 
@@ -2067,13 +2048,10 @@ class Bot_Controller extends BaseController
 									insertAnswer();
 								}
 							</script>';
-
 				}
-				
 			}
-			
 		}
-		
+
 
 		$dateresult['html'] = $html;
 		return json_encode($dateresult, true);
@@ -2116,15 +2094,15 @@ class Bot_Controller extends BaseController
 			$result = $db_connection->query($sql);
 			$questioned = $result->getRowArray();
 			// pre($questioned);
-				
-		}else if($_POST['sequence'] == 1){
+
+		} else if ($_POST['sequence'] == 1) {
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
 			// pre($question);
-		
-		}else{
+
+		} else {
 			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
@@ -2132,7 +2110,7 @@ class Bot_Controller extends BaseController
 			// pre($question);
 		}
 
-		$response = []; 
+		$response = [];
 
 		if (!empty($question)) {
 			// pre($question);
@@ -2140,23 +2118,23 @@ class Bot_Controller extends BaseController
 				// Validate email if the question type is 3
 				$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
 				if (preg_match($regex, $answer)) {
-					$response['id_validation'] = ""; 
+					$response['id_validation'] = "";
 					$response['response'] = 1;
 				} else {
-					$response['id_validation'] = $question['error_text']; 
+					$response['id_validation'] = $question['error_text'];
 					$response['response'] = 2;
 				}
-			} else if($question['type_of_question'] == 5 && $question['error_text']){
+			} else if ($question['type_of_question'] == 5 && $question['error_text']) {
 				$regex = '/^([a-zA-Z0-9_ ]{5,10})$/';
 
 				if (preg_match($regex, $answer)) {
-					$response['id_validation'] = ""; 
+					$response['id_validation'] = "";
 					$response['response'] = 1;
 				} else {
-					$response['id_validation'] = $question['error_text']; 
+					$response['id_validation'] = $question['error_text'];
 					$response['response'] = 2;
 				}
-			}else {
+			} else {
 				// Handle other types of questions
 				if (!empty($question) && $question['id'] == $questionId) {
 					$updateData = [
@@ -2166,7 +2144,6 @@ class Bot_Controller extends BaseController
 
 					$db_connection->table($table)->update($updateData, ['id' => $question['id']]);
 					$response['message'] = "Answer inserted successfully for question: " . $question['question'];
-				
 				} else {
 					// $response['error'] = "Question with sequence " . $sequence . " not found or does not match the specified question id.";
 
@@ -2180,10 +2157,10 @@ class Bot_Controller extends BaseController
 					// pre($response['message']);
 				}
 			}
-		}else{
+		} else {
 
 			// if ($questioned['type_of_question'] == 3 && $questioned['error_text']) {
-				
+
 			// 	$regex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
 			// 	if (preg_match($regex, $answer)) {
 			// 		$response['id_validation'] = ""; 
@@ -2204,13 +2181,13 @@ class Bot_Controller extends BaseController
 			// 	}
 			// }else{
 
-				$updateData = [
-					'answer' => $answer,
-				];
-				$response['response'] = 3;
+			$updateData = [
+				'answer' => $answer,
+			];
+			$response['response'] = 3;
 
-				$db_connection->table($table)->update($updateData, ['id' => $questioned['id']]);
-				$response['message'] = "Answer inserted successfully for question: " . $questioned['question'];
+			$db_connection->table($table)->update($updateData, ['id' => $questioned['id']]);
+			$response['message'] = "Answer inserted successfully for question: " . $questioned['question'];
 
 			// }
 			// $response['error'] = "No question data found.";
@@ -2255,7 +2232,7 @@ class Bot_Controller extends BaseController
 										</div>
 
 										<div class="border rounded d-inline w-auto p-1 px-2 icon-box text-muted mb-2 mx-2 BotChatIconDivClass"
-											data-toggle="tooltip" data-placement="top" title="Bot Chats" botid = "'.$value['id'].'">
+											data-toggle="tooltip" data-placement="top" title="Bot Chats" botid = "' . $value['id'] . '">
 											<a href="' . base_url('') . 'bot_chat?id=' . $value['id'] . '" class="text-muted">
 												<i class="fa-solid fa-comment"></i>
 											</a>
@@ -2348,83 +2325,83 @@ class Bot_Controller extends BaseController
 
 	public function get_chat_data()
 	{
-$cache = \Config\Services::cache();
+		$cache = \Config\Services::cache();
 		if ($_POST['action'] == 'account_list') {
-			
+
 			// pre($userdata);
 			// die();
 			// $token = 'edrftgyhjk,l.;/'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-			
+
 			$this->db = \Config\Database::connect('second');
 			$get_token = "SELECT access_token FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
 			$data_count = $get_access_token_array->getNumRows();
 			if ($data_count > 0) {
 				$token = $get_access_token_array->getResultArray()[0]['access_token'];
-			$fileds = 'instagram_business_account{id,username,profile_picture_url},profile_picture_url,access_token,name,id';
-			$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
-			// $fb_page_list = fb_page_list($token);
-			// $fb_page_list = get_object_vars(json_decode($fb_page_list));
-			// pre($url);
+				$fileds = 'instagram_business_account{id,username,profile_picture_url},profile_picture_url,access_token,name,id';
+				$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
+				// $fb_page_list = fb_page_list($token);
+				// $fb_page_list = get_object_vars(json_decode($fb_page_list));
+				// pre($url);
 				$cache_data = $cache->get($_SESSION['id'] . '_fb_data');
 				if (!empty($cache_data)) {
-				$fb_page_list = $cache_data;
+					$fb_page_list = $cache_data;
 					// echo 'yes';
 				} else {
-			$fb_page_list = getSocialData($url);
-				// echo 'no';
+					$fb_page_list = getSocialData($url);
+					// echo 'no';
 				}
-			$fb_chat_list_html = '';
-			$IG_chat_list_html = '';
-			$return_result = array();
-			$IG_data = array();
-// pre($fb_page_list);
-			foreach ($fb_page_list['data'] as $key => $value) {
-				$unread_msg = 0;
+				$fb_chat_list_html = '';
+				$IG_chat_list_html = '';
+				$return_result = array();
+				$IG_data = array();
+				// pre($fb_page_list);
+				foreach ($fb_page_list['data'] as $key => $value) {
+					$unread_msg = 0;
 					// pre($con_data);
 					if (!empty($cache_data)) {
 						$unread_msg = $value['unread_count'];
 						$page_img = $value['page_img'];
 					} else {
-				$url = 'https://graph.facebook.com/' . $value['id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
-										$con_data = getSocialData($url);
-					if (isset($con_data['data'])) {
+						$url = 'https://graph.facebook.com/' . $value['id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
+						$con_data = getSocialData($url);
+						if (isset($con_data['data'])) {
 							foreach ($con_data['data'] as $con_key => $con_value) {
 								// pre($value);
 								$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
 							}
 						}
-				$page_data = fb_page_img($value['id'], $value['access_token']);
-				$page_data = json_decode($page_data);
-$page_img = $page_data->page_img;
+						$page_data = fb_page_img($value['id'], $value['access_token']);
+						$page_data = json_decode($page_data);
+						$page_img = $page_data->page_img;
 					}
 
-				$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
+					$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
 										<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 												<img src="' . $page_img . '" alt="" width="45">
 											</a>
 											<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
 											</p>';
-							if ($unread_msg  != 0) {
-								$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
-							}
+					if ($unread_msg  != 0) {
+						$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
+					}
 					$fb_chat_list_html .= '</div>
 									</div>';
-				if (isset($value['instagram_business_account'])) {
-					$value['instagram_business_account']['access_token'] = $value['access_token'];
-					$value['instagram_business_account']['fb_page_id'] = $value['id'];
-					$IG_data[] = $value['instagram_business_account'];
+					if (isset($value['instagram_business_account'])) {
+						$value['instagram_business_account']['access_token'] = $value['access_token'];
+						$value['instagram_business_account']['fb_page_id'] = $value['id'];
+						$IG_data[] = $value['instagram_business_account'];
+					}
+
+					if (empty($cache_data)) {
+						$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
+						$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
+					}
 				}
 
-					if(empty($cache_data)) {
-					$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
-					$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
-					}
-			}
-
-			foreach ($IG_data as $IG_key => $IG_value) {
-				$IG_chat_list_html .= '
+				foreach ($IG_data as $IG_key => $IG_value) {
+					$IG_chat_list_html .= '
 								<div class="col-12 account-nav account-box linked-page" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
 									<div class=" d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
 										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
@@ -2435,12 +2412,12 @@ $page_img = $page_data->page_img;
 									</div>
 								</div>
 									';
-			}
+				}
 
-				$cache->save($_SESSION['id'].'_fb_data', $fb_page_list,3600*24);
+				$cache->save($_SESSION['id'] . '_fb_data', $fb_page_list, 3600 * 24);
 
-			// pre($IG_data);
-} else {
+				// pre($IG_data);
+			} else {
 				$fb_chat_list_html = '';
 				$fb_chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
 				$IG_chat_list_html = '';
@@ -2466,7 +2443,7 @@ $page_img = $page_data->page_img;
 			if ($chat_count > 0) {
 
 				foreach ($data['data'] as $conversion_value) {
-$unread_msg = 0;
+					$unread_msg = 0;
 					$unread_msg += $conversion_value['unread_count'];
 					$times = getTimeDifference($conversion_value['messages']['data'][0]['created_time']);
 					// pre($conversion_value);
@@ -2519,9 +2496,9 @@ $unread_msg = 0;
 									<p class="col-12 ps-2" style="font-size:16px;">' . $conversion_value['participants']['data'][$key][$name] . '</p>
 										<p class="col-10 ps-2 d-flex fs-12 text-secondary-emphasis"><span class="text-truncate">' . $conversion_value['messages']['data'][0]['message'] . '</span> <span class="col-3 ms-2">' . $time_count_text . '</span> </p>
 									</div>';
-						if ($unread_msg != 0) {
-							$chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
-						}
+					if ($unread_msg != 0) {
+						$chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
+					}
 					$chat_list_html .= '</div>
 									
 							</div>
@@ -2544,7 +2521,7 @@ $unread_msg = 0;
 			$url = "https://graph.facebook.com/v19.0/$conversion_id/messages?access_token=$page_access_token&fields=id,message,created_time,from,full_picture";
 			// $response = file_get_contents($url);
 			$massage_data = getSocialData($url);
-// pre($url);
+			// pre($url);
 			// pre($massage_data);
 			// $massage_data = json_decode($response);
 			$html = '';
@@ -2556,7 +2533,7 @@ $unread_msg = 0;
 			$count = count($massage_array);
 			$i = 0;
 			$dates = '';
-$timezone = new \DateTimeZone(date_default_timezone_get());
+			$timezone = new \DateTimeZone(date_default_timezone_get());
 			$last7DaysStart = new \DateTime('-7 days');
 			foreach ($massage_array as $massage_key => $massage_value) {
 				// Specify your timezone
@@ -2608,7 +2585,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 
 	public function send_massage()
 	{
-// pre($_POST);
+		// pre($_POST);
 		$page_access_token = $this->request->getPost('page_access_token');
 		$action = $this->request->getPost('action');
 		$conversion_id = $this->request->getPost('conversion_id');
@@ -2635,7 +2612,8 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 			$return = array();
 			if (isset($data['error']['code']) && $data['error']['code'] == 10) {
 				$return['status'] = 0;
-				$return['msg'] = "You Dont't Have Permission To Send Message On This Page.";
+				$return['msg'] = "You Dont't Have Permission To Send Message in This Page.";
+				$return['text'] = "<br><span>Request to Facebook for permission <b>PAGES_MESSAGING</b></span>";
 			} else {
 				$time = date('H:i a');
 				$return['status'] = 1;
@@ -2671,6 +2649,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 
 			$return['status'] = 0;
 			$return['msg'] = $msg !== '' ? $msg . " Not Found!" : '';
+			$return['text'] = "";
 		}
 
 		return json_encode($return);
@@ -2678,7 +2657,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 
 	public function bot_id_to_quotation()
 	{
-		
+
 		if (isset($_POST['id']) && !empty($_POST['id'])) {
 			$bot_id = $_POST['id'];
 		} else {
@@ -2692,15 +2671,15 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		$html = "";
 		$i = 1;
 
-		if(isset($_POST['row_counter'])){
+		if (isset($_POST['row_counter'])) {
 			$row_counter = $_POST['row_counter'];
-		}else{
+		} else {
 			$row_counter = '1';
 		}
 
-		$html .= '<select class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_flow_'.$row_counter.' question_select_second_'.$i.'_'.$row_counter.' occupation_add" aria-label="Default select example">
+		$html .= '<select class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_flow_' . $row_counter . ' question_select_second_' . $i . '_' . $row_counter . ' occupation_add" aria-label="Default select example">
 		<option>No Jump</option>';
-			
+
 		if (isset($bot_data_get)) {
 			foreach ($bot_data_get as $type_key => $type_value) {
 				$html .= '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
@@ -2708,10 +2687,10 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 		}
 
 		$html .= '</select>';
-		
+
 		// Increment $i and update it in the session
 		$i++;
-		
+
 
 		$result['html'] = $html;
 		return json_encode($result);
@@ -2723,65 +2702,65 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// public function web_bot_integrate()
 	// {
 	// 	$conn = \Config\Database::connect('second');
-    //     // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
-		
-	// 	$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);
-       
-	// 	$html= '';
-	
-    //     if ($access_token === null) {
-			
-    //         $response = 0;
-    //         $message = 'Please enter your authorization token..!';
-    //     } else {
-    //         if (isset($access_token)) {
-    //            echo  $query = "SELECT * FROM `master_user`";
-	// 		   die;
-    //             $result_page = $conn->query($query);
-    //             $i = 0;
+	//     // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
 
-    //             if ($result_page->getNumRows() > 0) {
+	// 	$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);
+
+	// 	$html= '';
+
+	//     if ($access_token === null) {
+
+	//         $response = 0;
+	//         $message = 'Please enter your authorization token..!';
+	//     } else {
+	//         if (isset($access_token)) {
+	//            echo  $query = "SELECT * FROM `master_user`";
+	// 		   die;
+	//             $result_page = $conn->query($query);
+	//             $i = 0;
+
+	//             if ($result_page->getNumRows() > 0) {
 	// 				echo 'hii';
 	// 				die;
-    //                 $allRows = $result_page->getResultArray();
-    //                 $response = 0;
-    //                 $message = 'Something went wrong..!';
-    //                 foreach ($allRows as $key => $row) {
-    //                     if ($conn->tableExists($row['username'] . "_platform_integration")) {
-    //                     } else {
-    //                         $table_name3 = $row['username'] . '_platform_integration';
-    //                         $columns3 = [
-    //                             'id int primary key AUTO_INCREMENT',
-    //                             'master_id int(11) NOT NULL',
-    //                             "phone_number_id varchar(400) NOT NULL",
-    //                             "business_account_id varchar(400) NOT NULL",
-    //                             "access_token longtext NOT NULL",
-    //                             "whatsapp_name longtext NOT NULL",
-    //                             "whatsapp_number varchar(400)",
-    //                             "fb_app_id text NOT NULL",
-    //                             'fb_app_name varchar(200)',
-    //                             'fb_app_type varchar(200)',
-    //                             'from_email varchar(200)',
-    //                             'smtp_port int(11)',
-    //                             'smtp_host varchar(200)',
-    //                             'smtp_user varchar(200)',
-    //                             'smtp_password varchar(200)',
-    //                             'smtp_crypto varchar(200)',
-    //                             'mail_cc varchar(200)',
-    //                             'email_radio int(11)',
-    //                             'email_from varchar(200)',
-    //                             'website_name varchar(255)',
-    //                             "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
-    //                             "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook & 3-Email & 4-Linkedin & 5-website'",
-    //                         ];
-    //                         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
-    //                     }
+	//                 $allRows = $result_page->getResultArray();
+	//                 $response = 0;
+	//                 $message = 'Something went wrong..!';
+	//                 foreach ($allRows as $key => $row) {
+	//                     if ($conn->tableExists($row['username'] . "_platform_integration")) {
+	//                     } else {
+	//                         $table_name3 = $row['username'] . '_platform_integration';
+	//                         $columns3 = [
+	//                             'id int primary key AUTO_INCREMENT',
+	//                             'master_id int(11) NOT NULL',
+	//                             "phone_number_id varchar(400) NOT NULL",
+	//                             "business_account_id varchar(400) NOT NULL",
+	//                             "access_token longtext NOT NULL",
+	//                             "whatsapp_name longtext NOT NULL",
+	//                             "whatsapp_number varchar(400)",
+	//                             "fb_app_id text NOT NULL",
+	//                             'fb_app_name varchar(200)',
+	//                             'fb_app_type varchar(200)',
+	//                             'from_email varchar(200)',
+	//                             'smtp_port int(11)',
+	//                             'smtp_host varchar(200)',
+	//                             'smtp_user varchar(200)',
+	//                             'smtp_password varchar(200)',
+	//                             'smtp_crypto varchar(200)',
+	//                             'mail_cc varchar(200)',
+	//                             'email_radio int(11)',
+	//                             'email_from varchar(200)',
+	//                             'website_name varchar(255)',
+	//                             "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
+	//                             "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook & 3-Email & 4-Linkedin & 5-website'",
+	//                         ];
+	//                         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
+	//                     }
 
-    //                     $query_mater = "SELECT * FROM " . $row['username'] . "_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
-    //                     $results = $conn->query($query_mater);
-    //                     $rows_data = $results->getResultArray();
-    //                     if (!empty($rows_data)) {
-    //                         $rows = (object) $rows_data[0];
+	//                     $query_mater = "SELECT * FROM " . $row['username'] . "_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
+	//                     $results = $conn->query($query_mater);
+	//                     $rows_data = $results->getResultArray();
+	//                     if (!empty($rows_data)) {
+	//                         $rows = (object) $rows_data[0];
 
 	// 						pre($rows);
 	// 						die;
@@ -2789,133 +2768,133 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 						$bot_id = $_POST['bot_id'];
 	// 						$sequence = $_POST['sequence'];
 	// 						$html = '';
-							
-	
+
+
 	// 					}
 
 
 	// 				}
-				
+
 	// 			}
 	// 			else {
-    //                 $response = 0;
-    //                 $message = 'Something went wrong..!';
-    //             }
+	//                 $response = 0;
+	//                 $message = 'Something went wrong..!';
+	//             }
 	// 		}
 	// 		else {
-    //             $response = 0;
-    //             $message = 'Please enter all required field..!';
-    //         }
+	//             $response = 0;
+	//             $message = 'Please enter all required field..!';
+	//         }
 	// 	}
 
-	
+
 
 	// 	$result = [];
-    //     if ($response == 1) {
-    //         $result['success'] = ['status' => true, 'message' => $message,'question' => $value['question']];
-    //     } else {
-    //         $result['error'] = ['status' => false, 'message' => $message];
-    //     }
-    //     return json_encode($result);
+	//     if ($response == 1) {
+	//         $result['success'] = ['status' => true, 'message' => $message,'question' => $value['question']];
+	//     } else {
+	//         $result['error'] = ['status' => false, 'message' => $message];
+	//     }
+	//     return json_encode($result);
 
 	// }
 
 	// public function web_bot_integrate()
 	// {
 	// 	$conn = \Config\Database::connect('second');
-    //     // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
-		
+	//     // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
+
 	// 	$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);
-      
+
 	// 	$html= '';
-	
-    //     if ($access_token === null) {
-			
-    //         $response = 0;
-    //         $message = 'Please enter your authorization token..!';
-    //     } else {
-    //         if (isset($access_token)) {
-    //              $query = "SELECT * FROM `master_user`";
-			   
-    //             $result_page = $conn->query($query);
-    //             $i = 0;
 
-    //             if ($result_page->getNumRows() > 0) {
-					
-    //                 $allRows = $result_page->getResultArray();
-    //                 $response = 0;
-    //                 $message = 'Something went wrong..!';
-    //                 foreach ($allRows as $key => $row) {
-    //                     if ($conn->tableExists($row['username'] . "_platform_integration")) {
-    //                     } else {
-    //                         $table_name3 = $row['username'] . '_platform_integration';
-    //                         $columns3 = [
-    //                             'id int primary key AUTO_INCREMENT',
-    //                             'master_id int(11) NOT NULL',
-    //                             "phone_number_id varchar(400) NOT NULL",
-    //                             "business_account_id varchar(400) NOT NULL",
-    //                             "access_token longtext NOT NULL",
-    //                             "whatsapp_name longtext NOT NULL",
-    //                             "whatsapp_number varchar(400)",
-    //                             "fb_app_id text NOT NULL",
-    //                             'fb_app_name varchar(200)',
-    //                             'fb_app_type varchar(200)',
-    //                             'from_email varchar(200)',
-    //                             'smtp_port int(11)',
-    //                             'smtp_host varchar(200)',
-    //                             'smtp_user varchar(200)',
-    //                             'smtp_password varchar(200)',
-    //                             'smtp_crypto varchar(200)',
-    //                             'mail_cc varchar(200)',
-    //                             'email_radio int(11)',
-    //                             'email_from varchar(200)',
-    //                             'website_name varchar(255)',
-    //                             "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
-    //                             "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook & 3-Email & 4-Linkedin & 5-website'",
-    //                         ];
-    //                         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
-    //                     }
+	//     if ($access_token === null) {
 
-    //                     $query_mater = "SELECT * FROM " . $row['username'] . "_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
-    //                     $results = $conn->query($query_mater);
-    //                     $rows_data = $results->getResultArray();
-    //                     // if (!empty($rows_data)) {
-    //                     //     $rows = (object) $rows_data[0];
+	//         $response = 0;
+	//         $message = 'Please enter your authorization token..!';
+	//     } else {
+	//         if (isset($access_token)) {
+	//              $query = "SELECT * FROM `master_user`";
 
-							
+	//             $result_page = $conn->query($query);
+	//             $i = 0;
+
+	//             if ($result_page->getNumRows() > 0) {
+
+	//                 $allRows = $result_page->getResultArray();
+	//                 $response = 0;
+	//                 $message = 'Something went wrong..!';
+	//                 foreach ($allRows as $key => $row) {
+	//                     if ($conn->tableExists($row['username'] . "_platform_integration")) {
+	//                     } else {
+	//                         $table_name3 = $row['username'] . '_platform_integration';
+	//                         $columns3 = [
+	//                             'id int primary key AUTO_INCREMENT',
+	//                             'master_id int(11) NOT NULL',
+	//                             "phone_number_id varchar(400) NOT NULL",
+	//                             "business_account_id varchar(400) NOT NULL",
+	//                             "access_token longtext NOT NULL",
+	//                             "whatsapp_name longtext NOT NULL",
+	//                             "whatsapp_number varchar(400)",
+	//                             "fb_app_id text NOT NULL",
+	//                             'fb_app_name varchar(200)',
+	//                             'fb_app_type varchar(200)',
+	//                             'from_email varchar(200)',
+	//                             'smtp_port int(11)',
+	//                             'smtp_host varchar(200)',
+	//                             'smtp_user varchar(200)',
+	//                             'smtp_password varchar(200)',
+	//                             'smtp_crypto varchar(200)',
+	//                             'mail_cc varchar(200)',
+	//                             'email_radio int(11)',
+	//                             'email_from varchar(200)',
+	//                             'website_name varchar(255)',
+	//                             "verification_status int(10) NOT NULL DEFAULT 0 COMMENT '0-Pending & 1-Approved & 3-Rejected'",
+	//                             "platform_status int NOT NULL DEFAULT 0 COMMENT '0-nothing & 1-whatsapp & 2-facebook & 3-Email & 4-Linkedin & 5-website'",
+	//                         ];
+	//                         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
+	//                     }
+
+	//                     $query_mater = "SELECT * FROM " . $row['username'] . "_platform_integration where master_id=" . $row['id'] . " AND platform_status=5 AND verification_status=1";
+	//                     $results = $conn->query($query_mater);
+	//                     $rows_data = $results->getResultArray();
+	//                     // if (!empty($rows_data)) {
+	//                     //     $rows = (object) $rows_data[0];
+
+
 	// 					// 	$table = $_POST['table'];
 	// 					// 	$bot_id = $_POST['bot_id'];
 	// 					// 	$sequence = $_POST['sequence'];
 	// 					// 	$html = '';
-							
+
 	// 					// 	if(isset($_POST['answer'])){
 	// 					// 		$answer = $_POST['answer'];
 	// 					// 	}
-							
+
 	// 					// 	if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
 	// 					// 		$nextQuestion = $_POST['nextQuestion'];
 	// 					// 		// pre($nextQuestion);
 	// 					// 	}
-	
-							
+
+
 	// 					// 	if (isset($_POST['next_question_id'])) {
 	// 					// 		$next_questions = $_POST['next_questions'];
 	// 					// 	}
-	
+
 	// 					// 	if (isset($_POST['next_question_id'])) {
 	// 					// 		$next_question_id = $_POST['next_question_id'];
 	// 					// 	}
 	// 					// 	if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
-								
+
 	// 					// 		$sql = 'SELECT * FROM admin_bot_setup WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
-						
+
 	// 					// 		$sequence = 1;
 	// 					// 		// pre($sql);
 	// 					// 		$result = $conn->query($sql);
 	// 					// 		$bot_chat_data = $result->getResultArray();
 	// 					// 	} else {
 	// 					// 		$sequence = isset($result) ? 1 : $sequence - 1;
-								
+
 	// 					// 		if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['next_questions'] != "0" && $_POST['next_questions'] != "0,0") {
 	// 					// 			$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 	// 					// 			// pre($sql);
@@ -2925,12 +2904,12 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 		}else {
 	// 					// 			$sql = 'SELECT * FROM ' . $table . ' WHERE  bot_id = ' . $bot_id . ' AND sequence = ' . $sequence . ' ORDER BY sequence';
 	// 					// 		}
-	
-								
+
+
 	// 					// 		// Execute query
 	// 					// 		$result = $conn->query($sql);
 	// 					// 		$bot_chat_data = $result->getResultArray();
-							
+
 	// 					// 		// Retrieve parent-child data
 	// 					// 		$sql_parent_child = 'SELECT parent.id AS parent_id, child.id AS child_id, child.question, parent.answer
 	// 					// 			FROM admin_bot_setup AS child
@@ -2941,17 +2920,17 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 		$resultss_ss = $conn->query($sql_parent_child);
 	// 					// 		$bot_chat_data_ss = $resultss_ss->getResultArray();
 	// 					// 	}
-	
+
 	// 					// 	$bot_chat_data_ss = !empty($bot_chat_data_ss) ? $bot_chat_data_ss : '';
 	// 					// 	$html = '';
 	// 					// 	$last_que_id = 0;
 	// 					// 	$bot_chat_data_ss_index = 0;
-							
-							
+
+
 	// 					// 	if (!empty($bot_chat_data)) {
-								
+
 	// 					// 		foreach ($bot_chat_data as $value) {									
-	
+
 	// 					// 			if(isset($_POST['answer'])){
 	// 					// 				$value['answer'] = $_POST['answer'];
 	// 					// 				// pre($value['answer']);
@@ -2976,7 +2955,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 							<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 	// 					// 								<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 	// 					// 							</div>';
-	
+
 	// 					// 				$html .= '<div class="col">
 	// 					// 								<div class="col-12 mb-2">
 	// 					// 									<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="'.$asasasf[0]['sequence'].'" data-conversation-id="' . $asasasf[0]['id'] . '">
@@ -2999,13 +2978,13 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 				</div>
 	// 					// 				';
 	// 					// 			}
-	
+
 	// 					// 			if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 	// 					// 				$html .= '
 	// 					// 				<div class="messege2 d-flex flex-wrap mt-2 ds">
 	// 					// 					<div class="col ">';
-	
-										
+
+
 	// 					// 					if ($value['answer'] != '' ) {
 	// 					// 						// pre($value['answer']);
 	// 					// 						$html .= '<div class="col-12 mb-2 text-end">
@@ -3024,20 +3003,20 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 							<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 	// 					// 								<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 	// 					// 							</div>';
-										
+
 	// 					// 				$html .= '<div class="col">
 	// 					// 								<div class="col-12 mb-2">
 	// 					// 									<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="'.$value['sequence'].'" data-conversation-id="' . $value['id'] . '">
 	// 					// 										' . $value['question'] . '
 	// 					// 									</span>';
-	
+
 	// 					// 									if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 	// 					// 										$menuOptions = json_decode($value['menu_message'], true);
-										
+
 	// 					// 										if (isset($menuOptions['options_value']['options'])) {
 	// 					// 											$options = explode(';', $menuOptions['options_value']['options']);
 	// 					// 											$nextQuestionsArray = explode(',', $value['next_questions']);
-										
+
 	// 					// 											foreach ($options as $index => $option) {
 	// 					// 												$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
 	// 					// 												// pre($nextQuestion);
@@ -3047,7 +3026,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 											}
 	// 					// 										}
 	// 					// 									}
-	
+
 	// 					// 				if ($value['type_of_question'] == 1 && $value['skip_question'] == 1) {
 	// 					// 					$html .= '<div class="col-12 mb-2 mt-1">
 	// 					// 													<button class="btn bg-primary rounded-3 text-white skip_questioned">
@@ -3065,8 +3044,8 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 				$html .= '</div>				
 	// 					// 				</div>
 	// 					// 				';
-	
-	
+
+
 	// 					// 				if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
 	// 					// 						$menu_list_Data = json_decode($value['menu_message'], true);
 	// 					// 						if(isset($menu_list_Data['options_value']['options'])){
@@ -3081,25 +3060,25 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 							}
 	// 					// 						}
 	// 					// 				}
-	
+
 	// 					// 				$html .= '<script>
-													
+
 	// 					// 							function selectOption(button, value) {
 	// 					// 								$(".answer_chat").val(value); 
 	// 					// 								var nextQuestion = $(button).data("next_questions");
 	// 					// 								console.log("Next Question:", nextQuestion); 
-														
+
 	// 					// 								insertAnswer(nextQuestion);
 	// 					// 							}
-	
+
 	// 					// 						</script>';
 	// 					// 			} else {
-	
+
 	// 					// 				$html .= '
 	// 					// 				<div class="messege2 d-flex flex-wrap mt-2 ds">
 	// 					// 					<div class="col ">';
-	
-										
+
+
 	// 					// 					if ($value['answer'] != '' ) {
 	// 					// 						// pre($value['answer']);
 	// 					// 						$html .= '<div class="col-12 mb-2 text-end">
@@ -3114,20 +3093,20 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 										</div>';
 	// 					// 							// pre($html);			
 	// 					// 					}
-	
+
 	// 					// 				$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="'.$value['next_bot_id'].'" data-next_questions="'.$value['next_questions'].'" data-next_question_id="'.$value['next_question_id'].'" data-conversation-id="' . $value['id'] . '" data-sequence="' . $value['sequence'] . '">
 	// 					// 							<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 	// 					// 								<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 	// 					// 							</div>';
-	
-	
+
+
 	// 					// 				if ($value['type_of_question'] == "16") {
 	// 					// 					$buttonData = json_decode($value['menu_message'], true);
-	
+
 	// 					// 					if (isset($buttonData['button_text']) && isset($buttonData['button_url'])) {
 	// 					// 						$buttonText = $buttonData['button_text'];
 	// 					// 						$buttonUrl = $buttonData['button_url'];
-	
+
 	// 					// 						$html .= '<div class="col ">
 	// 					// 												<div class="col-12 mb-2">
 	// 					// 													<span class="p-2 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
@@ -3138,11 +3117,11 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 													</span>
 	// 					// 												</div>';
 	// 					// 					}
-											
+
 	// 					// 				} else if ($value['type_of_question'] == "17") {
 	// 					// 					// pre($value['type_of_question']);
 	// 					// 					$formData = json_decode($value['menu_message'], true);
-											
+
 	// 					// 					$html .= '<div class="col">
 	// 					// 								<div class="col-12 mb-2">
 	// 					// 									<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
@@ -3151,7 +3130,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 								</div>
 	// 					// 								<div class="col-10 px-2 form_fill">
 	// 					// 									<form action="" class="col-12 text-center shadow-lg border bg-white p-2 rounded-3">';
-	
+
 	// 					// 					if (isset($formData['questions'])) {
 	// 					// 						// pre($formData['questions']);
 	// 					// 						foreach ($formData['questions'] as $question) {
@@ -3172,11 +3151,11 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 							}
 	// 					// 						}
 	// 					// 					}
-										
+
 	// 					// 					$html .= '<button class="btn bg-primary rounded-3 text-white skip_questioned hide_skip_btn my-2" onclick="formvalue()">Submit</button>
 	// 					// 							</form>
 	// 					// 						</div>';
-	
+
 	// 					// 				} else if ($value['type_of_question'] == "18") {
 	// 					// 					$formData = json_decode($value['menu_message'], true);
 	// 					// 					$imageSrc = isset($formData[0]['fileInput']) ? base_url('') . '/assets/bot_image/' . $formData[0]['fileInput'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
@@ -3196,18 +3175,18 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 									</div>
 	// 					// 								</div>
 	// 					// 							</div>';
-	
+
 	// 					// 						}  else if ($value['type_of_question'] == "8") {
 	// 					// 							$datepickerData = json_decode($value['menu_message'], true);
 	// 					// 							// pre($value['type_of_question'] == "8");
-													
+
 	// 					// 							$html .= '<div class="col">
 	// 					// 										<div class="col-12 mb-2">
 	// 					// 											<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
 	// 					// 												' . $value['question'] . '
 	// 					// 											</span>
 	// 					// 										</div>';
-							
+
 	// 					// 										if (
 	// 					// 											isset($datepickerData['date_range']) &&
 	// 					// 											isset($datepickerData['period']) &&
@@ -3218,7 +3197,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 											$period = $datepickerData['period'];
 	// 					// 											$weekdays = json_encode($datepickerData['weekdays']);
 	// 					// 											list($start_date_str, $end_date_str) = $dateRange;
-																
+
 	// 					// 											// Check if period is empty
 	// 					// 											if (empty($period)) {
 	// 					// 												// Set future_days and past_days to 0
@@ -3228,8 +3207,8 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 												$future_days = $period[0];
 	// 					// 												$past_days = $period[1];
 	// 					// 											}
-																	
-																	
+
+
 	// 					// 											$start_date = \DateTime::createFromFormat('Y-m-d', $start_date_str);
 	// 					// 											$end_date = \DateTime::createFromFormat('Y-m-d', $end_date_str);
 	// 					// 											// pre($start_date);
@@ -3238,13 +3217,13 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 											} else {
 	// 					// 												$start_date->modify("-$future_days days");
 	// 					// 												$end_date->modify("+$past_days days");
-																
+
 	// 					// 												$start_date_iso = $start_date->format('Y-m-d');
 	// 					// 												$end_date_iso = $end_date->format('Y-m-d');
-																
+
 	// 					// 												$interval = $start_date->diff($end_date);
 	// 					// 												$num_days = $interval->days;
-							
+
 	// 					// 							$html .= ' <div class="container">
 	// 					// 										<div class="row d-flex justify-content" style="position: relative; box-shadow:rgba(70, 93, 239, 0.34) 0px 3px 15px; width:400px" >
 	// 					// 										<div class="col-12 d-flex overflow-hidden" id="calender-month" style="padding:0px !important">
@@ -3256,103 +3235,103 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">February<div class="month-cal" id="year-date"> &nbsp;2024	</div></h4>
 	// 					// 											<ul class="days" id="february"></ul>
 	// 					// 											</div>
-																							
+
 	// 					// 											<div class="col-12 month-content" id="march-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">March <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="march"></ul>
 	// 					// 											</div>
-															
+
 	// 					// 											<div class="col-12 month-content" id="april-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">April<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="april"></ul>
 	// 					// 											</div>
-															
+
 	// 					// 											<div class="col-12 month-content" id="may-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">May <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="may"></ul>
 	// 					// 											</div>
-															
+
 	// 					// 											<div class="col-12 month-content" id="june-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">June <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="june"></ul>
 	// 					// 											</div>
-															
+
 	// 					// 											<div class="col-12 month-content" id="july-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">July <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="july"></ul>
 	// 					// 											</div>
-															
+
 	// 					// 											<div class="col-12 month-content" id="august-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">August <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="august"></ul>
 	// 					// 											</div>
-															
+
 	// 					// 											<div class="col-12 month-content" id="september-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">September<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="september"></ul>
 	// 					// 											</div>
-															
+
 	// 					// 											<div class="col-12 month-content" id="october-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">October <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="october"></ul>
 	// 					// 											</div>
-															
+
 	// 					// 											<div class="col-12 month-content" id="november-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">November<div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="november"></ul>
 	// 					// 											</div>
-															
+
 	// 					// 											<div class="col-12 month-content" id="december-content">
 	// 					// 											<h4 class="d-flex justify-content-center" style="margin-bottom:10px;">December <div class="month-cal" id="year-date"> &nbsp;2024</div></h4>
 	// 					// 											<ul class="days" id="december"></ul>
 	// 					// 											</div>
 	// 					// 											</div>
-																	
+
 	// 					// 											<div class="col-12" style="margin-top:30px;">
 	// 					// 												<ul id="yearSelect" style="display:none;">
 	// 					// 												</ul>
 	// 					// 											</div>
-																	
-																
+
+
 	// 					// 											<button class="btn btn-primary d-flex justify-content-center align-items-center prev-btn" style="position:absolute; top:0px; left0px; width:33px; height:33px;"><</button>
 	// 					// 											<button class="btn btn-primary d-flex justify-content-center align-items-center next-btn" style="position:absolute; top:0px; right:0px; width:33px; height:33px;">></button>
 	// 					// 											</div>
 	// 					// 											</div>';
-							
-																	
-																	
-									
+
+
+
+
 	// 					// 									$html .= '<script>
 	// 					// 									$(document).ready(function() {
-							
+
 	// 					// 										function daysInMonth(month, year) {
 	// 					// 											return new Date(year, month + 1, 0).getDate();
 	// 					// 										}
-															
+
 	// 					// 										var weekdays = '.$weekdays.';
-														
+
 	// 					// 										function generateDays(monthId, month, year) {
 	// 					// 											const daysCount = daysInMonth(month, year);
 	// 					// 											const firstDay = new Date(year, month, 1).getDay();
 	// 					// 											const ul = $("#" + monthId);
 	// 					// 											ul.empty();
-														
+
 	// 					// 											const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 	// 					// 											daysOfWeek.forEach(function(day) {
 	// 					// 												ul.append("<li>" + day + "</li>");
 	// 					// 											});
-														
+
 	// 					// 											for (let i = 0; i < firstDay; i++) {
 	// 					// 												ul.append("<li></li>");
 	// 					// 											}
-														
+
 	// 					// 											const startDate = new Date("'. $start_date_iso .'");
 	// 					// 											const endDate = new Date("'. $end_date_iso .'");
-														
+
 	// 					// 											for (let i = 1; i <= daysCount; i++) {
 	// 					// 												const currentDate = new Date(year, month, i);
 	// 					// 												const currentDay = currentDate.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
-														
+
 	// 					// 												// Check if period is empty
 	// 					// 												if (' . (empty($period) ? "true" : "false") . ') {
 	// 					// 													// Only consider dates within the range of start_date and end_date
@@ -3373,55 +3352,55 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 														ul.append("<li class=\"disabled\">" + i + "</li>");
 	// 					// 													}
 	// 					// 												}
-	
+
 	// 					// 											}
 	// 					// 										}
-																
+
 	// 					// 										function generateCalendar(year) {
 	// 					// 											for (let i = 0; i < 12; i++) {
 	// 					// 												generateDays(getMonthId(i), i, year);
 	// 					// 											}
 	// 					// 										}
-															
+
 	// 					// 										function getMonthId(monthIndex) {
 	// 					// 											const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
 	// 					// 											return months[monthIndex];
 	// 					// 										}
-															
+
 	// 					// 										function populateYearSelect() {
 	// 					// 											const startYear = 2001;
 	// 					// 											const endYear = 2090;
 	// 					// 											const select = $("#yearSelect");
-																
+
 	// 					// 											for (let year = startYear; year <= endYear; year++) {
 	// 					// 												select.append("<li>" + year + "</li>");
 	// 					// 											}
 	// 					// 										}
-															
+
 	// 					// 										populateYearSelect();
 	// 					// 										generateCalendar(new Date().getFullYear());
-															
+
 	// 					// 										$(".month-content").not("#january-content").hide();
-															
+
 	// 					// 										$(".month-cal").click(function() {
 	// 					// 											$(".month-content").addClass("d-none");
 	// 					// 											$("#yearSelect").show();
 	// 					// 										});
-															
+
 	// 					// 										$(".prev-btn").click(function() {
 	// 					// 											const currentMonth = $(".month-content:visible");
 	// 					// 											currentMonth.hide();
 	// 					// 											const prevMonth = currentMonth.prev().length ? currentMonth.prev() : $(".month-content").last();
 	// 					// 											prevMonth.show();
 	// 					// 										});
-															
+
 	// 					// 										$(".next-btn").click(function() {
 	// 					// 											const currentMonth = $(".month-content:visible");
 	// 					// 											currentMonth.hide();
 	// 					// 											const nextMonth = currentMonth.next().length ? currentMonth.next() : $(".month-content").first();
 	// 					// 											nextMonth.show();
 	// 					// 										});
-															
+
 	// 					// 										$(document).on("click", "#yearSelect li", function() {
 	// 					// 											const selectedYear = $(this).text();
 	// 					// 											generateCalendar(selectedYear);
@@ -3429,20 +3408,20 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 											$(".month-cal").text(selectedYear);
 	// 					// 											$(".month-content").removeClass("d-none");
 	// 					// 										});
-															
+
 	// 					// 										$(document).on("click", ".days li", function() {
 	// 					// 											$(this).addClass("color");
 	// 					// 											$(this).siblings("li").removeClass("color");
 	// 					// 										});
-																
+
 	// 					// 										$(document).on("click", ".day-time", function () {
 	// 					// 											var day = $(this).text();
 	// 					// 											var month = $(this).closest(".month-content").attr("id").split("-")[0];
 	// 					// 											var year = $("#year-date").text();
-							
+
 	// 					// 											$(".answer_chat").val(day + " " + month + year);
 	// 					// 										});
-															
+
 	// 					// 										$(document).on("click", "#yearSelect li", function() {
 	// 					// 											const selectedYear = $(this).text();
 	// 					// 											generateCalendar(selectedYear);
@@ -3451,26 +3430,26 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 											$(".month-content").removeClass("d-none");
 	// 					// 										});
 	// 					// 									});
-							
-							
-															
+
+
+
 	// 					// 									</script>';
 	// 					// 								}
 	// 					// 							}
 	// 					// 						} else if($value['type_of_question'] == "23"){
-	
+
 	// 					// 					$html .= '<div class="col">
-															
+
 	// 					// 									<div class="shadow-lg rounded-4 border p-4 bg-white d-flex justify-content-center">
 	// 					// 										<div class="col-10">
 	// 					// 											<div>
 	// 					// 												<span>' . $value['question'] . '</span>
 	// 					// 											</div>';
-												
+
 	// 					// 											$urlnavigatroData = json_decode($value['menu_message'], true);
-	
+
 	// 					// 											if (isset($urlnavigatroData[0]['url_navigator_select'])) {									
-																	
+
 	// 					// 												$html .= '<div class="d-flex flex-wrap mt-2">';
 	// 					// 												foreach ($urlnavigatroData as $data) {
 	// 					// 													$imageName = $data['url_navigator_select'];
@@ -3481,9 +3460,9 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 													}else if($imageName == "Twitter"){
 	// 					// 														$imageSrc = "https://www.page.smatbot.com/assets/twiter-5c5e8b47.svg";
 	// 					// 													}else if($imageName == "Linkedin"){
-																			
+
 	// 					// 													}else if($imageName == "Youtube"){
-																			
+
 	// 					// 													}else if($imageName == "Messenger"){
 	// 					// 														$imageSrc = "https://www.page.smatbot.com/assets/messanger-a053b50d.svg";
 	// 					// 													}else if($imageName == "Google_Plus"){
@@ -3491,7 +3470,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 													}else if($imageName == "Call"){
 	// 					// 														$imageSrc = "https://www.page.smatbot.com/assets/call-cb6467cb.svg";
 	// 					// 													}else if($imageName == "Whatsapp"){
-																				
+
 	// 					// 													}else if($imageName == "URL"){
 	// 					// 														$imageSrc = "https://www.page.smatbot.com/assets/link-4ffb5844.svg";
 	// 					// 													}else if($imageName == "Refresh_chat"){
@@ -3499,7 +3478,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 													}else if($imageName == "close_Chat"){
 	// 					// 														$imageSrc = "https://www.page.smatbot.com/assets/delete-0612a90c.svg";
 	// 					// 													}
-																			
+
 	// 					// 													$html .= '<div class="me-2 text-center">
 	// 					// 																<a href="' . $data['url_link'] . '" class="d-block">
 	// 					// 																	<img src="' . $imageSrc . '" alt="#" style="width:30px;height:30px" class="rounded-circle">
@@ -3507,12 +3486,12 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 																</a>
 	// 					// 															</div>';
 	// 					// 												}
-																	
+
 	// 					// 												$html .= '</div></div></div>';
 	// 					// 											}												
-	
+
 	// 					// 						$html .= '<div class="shadow-lg"></div>';
-												
+
 	// 					// 					// }
 	// 					// 				} else if($value['type_of_question'] == "24"){
 	// 					// 					$formData = json_decode($value['menu_message'], true);
@@ -3522,14 +3501,14 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 										' . $value['question'] . '
 	// 					// 									</span>
 	// 					// 								</div>';
-											
+
 	// 					// 					$product_image = isset($formData[0]['product_image']) ? base_url('') . '/assets/bot_image/' . $formData[0]['product_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
 	// 					// 					$product_title = isset($formData[0]['product_title']) ? $formData[0]['product_title'] : '';
 	// 					// 					$product_button_text = isset($formData[0]['product_button_text']) ? $formData[0]['product_button_text'] : '';
 	// 					// 					$product_description = isset($formData[0]['product_description']) ? $formData[0]['product_description'] : '';
 	// 					// 					$product_button_url = isset($formData[0]['product_button_url']) ? $formData[0]['product_button_url'] : '';
 	// 					// 					$product_url = isset($formData[0]['product_url']) ? $formData[0]['product_url'] : '';
-	
+
 	// 					// 					if(isset($formData[0]['product_image']) || isset($formData[0]['product_button_text'])){
 	// 					// 						$html .= '
 	// 					// 									<div class="col-12 text-center">
@@ -3551,7 +3530,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 										' . $value['question'] . '
 	// 					// 									</span>
 	// 					// 								</div>';
-	
+
 	// 					// 					$carouselData = json_decode($value['menu_message'], true);
 	// 					// 					$carousel_image = isset($carouselData[0]['carousel_image']) ? base_url('') . '/assets/bot_image/' . $carouselData[0]['carousel_image'] : 'https://custpostimages.s3.ap-south-1.amazonaws.com/18280/1708079256055.png';
 	// 					// 					if(isset($carouselData[0]['carousel_image'])){
@@ -3573,14 +3552,14 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 										<th class="border p-2">Name</th>
 	// 					// 										<th class="border p-2">Contact(s)</th>
 	// 					// 									</tr>';
-										
+
 	// 					// 					foreach ($contactsData as $contact) {
 	// 					// 						$html .= '<tr class="border p-2 rounded-2">
 	// 					// 									<td class="border p-2">' . $contact['contact_name'] . '</td>
 	// 					// 									<td class="border p-2">' . $contact['contact_number'] . '</td>
 	// 					// 								</tr>';
 	// 					// 					}
-												
+
 	// 					// 					$html .= '</table>
 	// 					// 							</div> 
 	// 					// 							<div class="col ">
@@ -3594,7 +3573,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 										</div>
 	// 					// 									</span>
 	// 					// 								</div>';
-	
+
 	// 					// 				}else if ($value['type_of_question'] == "29") {
 	// 					// 					$html .= '<div class="col">
 	// 					// 									<div class="col-12 mb-2">
@@ -3611,14 +3590,14 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 				else if($value['type_of_question'] == "30"){
 	// 					// 					$url_redirect_Data = json_decode($value['menu_message'], true);
 	// 					// 					$url_reditrect = isset($url_redirect_Data['redirect_url']) ? $url_redirect_Data['redirect_url'] : '';
-										
+
 	// 					// 					$html .= '<div class="col">
 	// 					// 											<div class="col-12 mb-2">
 	// 					// 												<a href="'.$url_reditrect.'" class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id text-dark" data-conversation-id="' . $value['id'] . '">
 	// 					// 													' . $value['question'] . '
 	// 					// 												</a>
 	// 					// 											</div>';
-																	
+
 	// 					// 				}else if($value['type_of_question'] == "40" || $value['type_of_question'] == "42"){
 	// 					// 					$html .= '<div class="col">
 	// 					// 									<div class="col-12 mb-2">
@@ -3626,9 +3605,9 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 											' . $value['question'] . '
 	// 					// 										</span>
 	// 					// 									';
-	
+
 	// 					// 						$menu_list_Data = json_decode($value['menu_message'], true);
-												
+
 	// 					// 						if(isset($menu_list_Data['options_value']['options'])){
 	// 					// 							$optionsArray = explode(';', $menu_list_Data['options_value']['options']);
 	// 					// 							foreach ($optionsArray as $option) {
@@ -3641,18 +3620,18 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 							}
 	// 					// 						}
 	// 					// 				}
-										
+
 	// 					// 				else {
-										
+
 	// 					// 					$html .= '<div class="col">
 	// 					// 											<div class="col-12 mb-2">
 	// 					// 												<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
 	// 					// 													' . $value['question'] . '
 	// 					// 												</span>
 	// 					// 											</div>';
-																	
+
 	// 					// 				}
-	
+
 	// 					// 				if (($value['type_of_question'] == 6 && $value['skip_question'] == 1) || ($value['type_of_question'] == 10 && $value['skip_question'] == 1) || ($value['type_of_question'] == 11 && $value['skip_question'] == 1) || ($value['type_of_question'] == 12 && $value['skip_question'] == 1) || ($value['type_of_question'] == 13 && $value['skip_question'] == 1) || ($value['type_of_question'] == 14 && $value['skip_question'] == 1)) {
 	// 					// 					$html .= '<div class="col-12 mb-2">
 	// 					// 												<button class="btn bg-primary rounded-3 text-white skip_questioned hide_skip_btn">
@@ -3660,8 +3639,8 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 												</button>
 	// 					// 											</div>';
 	// 					// 				}
-	
-	
+
+
 	// 					// 				$menuOptions = json_decode($value['menu_message'], true);
 	// 					// 				if (isset($menuOptions['rating_type']) && $menuOptions['rating_type'] === "smilies") {
 	// 					// 					// Output the HTML snippet for smilies
@@ -3669,7 +3648,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 									<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 	// 					// 										<div class="text-center pt-4">Please rate</div>
 	// 					// 											<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
-															
+
 	// 					// 												<div class="col-2 mb-2 option-wrapper">
 	// 					// 													<button class="bg-transparent fs-14" onclick="rating(this, \'Great\')" style="border:none !important; font-size:25px !important">😍</button>
 	// 					// 												</div>
@@ -3700,7 +3679,7 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'Sad\')" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
 	// 					// 													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'Bad\')" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
 	// 					// 												</div>
-																	
+
 	// 					// 											</div>';
 	// 					// 				} else if (isset($menuOptions['rating_type']) == "numbers") {
 	// 					// 					$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
@@ -3728,15 +3707,15 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 									</div>';
 	// 					// 				} else {
 	// 					// 				}
-	
+
 	// 					// 				if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 	// 					// 					$menuOptions = json_decode($value['menu_message'], true);
-											
-											
+
+
 	// 					// 					if (isset($menuOptions['options_value']['options'])) {
 	// 					// 						$options = explode(';', $menuOptions['options_value']['options']);
 	// 					// 						$nextQuestionsArray = explode(',', $value['next_questions']);
-	
+
 	// 					// 						foreach ($options as $index => $option) {
 	// 					// 							$nextQuestion = isset($nextQuestionsArray[$index]) ? $nextQuestionsArray[$index] : '';
 	// 					// 							// pre($nextQuestion);
@@ -3746,11 +3725,11 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 						}
 	// 					// 					}
 	// 					// 				}
-										
-										
+
+
 	// 					// 				if (!empty($value['menu_message']) && $value['type_of_question'] == 4) {
 	// 					// 					$menuOptions = json_decode($value['menu_message'], true);
-	
+
 	// 					// 					if (isset($menuOptions['options'])) {
 	// 					// 						$options = explode(';', $menuOptions['options']);
 	// 					// 						$html .= '<div class="col-12 mb-2 option-wrapper">';
@@ -3769,18 +3748,18 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 										</div>';
 	// 					// 					}
 	// 					// 				}
-	
+
 	// 					// 				$html .= '</div>';
 	// 					// 				$html .= '<script>
-													
+
 	// 					// 							function selectOption(button, value) {
 	// 					// 								$(".answer_chat").val(value); 
 	// 					// 								var nextQuestion = $(button).data("next_questions");
 	// 					// 								console.log("Next Question:", nextQuestion); 
-														
+
 	// 					// 								insertAnswer(nextQuestion);
 	// 					// 							}
-	
+
 	// 					// 							function submitOptions() {
 	// 					// 								var selectedOptions = [];
 	// 					// 								$(".option-check:checked").each(function() {
@@ -3807,40 +3786,40 @@ $timezone = new \DateTimeZone(date_default_timezone_get());
 	// 					// 								insertAnswer();
 	// 					// 							}
 	// 					// 						</script>';
-												
-													
+
+
 	// 					// 			}
 	// 					// 		}
-								
+
 	// 					// 	}
-							
+
 	// 					// }
 
-    //                     if (!empty($rows_data)) {
-    //                         $sql = 'SELECT * FROM admin_bot_setup LIMIT 1';
-    //                         $result = $conn->query($sql);
+	//                     if (!empty($rows_data)) {
+	//                         $sql = 'SELECT * FROM admin_bot_setup LIMIT 1';
+	//                         $result = $conn->query($sql);
 	// 						$bot_chat_data = $result->getResultArray();
-    //                         // pre($bot_chat_data);
-    //                         foreach ($bot_chat_data as $value) {
-    //                             $response = 1;
-    //                             $message = 'Question Send sussefully !';
-    //                         }
-    //                     }
+	//                         // pre($bot_chat_data);
+	//                         foreach ($bot_chat_data as $value) {
+	//                             $response = 1;
+	//                             $message = 'Question Send sussefully !';
+	//                         }
+	//                     }
 
 	// 				}
-				
+
 	// 			}
 	// 		}
 	// 	}
 
 
-    //     $result = [];
-    //     if ($response == 1) {
-    //         $result['success'] = ['status' => true, 'message' => $message,'question' => $value['question']];
-    //     } else {
-    //         $result['error'] = ['status' => false, 'message' => $message];
-    //     }
-    //     return json_encode($result);
+	//     $result = [];
+	//     if ($response == 1) {
+	//         $result['success'] = ['status' => true, 'message' => $message,'question' => $value['question']];
+	//     } else {
+	//         $result['error'] = ['status' => false, 'message' => $message];
+	//     }
+	//     return json_encode($result);
 
 	// }
 }
