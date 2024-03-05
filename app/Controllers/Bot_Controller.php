@@ -2561,15 +2561,15 @@ class Bot_Controller extends BaseController
 					if ($_POST['page_id'] == $massage_value['from']['id']) {
 						$html .= '
 								<div class="d-flex mb-4 justify-content-end" >
-                                <div class="col-9 text-end">
-									<span class="me-2" style="font-size:12px;">' . $time . '</span> <span class="px-3 py-2 rounded-pill text-white" style="background:rgb(10, 124, 255);">' . $message . ' </span> 
+                                <div class="col-9 text-end d-flex flex-row justify-content-end align-items-center">
+									<span class="me-2 text-center text-nowrap" style="font-size:12px;">' . $time . '</span> <span class="px-2 py-2 rounded-4 text-wrap text-start text-white fs-12" style="background:rgb(10, 124, 255);overflow-wrap: anywhere;">' . $message . ' </span> 
                                 </div>
                             </div>';
 					} else {
 						$html .= '
-							<div class="d-flex mb-4 ">
-								<div class="col-9 text-start">
-									<span class="px-3 py-2 rounded-pill  " style="background:#f3f3f3;">' . $message . ' </span> <span class="ms-2" style="font-size:12px;">' . $time . '</span>
+							<div class="d-flex mb-4 justify-content-start align-items-center ">
+								<div class="col-9 text-start d-flex d-inline-flex align-items-center">
+									<span class="px-2 py-2 rounded-4 text-wrap d-inline-flex text-start text-dark fs-12" style="background:#f3f3f3;overflow-wrap: anywhere;">' . $message . ' </span> <span class="ms-2 text-center text-nowrap" style="font-size:12px;">' . $time . '</span>
 								</div>
 							</div>';
 					}
@@ -2620,11 +2620,11 @@ class Bot_Controller extends BaseController
 				$return['status'] = 1;
 				$return['msg'] = "Successfully Inserted!";
 				$return['html'] = '
-								<div class="d-flex mb-4 justify-content-end" >
-								<div class="col-9 text-end">
-									<span class="me-2" style="font-size:12px;">' . $time . '</span> <span class="px-3 py-2 rounded-pill text-white" style="background:rgb(10, 124, 255);">' . $message . ' </span> 
-								</div>
-							</div>';
+				<div class="d-flex mb-4 justify-content-end" >
+				<div class="col-9 text-end d-flex d-inline-flex justify-content-end align-items-center">
+					<span class="me-2 text-center text-nowrap" style="font-size:12px;">' . $time . '</span> <span class="px-2 py-2 rounded-4 text-wrap text-start text-white fs-12" style="background:rgb(10, 124, 255);overflow-wrap: anywhere;">' . $message . ' </span> 
+				</div>
+			</div>';
 			}
 		} else {
 			$msg = '';
