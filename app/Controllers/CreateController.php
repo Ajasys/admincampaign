@@ -439,6 +439,8 @@ class CreateController extends BaseController
                         <div class="my-auto btn-text">Comment</div>
                     </button>
                 </div>
+
+                
             <div class=" mb-2 mb-md-0 p-0 px-1" style="width:fit-content;data-toggle="modal" data-target="#sharemodal" >
             <div class="btn w-100 text-muted d-flex p-0 border-0" data-toggle="modal"  data-attachment_post="' . $fb_upload_img . '" data-target="#sharemodal"  id="post_commnet_modal"><i class="fa-solid fa-share mx-2 my-auto"></i><div class="my-auto">share</div></div>
         </div>
