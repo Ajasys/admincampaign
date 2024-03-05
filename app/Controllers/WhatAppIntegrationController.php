@@ -2816,7 +2816,7 @@ class WhatAppIntegrationController extends BaseController
                                 $msgtext2 = $predataarray[0]['message_contant'];
                             }
 
-                            $msgtext2 = $predataarray[0]['message_contant'];
+                            $msgtext2 = str_replace('"', '',$predataarray[0]['message_contant']);
 
                             //                             $html .= ' <div class="d-flex mb-4 justify-content-start">
 //                         <div class="col-9 text-start">
@@ -2838,17 +2838,17 @@ $html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
                                 <div class="col-9 d-flex flex-wrap justify-content-start">
                                     <div class="d-flex rounded-2 p-1 flex-wrap justify-content-start" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
                                         <div class="rounded-2 bg-transparent shadow-sm col-12 border-start border-4 px-2 py-2 d-flex flex-wrap" style="background:#FFF;min-width:76px;border-color:#724EBF !important;">
-                                            <span class="col-12 px-1 fw-bold fs-6 text-primary">
+                                            <span class="col-12 px-1 fw-bold fs-6 text-primary ReplayMSGaccountName">
                                             Ajasys Technology
                                             </span>
                                             <span class="col-12 px-1 fw-normal fs-6 text-secondary-emphasis text-wrap">
-                                            ' . $msgtext2 . '
+                                            ' . $msgtext . '
                                             </span>
                                         </div>
                                         <span class="col-12"></span>
                                         <span class="fs-14 mt-1 fw-medium p-1 col-12 rounded-2 text-start position-relative pe-2" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
                                                 <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
-                                                ' . $msgtext . '
+                                                ' . $msgtext2 . '
                                                 </p>
                                                 <span class="position-absolute bottom-0 end-0 me-1">
                                                     <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
@@ -2866,7 +2866,7 @@ $html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
 
         if ($html != '') {
             $html .= '
-        <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom(); $(".massage_input").val("");</script> ';
+        <script>$(".massage_list_loader").hide(); $(".noRecourdFound").hide(); scrollToBottom(); $(".massage_input").val(""); var ReplayMSGaccountName = $(".WhatsAppAccountName").text(); $(".ReplayMSGaccountName").text(ReplayMSGaccountName);</script> ';
         } else {
             $html .= '<script>$(".accordion_item_div").hide();$(".massage_list_loader").hide(); $(".noRecourdFound").show(); scrollToBottom();</script>';
         }

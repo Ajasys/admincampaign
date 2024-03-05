@@ -783,7 +783,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     <div class="col-12 border  bg-white position-relative rounded-3 overflow-hidden position-relative"
                         style="height:80vh">
                         <div class="chat-nav-search-bar chat-header p-2 col-12 text-white">
-                            <div class="d-flex justify-content-start  align-items-center">
+                            <div class="d-flex justify-content-between  align-items-center">
                             <div class="d-lg-none">
                                     <button class="back-button text-white border-0 bg-transparent py-1 px-1">
                                         <i class="fa-solid fa-angle-left fs-6 fa-lg" ></i>
@@ -794,7 +794,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                     <h5 class="fs-5 w-semibold">Chats</h5>
                                 </div>
                                 <div class="">
-                                    <p class="page_name d-flex"></p>
+                                    <p class="page_name d-flex align-items-center"></p>
                                 </div>
                             </div>
                         </div>
@@ -2460,7 +2460,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.SendWhatsAppMessage').attr('DataSenderId', id);
         var phoneno = $(this).attr('phoneno');
         var name = $(this).attr('name');
-        $('.page_name').html('<p class="WhatsAppAccountName">' + name + '</p><button class="btn-primary-rounded add AddModelContactNO  ms-2" phoneno="' + phoneno + '" conversation_id = "' + id + '"  data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Add Contact" type="button" data-bs-toggle="modal" data-bs-target="#modal_view" aria-describedby="tooltip576329" aria-controls="inquiry_all_status_update"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M28 22.5h-3.5V19a1 1 0 0 0-2 0v3.5H19a1 1 0 0 0 0 2h3.5V28a1 1 0 0 0 2 0v-3.5H28a1 1 0 0 0 0-2z" fill="#f3f3f3" opacity="1" data-original="#f3f3f3" class=""></path><path d="M16 29H6a1 1 0 0 1-1-1 11.013 11.013 0 0 1 11-11 8.025 8.025 0 1 0-4.289-1.258A13.012 13.012 0 0 0 3 28a3 3 0 0 0 3 3h10a1 1 0 0 0 0-2zM10 9a6 6 0 1 1 6 6 6.006 6.006 0 0 1-6-6z" fill="#f3f3f3" opacity="1" data-original="#f3f3f3" class=""></path></g></svg></button>');
+        $('.page_name').html('<p class="WhatsAppAccountName ">' + name + '</p><button class="btn-primary-rounded add AddModelContactNO  ms-2" phoneno="' + phoneno + '" conversation_id = "' + id + '"  data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Add Contact" type="button" data-bs-toggle="modal" data-bs-target="#modal_view" aria-describedby="tooltip576329" aria-controls="inquiry_all_status_update"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M28 22.5h-3.5V19a1 1 0 0 0-2 0v3.5H19a1 1 0 0 0 0 2h3.5V28a1 1 0 0 0 2 0v-3.5H28a1 1 0 0 0 0-2z" fill="#f3f3f3" opacity="1" data-original="#f3f3f3" class=""></path><path d="M16 29H6a1 1 0 0 1-1-1 11.013 11.013 0 0 1 11-11 8.025 8.025 0 1 0-4.289-1.258A13.012 13.012 0 0 0 3 28a3 3 0 0 0 3 3h10a1 1 0 0 0 0-2zM10 9a6 6 0 1 1 6 6 6.006 6.006 0 0 1-6-6z" fill="#f3f3f3" opacity="1" data-original="#f3f3f3" class=""></path></g></svg></button>');
         $.ajax({
             method: "post",
             url: "WhatsAppAccountsContactList",
