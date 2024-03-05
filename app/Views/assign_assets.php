@@ -316,8 +316,8 @@ $user_data = $user_result->getResultArray();
                                             </div> -->
                                         </div>
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button collapsed m-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <h2 class="accordion-header whatsapp_div active-part">
+                                                <button class="accordion-button accordion-button-arrow collapsed m-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                         <g>
                                                             <g data-name="Layer 2">
@@ -335,10 +335,10 @@ $user_data = $user_result->getResultArray();
                                                     <p class="ms-2">whatsapp</p>
                                                 </button>
                                             </h2>
-                                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                            <!-- <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <!-- <div class="border-to pages_div btn_dark border-bottom rounded-1 p-2">
@@ -398,6 +398,31 @@ $user_data = $user_result->getResultArray();
                                             <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
                                             <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
                                             <p>@ajasystechnologiies</p>
+                                        </div>
+                                    </div>
+                                    <!-- instagram div  -->
+                                    <div class="whatsapp_div_to d-none">
+                                        <!-- <div class="d-flex justify-content-between ms-3 me-3 mt-2">
+                                            <div>
+                                                <p>Search & Fliter</p>
+                                            </div>
+                                            <div><i class="bi bi-search"></i></div>
+                                        </div> -->
+                                        <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
+                                            <div class="d-flex align-items-center" style="height: 45px;">
+                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                                                <div class="col fs-6 fw-semibold">
+                                                    Select all
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ms-3 me-3 mt-2 d-flex align-items-center">
+                                            <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
+                                            <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
+                                            <div class="d-flex flex-wrap">
+                                                <p class="col-12"> whatsapp</p>
+                                                <p class="fs-14 text-muted ">+91 9911223344</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -472,7 +497,7 @@ $user_data = $user_result->getResultArray();
                                             </div>
                                         </div>
                                         <!-- instagram -->
-                                        <div class="instagram_div_to d-non col-12 overflow-y-scroll" style="height:90vh;">
+                                        <div class="instagram_div_to d-none col-12 overflow-y-scroll" style="height:90vh;">
                                             <div>
                                                 <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
@@ -514,11 +539,58 @@ $user_data = $user_result->getResultArray();
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <!-- whatsapp -->
+                                        <div class="whatsapp_div_to d-none col-12 ovwhatsappscroll" style="height:90vh;">
+                                            <div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Messages whatsapp</p>
+                                                        <p class="ms-3">Send and respond to direct messages as the
+                                                            Instagram account.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Post</p>
+                                                        <p class="ms-3">Create, manage or delete posts, stories and more as the Instagram account. View posts from other Instagram accounts that this account follows.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-2 d-flex align-items-center">
+                                                    <div class="col-1">
+                                                        <label class="switch_toggle_primary">
+                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                            <span class="check_input_primary round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <p class="col ms-3 fw-bold fs-14">Comments</p>
+                                                        <p class="ms-3">Create and manage comment for the Instagram
+                                                            account.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reloadPage()">Close</button>
+                    <buaddClassbutton" class="btn btn-primary assign_permission" id="assign_permission">Save
+                    <buaddClassbutton" class="btn btn-primary assign_pinstagram_div_tossign_permission">Save
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reloadPage()">Close</button>
@@ -586,14 +658,21 @@ $user_data = $user_result->getResultArray();
         $("body").on("click", ".pages_div", function() {
             $(".Pages_div").removeClass("d-none");
             $(".instagram_div_to").addClass("d-none");
+            $(".whatsapp_div_to").addClass("d-none");
             $('.active-part1').removeClass('d-none');
             // $('.data-404').addClass('d-none');
         });
         $('body').on('click', '.active-part', function() {
             $('.data-404').addClass('d-none');
         })
+        $("body").on("click", ".whatsapp_div", function() {
+            $(".Pages_div").addClass("d-none");
+            $(".instagram_div_to").addClass("d-none");
+            $(".whatsapp_div_to").removeClass("d-none");
+        });
         $("body").on("click", ".instagram_div", function() {
             $(".Pages_div").addClass("d-none");
+            $(".whatsapp_div_to").addClass("d-none");
             $(".instagram_div_to").removeClass("d-none");
         });
         $("body").on("click", ".assign_asset", function() {
