@@ -456,7 +456,7 @@ class WhatAppIntegrationController extends BaseController
         $name = $_POST['name'];
         $table_username = getMasterUsername2();
         $Database = \Config\Database::connect('second');
-        $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . " AND boatstatus = " . $listdatastatus . ") AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE account_phone_no = '" . $phoneno . "' AND conversation_account_id = '" . $id . "' AND boatstatus = " . $listdatastatus . "  ORDER BY last_inserted_id DESC;
+        $sql = "SELECT " . $table_username . "_platform_assets.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_platform_assets.contact_no AND platform_account_id = " . $id . " AND boatstatus = " . $listdatastatus . ") AS last_inserted_id FROM " . $table_username . "_platform_assets WHERE account_phone_no = '" . $phoneno . "' AND conversation_account_id = '" . $id . "' AND boatstatus = " . $listdatastatus . "  ORDER BY last_inserted_id DESC;
         ";
         $Getresult = $Database->query($sql);
         $GetData = $Getresult->getResultArray();
@@ -2234,7 +2234,7 @@ class WhatAppIntegrationController extends BaseController
                 if (intval($MobileNoCount) == '10') {
                     $MobileNoOutput = '91' . str_replace([' ', '+'], '', $value['assest_id']);
                 }
-                $sql2 = 'SELECT * FROM `' . $table_username . '_social_accounts` WHERE conversation_account_id = "' . $_POST['conversation_account_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
+                $sql2 = 'SELECT * FROM `' . $table_username . '_platform_assets` WHERE conversation_account_id = "' . $_POST['conversation_account_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
                 $Getresult = $Database->query($sql2);
 
 
@@ -2568,12 +2568,12 @@ class WhatAppIntegrationController extends BaseController
                 $insert_data['contact_no'] = $_POST['phone_no'];
                 $insert_data['conversation_account_id'] = $_POST['connection_id'];
                 $insert_data['account_phone_no'] = $_POST['account_phone_no'];
-                $this->MasterInformationModel->insert_entry2($insert_data, $username . '_social_accounts');
+                $this->MasterInformationModel->insert_entry2($insert_data, $username . '_platform_assets');
             } elseif ($_POST['action'] == 'manualcontactadd') {
                 $table_username = getMasterUsername2();
                 $Database = \Config\Database::connect('second');
                 $Digi10Number = substr($_POST['phone_no'], -10);
-                $sql2 = 'SELECT * FROM `' . $table_username . '_social_accounts` WHERE conversation_account_id = "' . $_POST['connection_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
+                $sql2 = 'SELECT * FROM `' . $table_username . '_platform_assets` WHERE conversation_account_id = "' . $_POST['connection_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
                 $Getresult = $Database->query($sql2);
                 $returnno = 0;
                 if ($Getresult->getNumRows() > 0) {
@@ -2584,11 +2584,18 @@ class WhatAppIntegrationController extends BaseController
                     $insert_data['contact_no'] = $_POST['phone_no'];
                     $insert_data['conversation_account_id'] = $_POST['connection_id'];
                     $insert_data['account_phone_no'] = $_POST['account_phone_no'];
-                    $this->MasterInformationModel->insert_entry2($insert_data, $username . '_social_accounts');
+
+                    $insert_data['platform_id'] = $_POST['connection_id'];
+                    if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
+                        $insert_data['master_id'] = '1';
+                    }else{
+                        $insert_data['master_id'] = $_SESSION['id'];
+                    }
+                    $insert_data['asset_type'] = 'contact';
+
+                    $this->MasterInformationModel->insert_entry2($insert_data, $username . '_platform_assets');
                     $returnno = 1;
                 }
-
-
                 echo $returnno;
             }
         }

@@ -217,25 +217,7 @@ class Home extends BaseController
 
        
         $table_username = session_username($_SESSION['username']);
-        $social_accounts = [
-            'id int(255) primary key AUTO_INCREMENT',
-            'name longtext',
-            'platform_status int(10) NOT NULL DEFAULT 0 COMMENT "1-WhatsApp & 2-Facebook"',
-            'platform_account int(255) NOT NULL',
-            'profilepath longtext',
-            'whatsapp_name longtext',
-            'contact_no varchar(255) NOT NULL',
-            'account_phone_no varchar(255) NOT NULL',
-            'phone_number_id longtext',
-            'conversation_account_id int(255) NOT NULL',
-            'msg_read_status int(255) NOT NULL DEFAULT 0 COMMENT "0-unread & 1-read"',
-            'boatstatus int(255) NOT NULL DEFAULT 0 COMMENT "0-chatactive & 1-boatactive"',
-            'is_valid_boat_ans int(255) NOT NULL DEFAULT 0 COMMENT "0-No && 1-Valid"',
-            'next_boat_question int(255) NOT NULL DEFAULT 0 COMMENT "0-No question && Others Means Have next question"',
-            'boat_question_id int(255) NOT NULL DEFAULT 0',
 
-        ];
-        $table = tableCreateAndTableUpdate2($table_username . '_social_accounts', '', $social_accounts);
 
         $messages = [
             'id int(255) primary key AUTO_INCREMENT',
@@ -345,7 +327,7 @@ class Home extends BaseController
         ];
         $table3 = tableCreateAndTableUpdate2($table_name3, '', $columns3);
 
-
+        // 05-03-2024 10-29
         $table_asset = $table_username . '_platform_assets';
         $columns_asset = [
             'id int primary key AUTO_INCREMENT',
@@ -356,12 +338,24 @@ class Home extends BaseController
             "access_token longtext NOT NULL",
             "asset_img text NOT NULL",
             "name text NOT NULL",
+            'platform_status int(10) NOT NULL DEFAULT 0 COMMENT "1-WhatsApp & 2-Facebook"',
+            'platform_account int(255) NOT NULL',
+            'profilepath longtext',
+            'whatsapp_name longtext',
+            'contact_no varchar(255) NOT NULL',
+            'account_phone_no varchar(255) NOT NULL',
+            'phone_number_id longtext',
+            'conversation_account_id int(255) NOT NULL',
+            'msg_read_status int(255) NOT NULL DEFAULT 0 COMMENT "0-unread & 1-read"',
+            'boatstatus int(255) NOT NULL DEFAULT 0 COMMENT "0-chatactive & 1-boatactive"',
+            'is_valid_boat_ans int(255) NOT NULL DEFAULT 0 COMMENT "0-No && 1-Valid"',
+            'next_boat_question int(255) NOT NULL DEFAULT 0 COMMENT "0-No question && Others Means Have next question"',
+            'boat_question_id int(255) NOT NULL DEFAULT 0',
         ];
         $foreign_keysasset = [
             'FOREIGN KEY (platform_id) REFERENCES '.$table_username . '_platform_integration(id)',
         ];
         $table = tableCreateAndTableUpdate2($table_asset, '', $columns_asset, $foreign_keysasset);
-
 
         $table_assetpermission = $table_username . '_platform_assetpermission';
         $columns_assetpermission = [
@@ -645,7 +639,7 @@ class Home extends BaseController
                         $parts = explode("_", $inputString);
                         $table_username = $parts[0];
                         $Database = \Config\Database::connect('second');
-                        $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . " AND boatstatus = '0') AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE  account_phone_no = '" . $phoneno . "' AND boatstatus = '0' AND conversation_account_id = '" . $id . "' ORDER BY last_inserted_id DESC;
+                        $sql = "SELECT " . $table_username . "_platform_assets.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_platform_assets.contact_no AND platform_account_id = " . $id . " AND boatstatus = '0') AS last_inserted_id FROM " . $table_username . "_platform_assets WHERE  account_phone_no = '" . $phoneno . "' AND boatstatus = '0' AND conversation_account_id = '" . $id . "' ORDER BY last_inserted_id DESC;
                         ";
                         $Getresult = $Database->query($sql);
                         $GetData = $Getresult->getResultArray();
@@ -740,7 +734,7 @@ class Home extends BaseController
                             $parts = explode("_", $inputString);
                             $table_username = $parts[0];
                             $Database = \Config\Database::connect('second');
-                            $sql = "SELECT " . $table_username . "_social_accounts.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_social_accounts.contact_no AND platform_account_id = " . $id . " AND boatstatus = '0') AS last_inserted_id FROM " . $table_username . "_social_accounts WHERE  account_phone_no = '" . $phoneno . "' AND boatstatus = '0' AND conversation_account_id = '" . $id . "' ORDER BY last_inserted_id DESC;
+                            $sql = "SELECT " . $table_username . "_platform_assets.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_platform_assets.contact_no AND platform_account_id = " . $id . " AND boatstatus = '0') AS last_inserted_id FROM " . $table_username . "_platform_assets WHERE  account_phone_no = '" . $phoneno . "' AND boatstatus = '0' AND conversation_account_id = '" . $id . "' ORDER BY last_inserted_id DESC;
                                 ";
                             $Getresult = $Database->query($sql);
                             $GetData = $Getresult->getResultArray();
