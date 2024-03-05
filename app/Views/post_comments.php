@@ -214,54 +214,11 @@ $get_facebook_page = $result->getResultArray();
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show"
                                     data-bs-parent="#accordionExample">
-                                    <div class="accordion-body account_list p-0">
+                                    <div class="accordion-body account_list p-0 FbListedMessage">
                                         <div
                                             class="col-12 border  bg-white p-3 d-flex flex-wrap flex-column justify-content-between">
                                             <!--  facebook page get start -->
-                                            <?php
-                                            $token = 'EAADNF4vVgk0BOZC9xv12rXJMZB2w89sVBvUolkbVdqJi4h3jgPKptQggn79kF30z8PF4DH768OZAhMBv6C7iZCFRFXd6Jg5Q0DUW7WC2VoAs9UUxNXjjYgU63wJzEZAgO6RqMitjvgaZAUvGR4hNi944vZAxmbboUySpSKGKD7O0U5ITqZA7GvuKWaXoKBbhfWj2';
-                                            $fb_page_list = fb_insta_page_list($token);
-                                            $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                                            $i = 0;
-                                            foreach ($fb_page_list['page_list'] as $key => $value) {
-                                                $pageprofile = fb_page_img($value->id, $value->access_token);
-                                                $img_decode = json_decode($pageprofile, true);
-                                                ?>
-
-                                                <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
-                                                    <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])): ?>
-                                                        <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>"
-                                                            data-acess_token="<?php echo $value->access_token; ?>"
-                                                            data-pagee_id="<?php echo $value->id; ?>"
-                                                            data-page_name="<?php echo $value->name; ?>"
-                                                            data-img="<?php echo $img_decode['page_img']; ?>">
-                                                            <img class="rounded-circle me-2"
-                                                                src="<?php echo $img_decode['page_img']; ?>" alt="#"
-                                                                style="width:30px;height:30px;object-fit-container" />
-                                                            <div class="col">
-                                                                <?php echo $value->name ?>
-                                                            </div>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                </div>
-                                                <!-- <div class="col-12 d-flex flex-wrap align-items-start">
-                                <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)): ?>
-                                    <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post"
-                                                            data-pagee_id="<?php if (isset($value->instagram_business_account)) {
-                                                                echo $value->id;
-                                                            } ?>" data-page_name="<?php echo $value->instagram_business_account->username; ?>"
-                                                            data-img="<?php echo $img_decode['page_img']; ?>"
-                                                            data-acess_token="<?php echo $value->access_token; ?>">
-                                        <?php if (isset($value->instagram_business_account->username)): ?>
-                                            <?php echo $value->instagram_business_account->username; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div> -->
-
-
-                                                <?php $i++;
-                                            } ?>
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -303,12 +260,13 @@ $get_facebook_page = $result->getResultArray();
                                             <P class="ms-2">Facebook</P>
                                         </button>
                                     </h2>
+                                    
                                     <div id="flush-collapseOne"
                                         class="accordion-collapse collapse  SwitchAccountTimeSetFacebookHtml"
                                         data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
                                             <div
-                                                class="col-12   bg-white  d-flex flex-wrap flex-column justify-content-between">
+                                                class="col-12 bg-white  d-flex flex-wrap flex-column justify-content-between">
 
 
                                                 <!--  facebook page get start -->
@@ -370,7 +328,7 @@ $get_facebook_page = $result->getResultArray();
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
+                                <div class="accordion-item IgListedMessage">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed p-2 ps-3" type="button"
                                             data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
@@ -923,7 +881,7 @@ $get_facebook_page = $result->getResultArray();
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary sharepost" id="sharepost"
-                    data-attachment_post="">Share</button>
+                    data-attachment_post= "">Share</button>
             </div>
 
         </div>
@@ -1092,7 +1050,7 @@ $get_facebook_page = $result->getResultArray();
                         $('.img_show_comment').html(response.img_show_comment);
                         $('.like_comment_count').html(response.like_comment_count);
                         $('.like_count').hide();
-
+                        $('.comment_loader').hide();
 
 
 
@@ -1154,6 +1112,8 @@ $get_facebook_page = $result->getResultArray();
                 var page_name = $(this).attr('data-page_name');
                 var data_img = $(this).attr('data-img');
 
+
+              
                 $.ajax({
                     type: 'post',
                     url: '<?= base_url('list_post_pagewise') ?>',
@@ -1192,6 +1152,8 @@ $get_facebook_page = $result->getResultArray();
             setTimeout(function () {
                 $('.first').trigger('click');
             }, 300);
+
+            
 
 
             $(".draft_create").click(function (e) {
@@ -1677,4 +1639,15 @@ $get_facebook_page = $result->getResultArray();
                     });
                 }
             });
+
+
+            $('body').on('click','.like_show',function () {
+                $('.like_count').show();
+            })
+            $('body').on('click','.send_comment',function () {
+                // alert();
+                $('.comment_loader').show();
+            })
+          
+            
         </script>
