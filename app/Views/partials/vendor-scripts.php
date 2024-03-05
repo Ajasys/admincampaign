@@ -2,7 +2,7 @@
 <script src="https://rudrram.com/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
 <!-- ===bootstrap-links -->
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script> -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 
 <!-- Sweet alert init js-->
 <script src="https://rudrram.com/assets/js/pages/sweet-alerts.init.js"></script>
@@ -29,8 +29,9 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <!-- ======select-picker====== -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
-<!-- <script src="https://rudrram.com/assets/js/bootstrap-select.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script> -->
+<script src="https://rudrram.com/assets/js/bootstrap-select.min.js"></script>
+
 
 <!-- comun-css -->
 <style>
