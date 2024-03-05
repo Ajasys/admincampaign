@@ -3092,46 +3092,81 @@ if (!empty($connections)) {
 
         });
 
-
-
         $('.SaveBtnDiv').on('click', function(e) {
-    e.preventDefault();
-    
-    var uploade_file = $('#import_file').prop('files')[0];
-    
-    if (uploade_file) { // Check if uploade_file is not empty
-        var fullmsg = $('.preview-chat-paragraph').html();
-        if (!originalHTML) {
-            originalHTML = $('.preview-chat-paragraph .BodyValue').html();
-        }
-        $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
-        $('.preview-chat-paragraph').html(fullmsg);
-        var form = $("form[name='master_membership_update_form']")[0];
-        var formData = new FormData(form);
-        formData.append('uploade_file', uploade_file);
-        formData.append('action', true);
+            e.preventDefault();
+            var bodydivvalues = [];
+            var variableValuesArray = $(this).attr('varvalues');
+            bodydivvalues = variableValuesArray.split(',');
+            var originalHTML = $(this).attr('modifiedhtml');
 
-        $.ajax({
-            dataType: 'json',
-            method: "POST",
-            url: "bulk_set_variable_value",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(res) {
-                $('.loader').hide();
-                $('#sendbtn').attr('modifiedhtml', res.modifiedHTML);
-                $('#view_modal').modal('show');
-                $('.EditTemplateButtonClass').addClass('d-none');
-                $('.Add_editModelTitle').addClass('d-none');
-                $('.TemplateDeleteBtnDiv').addClass('d-none');
-                $('.preview-header-paragraphVIDEO').hide();
-            },
+
+            var template_id = $('#header12 option:selected').attr('DataMNo');
+            console.log(template_id);
+
+            var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
+
+            var uploade_file = $('#import_file').prop('files')[0];
+            if (uploade_file ) {
+
+                var fullmsg = $('.preview-chat-paragraph').html();
+                $('.preview-chat-paragraph').html(fullmsg);
+                var form = $("form[name='master_membership_update_form']")[0];
+                var formData = new FormData(form);
+                formData.append('uploade_file', uploade_file);
+                formData.append('connectionid', WhatsAppConnectionsDropDown);
+                formData.append('originalHTML', originalHTML);
+                formData.append('bodydivvalues', bodydivvalues);
+                formData.append('template_id', template_id);
+                formData.append('action', true);
+                $('.loader').show();
+
+                $.ajax({
+                    method: "post",
+                    url: "bulk_whatsapp_template_send",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        $('.loader').hide();
+
+                        $('#view_modal').modal('hide');
+                        $('.header_div').html('');
+                        $('.language_div').val('');
+                        $('#import_file').val('');
+                        if (data == 1) {
+
+                            list_data();
+                            $(".membershipDiv")[0].reset();
+                            $(".membershipDiv").removeClass("was-validated");
+                            $(".close_btn").trigger("click");
+                            iziToast.success({
+                                title: 'Messagae Sent Successfully'
+                            });
+                            var viewdataElement = document.querySelector('.viewdata');
+                            if (viewdataElement) {
+                                viewdataElement.click();
+                            }
+                            list_data();
+                        } else {
+                            $(".membershipDiv")[0].reset();
+                            $(".close_btn").trigger("click");
+                            iziToast.error({
+                                title: 'Something went wrong!'
+                            });
+                            $(".membershipDiv").addClass("was-validated");
+                        }
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                $("#validationid").addClass("was-validated");
+            }
         });
-    } else {
-        $("#validationid").addClass("was-validated");
-    }
-});
+
+
+        
 
 
         var SendURL;
@@ -3168,6 +3203,8 @@ if (!empty($connections)) {
                 var language = $('.language_div').val();
                 var countrey_code = $('.iti__selected-dial-code').text();
                 var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
+                $('.loader').show();
+
                 $.ajax({
                     dataType: 'json',
                     method: "POST",
@@ -3186,6 +3223,7 @@ if (!empty($connections)) {
                     },
                     success: function(res) {
                         $('.preview-chat-paragraph .BodyValue').html('');
+                        $('.loader').hide();
 
                         $('#view_modal').modal('hide');
                         $('#mobile_code').val('');
@@ -3193,7 +3231,6 @@ if (!empty($connections)) {
                         $('.BodyValue').html('');
                         $('.language_div').val('');
                         list_data();
-                        $('.loader').hide();
                         if (res == '1') {
                             iziToast.success({
                                 title: 'Messagae Sent Successfully'
@@ -3290,112 +3327,7 @@ if (!empty($connections)) {
                 });
             };
         });
-        // $('body').on('click', '#sendbtn', function() {
-        //     var Template_name = $('#header12').val();
-        //     var language = $('.language_div').val();
-        //     var shedualdate = $('#fromDate_edit').val();
-        //     var shedualtime = $('.dailyinputfields').val();
-        //     var uploade_file = $('#import_file').prop('files')[0];
-        //     var fullmsg = $('.preview-chat-paragraph').html();
-        //     $('.preview-chat-paragraph').html(fullmsg);
-        //     var form = $("form[name='master_membership_update_form']")[0];
-        //     var formData = new FormData(form);
-        //     formData.append('Template_name', Template_name);
-        //     formData.append('language', language);
-        //     formData.append('uploade_file', uploade_file);
-        //     formData.append('shedualdate', shedualdate);
-        //     formData.append('shedualtime', shedualtime);
-        //     formData.append('action', true);
-        //     $.ajax({
-        //         method: "post",
-        //         url: "bulk_whatsapp_template_send",
-        //         data: formData,
-        //         processData: false,
-        //         contentType: false,
-        //         success: function(data) {
-        //             if (data == 0) {
-        //                 list_data();
-        //                 $(".membershipDiv")[0].reset();
-        //                 $(".membershipDiv").removeClass("was-validated");
-        //                 $(".close_btn").trigger("click");
-        //                 iziToast.success({
-        //                     title: 'Messagae Sent Successfully'
-        //                 });
-        //                 list_data();
-        //             } else {
-        //                 $('.loader').hide();
-        //                 $(".membershipDiv")[0].reset();
-        //                 $(".close_btn").trigger("click");
-        //                 iziToast.error({
-        //                     title: 'Duplicate package'
-        //                 });
-        //                 $(".membershipDiv").addClass("was-validated");
-        //             }
-        //         },
-        //         error: function(error) {
-        //             console.error(error);
-        //         }
-        //     });
-        // });
-        // $('body').on('click', '#sendbtn', function() {
-        //     var bodydivvalues = [];
-        //     $('.inputypeBody').each(function() {
-        //         var bodydivvalue = $(this).val();
-        //         bodydivvalues.push(bodydivvalue);
-        //     });
-        //     if (!originalHTML) {
-        //         originalHTML = $('.preview-chat-paragraph .BodyValue').html();
-        //     }
-        //     var body = $('.preview-chat-paragraph .BodyValue').html();
-        //     $('.preview-chat-paragraph .msg-text-chat').html(body);
-        //     $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
-        //     var newbody = JSON.stringify(body);
-        //     var header = $('.header_div').val();
-        //     var template_id = $('.header_div option:selected').attr('DataMNo');
-        //     var phone_no = $('.phone_number_div').val();
-        //     var language = $('.language_div').val();
-        //     var countrey_code = $('.iti__selected-dial-code').text();
-        //     var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
-        //     $.ajax({
-        //         dataType: 'json',
-        //         method: "POST",
-        //         url: "single_whatsapp_template_sent",
-        //         data: {
-        //             'template_name': header,
-        //             'phone_no': phone_no,
-        //             'language': language,
-        //             'template_id': template_id,
-        //             'countrey_code': countrey_code,
-        //             'action': true,
-        //             'connectionid': WhatsAppConnectionsDropDown,
-        //             'newbody': newbody,
-        //             'bodydivvalues': bodydivvalues,
-        //             'originalHTML': originalHTML,
-        //         },
-        //         success: function(res) {
-        //             $('#view_modal').modal('hide');
-        //             $('#mobile_code').val('');
-        //             $('.header_div').html('');
-        //             $('.language_div').val('refresh');
-        //             list_data();
-        //             $('.loader').hide();
-        //             if (res == '1') {
-        //                 iziToast.success({
-        //                     title: "Template sent successfully"
-        //                 });
-        //                 var viewdataElement = document.querySelector('.viewdata');
-        //                 if (viewdataElement) {
-        //                     viewdataElement.click();
-        //                 }
-        //                 list_data();
-        //             } else {
-        //                 iziToast.error({
-        //                     title: 'Something went wrong!'
-        //                 });
-        //             }
-        //         },
-        //     });
-        // });
+       
         $('body').on('change', '.ButtonSelctionDropDown', function() {
             $('.SetButtonHTMLClass').html('');
         });
