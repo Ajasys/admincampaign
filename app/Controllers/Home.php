@@ -896,7 +896,7 @@ class Home extends BaseController
             'email varchar(255) NOT NULL',
             'address varchar(255) NOT NULL',
             'source varchar(255) NOT NULL',
-            'inquiry_data inmangeT NULL',
+            'inquiry_data int(11) NOT NULL',
             'pages_name varchar(255) NOT NULL',
             'facebook_syncro int(11) NOT NULL',
         ];
