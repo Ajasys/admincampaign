@@ -23,6 +23,7 @@ class AssetPermissionController extends BaseController
     function facebook_pageasset()
     {
         $action = $this->request->getPost("action");
+        $type = $this->request->getPost("type");
         $connection_id = $this->request->getPost("connection_id");
         $errorMsg = 'Something Went wrong..!';
         $resultff = array();
@@ -31,175 +32,172 @@ class AssetPermissionController extends BaseController
         $html = "";
         $permission_html = '';
         if ($action == "user") {
-            $html .= '<div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
-                        <div class="d-flex align-items-center" style="height: 45px;">
-                            <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
-                            <div class="col fs-6 fw-semibold">
-                                Select all
-                            </div>
-                        </div>
-                    </div><div class="col-12 overflow-x-hidden" style="height:500px;">
-                    <ul class="overflow-y-scroll" style="height:490px;">';
-            
-                $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages'";
-                $asset_result = $this->db->query($asset_query);
-                $pageresult = $asset_result->getResultArray();
-                if (isset($pageresult)) {
-                    $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`)as asset_id,GROUP_CONCAT(`assetpermission_name`)as assetpermission_name FROM " . $this->username . "_platform_assetpermission WHERE `user_id`=" . $_POST['user_id'];
-                    $assetpermission_result = $this->db->query($assetpermission_query);
-                    $per_result = $assetpermission_result->getResult();
-                    $perassetid_data = [];
-                    $perassetname_data = [];
-                    if (isset($per_result[0])) {
-                        $perassetid_data = explode(',', $per_result[0]->asset_id);
-                    }
-                    if (isset($per_result[0])) {
-                        $perassetname_data = explode(',', $per_result[0]->assetpermission_name);
-                    }
 
-                    foreach ($pageresult as $aa_key => $aa_value) {
-                        $cheked = '';
-                        if (in_array($aa_value['id'], $perassetid_data)) {
-                            $cheked = 'checked';
-                        }
+            if ($type == "facebook") {
+                $html .= '<div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
+                <div class="d-flex align-items-center" style="height: 45px;">
+                    <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                    <div class="col fs-6 fw-semibold">
+                        Select all
+                    </div>
+                </div>
+                        </div><div class="col-12 overflow-x-hidden" style="height:500px;">
+                        <ul class="overflow-y-scroll" style="height:490px;">';
 
-                        $longLivedAccessToken = $aa_value['access_token'];
-                        $html .=  '<li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
-                                    <input type="checkbox" class="me-2 rounded-3 selectedId" name="page_id" value="' . $aa_value['id'] . '" style="width:18px;height:18px;"  ' . $cheked . '>
-                                    <img class="rounded-circle me-1" src="' . $aa_value['asset_img'] . '" alt="" style="width:30px;height:30px">
-                                    <p class="col">' . $aa_value['name'] . '</p>
-                                </li>';
-                    }
+                            $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages'";
+                            $asset_result = $this->db->query($asset_query);
+                            $pageresult = $asset_result->getResultArray();
+                            if (isset($pageresult)) {
+                                $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`)as asset_id,GROUP_CONCAT(`assetpermission_name`)as assetpermission_name FROM " . $this->username . "_platform_assetpermission WHERE `user_id`=" . $_POST['user_id'];
+                                $assetpermission_result = $this->db->query($assetpermission_query);
+                                $per_result = $assetpermission_result->getResult();
+                                $perassetid_data = [];
+                                $perassetname_data = [];
+                                if (isset($per_result[0])) {
+                                    $perassetid_data = explode(',', $per_result[0]->asset_id);
+                                }
+                                if (isset($per_result[0])) {
+                                    $perassetname_data = explode(',', $per_result[0]->assetpermission_name);
+                                }
 
-                    // for assign permission
-                    $create_scenarios = '';
-                    $leads = '';
-                    $post = '';
-                    $comments = '';
-                    $messages = '';
-                    if (in_array('create_scenarios', $perassetname_data)) {
-                        $create_scenarios = 'checked';
-                    }
-                    if (in_array('leads', $perassetname_data)) {
-                        $leads = 'checked';
-                    }
-                    if (in_array('fbpost', $perassetname_data)) {
-                        $post = 'checked';
-                    }
-                    if (in_array('fbcomments', $perassetname_data)) {
-                        $comments = 'checked';
-                    }
-                    if (in_array('fbmessages', $perassetname_data)) {
-                        $messages = 'checked';
-                    }
+                                foreach ($pageresult as $aa_key => $aa_value) {
+                                    $cheked = '';
+                                    if (in_array($aa_value['id'], $perassetid_data)) {
+                                        $cheked = 'checked';
+                                    }
+
+                                    $longLivedAccessToken = $aa_value['access_token'];
+                                    $html .=  '<li class="cursor-pointer py-2 ps-3 account-box d-flex  flex-wrap align-items-center active-account-box select_part_checkbox">
+                                        <input type="checkbox" class="me-2 rounded-3 selectedId" name="page_id" value="' . $aa_value['id'] . '" style="width:18px;height:18px;"  ' . $cheked . '>
+                                        <img class="rounded-circle me-1" src="' . $aa_value['asset_img'] . '" alt="" style="width:30px;height:30px">
+                                        <p class="col">' . $aa_value['name'] . '</p>
+                                    </li>';
+                                }
+
+                                // for assign permission
+                                $create_scenarios = '';
+                                $leads = '';
+                                $post = '';
+                                $comments = '';
+                                $messages = '';
+                                if (in_array('create_scenarios', $perassetname_data)) {
+                                    $create_scenarios = 'checked';
+                                }
+                                if (in_array('leads', $perassetname_data)) {
+                                    $leads = 'checked';
+                                }
+                                if (in_array('fbpost', $perassetname_data)) {
+                                    $post = 'checked';
+                                }
+                                if (in_array('fbcomments', $perassetname_data)) {
+                                    $comments = 'checked';
+                                }
+                                if (in_array('fbmessages', $perassetname_data)) {
+                                    $messages = 'checked';
+                                }
 
 
-                    $permission_html = '<div class="col-12 p-2 d-flex align-items-center">
-                                            <div class="col-1">
-                                                <label class="switch_toggle_primary">
-                                                    <input
-                                                        class="toggle-checkbox fs-3 on_off_btn_Desktop create_scenarios"
-                                                        type="checkbox" value="create_scenarios" ' . $create_scenarios . '>
-                                                    <span class="check_input_primary round"></span>
-                                                </label>
+                                $permission_html = '<div class="col-12 p-2 d-flex align-items-center">
+                                                <div class="col-1">
+                                                    <label class="switch_toggle_primary">
+                                                        <input
+                                                            class="toggle-checkbox fs-3 on_off_btn_Desktop create_scenarios"
+                                                            type="checkbox" value="create_scenarios" ' . $create_scenarios . '>
+                                                        <span class="check_input_primary round"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p class="col ms-3 fw-bold fs-14">Create Scenarios</p>
+                                                    <p class="ms-3">Create, manage or delete scenarios for lead
+                                                        retrieval.</p>
+                                                </div>
                                             </div>
-                                            <div class="col-11">
-                                                <p class="col ms-3 fw-bold fs-14">Create Scenarios</p>
-                                                <p class="ms-3">Create, manage or delete scenarios for lead
-                                                    retrieval.</p>
+                                            <div class="col-12 p-2 d-flex align-items-center">
+                                                <div class="col-1">
+                                                    <label class="switch_toggle_primary">
+                                                        <input class="toggle-checkbox fs-3 on_off_btn_Desktop leads"
+                                                            type="checkbox" value="leads"  ' . $leads . '>
+                                                        <span class="check_input_primary round"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p class="col ms-3 fw-bold fs-14">Leads</p>
+                                                    <p class="ms-3">Access and view leads.</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 p-2 d-flex align-items-center">
-                                            <div class="col-1">
-                                                <label class="switch_toggle_primary">
-                                                    <input class="toggle-checkbox fs-3 on_off_btn_Desktop leads"
-                                                        type="checkbox" value="leads"  ' . $leads . '>
-                                                    <span class="check_input_primary round"></span>
-                                                </label>
+                                            <div class="col-12 p-2 d-flex align-items-center">
+                                                <div class="col-1">
+                                                    <label class="switch_toggle_primary">
+                                                        <input
+                                                            class="toggle-checkbox fs-3 on_off_btn_Desktop fbpost"
+                                                            type="checkbox" value="fbpost"  ' . $post . '>
+                                                        <span class="check_input_primary round"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p class="col ms-3 fw-bold fs-14">Post</p>
+                                                    <p class="ms-3">Create, view and manage their post.
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div class="col-11">
-                                                <p class="col ms-3 fw-bold fs-14">Leads</p>
-                                                <p class="ms-3">Access and view leads.</p>
+                                            <div class="col-12 p-2 d-flex align-items-center">
+                                                <div class="col-1">
+                                                    <label class="switch_toggle_primary">
+                                                        <input
+                                                            class="toggle-checkbox fs-3 on_off_btn_Desktop fbcomments"
+                                                            type="checkbox" value="fbcomments"  ' . $comments . '>
+                                                        <span class="check_input_primary round"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p class="col ms-3 fw-bold fs-14">Comments</p>
+                                                    <p class="ms-3">Create, view and manage their comments.
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 p-2 d-flex align-items-center">
-                                            <div class="col-1">
-                                                <label class="switch_toggle_primary">
-                                                    <input
-                                                        class="toggle-checkbox fs-3 on_off_btn_Desktop fbpost"
-                                                        type="checkbox" value="fbpost"  '.$post.'>
-                                                    <span class="check_input_primary round"></span>
-                                                </label>
-                                            </div>
-                                            <div class="col-11">
-                                                <p class="col ms-3 fw-bold fs-14">Post</p>
-                                                <p class="ms-3">Create, view and manage their post.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 p-2 d-flex align-items-center">
-                                            <div class="col-1">
-                                                <label class="switch_toggle_primary">
-                                                    <input
-                                                        class="toggle-checkbox fs-3 on_off_btn_Desktop fbcomments"
-                                                        type="checkbox" value="fbcomments"  ' . $comments . '>
-                                                    <span class="check_input_primary round"></span>
-                                                </label>
-                                            </div>
-                                            <div class="col-11">
-                                                <p class="col ms-3 fw-bold fs-14">Comments</p>
-                                                <p class="ms-3">Create, view and manage their comments.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 p-2 d-flex align-items-center">
-                                            <div class="col-1">
-                                                <label class="switch_toggle_primary">
-                                                    <input
-                                                        class="toggle-checkbox fs-3 on_off_btn_Desktop fbmessages"
-                                                        type="checkbox" value="fbmessages"  ' . $messages . '>
-                                                    <span class="check_input_primary round"></span>
-                                                </label>
-                                            </div>
-                                            <div class="col-11">
-                                                <p class="col ms-3 fw-bold fs-14">Messages</p>
-                                                <p class="ms-3">Manage facebook page messages.</p>
-                                            </div>
-                                        </div>';
-                    $Msg = 'Page list Successfully..';
-                } else {
-                    $Msg = 'Page does not exist..!';
-                }
-             
-            // else {
-            //     $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
-            //     foreach ($pageresult['data'] as $aa_key => $aa_value) {
-            //         $longLivedAccessToken = $aa_value['access_token'];
-            //         $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
-            //     }
-            //     if (isset($result['error']['message'])) {
-            //         $Msg = $result['error']['message'];
-            //     } else {
-            //         $Msg = 'Page list Succesfully..';
-            //     }
-            // }
-            $html .= '</ul>
-            </div>';
+                                            <div class="col-12 p-2 d-flex align-items-center">
+                                                <div class="col-1">
+                                                    <label class="switch_toggle_primary">
+                                                        <input
+                                                            class="toggle-checkbox fs-3 on_off_btn_Desktop fbmessages"
+                                                            type="checkbox" value="fbmessages"  ' . $messages . '>
+                                                        <span class="check_input_primary round"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-11">
+                                                    <p class="col ms-3 fw-bold fs-14">Messages</p>
+                                                    <p class="ms-3">Manage facebook page messages.</p>
+                                                </div>
+                                            </div>';
+                                $Msg = 'Page list Successfully..';
+                            } else {
+                                $Msg = 'Page does not exist..!';
+                            }
+
+
+                            $html .= '</ul>
+                </div>';
+            }
+            else if ($type == "whatsapp") {
+                
+            }
+
+
+
 
             $resultff['response'] = 1;
             $resultff['message'] = $Msg;
         }
         $resultff['html'] = $html;
         $resultff['permission_html'] = $permission_html;
-        if (isset($per_result[0]))
-        {
+        if (isset($per_result[0])) {
             $asset_permissions_array = explode(',', $per_result[0]->assetpermission_name);
             $unique_asset_permissions = array_unique($asset_permissions_array);
             $asset_permissions_string = implode(',', $unique_asset_permissions);
             $resultff['permission_name'] = $asset_permissions_string;
             $resultff['asset_id'] = $per_result[0]->asset_id;
         }
-       
+
         return json_encode($resultff);
         die();
     }

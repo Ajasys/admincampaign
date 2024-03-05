@@ -105,7 +105,7 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                     </div>
                                     <div class="accordion" id="accordionExample">
-                                        <div class="accordion-item">
+                                        <div class="accordion-item list_asset_permission" data-asset-type="facebook">
                                             <h2 class="accordion-header active-part pages_div" id="collapseOne_in">
                                                 <button id="" class="accordion-button accordion-button-arrow collapsed m-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -173,7 +173,7 @@ $user_data = $user_result->getResultArray();
                                                     ?>
                                             </div> -->
                                         </div>
-                                        <div class="accordion-item">
+                                        <div class="accordion-item list_asset_permission" data-asset-type="instagram">
                                             <h2 class="accordion-header active-part instagram_div">
                                                 <button class="accordion-button accordion-button-arrow collapsed m-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -315,7 +315,7 @@ $user_data = $user_result->getResultArray();
                                                 </div>
                                             </div> -->
                                         </div>
-                                        <div class="accordion-item">
+                                        <div class="accordion-item list_asset_permission" data-asset-type="whatsapp">
                                             <h2 class="accordion-header whatsapp_div active-part">
                                                 <button class="accordion-button accordion-button-arrow collapsed m-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -416,14 +416,28 @@ $user_data = $user_result->getResultArray();
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="ms-3 me-3 mt-2 d-flex align-items-center">
-                                            <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
-                                            <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
-                                            <div class="d-flex flex-wrap">
-                                                <p class="col-12"> whatsapp</p>
-                                                <p class="fs-14 text-muted ">+91 9911223344</p>
-                                            </div>
-                                        </div>
+
+                                        <?php
+                                            $asset_query = "SELECT * FROM " . $table_username . "_platform_integration Where platform_status=1";
+                                            $asset_result = $db_connection->query($asset_query);
+                                            $pageresult = $asset_result->getResultArray();
+                                            if (isset($pageresult)) {
+                                                foreach ($pageresult as $aa_key => $aa_value) {
+                                                    ?>
+                                                    <div class="ms-3 me-3 mt-2 d-flex align-items-center">
+                                                        <input type="checkbox" id="selectall" value="<?php echo $aa_value['id']?>" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
+                                                        <img class="rounded-circle me-1" src="https://erp.gymsmart.in/assets/image/member.png" alt="" style="width:40px;height:40px">
+                                                        <div class="d-flex flex-wrap">
+                                                            <p class="col-12"><?php echo $aa_value['whatsapp_name']?></p>
+                                                            <p class="fs-14 text-muted "><?php echo $aa_value['whatsapp_number']?></p>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                                }
+                                            }
+
+                                        ?>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -550,9 +564,9 @@ $user_data = $user_result->getResultArray();
                                                         </label>
                                                     </div>
                                                     <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Messages whatsapp</p>
+                                                        <p class="col ms-3 fw-bold fs-14">Messages </p>
                                                         <p class="ms-3">Send and respond to direct messages as the
-                                                            Instagram account.</p>
+                                                            Whatsapp account.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 p-2 d-flex align-items-center">
@@ -683,13 +697,23 @@ $user_data = $user_result->getResultArray();
                 $('#select_user').val(0);
             }
         });
-        $("body").on("click", "#collapseOne_in", function() {
-            var fb_check_conn = $(this).attr('data-connection-check');
+        $("body").on("click", ".list_asset_permission", function() {
+            var type = $(this).attr('data-asset-type');
+            if(type=='facebook')
+            {
+                var fb_check_conn = $(this).attr('data-connection-check');
+            }
+            else if(type=='whatsapp')
+            {
+
+            }
+            
             $('.loader').show();
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_pageasset'); ?>",
                 data: {
+                    type:type,
                     fb_check_conn: fb_check_conn,
                     user_id: $('#select_user').val(),
                     action: 'user'
@@ -698,13 +722,15 @@ $user_data = $user_result->getResultArray();
                     $('.loader').hide();
                     var result = JSON.parse(res);
                     if (result.response == 1) {
-                        $('.page_asset_list').html(result.html);
-                        $('.active-part1').html(result.permission_html);
+                        if(type=='facebook')
+                        {
+                            $('.page_asset_list').html(result.html);
+                            $('.active-part1').html(result.permission_html);
+                        }
+                       
                         selectedValues = result.permission_name.split(',');
                         $('#asset_array').val(selectedValues.join(','));
-                        // Set checkedValues to the asset IDs received from the server
                         checkedValues = result.asset_id.split(',');
-                        // Update the asset_ids field
                         updateAssetIds();
                     } else {
                         iziToast.error({
