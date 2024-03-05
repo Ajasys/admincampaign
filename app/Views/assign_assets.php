@@ -402,6 +402,7 @@ $user_data = $user_result->getResultArray();
                                             <p>@ajasystechnologiies</p>
                                         </div>
                                     </div>
+
                                     <!-- instagram div  -->
                                     <div class="whatsapp_div_to d-none">
                                         <!-- <div class="d-flex justify-content-between ms-3 me-3 mt-2">
@@ -507,7 +508,7 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                         <!-- whatsapp -->
                                         <div class="whatsapp_div_to d-none col-12 ovwhatsappscroll" style="height:90vh;">
-                                            <div>
+                                            <div class="whatsapp_div_permission">
                                                 <div class="col-12 p-2 d-flex align-items-center">
                                                     <div class="col-1">
                                                         <label class="switch_toggle_primary">
@@ -669,7 +670,7 @@ $user_data = $user_result->getResultArray();
                         }
                         else if(type=='whatsapp')
                         {
-
+                            $('.whatsapp_div_permission').html(result.permission_html);
                         }
                        
                         

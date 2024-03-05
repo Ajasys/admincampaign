@@ -34,30 +34,37 @@ class AssetPermissionController extends BaseController
         if ($action == "user") {
 
             if ($type == "facebook") {
-                $html .= '<div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center h-100 overflow-hidden">
-                <div class="d-flex align-items-center" style="height: 45px;">
-                    <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
-                    <div class="col fs-6 fw-semibold">
-                        Select all
-                    </div>
-                </div>
-            </div><div class="col-12 " >
-            <ul class="">';
+                $html .= '<div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom align-items-center  overflow-hidden">
+                            <div class="d-flex align-items-center" style="height: 45px;">
+                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                                <div class="col fs-6 fw-semibold">
+                                    Select all
+                                </div>
+                            </div>
+                        </div><div class="col-12 " >
+                        <ul class="">';
 
                 $asset_query = "SELECT * FROM " . $this->username . "_platform_assets Where asset_type='pages'";
                 $asset_result = $this->db->query($asset_query);
                 $pageresult = $asset_result->getResultArray();
                 if (isset($pageresult)) {
-                    $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`)as asset_id,GROUP_CONCAT(`assetpermission_name`)as assetpermission_name FROM " . $this->username . "_platform_assetpermission WHERE `user_id`=" . $_POST['user_id'];
+                    $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`) AS asset_ids, GROUP_CONCAT(`assetpermission_name`) AS asset_permissions 
+                          FROM " . $this->username . "_platform_assetpermission 
+                          WHERE `user_id` = " . $_POST['user_id'] . " 
+                          AND platform_type = 'facebook'";
                     $assetpermission_result = $this->db->query($assetpermission_query);
                     $per_result = $assetpermission_result->getResult();
                     $perassetid_data = [];
                     $perassetname_data = [];
-                    if (isset($per_result[0])) {
-                        $perassetid_data = explode(',', $per_result[0]->asset_id);
-                    }
-                    if (isset($per_result[0])) {
-                        $perassetname_data = explode(',', $per_result[0]->assetpermission_name);
+
+                    if (isset($per_result[0]) ) {
+                        if ($per_result[0]->asset_ids!='NULL') {
+                            $perassetid_data = explode(',', $per_result[0]->asset_ids);
+                        }
+                    
+                        if ($per_result[0]->asset_permissions!='NULL') {
+                            $perassetname_data = explode(',', $per_result[0]->asset_permissions);
+                        } 
                     }
 
                     foreach ($pageresult as $aa_key => $aa_value) {
@@ -178,22 +185,69 @@ class AssetPermissionController extends BaseController
                 $html .= '</ul>
                 </div>';
             } else if ($type == "whatsapp") {
+                $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`) AS asset_ids, GROUP_CONCAT(`assetpermission_name`) AS asset_permissions 
+                          FROM " . $this->username . "_platform_assetpermission 
+                          WHERE `user_id` = " . $_POST['user_id'] . " 
+                          AND platform_type = 'whatsapp'";
+                $assetpermission_result = $this->db->query($assetpermission_query);
+                $per_result = $assetpermission_result->getResult();
+                $perassetid_data = [];
+                $perassetname_data = [];
+                if (isset($per_result[0])) {
+                    $perassetid_data = explode(',', $per_result[0]->asset_ids);
+                }
+                if (isset($per_result[0])) {
+                    $perassetname_data = explode(',', $per_result[0]->asset_permissions);
+                }
+
+                // for assign permission
+                $wh_message = '';
+                $wh_template = '';
+                if (in_array('wh_message', $perassetname_data)) {
+                    $wh_message = 'checked';
+                }
+                if (in_array('wh_template', $perassetname_data)) {
+                    $wh_template = 'checked';
+                }
+
+                $permission_html = '<div class="col-12 p-2 d-flex align-items-center">
+                        <div class="col-1">
+                            <label class="switch_toggle_primary">
+                                <input class="toggle-checkbox fs-3 on_off_btn_Desktop" value="wh_message" type="checkbox" ' . $wh_message . '>
+                                <span class="check_input_primary round"></span>
+                            </label>
+                        </div>
+                        <div class="col-11">
+                            <p class="col ms-3 fw-bold fs-14">Messages</p>
+                            <p class="ms-3">Send and respond to direct messages as the
+                                Whatsapp account.</p>
+                        </div>
+                    </div>
+                    <div class="col-12 p-2 d-flex align-items-center">
+                        <div class="col-1">
+                            <label class="switch_toggle_primary">
+                                <input class="toggle-checkbox fs-3 on_off_btn_Desktop" value="wh_template" type="checkbox" ' . $wh_template . '>
+                                <span class="check_input_primary round"></span>
+                            </label>
+                        </div>
+                        <div class="col-11">
+                            <p class="col ms-3 fw-bold fs-14">Templates</p>
+                            <p class="ms-3">Create and manage as the Whatsapp account</p>
+                        </div>
+                    </div>';
             }
-
-
-
 
             $resultff['response'] = 1;
             $resultff['message'] = $Msg;
         }
         $resultff['html'] = $html;
         $resultff['permission_html'] = $permission_html;
-        if (isset($per_result[0])) {
-            $asset_permissions_array = explode(',', $per_result[0]->assetpermission_name);
+        if (isset($per_result[0]) && $per_result[0]->asset_permissions!='') {
+            $asset_permissions_array = explode(',', $per_result[0]->asset_permissions);
             $unique_asset_permissions = array_unique($asset_permissions_array);
             $asset_permissions_string = implode(',', $unique_asset_permissions);
             $resultff['permission_name'] = $asset_permissions_string;
-            $resultff['asset_id'] = $per_result[0]->asset_id;
+            $resultff['asset_id'] = $per_result[0]->asset_ids;
         }
 
         return json_encode($resultff);

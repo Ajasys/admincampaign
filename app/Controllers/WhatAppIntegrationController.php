@@ -1845,22 +1845,17 @@ class WhatAppIntegrationController extends BaseController
         $query90 = "SELECT * FROM $table_name WHERE platform_status = 1";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
-
         // pre($total_dataa_userr_22);
         // die();
-
         if (isset($total_dataa_userr_22[0])) {
             $settings_data = $result->getResultArray();
         } else {
             $settings_data = array();
         }
         $count = 0;
-
-            // pre();
-
+        // pre();
 
         if (!empty($settings_data)) {
-
             foreach ($settings_data as $key => $value) {
                 $phone_number_id = $value['phone_number_id'];
                 $business_account_id = $value['business_account_id'];
