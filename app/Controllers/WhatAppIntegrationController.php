@@ -2290,7 +2290,7 @@ class WhatAppIntegrationController extends BaseController
                                 <i class="fa-solid text-white fa-check-double fa-xs align-self-end" style="color: #fff;"></i>';
             } elseif ($value['message_status'] == '2') {
                 $readrecieptsymbole .= '
-                                <i class="fa-solid  fa-check-double fa-xs align-self-end" style="color: lightgreen;"></i>';
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path fill="#63cad8" fill-rule="evenodd" d="M16.68 6.266a1 1 0 0 1 .054 1.414l-9.007 9.723a1.83 1.83 0 0 1-2.704 0l-3.757-4.055a1 1 0 0 1 1.468-1.36l3.641 3.932 8.891-9.6a1 1 0 0 1 1.414-.054zm5 0a1 1 0 0 1 .054 1.414l-9.006 9.723a1 1 0 0 1-1.468-1.36l9.007-9.723a1 1 0 0 1 1.413-.054z" clip-rule="evenodd" opacity="1" data-original="#000000" class=""></path></g></svg>';
             } else {
                 $readrecieptsymbole .= '
                                 <i class="bi bi-exclamation-circle-fill text-danger fa-xs align-self-end"></i>';
@@ -2320,24 +2320,64 @@ class WhatAppIntegrationController extends BaseController
                     $msgtext = $value['message_contant'];
                 }
                 if ($sent_recieved_status == '2') {
+                    // $html .= '
+                    //     <div class="d-flex mb-4 ">
+                    //         <div class="col-9 text-start">
+                    //             <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $msgtext . ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
+                    //         </div>
+                    //     </div>';
+
                     $html .= '
-                        <div class="d-flex mb-4 ">
-                            <div class="col-9 text-start">
-                                <span class="px-3 py-2 rounded-3 " style="background:#f3f3f3;">' . $msgtext . ' </span> <span class="ms-2" style="font-size:12px;">' . $formattedtime . '</span>
+                        <div class="d-flex mb-4 col-12 justify-content-start ">
+                            <div class="col-9 p-2 text-start d-flex flex-wrap justify-content-start text-wrap align-items-center">
+                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#f3f3f3;overflow-wrap: break-word;min-width:76px">
+                                    <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+                                    ' . $msgtext . '
+                                    </p>
+                                    <span class="position-absolute bottom-0 end-0 me-1">
+                                        <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                    </span>
+                                </span>
                             </div>
                         </div>';
                 }
                 if ($sent_recieved_status == '1') {
-                    $html .= '
-                        <div class="d-flex mb-4 justify-content-end">
-                            <div class="col-9 text-end position-relative">
-                                <span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> 
-                                <span class="ps-3 pe-1 py-2 rounded-3 text-white container" style="background:#005c4b;">' . $msgtext . '
-                                    <span class="mx-1 align-self-end">' . $readrecieptsymbole . '</span>
+                    // $html .= '
+                    //     <div class="d-flex mb-4 justify-content-end">
+                    //         <div class="col-9 text-end position-relative">
+                    //             <span class="me-2 " style="font-size:12px;">' . $formattedtime . '</span> 
+                    //             <span class="ps-3 pe-1 py-2 rounded-3 text-white container" style="background:#005c4b;">' . $msgtext . '
+                    //                 <span class="mx-1 align-self-end">' . $readrecieptsymbole . '</span>
+                    //             </span>
+                    //         </div>
+
+                    //     </div>
+                    // ';
+
+                    // $html .= '
+                    //     <div class="d-flex mb-4 col-12 justify-content-end">
+                    //         <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                    //             <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                    //                 <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+                    //                 ' . $msgtext . '
+                    //                 </p>
+                    //                 <span class="position-absolute bottom-0 end-0 me-1">
+                    //                 <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                    //                 <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                    //                 </span>
+                    //             </span>
+                    //         </div>
+                    //     </div>';
+
+                    $html .= ' <div class="d-flex mb-4 col-12 justify-content-end ">
+                            <div class="col-9 text-start">
+                                <span class="px-3 py-2 rounded-3 text-white" style="background:#f3f3f3; display: inline-block; width:200px; overflow: hidden;">
+                                    <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
                                 </span>
+                                <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                    
                             </div>
-                        </div>
-                    ';
+                        </div>';
                 }
             } elseif ($msgtype == '3') {
                 if ($sent_recieved_status == '2') {
@@ -2376,7 +2416,7 @@ class WhatAppIntegrationController extends BaseController
                                 <div class="col-9 text-end">
 									<span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
                 
-                                <span class="px-3 py-2  rounded-3 text-white" style="background:#005c4b; display: inline-block; width:200px; overflow: hidden;">
+                                <span class="px-3 py-2 rounded-3 text-white" style="background:#DBF8C6; display: inline-block; width:200px; overflow: hidden;">
                                     <img src="' . base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $value['asset_file_name'] . '" style="max-width: 100%; height: auto; vertical-align: middle;">
                                     ' . $readrecieptsymbole . '
                                     </span> 
@@ -2399,48 +2439,111 @@ class WhatAppIntegrationController extends BaseController
                 }
             } elseif ($msgtype == '4') {
                 if ($sent_recieved_status == '2') {
+                    //     $html .= '
+                    //     <div class=" mb-4 justify-content-start">
+                    //     <div class="col-9 text-start">
+                    //         <span class="p-2 pb-3 rounded-3 bg-white text-white"
+                    //             style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
+                    //             <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
+                    //                 style="width:100%; height:auto;">
+                    //                 <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+                    //                 <div class="col-5 mx-4">
+                    //                     <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+                    //                     <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+                    //                 </div>
+                    //                 <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+                    //                     style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                    //             </div>
+                    //         </span>
+                    //         <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+
+                    //     </div>
+                    // </div>    
+                    //     ';
                     $html .= '
-                    <div class=" mb-4 justify-content-start">
-                    <div class="col-9 text-start">
-                        <span class="p-2 pb-3 rounded-3 bg-white text-white"
-                            style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
-                            <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
-                                style="width:100%; height:auto;">
-                                <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
-                                <div class="col-5 mx-4">
-                                    <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
-                                    <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
-                                </div>
-                                <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
-                                    style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                        <div class="d-flex mb-4 col-12 justify-content-end">
+                            <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                    <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
+                                        <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+                                        <div class="col-5 mx-4">
+                                            <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+                                            <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+                                        </div>
+                                        <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+                                            style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                                    </div>
+                                    <span class="position-absolute bottom-0 end-0 me-1">
+                                        <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                        <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                                    </span>
+                                </span>
                             </div>
-                        </span>
-                        <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-        
-                    </div>
-                </div>    
+                        </div>
                     ';
                 }
                 if ($sent_recieved_status == '1') {
-                    $html .= '<div class="d-flex mb-4 justify-content-end">
-                    <div class="col-9 text-end">
-                        <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-                        <span class="p-2 pb-3 rounded-3 text-white"
-                            style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
-                            <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
-                                style="width:100%; height:auto;">
-                                <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path></g></svg></div>
-                                <div class="col-5 mx-4">
-                                    <div class="text-start">' . $value['asset_file_name'] . '</div>
-                                    <div class="fs-10  text-start" style="color:lightgray">PNG . 11KB</div>
-                                </div>
-                                <div class="border-light border rounded-circle d-flex justify-content-center align-items-center px-3"
-                                    style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
-                                    ' . $readrecieptsymbole . '
+                    //     $html .= '<div class="d-flex mb-4 justify-content-end">
+                    //     <div class="col-9 text-end">
+                    //         <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
+                    //         <span class="p-2 pb-3 rounded-3 text-white"
+                    //             style="background:#005c4b; display: inline-block; min-width:35%; max-width:60%; height:auto; ">
+                    //             <div class=" d-flex col-12 rounded-3 text-white justify-content-between"
+                    //                 style="width:100%; height:auto;">
+                    //                 <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#fffff9" opacity="1" data-original="#fffff9" class=""></path></g></svg></div>
+                    //                 <div class="col-5 mx-4">
+                    //                     <div class="text-start">' . $value['asset_file_name'] . '</div>
+                    //                     <div class="fs-10  text-start" style="color:lightgray">PNG . 11KB</div>
+                    //                 </div>
+                    //                 <div class="border-light border rounded-circle d-flex justify-content-center align-items-center px-3"
+                    //                     style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                    //                     ' . $readrecieptsymbole . '
+                    //             </div>
+                    //         </span>
+                    //     </div>
+                    // </div>';
+                    $html .= '
+                        <div class="d-flex mb-4 col-12 justify-content-end">
+                            <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                    <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
+                                        <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+                                        <div class="col-5 mx-4">
+                                            <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+                                            <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+                                        </div>
+                                        <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+                                            style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                                    </div>
+                                    <span class="position-absolute bottom-0 end-0 me-1">
+                                        <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                        <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                                    </span>
+                                </span>
                             </div>
-                        </span>
-                    </div>
-                </div>';
+                        </div>
+                    ';
+                    $html .= '
+                        <div class="d-flex mb-4 col-12 justify-content-end">
+                            <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
+                                <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                    <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
+                                        <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
+                                        <div class="col-5 mx-4">
+                                            <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
+                                            <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
+                                        </div>
+                                        <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
+                                            style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
+                                    </div>
+                                    <span class="position-absolute bottom-0 end-0 me-1">
+                                        <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                        <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    ';
                 }
             } elseif ($msgtype == '5') {
 
@@ -2598,7 +2701,7 @@ class WhatAppIntegrationController extends BaseController
                         $html .= '        <div class="d-flex mb-4 mt-2 mt-md-0 mx-2">
                         <div class="col-9 text-start d-flex justify-content-start">
                             <div class="px-3 py-2 rounded-3 border border-2"
-                                style="background:#f3f3f3; width:fit-content; position:relative;">
+                                style="background:#DBF8C6; width:fit-content; position:relative;">
                                 <span class="user-message" style="position: relative; display: inline-block;">
                                     <a href="https://www.google.com/maps?q=' . $value['latitude'] . ',' . $value['longitude'] . '" target="_blank">
                                         <img src="http://localhost/admincampaign/assets/images/locationmap.webp" width="300px" height="200px">
@@ -2612,18 +2715,40 @@ class WhatAppIntegrationController extends BaseController
                 }
             } elseif ($msgtype == '8') {
                 if ($sent_recieved_status == '1') {
-                    $html .= '   <div class="d-flex mb-4 justify-content-end">
-                    <div class="col-9 text-end">
-                    <span style="font-size:12px;">' . $formattedtime . '</span>
-                        <span class="px-3 py-2 rounded-3 text-white " style="background:#005c4b; display: inline-block; width:200px; ">
-                            <div>
-                                <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
-                            </div>
-                            <div class="border-top mt-2 p-2 d-flex justify-content-center RadioBtnSelectionClickClass" id="' . $value['id'] . '">
-                                <i class="fa-solid fa-bars mt-1 mx-1"></i><span>Select</span>
-                            </div>
-                        </span>
-                    </div>
+                    //     $html .= '   <div class="d-flex mb-4 justify-content-end">
+                    //     <div class="col-9 text-end">
+                    //     <span style="font-size:12px;">' . $formattedtime . '</span>
+                    //         <span class="px-3 py-2 rounded-3 text-white " style="background:#005c4b; display: inline-block; width:200px; ">
+                    //             <div>
+                    //                 <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
+                    //             </div>
+                    //             <div class="border-top mt-2 p-2 d-flex justify-content-center RadioBtnSelectionClickClass" id="' . $value['id'] . '">
+                    //                 <i class="fa-solid fa-bars mt-1 mx-1"></i><span>Select</span>
+                    //             </div>
+                    //         </span>
+                    //     </div>
+                    // </div> ';
+                    $html .= '   <div class="d-flex mb-4 col-12 justify-content-end">
+                                <div class="col-9 d-flex flex-wrap justify-content-end">
+                                    <div class="d-flex rounded-2 p-1 flex-wrap justify-content-start" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
+                                        <span class="fs-14 fw-medium p-1 text-start position-relative pe-2 w-100">
+                                            <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+                                            ' . $msgtext . '
+                                            </p>
+                                            <span class="position-absolute bottom-0 end-0 me-1">
+                                                <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                                <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
+                                            </span>
+                                        </span>
+                                        <span class="col-12 border-top my-1"></span>
+                                        <span class="col-12 p-0 mt-1">
+                                            <button type="button" class="btn w-100 d-flex text-center justify-content-center align-items-center p-0 m-0 pb-2" style="--bs-btn-hover-border-color: transparent; --bs-btn-active-border-color: transparent;">
+                                            <i class="fa-solid fa-list-ul text-primary fa-lg"></i>
+                                            <span class="text-primary fw-semibold fs-6 mx-2">Select</span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
                 </div> ';
                 }
             } elseif ($msgtype == '9') {
@@ -2664,22 +2789,45 @@ class WhatAppIntegrationController extends BaseController
 
                             $msgtext2 = $predataarray[0]['message_contant'];
 
-                            $html .= ' <div class="d-flex mb-4 justify-content-start">
-                        <div class="col-9 text-start">
-                                <span class="px-3 py-2 rounded-3 text-black bg-white" style="background:#f3f3f; display: inline-block; width:200px; ">
-                                    <div class="text-start d-inline-block p-2 rounded" style="background:rgba(0, 0, 0, 0.4); height:65px; width:100%;">
-                                        <span class="d-none">Ajasys Technology</span>
-                                        <span>' . $msgtext2 . '</span>
-                                    </div>
-                                    <div>
-                                        <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
-                                    </div>
-                                </span>
-<span style="font-size:12px;">' . $formattedtime . '</span>
+                            //                             $html .= ' <div class="d-flex mb-4 justify-content-start">
+//                         <div class="col-9 text-start">
+//                                 <span class="px-3 py-2 rounded-3 text-black bg-white" style="background:#f3f3f; display: inline-block; width:200px; ">
+//                                     <div class="text-start d-inline-block p-2 rounded" style="background:rgba(0, 0, 0, 0.4); height:65px; width:100%;">
+//                                         <span class="d-none">Ajasys Technology</span>
+//                                         <span>' . $msgtext2 . '</span>
+//                                     </div>
+//                                     <div>
+//                                         <span class="text-start" style="display: inline-block;">' . $msgtext . '</span>
+//                                     </div>
+//                                 </span>
+// <span style="font-size:12px;">' . $formattedtime . '</span>
 
-                             </span>
-                        </div>
-                    </div>';
+                            //                              </span>
+//                         </div>
+//                     </div>';
+$html .= '   <div class="d-flex mb-4 col-12 justify-content-start">
+                                <div class="col-9 d-flex flex-wrap justify-content-start">
+                                    <div class="d-flex rounded-2 p-1 flex-wrap justify-content-start" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
+                                        <div class="rounded-2 bg-transparent shadow-sm col-12 border-start border-4 px-2 py-2 d-flex flex-wrap" style="background:#FFF;min-width:76px;border-color:#724EBF !important;">
+                                            <span class="col-12 px-1 fw-bold fs-6 text-primary">
+                                            Ajasys Technology
+                                            </span>
+                                            <span class="col-12 px-1 fw-normal fs-6 text-secondary-emphasis text-wrap">
+                                            ' . $msgtext2 . '
+                                            </span>
+                                        </div>
+                                        <span class="col-12"></span>
+                                        <span class="fs-14 mt-1 fw-medium p-1 col-12 rounded-2 text-start position-relative pe-2" style="background:#FFF;overflow-wrap: break-word;min-width:76px">
+                                                <p class="me-3 pb-3 fw-medium fs-14 text-start flex-wrap">
+                                                ' . $msgtext . '
+                                                </p>
+                                                <span class="position-absolute bottom-0 end-0 me-1">
+                                                    <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
+                                                </span>
+                                        </span>
+                                    </div>
+                                </div>
+                </div> ';
                         }
                     }
                 }
@@ -2694,7 +2842,7 @@ class WhatAppIntegrationController extends BaseController
         }
 
         if ($MsgSendStatus == '0') {
-            $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-pill d-inline-block " style="background:#f3f3f3;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
+            $html .= '<div class="col-12 text-center mb-2" style="font-size:12px;"><span class="px-3 py-1 rounded-3 d-inline-block " style="background:#E1F2FA;">Message can`t be sent because more than 24 hours have passed since the customer last replied to this number.</div>
             <script>$(".WhatsApp24HourButton").prop("disabled", true); $(".TextInputTastbar").addClass("d-none"); $(".chat_bord").addClass("chat_bordClass");</script>';
         } else {
             $html .= '<script>$(".WhatsApp24HourButton").prop("disabled", false); $(".TextInputTastbar").removeClass("d-none"); $(".chat_bord").removeClass("chat_bordClass");</script>';
