@@ -286,8 +286,17 @@ class FaceBookController extends BaseController
 
 
                     // for advertise assets
+                    $response_ads = getSocialData('https://graph.facebook.com/v19.0/me?fields=id,name,adaccounts&access_token=' . $longLivedToken. '');        
+                    foreach ($response_ads['adaccounts']['data'] as $ad_account) {
+                        $adAccountId = $ad_account['id'];
+                        $ads_insert_data['platform_id'] = $response_status_log;
+                        $ads_insert_data['master_id'] = $_SESSION['master'];
+                        $ads_insert_data['asset_type'] = 'ads';
+                        $ads_insert_data['asset_id'] = $adAccountId;
+                        $response_status_log = $this->MasterInformationModel->insert_entry2($ads_insert_data, $this->username . '_platform_assets');
+                        
+                    }
 
-                    
                     $resultff['response'] = 1;
                     $resultff['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
                 }
