@@ -676,6 +676,30 @@ class Bot_Controller extends BaseController
 			}
 		}
 
+		// if ($_FILES['attachment_media']['error'] === UPLOAD_ERR_OK) {
+		// 	$audioFileName = basename($_FILES['attachment_media']['name']);
+		// 	$sourceFilePath = $_FILES['attachment_media']['tmp_name'];
+
+		// 	$uploadDirectory = 'assets/bot_attachment_media/';
+
+		// 	if (!is_dir($uploadDirectory)) {
+		// 		mkdir($uploadDirectory, 0777, true);
+		// 	}
+
+		// 	$targetFilePath = $uploadDirectory . $audioFileName;
+		// 	if (move_uploaded_file($sourceFilePath, $targetFilePath)) {
+		// 		$response['status'] = 'success';
+		// 		$response['message'] = 'Image file saved successfully.';
+		// 	} else {
+		// 		$response['status'] = 'error';
+		// 		$response['message'] = 'Error: Failed to save image file.';
+		// 	}
+		// } else {
+		// 	// Error handling if attachment_media is not provided
+		// 	$response['status'] = 'error';
+		// 	$response['message'] = 'Error: Image file not provided or upload failed.';
+		// }
+
 		if ($this->request->getPost("action") == "update") {
 			//print_r($_POST);
 			unset($_POST['action']);
