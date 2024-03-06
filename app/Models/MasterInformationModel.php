@@ -512,57 +512,7 @@ class MasterInformationModel extends Model
 
 
     //for bot sequence
-    public function get_record_count($table_name)
-    {
-        $secondDb = DatabaseDefaultConnection();
-        $query = $secondDb->query("SELECT COUNT(*) AS record_count FROM $table_name");
-        
-        $result = $query->getRow();
-        return $result->record_count;
-    }
-    public function get_max_sequence($table_name, $bot_id)
-    {
-        $secondDb = DatabaseDefaultConnection();
-        $query = $secondDb->query("SELECT MAX(sequence) AS max_sequence FROM $table_name WHERE bot_id = $bot_id");
-        
-        $result = $query->getRow();
-        return $result ? $result->max_sequence : null;
-    }
-
-    public function delete_question_sequence($table_name, $bot_id, $delete_sequence)
-    {
-        $secondDb = DatabaseDefaultConnection();
-
-        $query = $secondDb->table($table_name)
-                ->select('*')
-                ->where('bot_id', $bot_id)
-                ->where('sequence >', $delete_sequence)
-                ->orderBy('sequence')
-                ->get();
-
-        $queryResult = $query->getResultArray();
-
-        foreach ($queryResult as $question) {
-            $secondDb->table($table_name)
-                ->where('id', $question['id'])
-                ->update(['sequence' => $question['sequence'] - 1]);
-        }
-    }
-
-
-    public function get_sequence_by_id($table_name, $id)
-    {
-        // Assuming $id is the primary key of the question
-        $db_connection = DatabaseDefaultConnection();
-        $query = $db_connection->table($table_name)->select('sequence')->where('id', $id)->get();
-        $result = $query->getRow();
-
-        if ($result) {
-            return $result->sequence;
-        } else {
-            return null;
-        }
-    }
+   
 
 
 }

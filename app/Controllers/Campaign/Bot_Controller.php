@@ -4,6 +4,7 @@
 namespace App\Controllers\Campaign;
 use App\Controllers\BaseController;
 use App\Models\MasterInformationModel;
+use App\Models\CampaignModel;
 use CodeIgniter\I18n\Time;
 
 class Bot_Controller extends BaseController
@@ -15,6 +16,7 @@ class Bot_Controller extends BaseController
 		$db = db_connect();
 		$this->db = DatabaseDefaultConnection();
 		$this->MasterInformationModel = new MasterInformationModel($db);
+		$this->CampaignModel = new CampaignModel($db);
 		$this->username = session_username($_SESSION['username']);
 		$this->admin = 0;
 		if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
@@ -463,7 +465,7 @@ class Bot_Controller extends BaseController
 			unset($post_data['action']);
 			unset($post_data['table']);
 
-			$max_sequence = $this->MasterInformationModel->get_max_sequence($table_name, $bot_id);
+			$max_sequence = $this->CampaignModel->get_max_sequence($table_name, $bot_id);
 
 			if ($max_sequence === null) {
 				$sequence = 1;
@@ -517,7 +519,7 @@ class Bot_Controller extends BaseController
 
 		$db = DatabaseDefaultConnection();
 		$table_name = $this->request->getPost("table");
-		$existing_records_count = $this->MasterInformationModel->get_record_count($table_name);
+		$existing_records_count = $this->CampaignModel->get_record_count($table_name);
 		$_SESSION['records_count'] = $existing_records_count;
 		$_SESSION['records_count']++;
 		$question_data['sequence'] = $_SESSION['records_count'];
@@ -740,7 +742,7 @@ class Bot_Controller extends BaseController
 			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
 
 			if (!isset($_POST['bot'])) {
-				$this->MasterInformationModel->delete_question_sequence($table_name);
+				$this->CampaignModel->delete_question_sequence($table_name);
 			}
 			echo "success";
 		}
@@ -758,7 +760,7 @@ class Bot_Controller extends BaseController
 			$table_name = $this->request->getPost('table');
 			$bot_id = $this->request->getPost('bot_id');
 
-			$delete_sequence = $this->MasterInformationModel->get_sequence_by_id($table_name, $delete_id);
+			$delete_sequence = $this->CampaignModel->get_sequence_by_id($table_name, $delete_id);
 			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
 
 			$this->MasterInformationModel->delete_question_sequence($table_name, $bot_id, $delete_sequence);
