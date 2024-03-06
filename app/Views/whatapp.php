@@ -763,7 +763,7 @@ if (!empty($connections)) {
                                                             
                                                                     <input type="number" minlength="10" maxlength="10" onkeyup="if (/D/g.test(this.value)) this.value = this.value.replace(/D/g,'')"
                                                                         class="form-control main-control phone_number_div" id="mobile_code" name="phone_no" placeholder="Mobile No." value="" data-phone_id="" required='' />
-                                                                    <p class="mobilevalidationclass" style="color:red !important"></p>
+                                                                    <p class="mobilevalidationclass" style="color:red !important;text-transform:none;"></p>
                                                             </div>
 
 
@@ -1285,39 +1285,7 @@ if (!empty($connections)) {
                                                             </div>
                                                         </div>
                                                     </form>
-                                                    <!-- <div class="container-fluid p-0">
-                                                        
-                                                        <div class="px-3 py-2 bg-white rounded-2 mx-2 mt-2 col-lg-6 col-12">
-                                                            <div class="d-flex justify-content-between align-items-center my-2 flex-wrap w-100">
-                                                                <div class="title-1">
-                                                                    <i class="fa-solid fa-table-columns"></i>
-                                                                    <h2>File Column Handling</h2>
-                                                                </div>
-                                                                <div class="title-side-icons column-btn">
-                          
-                                                                </div>
-                                                            </div>
-                                                            <form name="column_data_form" id="column_data_form" class="needs-validation" method="POST" novalidate="">
-                                                                <div class="mt-3 file_columns">
-                                                                 
-                                                                   
-                                                                </div>
-                                                                <div class="mt-3 custome_column">
-                                                                    <div class="text-start">
-                                                                        <span class="fs-6">Custome Columns</span>
-                                                                    </div>
-                                                                  
-                                                                </div>
-                                                            </form>
-                                                            <div class="justify-content-between d-flex">
-                                                                <button class=" btn-primary custome_col" type="submit" id="custome_col" name="custome_col">Add Custome
-                                                                    Column</button>
-                                                                <button class=" btn-primary import_btn" type="submit" id="import_btn" name="import_btn">Import
-                                                                    Data</button>
-                                                            </div>
-
-                                                        </div>
-                                                    </div> -->
+                                                 
                                                 </div>
                                                 <div class="col-12 col-xl-6 d-flex px-0 px-lg-4 my-2  my-2 my-xxl-0 justify-content-center">
                                                     <!-- whatsapp   .. -->
@@ -1847,20 +1815,29 @@ if (!empty($connections)) {
     </div>
     <!-- view sent msg -->
     <?= $this->include('partials/footer') ?>
-
     <script>
-            $('.phone_number_div').on('input', function() {
-                var number = $(this).val();
-                  
-                    if (number.length > 10) {
-                        $(this).val(number.slice(0, 10));
-                    }
-
-            });
-
-</script>
-
-    <script>
+            $(document).ready(function() {
+        $('.Template_send').click(function() {
+            var number = $('#mobile_code').val();
+            if (number.length < 10) {
+                $('.mobilevalidationclass').text('Please enter a valid 10-digit number');
+                return false; 
+            } else {
+                $('.mobilevalidationclass').text('');
+                return true; 
+            }
+        });
+        
+        $('.phone_number_div').on('input', function() {
+            var number = $(this).val();
+            if (number.length > 10) {
+                $(this).val(number.slice(0, 10));
+            }
+            if (number.length == 10) {
+                $('.mobilevalidationclass').text('');
+            }
+        });
+    });
         $('#Template_nameId').on('input', function() {
             var templateName = $(this).val();
             var maxLength = 512;
@@ -2141,7 +2118,13 @@ if (!empty($connections)) {
             $("form[name='master_membership_update_form']").removeClass("was-validated");
         });
     </script>
-    <script>
+
+
+
+
+
+
+<script>
         $('body').on('click', '.previewbutton', function() {
             $('.Add_editModelTitle').removeClass('d-none');
             $('.EditTemplateButtonClass').addClass('d-none');
@@ -2158,13 +2141,9 @@ if (!empty($connections)) {
                 }
             }
         });
+
+
         $(document).ready(function() {
-            // var valueLabelMap = {
-            //     '1': '{{Name}}',
-            //     '2': '{{Phone_no}}',
-            //     '3': '{{Address}}'
-            // };
-            // var selectedLabel = valueLabelMap[selectedValue];
             $('.body-select-picker').change(function() {
                 var selectedValue = $(this).find(":selected").val();
                 var selectedValueText = $(this).find(":selected").text();
@@ -2262,23 +2241,7 @@ if (!empty($connections)) {
                                 });
                                 $('.BodyValue').text(body);
                             }
-
-
-
-                            // var regex = /{{\d+}}/g;
-                            // var matches = body1.match(regex);
-                            // console.log(matches);
-                            // $('.inputypeBody').hide();
-                            // if (matches) {
-                            //     $('#dynamicInputsContainer1').empty();
-                            //     for (var i = 1; i <= matches.length; i++) {
-                            //         var inputField = '<input type="text" id="inputbody' + i + '" class="form-control main-control inputypeBody mt-1" Dataid="' + i + '"  placeholder="Body' + i + '" name="{{' + i + '}}" required>';
-                            //         $('#dynamicInputsContainer1').append(inputField);
-                            //         $('.inputypeBody').show();
-                            //     }
-                            // }
                             $('.footervalue').text(footer);
-                            // $('.language_div1').val(languageDropdown);
                             $('.single-button-whatsapp-template').text(button);
                             if (isValidURL(header)) {
                                 $('.preview-header-VIDEO').removeClass('d-none');

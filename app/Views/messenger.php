@@ -687,30 +687,37 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                     <div id="collapseThree" class="accordion-collapse collapse WhatsAppAccountListTab" data-bs-parent="#accordionExample">
 
                                         <?php
-
                                         if (isset($WhatsAppAccountsData) && !empty($WhatsAppAccountsData)) {
-                                            foreach ($WhatsAppAccountsData as $key => $value) {
-                                                $dnoneC = '';
-
-                                                if ($value['count'] == '0') {
-                                                    $dnoneC = 'd-none';
-                                                }
-                                                echo '<div class="accordion-body  WA_account_list  WA_account_listTab p-0 account-box" id ="' . $value['id'] . '" phoneno = "' . $value['display_phone_number'] . '" name="' . $value['verified_name'] . '"> 
-                                                <div class="col-12  my-2 " data-page_id="17841457874373728" data-platform="instagram" data-page_access_token="EAADNF4vVgk0BO6ZBcyZCiZCY5FGuPPWKb7npn8YcXafmqIexQxBgMPRZAAttSOgFr6NqP2B74icpZAcvL5pJgwv4ZBdTsM4Neik41DvLdjprcNSGdIfty83qi5CkzEAyuXUeEYVQf9lNRy9GtaDhFZBYBpKKyZCkfGqAB6wcfP8cvcx8mjcXrbpYEfbq0XYucWT81gzkkywZD" data-page_name="ajasystechnologies">
-                                                    <div class="col-12 d-flex flex-wrap  align-items-center  p-2 linked-page">
-                                                            <img src="https://erp.gymsmart.in/assets/image/member.png" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" alt="" height="100" width="100">
-                                                         <div class="ps-2">
-                                                            <p class="fs-6 fw-medium col">' . $value['verified_name'] . '</p>
-                                                            <span class="fs-12 text-muted">+' . $value['display_phone_number'] . '</span>
-                                                         </div>   
-
-                                                                <span class="ms-auto badge rounded-pill text-bg-success ' . $dnoneC . ' CountFinalText">' . $value['count'] . '</span>
-                                                    </div>
-                                        </div>
-</div>';
+                                            $permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $this->username . "_platform_assetpermission WHERE FIND_IN_SET('wh_message', assetpermission_name) > 0 AND user_id =" . $_SESSION['id']." AND platform_type='whatsapp'";
+                                            $permission_result = $this->db->query($permission_query);
+                                            $per_result = $permission_result->getResult();
+                                            $perasset_data = [];
+                                            if (isset($per_result[0])) {
+                                            	$perasset_data = explode(',', $per_result[0]->asset_id);
                                             }
-                                        }
 
+                                            foreach ($WhatsAppAccountsData as $key => $value) {
+                                                if ((in_array($value['id'], $perasset_data)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                                                    $dnoneC = '';
+                                                    if ($value['count'] == '0') {
+                                                        $dnoneC = 'd-none';
+                                                    }
+                                                    echo '<div class="accordion-body  WA_account_list  WA_account_listTab p-0 account-box" id ="' . $value['id'] . '" phoneno = "' . $value['display_phone_number'] . '" name="' . $value['verified_name'] . '"> 
+                                                            <div class="col-12  my-2 " data-page_id="17841457874373728" data-platform="instagram" data-page_access_token="EAADNF4vVgk0BO6ZBcyZCiZCY5FGuPPWKb7npn8YcXafmqIexQxBgMPRZAAttSOgFr6NqP2B74icpZAcvL5pJgwv4ZBdTsM4Neik41DvLdjprcNSGdIfty83qi5CkzEAyuXUeEYVQf9lNRy9GtaDhFZBYBpKKyZCkfGqAB6wcfP8cvcx8mjcXrbpYEfbq0XYucWT81gzkkywZD" data-page_name="ajasystechnologies">
+                                                                <div class="col-12 d-flex flex-wrap  align-items-center  p-2 linked-page">
+                                                                        <img src="https://erp.gymsmart.in/assets/image/member.png" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center" alt="" height="100" width="100">
+                                                                        <div class="ps-2">
+                                                                            <p class="fs-6 fw-medium col">' . $value['verified_name'] . '</p>
+                                                                            <span class="fs-12 text-muted">+' . $value['display_phone_number'] . '</span>
+                                                                        </div>   
+                                                                        <span class="ms-auto badge rounded-pill text-bg-success ' . $dnoneC . ' CountFinalText">' . $value['count'] . '</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                                
+                                                }
+                                             }
+                                        }
                                         ?>
                                     </div>
                                 </div>
