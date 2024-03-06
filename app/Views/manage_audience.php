@@ -96,13 +96,15 @@ $get_facebook_page = $result->getResultArray();
             </div>
             <div class="col-6 col-lg-2">
                <div class="main-selectpicker fs-12">
-                  <select class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12">
+                  <select id="adaccountselect" class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12 adaccountselect">
                      <?php
-                     if (isset($get_facebook_page) && !empty($get_facebook_page)) {
-                        foreach ($get_facebook_page as $key => $value) {
-                           echo '<option value="' . $value['id'] . '" data-access_token="' . $value['access_token'] . '" class="  dropdown-item">
-                                ' . $value['fb_app_name'] . '</option>';
-                        }
+                        if (isset($platform_assets)) {
+                           foreach ($platform_assets as $type_key => $type_value) {
+                              // Check if masterid is 12 and asset_type is 'ads'
+                              if ($type_value["master_id"] == 12 && $type_value["asset_type"] == 'ads') {
+                                 echo '<option class="dropdown-item" value="act_' . $type_value["asset_id"] . '">act_' . $type_value["asset_id"] . '</option>';
+                              }
+                           }
                      }
                      ?>
                   </select>
@@ -822,85 +824,94 @@ $get_facebook_page = $result->getResultArray();
          console.log("Selected Value: " + selectedValue);
       });
    });
+   $('#adaccountselect').change(function() {
+      var selectedAccountId = $(this).val();
+      console.log("Selected account ID changed:", selectedAccountId); // Log when selection changes
+      // Rest of your code...
+   });
    $("button[id='create_audiences']").click(function (e) {
-      e.preventDefault();
+    e.preventDefault();
+    // Get form and selected values
+    var form = $("form[name='project_type_form']")[0];
+    var intrested_product = $("#intrested_product").val();
+    var inquiry_status = $("#inquiry_status").val();
+    var retansion = $("#retansion").val();
+    var name = $("#name").val();
+    var source = $("input[name='flexRadioDefault']:checked").val();
+    var inquiry_data = $("input[name='option']:checked").val();
+    var facebook_syncro = $("#per_face_drop").is(":checked") ? 1 : 0; // Check if the checkbox is checked
+    var pages_name = $("#pages_name").val(); // Get the selected option value
+    var ad_account_id = $('#adaccountselect').val();
+    console.log(ad_account_id);
 
-      // Get form and selected values
-      var form = $("form[name='project_type_form']")[0];
-      var intrested_product = $("#intrested_product").val();
-      var inquiry_status = $("#inquiry_status").val();
-      var retansion = $("#retansion").val();
-      var name = $("#name").val();
-      var source = $("input[name='flexRadioDefault']:checked").val();
-      var inquiry_data = $("input[name='option']:checked").val();
-      var facebook_syncro= $("#per_face_drop").is(":checked") ? 1 : 0; // Check if the checkbox is checked
-      var pages_name = $("#pages_name").val(); // Get the selected option value
-      // console.log(pages_name);
-      // Validate form fields
-      if (intrested_product != "" && inquiry_status != "" && name != "") {
-         var formData = new FormData();
-         formData.append('action', 'insert');
-         formData.append('table', 'audience');
-         formData.append('intrested_product', intrested_product);
-         formData.append('inquiry_status', inquiry_status);
-         formData.append('retansion', retansion);
-         formData.append('name', name);
-         formData.append('source', source);
-         formData.append('inquiry_data', inquiry_data);
-         formData.append('pages_name', pages_name);
-         formData.append('facebook_syncro', facebook_syncro);
-         // Show loader
-         $('.loader').show();
+    // Validate form fields
+    if (intrested_product != "" && inquiry_status != "" && name != "") {
+        var formData = new FormData();
+        formData.append('action', 'insert');
+        formData.append('table', 'audience');
+        formData.append('intrested_product', intrested_product);
+        formData.append('inquiry_status', inquiry_status);
+        formData.append('retansion', retansion);
+        formData.append('name', name);
+        formData.append('source', source);
+        formData.append('inquiry_data', inquiry_data);
+        formData.append('pages_name', pages_name);
+        formData.append('facebook_syncro', facebook_syncro);
+        formData.append('ad_account_id', ad_account_id); // Include the ad account ID in the form data
 
-         // Perform AJAX request
-         $.ajax({
+        // Show loader
+        $('.loader').show();
+
+        // Perform AJAX request
+        $.ajax({
             method: "post",
             url: "<?= site_url('audience_insert_data'); ?>",
-            data: formData,
+            data: formData, // Include formData in the data object
             processData: false,
             contentType: false,
             success: function (data) {
-               // Check response and handle accordingly
-               if (data != "error") {
-                  $("form[name='project_type_form']")[0].reset();
-                  $('.btn-close').trigger('click');
-                  $("form[name='project_type_form']").removeClass("was-validated");
-                  $('.loader').hide();
+                // Check response and handle accordingly
+                if (data != "error") {
+                    $("form[name='project_type_form']")[0].reset();
+                    $('.btn-close').trigger('click');
+                    $("form[name='project_type_form']").removeClass("was-validated");
+                    $('.loader').hide();
 
-                  iziToast.success({
-                     title: 'Added Successfully'
-                  });
+                    iziToast.success({
+                        title: 'Added Successfully'
+                    });
 
-                  // location.reload(true);
-                  list_data();
-               }
-               else {
-                  $('.loader').hide();
-                  iziToast.error({
-                     title: 'Data not available'
-                  });
-               }
-               list_data();
+                    list_data(); // Refresh the data after insertion
+                }
+                else {
+                    $('.loader').hide();
+                    iziToast.error({
+                        title: 'Data not available'
+                    });
+                }
             },
-         });
-      } else {
-         // If form fields are not valid, add validation classes
-         $("form[name='project_type_form']").addClass("was-validated");
-         $(form).find('.selectpicker').each(function () {
+            error: function(xhr, status, error) {
+                console.error(error); // Log any errors for debugging
+            }
+        });
+    } else {
+        // If form fields are not valid, add validation classes
+        $("form[name='project_type_form']").addClass("was-validated");
+        $(form).find('.selectpicker').each(function () {
             // Check if the selectpicker has the required attribute
             var selectpicker_valid = $(this).prop('required') ? 1 : 0;
             if (selectpicker_valid) {
-               if ($(this).val() == 0 || $(this).val() == '') {
-                  $(this).closest("div").addClass('selectpicker-validation');
-               } else {
-                  $(this).closest("div").removeClass('selectpicker-validation');
-               }
+                if ($(this).val() == 0 || $(this).val() == '') {
+                    $(this).closest("div").addClass('selectpicker-validation');
+                } else {
+                    $(this).closest("div").removeClass('selectpicker-validation');
+                }
             } else {
-               $(this).closest("div").removeClass('selectpicker-validation');
+                $(this).closest("div").removeClass('selectpicker-validation');
             }
-         });
-      }
-   });
+        });
+    }
+});
    $('body').on('click', '.edt', function (e) {
       e.preventDefault();
       var edit_value = $(this).attr("data-edit_id");
@@ -1212,6 +1223,7 @@ $get_facebook_page = $result->getResultArray();
       var col_data_form = $('form[name="column_data_form"]')[0];
       var import_formdata = new FormData(import_form);
       var col_data_formdata = new FormData(col_data_form);
+     
 
       // Iterate over the FormData object and append its data to import_formdata
       col_data_formdata.forEach(function (value, key) {
@@ -1229,6 +1241,8 @@ $get_facebook_page = $result->getResultArray();
       import_formdata.append('facebook_syncro', facebook_syncro);
       var pages_name = $("#pages_namess").val(); // Get the selected option value
       import_formdata.append('pages_name', pages_name);
+      var ad_account_id = $('#adaccountselect').val();
+      import_formdata.append('ad_account_id', ad_account_id);
       if (name != "") {
          // Send the AJAX request
          $.ajax({

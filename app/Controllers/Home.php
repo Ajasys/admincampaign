@@ -901,6 +901,7 @@ class Home extends BaseController
             'inquiry_data int(11) NOT NULL',
             'pages_name varchar(255) NOT NULL',
             'facebook_syncro int(11) NOT NULL',
+            'ad_account_id varchar(255) NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_username . '_audience', '', $columns_audience);
         // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
