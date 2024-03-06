@@ -780,7 +780,7 @@ class Bot_Controller extends BaseController
 		$option_value = $this->request->getPost('option_value');
 		$table = $this->request->getPost('table');
 
-		$json_data = $this->MasterInformationModel->get_json_data($delete_id);
+		$json_data = $this->CampaignModel->get_json_data($delete_id);
 
 		$data = json_decode($json_data, true);
 
@@ -808,7 +808,7 @@ class Bot_Controller extends BaseController
 		}
 
 		$updated_json_data = json_encode($data);
-		$success = $this->MasterInformationModel->update_entry_bot2($delete_id, $updated_json_data, $table);
+		$success = $this->CampaignModel->update_entry_bot2($delete_id, $updated_json_data, $table);
 
 		if ($success) {
 		} else {
