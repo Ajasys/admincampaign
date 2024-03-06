@@ -4,8 +4,9 @@ namespace App\Controllers;
 //use CodeIgniter\Database\ConnectionInterface;
 use App\Models\MasterInformationModel;
 use Config\Database;
+use App\Controllers;
 
-class FaceBookController extends BaseController
+class FacebookController extends BaseController
 {
     //private $db;
     public function __construct()

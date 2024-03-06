@@ -225,8 +225,7 @@ class AssetPermissionController extends BaseController
                     }
                 }
 
-               
-
+        
                 // for assign permission
                 $wh_message = '';
                 $wh_template = '';
