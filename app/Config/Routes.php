@@ -14,6 +14,8 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
 use App\Controllers\Campaign\FacebookController;
 use App\Controllers\Campaign\AssetPermissionController;  
 use App\Controllers\Campaign\WhatAppIntegrationController;
+use App\Controllers\Campaign\Bot_Controller;
+
 
 
 $routes->setDefaultNamespace('App\Controllers');
@@ -482,9 +484,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('searchbar_url', 'clint_support_controller::searchbar_url');
 	$routes->post('update_ticket_status', 'clint_support_controller::update_ticket_status');
 	$routes->get('/whatsapp', 'Home::whatapp');
-	$routes->post('bot_preview_data', 'Bot_Controller::bot_preview_data');
-	$routes->post('insert_chat_answer', 'Bot_Controller::insert_chat_answer');
-	$routes->post('chat_list', 'Bot_Controller::chat_list');
+	$routes->post('/bot_preview_data', [Bot_Controller::class, 'bot_preview_data']);
+	$routes->post('insert_chat_answer', [Bot_Controller::class, 'insert_chat_answer']);
+
+	$routes->post('chat_list', [Bot_Controller::class,'chat_list']);
 	//bot setup
 	$routes->get('/messenger_bot', 'Home::messenger_bot');
 	$routes->get('/bot', 'Home::bot');
@@ -492,32 +495,33 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/bot_chat', 'Home::bot_chat');
 	$routes->get('/bot_setup', 'Home::bot_setup');
 	$routes->get('/bot_setup_designer', 'Home::bot_setup_designer');
-	$routes->post('/bot_update', 'Bot_Controller::bot_update');
-	$routes->post('/main_bot_list_data', 'Bot_Controller::main_bot_list_data');
-	$routes->post('/messenging_bot_insert_data', 'Bot_Controller::messenging_bot_insert_data');
-	$routes->post('/messeging_bot_list', 'Bot_Controller::messeging_bot_list');
-	$routes->post('/update_data_conversion', 'Bot_Controller::update_data_conversion');
-	$routes->post('messeging_bot_list_data', 'Bot_Controller::messeging_bot_list_data');
-	$routes->post('bot_insert_data', 'Bot_Controller::bot_insert_data');
-	$routes->post('bot_list_data', 'Bot_Controller::bot_list_data');
-	$routes->post('duplicate_Question', 'Bot_Controller::duplicate_Question');
-	$routes->post('bot_delete_data', 'Bot_Controller::bot_delete_data');
-	$routes->post('bot_question_delete_data', 'Bot_Controller::bot_question_delete_data');
-	$routes->post('bot_particular_option_delete', 'Bot_Controller::bot_particular_option_delete');
-	$routes->post('update_sequence', 'Bot_Controller::update_sequence');
-	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
-	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
-	$routes->post('bot_id_to_quotation', 'Bot_Controller::bot_id_to_quotation');
-	$routes->get('/bot_installer', 'Home::bot_installer');
-	$routes->post('bot_preview', 'Bot_Controller::bot_preview');
-	$routes->post('', 'Bot_Controller::get_chat_data');
-	$routes->post('bot_preview_data', 'Bot_Controller::bot_preview_data');
-	$routes->post('insert_chat_answer', 'Bot_Controller::insert_chat_answer');
+
+	$routes->post('/bot_update', [Bot_Controller::class,'bot_update']); 
+	$routes->post('/main_bot_list_data',[Bot_Controller::class,'main_bot_list_data']);
+	$routes->post('/messenging_bot_insert_data', [Bot_Controller::class,'messenging_bot_insert_data']);
+	$routes->post('/messeging_bot_list', [Bot_Controller::class,'messeging_bot_list']);
+	$routes->post('/update_data_conversion', [Bot_Controller::class,'update_data_conversion']);
+	$routes->post('messeging_bot_list_data', [Bot_Controller::class,'messeging_bot_list_data']);
+	$routes->post('bot_insert_data', [Bot_Controller::class,'bot_insert_data']);
+	$routes->post('bot_list_data',  [Bot_Controller::class,'bot_list_data']);
+	$routes->post('duplicate_Question',  [Bot_Controller::class,'duplicate_Question']);
+	$routes->post('bot_delete_data',  [Bot_Controller::class,'bot_delete_data']);
+	$routes->post('bot_question_delete_data',  [Bot_Controller::class,'bot_question_delete_data']);
+	$routes->post('bot_particular_option_delete',  [Bot_Controller::class,'bot_particular_option_delete']);
+	$routes->post('update_sequence', [Bot_Controller::class,'update_sequence']);
+	$routes->post('bot_question_edit_data', [Bot_Controller::class,'bot_question_edit_data']);
+	$routes->post('/bot_question_update',  [Bot_Controller::class,'bot_question_update']);
+	$routes->post('bot_id_to_quotation',  [Bot_Controller::class,'bot_id_to_quotation']);
+	$routes->get('/bot_installer', 'Home::bot_installer'); 
+	$routes->post('bot_preview', [Bot_Controller::class,'bot_preview']);
+	$routes->post('',  [Bot_Controller::class,'get_chat_data']);
+	$routes->post('bot_preview_data',  [Bot_Controller::class,'bot_preview_data']);
+	$routes->post('insert_chat_answer', [Bot_Controller::class,'insert_chat_answer']);
 	// massager code routes 
-	$routes->post('get_chat_data', 'Bot_Controller::get_chat_data');
-	$routes->post('send_chat', 'Bot_Controller::send_chat');
-	$routes->post('send_massage', 'Bot_Controller::send_massage');
-	$routes->post('delete_record', 'Bot_Controller::delete_record');
+	$routes->post('get_chat_data', [Bot_Controller::class,'get_chat_data']);
+	$routes->post('send_chat',  [Bot_Controller::class,'send_chat']);
+	$routes->post('send_massage',  [Bot_Controller::class,'send_massage']);
+	$routes->post('delete_record', [Bot_Controller::class,'delete_record']);
 	//new facebook
 	//facebook 
 	$routes->get('/newlead_module', 'Home::newlead_module');

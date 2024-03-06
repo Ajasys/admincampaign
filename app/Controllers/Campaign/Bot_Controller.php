@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controllers;
 
+namespace App\Controllers\Campaign;
+use App\Controllers\BaseController;
 use App\Models\MasterInformationModel;
 use CodeIgniter\I18n\Time;
 
@@ -1031,13 +1032,10 @@ class Bot_Controller extends BaseController
 			$answer = $_POST['answer'];
 		}
 
-
-
 		if (isset($_POST['nextQuestion']) && $_POST['nextQuestion'] != "true") {
 			$nextQuestion = $_POST['nextQuestion'];
 			// pre($nextQuestion);
 		}
-
 
 		if (isset($_POST['next_question_id'])) {
 			$next_questions = $_POST['next_questions'];
@@ -1049,6 +1047,7 @@ class Bot_Controller extends BaseController
 
 		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
 			$db_connection = DatabaseDefaultConnection();
+
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
 			$sequence = 1;
 			// pre($sql);
@@ -1058,6 +1057,7 @@ class Bot_Controller extends BaseController
 			$sequence = isset($result) ? 1 : $sequence - 1;
 			// pre($sequence);
 			$db_connection = DatabaseDefaultConnection();
+
 			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['next_questions'] != "0" && $_POST['next_questions'] != "0,0") {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
 				// pre($sql);
@@ -1122,6 +1122,10 @@ class Bot_Controller extends BaseController
 				}
 				// pre($test);
 				$last_que_id = $value['id'];
+
+				// if(isset($value['attachment_media'])){
+				// 	pre($value['attachment_media']);
+				// }
 				// continue;
 				if (isset($test_pr_que) && !empty($test_pr_que)) {
 					$html .= '<div class="messege1 d-flex flex-wrap conversion_id" data-next_bot_id="' . $value['next_bot_id'] . '" data-next_questions="' . $value['next_questions'] . '" data-next_question_id="' . $value['next_question_id'] . '" data-conversation-id="' . $asasasf[0]['id'] . '" data-sequence="' . $asasasf[0]['sequence'] . '">
@@ -1129,11 +1133,20 @@ class Bot_Controller extends BaseController
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
 
-					$html .= '<div class="col">
+					if(isset($value['attachment_media'])){						
+						$html .= '<div class="col">
 									<div class="col-12 mb-2">
 										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="' . $asasasf[0]['sequence'] . '" data-conversation-id="' . $asasasf[0]['id'] . '">
 											' . $test_pr_que . '
 										</span>';
+					}else{
+						$html .= '<div class="col">
+									<div class="col-12 mb-2">
+										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="' . $asasasf[0]['sequence'] . '" data-conversation-id="' . $asasasf[0]['id'] . '">
+											' . $test_pr_que . '
+										</span>';
+					}
+
 					if ($asasasf[0]['type_of_question'] == 1 && $asasasf[0]['skip_question'] == 1) {
 						$html .= '<div class="col-12 mb-2 mt-1">
 														<button class="btn bg-primary rounded-3 text-white skip_questioned">
@@ -1176,12 +1189,29 @@ class Bot_Controller extends BaseController
 								<div class="me-2 border rounded-circle overflow-hidden" style="width:35px;height:35px">
 									<img src="https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" alt="#" class="w-100 h-100 img-circle">
 								</div>';
+					
+					// $html .= '<div class="col">
+					// 				<div class="col-12 mb-2">
+					// 					<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="' . $value['sequence'] . '" data-conversation-id="' . $value['id'] . '">
+					// 						' . $value['question'] . '
+					// 					</span>';
 
-					$html .= '<div class="col">
+					// 					pre($value['attachment_media']);
+					if(isset($value['attachment_media']) && $value['attachment_media'] != ''){
+						// pre($value['attachment_media']);
+						$html .= '<div class="col">
+									<div class="col-12 mb-2">
+										<img src="assets/admin_folder/bot_attachment_media/'.$value['attachment_media'].'" height="100px" width="100px" style="display: block; margin-bottom: 10px;">
+										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="' . $value['sequence'] . '" data-conversation-id="' . $value['id'] . '">
+											' . $value['question'] . '
+										</span>';
+					}else{
+						$html .= '<div class="col">
 									<div class="col-12 mb-2">
 										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="' . $value['sequence'] . '" data-conversation-id="' . $value['id'] . '">
 											' . $value['question'] . '
 										</span>';
+					}
 
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 						$menuOptions = json_decode($value['menu_message'], true);
@@ -1208,7 +1238,7 @@ class Bot_Controller extends BaseController
 															Skip
 														</button>
 													</div>';
-					} else {
+					}else {
 						$html .= '<div class="col-12 mb-2 mt-1" hidden>
 														<button class="btn bg-primary rounded-3 text-white skip_questioned">
 															Skip
@@ -1881,17 +1911,17 @@ class Bot_Controller extends BaseController
 												</div>';
 					}
 
-
 					$menuOptions = json_decode($value['menu_message'], true);
 					if (isset($menuOptions['rating_type']) && $menuOptions['rating_type'] === "smilies") {
-						$menuOptions = json_decode($value['menu_message'], true);
-						$next_question = $value['next_questions'];
-						$next_question_values = explode(',', $next_question);
+						$options = $menuOptions['options'];
 
-						$reactions = $menuOptions['options'];
-						$reaction_values = array_column($reactions, 'reaction');
+						$next_question_values = [];
 
-						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+						foreach ($options as $option) {
+							if (isset($option['jump_question'])) {
+								$next_question_values[] = $option['jump_question'];
+								
+								$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
 									<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
 									<div class="text-center pt-4">Please rate</div>
 									<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
@@ -1914,63 +1944,108 @@ class Bot_Controller extends BaseController
 									</div>
 									</div>
 								</div>';
-					} else if (isset($menuOptions['rating_type']) == "stars") {
-						$next_question = $value['next_questions'];
-						$next_question_values = explode(',', $next_question);
+							}
+						}
 
-						$reactions = $menuOptions['options'];
-						$reaction_values = array_column($reactions, 'reaction');
-
-						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
-											<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
-												<div class="text-center pt-4">Please rate</div>
-													<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[4] . '\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[3] . '\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[2] . '\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[1] . '\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
-														<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[0] . '\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
-													</div>
-												
-												</div>';
-					} else if (isset($menuOptions['rating_type']) == "numbers") {
-						$next_question = $value['next_questions'];
-						$next_question_values = explode(',', $next_question);
-
-						$reactions = $menuOptions['options'];
-						$reaction_values = array_column($reactions, 'reaction');
-
-						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
-										<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
-											<div class="text-center pt-4">Please rate</div>
-												<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[4] . '\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important">1</button>
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[3] . '\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important">2</button>
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[2] . '\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important">3</button>
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[1] . '\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important">4</button>
-													<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[0] . '\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important">5</button>
-												</div>  
-											</div>';
-					} else if (isset($menuOptions['rating_type']) == "options") {
-						$next_question = $value['next_questions'];
-						$next_question_values = explode(',', $next_question);
-
-						$reactions = $menuOptions['options'];
-						$reaction_values = array_column($reactions, 'reaction');
-
-						$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
-										<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
-											<div class="text-center pt-4">Please rate</div>
-											<div class=" mt-2 pb-3 px-2">
-												<div class="px-2 "><i class="fa-regular fa-circle"></i> Terrible (1 Star)</div>
-												<div class="px-2 "><i class="fa-regular fa-circle"></i> Bad (1 Star)</div>
-												<div class="px-2 "><i class="fa-regular fa-circle"></i> Okay (1 Star)</div>
-												<div class="px-2 "><i class="fa-regular fa-circle"></i> Good (1 Star)</div>
-												<div class="px-2"><i class="fa-regular fa-circle"></i> Great (1 Star)</div>
-											</div>  
-										</div>';
-					} else {
+					
 					}
+
+					// $menuOptions = json_decode($value['menu_message'], true);
+					// if (isset($menuOptions['rating_type']) && $menuOptions['rating_type'] === "smilies") {
+					// 	$menuOptions = json_decode($value['menu_message'], true);
+					// 	pre($menuOptions);
+					// 	$jump_question = $value['jump_question'];
+					// 	$next_question_values = explode(',', $jump_question);
+
+					// 	$reactions = $menuOptions['options'];
+					// 	$reaction_values = array_column($reactions, 'reaction');
+
+					// 	$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+					// 				<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+					// 				<div class="text-center pt-4">Please rate</div>
+					// 				<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+					// 					<div class="col-2 mb-2 option-wrapper">
+					// 						<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[4] . '\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important">😍</button>
+					// 					</div>
+					// 					<div class="col-2 mb-2 option-wrapper">
+					// 						<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[3] . '\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important">😃</button>
+					// 					</div>
+					// 					<div class="col-2 mb-2 option-wrapper">
+					// 						<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[2] . '\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important">😊</button>
+					// 					</div>
+					// 					<div class="col-2 mb-2 option-wrapper">
+					// 						<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[1] . '\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important">😞</button>
+					// 					</div>
+					// 					<div class="col-2 mb-2 option-wrapper">
+					// 						<button class="bg-transparent fs-14" onclick="rating(this, \'' . $reaction_values[0] . '\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important">😪</button>
+					// 					</div>
+					// 				</div>
+					// 				</div>
+					// 				</div>
+					// 			</div>';
+					// } else if (isset($menuOptions['rating_type']) == "stars") {
+					// 	$next_question = $value['next_questions'];
+					// 	$next_question_values = explode(',', $next_question);
+
+					// 	$reactions = $menuOptions['options'];
+					// 	$reaction_values = array_column($reactions, 'reaction');
+
+					// 	$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+					// 						<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+					// 							<div class="text-center pt-4">Please rate</div>
+					// 								<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+					// 									<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[4] . '\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
+					// 									<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[3] . '\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
+					// 									<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[2] . '\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star "></i></button>
+					// 									<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[1] . '\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
+					// 									<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[0] . '\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important"><i class="fa-regular fa-star"></i></button>
+					// 								</div>
+												
+					// 							</div>';
+					// } else if (isset($menuOptions['rating_type']) == "numbers") {
+					// 	$next_question = $value['next_questions'];
+					// 	$next_question_values = explode(',', $next_question);
+
+					// 	$reactions = $menuOptions['options'];
+					// 	$reaction_values = array_column($reactions, 'reaction');
+
+					// 	$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+					// 					<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+					// 						<div class="text-center pt-4">Please rate</div>
+					// 							<div class="d-flex text-center justify-content-center mt-2 pb-3 px-2">
+					// 								<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[4] . '\')" data-next_questions="' . $next_question_values[0] . '" style="border:none !important; font-size:25px !important">1</button>
+					// 								<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[3] . '\')" data-next_questions="' . $next_question_values[1] . '" style="border:none !important; font-size:25px !important">2</button>
+					// 								<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[2] . '\')" data-next_questions="' . $next_question_values[2] . '" style="border:none !important; font-size:25px !important">3</button>
+					// 								<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[1] . '\')" data-next_questions="' . $next_question_values[3] . '" style="border:none !important; font-size:25px !important">4</button>
+					// 								<button class="bg-transparent px-2 fs-3" onclick="rating(this, \'' . $reaction_values[0] . '\')" data-next_questions="' . $next_question_values[4] . '" style="border:none !important; font-size:25px !important">5</button>
+					// 							</div>  
+					// 						</div>';
+					// } else if (isset($menuOptions['rating_type']) == "options") {
+					// 	$next_question = $value['next_questions'];
+					// 	$next_question_values = explode(',', $next_question);
+
+					// 	$reactions = $menuOptions['options'];
+					// 	$reaction_values = array_column($reactions, 'reaction');
+
+					// 	$html .= '<div class="col-7 mx-5 mt-5 rounded-3" style="box-shadow: 0 0 5px 2px lightgray; position: relative;">
+					// 					<div class="bg-secondary p-2 rounded-circle" style="width:35px; height:35px; position: absolute; left: 45%; top:-18px;"><i class="fa-regular fa-star text-light"></i></div>
+					// 						<div class="text-center pt-4">Please rate</div>
+					// 						<div class=" mt-2 pb-3 px-2">
+					// 							<div class="px-2 "><i class="fa-regular fa-circle"></i> Terrible (1 Star)</div>
+					// 							<div class="px-2 "><i class="fa-regular fa-circle"></i> Bad (1 Star)</div>
+					// 							<div class="px-2 "><i class="fa-regular fa-circle"></i> Okay (1 Star)</div>
+					// 							<div class="px-2 "><i class="fa-regular fa-circle"></i> Good (1 Star)</div>
+					// 							<div class="px-2"><i class="fa-regular fa-circle"></i> Great (1 Star)</div>
+					// 						</div>  
+					// 					</div>';
+					// } else {
+					// 	$html .= '<div class="col">
+					// 							<div class="col-12 mb-2">
+					// 								<span class="p-1 rounded-3 ghg d-inline-block bg-white px-3 conversion_id" data-conversation-id="' . $value['id'] . '">
+					// 									' . $value['question'] . '
+					// 								</span>
+					// 							</div>';
+					// }
 
 					if (!empty($value['menu_message']) && $value['type_of_question'] == 2) {
 						$menuOptions = json_decode($value['menu_message'], true);
