@@ -334,15 +334,7 @@ class CreateController extends BaseController
 
         //get comment
         $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
-        $this->db = DatabaseDefaultConnection();
-        //multiple photo show
-        $integration_table_name = $this->username . '_platform_assets';
-			$get_token = "SELECT * FROM $integration_table_name WHERE platform_status = 2 AND verification_status = 1";
-			
-
-            $get_access_token_array = $this->db->query($get_token);
-			$data_count = $get_access_token_array->getResultArray();
-            pre($data_count);
+        
         $fb_page_list = $response;
 
         $html = "";
@@ -351,7 +343,7 @@ class CreateController extends BaseController
             $url = 'https://graph.facebook.com/v19.0/' . $value['id'] . '?fields=attachments&access_token=' . $accesss_tocken . '';
             $data = getSocialData($url);
             // $time = strtotime($data[0]['created_time']);    
-            $accesss_tocken_comment = 'EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD';
+            // $accesss_tocken_comment = 'EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD';
             if (isset($value['full_picture'])) {
                 $fb_upload_img = ($value['full_picture']);
             } else {
@@ -394,12 +386,12 @@ class CreateController extends BaseController
 
                 
             <div class="col-12 d-flex flex-wrap border-bottom">
-                <div class="me-2 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                <div class="me-2 cmt_modal_open" data-access_token="' . $accesss_tocken . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
                     <img class="rounded-circle" src="' . $data_img . '" alt="#" style="width:40px;height:40px;">
                 </div>
                 <div class="col">
                     <div class="col-12 d-flex flex-wrap justify-content-between">
-                        <p class="col-10 cmt_modal_open " data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">' . $page_namee . '</p>
+                        <p class="col-10 cmt_modal_open " data-access_token="' . $accesss_tocken . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">' . $page_namee . '</p>
                         <div class="btn-group dropstart">
                             <div class="" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-ellipsis-vertical cursor-pinter mx-2"></i>
@@ -410,7 +402,7 @@ class CreateController extends BaseController
                                     <button class="bg-transparent text-start ps-1 col-12 border-0 delete_post_facebook" data-delete_id="' . $value['id'] . '"><i class="fa-solid fa-trash-can me-2"></i>Delete</button>
                                     </div>
                                     <div class="col-12 d-flex justify-content-start">
-                                    <button class="bg-transparent text-start ps-1 col-12 border-0 edit_post_facebook" data-edit_id="' . $value['id'] . '" data-page_id="' . $pagee_idd . '" data-access_token="' . $accesss_tocken_comment . '" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash-can me-2"></i>Edit</button>
+                                    <button class="bg-transparent text-start ps-1 col-12 border-0 edit_post_facebook" data-edit_id="' . $value['id'] . '" data-page_id="' . $pagee_idd . '" data-access_token="' . $accesss_tocken . '" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash-can me-2"></i>Edit</button>
                                     </div>
                                 </div>
                             </ul>
@@ -418,7 +410,7 @@ class CreateController extends BaseController
 
                     </div>
 
-                    <div class="col-12 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '"  data-bs-toggle="modal" data-bs-target="#comment-modal">
+                    <div class="col-12 cmt_modal_open" data-access_token="' . $accesss_tocken . '" data-post_id="' . $value['id'] . '"  data-bs-toggle="modal" data-bs-target="#comment-modal">
                         <span class="text-muted">
                             <span class="fs-14">' . $facebook_upload_time . '</span>
                         </span>
@@ -428,7 +420,7 @@ class CreateController extends BaseController
                     </div>
                 </div>
             </div>
-                <div class="col-12 cmt_modal_open" data-bs-toggle="modal" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-target="#comment-modal">
+                <div class="col-12 cmt_modal_open" data-bs-toggle="modal" data-access_token="' . $accesss_tocken . '" data-post_id="' . $value['id'] . '" data-bs-target="#comment-modal">
             <div class="col-12 my-2">
                 <p class="fs-14">' . $fb_titile . '</p>
             </div>
@@ -469,7 +461,7 @@ class CreateController extends BaseController
                 </div>
         
                 <div class=" mb-2 mb-md-0 p-0 px-1" style="width:fit-content;">
-                    <button class="btn d-flex p-0 border-0 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
+                    <button class="btn d-flex p-0 border-0 cmt_modal_open" data-access_token="' . $accesss_tocken . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
                         <i class="fa-regular fa-comment mx-1 my-auto"></i>
                         <div class="my-auto btn-text">Comment</div>
                     </button>
@@ -1052,180 +1044,340 @@ class CreateController extends BaseController
     }
     
 
-    public function get_post_data()
-	{
-		$cache = \Config\Services::cache();
-		$this->db = DatabaseDefaultConnection();
-		if ($_POST['action'] == 'accoun_list') {
+    // public function get_post_data()
+	// {
+	// 	$cache = \Config\Services::cache();
+	// 	$this->db = DatabaseDefaultConnection();
+	// 	if ($_POST['action'] == 'account_list') {
 
-			$integration_table_name = $this->username . '_platform_integration';
-			$get_token = "SELECT * FROM $integration_table_name WHERE platform_status = 2 AND verification_status = 1";
-			$get_access_token_array = $this->db->query($get_token);
-			$data_count = $get_access_token_array->getNumRows();
-			$access_api = isset($_POST['api']) ? $_POST['api'] : false;
-			if ($data_count > 0) {
-				$unread_msg_data = array();
-				$fb_account_data = $get_access_token_array->getResultArray();
-				foreach ($fb_account_data as $account_key => $account_value) {
-					// pre($account_value);
-					// continue;
-					$token = $account_value['access_token'];
-					// pre($token);
-					// $fb_page_list = get_object_vars(json_decode($fb_page_list));
-					// pre($url);
-					$asset_table_name = $this->username . '_platform_assets';
+	// 		$integration_table_name = $this->username . '_platform_integration';
+	// 		$get_token = "SELECT * FROM $integration_table_name WHERE platform_status = 2 AND verification_status = 1";
+	// 		$get_access_token_array = $this->db->query($get_token);
+	// 		$data_count = $get_access_token_array->getNumRows();
+	// 		$access_api = isset($_POST['api']) ? $_POST['api'] : false;
+	// 		if ($data_count > 0) {
+	// 			$unread_msg_data = array();
+	// 			$fb_account_data = $get_access_token_array->getResultArray();
+	// 			foreach ($fb_account_data as $account_key => $account_value) {
+	// 				// pre($account_value);
+	// 				// continue;
+	// 				$token = $account_value['access_token'];
+	// 				// pre($token);
+	// 				// $fb_page_list = get_object_vars(json_decode($fb_page_list));
+	// 				// pre($url);
+	// 				$asset_table_name = $this->username . '_platform_assets';
 
-					if ($access_api === 'true' || $access_api === true || $access_api === 1) {
-						$fileds = 'instagram_business_account{id,username,profile_picture_url},picture,access_token,name,id';
-						$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
-						$fb_page_list_api = getSocialData($url);
-						$api_page_data = isset($fb_page_list_api['data']) ? $fb_page_list_api['data'] : array();
-						foreach ($api_page_data as $pages_key => $pages_value) {
-							$insert_data = array();
-							$insert_data['asset_id'] = $pages_value['id'];
-							$insert_data['platform_id'] = $account_value['id'];
-							$isduplicate = $this->duplicate_data($insert_data, $asset_table_name);
-							if (!$isduplicate) {
-								$insert_data['platform_id'] = $account_value['id'];
-								$insert_data['master_id'] = $_SESSION['master'];
-								$insert_data['asset_type'] = 'pages';
-								$insert_data['access_token'] = $pages_value['access_token'];
-								$insert_data['name'] = $pages_value['name'];
-								$insert_data['asset_img'] = isset($pages_value['picture']['data']['url']) ? $pages_value['picture']['data']['url'] : '';
-								$insert_new_pages = $this->MasterInformationModel->insert_entry2($insert_data, $asset_table_name);
-							} else {
-								$update_data = array();
-								$update_data['asset_img'] = isset($pages_value['picture']['data']['url']) ? $pages_value['picture']['data']['url'] : '';
-								$update_data_img = $update_data['asset_img'];
-								if (!empty($update_data_img)) {
-									$isduplicate = $this->duplicate_data($update_data, $asset_table_name);
-									if (!$isduplicate) {
-										$update_id = $pages_value['id'];
-										$update_sql = "UPDATE `$asset_table_name` SET `asset_img`= '$update_data_img' WHERE `asset_id`= $update_id";
-										$update_sql_fire = $this->db->query($update_sql);
-									}
-								}
-							}
-						}
-					}
+	// 				if ($access_api === 'true' || $access_api === true || $access_api === 1) {
+	// 					$fileds = 'instagram_business_account{id,username,profile_picture_url},picture,access_token,name,id';
+	// 					$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
+	// 					$fb_page_list_api = getSocialData($url);
+	// 					$api_page_data = isset($fb_page_list_api['data']) ? $fb_page_list_api['data'] : array();
+	// 					foreach ($api_page_data as $pages_key => $pages_value) {
+	// 						$insert_data = array();
+	// 						$insert_data['asset_id'] = $pages_value['id'];
+	// 						$insert_data['platform_id'] = $account_value['id'];
+	// 						$isduplicate = $this->duplicate_data($insert_data, $asset_table_name);
+	// 						if (!$isduplicate) {
+	// 							$insert_data['platform_id'] = $account_value['id'];
+	// 							$insert_data['master_id'] = $_SESSION['master'];
+	// 							$insert_data['asset_type'] = 'pages';
+	// 							$insert_data['access_token'] = $pages_value['access_token'];
+	// 							$insert_data['name'] = $pages_value['name'];
+	// 							$insert_data['asset_img'] = isset($pages_value['picture']['data']['url']) ? $pages_value['picture']['data']['url'] : '';
+	// 							$insert_new_pages = $this->MasterInformationModel->insert_entry2($insert_data, $asset_table_name);
+	// 						} else {
+	// 							$update_data = array();
+	// 							$update_data['asset_img'] = isset($pages_value['picture']['data']['url']) ? $pages_value['picture']['data']['url'] : '';
+	// 							$update_data_img = $update_data['asset_img'];
+	// 							if (!empty($update_data_img)) {
+	// 								$isduplicate = $this->duplicate_data($update_data, $asset_table_name);
+	// 								if (!$isduplicate) {
+	// 									$update_id = $pages_value['id'];
+	// 									$update_sql = "UPDATE `$asset_table_name` SET `asset_img`= '$update_data_img' WHERE `asset_id`= $update_id";
+	// 									$update_sql_fire = $this->db->query($update_sql);
+	// 								}
+	// 							}
+	// 						}
+	// 					}
+	// 				}
 
 
-					$platform_id = $account_value['id'];
-					$master_id = $_SESSION['master'];
-					$get_page_data = "SELECT * FROM $asset_table_name WHERE platform_id = $platform_id AND master_id = $master_id";
-					$get_page_data = $this->db->query($get_page_data);
-					$get_page_data = $get_page_data->getResultArray();
-					// pre($get_page_data);
-					$cache_data = $cache->get($_SESSION['id'] . '_fb_data');
-					// pre($cache_data);
-					// if (!empty($cache_data) && $access_api == false) {
-					// 	$fb_page_list = $cache_data;
-					// 	// echo 'yes';
-					// } else {
-					// $fb_page_list = getSocialData($url);
-					$fb_page_list['data'] = $get_page_data;
-					// echo 'no';
-					// }
-					$fb_chat_list_html = '';
-					$IG_chat_list_html = '';
-					$return_result = array();
-					$IG_data = array();
+	// 				$platform_id = $account_value['id'];
+	// 				$master_id = $_SESSION['master'];
+	// 				$get_page_data = "SELECT * FROM $asset_table_name WHERE platform_id = $platform_id AND master_id = $master_id";
+	// 				$get_page_data = $this->db->query($get_page_data);
+	// 				$get_page_data = $get_page_data->getResultArray();
+	// 				// pre($get_page_data);
+	// 				$cache_data = $cache->get($_SESSION['id'] . '_fb_data');
+	// 				// pre($cache_data);
+	// 				// if (!empty($cache_data) && $access_api == false) {
+	// 				// 	$fb_page_list = $cache_data;
+	// 				// 	// echo 'yes';
+	// 				// } else {
+	// 				// $fb_page_list = getSocialData($url);
+	// 				$fb_page_list['data'] = $get_page_data;
+	// 				// echo 'no';
+	// 				// }
+	// 				$fb_chat_list_html = '';
+	// 				$IG_chat_list_html = '';
+	// 				$return_result = array();
+	// 				$IG_data = array();
 
-					$permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $this->username . "_platform_assetpermission WHERE (FIND_IN_SET('fbpost', assetpermission_name) > 0 || FIND_IN_SET('fbcomments', assetpermission_name) > 0) AND user_id =" . $_SESSION['id'] . " AND platform_type='facebook'";
-					$permission_result = $this->db->query($permission_query);
-					$per_result = $permission_result->getResult();
-					$perasset_data = [];
-					if (isset($per_result[0])) {
-						$perasset_data = explode(',', $per_result[0]->asset_id);
-					}
+	// 				$permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $this->username . "_platform_assetpermission WHERE (FIND_IN_SET('fbpost', assetpermission_name) > 0 || FIND_IN_SET('fbcomments', assetpermission_name) > 0) AND user_id =" . $_SESSION['id'] . " AND platform_type='facebook'";
+	// 				$permission_result = $this->db->query($permission_query);
+	// 				$per_result = $permission_result->getResult();
+	// 				$perasset_data = [];
+	// 				if (isset($per_result[0])) {
+	// 					$perasset_data = explode(',', $per_result[0]->asset_id);
+	// 				}
 
-					// pre($fb_page_list);
-					foreach ($fb_page_list['data'] as $key => $value) {
-						if (in_array($value['id'], $perasset_data) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
-							$unread_msg = 0;
-							// pre($con_data);
-							// if (!empty($cache_data) && $access_api == false) {
-							// 	$unread_msg = $value['unread_count'];
-							// 	$page_img = $value['page_img'];
-							// } else {
-							// echo $access_api.'<br>';
-							if ($access_api === 'true' || $access_api === true || $access_api === 1) {
-								$url = 'https://graph.facebook.com/' . $value['asset_id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
-								$con_data = getSocialData($url);
-								if (isset($con_data['data'])) {
-									foreach ($con_data['data'] as $con_key => $con_value) {
-										// pre($value);
-										$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
-									}
-								}
-								$unread_msg_data[$value['asset_id']] = $unread_msg;
-								// echo $unread_msg.'<br>';
-							} else {
-								$unread_msg = isset($cache_data[$value['asset_id']]) ? $cache_data[$value['asset_id']] : 0;
-								$unread_msg_data[$value['asset_id']] = $unread_msg;
-							}
-							// $page_data = fb_page_img($value['id'], $value['access_token']);
-							// $page_data = json_decode($page_data);
-							// $page_img = $page_data->page_img;
-							$page_img = $value['asset_img'];
-							// }
+	// 				// pre($fb_page_list);
+	// 				foreach ($fb_page_list['data'] as $key => $value) {
+	// 					if (in_array($value['id'], $perasset_data) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+	// 						$unread_msg = 0;
+	// 						// pre($con_data);
+	// 						// if (!empty($cache_data) && $access_api == false) {
+	// 						// 	$unread_msg = $value['unread_count'];
+	// 						// 	$page_img = $value['page_img'];
+	// 						// } else {
+	// 						// echo $access_api.'<br>';
+	// 						if ($access_api === 'true' || $access_api === true || $access_api === 1) {
+	// 							$url = 'https://graph.facebook.com/' . $value['asset_id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
+	// 							$con_data = getSocialData($url);
+	// 							if (isset($con_data['data'])) {
+	// 								foreach ($con_data['data'] as $con_key => $con_value) {
+	// 									// pre($value);
+	// 									$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
+	// 								}
+	// 							}
+	// 							$unread_msg_data[$value['asset_id']] = $unread_msg;
+	// 							// echo $unread_msg.'<br>';
+	// 						} else {
+	// 							$unread_msg = isset($cache_data[$value['asset_id']]) ? $cache_data[$value['asset_id']] : 0;
+	// 							$unread_msg_data[$value['asset_id']] = $unread_msg;
+	// 						}
+	// 						// $page_data = fb_page_img($value['id'], $value['access_token']);
+	// 						// $page_data = json_decode($page_data);
+	// 						// $page_img = $page_data->page_img;
+	// 						$page_img = $value['asset_img'];
+	// 						// }
 
-							$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['asset_id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
-										<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
-											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
-												<img src="' . $page_img . '" alt="" width="45">
-											</a>
-											<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
-											</p>';
-							if ($unread_msg  != 0) {
-								$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
-							}
-							$fb_chat_list_html .= '</div>
-									</div>';
-							if (isset($value['instagram_business_account'])) {
-								$value['instagram_business_account']['access_token'] = $value['access_token'];
-								$value['instagram_business_account']['fb_page_id'] = $value['asset_id'];
-								$IG_data[] = $value['instagram_business_account'];
-							}
+	// 						$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['asset_id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
+	// 									<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
+	// 										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
+	// 											<img src="' . $page_img . '" alt="" width="45">
+	// 										</a>
+	// 										<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
+	// 										</p>';
+	// 						if ($unread_msg  != 0) {
+	// 							$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
+	// 						}
+	// 						$fb_chat_list_html .= '</div>
+	// 								</div>';
+	// 						if (isset($value['instagram_business_account'])) {
+	// 							$value['instagram_business_account']['access_token'] = $value['access_token'];
+	// 							$value['instagram_business_account']['fb_page_id'] = $value['asset_id'];
+	// 							$IG_data[] = $value['instagram_business_account'];
+	// 						}
 
-							// if (empty($cache_data) && $access_api == false) {
-							// 	$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
-							// 	$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
-							// }
-						}
-					}
-				}
+	// 						// if (empty($cache_data) && $access_api == false) {
+	// 						// 	$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
+	// 						// 	$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
+	// 						// }
+	// 					}
+	// 				}
+	// 			}
 
-				foreach ($IG_data as $IG_key => $IG_value) {
-					$IG_chat_list_html .= '
-								<div class="col-12 account-nav account-box linked-page" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
-									<div class=" d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
-										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
-											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
-										</a>
-										<p class="fs-6 fw-medium col ps-2">' . $IG_value['username'] . '
-										</p>
-									</div>
-								</div>
-									';
-				}
-				// pre($unread_msg_data);
-				if (!empty($unread_msg_data)) {
-					$cache->save($_SESSION['id'] . '_fb_data', $unread_msg_data, 3600);
-				}
+	// 			foreach ($IG_data as $IG_key => $IG_value) {
+	// 				$IG_chat_list_html .= '
+	// 							<div class="col-12 account-nav account-box linked-page" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
+	// 								<div class=" d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
+	// 									<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
+	// 										<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
+	// 									</a>
+	// 									<p class="fs-6 fw-medium col ps-2">' . $IG_value['username'] . '
+	// 									</p>
+	// 								</div>
+	// 							</div>
+	// 								';
+	// 			}
+	// 			// pre($unread_msg_data);
+	// 			if (!empty($unread_msg_data)) {
+	// 				$cache->save($_SESSION['id'] . '_fb_data', $unread_msg_data, 3600);
+	// 			}
 
-				// pre($IG_data);
-			} else {
-				$fb_chat_list_html = '';
-				$fb_chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
-				$IG_chat_list_html = '';
-				$IG_chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
-			}
-			$return_result['chat_list_html'] = $fb_chat_list_html;
-			$return_result['IG_chat_list_html'] = $IG_chat_list_html;
-			return json_encode($return_result);
-		}
-	}
+	// 			// pre($IG_data);
+	// 		} else {
+	// 			$fb_chat_list_html = '';
+	// 			$fb_chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
+	// 			$IG_chat_list_html = '';
+	// 			$IG_chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
+	// 		}
+	// 		$return_result['chat_list_html'] = $fb_chat_list_html;
+	// 		$return_result['IG_chat_list_html'] = $IG_chat_list_html;
+	// 		return json_encode($return_result);
+	// 	}
+
+    //     if ($_POST['action'] == 'img_load') {
+	// 		$page_access_token = $_POST['page_access_token'];
+	// 		$page_id = $_POST['page_id'];
+    //         // pre($page_id);
+		
+
+	// 		// if ($_POST['api'] === true) {
+    //             $response = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/feed?access_token=' . $page_access_token . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
+        
+    //             $fb_page_list = $response;
+        
+    //             $html = "";
+        
+    //             foreach ($fb_page_list['data'] as $key => $value) {
+    //                 $url = 'https://graph.facebook.com/v19.0/' . $value['id'] . '?fields=attachments&access_token=' . $page_access_token . '';
+    //                 $data = getSocialData($url);
+    //                 // $time = strtotime($data[0]['created_time']);    
+    //                 $accesss_tocken_comment = 'EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD';
+    //                 if (isset($value['full_picture'])) {
+    //                     $fb_upload_img = ($value['full_picture']);
+    //                 } else {
+    //                     $fb_upload_img = "";
+    //                 }
+    //                 if (isset($value->message)) {
+    //                     $fb_titile = ($value->message);
+    //                 } else {
+    //                     $fb_titile = "";
+    //                 }
+        
+    //                 $timestamp = $value['created_time'];
+    //                 $date = new DateTime($timestamp, new DateTimeZone('UTC'));
+    //                 $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
+    //                 $facebook_upload_time = $date->format('Y-m-d h:i:s A');
+    //                 $timestamp = strtotime($value['created_time']);
+    //                 $current_time = time();
+    //                 $time_diff = $current_time - $timestamp;
+        
+    //                 if ($time_diff < 60) {
+    //                     $facebook_upload_time = "Just now";
+    //                 } elseif ($time_diff < 3600) {
+    //                     $minutes = floor($time_diff / 60);
+    //                     $facebook_upload_time = "$minutes minute" . ($minutes == 1 ? '' : 's') . " ago";
+    //                 } elseif ($time_diff < 86400) {
+    //                     $hours = floor($time_diff / 3600);
+    //                     $facebook_upload_time = "$hours hour" . ($hours == 1 ? '' : 's') . " ago";
+    //                 } elseif ($time_diff < 604800) {
+    //                     $days = floor($time_diff / 86400);
+    //                     $facebook_upload_time = "$days day" . ($days == 1 ? '' : 's') . " ago";
+    //                 } else {
+    //                     $date = new DateTime('@' . $timestamp, new DateTimeZone('UTC'));
+    //                     $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
+    //                     $facebook_upload_time = $date->format('F d \a\t h:i A');
+    //                 }
+        
+        
+    //                 $html .= '<div class=" mb-2 col-12 col-sm-12 col-md-12 col-xl-5 col-xxl-4 " id="post_card" >
+    //                     <div class="border rounded-4 bg-white  p-3 shadow mx-2 card-header">
+        
+                        
+    //                 <div class="col-12 d-flex flex-wrap border-bottom">
+    //                     <div class="me-2 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
+    //                         <img class="rounded-circle" src="' . $data_img . '" alt="#" style="width:40px;height:40px;">
+    //                     </div>
+    //                     <div class="col">
+    //                         <div class="col-12 d-flex flex-wrap justify-content-between">
+    //                             <p class="col-10 cmt_modal_open " data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">' . $page_namee . '</p>
+    //                             <div class="btn-group dropstart">
+    //                                 <div class="" data-bs-toggle="dropdown" aria-expanded="false">
+    //                                     <i class="fa-solid fa-ellipsis-vertical cursor-pinter mx-2"></i>
+    //                                 </div>
+    //                                 <ul class="dropdown-menu bg-transparent text-end border-0">
+    //                                     <div class="d-flex flex-wrap bg-white border p-1 rounded-2">
+    //                                     <div class="col-12 d-flex justify-content-start">
+    //                                         <button class="bg-transparent text-start ps-1 col-12 border-0 delete_post_facebook" data-delete_id="' . $value['id'] . '"><i class="fa-solid fa-trash-can me-2"></i>Delete</button>
+    //                                         </div>
+    //                                         <div class="col-12 d-flex justify-content-start">
+    //                                         <button class="bg-transparent text-start ps-1 col-12 border-0 edit_post_facebook" data-edit_id="' . $value['id'] . '" data-page_id="' . $pagee_idd . '" data-access_token="' . $accesss_tocken_comment . '" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash-can me-2"></i>Edit</button>
+    //                                         </div>
+    //                                     </div>
+    //                                 </ul>
+    //                             </div>
+        
+    //                         </div>
+        
+    //                         <div class="col-12 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '"  data-bs-toggle="modal" data-bs-target="#comment-modal">
+    //                             <span class="text-muted">
+    //                                 <span class="fs-14">' . $facebook_upload_time . '</span>
+    //                             </span>
+    //                             <span>
+    //                                 <i class="fa-solid fa-earth-asia fs-14 fw-muted"></i>
+    //                             </span>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //                     <div class="col-12 cmt_modal_open" data-bs-toggle="modal" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-target="#comment-modal">
+    //                 <div class="col-12 my-2">
+    //                     <p class="fs-14">' . $fb_titile . '</p>
+    //                 </div>
+    //                 <div class="py-2 d-flex justify-content-center bg-white align-items-center overflow-hidden col-12 p-2" style="min-height: 209px; max-height: 209px; overflow: hidden;">';
+    //                 if (isset($data['attachments']['data']) && !empty($data['attachments']['data'])) {
+    //                     $attachments = $data['attachments']['data'];
+    //                     // Display all images
+    //                     foreach ($attachments as $attachment) {
+    //                         // pre($attachment);
+    //                         // Check for subattachments
+    //                         if (isset($attachment['subattachments']['data']) && !empty($attachment['subattachments']['data'])) {
+    //                             $subattachments = $attachment['subattachments']['data'];
+    //                             foreach ($subattachments as $subattachment) {
+    //                                 $image_url = $subattachment['media']['image']['src'];
+    //                                 $html .= "<img src='$image_url' alt='Image' style='width:100%;height:300px;'>";
+    //                             }
+    //                         } else {
+    //                             // No subattachments, display the main attachment image
+    //                             if (isset($attachment['media']['image']['src']) && !empty($attachment['media']['image']['src'])) {
+    //                                 $image_url = $attachment['media']['image']['src'];
+    //                                 $html .= "<img src='$image_url' alt='Image' style='width:100%;height:300px;'>";
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //                 $html .= '
+                    
+    //                 </div>
+    //                 </div>
+    //                 <div class="col-12 p-1 mt-2 border-top pt-3">
+    //                 <div class="row align-items-center justify-content-center">
+    //                     <div class=" mb-2 mb-md-0 p-0 px-1" style="width:fit-content;">
+    //                         <button class="btn like_button d-flex p-0 border-0">
+    //                             <i class="fa-regular fa-thumbs-up mx-1 my-auto" id="like_icon"></i>
+    //                             <i class="fa-solid fa-thumbs-up d-none mx-1 my-auto" id="like_icon_lite"></i>
+    //                             <div class="my-auto btn-text comment_like_count">Like</div>
+    //                         </button>
+    //                     </div>
+                
+    //                     <div class=" mb-2 mb-md-0 p-0 px-1" style="width:fit-content;">
+    //                         <button class="btn d-flex p-0 border-0 cmt_modal_open" data-access_token="' . $accesss_tocken_comment . '" data-post_id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#comment-modal">
+    //                             <i class="fa-regular fa-comment mx-1 my-auto"></i>
+    //                             <div class="my-auto btn-text">Comment</div>
+    //                         </button>
+    //                     </div>
+    //                 <div class=" mb-2 mb-md-0 p-0 px-1" style="width:fit-content;data-toggle="modal" data-target="#sharemodal" >
+    //                 <div class="btn w-100 text-muted d-flex p-0 border-0" data-toggle="modal"  data-attachment_post="' . $fb_upload_img . '" data-target="#sharemodal"  id="post_commnet_modal"><i class="fa-solid fa-share mx-2 my-auto"></i><div class="my-auto">share</div></div>
+    //             </div>
+                    
+                    
+    //                 </div>
+        
+        
+        
+    //             </div>
+    //             </div>
+    //             </div>
+        
+    //             ';
+    //             }
+    //             $return_array['html'] = $html;
+        
+    //             echo json_encode($return_array, true);
+	// 	}
+	// }
 
 
     public function duplicate_data($data, $table_name)
