@@ -10,10 +10,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         header('Location:' . base_url('logout') . '');
     }
 }
-$db_connection = DatabaseDefaultConnection();
-$queryy = 'SELECT * FROM ' . $table_username . '_platform_assets WHERE platform_id =32';
-$result = $db_connection->query($queryy);
-$get_facebook_page = $result->getResultArray();
+
 ?>
 <style>
     textarea:focus {
@@ -211,9 +208,9 @@ $get_facebook_page = $result->getResultArray();
                         </div>
                         <div class="col-12  px-0 scroll-none" style="max-height: 100%;">
                             <div class="accordion accordion-flush" id="accordionFlushExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed p-2 ps-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <div class="accordion-item border-0 border-bottom FbListedMessage">
+                                    <h2 class="accordion-header position-relative">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium rounded-0 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
                                                     <path fill="#1877f2" d="M512 256c0 127.78-93.62 233.69-216 252.89V330h59.65L367 256h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98H370v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6V256h-65v74h65v178.89C93.62 489.69 0 383.78 0 256 0 114.62 114.62 0 256 0s256 114.62 256 256z" opacity="1" data-original="#1877f2" class=""></path>
@@ -222,73 +219,19 @@ $get_facebook_page = $result->getResultArray();
                                             </svg>
                                             <P class="ms-2">Facebook</P>
                                         </button>
+                                        <div class="col text-end position-absolute" style="right: 0;top: 50%;transform: translate(-134%, -50%);z-index: 9;">
+                                            <i class="fa-solid fa-arrows-rotate fs-5 me-2 text-primary fb-refresh" data-api="true"></i>
+                                        </div>
+                                        </button>
                                     </h2>
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse  SwitchAccountTimeSetFacebookHtml" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="col-12 bg-white  d-flex flex-wrap flex-column justify-content-between">
-                                                <!--  facebook page get start -->
-                                                <?php
-                                                if (isset($hometoaccesstoken) && $hometoaccesstoken != '') {
-                                                    //for asset permission
-                                                    // $permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $table_username . "_platform_assetpermission
-                                                    //  WHERE (FIND_IN_SET('fbpost', assetpermission_name) > 0 
-                                                    //  OR FIND_IN_SET('fbcomments', assetpermission_name) > 0) AND user_id =" . $_SESSION['id'];
-                                                    // $permission_result = $db_connection->query($permission_query);
-                                                    // $per_result = $permission_result->getResult();
-                                                    // $perasset_data = [];
-                                                    // if (isset($per_result[0])) {
-                                                    //     $perasset_data = explode(',', $per_result[0]->asset_id);
-                                                    // }
-
-
-                                                    $token = $hometoaccesstoken;
-                                                    $fb_page_list = fb_insta_page_list($token);
-                                                    $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                                                    $i = 0;
-                                                    foreach ($fb_page_list['page_list'] as $key => $value) {
-                                                        //permission line
-                                                        // if ((in_array($value->id )) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
-                                                            if (isset($value->instagram_business_account)) {
-                                                            } else {
-                                                                $pageprofile = fb_page_img($value->id, $value->access_token);
-                                                                $img_decode = json_decode($pageprofile, true);
-                                                ?>
-                                                                <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
-                                                                    <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])) : ?>
-                                                                        <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token; ?>" data-pagee_id="<?php echo $value->id; ?>" data-page_name="<?php echo $value->name; ?>" data-img="<?php echo $img_decode['page_img']; ?>" data-asset-id="<?php echo $value->id;?>">
-                                                                            <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
-                                                                            <div class="col">
-                                                                                <?php echo $value->name ?>
-                                                                            </div>
-                                                                        </div>
-                                                                    <?php endif; ?>
-                                                                </div>
-                                                                <!-- <div class="col-12 d-flex flex-wrap align-items-start">
-                                                                        <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)) : ?>
-                                                                            <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post"
-                                                                                                    data-pagee_id="<?php if (isset($value->instagram_business_account)) {
-                                                                                                                        echo $value->id;
-                                                                                                                    } ?>" data-page_name="<?php echo $value->instagram_business_account->username; ?>"
-                                                                                                    data-img="<?php echo $img_decode['page_img']; ?>"
-                                                                                                    data-acess_token="<?php echo $value->access_token; ?>">
-                                                                                <?php if (isset($value->instagram_business_account->username)) : ?>
-                                                                                    <?php echo $value->instagram_business_account->username; ?>
-                                                                                <?php endif; ?>
-                                                                            </div>
-                                                                        <?php endif; ?>
-                                                                    </div> -->
-                                                <?php $i++;
-                                                            }
-                                                        }
-                                                    }
-                                                 ?>
-                                            </div>
+                                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body account_list p-0">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item IgListedMessage">
+                                <div class="accordion-item border-0 border-bottom IgListedMessage">
                                     <h2 class="accordion-header">
-                                        <button class="accordion-button collapsed p-2 ps-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                        <button class="accordion-button collapsed border-0 shadow-none fw-medium px-3 py-2 " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                 <g>
                                                     <linearGradient id="a" x1="84.679" x2="404.429" y1="427.321" y2="107.571" gradientUnits="userSpaceOnUse">
@@ -311,52 +254,11 @@ $get_facebook_page = $result->getResultArray();
                                             <P class="ms-2">instagram</P>
                                         </button>
                                     </h2>
-                                    <div id="flush-collapseTwo" class="accordion-collapse collapse SwitchAccountTimeSetInstagramHtml" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="col-12   bg-white  d-flex flex-wrap flex-column justify-content-between">
-                                                <!--  facebook page get start -->
-                                                <?php
-                                                if (isset($hometoaccesstoken) && $hometoaccesstoken != '') {
-                                                    $token = $hometoaccesstoken;
-                                                    $fb_page_list = fb_insta_page_list($token);
-                                                    $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                                                    $i = 0;
-                                                    foreach ($fb_page_list['page_list'] as $key => $value) {
-                                                        if (isset($value->instagram_business_account)) {
-                                                            $pageprofile = fb_page_img($value->id, $value->access_token);
-                                                            $img_decode = json_decode($pageprofile, true);
-                                                ?>
-                                                            <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
-                                                                <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])) : ?>
-                                                                    <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post <?= $i == 0 ? '' : ''; ?>" data-acess_token="<?php echo $value->access_token; ?>" data-pagee_id="<?php echo $value->id; ?>" data-page_name="<?php echo $value->name; ?>" data-img="<?php echo $img_decode['page_img']; ?>">
-                                                                        <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
-                                                                        <div class="col">
-                                                                            <?php echo $value->name ?>
-                                                                        </div>
-                                                                    </div>
-                                                                <?php endif; ?>
-                                                            </div>
-                                                            <!-- <div class="col-12 d-flex flex-wrap align-items-start">
-                                                                <?php if (isset($value->instagram_business_account) && isset($value->name) && isset($img_decode['page_img']) && isset($value->access_token)) : ?>
-                                                                    <div class="col-12 d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex app_card_post"
-                                                                                            data-pagee_id="<?php if (isset($value->instagram_business_account)) {
-                                                                                                                echo $value->id;
-                                                                                                            } ?>" data-page_name="<?php echo $value->instagram_business_account->username; ?>"
-                                                                                            data-img="<?php echo $img_decode['page_img']; ?>"
-                                                                                            data-acess_token="<?php echo $value->access_token; ?>">
-                                                                        <?php if (isset($value->instagram_business_account->username)) : ?>
-                                                                            <?php echo $value->instagram_business_account->username; ?>
-                                                                        <?php endif; ?>
-                                                                    </div>
-                                                                <?php endif; ?>
-                                                            </div> -->
-                                                <?php $i++;
-                                                        }
-                                                    }
-                                                } ?>
-                                            </div>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body IG_account_list p-0">
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -960,6 +862,72 @@ $get_facebook_page = $result->getResultArray();
                     }
                 });
             });
+
+            function list_data(api = false, action = 'account_list', page_id = '', page_access_token = '', platform) {
+        $.ajax({
+            method: "post",
+            url: "<?= site_url('get_post_data'); ?>",
+            data: {
+                action: action,
+                api: api,
+                page_id: page_id,
+                page_access_token: page_access_token,
+                platform: platform,
+            },
+            beforeSend: function() {
+                if (api == false) {
+
+                    if (action == 'account_list') {
+                        $('.acc_loader').show();
+                    } else if (action == 'chat_list') {
+                        $('.chat_list').html('');
+                        $('.chat_list_loader').show();
+                    }
+                }
+            },
+            success: function(data) {
+                // ====kjhsdhj==
+                $('.acc_loader').hide();
+                $('.fb-refresh').removeClass('fa-spin');
+                var obj = JSON.parse(data);
+                if (action == 'account_list') {
+                    $('.account_list').html(obj.chat_list_html);
+                    $('.IG_account_list').html(obj.IG_chat_list_html);
+                    var last_page_id = getCookie('last_account_id');
+                    if (api == false && last_page_id != '') {
+                        $('.account-nav[data-page_id="' + last_page_id + '"]').trigger('click');
+                    }
+                } else if (action == 'chat_list') {
+                    $('.chat_list').html(obj.chat_list_html);
+                    $('.chat_list_loader').hide();
+                    $('.chatNoData').hide();
+                    var last_chat_id = getCookie('last_chat_id');
+                    var last_page_id = getCookie('last_account_id');
+                    if (api == false && last_chat_id != '' && last_page_id != '') {
+                        $('.chat_list[data-sender_id="' + last_chat_id + '"]').trigger('click');
+                    }
+                }
+            }
+        });
+    }
+            $('body').on('click', '.FbListedMessage .accordion-button,.IgListedMessage .accordion-button', function() {
+
+// alert();
+ list_data(false, 'account_list');
+
+            });
+            $('body').on('click', '.account-nav', function() {
+            var page_id = $(this).attr("data-page_id");
+            var page_access_token = $(this).attr("data-page_access_token");
+            var platform = $(this).attr("data-platform");
+            var page_name = $('.page_name').text($(this).attr('data-page_name'));
+            $('.username').text('User Name');
+            $('.in_chat_page_name').text('');
+            $('.chat_bord').html('');
+            setCookie('last_account_id', page_id, 1);
+            setCookie('last_account_platform', platform, 1);
+            list_data(false, 'chat_list', page_id, page_access_token, platform);
+        });
             $('.massage_list_loader').hide();
             setTimeout(function() {
                 $('.first').trigger('click');

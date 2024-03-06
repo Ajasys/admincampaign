@@ -334,10 +334,15 @@ class CreateController extends BaseController
 
         //get comment
         $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
-
+        $this->db = DatabaseDefaultConnection();
         //multiple photo show
+        $integration_table_name = $this->username . '_platform_assets';
+			$get_token = "SELECT * FROM $integration_table_name WHERE platform_status = 2 AND verification_status = 1";
+			
 
-
+            $get_access_token_array = $this->db->query($get_token);
+			$data_count = $get_access_token_array->getResultArray();
+            pre($data_count);
         $fb_page_list = $response;
 
         $html = "";
@@ -1047,7 +1052,180 @@ class CreateController extends BaseController
     }
     
 
+    public function get_post_data()
+	{
+		$cache = \Config\Services::cache();
+		$this->db = DatabaseDefaultConnection();
+		if ($_POST['action'] == 'account_list') {
 
+			$integration_table_name = $this->username . '_platform_integration';
+			$get_token = "SELECT * FROM $integration_table_name WHERE platform_status = 2 AND verification_status = 1";
+			$get_access_token_array = $this->db->query($get_token);
+			$data_count = $get_access_token_array->getNumRows();
+			$access_api = isset($_POST['api']) ? $_POST['api'] : false;
+			if ($data_count > 0) {
+				$unread_msg_data = array();
+				$fb_account_data = $get_access_token_array->getResultArray();
+				foreach ($fb_account_data as $account_key => $account_value) {
+					// pre($account_value);
+					// continue;
+					$token = $account_value['access_token'];
+					// pre($token);
+					// $fb_page_list = get_object_vars(json_decode($fb_page_list));
+					// pre($url);
+					$asset_table_name = $this->username . '_platform_assets';
+
+					if ($access_api === 'true' || $access_api === true || $access_api === 1) {
+						$fileds = 'instagram_business_account{id,username,profile_picture_url},picture,access_token,name,id';
+						$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
+						$fb_page_list_api = getSocialData($url);
+						$api_page_data = isset($fb_page_list_api['data']) ? $fb_page_list_api['data'] : array();
+						foreach ($api_page_data as $pages_key => $pages_value) {
+							$insert_data = array();
+							$insert_data['asset_id'] = $pages_value['id'];
+							$insert_data['platform_id'] = $account_value['id'];
+							$isduplicate = $this->duplicate_data($insert_data, $asset_table_name);
+							if (!$isduplicate) {
+								$insert_data['platform_id'] = $account_value['id'];
+								$insert_data['master_id'] = $_SESSION['master'];
+								$insert_data['asset_type'] = 'pages';
+								$insert_data['access_token'] = $pages_value['access_token'];
+								$insert_data['name'] = $pages_value['name'];
+								$insert_data['asset_img'] = isset($pages_value['picture']['data']['url']) ? $pages_value['picture']['data']['url'] : '';
+								$insert_new_pages = $this->MasterInformationModel->insert_entry2($insert_data, $asset_table_name);
+							} else {
+								$update_data = array();
+								$update_data['asset_img'] = isset($pages_value['picture']['data']['url']) ? $pages_value['picture']['data']['url'] : '';
+								$update_data_img = $update_data['asset_img'];
+								if (!empty($update_data_img)) {
+									$isduplicate = $this->duplicate_data($update_data, $asset_table_name);
+									if (!$isduplicate) {
+										$update_id = $pages_value['id'];
+										$update_sql = "UPDATE `$asset_table_name` SET `asset_img`= '$update_data_img' WHERE `asset_id`= $update_id";
+										$update_sql_fire = $this->db->query($update_sql);
+									}
+								}
+							}
+						}
+					}
+
+
+					$platform_id = $account_value['id'];
+					$master_id = $_SESSION['master'];
+					$get_page_data = "SELECT * FROM $asset_table_name WHERE platform_id = $platform_id AND master_id = $master_id";
+					$get_page_data = $this->db->query($get_page_data);
+					$get_page_data = $get_page_data->getResultArray();
+					// pre($get_page_data);
+					$cache_data = $cache->get($_SESSION['id'] . '_fb_data');
+					// pre($cache_data);
+					// if (!empty($cache_data) && $access_api == false) {
+					// 	$fb_page_list = $cache_data;
+					// 	// echo 'yes';
+					// } else {
+					// $fb_page_list = getSocialData($url);
+					$fb_page_list['data'] = $get_page_data;
+					// echo 'no';
+					// }
+					$fb_chat_list_html = '';
+					$IG_chat_list_html = '';
+					$return_result = array();
+					$IG_data = array();
+
+					$permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $this->username . "_platform_assetpermission WHERE FIND_IN_SET('fbmessages', assetpermission_name) > 0 AND user_id =" . $_SESSION['id'] . " AND platform_type='facebook'";
+					$permission_result = $this->db->query($permission_query);
+					$per_result = $permission_result->getResult();
+					$perasset_data = [];
+					if (isset($per_result[0])) {
+						$perasset_data = explode(',', $per_result[0]->asset_id);
+					}
+
+					// pre($fb_page_list);
+					foreach ($fb_page_list['data'] as $key => $value) {
+						if (in_array($value['id'], $perasset_data) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+							$unread_msg = 0;
+							// pre($con_data);
+							// if (!empty($cache_data) && $access_api == false) {
+							// 	$unread_msg = $value['unread_count'];
+							// 	$page_img = $value['page_img'];
+							// } else {
+							// echo $access_api.'<br>';
+							if ($access_api === 'true' || $access_api === true || $access_api === 1) {
+								$url = 'https://graph.facebook.com/' . $value['asset_id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
+								$con_data = getSocialData($url);
+								if (isset($con_data['data'])) {
+									foreach ($con_data['data'] as $con_key => $con_value) {
+										// pre($value);
+										$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
+									}
+								}
+								$unread_msg_data[$value['asset_id']] = $unread_msg;
+								// echo $unread_msg.'<br>';
+							} else {
+								$unread_msg = isset($cache_data[$value['asset_id']]) ? $cache_data[$value['asset_id']] : 0;
+								$unread_msg_data[$value['asset_id']] = $unread_msg;
+							}
+							// $page_data = fb_page_img($value['id'], $value['access_token']);
+							// $page_data = json_decode($page_data);
+							// $page_img = $page_data->page_img;
+							$page_img = $value['asset_img'];
+							// }
+
+							$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['asset_id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
+										<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
+											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
+												<img src="' . $page_img . '" alt="" width="45">
+											</a>
+											<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
+											</p>';
+							if ($unread_msg  != 0) {
+								$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
+							}
+							$fb_chat_list_html .= '</div>
+									</div>';
+							if (isset($value['instagram_business_account'])) {
+								$value['instagram_business_account']['access_token'] = $value['access_token'];
+								$value['instagram_business_account']['fb_page_id'] = $value['asset_id'];
+								$IG_data[] = $value['instagram_business_account'];
+							}
+
+							// if (empty($cache_data) && $access_api == false) {
+							// 	$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
+							// 	$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
+							// }
+						}
+					}
+				}
+
+				foreach ($IG_data as $IG_key => $IG_value) {
+					$IG_chat_list_html .= '
+								<div class="col-12 account-nav account-box linked-page" data-page_id="' . $IG_value['fb_page_id'] . '" data-platform="instagram" data-page_access_token="' . $IG_value['access_token'] . '" data-page_name="' . $IG_value['username'] . '">
+									<div class=" d-flex flex-wrap justify-content-between align-items-center  p-2 ms-4">
+										<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
+											<img src="' . $IG_value['profile_picture_url'] . '" alt="" width="45">
+										</a>
+										<p class="fs-6 fw-medium col ps-2">' . $IG_value['username'] . '
+										</p>
+									</div>
+								</div>
+									';
+				}
+				// pre($unread_msg_data);
+				if (!empty($unread_msg_data)) {
+					$cache->save($_SESSION['id'] . '_fb_data', $unread_msg_data, 3600);
+				}
+
+				// pre($IG_data);
+			} else {
+				$fb_chat_list_html = '';
+				$fb_chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
+				$IG_chat_list_html = '';
+				$IG_chat_list_html .= '<div class="text-center col-12 overflow-y-scroll p-3">No Chats Found!</div>';
+			}
+			$return_result['chat_list_html'] = $fb_chat_list_html;
+			$return_result['IG_chat_list_html'] = $IG_chat_list_html;
+			return json_encode($return_result);
+		}
+	}
 
 
     public function duplicate_data($data, $table_name)

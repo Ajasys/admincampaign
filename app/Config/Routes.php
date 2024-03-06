@@ -108,6 +108,8 @@ $routes->get('/asses_permissions', 'Home::asses_permissions');
 // post and comment
 $routes->get('/post_comments', 'Home::post_comments');
 $routes->post('/create_insert_data', 'CreateController::create_insert_data');
+$routes->post('/get_post_data', 'CreateController::get_post_data');
+
 $routes->post('/SendPostDataFB', 'CreateController::SendPostDataFB');
 // $routes->post('/ShareOfPost', 'CreateController::ShareOfPost');
 $routes->post('/ShareOfPost', 'CreateController::ShareOfPost');
