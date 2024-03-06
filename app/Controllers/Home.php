@@ -903,18 +903,10 @@ class Home extends BaseController
             'facebook_syncro int(11) NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_username . '_audience', '', $columns_audience);
-        $data['master_inquiry_type'] = $this->MasterInformationModel->display_all_records2($table_username . '_master_inquiry_type');
-        $data['master_inquiry_source'] = $this->MasterInformationModel->display_all_records2($table_username . '_master_inquiry_source');
-        // $data['project_management_subtype'] = $this->MasterInformationModel->display_all_records('project_management_subtype');
-        $data['area'] = $this->MasterInformationModel->display_all_records('master_area');
-        $data['admin_user'] = $this->MasterInformationModel->display_all_records2($table_username . '_user');
         // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
-        // $data['project_management_type'] = $this->MasterInformationModel->display_all_records('project_management_type');
         $data['admin_subscription_master'] = $this->MasterInformationModel->display_all_records2($table_username . '_subscription_master');
         $data['admin_product'] = $this->MasterInformationModel->display_all_records2($table_username . '_product');
-        $data['master_inquiry_close'] = $this->MasterInformationModel->display_all_records2($table_username . '_master_inquiry_close');
         $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
-        $data['user_data'] = $this->MasterInformationModel->display_all_records2($table_username . '_user');
         $data['platform_assets'] = $this->MasterInformationModel->display_all_records2($table_username . '_platform_assets');
         return view('manage_audience', $data);
     }
