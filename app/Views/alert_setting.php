@@ -9,7 +9,7 @@ $alert_setting = json_decode($alert_setting, true);
 // pre($alert_setting);
 $username = session_username($_SESSION['username']);
 // $sql = "SELECT * FROM `" . $username . "_alert_setting`";
-// $db_connection = \Config\Database::connect();
+// $db_connection = DatabaseSecondConnection();
 // $result = $db_connection->query($sql);
 ?>
 
@@ -54,7 +54,7 @@ $username = session_username($_SESSION['username']);
                   // foreach ($alert_setting as $key => $value) {
                   //  pre($value);
                   foreach ($master_alert_setting as $type_key => $type_value) {
-                     $db_connection = \Config\Database::connect('second');
+                     $db_connection = DatabaseDefaultConnection();
                      $query90 = "SELECT * FROM `" . $username . "_alert_setting` WHERE  alert_title= '" . $type_value['id'] . "'";
 
                      $result = $db_connection->query($query90);
@@ -104,7 +104,7 @@ $username = session_username($_SESSION['username']);
                   foreach ($master_alert_setting as $type_key => $type_value) {
                      // pre($type_key);
                      //pre($type_value);
-                     $db_connection = \Config\Database::connect('second');
+                     $db_connection = DatabaseDefaultConnection();
                      $query90 = "SELECT * FROM `" . $username . "_alert_setting` WHERE  alert_title= '" . $type_value['id'] . "'";
 
                      $result = $db_connection->query($query90);
@@ -316,7 +316,7 @@ $username = session_username($_SESSION['username']);
                   </div>
                   <?php
                   foreach ($master_alert_setting as $type_key => $type_value) {
-                     $db_connection = \Config\Database::connect('second');
+                     $db_connection = DatabaseDefaultConnection();
                      $query90 = "SELECT * FROM `" . $username . "_alert_setting` WHERE  alert_title= '" . $type_value['id'] . "'";
 
                      $result = $db_connection->query($query90);
@@ -504,7 +504,7 @@ $username = session_username($_SESSION['username']);
                   </div>
                   <?php
                   foreach ($master_alert_setting as $type_key => $type_value) {
-                     $db_connection = \Config\Database::connect('second');
+                     $db_connection = DatabaseDefaultConnection();
                      $query90 = "SELECT * FROM `" . $username . "_alert_setting` WHERE  alert_title= '" . $type_value['id'] . "'";
 
                      $result = $db_connection->query($query90);

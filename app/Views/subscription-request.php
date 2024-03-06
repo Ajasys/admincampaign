@@ -12,7 +12,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 <?php
 // $project_management_subtype = json_decode($project_management_subtype, true);
 $username = session_username($_SESSION['username']);
-$this->db = \Config\Database::connect('second');
+$this->db = DatabaseDefaultConnection();
 ?>
 
 <style>

@@ -65,7 +65,7 @@ class Booking extends BaseController
 			'response' => 0
 		);
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$user_id = $_SESSION['id'];
 		$perPageCount = isset($_POST['perPageCount']) && !empty($_POST['perPageCount']) ? $_POST['perPageCount'] : 10;
 		$pageNumber = isset($_POST['pageNumber']) && !empty($_POST['pageNumber']) ? $_POST['pageNumber'] : 1;
@@ -416,7 +416,7 @@ class Booking extends BaseController
 
 	public function project_to_get_unit()
 	{
-		$this->db = \Config\Database::connect();
+		$this->db = DatabaseSecondConnection();
 		$post_data = $this->request->getPost();
 		$field = $this->request->getPost("field");
 
@@ -511,7 +511,7 @@ class Booking extends BaseController
 			$result_array = array();
 			$table = $this->username . '_' . $_POST['table'];
 
-			$this->db = \Config\Database::connect();
+			$this->db = DatabaseSecondConnection();
 			$i = 0;
 
 			$sql = 'SELECT * FROM ' . $table . ' WHERE `project_name` =' . $project_id . ' AND `unit_no` = ' . $unit_no;
@@ -533,7 +533,7 @@ class Booking extends BaseController
 	public function duplicate_data_check_mobile_and_extra_data($tablename, $find_Data = array())
 	{
 
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 
 		$array['response'] = 0;
 		$result = $this->db->table($tablename)->where($find_Data)->get();
@@ -862,7 +862,7 @@ class Booking extends BaseController
 						$inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
 						$intrested_product = $inquiry_data['intrested_product'];
 						$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 12 AND intrested_product = $intrested_product";
-						$db_connection = \Config\Database::connect('second');
+						$db_connection = DatabaseDefaultConnection();
 						$find_audience = $db_connection->query($find_audience);
 						$all_data_audience = $find_audience->getResultArray();
 						if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['inquiry_data']) && $all_data_audience[0]['inquiry_data'] == 2) {
@@ -1082,7 +1082,7 @@ class Booking extends BaseController
 
 	public function booking_update()
 	{
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 
 		$return_result = array();
 
@@ -1129,7 +1129,7 @@ class Booking extends BaseController
 	public function booking_cancle()
 	{
 		// pre($_POST);
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 		if ($this->request->getPost('action') == 'cancle') {
 			$update_id = $this->request->getPost('id');
 			$table = $this->request->getPost('table');
@@ -1193,7 +1193,7 @@ class Booking extends BaseController
 		$inquiry_id = $this->request->getPost('inquiry_id');
 		$table = $this->request->getPost('table');
 		$action = $this->request->getPost('action');
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 
 		if (!empty($update_id)) {
 			if ($action == 'approve') {

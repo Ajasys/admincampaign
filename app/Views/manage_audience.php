@@ -7,7 +7,7 @@ $platform_assets = json_decode($platform_assets, true);
 ?>
 <?php
 $username = session_username($_SESSION['username']);
-$db_connection = \Config\Database::connect('second');
+$db_connection = DatabaseDefaultConnection();
 $query = $db_connection->table($username . '_audience')->get();
 if ($query->getNumRows() > 0) {
    $columnNames = $query->getFieldNames();
@@ -17,7 +17,7 @@ if ($query->getNumRows() > 0) {
 // pre($columnNames);
 ?>
 <?php
-$db_connection = \Config\Database::connect('second');
+$db_connection = DatabaseDefaultConnection();
 $queryy = 'SELECT * FROM admin_platform_integration WHERE platform_status =2';
 $result = $db_connection->query($queryy);
 $get_facebook_page = $result->getResultArray();

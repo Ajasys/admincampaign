@@ -1,7 +1,7 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
 <?php
-$db_connection = \Config\Database::connect('second');
+$db_connection = DatabaseDefaultConnection();
 $table_username = session_username($_SESSION['username']);
 $query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND  master_id = '" . $_SESSION['master'] . "'";
 $result = $db_connection->query($query90);

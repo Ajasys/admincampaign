@@ -16,7 +16,7 @@ class Globalsearch extends BaseController
         }
     }
     public function global_search(){
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $search_value = $this->request->getPost('search');
         //$username = $_SESSION['username'];
         $table_name =  $this->username.'_all_inquiry';
@@ -30,7 +30,7 @@ class Globalsearch extends BaseController
     // public function inquriry_time_come(){
 
 
-    //     $this->db = \Config\Database::connect('second');
+    //     $this->db = DatabaseDefaultConnection();
     //     $table_name = $this->username.'_all_inquiry';
     //     $delete_status = '0';
     //     $html = "";

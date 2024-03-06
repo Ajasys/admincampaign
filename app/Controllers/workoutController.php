@@ -193,7 +193,7 @@ class workoutController extends BaseController
 
 	public function MasterWorkoutView()
 	{
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		$sql = 'SELECT * FROM `master_exercise`';
 		$result = $db->query($sql);
 		$EditID = $_POST['DataworkoutID'];
@@ -573,7 +573,7 @@ class workoutController extends BaseController
 
 	public function MainMasterworkoutView()
 	{
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		$sql = 'SELECT * FROM `master_exercise`';
 		$result = $db->query($sql);
 		$EditID = $_POST['DataworkoutID'];
@@ -587,7 +587,7 @@ class workoutController extends BaseController
 		// $resultCount = $resultCount->DeleteRC;
 		$resultCount = 0;
 
-		$dbgym = \Config\Database::connect('second');
+		$dbgym = DatabaseDefaultConnection();
 		$MasterUserSQL = "SELECT * FROM master_workout WHERE id = " . $EditID . "";
 		$MasterUserSQL = $dbgym->query($MasterUserSQL);
 		$workoutData = $MasterUserSQL->getRowArray();
@@ -954,7 +954,7 @@ class workoutController extends BaseController
 
 	public function MasterworkoutView1()
 	{ {
-			$db = \Config\Database::connect('second');
+			$db = DatabaseDefaultConnection();
 			$sql = 'SELECT * FROM `master_exercise`';
 			$result = $db->query($sql);
 			$EditID = $_POST['DataworkoutID'];
@@ -1294,7 +1294,7 @@ class workoutController extends BaseController
 	{
 
 		$sql = 'SELECT * FROM master_workout WHERE LOWER(TRIM(REPLACE(WorkoutPlanName," ",""))) = "' . $_POST['name'] . '"';
-		$SecondDB = \Config\Database::connect('second');
+		$SecondDB = DatabaseDefaultConnection();
 		$result = $SecondDB->query($sql);
 		$ReturnSaveStatus = 0;
 		if ($result->getNumRows() > 0) {

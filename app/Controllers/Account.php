@@ -8,8 +8,8 @@ class Account extends BaseController {
     public function __construct()
 	{
 		helper('custom');
-        $this->second_db_connection = \Config\Database::connect('second');
-        $this->db_connection = \Config\Database::connect();
+        $this->second_db_connection = DatabaseDefaultConnection();
+        $this->db_connection = DatabaseSecondConnection();
 		$this->seconddb_MasterInformationModel = new MasterInformationModel($this->second_db_connection);
 		$this->MasterInformationModel = new MasterInformationModel($this->db_connection);
 		$this->username = session_username($_SESSION['username']);

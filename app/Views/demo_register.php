@@ -22,7 +22,7 @@ $master_inquiry_status = json_decode($master_inquiry_status, true);
 $admin_product = json_decode($admin_product, true);
 $getStatusWiseData = array();
 $username = session_username($_SESSION['username']);
-$this->db = \Config\Database::connect('second');
+$this->db = DatabaseDefaultConnection();
 
 $visit_and_revisit_count = demo_and_subscription_count($username . '_all_inquiry', $_SESSION['id']);
 

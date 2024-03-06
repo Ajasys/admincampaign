@@ -11,7 +11,7 @@ class AssetPermissionController extends BaseController
     {
         helper("custom");
         $db = db_connect();
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $this->MasterInformationModel = new MasterInformationModel($db);
         $this->username = session_username($_SESSION["username"]);
         $this->admin = 0;
@@ -185,15 +185,36 @@ class AssetPermissionController extends BaseController
                 $html .= '</ul>
                 </div>';
             } else if ($type == "whatsapp") {
+                $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`) AS asset_ids, GROUP_CONCAT(`assetpermission_name`) AS asset_permissions 
+                FROM " . $this->username . "_platform_assetpermission 
+                WHERE `user_id` = " . $_POST['user_id'] . " 
+                AND platform_type = 'whatsapp'";
+                $assetpermission_result = $this->db->query($assetpermission_query);
+                $per_result = $assetpermission_result->getResult();
+
+                $perassetid_data = [];
+                $perassetname_data = [];
+                if (isset($per_result[0])) {
+                    $perassetid_data = explode(',', $per_result[0]->asset_ids);
+                }
+                if (isset($per_result[0])) {
+                    $perassetname_data = explode(',', $per_result[0]->asset_permissions);
+                }
 
                 $asset_query = "SELECT * FROM " . $this->username . "_platform_integration Where platform_status=1";
                 $asset_result = $this->db->query($asset_query);
                 $pageresult = $asset_result->getResultArray();
                 if (isset($pageresult)) {
                     foreach ($pageresult as $aa_key => $aa_value) {
+
+                        $isasset_checked = '';
+                        if (in_array($aa_value['id'], $perassetid_data)) {
+                            $isasset_checked = 'checked';
+                        }
+
                         $html = '<div class="ms-3 me-3 mt-2">
                         <div class="d-flex align-items-center">
-                            <input type="checkbox" id="selectall" value="'.$aa_value['id'].'" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
+                            <input type="checkbox" id="selectall" value="'.$aa_value['id'].'"  '.$isasset_checked.' class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
                             <img class="rounded-circle me-1" src="https://erp.gymsmart.in/assets/image/member.png" alt="" style="width:40px;height:40px">
                             <div class="d-flex flex-wrap col">
                                 <p class="col-12">'.$aa_value['whatsapp_name'].'</p>
@@ -204,20 +225,7 @@ class AssetPermissionController extends BaseController
                     }
                 }
 
-                $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`) AS asset_ids, GROUP_CONCAT(`assetpermission_name`) AS asset_permissions 
-                          FROM " . $this->username . "_platform_assetpermission 
-                          WHERE `user_id` = " . $_POST['user_id'] . " 
-                          AND platform_type = 'whatsapp'";
-                $assetpermission_result = $this->db->query($assetpermission_query);
-                $per_result = $assetpermission_result->getResult();
-                $perassetid_data = [];
-                $perassetname_data = [];
-                if (isset($per_result[0])) {
-                    $perassetid_data = explode(',', $per_result[0]->asset_ids);
-                }
-                if (isset($per_result[0])) {
-                    $perassetname_data = explode(',', $per_result[0]->asset_permissions);
-                }
+               
 
                 // for assign permission
                 $wh_message = '';
@@ -276,7 +284,7 @@ class AssetPermissionController extends BaseController
     }
     function assign_asset_permission()
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $action = $this->request->getPost("action");
         $userId = $this->request->getPost("user_id");
         $asset_type = $this->request->getPost("asset_type");

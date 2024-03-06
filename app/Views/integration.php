@@ -3,7 +3,7 @@
 
 <?php
 $table_username = session_username($_SESSION['username']);
-$db_connection = \Config\Database::connect('second');
+$db_connection = DatabaseDefaultConnection();
 
 $query = "SELECT 
 (select count(id) from " . $table_username . "_platform_integration where `platform_status`=1) as whatsappcount,

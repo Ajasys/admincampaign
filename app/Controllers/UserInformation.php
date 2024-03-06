@@ -41,14 +41,14 @@ class UserInformation extends BaseController {
     }
     // display data userrole 
     public function display_data_user_role() {
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $username = session_username($_SESSION['username']);
         $table_name = isset($_POST['table']) ? $_POST['table'] : $table_name;
         $code = isset($_POST['search']) ? $_POST['search'] : $code;
         // $users = get_table_array_helper('admin_user');
         // $user_role_data = get_roll_id_to_full_data();
         $query = "SELECT * FROM $table_name WHERE role = $code";
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $result = $secondDb->query($query);
         $response = array();
         $data = $result->getResult();
@@ -85,7 +85,7 @@ class UserInformation extends BaseController {
     }
     // dublicate data 
     public function duplicate_data($data, $table) {
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $i = 0;
         $data_duplicat_Query = "";
         $numItems = count($data);
@@ -98,7 +98,7 @@ class UserInformation extends BaseController {
             $i++;
         }
         $sql = 'SELECT * FROM '.$table.' WHERE '.$data_duplicat_Query;
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $result = $secondDb->query($sql);
         if($result->getNumRows() > 0) {
             return TRUE;
@@ -141,7 +141,7 @@ class UserInformation extends BaseController {
                 $role = $master_user_role[$value['role']]['user_role'];
             }
             $access = 0;
-            $secondDb = \Config\Database::connect('second');
+            $secondDb = DatabaseDefaultConnection();
             $db = db_connect();
             $qry = " SELECT * FROM `admin_userrole` WHERE `id` =".$value['role']." ";
             $result = $secondDb->query($qry);
@@ -306,7 +306,7 @@ class UserInformation extends BaseController {
                 $end_format_date = "";
             }
             if(isset($userEditdata['product_id']) && !empty($userEditdata['product_id'])) {
-                $secondDb = \Config\Database::connect('second');
+                $secondDb = DatabaseDefaultConnection();
                 $product_id = $userEditdata['product_id'];
                 $find_Data = array(
                     'id' => $product_id
@@ -324,8 +324,8 @@ class UserInformation extends BaseController {
     }
     // get pass 
     public function get_password() {
-        $this->db = \Config\Database::connect();
-        $secondDb = \Config\Database::connect('second');
+        $this->db = DatabaseSecondConnection();
+        $secondDb = DatabaseDefaultConnection();
         $username = session_username($_SESSION['username']);
         $table_name = $_POST['table'];
         $password = $_POST['password'];
@@ -367,7 +367,7 @@ class UserInformation extends BaseController {
             $password = '';
         }
         $encrypt_password = encryptPass($password);
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $data = [
             'password' => $encrypt_password,
         ];
@@ -515,7 +515,7 @@ class UserInformation extends BaseController {
         die();
     }
     public function duplicate_data2($data, $table) {
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $i = 0;
         $data_duplicat_Query = "";
         $numItems = count($data);
@@ -536,7 +536,7 @@ class UserInformation extends BaseController {
         }
     }
     public function update_data_subscribtion() {
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $post_data = $this->request->getPost();
         $table_name = $this->request->getPost("table");
         $action_name = $this->request->getPost("action");
@@ -639,7 +639,7 @@ class UserInformation extends BaseController {
     public function product_data() {
         $action = $this->request->getPost('action');
         $product_id = $this->request->getPost('product_id');
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         if($action == true) {
             $find_Data = array(
                 'crm'=> $product_id,
@@ -748,7 +748,7 @@ class UserInformation extends BaseController {
     }
     // GET DEPARTMENT NAME 
     public function user_role_to_get_departmet() {
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $response = array();
         $table_name = $_POST['table'];
         $department = $_POST['department'];
@@ -769,8 +769,8 @@ class UserInformation extends BaseController {
     {
         
         $result = array();
-        $this->db = \Config\Database::connect();
-        $secondDb = \Config\Database::connect('second');
+        $this->db = DatabaseSecondConnection();
+        $secondDb = DatabaseDefaultConnection();
         $username = session_username($_SESSION['username']);
         	$tooltip = $this->request->getPost("tooltip");
      
@@ -926,12 +926,12 @@ class UserInformation extends BaseController {
         return $html;
     }
     function userrole_list_tree($parent_id = 0) {
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $table_name = $this->request->getPost('table');
         //pre($_SESSION['username']);
         $username = session_username($_SESSION['username']);
         $items = '';
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $query = $secondDb->query("SELECT * FROM  $table_name   WHERE parent_id = ? ORDER BY position ASC", $parent_id);
         if($query->getNumRows() > 0) {
             $items .= '<ol class="dd-list ms-5">';
@@ -995,7 +995,7 @@ class UserInformation extends BaseController {
         //$allow_data = json_decode($_POST['show_array']);
         //$status = get_table_array_helper('master_inquiry_status');
         // $get_roll_id_to_roll_duty_var = get_roll_id_to_roll_duty();
-        $db_connection = \Config\Database::connect();
+        $db_connection = DatabaseSecondConnection();
         $user_id = $_SESSION['id'];
         $perPageCount = isset($_POST['perPageCount']) && !empty($_POST['perPageCount']) ? $_POST['perPageCount'] : 10;
         $pageNumber = isset($_POST['pageNumber']) && !empty($_POST['pageNumber']) ? $_POST['pageNumber'] : 1;
@@ -1612,8 +1612,8 @@ class UserInformation extends BaseController {
     }
     // get pass 
     public function get_password2() {
-        $this->db = \Config\Database::connect();
-        $secondDb = \Config\Database::connect('second');
+        $this->db = DatabaseSecondConnection();
+        $secondDb = DatabaseDefaultConnection();
         // $username = session_username($_SESSION['username']);
         $table_name = $_POST['table'];
         // $password = $_POST['password'];
@@ -1672,7 +1672,7 @@ class UserInformation extends BaseController {
             $password = '';
         }
         $encrypt_password = encryptPass($password);
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $data = [
             'password' => $encrypt_password,
         ];
@@ -1730,7 +1730,7 @@ class UserInformation extends BaseController {
     //             // $plan = $this->MasterInformationModel->edit_entry2("admin_subscription_master",$paydone_data['plan_id']);
     //             // $plan = get_object_vars($plan[0]);
     //             // $html_pdf = $this->pdf_data($paydone_data,$plan);
-    //             // $this->db = \Config\Database::connect();
+    //             // $this->db = DatabaseSecondConnection();
     //             // $email = \Config\Services::email();
     //             // $dompdf = new \Dompdf\Dompdf(); 
     //             // $dompdf->loadHtml($html_pdf);
@@ -1850,7 +1850,7 @@ class UserInformation extends BaseController {
     //             $userEditdata = $this->MasterInformationModel->edit_entry($table, $id);
     //             // $userEditdata23 = $this->MasterInformationModel->edit_entry("master_user", $master_id);
     //             $qwery = "SELECT * FROM master_user WHERE id = $master_id";
-    //             $db_connection = \Config\Database::connect();
+    //             $db_connection = DatabaseSecondConnection();
     //             $result = $db_connection->query($qwery);
     //             $user_data_get = $result->getResult();
     //             //pre($user_data_get);
@@ -1921,7 +1921,7 @@ class UserInformation extends BaseController {
                 $plan = $this->MasterInformationModel->edit_entry2("admin_subscription_master", $paydone_data['plan_id']);
                 $plan = get_object_vars($plan[0]);
                 $html_pdf = $this->pdf_data($paydone_data, $plan);
-                $this->db = \Config\Database::connect();
+                $this->db = DatabaseSecondConnection();
                 $email = \Config\Services::email();
                 $options = new Options();
                 $options->set('isRemoteEnabled', true);
@@ -1998,7 +1998,7 @@ class UserInformation extends BaseController {
                 $userEditdata = $this->MasterInformationModel->edit_entry($table, $id);
                 // $userEditdata23 = $this->MasterInformationModel->edit_entry("master_user", $master_id);
                 $qwery = "SELECT * FROM master_user WHERE id = $master_id";
-                $db_connection = \Config\Database::connect();
+                $db_connection = DatabaseSecondConnection();
                 $result = $db_connection->query($qwery);
                 $user_data_get = $result->getResult();
                 //pre($user_data_get);
@@ -2051,7 +2051,7 @@ class UserInformation extends BaseController {
             $response = 1;
             if($departmentUpdatedata == 1) {
                 $userEditdata = $this->MasterInformationModel->edit_entry($table, $id);
-                $this->db = \Config\Database::connect();
+                $this->db = DatabaseSecondConnection();
                 $email = \Config\Services::email();
                 $emailhtml = '<table class="es-content" cellspacing="0" cellpadding="0" align="center" role="none"
                 style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
@@ -2763,7 +2763,7 @@ class UserInformation extends BaseController {
     }
     public function generate_couponname() {
         $table_name = $_POST['table'];
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $coupon_code = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 7);
         $find_Data = array(
             'coupon_name' => $coupon_code
@@ -2955,7 +2955,7 @@ class UserInformation extends BaseController {
         } else {
             $get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
         }
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $result = $secondDb->query($sql);
         if($result->getNumRows() > 0) {
             $rowCount = $result->getNumRows();

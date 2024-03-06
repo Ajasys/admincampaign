@@ -7,7 +7,7 @@
 }
 $admin_emailtemplate = json_decode($admin_emailtemplate, true);
 
-$this->db = \Config\Database::connect('second');
+$this->db = DatabaseDefaultConnection();
 ?>
 <style type="text/css">
 	#clear {
@@ -206,7 +206,7 @@ $username = session_username($_SESSION['username']);
 														$table_name = 'admin_userrole';
 														$role_id = $user_valuess['role'];
 														$sql = "SELECT user_role FROM $table_name WHERE id = $role_id;";
-														$db_connection = \Config\Database::connect('second');
+														$db_connection = DatabaseDefaultConnection();
 														$result = $db_connection->query($sql);
 														$total_dataa_userr_2245 = $result->getResultArray(); ?>
 															<option class="dropdown-item" data-sourcetype_name="employee" value="<?php echo $user_valuess['id']; ?>"><?php echo $user_valuess['firstname']; ?>(<?php echo (isset($total_dataa_userr_2245[0]['user_role']) ? $total_dataa_userr_2245[0]['user_role'] : ''); ?>)</option>

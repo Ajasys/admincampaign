@@ -18,7 +18,7 @@ class CronController extends BaseController
 	public function timezonedata($masterId)
 	{
 		// this function is give Selected Timezone The Of user  
-		$db = \Config\Database::connect();
+		$db = DatabaseSecondConnection();
 		if (isset($masterId)) {
 			$cat = $db->query("SELECT * FROM master_user WHERE id =" . $masterId);
 			$result = $cat->getResultArray();
@@ -31,7 +31,7 @@ class CronController extends BaseController
 	}
 	public function general_setting_verify_connection()
 	{
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		$username = $this->request->getPost('username');
 		$Biometric_status = $this->request->getPost('Biometric_status');
 		$Corporateid = $this->request->getPost('corporateid');
@@ -81,7 +81,7 @@ class CronController extends BaseController
 	}
 	public function biometric_setting_disconnect()
 	{
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		$update_id = $this->request->getPost('update_id');
 		$status=1;
 		$insert_data['Biometric_status']=0;
@@ -98,7 +98,7 @@ class CronController extends BaseController
 	}
 	public function biometric_member_attendance()
 	{
-		$first_db = \Config\Database::connect('second');
+		$first_db = DatabaseDefaultConnection();
 		$today_date1 = '';
 		$masterId = 1;
 		$masterusername = 'admin';

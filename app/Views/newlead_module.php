@@ -140,7 +140,7 @@
 </style>
 
 <?php
-$this->db = \Config\Database::connect('second');
+$this->db = DatabaseDefaultConnection();
 $table_username = session_username($_SESSION['username']);
 $product = json_decode($product, true);
 

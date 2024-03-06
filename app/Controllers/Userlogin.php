@@ -38,7 +38,7 @@ class Userlogin extends BaseController
 					$departmentdisplaydata = $this->MasterInformationModel->display_all_records2($table_name);
 					$departmentdisplaydata = json_decode($departmentdisplaydata, true);
 
-					 $this->db = \Config\Database::connect();
+					 $this->db = DatabaseSecondConnection();
                      $this->db->query ("CREATE TABLE `".$_POST['username']."_all_inquiry` (
                           `id` int(10) NOT NULL,
                           `user_id` int(10) NOT NULL,
@@ -603,8 +603,8 @@ class Userlogin extends BaseController
 
 
 	// public function user_login(){
-	// 	$this->db = \Config\Database::connect();
-  //   $secondDb = \Config\Database::connect('second');
+	// 	$this->db = DatabaseSecondConnection();
+  //   $secondDb = DatabaseDefaultConnection();
 	// 	$session = session();
 	// 	date_default_timezone_set('Asia/Kolkata');
   //       $action_name = $this->request->getPost("action");
@@ -682,8 +682,8 @@ class Userlogin extends BaseController
   public function user_login()
   {
     
-      $this->db = \Config\Database::connect();
-    $secondDb = \Config\Database::connect('second');
+      $this->db = DatabaseSecondConnection();
+    $secondDb = DatabaseDefaultConnection();
 
       $session = session();
       date_default_timezone_set('Asia/Kolkata');

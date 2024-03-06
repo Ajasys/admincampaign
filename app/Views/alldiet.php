@@ -3,7 +3,7 @@
 <!-- header end -->
 <?php $table_username = ''; ?>
 <?php
-$SecondDB = \Config\Database::connect('second');
+$SecondDB = DatabaseDefaultConnection();
 
 
 ?>

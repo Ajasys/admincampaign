@@ -53,7 +53,7 @@ class MasterInformation extends BaseController
 
 	public function duplicate_data2($data, $table)
 	{
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 		$i = 0;
 		$data_duplicat_Query = "";
 		$numItems = count($data);
@@ -130,7 +130,7 @@ class MasterInformation extends BaseController
 	public function food_list_data_new()
 	{
 		$table_name = $_POST['table'];
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$action = $_POST['action'];
 		$username = session_username($_SESSION['username']);
 
@@ -367,7 +367,7 @@ class MasterInformation extends BaseController
 		die();
 
 		$table_name = $_POST['table'];
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$action = $_POST['action'];
 		$username = session_username($_SESSION['username']);
 		$ajaxsearch = isset($_POST['ajaxsearch']) && !empty($_POST['ajaxsearch']) ? $_POST['ajaxsearch'] : '';
@@ -582,7 +582,7 @@ class MasterInformation extends BaseController
 		// print_r($_POST);
 
 		$table_name = $_POST['table'];
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$action = $_POST['action'];
 		$username = session_username($_SESSION['username']);
 
@@ -843,7 +843,7 @@ class MasterInformation extends BaseController
 		die();
 
 		$table_name = $_POST['table'];
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$action = $_POST['action'];
 		$username = session_username($_SESSION['username']);
 		$ajaxsearch = isset($_POST['ajaxsearch']) && !empty($_POST['ajaxsearch']) ? $_POST['ajaxsearch'] : '';
@@ -1055,7 +1055,7 @@ class MasterInformation extends BaseController
 	public function MasterFoodUpdateData()
 	{
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$post_data = $this->request->getPost();
 		$table_name = $this->request->getPost("table");
 
@@ -1082,7 +1082,7 @@ class MasterInformation extends BaseController
 
 
 		$delete_id = $this->request->getPost('id');
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		$sql = "UPDATE master_food_request SET requestype = NULL WHERE id = ?";
 		$db_connection->query($sql, [$delete_id]);
@@ -1096,7 +1096,7 @@ class MasterInformation extends BaseController
 		$ReturnSaveStatus = 0;
 		$FoodName = $_POST['FoodName'];
 		$sql = "SELECT * FROM master_food_request WHERE LOWER(TRIM(REPLACE(FoodName, ' ', ''))) = '$FoodName'";
-		$SecondDB = \Config\Database::connect('second');
+		$SecondDB = DatabaseDefaultConnection();
 		$result = $SecondDB->query($sql);
 		// if ($result->getNumRows() > 0) {
 		// 	$ReturnSaveStatus = 0;
@@ -1177,7 +1177,7 @@ class MasterInformation extends BaseController
 		$ReturnSaveStatus = 0;
 		$FoodName = $_POST['FoodName'];
 		$sql = 'SELECT * FROM master_food_items WHERE LOWER(TRIM(REPLACE(FoodName," ",""))) = "' . $FoodName . '"';
-		$SecondDB = \Config\Database::connect('second');
+		$SecondDB = DatabaseDefaultConnection();
 		$result = $SecondDB->query($sql);
 		// if ($result->getNumRows() > 0) {
 		// 	$ReturnSaveStatus = 0;
@@ -1240,7 +1240,7 @@ class MasterInformation extends BaseController
 		$returnresult['RStuts'] = $ReturnSaveStatus;
 		return json_encode($returnresult);
 		die();
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$post_data = $this->request->getPost();
 		$table_name = $this->request->getPost("table");
 
@@ -1267,7 +1267,7 @@ class MasterInformation extends BaseController
 
 
 		$delete_id = $this->request->getPost('id');
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		$sql = "UPDATE master_food_request SET requestype = NULL WHERE id = ?";
 		$db_connection->query($sql, [$delete_id]);
@@ -1281,7 +1281,7 @@ class MasterInformation extends BaseController
 		$ReturnSaveStatus = 0;
 		$FoodName = $_POST['FoodName'];
 		$sql = "SELECT * FROM master_food_request WHERE LOWER(TRIM(REPLACE(FoodName, ' ', ''))) = '$FoodName'";
-		$SecondDB = \Config\Database::connect('second');
+		$SecondDB = DatabaseDefaultConnection();
 		$result = $SecondDB->query($sql);
 		// if ($result->getNumRows() > 0) {
 		// 	$ReturnSaveStatus = 0;
@@ -1363,7 +1363,7 @@ class MasterInformation extends BaseController
 		$ReturnSaveStatus = 0;
 		$FoodName = $_POST['FoodName'];
 		$sql = 'SELECT * FROM master_food_request WHERE LOWER(TRIM(REPLACE(FoodName," ",""))) = "' . $FoodName . '"';
-		$SecondDB = \Config\Database::connect('second');
+		$SecondDB = DatabaseDefaultConnection();
 		$result = $SecondDB->query($sql);
 		if ($result->getNumRows() > 0) {
 			$ReturnSaveStatus = 0;
@@ -1440,7 +1440,7 @@ class MasterInformation extends BaseController
 			$set_id = $this->request->getPost('setvalue');
 
 			$table_name = $this->request->getPost('table');
-			$db_connection = \Config\Database::connect('second');
+			$db_connection = DatabaseDefaultConnection();
 
 			$sql = "UPDATE $table_name SET requestype = $set_id WHERE id = ?";
 			$db_connection->query($sql, [$delete_id]);
@@ -1455,7 +1455,7 @@ class MasterInformation extends BaseController
 	// 		$set_id = $this->request->getPost('setvalue');
 
 	// 		$table_name = $this->request->getPost('table');
-	// 		$db_connection = \Config\Database::connect('second');
+	// 		$db_connection = DatabaseDefaultConnection();
 
 	// 		$sql = "UPDATE $table_name SET requestsubtype = ? WHERE id = ?";
 	// 		$db_connection->query($sql, [$set_id, $delete_id]);
@@ -1475,7 +1475,7 @@ class MasterInformation extends BaseController
 			$set_id = $this->request->getPost('setdata');
 
 			$table_name = $this->request->getPost('table');
-			$db_connection = \Config\Database::connect('second');
+			$db_connection = DatabaseDefaultConnection();
 
 			$sql = "UPDATE $table_name SET requestsubtype = $set_id WHERE id = ?";
 			$db_connection->query($sql, [$delete_id]);
@@ -1491,7 +1491,7 @@ class MasterInformation extends BaseController
 			$set_id = $this->request->getPost('setdata');
 
 			$table_name = $this->request->getPost('table');
-			$db_connection = \Config\Database::connect('second');
+			$db_connection = DatabaseDefaultConnection();
 
 			$sql = "UPDATE $table_name SET requesttype = $set_id WHERE id = $delete_id";
 			$db_connection->query($sql, [$set_id, $delete_id]);
@@ -1594,7 +1594,7 @@ class MasterInformation extends BaseController
 	//     $action_name = $this->request->getPost("action");
 	//     $update_id = $this->request->getPost("id");
 	//     $response = 0;
-	// 	$db_connection = \Config\Database::connect('second');
+	// 	$db_connection = DatabaseDefaultConnection();
 
 
 	//     if ($this->request->getPost("action") == "update") {
@@ -1659,7 +1659,7 @@ class MasterInformation extends BaseController
 		$update_id = $this->request->getPost("id");
 		$response = 0;
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		if ($action_name == "update") {
 			unset($post_data['action']);
@@ -1717,7 +1717,7 @@ class MasterInformation extends BaseController
 		$update_id = $this->request->getPost("id");
 		$response = 0;
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		if ($action_name == "update") {
 			unset($post_data['action']);
@@ -1760,7 +1760,7 @@ class MasterInformation extends BaseController
 		$update_id = $this->request->getPost("id");
 		$response = 0;
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		if ($action_name == "update") {
 			unset($post_data['action']);
@@ -1808,7 +1808,7 @@ class MasterInformation extends BaseController
 		$update_id = $this->request->getPost("id");
 		$response = 0;
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		if ($action_name == "update") {
 			unset($post_data['action']);
@@ -1976,7 +1976,7 @@ class MasterInformation extends BaseController
 		} else {
 			$get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
 		}
-		$secondDb = \Config\Database::connect('second');
+		$secondDb = DatabaseDefaultConnection();
 		$result = $secondDb->query($sql);
 		if ($result->getNumRows() > 0) {
 			$rowCount = $result->getNumRows();
@@ -2110,7 +2110,7 @@ class MasterInformation extends BaseController
 	}
 	// public function duplicate_data($data, $table)
 	// {
-	// 	$secondDb = \Config\Database::connect('second');
+	// 	$secondDb = DatabaseDefaultConnection();
 	// 	$i = 0;
 	// 	$data_duplicat_Query = "";
 	// 	$numItems = count($data);
@@ -2296,7 +2296,7 @@ class MasterInformation extends BaseController
 				$time_array = array();
 				$time = date('d-m-Y h:i A', time());
 				$query = "SELECT * FROM " . $this->username . "_" . $table_name . " WHERE id = $update_id ";
-				$db_connection = \Config\Database::connect('second');
+				$db_connection = DatabaseDefaultConnection();
 				$result50 = $db_connection->query($query);
 				$old_entry = $result50->getResultArray();
 
@@ -2320,7 +2320,7 @@ class MasterInformation extends BaseController
 				$update = $this->MasterInformationModel->update_entry2($update_id, $update_data, $this->username . "_" . $table_name);
 
 				$queryyy = "SELECT * FROM admin_tasks WHERE id = " . $update_id;
-				$db_connection = \Config\Database::connect('second');
+				$db_connection = DatabaseDefaultConnection();
 				$task_result = $db_connection->query($queryyy);
 				$all_data = $task_result->getResultArray();
 				$full_data_status = $all_data[0]['status_check'];
@@ -2480,7 +2480,7 @@ class MasterInformation extends BaseController
 		// print_r($_POST);
 
 		$table_name = $_POST['table'];
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$action = $_POST['action'];
 		// $username = session_username($_SESSION['username']);
 		$ajaxsearch = isset($_POST['ajaxsearch']) && !empty($_POST['ajaxsearch']) ? $_POST['ajaxsearch'] : '';
@@ -2652,7 +2652,7 @@ class MasterInformation extends BaseController
 		return json_encode($Rresult);
 		die();
 		$table_name = $_POST['table'];
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$action = $_POST['action'];
 		$username = session_username($_SESSION['username']);
 		$ajaxsearch = isset($_POST['ajaxsearch']) && !empty($_POST['ajaxsearch']) ? $_POST['ajaxsearch'] : '';
@@ -2865,7 +2865,7 @@ class MasterInformation extends BaseController
 		$FoodName = $_POST['FoodName'];
 
 		$sql = 'SELECT * FROM master_food_items WHERE LOWER(TRIM(REPLACE(FoodName," ",""))) = "' . $FoodName . '"';
-		$SecondDB = \Config\Database::connect('second');
+		$SecondDB = DatabaseDefaultConnection();
 		$result = $SecondDB->query($sql);
 		if ($result->getNumRows() > 0) {
 			$ReturnSaveStatus = 0;
@@ -2937,7 +2937,7 @@ class MasterInformation extends BaseController
 	public function food_list_data_old()
 	{
 		$table_name = $_POST['table'];
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$action = $_POST['action'];
 		// $username = session_username($_SESSION['username']);
 		$ajaxsearch = isset($_POST['ajaxsearch']) && !empty($_POST['ajaxsearch']) ? $_POST['ajaxsearch'] : '';
@@ -3289,7 +3289,7 @@ class MasterInformation extends BaseController
 			// 	if ($result['response'] == 1) {
 
 			// 		$reminder_data = array();
-			// 		$first_db = \Config\Database::connect();
+			// 		$first_db = DatabaseSecondConnection();
 			// 		$find_alert = "SELECT * FROM " . $this->username . "_alert_setting WHERE alert_title IN (32,33)";
 			// 		$find_alert = $first_db->query($find_alert);
 			// 		$all_data = $find_alert->getResultArray();
@@ -3334,7 +3334,7 @@ class MasterInformation extends BaseController
 			$get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
 		}
 
-		$dataBs = \Config\Database::connect('second');
+		$dataBs = DatabaseDefaultConnection();
 		$forge = \Config\Database::forge();
 		$tableName = 'notes';
 		$columnName = 'task_id';
@@ -3459,7 +3459,7 @@ class MasterInformation extends BaseController
 		$html = "";
 		$html123 = "";
 		$dateType = '';
-		$thirdDb = \Config\Database::connect('second');
+		$thirdDb = DatabaseDefaultConnection();
 		//   $date_Time = Utctodate('d-m-Y H:i', timezonedata(), $date_Time);
 
 		foreach ($departmentdisplaydata_labal as $dep_keuy => $dep_value) {
@@ -3942,7 +3942,7 @@ class MasterInformation extends BaseController
 		$table_name = $_POST['table'];
 		// $table = $_POST['table_name'];
 		$username = session_username($_SESSION['username']);
-		$dataBs = \Config\Database::connect('second');
+		$dataBs = DatabaseDefaultConnection();
 		$searchId = $_POST['searchId'];
 		$taskSearchval = $_POST['taskSearchval'];
 		$searchQuery = '';
@@ -4372,7 +4372,7 @@ class MasterInformation extends BaseController
 				$user_id = $_SESSION['id'];
 			}
 			if (!empty($ids)) {
-				$db = \Config\Database::connect();
+				$db = DatabaseSecondConnection();
 				$all = implode(",", $ids);
 				$find_Array_all = "DELETE FROM $final_table_name WHERE id IN ($all)";
 				$db->query($find_Array_all);
@@ -4399,7 +4399,7 @@ class MasterInformation extends BaseController
 			// $final_table_name = $this->username.$table_name;
 			// print_r($ids);
 			if (!empty($ids)) {
-				$db = \Config\Database::connect();
+				$db = DatabaseSecondConnection();
 				$all = implode(",", $ids);
 				$find_Array_all = "DELETE FROM " . $this->table_name . "_" . $table_name . " WHERE id IN (" . $all . ")";
 				$db->query($find_Array_all);
@@ -4623,7 +4623,7 @@ class MasterInformation extends BaseController
 		
 		$sql = "SELECT * FROM master_food_type";
 		$main_sql = $sql;
-		$DataBase = \Config\Database::connect('second');
+		$DataBase = DatabaseDefaultConnection();
 		$Getresult = $DataBase->query($sql);
 		$masterdisplaydata = $Getresult->getResultArray();
 
@@ -4890,7 +4890,7 @@ class MasterInformation extends BaseController
 
 	public function get_country_data()
 	{
-		$thirdDb = \Config\Database::connect();
+		$thirdDb = DatabaseSecondConnection();
 		$table_name = $this->request->getPost("table");
 		$selectedValue = $this->request->getPost("selected"); // Renamed to avoid conflict with $selected in loop
 
@@ -4909,7 +4909,7 @@ class MasterInformation extends BaseController
 
 	public function getStatesData()
 	{
-		$thirdDb = \Config\Database::connect();
+		$thirdDb = DatabaseSecondConnection();
 		$table_name = $this->request->getPost("table");
 		$selectedValue = $this->request->getPost("selected");
 		$countryId = $this->request->getPost("countryId");
@@ -4926,7 +4926,7 @@ class MasterInformation extends BaseController
 
 	public function getCitiesData()
 	{
-		$thirdDb = \Config\Database::connect();
+		$thirdDb = DatabaseSecondConnection();
 		$table_name = $this->request->getPost("table");
 		$selectedValue = $this->request->getPost("selected");
 		$stateId = $this->request->getPost("stateId");

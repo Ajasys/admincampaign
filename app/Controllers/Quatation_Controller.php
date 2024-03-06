@@ -63,7 +63,7 @@ class Quatation_Controller extends BaseController
       // die();
       $data_subscription = json_decode($data_subscription, true);
 
-      $db_connection = \Config\Database::connect('second');
+      $db_connection = DatabaseDefaultConnection();
       $sql = "SELECT * FROM `admin_subscription_master` WHERE crm = '2'";
       $result11 = $db_connection->query($sql);
       $data_subscription = $result11->getResultArray();
@@ -565,7 +565,7 @@ class Quatation_Controller extends BaseController
       // die();
       $data_subscription = json_decode($data_subscription, true);
 
-      $db_connection = \Config\Database::connect('second');
+      $db_connection = DatabaseDefaultConnection();
       $sql = "SELECT * FROM `admin_subscription_master` WHERE crm = '3'";
       $result11 = $db_connection->query($sql);
       $data_subscription = $result11->getResultArray();
@@ -1073,7 +1073,7 @@ class Quatation_Controller extends BaseController
       // die();
       $data_subscription = json_decode($data_subscription, true);
 
-      $db_connection = \Config\Database::connect('second');
+      $db_connection = DatabaseDefaultConnection();
       $sql = "SELECT * FROM `admin_subscription_master` WHERE crm = '1'";
       $result11 = $db_connection->query($sql);
       $data_subscription = $result11->getResultArray();

@@ -10,7 +10,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
         header('Location:' . base_url('logout') . '');
     }
 }
-$db_connection = \Config\Database::connect('second');
+$db_connection = DatabaseDefaultConnection();
 $queryy = 'SELECT * FROM ' . $table_username . '_platform_assets WHERE platform_id =32';
 $result = $db_connection->query($queryy);
 $get_facebook_page = $result->getResultArray();

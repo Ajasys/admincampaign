@@ -14,7 +14,7 @@ class WebController extends BaseController
     {
         helper("custom");
         $db = db_connect();
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $this->MasterInformationModel = new MasterInformationModel($db);
         $this->username = session_username($_SESSION["username"]);
         $this->admin = 0;
@@ -64,7 +64,7 @@ class WebController extends BaseController
     //Listing website connection list..
     public function website_connection_list()
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $username = session_username($_SESSION['username']);
         $html = "";
         $row_count_html = '';
@@ -174,7 +174,7 @@ class WebController extends BaseController
     //Submit page ,form and other details.
     function website_connectionpage()
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $action = $this->request->getPost("action");
         $connection_id = $this->request->getPost("connection_id");
         $connection_name = $this->request->getPost("connection_name");

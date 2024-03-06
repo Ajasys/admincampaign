@@ -76,7 +76,7 @@
 		</div>
 		<div class="offcanvas-body filter_data">
 			<?php 
-				$db_connection = \Config\Database::connect();
+				$db_connection = DatabaseSecondConnection();
 				$username = session_username($_SESSION['username']);
 				if($db_connection->tableExists($username . '_data')){
 					$query = $db_connection->table($username . '_data')->get();

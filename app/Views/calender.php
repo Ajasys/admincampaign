@@ -1,7 +1,7 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
 <?php
-// $db_connection = \Config\Database::connect();
+// $db_connection = DatabaseSecondConnection();
 // $querryyy = "SELECT * FROM master_user WHERE id=" . $_SESSION['master'] . " ";
 // $result600 = $db_connection->query($querryyy);
 // $master_data = $result600->getResultArray();

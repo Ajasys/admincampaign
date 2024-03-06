@@ -99,8 +99,8 @@ class GymMasterController extends BaseController
     {
 
 
-        $db = \Config\Database::connect();
-        $Sdb = \Config\Database::connect('second');
+        $db = DatabaseSecondConnection();
+        $Sdb = DatabaseDefaultConnection();
 
         $FoodsubType = $_POST['e_subtype'];
         $ExerciseType = $_POST['e_type'];
@@ -194,8 +194,8 @@ class GymMasterController extends BaseController
     public function excercise_update_data_master()
 	{
 		// e_subtype
-		$db = \Config\Database::connect();
-		$Sdb = \Config\Database::connect('second');
+		$db = DatabaseSecondConnection();
+		$Sdb = DatabaseDefaultConnection();
 
 		$table_username = getMasterUsername();
 		$selectedId = $this->request->getPost('id');

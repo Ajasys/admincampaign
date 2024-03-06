@@ -19,7 +19,7 @@ class ReportController extends BaseController
 
     public function inq_user_wise_report(){
         $date = '' ;
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $from_date = $this->request->getPost("from_date");
         $to_date = $this->request->getPost("to_date");
 
@@ -378,7 +378,7 @@ class ReportController extends BaseController
 
     public function inq_site_report(){
 
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $from_date = $this->request->getPost("from_date");
         $to_date = $this->request->getPost("to_date");
         $project = $this->request->getPost("project");

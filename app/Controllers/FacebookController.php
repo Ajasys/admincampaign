@@ -12,7 +12,7 @@ class FaceBookController extends BaseController
     {
         helper("custom");
         $db = db_connect();
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $this->MasterInformationModel = new MasterInformationModel($db);
         $this->username = session_username($_SESSION["username"]);
         $this->admin = 0;
@@ -413,7 +413,7 @@ class FaceBookController extends BaseController
     //Submit page ,form and other details.
     function facebook_page()
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $action = $this->request->getPost("action");
         $connection_id = $this->request->getPost("connection_id");
         $page_id = $this->request->getPost("page_id");
@@ -1055,7 +1055,7 @@ class FaceBookController extends BaseController
     }
     function queue_list_add()
     {
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $form_id = $this->request->getPost("form_id");
         $result_res = array();
         $queryd = $this->db->query("SELECT *,i.id AS inte_id
@@ -1284,7 +1284,7 @@ class FaceBookController extends BaseController
     }
     public function duplicate_data_check_mobile_number($table, $mobileno, $field = "")
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $i = 0;
         if (!empty($field)) {
             $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $field . ' =' . $mobileno;
@@ -1301,7 +1301,7 @@ class FaceBookController extends BaseController
     //view lead details..
     public function view_integrate_lead()
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $id = $this->request->getPost("unquie_id");
         $result_res = array();
         $queryd = $this->db->query("SELECT * FROM " . $this->username . "_integration WHERE unquie_id = " . $id);
@@ -1312,7 +1312,7 @@ class FaceBookController extends BaseController
     //Listing leads..
     public function lead_list()
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $platform = $_POST['platform'];
         $username = session_username($_SESSION['username']);
         $html = "";
@@ -1463,7 +1463,7 @@ class FaceBookController extends BaseController
     //Listing Fb connection list..
     public function fb_connection_list()
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $username = session_username($_SESSION['username']);
         $html = "";
         $row_count_html = '';

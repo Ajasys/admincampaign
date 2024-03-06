@@ -15,7 +15,7 @@ class Inquiryinformation extends BaseController
 		$this->MasterInformationModel = new MasterInformationModel($db);
 		$this->username = session_username($_SESSION['username']);
 		$this->admin = 0;
-		$this->db = \Config\Database::connect();
+		$this->db = DatabaseSecondConnection();
 		if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
 			$this->admin = 1;
 		}
@@ -23,7 +23,7 @@ class Inquiryinformation extends BaseController
 	}
 	public function duplicate_data_check_mobile_number($table, $mobileno, $field = "")
 	{
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 		$i = 0;
 		if (!empty($field)) {
 			$sql = 'SELECT * FROM ' . $table . ' WHERE ' . $field . ' =' . $mobileno;
@@ -114,7 +114,7 @@ class Inquiryinformation extends BaseController
 					$intrested_product = $insert_data['intrested_product']; // Storing the value in a variable
 					$inquiry_datas_audience = array();
 					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 1 AND intrested_product = $intrested_product";
-					$db_connection = \Config\Database::connect('second');
+					$db_connection = DatabaseDefaultConnection();
 					$find_audience = $db_connection->query($find_audience);
 					$all_datas_audience = $find_audience->getResultArray();
 					
@@ -159,7 +159,7 @@ class Inquiryinformation extends BaseController
 					} 
 					$inquiry_data = array();
 					$find_alert = "SELECT * FROM " . $this->username . "_alert_setting WHERE alert_title=14";
-					$db_connection = \Config\Database::connect('second');
+					$db_connection = DatabaseDefaultConnection();
 					$find_alert = $db_connection->query($find_alert);
 					$all_data = $find_alert->getResultArray();
 
@@ -201,7 +201,7 @@ class Inquiryinformation extends BaseController
 
 							$test =  html_entity_decode($var_message);
 
-							// $first_db = \Config\Database::connect();
+							// $first_db = DatabaseSecondConnection();
 							// $generalSetting = $first_db->table('master_general_settings')->get()->getRow();
 							$queru = "SELECT * FROM admin_email_data";
 							$result = $db_connection->query($queru);
@@ -450,7 +450,7 @@ class Inquiryinformation extends BaseController
 			return json_encode($result);
 		}
 
-		// $db_connection = \Config\Database::connect();
+		// $db_connection = DatabaseSecondConnection();
 		// $sql1 = "SELECT ca_email FROM " . $this->username . "_general_setting";
 		// $result1 = $db_connection->query($sql1);           
 		// $resultsss1 = $result1->getResultArray();
@@ -536,7 +536,7 @@ class Inquiryinformation extends BaseController
 	}
 	public function inqr_show_data()
 	{
-		$dataBs = \Config\Database::connect('second');
+		$dataBs = DatabaseDefaultConnection();
 		$forge = \Config\Database::forge('second');
 		$tableName = 'admin_all_inquiry';
 		$columnName = 'quatation';
@@ -578,7 +578,7 @@ class Inquiryinformation extends BaseController
 			'response' => 0
 		);
 		// $inquiry_id = $_POST['inquiry_id'];
-		$db_connection = \Config\Database::connect();
+		$db_connection = DatabaseSecondConnection();
 		$user_id = 1;
 		if (!$this->admin == 1) {
 			$user_id = $_SESSION['id'];
@@ -817,7 +817,7 @@ class Inquiryinformation extends BaseController
 		}
 
 		$main_sql = $sql;
-		// $db_connection = \Config\Database::connect();
+		// $db_connection = DatabaseSecondConnection();
 
 		if (!empty($getStatusWiseData)) {
 			//  $active =0 ;
@@ -847,7 +847,7 @@ class Inquiryinformation extends BaseController
 			$stutus_data_html .= '</li>';
 		}
 
-		$secondDb = \Config\Database::connect('second');
+		$secondDb = DatabaseDefaultConnection();
 		$result = $secondDb->query($main_sql);
 		if ($result->getNumRows() > 0) {
 			$return_array['stutus_data_allow'] = 1;
@@ -867,7 +867,7 @@ class Inquiryinformation extends BaseController
 			// $sqlQuery = $main_sql . " ORDER BY `id` DESC LIMIT $order_by_col_name , $perPageCount";
 
 			$sqlQuery = $main_sql . " ORDER BY `$order_by_col_name` DESC " . $limits;
-			$secondDb = \Config\Database::connect('second');
+			$secondDb = DatabaseDefaultConnection();
 			$Getresult = $secondDb->query($sqlQuery);
 			$inquiry_all_data = $Getresult->getResultArray();
 			$rowCount_child = $Getresult->getNumRows();
@@ -1543,7 +1543,7 @@ class Inquiryinformation extends BaseController
 
 		$sql = 'SELECT * FROM ' . $this->username . "_" . $table_name . ' WHERE inquiry_status IN (' . $datastatus . ') LIMIT ' . $lower_limit . ' , ' . $top_limit . ';';
 		// echo $sql;
-		$db_connection50 = \Config\Database::connect('second');
+		$db_connection50 = DatabaseDefaultConnection();
 		$sql_result = $db_connection50->query($sql);
 		$finalresult = $sql_result->getResultArray();
 		// pre($finalresult);
@@ -1686,7 +1686,7 @@ class Inquiryinformation extends BaseController
 	}
 	public function duplicate_data($data, $table)
 	{
-		$this->db = \Config\Database::connect();
+		$this->db = DatabaseSecondConnection();
 		$i = 0;
 		$data_duplicat_Query = "";
 		$numItems = count($data);
@@ -1699,7 +1699,7 @@ class Inquiryinformation extends BaseController
 			$i++;
 		}
 		$sql = 'SELECT * FROM ' . $table . ' WHERE ' . $data_duplicat_Query;
-		$secondDb = \Config\Database::connect('second');
+		$secondDb = DatabaseDefaultConnection();
 		$result = $secondDb->query($sql);
 		if ($result->getNumRows() > 0) {
 			return TRUE;
@@ -1942,7 +1942,7 @@ class Inquiryinformation extends BaseController
 		//increment audience table insert productwise inquiry_data=2 in 
 			$inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
 			$intrested_product = $inquiry_data['intrested_product'];
-			$db_connection = \Config\Database::connect('second');
+			$db_connection = DatabaseDefaultConnection();
 			
 			// Fetching data for inquiry_status = 2
 			$inquiry_data_audience = array();
@@ -2062,8 +2062,8 @@ class Inquiryinformation extends BaseController
 	}
 	public function change_value()
 	{
-		$this->db = \Config\Database::connect();
-		$secondDb = \Config\Database::connect('second');
+		$this->db = DatabaseSecondConnection();
+		$secondDb = DatabaseDefaultConnection();
 		// Sanitize and validate the input before using it
 		$iscountvisit = isset($_POST['iscountvisit']) ? intval($_POST['iscountvisit']) : 0;
 		$new_value = $iscountvisit + 1;
@@ -2087,8 +2087,8 @@ class Inquiryinformation extends BaseController
 	}
 	// public function change_value()
 	// {
-	// 	$this->db = \Config\Database::connect();
-	// 	$secondDb = \Config\Database::connect('second');
+	// 	$this->db = DatabaseSecondConnection();
+	// 	$secondDb = DatabaseDefaultConnection();
 	// 	// Sanitize and validate the input before using it
 	// 	$iscountvisit = isset($_POST['iscountvisit']) ? intval($_POST['iscountvisit']) : 0;
 	// 	$new_value = $iscountvisit + 1;

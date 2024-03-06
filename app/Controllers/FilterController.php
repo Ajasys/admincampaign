@@ -45,7 +45,7 @@ class FilterController extends BaseController
             if($data_value->product_id == 1) {
                 $plan = $this->MasterInformationModel->edit_entry2("admin_subscription_master", $data_value->plan_id);
                 $html_pdf = $this->re_pdf_data($data_value, $plan);
-                $first_data = \Config\Database::connect();
+                $first_data = DatabaseSecondConnection();
                 $options = new Options();
                 $options->set('isRemoteEnabled', true);
                 $dompdf = new \Dompdf\Dompdf($options);

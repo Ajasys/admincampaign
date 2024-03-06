@@ -27,7 +27,7 @@ class AttendanceController extends BaseController
 	}
     public function attandance_showdata()
 	{
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
 		if (isset($_POST['user_id'])) {
 			$user_id = $_POST['user_id'];
 		} else {
@@ -261,7 +261,7 @@ class AttendanceController extends BaseController
 		} else {
 			$qury = "SELECT * FROM  " . $table_username . "_attendance WHERE MONTH(punch_date) = MONTH(CURDATE()) ORDER BY id DESC";
 		}
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$result = $db_connection->query($qury);
 		$attendence_check = $result->getResultArray();
 		$getchild = '';
@@ -436,7 +436,7 @@ class AttendanceController extends BaseController
 	{
 		$response = 0;
 		if ($_POST['emp_id'] != '') {
-			$db_connection = \Config\Database::connect('second');
+			$db_connection = DatabaseDefaultConnection();
 			$table_name =  $this->username . '_' . $_POST['table'];
 			if ($_POST['edit_id'] != '') {
 				$sql = 'SELECT *

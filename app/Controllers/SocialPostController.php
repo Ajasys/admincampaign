@@ -36,7 +36,7 @@ class SocialPostController extends BaseController
             $inputString = $_SESSION['username'];
             $parts = explode("_", $inputString);
             $username = $parts[0];
-            $Database = \Config\Database::connect('second');
+            $Database = DatabaseDefaultConnection();
             $sql2 = 'SELECT * FROM `' . $username . '_platform_assets` WHERE platform_status = "2" AND verification_status = "1"';
             $Getresult = $Database->query($sql2);
             $predataarray = $Getresult->getResultArray();
@@ -56,7 +56,7 @@ class SocialPostController extends BaseController
                 $inputString = $_SESSION['username'];
                 $parts = explode("_", $inputString);
                 $username = $parts[0];
-                $Database = \Config\Database::connect('second');
+                $Database = DatabaseDefaultConnection();
                 $sql2 = 'SELECT * FROM `' . $username . '_platform_assets` WHERE platform_status = "2" AND verification_status = "1"';
                 $Getresult = $Database->query($sql2);
                 $predataarray = $Getresult->getResultArray();
@@ -81,7 +81,7 @@ class SocialPostController extends BaseController
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
-        $Database = \Config\Database::connect('second');
+        $Database = DatabaseDefaultConnection();
         $html = '';
         if($SocialMediaPlatformStatus == '2' && $SelectionMenuSecondClass != ""){
             $sql2 = 'SELECT * FROM `' . $username . '_platform_assets` WHERE id = "'.$SelectionMenuSecondClass.'" ';
@@ -164,7 +164,7 @@ class SocialPostController extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
         $id = $_POST['id'];
-        $Database = \Config\Database::connect('second');
+        $Database = DatabaseDefaultConnection();
         $sql2 = 'SELECT * FROM `' . $username . '_platform_assets` WHERE  id = "'.$id.'"';
         $Getresult = $Database->query($sql2);
         $predataarray = $Getresult->getResultArray();

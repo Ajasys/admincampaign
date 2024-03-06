@@ -16,7 +16,7 @@ $data = [
 //     'email_status' => 'Yes',
 //     'email_open_datetime' => '2023-04-25 08:45'
 // ];
-$db = \Config\Database::connect('second');
+$db = DatabaseDefaultConnection();
 $builder = $db->table('admin_email_track');
 $builder->insert($data);
 

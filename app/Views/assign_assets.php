@@ -26,7 +26,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     $get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
 }
 $table_username = session_username($_SESSION['username']);
-$db_connection = \Config\Database::connect('second');
+$db_connection = DatabaseDefaultConnection();
 $query = "SELECT * FROM " . $table_username . "_platform_integration WHERE `verification_status`=1 AND `platform_status`=2";
 $rows = $db_connection->query($query);
 $resultdata = $rows->getResultArray();

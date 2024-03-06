@@ -159,7 +159,7 @@ class AudianceController extends BaseController
         // $i = 1;
         $html = "";
         if ($_POST['action'] == 'facebook_list') {
-            $this->db = \Config\Database::connect('second');
+            $this->db = DatabaseDefaultConnection();
 			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
 			$data_count = $get_access_token_array->getNumRows();
@@ -317,7 +317,7 @@ class AudianceController extends BaseController
 
     public function updateSyncStatus($audience_name)
     {
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
         $result = $db
             ->table($this->username . '_audience')
             ->where('name', $audience_name)
@@ -328,7 +328,7 @@ class AudianceController extends BaseController
     }
     public function fetchAudienceData($master_username)
     {
-        $first_db = \Config\Database::connect('second');
+        $first_db = DatabaseDefaultConnection();
         $query = "SELECT name, email, mobileno FROM " . $master_username . "_audience WHERE facebook_syncro = 0 AND inquiry_data = 2";
         $result = $first_db->query($query);
         return $result->getResultArray();
@@ -336,7 +336,7 @@ class AudianceController extends BaseController
 
     public function livefetchAudienceData($master_username)
     {
-        $first_db = \Config\Database::connect('second');
+        $first_db = DatabaseDefaultConnection();
         $query = "SELECT name, email, mobileno FROM " . $master_username . "_audience WHERE facebook_syncro = 0 AND inquiry_data = 3";
         $result = $first_db->query($query);
         return $result->getResultArray();
@@ -371,7 +371,7 @@ class AudianceController extends BaseController
         if (!empty($departmentdisplaydata)) {
             // Initialize an array to store processed audience names
             $processedAudiences = [];
-            $this->db = \Config\Database::connect('second');
+            $this->db = DatabaseDefaultConnection();
 			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
 			$data_count = $get_access_token_array->getNumRows();
@@ -529,7 +529,7 @@ class AudianceController extends BaseController
         if (!empty($livedisplaydata)) {
             // Initialize an array to store processed audience names
             $processedAudiences = [];
-            $this->db = \Config\Database::connect('second');
+            $this->db = DatabaseDefaultConnection();
 			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
 			$data_count = $get_access_token_array->getNumRows();
@@ -791,7 +791,7 @@ class AudianceController extends BaseController
                         true
                     );
                     if ($facebook_syncro == 1) {
-                        $this->db = \Config\Database::connect('second');
+                        $this->db = DatabaseDefaultConnection();
                         $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
                         $get_access_token_array = $this->db->query($get_token);
                         $data_count = $get_access_token_array->getNumRows();
@@ -1305,7 +1305,7 @@ class AudianceController extends BaseController
                     $result["response"] = 1;
                     $result["msg"] = "Data Inserted Success";
                 }
-                $this->db = \Config\Database::connect('second');
+                $this->db = DatabaseDefaultConnection();
                 $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
                 $get_access_token_array = $this->db->query($get_token);
                 $data_count = $get_access_token_array->getNumRows();

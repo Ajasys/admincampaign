@@ -1,6 +1,13 @@
 <?php
 
-
+function DatabaseDefaultConnection()
+{
+    return \Config\Database::connect();
+}
+function DatabaseSecondConnection()
+{
+    return \Config\Database::connect('second');
+}
 if (!function_exists("// pre")) {
     function pre($array)
     {
@@ -19,7 +26,7 @@ if (!function_exists('timezone')) {
             $timezone = "Asia/Kolkata";
         }
         $timezones = array();
-        $db_connection = \Config\Database::connect();
+        $db_connection = DatabaseSecondConnection();
         $timezone = new \DateTimeZone($timezone);
         // $db_connection->query("SET time_zone='" . $timezone->getName() . "'");
         // Get the current date in Asia/Kolkata time zone
@@ -75,7 +82,7 @@ if (!function_exists('Utctodate')) {
 if (!function_exists('tableCreateAndTableUpdate')) {
     function tableCreateAndTableUpdate($table_name = "", $duplicate_table = '', $columns = array())
     {
-        $first_db = \Config\Database::connect();
+        $first_db = DatabaseSecondConnection();
         if ($first_db->tableExists($table_name) && $table_name != '') {
             foreach ($columns as $value) {
                 $value_col_name = explode(' ', $value);

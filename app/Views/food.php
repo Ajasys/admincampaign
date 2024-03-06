@@ -4,7 +4,7 @@
 <!-- header end -->
 <?php $table_username = ''; ?>
 <?php
-$SecondDB = \Config\Database::connect('second');
+$SecondDB = DatabaseDefaultConnection();
 
 $maxAutoIDQueryRequest = 'SELECT MAX(id) AS max_auto_id FROM master_food_request';
 $maxAutoIDResultRequest = $SecondDB->query($maxAutoIDQueryRequest);

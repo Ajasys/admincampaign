@@ -33,7 +33,7 @@ class Home extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
         $table_name = $username . '_platform_integration';
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query90 = "SELECT * FROM $table_name WHERE platform_status = 1";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
@@ -119,7 +119,7 @@ class Home extends BaseController
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
-        $Database = \Config\Database::connect('second');
+        $Database = DatabaseDefaultConnection();
         $sql2 = 'SELECT * FROM `' . $username . '_platform_integration` WHERE platform_status = "2" AND verification_status = "1"';
         $Getresult = $Database->query($sql2);
         $predataarray = $Getresult->getResultArray();
@@ -589,7 +589,7 @@ class Home extends BaseController
     public function messenger()
     {
         $table_username = getMasterUsername2();
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $responseArray = array();
         $MetaUrl = config('App')->metaurl;
         $html = '';
@@ -597,7 +597,7 @@ class Home extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
         $table_name = $username . '_platform_integration';
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query90 = "SELECT * FROM $table_name WHERE platform_status = 1";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
@@ -612,7 +612,7 @@ class Home extends BaseController
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $table_username = $parts[0];
-        $Database = \Config\Database::connect('second');
+        $Database = DatabaseDefaultConnection();
 
 
         if (!empty($settings_data)) {
@@ -698,7 +698,7 @@ class Home extends BaseController
     public function bot_chat()
     {
         $table_username = getMasterUsername2();
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $responseArray = array();
         $MetaUrl = config('App')->metaurl;
         $html = '';
@@ -706,7 +706,7 @@ class Home extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
         $table_name = $username . '_platform_integration';
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query90 = "SELECT * FROM $table_name WHERE platform_status = 1";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
@@ -750,7 +750,7 @@ class Home extends BaseController
                             $inputString = $_SESSION['username'];
                             $parts = explode("_", $inputString);
                             $table_username = $parts[0];
-                            $Database = \Config\Database::connect('second');
+                            $Database = DatabaseDefaultConnection();
                             $sql = "SELECT " . $table_username . "_platform_assets.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_platform_assets.contact_no AND platform_account_id = " . $id . " AND boatstatus = '0') AS last_inserted_id FROM " . $table_username . "_platform_assets WHERE  account_phone_no = '" . $phoneno . "' AND boatstatus = '0' AND conversation_account_id = '" . $id . "' ORDER BY last_inserted_id DESC;
                                 ";
                             $Getresult = $Database->query($sql);
@@ -811,7 +811,7 @@ class Home extends BaseController
         tableCreateAndTableUpdate2($table_username . '_bot_setup', '', $columns_bot);
 
 
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $sql = 'ALTER TABLE ' . $table_username . '_bot_setup MODIFY COLUMN menu_message longtext NOT NULL';
         $db_connection->query($sql);
 
@@ -831,7 +831,7 @@ class Home extends BaseController
         ];
         tableCreateAndTableUpdate2('master_bot_typeof_question', '', $columns_bot);
 
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $sql_1 = "SELECT COUNT(*) as count FROM master_bot_typeof_question";
         $Getresult = $db_connection->query($sql_1);
         $inquiry_status_afcount = $Getresult->getResultArray();
@@ -867,7 +867,7 @@ class Home extends BaseController
         ];
         tableCreateAndTableUpdate2('master_bot_typeof_question', '', $columns_bot);
 
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $sql_1 = "SELECT COUNT(*) as count FROM master_bot_typeof_question";
         $Getresult = $db_connection->query($sql_1);
         $inquiry_status_afcount = $Getresult->getResultArray();
@@ -1027,7 +1027,7 @@ class Home extends BaseController
             'FOREIGN KEY (alert_title) REFERENCES master_alert_setting(id)',
         ];
         $table = tableCreateAndTableUpdate($table_name, '', $columns, $foreign_keys);
-        $db_connection = \Config\Database::connect();
+        $db_connection = DatabaseSecondConnection();
         $alert_sql = 'SELECT * FROM master_alert_setting WHERE id NOT IN (12)';
         $alert_result = $db_connection->query($alert_sql);
         $master_alert_setting = $alert_result->getResultArray();
@@ -1159,7 +1159,7 @@ class Home extends BaseController
         $data1['task_status_one'] = $this->MasterInformationModel->display_all_records2('admin_task_status', 'ASC');
         // $data2['task_status_two'] = $this->MasterInformationModel->display_all_records($table_username . "_" .'task_priority','ASC');
         // $data3['task_status_three'] = $this->MasterInformationModel->display_all_records($table_username . "_" .'task_priority','ASC');
-        $dataBs = \Config\Database::connect('second');
+        $dataBs = DatabaseDefaultConnection();
         $getchild = '';
         $getchild = getChildIds($_SESSION['id']);
         if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
@@ -1230,14 +1230,14 @@ class Home extends BaseController
     public function lead_module()
     {
         $username = session_username($_SESSION['username']);
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
         return view('lead_module', $data);
     }
     public function newlead_module()
     {
         $username = session_username($_SESSION['username']);
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
         $find_Array_all = "SELECT * FROM " . $username . "_fb_account  where master_id='" . $_SESSION['master'] . "' ";
         $find_Array_all = $this->db->query($find_Array_all);

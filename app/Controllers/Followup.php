@@ -117,7 +117,7 @@ class Followup extends BaseController
                 $inquiry_id = $inquiry_log_data['inquiry_id'];
                 if (!empty($inquiry_id)) {
                     $qry = "SELECT full_name FROM admin_all_inquiry WHERE id = '" . $inquiry_id . "'";
-                    $secondDb = \Config\Database::connect('second');
+                    $secondDb = DatabaseDefaultConnection();
                     $result = $secondDb->query($qry);
                     $full_name_inq = $result->getResultArray();
                 } else {
@@ -183,7 +183,7 @@ class Followup extends BaseController
     }
     public function product_wise_plan()
     {
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $subscription_data = "SELECT * FROM admin_subscription_master WHERE crm=" . $_POST['product_type'];
         $result = $db_connection->query($subscription_data);
         $result = $result->getResultArray();
@@ -779,7 +779,7 @@ class Followup extends BaseController
                 }
             }
             $username = session_username($_SESSION['username']);
-            $db_connection = \Config\Database::connect('second');
+            $db_connection = DatabaseDefaultConnection();
             $user_child = array();
             $user_parent = array();
             $sitewisechild = "SELECT t1.id AS child_id, t1.parent_id AS parent_id FROM " . $username . "_userrole t1 LEFT JOIN " . $username . "_userrole t2 ON t1.id = t2.parent_id WHERE t2.parent_id IS NULL";
@@ -835,7 +835,7 @@ class Followup extends BaseController
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
 					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 8 AND intrested_product = $intrested_product";
-					$db_connection = \Config\Database::connect('second');
+					$db_connection = DatabaseDefaultConnection();
 					$find_audience = $db_connection->query($find_audience);
 					$all_data = $find_audience->getResultArray();
 
@@ -935,7 +935,7 @@ class Followup extends BaseController
                     $intrested_product = $inquiry_data['intrested_product'];
                     $audience_data = array();
                     $find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 7 AND intrested_product = $intrested_product";
-                    $db_connection = \Config\Database::connect('second');
+                    $db_connection = DatabaseDefaultConnection();
                     $find_audience = $db_connection->query($find_audience);
                     $all_data_audience = $find_audience->getResultArray();
                     
@@ -1068,7 +1068,7 @@ class Followup extends BaseController
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
 					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 6 AND intrested_product = $intrested_product";
-					$db_connection = \Config\Database::connect('second');
+					$db_connection = DatabaseDefaultConnection();
 					$find_audience = $db_connection->query($find_audience);
 					$all_data_audience = $find_audience->getResultArray();
 
@@ -1203,7 +1203,7 @@ class Followup extends BaseController
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
 					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 9 AND intrested_product = $intrested_product";
-					$db_connection = \Config\Database::connect('second');
+					$db_connection = DatabaseDefaultConnection();
 					$find_audience = $db_connection->query($find_audience);
 					$all_data_audience = $find_audience->getResultArray();
 
@@ -1395,7 +1395,7 @@ class Followup extends BaseController
                    //increment audience table insert productwise inquiry_data=2 in 
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
-                    $db_connection = \Config\Database::connect('second');
+                    $db_connection = DatabaseDefaultConnection();
                     
                     // Fetching data for inquiry_status = 2
                     $inquiry_data_audience = array();
@@ -1650,7 +1650,7 @@ class Followup extends BaseController
                     $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                     $intrested_product = $inquiry_data['intrested_product'];
 					$find_audience = "SELECT * FROM " . $this->username . "_audience WHERE inquiry_status = 17 AND intrested_product = $intrested_product";
-					$db_connection = \Config\Database::connect('second');
+					$db_connection = DatabaseDefaultConnection();
 					$find_audience = $db_connection->query($find_audience);
 					$all_data_audience = $find_audience->getResultArray();
 
@@ -1788,7 +1788,7 @@ class Followup extends BaseController
                //increment audience table insert productwise inquiry_data=2 in 
                 $inquiry_data = inquiry_id_to_full_inquiry_data($inquiry_id);
                 $intrested_product = $inquiry_data['intrested_product'];
-                $db_connection = \Config\Database::connect('second');
+                $db_connection = DatabaseDefaultConnection();
 
                 // Fetching data for inquiry_status = 2
                 $inquiry_data_audience = array();
@@ -1918,8 +1918,8 @@ class Followup extends BaseController
     //assign_foloowup And transfer followup
     public function people_assign_bulk()
     {
-        $this->db = \Config\Database::connect();
-          $secondDb = \Config\Database::connect('second');
+        $this->db = DatabaseSecondConnection();
+          $secondDb = DatabaseDefaultConnection();
         $session_data = get_session_data();
         $user_id = '';
         $userfullname = '';

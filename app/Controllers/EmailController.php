@@ -16,7 +16,7 @@ class EmailController extends BaseController
 	{
 		helper("custom");
 		$db = db_connect();
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 		$this->MasterInformationModel = new MasterInformationModel($db);
 		session();
 		$this->username = session_username($_SESSION["username"]);
@@ -40,7 +40,7 @@ class EmailController extends BaseController
 
 		$query90 = "SELECT * FROM admin_platform_integration WHERE id= $checkedTableId AND  platform_status = 3 AND  master_id = '" . $insert_and_update_id_master . "'";
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$result = $db_connection->query($query90);
 		$total_dataa_userr_22 = $result->getResultArray();
 
@@ -130,7 +130,7 @@ class EmailController extends BaseController
 		}
 
 		// $account_mail = "";
-		// $db_connection = \Config\Database::connect('second');
+		// $db_connection = DatabaseDefaultConnection();
 		// $table_username = session_username($_SESSION['username']);
 		// $query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND  master_id = '" . $_SESSION['master'] . "'";
 		// $result = $db_connection->query($query90);
@@ -193,7 +193,7 @@ class EmailController extends BaseController
 
 
 		$account_mail = "";
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$table_username = session_username($_SESSION['username']);
 		$query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND master_id = '" . $_SESSION['master'] . "'";
 		$result = $db_connection->query($query90);
@@ -535,7 +535,7 @@ class EmailController extends BaseController
 
 		if ($this->request->getPost('checkbox_value')) {
 			$ids = $this->request->getPost('checkbox_value');
-			$db_connection = \Config\Database::connect('second');
+			$db_connection = DatabaseDefaultConnection();
 			$table_username = session_username($_SESSION['username']);
 			$query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND  master_id = '" . $_SESSION['master'] . "'";
 			$result = $db_connection->query($query90);

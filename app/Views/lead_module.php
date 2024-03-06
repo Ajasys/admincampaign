@@ -168,7 +168,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     }
 }
 $product = json_decode($product, true);
-$this->db = \Config\Database::connect('second');
+$this->db = DatabaseDefaultConnection();
 $conn_query = "SELECT * FROM " . $table_username . "_platform_integration Where master_id=" . $_SESSION['master'] . " AND platform_status=2 AND verification_status=1";
 $conn_result = $this->db->query($conn_query);
 $conn_rows = $conn_result->getResultArray();

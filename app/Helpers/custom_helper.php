@@ -1,9 +1,19 @@
 <?php
 
+
+
+function DatabaseDefaultConnection()
+{
+    return \Config\Database::connect();
+}
+function DatabaseSecondConnection()
+{
+    return \Config\Database::connect('second');
+}
 if(!function_exists("customErrorHandlerCheck")) {
     function customErrorHandlerCheck($errno = "", $errstr = "", $errfile = "", $errline = "")
     {
-        $dbconn = \Config\Database::connect('second');
+        $dbconn = DatabaseDefaultConnection();
         $error_message = "Error [$errno] $errstr in $errfile at line $errline";
       
         $userId = isset($_SESSION["id"]) ? $_SESSION["id"] : 0;
@@ -70,7 +80,7 @@ if (!function_exists('compressImage')) {
 if (!function_exists('getMasterUsername')) {
     function getMasterUsername()
     {
-        $db_connection = \Config\Database::connect();
+        $db_connection = DatabaseSecondConnection();
         $master = 0;
         if (isset($_SESSION['master'])) {
             $master = $_SESSION['master'];
@@ -87,7 +97,7 @@ if (!function_exists('getMasterUsername')) {
 if (!function_exists('SendMail')) {
     function SendMail($toemail = '', $subject = '', $message = '', $attachment = '', $username = '')
     {
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
 
         // $table_username = session_username($_SESSION['username']);
         // $table_name118 = $table_username . '_email_data';
@@ -110,7 +120,7 @@ if (!function_exists('SendMail')) {
         // ];
         // $table50 = tableCreateAndTableUpdate2($table_name1189, '', $columns50);
         // try {
-            $first_db = \Config\Database::connect('second');
+            $first_db = DatabaseDefaultConnection();
             // $generalSetting = $first_db->table('admin_generale_setting')->get()->getRow();
             // $master = $_SESSION['master'];
             // $settings = $first_db->table('admin_generale_setting')
@@ -118,7 +128,7 @@ if (!function_exists('SendMail')) {
             // ->where('platform_status', 3)
             // ->get()
             // ->getRow();
-            $db_connection = \Config\Database::connect('second');
+            $db_connection = DatabaseDefaultConnection();
             $query90 = "SELECT * FROM admin_platform_integration WHERE platform_status = 3 AND  master_id = '" . $_SESSION['master'] . "'";
 
             $result = $db_connection->query($query90);
@@ -137,7 +147,7 @@ if (!function_exists('SendMail')) {
 
             if ( $SendMailUsing == 1 && $platform_status == 3) {
                 // $username = session_username($_SESSION['username']);
-                $first_db = \Config\Database::connect();
+                $first_db = DatabaseSecondConnection();
                 $email = \Config\Services::email();
                 $email->setto($toemail);
                 $email->setfrom('info@ajasys.in', $subject);
@@ -236,7 +246,7 @@ if (!function_exists('SendMail')) {
                         'email_track_code' => $track_code,
                         'email_link_track_code'=>$track_code_link,
                     );
-                    $db = \Config\Database::connect('second');
+                    $db = DatabaseDefaultConnection();
                     $builder = $db->table('admin_email_data');
                     $builder->insert($data);
 
@@ -271,7 +281,7 @@ if (!function_exists('SendMail')) {
 if (!function_exists('getMasterUsername2')) {
     function getMasterUsername2()
     {
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $master = 0;
         if (isset($_SESSION['master'])) {
             $master = $_SESSION['master'];
@@ -289,7 +299,7 @@ if (!function_exists('getMasterUsername2')) {
 // if (!function_exists('tableCreateAndTableUpdate')) {
 //     function tableCreateAndTableUpdate($table_name = "", $duplicate_table = '', $columns = array())
 //     {
-//         $first_db = \Config\Database::connect();
+//         $first_db = DatabaseSecondConnection();
 //         if ($first_db->tableExists($table_name) && $table_name != '') {
 //             foreach ($columns as $value) {
 //                 $value_col_name = explode(' ', $value);
@@ -320,7 +330,7 @@ if (!function_exists('getMasterUsername2')) {
 if (!function_exists('tableCreateAndTableUpdate')) {
     function tableCreateAndTableUpdate($table_name = "", $duplicate_table = '', $columns = array(), $foreign_keys = array())
     {
-        $first_db = \Config\Database::connect();
+        $first_db = DatabaseSecondConnection();
         if ($first_db->tableExists($table_name) && $table_name != '') {
             foreach ($columns as $value) {
                 $value_col_name = explode(' ', $value);
@@ -362,7 +372,7 @@ if (!function_exists('tableCreateAndTableUpdate')) {
 if (!function_exists('SecoundDBIdToFieldGetData')) {
     function SecoundDBIdToFieldGetData($fieldname = '', $where, $tablename)
     {
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
         $result_data = array();
         if (!empty($fieldname) && !empty($where)) {
             $sql = 'SELECT ' . $fieldname . ' FROM ' . $tablename . ' WHERE ' . $where;
@@ -392,7 +402,7 @@ if (!function_exists('SecoundDBIdToFieldGetData')) {
 if (!function_exists('timezonedata')) {
     function timezonedata()
     {
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
         if (isset($_SESSION['master'])) {
             $cat = $db->query("SELECT * FROM master_user WHERE id =" . $_SESSION['master']);
             $result = $cat->getResultArray();
@@ -453,7 +463,7 @@ if (!function_exists('user_active_or_not')) {
 
         $db = db_connect();
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $query = $secondDb->query('SELECT *  FROM user WHERE id=' . $user_id);
 
@@ -507,7 +517,7 @@ if (!function_exists('get_roll_id_to_full_data')) {
 
         
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $username = session_username($_SESSION['username']);
 
@@ -547,7 +557,7 @@ if (!function_exists('get_table_array_helper')) {
 
             $db = db_connect();
 
-            $secondDb = \Config\Database::connect('second');
+            $secondDb = DatabaseDefaultConnection();
 
 
 
@@ -633,7 +643,7 @@ if (!function_exists('duplicate_data')) {
 
     {
 
-        $db = \Config\Database::connect();
+        $db = DatabaseSecondConnection();
 
         $i = 0;
 
@@ -683,7 +693,7 @@ if (!function_exists('duplicate_data2')) {
 
     {
 
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
 
         $i = 0;
 
@@ -755,9 +765,9 @@ if (!function_exists('IdToFieldGetData')) {
 
     {
 
-        $db = \Config\Database::connect();
+        $db = DatabaseSecondConnection();
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $result_data = array();
 
@@ -899,7 +909,7 @@ if (!function_exists('inquiry_id_to_full_inquiry_data')) {
 
         $db = db_connect();
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
 
 
@@ -1021,7 +1031,7 @@ if (!function_exists('user_id_to_full_user_data')) {
 
         $db = db_connect();
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         if ($user_id == 0) {
 
@@ -1073,7 +1083,7 @@ if (!function_exists('get_table_array_helper')) {
 
             $db = db_connect();
 
-            $secondDb = \Config\Database::connect('second');
+            $secondDb = DatabaseDefaultConnection();
 
             $query = $secondDb->query('SELECT * FROM ' . $table_name . ' ORDER BY id ' . $order . '');
 
@@ -1207,9 +1217,9 @@ if (!function_exists("getChildIds")) {
 
     {
 
-        $db = \Config\Database::connect();
+        $db = DatabaseSecondConnection();
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $child_ids = array();
 
@@ -1261,7 +1271,7 @@ if (!function_exists("getStatusWiseData")) {
 
         
 
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
 
         $username = session_username($_SESSION['username']);
 
@@ -1606,7 +1616,7 @@ if (!function_exists("getStatusWiseData")) {
 // if (!function_exists('tableCreateAndTableUpdate')) {
 //     function tableCreateAndTableUpdate($table_name = "", $duplicate_table = '', $columns = array(), $foreign_keys = array())
 //     {
-//         $first_db = \Config\Database::connect();
+//         $first_db = DatabaseSecondConnection();
 //         if ($first_db->tableExists($table_name) && $table_name != '') {
 //             foreach ($columns as $value) {
 //                 $value_col_name = explode(' ', $value);
@@ -1653,9 +1663,9 @@ if (!function_exists("userUnderEmployee")) {
 
     {
 
-        $db = \Config\Database::connect();
+        $db = DatabaseSecondConnection();
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
 
 
@@ -1740,7 +1750,7 @@ if (!function_exists('get_// previous_link')) {
 if (!function_exists('tableCreateAndTableUpdate')) {
     function tableCreateAndTableUpdate($table_name = "", $duplicate_table = '', $columns = array())
     {
-        $first_db = \Config\Database::connect('second');
+        $first_db = DatabaseDefaultConnection();
         if ($first_db->tableExists($table_name) && $table_name != '') {
             foreach ($columns as $value) {
                 $value_col_name = explode(' ', $value);
@@ -1776,7 +1786,7 @@ if (!function_exists('tableCreateAndTableUpdate')) {
 if (!function_exists("getParentidUserrole")) {
     function getParentidUserrole($childId)
     {
-        $db = \Config\Database::connect();
+        $db = DatabaseSecondConnection();
         $child_ids = array();
         $username = session_username($_SESSION['username']);
         $cat = $db->query("SELECT * FROM " . $username . "_userrole WHERE parent_id = $childId");
@@ -1870,7 +1880,7 @@ if (!function_exists('get_roll_id_to_roll')) {
 
         $db = db_connect();
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $username = session_username($_SESSION['username']);
 
@@ -2098,7 +2108,7 @@ if (!function_exists('get_user_count_inquiry_dataa')) {
 
             $result_array = array();
 
-            $db_connection = \Config\Database::connect('second');
+            $db_connection = DatabaseDefaultConnection();
 
             $result = $db_connection->query($sql);
 
@@ -2244,7 +2254,7 @@ if (!function_exists('get_user_count_inquiry_dataa')) {
 
 
 
-                    $db = \Config\Database::connect('second');
+                    $db = DatabaseDefaultConnection();
 
                     $Getresult = $db->query($year);
 
@@ -2426,7 +2436,7 @@ if (!function_exists('get_user_count_inquiry_dataa')) {
 
 
 
-                        $db = \Config\Database::connect('second');
+                        $db = DatabaseDefaultConnection();
 
                         $Getresult = $db->query($week);
 
@@ -2538,7 +2548,7 @@ if (!function_exists('get_user_count_inquiry_dataa')) {
 
                              ORDER BY calendar.month DESC";
 
-                        $db = \Config\Database::connect('second');
+                        $db = DatabaseDefaultConnection();
 
                         $Getresult = $db->query($month);
 
@@ -2564,7 +2574,7 @@ if (!function_exists('get_user_count_inquiry_dataa')) {
 if (!function_exists('tableCreateAndTableUpdate')) {
     function tableCreateAndTableUpdate($table_name = "", $duplicate_table = '', $columns = array(), $foreign_keys = array())
     {
-        $first_db = \Config\Database::connect('second');
+        $first_db = DatabaseDefaultConnection();
         if ($first_db->tableExists($table_name) && $table_name != '') {
             foreach ($columns as $value) {
                 $value_col_name = explode(' ', $value);
@@ -2641,9 +2651,9 @@ if (!function_exists('countdata_userwise_any_table'))
 
             $broker = 0;
 
-		    $db_connection = \Config\Database::connect();
+		    $db_connection = DatabaseSecondConnection();
 
-            $secondDb = \Config\Database::connect('second');
+            $secondDb = DatabaseDefaultConnection();
 
 
 
@@ -2761,7 +2771,7 @@ if (!function_exists('demo_and_subscription_count'))
 
             $broker = 0;
 
-		    $db_connection = \Config\Database::connect('second');
+		    $db_connection = DatabaseDefaultConnection();
 
 
 
@@ -2923,7 +2933,7 @@ if (!function_exists('booking_count')) {
 
             $broker = 0;
 
-            $db_connection = \Config\Database::connect('second');
+            $db_connection = DatabaseDefaultConnection();
 
             $user_id = $_SESSION['id'];
 
@@ -3010,7 +3020,7 @@ if (!function_exists('booking_count')) {
 if (!function_exists('get_editData2')) {
     function get_editData2($table, $edit_id)
     {
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
         $query = "SELECT * from  $table WHERE id = $edit_id";
         $cat = $db->query($query);
         $result = $cat->getRowArray();
@@ -3029,7 +3039,7 @@ if (!function_exists('timezone')) {
             $timezone = "Asia/Kolkata";
         }
         $timezones = array();
-        $db_connection = \Config\Database::connect();
+        $db_connection = DatabaseSecondConnection();
         $timezone = new \DateTimeZone($timezone);
         // $db_connection->query("SET time_zone='" . $timezone->getName() . "'");
         // Get the current date in Asia/Kolkata time zone
@@ -3099,7 +3109,7 @@ if (!function_exists('any_id_to_full_data')) {
 
         // die();
 
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
 
         if ($user_id == 0) {
 
@@ -3196,7 +3206,7 @@ if (!function_exists('getCustomMonthDays')) {
 
 function getGeneraleData()
 {
-    $db_connection = \Config\Database::connect('second');
+    $db_connection = DatabaseDefaultConnection();
     $query = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
     $rows = $db_connection->query($query);
     $result = $rows->getResult();
@@ -3211,7 +3221,7 @@ function getGeneraleData()
 function getConnectionData($id)
 { 
     $table_username = session_username($_SESSION['username']);
-    $db_connection = \Config\Database::connect('second');
+    $db_connection = DatabaseDefaultConnection();
     $query = "SELECT * FROM ".$table_username."_platform_integration WHERE id=".$id;
     $rows = $db_connection->query($query);
     $result = $rows->getResult();
@@ -3272,7 +3282,7 @@ function postSocialData($url, $JsonData){
 
 function WhatsAppConnectionCheck(){
     $table_username = getMasterUsername();
-    $db_connection = \Config\Database::connect('second');
+    $db_connection = DatabaseDefaultConnection();
     $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
     $result = $db_connection->query($query90);
     $total_dataa_userr_22 = $result->getResult();
@@ -3424,7 +3434,7 @@ if (!function_exists('get_asset_permission')) {
     function get_asset_permission($user_id)
     {
         $db = db_connect();
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $username = session_username($_SESSION['username']);
         $query = $secondDb->query('SELECT GROUP_CONCAT(DISTINCT assetpermission_name) AS asset_permissions FROM ' . $username . '_platform_assetpermission WHERE user_id =' . $user_id.' GROUP BY user_id');
         $get_user_role_table = $query->getResultArray();

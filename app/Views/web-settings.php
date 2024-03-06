@@ -1,7 +1,7 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
 <?php
-$db_connection = \Config\Database::connect('second');
+$db_connection = DatabaseDefaultConnection();
 $settings_data = getGeneraleData();
 ?>
 <style>

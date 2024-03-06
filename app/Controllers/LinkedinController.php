@@ -13,7 +13,7 @@ class LinkedinController extends BaseController
     {
         helper("custom");
         $db = db_connect();
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $this->MasterInformationModel = new MasterInformationModel($db);
         $this->username = session_username($_SESSION["username"]);
         $this->admin = 0;

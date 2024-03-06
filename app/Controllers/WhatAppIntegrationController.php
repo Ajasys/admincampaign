@@ -148,7 +148,7 @@ class WhatAppIntegrationController extends BaseController
 
                             if (isset($Result['contacts'], $Result['messages'])) {
                                 $ReturnResult = 1;
-                                $db_connection = \Config\Database::connect('second');
+                                $db_connection = DatabaseDefaultConnection();
                                 foreach ($Result['contacts'] as $contact) {
                                     $receiver_number = $contact['wa_id'];
                                     foreach ($Result['messages'] as $message) {
@@ -183,7 +183,7 @@ class WhatAppIntegrationController extends BaseController
 
         if (isset($_FILES['uploade_file'])) {
             if ($_FILES['uploade_file']['error'] === UPLOAD_ERR_OK) {
-                $db_connection = \Config\Database::connect('second');
+                $db_connection = DatabaseDefaultConnection();
                 $tmpFilePath = $_FILES['uploade_file']['tmp_name'];
                 $spreadsheet = IOFactory::load($tmpFilePath);
                 $worksheet = $spreadsheet->getActiveSheet();
@@ -314,7 +314,7 @@ class WhatAppIntegrationController extends BaseController
 
 
         $table_username = getMasterUsername();
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
 
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
@@ -672,7 +672,7 @@ class WhatAppIntegrationController extends BaseController
         $phoneno = str_replace([' ', '+'], '', $_POST['phoneno']);
         $name = $_POST['name'];
         $table_username = getMasterUsername2();
-        $Database = \Config\Database::connect('second');
+        $Database = DatabaseDefaultConnection();
         $sql = "SELECT " . $table_username . "_platform_assets.*, (SELECT MAX(id) FROM " . $table_username . "_messages WHERE contact_no = " . $table_username . "_platform_assets.contact_no AND platform_account_id = " . $id . " AND boatstatus = " . $listdatastatus . ") AS last_inserted_id FROM " . $table_username . "_platform_assets WHERE account_phone_no = '" . $phoneno . "' AND conversation_account_id = '" . $id . "' AND boatstatus = " . $listdatastatus . "  ORDER BY last_inserted_id DESC;
         ";
         $Getresult = $Database->query($sql);
@@ -862,7 +862,7 @@ class WhatAppIntegrationController extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
         $table_name = $username . '_sent_message_detail';
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query90 = "SELECT * FROM $table_name WHERE connection_id = $connctionid ";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
@@ -952,7 +952,7 @@ class WhatAppIntegrationController extends BaseController
 
     public function duplicate_data2($data, $table)
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $i = 0;
         $data_duplicat_Query = "";
         $numItems = count($data);
@@ -1243,7 +1243,7 @@ class WhatAppIntegrationController extends BaseController
     public function whatsappView()
     {
         $VIEW_id = $this->request->getPost('EditID');
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
         $sql = 'SELECT * FROM `master_whatsapp_template` WHERE id =' . $VIEW_id . '';
         $result = $db->query($sql);
         $preview_Data = $result->getRowArray();
@@ -1355,7 +1355,7 @@ class WhatAppIntegrationController extends BaseController
         // function CheckWhataAppConnection(){
 
         $table_username = getMasterUsername();
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query90 = "SELECT * FROM " . $table_username . "_generale_setting WHERE id IN(1)";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
@@ -1770,7 +1770,7 @@ class WhatAppIntegrationController extends BaseController
             if (isset($Result['error_data'])) {
             } elseif (isset($Result['contacts'])) {
                 $ReturnResult = 1;
-                $db_connection = \Config\Database::connect('second');
+                $db_connection = DatabaseDefaultConnection();
                 foreach ($Result['contacts'] as $contact) {
                     $receiver_number = $contact['wa_id'];
                     foreach ($Result['messages'] as $message) {
@@ -1841,7 +1841,7 @@ class WhatAppIntegrationController extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
         $table_name = $username . '_platform_integration';
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query90 = "SELECT * FROM $table_name WHERE platform_status = 1";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
@@ -2189,10 +2189,10 @@ class WhatAppIntegrationController extends BaseController
 //         $contact_no = $_POST['contact_no'];
 //         $conversation_account_id = $_POST['conversation_account_id'];
 //         $table_username = getMasterUsername2();
-//         $Database = \Config\Database::connect('second');
+//         $Database = DatabaseDefaultConnection();
 //         $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
 
-//         $db_connection = \Config\Database::connect('second');
+//         $db_connection = DatabaseDefaultConnection();
 
 //         // pre($sql);
 
@@ -2892,10 +2892,10 @@ public function WhatsAppListConverstion()
     $contact_no = $_POST['contact_no'];
     $conversation_account_id = $_POST['conversation_account_id'];
     $table_username = getMasterUsername2();
-    $Database = \Config\Database::connect('second');
+    $Database = DatabaseDefaultConnection();
     $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
 
-    $db_connection = \Config\Database::connect('second');
+    $db_connection = DatabaseDefaultConnection();
 
     // pre($sql);
 
@@ -3677,7 +3677,7 @@ public function WhatsAppListConverstion()
                 $this->MasterInformationModel->insert_entry2($insert_data, $username . '_platform_assets');
             } elseif ($_POST['action'] == 'manualcontactadd') {
                 $table_username = getMasterUsername2();
-                $Database = \Config\Database::connect('second');
+                $Database = DatabaseDefaultConnection();
                 $Digi10Number = substr($_POST['phone_no'], -10);
                 $sql2 = 'SELECT * FROM `' . $table_username . '_platform_assets` WHERE conversation_account_id = "' . $_POST['connection_id'] . '" AND contact_no LIKE "%' . $Digi10Number . '%"';
                 $Getresult = $Database->query($sql2);
@@ -4028,7 +4028,7 @@ public function WhatsAppListConverstion()
     }
     public function dropdown_bot_disabled()
     {
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $username = session_username($_SESSION['username']);
         // $setting_name = $this->username.'_setting';
         $bot_query2 = "SELECT * FROM " . $username . "_bot";
@@ -4087,7 +4087,7 @@ public function WhatsAppListConverstion()
 
     public function set_variable_value()
     {
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
 
         $post_data = $_POST;
         $phone_no = $post_data['phone_no'];
@@ -4173,7 +4173,7 @@ public function WhatsAppListConverstion()
 
     // public function set_variable_value()
     // {
-    //     $db_connection = \Config\Database::connect('second');
+    //     $db_connection = DatabaseDefaultConnection();
 
     //     $post_data = $_POST;
     //     $phone_no = $post_data['phone_no'];
@@ -4230,7 +4230,7 @@ public function WhatsAppListConverstion()
     // public function set_variable_value()
     // {
 
-    //     $db_connection = \Config\Database::connect('second');
+    //     $db_connection = DatabaseDefaultConnection();
 
     //     $post_data = $_POST;
     //     $phone_no = $post_data['phone_no'];
@@ -4296,7 +4296,7 @@ public function WhatsAppListConverstion()
     //         $phoneNumbers = explode("\n", trim($csvData));
     //     }
 
-    //     $db_connection = \Config\Database::connect('second');
+    //     $db_connection = DatabaseDefaultConnection();
 
     //     $post_data = $_POST;
     //     $originalHTML = $post_data['originalHTML'];
@@ -4389,7 +4389,7 @@ public function WhatsAppListConverstion()
 
     //     if (isset($_FILES['import_file'])) {
     //         if ($_FILES['import_file']['error'] === UPLOAD_ERR_OK) {
-    //             $db_connection = \Config\Database::connect('second');
+    //             $db_connection = DatabaseDefaultConnection();
     //              $tmpFilePath = $_FILES['import_file']['tmp_name'];
     //             $spreadsheet = IOFactory::load($tmpFilePath); 
     //             $worksheet = $spreadsheet->getActiveSheet();

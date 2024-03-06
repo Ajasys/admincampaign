@@ -25,7 +25,7 @@ $data = [
 //     'email_status' => 'Yes',
 //     'email_open_datetime' => '2023-04-25 08:45'
 // ];
-$db = \Config\Database::connect('second');
+$db = DatabaseDefaultConnection();
 $builder = $db->table('admin_email_track');
 $builder->insert($data);
 
@@ -39,7 +39,7 @@ $customer = 0;
 $username = session_username($_SESSION['username']);
 
 $db = db_connect();
-$this->db = \Config\Database::connect();
+$this->db = DatabaseSecondConnection();
 $qry = 'SELECT SUM(CASE WHEN `is_approve` = 1 AND `master_id` = 0 THEN 1  ELSE 0 END) AS isactive,
       SUM(CASE WHEN (`is_approve`) = 2 OR (`is_approve` = 0 AND `master_id` = 0) THEN 1 ELSE 0 END) AS inactive,
       SUM(CASE WHEN `is_approve` = 0 THEN 1 ELSE 0 END) AS signup FROM `paydone_data`';

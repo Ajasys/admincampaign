@@ -39,7 +39,7 @@ class CommonController extends BaseController
 				$user_id = $_SESSION['id'];
 			}
 			if (!empty($ids)) {
-				$db = \Config\Database::connect('second');
+				$db = DatabaseDefaultConnection();
 				$all = implode(",", $ids);
 				$find_Array_all = "DELETE FROM $final_table_name WHERE id IN ($all)";
 				$db->query($find_Array_all);
@@ -77,7 +77,7 @@ class CommonController extends BaseController
 			// die();
 
 			if (!empty($ids)) {
-				$db = \Config\Database::connect('second');
+				$db = DatabaseDefaultConnection();
 				$all = implode(",", $ids);
 				$find_Array_all = "DELETE FROM $final_table_name WHERE id IN ($all)";
 				$db->query($find_Array_all);
@@ -98,7 +98,7 @@ class CommonController extends BaseController
 	}
 
 	public function check_new_data_Available(){
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		$table_name = $this->request->getPost('table');
 		
 		$columns_bot = [

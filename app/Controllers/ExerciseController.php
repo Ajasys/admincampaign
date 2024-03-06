@@ -21,7 +21,7 @@ class ExerciseController extends BaseController
 
     public function duplicate_data2($data, $table)
 	{
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 		$i = 0;
 		$data_duplicat_Query = "";
 		$numItems = count($data);
@@ -45,8 +45,8 @@ class ExerciseController extends BaseController
     
     public function excercise_insert_data()
 	{
-		$db = \Config\Database::connect();
-		$Sdb = \Config\Database::connect('second');
+		$db = DatabaseSecondConnection();
+		$Sdb = DatabaseDefaultConnection();
 
 		$table_username = getMasterUsername();
 		$selectedId = $this->request->getPost('id');
@@ -129,7 +129,7 @@ class ExerciseController extends BaseController
 	{ 
         // pre($_FILES);
         // die();
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
         $FFFnmbnver = '';
 
         if($_POST['e_subtype'] == ''){
@@ -232,8 +232,8 @@ class ExerciseController extends BaseController
 
 
 
-      	$db = \Config\Database::connect();
-		$Sdb = \Config\Database::connect('second');
+      	$db = DatabaseSecondConnection();
+		$Sdb = DatabaseDefaultConnection();
 
 		$table_username = getMasterUsername();
 		$selectedId = $this->request->getPost('id');
@@ -339,7 +339,7 @@ class ExerciseController extends BaseController
 
         $ExerciseData = 'SELECT * FROM '  . $TableName . '';
         $main_sql = $ExerciseData;
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         // $result = $secondDb->query($main_sql);
 
         $sql_result = $secondDb->query($main_sql);
@@ -405,7 +405,7 @@ class ExerciseController extends BaseController
 
                 $ExerciseData = 'SELECT * FROM '  . $TableName . '';
                 $main_sql = $ExerciseData;
-                $secondDb = \Config\Database::connect('second');
+                $secondDb = DatabaseDefaultConnection();
                 // $result = $secondDb->query($main_sql);
     
                 $sql_result = $secondDb->query($main_sql);
@@ -468,7 +468,7 @@ class ExerciseController extends BaseController
 
                 $ExerciseData = 'SELECT * FROM '  . $TableName . '';
                 $main_sql = $ExerciseData;
-                $secondDb = \Config\Database::connect('second');
+                $secondDb = DatabaseDefaultConnection();
                 // $result = $secondDb->query($main_sql);
     
                 $sql_result = $secondDb->query($main_sql);
@@ -603,12 +603,12 @@ class ExerciseController extends BaseController
                 }
                 $i = 1;
 
-                // $DataBase = \Config\Database::connect('second');
+                // $DataBase = DatabaseDefaultConnection();
                 // $sql = "SELECT * FROM master_exercise_request";
                 // $result = $DataBase->query($sql);
                 // $ExerciseData = $result->getResultArray();
                     
-                $DataBase2 = \Config\Database::connect('second');
+                $DataBase2 = DatabaseDefaultConnection();
 
                 // $ExerciseData = $this->MasterInformationModel->display_all_records2('master_exercise_request');
                 // $ExerciseData = json_decode($ExerciseData, true);
@@ -618,7 +618,7 @@ class ExerciseController extends BaseController
 
                 $ExerciseData = 'SELECT * FROM '  . $TableName . '';
                 $main_sql = $ExerciseData;
-                $secondDb = \Config\Database::connect('second');
+                $secondDb = DatabaseDefaultConnection();
                 $sql_result = $secondDb->query($main_sql);
 
 
@@ -843,7 +843,7 @@ class ExerciseController extends BaseController
                 // }
                 $i = 1;
 
-                // $DataBase = \Config\Database::connect('second');
+                // $DataBase = DatabaseDefaultConnection();
                 // $sql = "SELECT * FROM master_exercise_request";
                 // $result = $DataBase->query($sql);
                 // $ExerciseData = $result->getResultArray();
@@ -851,7 +851,7 @@ class ExerciseController extends BaseController
 
                 // $ExerciseData = $this->MasterInformationModel->display_all_records2('master_exercise_request');
                 // $ExerciseData = json_decode($ExerciseData, true);
-                $DataBase2 = \Config\Database::connect('second');
+                $DataBase2 = DatabaseDefaultConnection();
 
 
                 $ExerciseData = $this->MasterInformationModel->display_all_records2('master_exercise_request');
@@ -1102,7 +1102,7 @@ class ExerciseController extends BaseController
                     $InsertDatas['duration'] = $GetDataER[0]['duration'];
                     $InsertDatas['selected_id'] = $GetDataER[0]['selected_id'];
                     $this->MasterInformationModel->insert_entry2($InsertDatas, 'master_exercise');
-                    $db_connection = \Config\Database::connect('second');
+                    $db_connection = DatabaseDefaultConnection();
                     $lastInsertID = $db_connection->insertID();
                     if(isset($lastInsertID) && !empty($lastInsertID)){
                         $delete_displaydata = $this->MasterInformationModel->delete_entry3('master_exercise_request', $_POST['id']);
@@ -1120,7 +1120,7 @@ class ExerciseController extends BaseController
 		$update_id = $this->request->getPost("id");
 		$response = 0;
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		if ($action_name == "update") {
 			unset($post_data['action']);

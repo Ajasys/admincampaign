@@ -32,7 +32,7 @@ class DashboardController extends BaseController
 			'followup_data_html' => '<p style="text-align:center;">Data Not Found </p>',
 		);
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$full_username = session_username($_SESSION['username']);
 		$tableName = $full_username . '_followup';
 		if (isset($this->admin) && $this->admin == 1) {
@@ -416,7 +416,7 @@ class DashboardController extends BaseController
 		ap.id, ap.product_name
 	";
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$result = $db_connection->query($sql);
 		$get_data_all_demo = $result->getResultArray();
 
@@ -468,7 +468,7 @@ class DashboardController extends BaseController
 
 
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		$full_username = session_username($_SESSION['username']);
 
@@ -626,7 +626,7 @@ class DashboardController extends BaseController
 	{
 
 		$date = '';
-		$this->db = \Config\Database::connect();
+		$this->db = DatabaseSecondConnection();
 		// $from_date = $this->request->getPost("from_date");
 		// $to_date = $this->request->getPost("to_date");
 		// $nxt_flow_date = $_SESSION['nxt_follow_up'];
@@ -772,7 +772,7 @@ class DashboardController extends BaseController
 	public function Performance_task()
 	{
 
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 		if (isset($this->admin) && $this->admin == 1) {
 			$user_id = 0;
 		} else {
@@ -918,7 +918,7 @@ class DashboardController extends BaseController
 	}
 	public function Dashboard_get_all_status_data()
 	{
-		$this->db = \Config\Database::connect();
+		$this->db = DatabaseSecondConnection();
 		if (isset($this->admin) && $this->admin == 1) {
 			$user_id = 1;
 			$project_id = '';
@@ -930,7 +930,7 @@ class DashboardController extends BaseController
 				$project_id = implode(',', $getchildProjectId1);
 			}
 		}
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$username = session_username($_SESSION['username']);
 		$query = "SELECT id, inquiry_status FROM master_inquiry_status";
 		$inq_status = $db_connection->query($query);
@@ -1118,7 +1118,7 @@ class DashboardController extends BaseController
 		echo $html;
 	}
 	public function Dashboard_get_lead_quality_report(){
-		$this->db = \Config\Database::connect();
+		$this->db = DatabaseSecondConnection();
         if ((isset($this->admin) && $this->admin == 1) || (in_array('data_viewing_child_all',$this->get_roll_id_to_roll_duty_var))) {
             $user_id = 1;
             $project_id = '';
@@ -1260,7 +1260,7 @@ class DashboardController extends BaseController
 		// 		ORDER BY product.id;
 		// 		";
 		
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
         $fier_main_query = $db->query($main_query);
         $final_lead_data = $fier_main_query->getResult();
         $all_inq_sta_id = [];
@@ -1302,7 +1302,7 @@ class DashboardController extends BaseController
 	}
 	public function Dashboard_get_lead_statistics_data()
 	{
-		$this->db = \Config\Database::connect();
+		$this->db = DatabaseSecondConnection();
 		if ((isset($this->admin) && $this->admin == 1) || (in_array('data_viewing_child_all',$this->get_roll_id_to_roll_duty_var))) {
 			$user_id = 1;
 			$project_id = '';
@@ -1331,7 +1331,7 @@ class DashboardController extends BaseController
 		// 	$project_id_query = "SELECT id,product_name,p_shortname FROM " . $this->username . "_product WHERE is_inactive = 0 AND id IN ( " . $project_id . ")";
 		// }
 		
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		$project_id_query_fier = $db->query($project_id_query);
 		$project_id_query_fier = $project_id_query_fier->getResultArray();
 		$today = $today = date('Y-m-d');
@@ -1449,7 +1449,7 @@ class DashboardController extends BaseController
 	{
 		// pre($_POST);
 		// die();
-		$test = \Config\Database::connect('second');
+		$test = DatabaseDefaultConnection();
 		if (isset($this->admin) && $this->admin == 1) {
 			$user_id = 1;
 		} else {

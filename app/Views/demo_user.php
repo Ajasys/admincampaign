@@ -114,7 +114,7 @@ $product = json_decode($product, true);
                                     <option value="" data-plan_price="0">Select Product Plan</option>
                                     <?php
                                     $subscription_data = "SELECT * FROM admin_subscription_master";
-                                    $dataBs = \Config\Database::connect('second');
+                                    $dataBs = DatabaseDefaultConnection();
                                     $result = $dataBs->query($subscription_data);
                                     $result = $result->getResultArray();
                                     foreach ($result as $key => $value) {

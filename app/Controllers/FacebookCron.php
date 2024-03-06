@@ -18,7 +18,7 @@ class FacebookCron extends BaseController
 	}
 	public function duplicate_data_check_mobile_number($table,$mobileno, $field="")
 	{
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 		$i =0 ;
 		if(!empty($field)){
 			$sql = 'SELECT * FROM '.$table.' WHERE '.$field.' ='.$mobileno;
@@ -46,7 +46,7 @@ class FacebookCron extends BaseController
 	   function user_id_to_full_user_data($user_id)
     {
         $result_user_data = array();
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         //$username = session_username($_SESSION['username']);
         //// pre($user_id);
 
@@ -69,7 +69,7 @@ class FacebookCron extends BaseController
 	public function facebook_cron_job()
 	{
 
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		// $sql = 'SELECT * FROM booking';
 		// $result = $db_connection->query($sql);

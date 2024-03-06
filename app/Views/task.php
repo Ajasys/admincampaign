@@ -1,7 +1,7 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
 <?php
-$db_connection = \Config\Database::connect();
+$db_connection = DatabaseSecondConnection();
 
 $query = "SELECT * FROM `master_user` WHERE id=" . $_SESSION['master'];
 
@@ -18,7 +18,7 @@ $subcription_end = date('Y-m-d', strtotime($result_array[0]['subcription_end']))
 $str_subcription_end = strtotime($subcription_end);
 if ($str_today < $str_subcription_end) {
     $username = session_username($_SESSION['username']);
-    $db_connection = \Config\Database::connect('second');
+    $db_connection = DatabaseDefaultConnection();
 
 
     //Task all listing data

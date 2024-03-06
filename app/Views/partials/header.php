@@ -21,7 +21,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 	$userCon = "  AND (id=" . $_SESSION['id'] . "  OR  id IN (" . $getchilds . "))";
 }
 	$username = session_username($_SESSION['username']);
-    $db_connection = \Config\Database::connect('second');
+    $db_connection = DatabaseDefaultConnection();
 	
 
 	$user_query = "SELECT * FROM " . $username . "_user WHERE switcher_active = 'active' " . $userCon . " ORDER BY id DESC";

@@ -25,7 +25,7 @@ class Alertsetting extends BaseController
 		// pre($_POST);
 		// $table = $_POST['table'];
 		// $table_name = $this->username . '_' . $table;
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$table_name = $table_username . '_alert_setting';
 		$duplicate_table = '';
 		$columns = [
@@ -137,7 +137,7 @@ class Alertsetting extends BaseController
 	{
 		$table_name = $_POST['table'];
 		$username = session_username($_SESSION['username']);
-		$first_db = \Config\Database::connect();
+		$first_db = DatabaseSecondConnection();
 		$allow_data = json_decode($_POST['show_array']);
 		$action = $_POST['action'];
 		// $notificationdisplaydata = $this->MasterInformationModel->display_all_records($username . "_" . $table_name);

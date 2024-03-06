@@ -20,7 +20,7 @@ class DatamoduleController extends BaseController
         }
     }
     public function duplicate_data_check_mobile_and_extra_data($tablename ,$find_Data = array() ){
-		$this->db = \Config\Database::connect('second');
+		$this->db = DatabaseDefaultConnection();
 		$array['response'] = 0;
 		$result = $this->db->table($tablename)->where($find_Data)->get();
 		if($result->getNumRows() > 0){
@@ -42,7 +42,7 @@ class DatamoduleController extends BaseController
 
         if (isset($_FILES['import_file'])) {
             if ($_FILES['import_file']['error'] === UPLOAD_ERR_OK) {
-                $db_connection = \Config\Database::connect('second');
+                $db_connection = DatabaseDefaultConnection();
                 $tmpFilePath = $_FILES['import_file']['tmp_name'];
                 $spreadsheet = IOFactory::load($tmpFilePath); // Load the uploaded Excel file
                 $worksheet = $spreadsheet->getActiveSheet();
@@ -108,7 +108,7 @@ class DatamoduleController extends BaseController
 
         if (isset($_FILES['import_file'])) {
             if ($_FILES['import_file']['error'] === UPLOAD_ERR_OK) {
-                $db_connection = \Config\Database::connect('second');
+                $db_connection = DatabaseDefaultConnection();
                 $tmpFilePath = $_FILES['import_file']['tmp_name'];
                 $spreadsheet = IOFactory::load($tmpFilePath); // Load the uploaded Excel file
                 $worksheet = $spreadsheet->getActiveSheet();
@@ -301,7 +301,7 @@ class DatamoduleController extends BaseController
         //$allow_data = json_decode($_POST['show_array']);
         //$status = get_table_array_helper('master_inquiry_status');
         // $get_roll_id_to_roll_duty_var = get_roll_id_to_roll_duty();
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $user_id = 1;
         if (!$this->admin == 1) {
             $user_id = $_SESSION['id'];

@@ -31,7 +31,7 @@ class CreateController extends BaseController
         
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        //     $this->db = \Config\Database::connect('second');
+        //     $this->db = DatabaseDefaultConnection();
         //     $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
         //     $get_access_token_array = $this->db->query($get_token);
         //     $data_count = $get_access_token_array->getNumRows();

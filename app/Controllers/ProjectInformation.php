@@ -46,7 +46,7 @@ class ProjectInformation extends BaseController
     // dublicate data 
     public function duplicate_data($data, $table)
     {
-        $this->db = \Config\Database::connect();
+        $this->db = DatabaseSecondConnection();
         $i = 0;
         $data_duplicat_Query = "";
         $numItems = count($data);

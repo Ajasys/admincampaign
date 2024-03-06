@@ -3,7 +3,7 @@
 
 <?php
 $username = session_username($_SESSION['username']);
-$db_connection = \Config\Database::connect('second');
+$db_connection = DatabaseDefaultConnection();
 $query = $db_connection->table($username . '_all_inquiry')->get();
 if ($query->getNumRows() > 0) {
     $columnNames = $query->getFieldNames();

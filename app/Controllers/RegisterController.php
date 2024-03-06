@@ -95,7 +95,7 @@ class RegisterController extends BaseController
             'response' => 0
         );
 
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $user_id = $_SESSION['id'];
         $status = isset($_POST['datastatus']) && !empty($_POST['datastatus']) ? $_POST['datastatus'] : "";
         $perPageCount = isset($_POST['perPageCount']) && !empty($_POST['perPageCount']) ? $_POST['perPageCount'] : 10;
@@ -361,7 +361,7 @@ class RegisterController extends BaseController
         //$allow_data = json_decode($_POST['show_array']);
         //$status = get_table_array_helper('master_inquiry_status');
         // $get_roll_id_to_roll_duty_var = get_roll_id_to_roll_duty();
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $user_id = $_SESSION['id'];
         $status = isset($_POST['datastatus']) && !empty($_POST['datastatus']) ? $_POST['datastatus'] : "";
         $perPageCount = isset($_POST['perPageCount']) && !empty($_POST['perPageCount']) ? $_POST['perPageCount'] : 10;
@@ -525,7 +525,7 @@ class RegisterController extends BaseController
     }
 
     public function project_to_get_unit(){
-		$this->db = \Config\Database::connect();
+		$this->db = DatabaseSecondConnection();
 		$post_data= $this->request->getPost();
 		$field = $this->request->getPost("field");
 		

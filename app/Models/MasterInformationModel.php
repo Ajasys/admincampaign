@@ -32,7 +32,7 @@ class MasterInformationModel extends Model
 
     public function insert_entry2($data,$tablename){
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $secondDb->table($tablename)->insert($data);
 
@@ -51,7 +51,7 @@ class MasterInformationModel extends Model
     }
 
     public function delete_entry3($tablename, $delete_id) {
-        $db3 = \Config\Database::connect('second');
+        $db3 = DatabaseDefaultConnection();
     
         $result = $db3->table($tablename)->where('id', $delete_id)->delete();
     
@@ -59,7 +59,7 @@ class MasterInformationModel extends Model
     }
 
     public function delete_entry4($tablename, $delete_id) {
-        $db3 = \Config\Database::connect('second');
+        $db3 = DatabaseDefaultConnection();
     
         $result = $db3->set('requestype', NULL)->where('id', $delete_id)->update($tablename);
     
@@ -69,7 +69,7 @@ class MasterInformationModel extends Model
    
     public function insert_entry3($data,$tablename){
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         
         $secondDb->table($tablename)->insertBatch($data);
         
@@ -81,7 +81,7 @@ class MasterInformationModel extends Model
 
     public function display_all_records2($tablename ,$oreder = 'ASE'){
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $result = $secondDb->table($tablename)->orderBy('id', $oreder)->get();
 
@@ -111,7 +111,7 @@ class MasterInformationModel extends Model
 
     public function edit_entry2($tablename,$edit_id){
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $result = $secondDb->table($tablename)->where("id", $edit_id)->get();
 
@@ -131,7 +131,7 @@ class MasterInformationModel extends Model
 
     public function edit_entry_all2($tablename,$edit_id,$id = 'id' , $oreder = 'ASC'){
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $result = $secondDb->table($tablename)->where($id, $edit_id)->orderBy('id', $oreder)->get();
 
@@ -158,14 +158,14 @@ class MasterInformationModel extends Model
     }
 
     public function get_entry_by_id($inquiry_id, $table) {
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
         $sql = 'SELECT * FROM ' . $table . ' WHERE inquiry_id = ?';
         $query = $db->query($sql, [$inquiry_id]);
         return $query->getRow() !== null;
     }
     public function update_entry2($id,$data,$tablename){
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $result = $secondDb
 
@@ -182,7 +182,7 @@ class MasterInformationModel extends Model
     }
     public function update_entry4($inquiry_id,$data,$tablename){
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $result = $secondDb
 
@@ -201,7 +201,7 @@ class MasterInformationModel extends Model
 
     public function get_json_data($delete_id)
     {
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
 
         $query = $db->table('admin_bot_setup')
                     ->select('menu_message')
@@ -217,7 +217,7 @@ class MasterInformationModel extends Model
 
     public function update_entry_bot2($id, $data, $tablename)
     {
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $result = $secondDb
             ->table($tablename)
             ->where(["id" => $id])
@@ -229,7 +229,7 @@ class MasterInformationModel extends Model
 
     public function update_entry_by_name($name, $data, $tablename)
     {
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $result = $secondDb
             ->table($tablename)
             ->where('name', $name) // Match the name column
@@ -240,7 +240,7 @@ class MasterInformationModel extends Model
     }
     public function update_entry_by_audience_id($audience_id, $data, $tablename)
     {
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $result = $secondDb
             ->table($tablename)
             ->where('audience_id', $audience_id) // Match the name column
@@ -260,7 +260,7 @@ class MasterInformationModel extends Model
 
     
     public function delete_entry2($tablename,$delete_id,$field = 'id'){
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $result = $secondDb->table($tablename)->where($field, $delete_id)->delete();
         return $result;
     }
@@ -290,7 +290,7 @@ class MasterInformationModel extends Model
 
     public function join_entry2($tablename, $tablename2, $field, $field2){
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $table = $secondDb
 
@@ -362,7 +362,7 @@ class MasterInformationModel extends Model
 
     public function inquiry_souece_join_entry2($tablename, $tablename2, $field, $field2){
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $table = $secondDb
 
@@ -406,7 +406,7 @@ class MasterInformationModel extends Model
 
 	 function get_username2($tablename,$username) {
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
 		$sql = "SELECT * FROM  ".$tablename." WHERE username = '".$username."' LIMIT 1";
 
@@ -426,7 +426,7 @@ class MasterInformationModel extends Model
 
 
     public function get_chatting_record($insert_data, $table_name) {
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
 		$query = $secondDb->table($table_name)
 			->where('client_name', $insert_data['client_name']) 
@@ -462,7 +462,7 @@ class MasterInformationModel extends Model
 
     public function checkDuplicateData2($Data,$tablename) {
 
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $multiClause = $Data;   
 
@@ -514,7 +514,7 @@ class MasterInformationModel extends Model
     //for bot sequence
     public function get_record_count($table_name)
     {
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $query = $secondDb->query("SELECT COUNT(*) AS record_count FROM $table_name");
         
         $result = $query->getRow();
@@ -522,7 +522,7 @@ class MasterInformationModel extends Model
     }
     public function get_max_sequence($table_name, $bot_id)
     {
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
         $query = $secondDb->query("SELECT MAX(sequence) AS max_sequence FROM $table_name WHERE bot_id = $bot_id");
         
         $result = $query->getRow();
@@ -531,7 +531,7 @@ class MasterInformationModel extends Model
 
     public function delete_question_sequence($table_name, $bot_id, $delete_sequence)
     {
-        $secondDb = \Config\Database::connect('second');
+        $secondDb = DatabaseDefaultConnection();
 
         $query = $secondDb->table($table_name)
                 ->select('*')
@@ -553,7 +553,7 @@ class MasterInformationModel extends Model
     public function get_sequence_by_id($table_name, $id)
     {
         // Assuming $id is the primary key of the question
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query = $db_connection->table($table_name)->select('sequence')->where('id', $id)->get();
         $result = $query->getRow();
 

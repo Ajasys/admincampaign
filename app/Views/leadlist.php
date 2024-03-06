@@ -22,7 +22,7 @@
 </style>
 <?php
 $username = session_username($_SESSION['username']);
-$this->db = \Config\Database::connect('second');
+$this->db = DatabaseDefaultConnection();
 
 if (isset($_GET['id'])) {
     $get_pagename =  "SELECT * FROM admin_fb_pages  Where page_id=" . $_GET['id'] . "  ORDER BY id  ASC";

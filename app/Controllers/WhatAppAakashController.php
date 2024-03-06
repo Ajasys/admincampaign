@@ -96,7 +96,7 @@ class WhatAppAakashController extends BaseController
         //06-02-2024
 
         $table_username = getMasterUsername();
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
@@ -191,7 +191,7 @@ class WhatAppAakashController extends BaseController
 
     public function duplicate_data2($data, $table)
     {
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $i = 0;
         $data_duplicat_Query = "";
         $numItems = count($data);
@@ -309,7 +309,7 @@ class WhatAppAakashController extends BaseController
     public function whatsappView()
     {
         $VIEW_id = $this->request->getPost('EditID');
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
         $sql = 'SELECT * FROM `master_whatsapp_template` WHERE id =' . $VIEW_id . '';
         $result = $db->query($sql);
         $preview_Data = $result->getRowArray();
@@ -388,7 +388,7 @@ class WhatAppAakashController extends BaseController
         // function CheckWhataAppConnection(){
 
         $table_username = getMasterUsername();
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();
@@ -713,7 +713,7 @@ class WhatAppAakashController extends BaseController
     public function master_whatsapp_list_data()
     {
         $table_username = getMasterUsername();
-        $db_connection = \Config\Database::connect('second');
+        $db_connection = DatabaseDefaultConnection();
         $query90 = "SELECT * FROM admin_generale_setting WHERE id IN(1)";
         $result = $db_connection->query($query90);
         $total_dataa_userr_22 = $result->getResult();

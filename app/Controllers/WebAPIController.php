@@ -14,7 +14,7 @@ class WebAPIController extends BaseController
     {
         helper("custom");
         $db = db_connect();
-        $this->db = \Config\Database::connect('second');
+        $this->db = DatabaseDefaultConnection();
         $this->MasterInformationModel = new MasterInformationModel($db);
         $this->admin = 0;
         $this->timezone = timezonedata();
@@ -23,7 +23,7 @@ class WebAPIController extends BaseController
 
     public function web_integrate()
     {
-        $conn = \Config\Database::connect('second');
+        $conn = DatabaseDefaultConnection();
 
         $access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);
         $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : (isset($_POST['name']) ? $_POST['name'] : null);
@@ -427,7 +427,7 @@ class WebAPIController extends BaseController
 
     public function web_bot_integrate()
 	{
-		$conn = \Config\Database::connect('second');
+		$conn = DatabaseDefaultConnection();
         // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
 		
 		$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);

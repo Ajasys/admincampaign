@@ -201,11 +201,11 @@ class DietController extends BaseController
 
 
     public function MainMasterDietView(){
-        $db = \Config\Database::connect('second');
+        $db = DatabaseDefaultConnection();
 		$sql = 'SELECT * FROM `master_food_items`';
 		$result = $db->query($sql);
 		$EditID = $_POST['DataDietID'];
-        $dbgym = \Config\Database::connect('second');
+        $dbgym = DatabaseDefaultConnection();
         $MasterUserSQL = "SELECT * FROM `master_diet` WHERE id = ".$EditID."";
         $MasterUserSQL = $dbgym->query($MasterUserSQL);
         $DietData = $MasterUserSQL->getRowArray();
@@ -722,7 +722,7 @@ class DietController extends BaseController
 
     public function MasterDietView()
 	{
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		$sql = 'SELECT * FROM `master_food_items`';
 		$result = $db->query($sql);
 		$table_username = $_POST['Datausernameid'];
@@ -1249,7 +1249,7 @@ class DietController extends BaseController
     public function DietAvailable(){
 
         $sql = 'SELECT * FROM master_diet WHERE LOWER(TRIM(REPLACE(DiatPlanName," ",""))) = "'.$_POST['name'].'"';
-        $SecondDB = \Config\Database::connect('second');
+        $SecondDB = DatabaseDefaultConnection();
         $result = $SecondDB->query($sql);
         $ReturnSaveStatus = 0;
         if ($result->getNumRows() > 0) {

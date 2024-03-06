@@ -21,7 +21,7 @@ class Templates_Controller extends BaseController
 	}
 
 	public function bulkwhatsapp_template_sent(){
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		$customer_id = $_POST['customer_id'];
 		$customer_id_array = explode(",", $customer_id);
 		
@@ -69,7 +69,7 @@ class Templates_Controller extends BaseController
 	
 	public function allinq_sms_send()
 	{
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		$customer_id = $_POST['customer_id'];
 		$customer_id_array = explode(",", $customer_id);
 
@@ -136,7 +136,7 @@ class Templates_Controller extends BaseController
 	{
 		$return_array = array();
 		$table_username = getMasterUsername();
-		$DataBase = \Config\Database::connect();
+		$DataBase = DatabaseSecondConnection();
 		$username = session_username($_SESSION['username']);
 		function createOrUpdateTable($tableName, $columns, $DataBase)
 		{
@@ -407,7 +407,7 @@ class Templates_Controller extends BaseController
 	// Dublicate Data Code Start  ======================================================================>
 	public function duplicate_data($data, $table)
 	{
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		$i = 0;
 		$data_duplicat_Query = "";
 		$numItems = count($data);
@@ -445,7 +445,7 @@ class Templates_Controller extends BaseController
 	// View Data Code End  =============================================================================>
 	function fetch_email_track_data()
 	{
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 
 		$query = "SELECT admin_email_data.email_subject,admin_email_data.email_address,admin_email_data.email_body,admin_email_data.email_track_code,admin_email_track.email_status,MAX(admin_email_track.email_open_datetime) AS email_open_datetime FROM admin_email_data LEFT JOIN admin_email_track ON admin_email_track.email_track_code = admin_email_data.email_track_code GROUP BY admin_email_data.email_subject,admin_email_data.email_address,admin_email_data.email_body,admin_email_data.email_track_code,admin_email_track.email_status ORDER BY email_open_datetime DESC";
 		$query = "SELECT 
@@ -470,7 +470,7 @@ class Templates_Controller extends BaseController
 	ORDER BY 
 		email_open_datetime DESC";
 		// $query = "SELECT * FROM admin_email_data";
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		// $statement = $db_connection->prepare($query);
 		$result1 = $db_connection->query($query);
 		$result = $result1->getResultArray();
@@ -529,12 +529,12 @@ class Templates_Controller extends BaseController
 			$track_link = "";
 		}
 
-		$db = \Config\Database::connect('second');
+		$db = DatabaseDefaultConnection();
 		// $db->query('TRUNCATE TABLE admin_email_data');
 		// $db->query('TRUNCATE TABLE admin_email_track');
 		$query = "SELECT  admin_email_data.email_subject,admin_email_data.email_address,admin_email_data.email_body,admin_email_data.email_track_code ,admin_email_track.email_status,admin_email_track.email_open_datetime
 FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_track_code = admin_email_data.email_track_code WHERE admin_email_data.email_track_code = admin_email_track.email_track_code  ORDER BY admin_email_track.email_open_datetime DESC";
-		$db_connection = \Config\Database::connect('second');
+		$db_connection = DatabaseDefaultConnection();
 		// $statement = $db_connection->prepare($query);
 		$result1 = $db_connection->query($query);
 		$result = $result1->getResultArray();
@@ -625,7 +625,7 @@ FROM admin_email_data LEFT  JOIN admin_email_track ON admin_email_track.email_tr
 			//print_r($table_name);
 			// die();
 			if (!empty($ids)) {
-				$this->db = \Config\Database::connect();
+				$this->db = DatabaseSecondConnection();
 				if (!empty($ids)) {
 				}
 				$all = implode(",", $ids);

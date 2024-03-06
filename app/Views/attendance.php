@@ -84,7 +84,7 @@
 							foreach ($datesss as $key => $values) {
 								echo '<th>' . $values . '</th>';
 							}
-							$db_connection = \Config\Database::connect('second');
+							$db_connection = DatabaseDefaultConnection();
 							$username = session_username($_SESSION['username']);
 							$dates = array();
 							$database_exdate = array();
