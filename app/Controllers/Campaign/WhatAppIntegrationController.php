@@ -2537,27 +2537,7 @@ class WhatAppIntegrationController extends BaseController
                         </div>
                     </div>
                 ';
-                    $html .= '
-                    <div class="d-flex mb-4 col-12 justify-content-end">
-                        <div class="col-9 p-2 text-end d-flex flex-wrap justify-content-end text-wrap align-items-center">
-                            <span class="fs-14 fw-medium p-1 rounded-2 text-start position-relative pe-2" style="background:#DBF8C6;overflow-wrap: break-word;min-width:76px">
-                                <div class=" d-flex me-3 pb-4 text-white justify-content-between" style="width:100%; height:auto;">
-                                    <div class="col-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="35" height="35" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M106 512h300c24.814 0 45-20.186 45-45V150H346c-24.814 0-45-20.186-45-45V0H106C81.186 0 61 20.186 61 45v422c0 24.814 20.186 45 45 45zm60-301h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h180c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15zm0 60h120c8.291 0 15 6.709 15 15s-6.709 15-15 15H166c-8.291 0-15-6.709-15-15s6.709-15 15-15z" fill="#212529" opacity="1" data-original="#212529" class=""></path><path d="M346 120h96.211L331 8.789V105c0 8.276 6.724 15 15 15z" fill="#212529" opacity="1" data-original="#212529" class=""></path></g></svg></div>
-                                    <div class="col-5 mx-4">
-                                        <div class="text-start text-dark">' . $value['asset_file_name'] . '</div>
-                                        <div class="fs-10  text-start" style="color:gray">PNG . 11KB</div>
-                                    </div>
-                                    <div class="border-dark text-dark border rounded-circle d-flex justify-content-center align-items-center px-3"
-                                        style="width:35px; height:35px;"><i class="fa-solid fa-download fs-11"></i></div>
-                                </div>
-                                <span class="position-absolute bottom-0 end-0 me-1">
-                                    <span class="fw-light fs-10 text-end me-1">' . $formattedtime . '</span>
-                                    <span class="p-0 m-0 text-end">' . $readrecieptsymbole . '</span>
-                                </span>
-                            </span>
-                        </div>
-                    </div>
-                ';
+                   
                 }
             } elseif ($msgtype == '5') {
 
