@@ -2165,12 +2165,10 @@ option {
                         
                         <div class="tab-pane" id="media-edit" role="tabpanel" aria-labelledby="media-tab" tabindex="0">
                             <div class="col-12 d-flex flex-wrap px-3">
-                                <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box">
-
-                                <input type="file" class="position-absolute media_img_input imageFile col-12" style="height: 200px; opacity: 0;" name="imageFile" id="media_img_input" accept="image/*">
-                                <div id="image_container_media" style="position:relative;"><div style="position:absolute; right:0px; top:0px;"><i class="fa-solid fa-xmark remove_image_media"></i></div></div>
-                                    <div id="image_file_name"></div>
-                                    <svg class="image_svg_media image_svg d-none" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                                <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box position-relative overflow-hidden">
+                                    <input type="file" class="media-select-div" id="media-select-div" style="width:100%; height:200px; top:0px; left:0px; opacity:0; position: absolute;">
+                                   <div class="img-media d-none position-relative"><img src="" height="100px" width="100px"><div class="position-absolute media-div-close" style="top:-10px; right:-8px;"><i class="fa-solid fa-xmark"></i></div></div>
+                                    <svg class="media-svg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                         <g>
                                             <defs>
                                                 <clipPath id="a" clipPathUnits="userSpaceOnUse">
@@ -2253,17 +2251,35 @@ option {
                                             </g>
                                         </g>
                                     </svg>
-                                    <div class="img_carousel mt-3 col-12 text-center d-none">
-                                        <div class="position-relative">
-                                            <img src="https://th.bing.com/th/id/OIP.IhiqRWFamp-enjV2csKdzwHaE8?rs=1&pid=ImgDetMain" height="150px" width="150px" class="position-relative" alt="">
-                                            <div class="image_close" style="position:absolute; top:0px; right:0px;">
-                                                <i class="fa-solid fa-xmark fs-3"></i>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <script>
+                            $(document).ready(function() {
+                                $('body').on('change', '.media-select-div', function() {
+                                    let carousel_img_input = this.files[0];
+
+                                    if (carousel_img_input) {
+                                        let reader = new FileReader();
+                                        reader.onload = function(e) {
+                                            $('.img-media img').attr('src', e.target.result);
+                                        };
+                                        reader.readAsDataURL(carousel_img_input);
+                                        $(".img-media").removeClass("d-none");
+                                        $('.media-svg').addClass('d-none');
+                                        $(this).data('imageFile', carousel_img_input);
+                                    }
+                                });
+                                $('body').on('click', '.media-div-close', function() {
+                                    $(".img-media").addClass("d-none");
+                                        $('.media-svg').removeClass('d-none');
+                                });  
+                                
+                            });
+                        </script>
+
+
                         <div class="tab-pane" id="advanced-edit" role="tabpanel" aria-labelledby="advanced-tab" tabindex="0">
                             <div class="accordion" id="accordionExample">
                                 <div class="accordion-item">
@@ -3038,16 +3054,17 @@ option {
                                     ?>
                                 </h6>
                             </div>
-                            <div class="d-flex flex-wrap">
+                            <div class="d-flex flex-wrap position-relative">
                                 <button class="btn bg-primary mx-2 px-3 text-white" id="sound-icon">
                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </button>
+                                <div class="p-2 d-none border rounded-3 sound-icon-lite d-flex align-items-center" style="width:fit-content; background:white; position:absolute; left:-81px; top:25px; ">muted <i class="fa-solid fa-volume-high mx-1"></i></div>
                                 <!-- <button class="btn bg-primary text-white bot_preview">
                                     <i class="fa-solid fa-rotate-right"></i>
                                 </button> -->
                             </div>
                         </div>
-                        <div class=" p-3 d-none border rounded sound-icon-lite" style="width:fit-content; background:white; position:absolute; left:470px; top:60px; ">muted <i class="fa-solid fa-volume-high"></i></div>
+                        <!-- <div class=" p-3 d-none border rounded sound-icon-lite" style="width:fit-content; background:white; position:absolute; left:470px; top:60px; ">muted <i class="fa-solid fa-volume-high"></i></div> -->
                     </div>
                     <div class="modal-card-body-main d-flex flex-wrap  flex-column align-items-center justify-content-between ">
                         <div class="overflow-y-scroll col-8 py-3 messege-scroll" style="min-height:400px; max-height:400px">
@@ -3993,24 +4010,24 @@ option {
     });
 
 
-    $("body").on("change", ".media_img_input", function() {
-        let media_img_input = this.files[0];
+    // $("body").on("change", ".media_img_input", function() {
+    //     let media_img_input = this.files[0];
 
-        if (media_img_input) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                $('.img_media img').attr('src', e.target.result);
-            };
-            reader.readAsDataURL(media_img_input);
-            $(".img_media").removeClass("d-none");
-            $('.image_svg_media').addClass('d-none');
-            // $(this).closest('.input-change').siblings('.img_carousel').removeClass('d-none');
-            // $(this).closest('.input-change').addClass('d-none');
+    //     if (media_img_input) {
+    //         let reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             $('.img_media img').attr('src', e.target.result);
+    //         };
+    //         reader.readAsDataURL(media_img_input);
+    //         $(".img_media").removeClass("d-none");
+    //         $('.image_svg_media').addClass('d-none');
+    //         // $(this).closest('.input-change').siblings('.img_carousel').removeClass('d-none');
+    //         // $(this).closest('.input-change').addClass('d-none');
 
-            // Store the selected image file for later use
-            $(this).data('imageFile', media_img_input);
-        }
-    });
+    //         // Store the selected image file for later use
+    //         $(this).data('imageFile', media_img_input);
+    //     }
+    // });
 
     $("body").on("click", ".img_carousel_clo_btn", function() {
         $(".img_media").addClass("d-none");
@@ -4305,9 +4322,10 @@ option {
 
                         var period = menu_message.period;
                         if (period) {
-                            $(".enableFutureDays").val(menu_message.period[0]);
-                            $(".enablePasteDays").val(menu_message.period[1]);
+                            $(".enableFutureDays").val(period[0].future_days);
+                            $(".enablePasteDays").val(period[1].past_days);
                         }
+
                         $(".date_output_format").val(menu_message.date_output_format);
 
 
@@ -4397,7 +4415,7 @@ option {
                             var weekdays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
                             weekdays.forEach(function(day) {
                                 var checkbox = $("." + day.toLowerCase() + "_val");
-
+                                
                                 if (menu_message.weekdays.includes(day)) {
                                     checkbox.prop("checked", true);
                                 } else {
@@ -4727,22 +4745,26 @@ option {
                                 $(".okay-jump_question").val(jumpQuestions[2]);
                                 $(".good-jump_question").val(jumpQuestions[3]);
                                 $(".great-jump_question").val(jumpQuestions[4]);
+                                
                             }
 
-                            // $('.bot_quotation_list').each(function(index) {
-                            //     var selectElementJumpQuestion = $(this).find('select');
-                            //     console.log(selectElementJumpQuestion);
-                            //     var sub_flow_value = subFlows[index];
-
-                            //     selectElementJumpQuestion.find('option').each(function() {
-                            //         var bot_id = $(this).data('bot_id');
-                            //         if (bot_id == sub_flow_value) {
-                            //             $(this).show();
-                            //         } else {
-                            //             $(this).hide();
-                            //         }
-                            //     });
-                            // });
+                            $('.bot_quotation_list').each(function(index) {
+                                var selectElementJumpQuestion = $(this).find('select');
+                                
+                                var sub_flow_value = subFlows[index];
+                                
+                                selectElementJumpQuestion.find('option').each(function() {
+                                    // var bot_id = $(this).data('bot_id');
+                                    var bot_id = '<?php echo $botId?>';
+                                    // console.log(sub_flow_value);
+                                    console.log(bot_id);
+                                    if (bot_id == sub_flow_value) {
+                                        $(this).show();
+                                    } else {
+                                        $(this).hide();
+                                    }
+                                });
+                            });
                         }
 
                         // console.log(menu_message.questions);
@@ -5085,17 +5107,21 @@ option {
 
 
         if (tab_value == "Media") {
-            var imageFileInput = document.getElementById('media_img_input');
+            console.log(tab_value);
+            var imageFileInput = document.getElementById('media-select-div');
             var imageFile = imageFileInput.files[0];
             var imageFileName = imageFileInput.value.split('\\').pop(); 
 
+            // console.log(imageFile);
+            // console.log(imageFileName);
             var row = {
                 imageFile: imageFile,
                 imageFileName: imageFileName,
             };
 
             var options_value = JSON.stringify(row);
-
+            console.log(options_value);
+            zsdf();
         }
 
 
@@ -5317,8 +5343,8 @@ option {
             var enablePasteDays = $('.enablePasteDays').val();
             if (enableFutureDays !== "" && enablePasteDays !== "") {
                 periodArray = [
-                    parseInt(enableFutureDays),
-                    parseInt(enablePasteDays)
+                    { future_days: enableFutureDays },
+                    { past_days: enablePasteDays }
                 ];
             }
 
