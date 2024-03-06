@@ -374,7 +374,7 @@ $username = session_username($_SESSION['username']);
 							<ul class="nav nav-pills task-nav" id="pills-tab-1" role="tablist">
 								<?php if ($_REQUEST['followup'] != 'pending') { ?>
 									<li class="nav-item" role="presentation">
-										<button class="nav-link rounded-0 rounded-start lh-normal p-2 presentation-btn" data-presentation_name="clockview" id="pills-clockview-tab" data-bs-toggle="pill" data-bs-target="#pills-clockview" type="button" role="tab" aria-controls="pills-clockview" aria-selected="true">
+										<button class="nav-link rounded-0 rounded-start lh-normal p-1 p-sm-2 presentation-btn" data-presentation_name="clockview" id="pills-clockview-tab" data-bs-toggle="pill" data-bs-target="#pills-clockview" type="button" role="tab" aria-controls="pills-clockview" aria-selected="true">
 											<i class="bi bi-alarm text-primary d-flex fs-5"></i>
 										</button>
 									</li>
@@ -383,12 +383,12 @@ $username = session_username($_SESSION['username']);
 									<button class="nav-link <?php if ($_REQUEST['followup'] != 'pending') {
 															} else {
 																echo "rounded-start";
-															} ?> rounded-0 lh-normal p-2 presentation-btn" id="pills-cardview-tab" data-bs-toggle="pill" data-presentation_name="cardview" data-bs-target="#pills-cardview" type="button" role="tab" aria-controls="pills-cardview" aria-selected="false" tabindex="-1">
+															} ?> rounded-0 lh-normal p-1 p-sm-2 presentation-btn" id="pills-cardview-tab" data-bs-toggle="pill" data-presentation_name="cardview" data-bs-target="#pills-cardview" type="button" role="tab" aria-controls="pills-cardview" aria-selected="false" tabindex="-1">
 										<i class="bi bi-view-list text-primary d-flex fs-5"></i>
 									</button>
 								</li>
 								<li class="nav-item" role="presentation">
-									<button class="nav-link rounded-0 rounded-end lh-normal p-2 presentation-btn active" id="pills-listview-tab" data-bs-toggle="pill" data-presentation_name="listview" data-bs-target="#pills-listview" type="button" role="tab" aria-controls="pills-listview" aria-selected="false" tabindex="-1">
+									<button class="nav-link rounded-0 rounded-end lh-normal p-1 p-sm-2 presentation-btn active" id="pills-listview-tab" data-bs-toggle="pill" data-presentation_name="listview" data-bs-target="#pills-listview" type="button" role="tab" aria-controls="pills-listview" aria-selected="false" tabindex="-1">
 										<i class="bi bi-list-ul text-primary d-flex fs-5"></i>
 									</button>
 								</li>
