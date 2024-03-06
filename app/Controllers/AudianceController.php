@@ -29,7 +29,7 @@ class AudianceController extends BaseController
         $tablename,
         $find_Data = []
     ) {
-        $this->db = \Config\Database::connect("second");
+        $this->db = DatabaseDefaultConnection();
         $array["response"] = 0;
         $result = $this->db
             ->table($tablename)
@@ -243,7 +243,7 @@ class AudianceController extends BaseController
     //     $departmentdisplaydata = json_decode($departmentdisplaydata, true);
     //     $sql2 =
     //         "SELECT COUNT(*) as sub_count, name FROM " . $this->username . "_audience GROUP BY name";
-    //     $user_db_connection = \Config\Database::connect("second");
+    //     $user_db_connection = DatabaseDefaultConnection();
     //     $sql_run = $user_db_connection->query($sql2);
     //     $paydone_data_get = $sql_run->getResultArray();
     //     $uniqueCombinations = [];
@@ -727,7 +727,7 @@ class AudianceController extends BaseController
                 );
 
                 // Connect to the 'second' database
-                $secondDb = \Config\Database::connect("second");
+                $secondDb = DatabaseDefaultConnection();
 
                 // Query to retrieve data from admin_all_inquiry with a retention period
                 $qry =
@@ -957,7 +957,7 @@ class AudianceController extends BaseController
             $username = session_username($_SESSION["username"]);
             $table = $_POST["table"];
             $table_name = $this->username . "_" . $table;
-            $secondDb = \Config\Database::connect("second");
+            $secondDb = DatabaseDefaultConnection();
             $userEditdata = $this->MasterInformationModel->edit_entry2(
                 $table_name,
                 $view_id
@@ -1005,7 +1005,7 @@ class AudianceController extends BaseController
 
         if (isset($_FILES["import_file"])) {
             if ($_FILES["import_file"]["error"] === UPLOAD_ERR_OK) {
-                $db_connection = \Config\Database::connect("second");
+                $db_connection = DatabaseDefaultConnection();
                 $tmpFilePath = $_FILES["import_file"]["tmp_name"];
                 $spreadsheet = IOFactory::load($tmpFilePath); // Load the uploaded Excel file
                 $worksheet = $spreadsheet->getActiveSheet();
@@ -1117,7 +1117,7 @@ class AudianceController extends BaseController
         $currentDateTime = date("Y-m-d H:i:s");
         if (isset($_FILES["import_file"])) {
             if ($_FILES["import_file"]["error"] === UPLOAD_ERR_OK) {
-                $db_connection = \Config\Database::connect("second");
+                $db_connection = DatabaseDefaultConnection();
                 $tmpFilePath = $_FILES["import_file"]["tmp_name"];
                 $spreadsheet = IOFactory::load($tmpFilePath); // Load the uploaded Excel file
                 $worksheet = $spreadsheet->getActiveSheet();

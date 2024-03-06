@@ -1788,7 +1788,7 @@ if (!function_exists("getParentidUserrole")) {
 // if (!function_exists('tableCreateAndTableUpdate2')) {
 //     function tableCreateAndTableUpdate2($table_name = "", $duplicate_table = '', $columns = array())
 //     {
-//         $first_db = \Config\Database::connect("second");
+//         $first_db = DatabaseDefaultConnection();
 //         if ($first_db->tableExists($table_name) && $table_name != '') {
 //             foreach ($columns as $value) {
 //                 $value_col_name = explode(' ', $value);
@@ -1821,7 +1821,7 @@ if (!function_exists("getParentidUserrole")) {
 if (!function_exists('tableCreateAndTableUpdate2')) {
     function tableCreateAndTableUpdate2($table_name = "", $duplicate_table = '', $columns = array(), $foreign_keys = array())
     {
-        $first_db = \Config\Database::connect("second");
+        $first_db = DatabaseDefaultConnection();
         if ($first_db->tableExists($table_name) && $table_name != '') {
             foreach ($columns as $value) {
                 $value_col_name = explode(' ', $value);
