@@ -530,21 +530,20 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 text-center p-1 border rounded-3 rounded-top-0">
+                                <div class="col-12 text-end p-1 border rounded-3 rounded-top-0">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reloadPage()">Close</button>
+
                                     <button type="button" class="btn btn-primary btn-sm assign_permission" id="assign_permission">Save changes</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                    <!-- <div class="cola-12 text-end p-2">
-                        <button type="button" class="btn btn-primary assign_permission" id="assign_permission">Save changes</button>
-                    </div> -->
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reloadPage()">Close</button>
-                    <!-- <button type="button" class="btn btn-primary assign_permission" id="assign_permission">Save changes</button> -->
-                </div>
+                    <button type="button" class="btn btn-primary assign_permission" id="assign_permission">Save changes</button>
+                </div> -->
             </div>
         </div>
     </div>
@@ -638,13 +637,11 @@ $user_data = $user_result->getResultArray();
         $("body").on("click", ".list_asset_permission", function() {
             var type = $(this).attr('data-asset-type');
             $('#asset_type').val(type);
-
             if (type == 'facebook') {
                 var fb_check_conn = $(this).attr('data-connection-check');
             } else if (type == 'whatsapp') {
 
             }
-
             $('.loader').show();
             $.ajax({
                 type: "post",
@@ -674,8 +671,6 @@ $user_data = $user_result->getResultArray();
                             checkedValues = result.asset_id.split(',');
                             updateAssetIds();
                         }
-
-
                     } else {
                         iziToast.error({
                             title: result.message
@@ -688,48 +683,7 @@ $user_data = $user_result->getResultArray();
             });
         });
         $("body").on("click", "#assign_permission", function() {
-            var asset_type = $('#asset_type').val();
-            var userId = $('#select_user').val();
-            var asset_array = $('#asset_array').val();
-            var asset_ids = $('#asset_ids').val();
-            if (asset_ids.length > 0) {
-                if (asset_array.length > 0) {
-                    $.ajax({
-                        type: "post",
-                        url: "<?= site_url('assign_asset_permission'); ?>",
-                        data: {
-                            action: 'insert',
-                            asset_type: asset_type,
-                            user_id: userId,
-                            page_id: asset_ids,
-                            asset_array: asset_array,
-                        },
-                        success: function(res) {
-                            var result = JSON.parse(res);
-                            if (result.responce == 1) {
-                                iziToast.success({
-                                    title: result.msg
-                                });
-                            } else {
-                                iziToast.error({
-                                    title: result.msg
-                                });
-                            }
-                        },
-                        error: function(error) {
-                            $('.loader').hide();
-                        }
-                    });
-                } else {
-                    iziToast.error({
-                        title: 'Please assign any permission..!'
-                    });
-                }
-            } else {
-                iziToast.error({
-                    title: 'Please any select assets..!'
-                });
-            }
+            Savepermission_changes();
         });
     });
 
@@ -760,7 +714,6 @@ $user_data = $user_result->getResultArray();
 
     function saveChnages() {
         var record_text = "Are you sure you want to save changes";
-
         Swal.fire({
             title: 'Are you sure?',
             text: record_text,
@@ -773,18 +726,58 @@ $user_data = $user_result->getResultArray();
             reverseButtons: true
         }).then(function(result) {
             if (result.value) {
-                // Perform your actions here when CONFIRM is clicked
-                // For now, let's just show an alert
-                alert('Changes confirmed!');
+                // alert('Changes confirmed!');
+                Savepermission_changes();
                 $('.savechanges').attr('onclick', false);
             } else {
-                // Optional: Handle actions when CANCEL is clicked
-                alert('Changes canceled!');
+                // alert('Changes canceled!');
+                $('.savechanges').attr('onclick', false);
             }
         });
     }
-    // $('body').on('click','.swal2-confirm',function () {
-    //     // $('.savechanges').attr('onclick',false);
-    //     alert('khdfd');
-    // })
+
+    function Savepermission_changes() {
+        var asset_type = $('#asset_type').val();
+        var userId = $('#select_user').val();
+        var asset_array = $('#asset_array').val();
+        var asset_ids = $('#asset_ids').val();
+        if (asset_ids.length > 0) {
+            if (asset_array.length > 0) {
+                $.ajax({
+                    type: "post",
+                    url: "<?= site_url('assign_asset_permission'); ?>",
+                    data: {
+                        action: 'insert',
+                        asset_type: asset_type,
+                        user_id: userId,
+                        page_id: asset_ids,
+                        asset_array: asset_array,
+                    },
+                    success: function(res) {
+                        var result = JSON.parse(res);
+                        if (result.responce == 1) {
+                            iziToast.success({
+                                title: result.msg
+                            });
+                        } else {
+                            iziToast.error({
+                                title: result.msg
+                            });
+                        }
+                    },
+                    error: function(error) {
+                        $('.loader').hide();
+                    }
+                });
+            } else {
+                iziToast.error({
+                    title: 'Please assign any permission..!'
+                });
+            }
+        } else {
+            iziToast.error({
+                title: 'Please any select assets..!'
+            });
+        }
+    }
 </script>
