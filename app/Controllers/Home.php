@@ -890,6 +890,7 @@ class Home extends BaseController
             'inquiry_status int(11) NOT NULL',
             'full_name varchar(500) NOT NULL',
             'intrested_product int(11) NOT NULL',
+            'intrested_site int(11) NOT NULL',
             'name varchar(255) NOT NULL',
             'retansion int(11) NOT NULL',
             'created_at datetime NOT NULL DEFAULT current_timestamp()',
