@@ -1,11 +1,9 @@
 <?php
+namespace App\Controllers\Campaign;
+use App\Controllers\BaseController;
 
-namespace App\Controllers;
-//use CodeIgniter\Database\ConnectionInterface;
 use App\Models\MasterInformationModel;
 use Config\Database;
-use App\Controllers;
-
 class FacebookController extends BaseController
 {
     //private $db;

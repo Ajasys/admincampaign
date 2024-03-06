@@ -1,12 +1,8 @@
 <?php
 
-
-
 namespace Config;
-
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
-
 if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
 	require SYSTEMPATH . 'Config/Routes.php';
 }
@@ -15,6 +11,9 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * Router Setup
  * --------------------------------------------------------------------
  */
+use App\Controllers\Campaign\FacebookController;
+use App\Controllers\Campaign\AssetPermissionController;
+
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
@@ -35,14 +34,10 @@ $routes->set404Override();
 $routes->post('convertToPdf', 'Quatation_Controller::convertToPdf');
 $routes->post('GymQuatationCard', 'Quatation_Controller::GymQuatationCard');
 $routes->post('leadmgtCard', 'Quatation_Controller::leadmgtCard');
-
-
 // $routes->get('convertToPdf1', 'Quatation_Controller::convertToPdf');
 $routes->get('/facebook_cron_job', 'FacebookCron::facebook_cron_job');
 $routes->get('/signup', 'Home::signup');
-
 $routes->get('/posts', 'Home::posts');
-
 $routes->get('/login', 'Home::login');
 $routes->post('user_login', 'Userlogin::user_login');
 $routes->get('/exercises', 'Home::exercises');
@@ -57,15 +52,12 @@ $routes->post('/edit_data2', 'MasterInformation::edit_data2');
 $routes->post('/edit_data', 'MasterInformation::edit_data');
 $routes->post('food_view', 'MasterInformation::view_data2');
 $routes->post('exercise_view', 'MasterInformation::view_data2');
-
 $routes->post('ExerciseViewData', 'GymMasterController::ExerciseViewData');
 $routes->post('excercise_insert_data_master', 'GymMasterController::excercise_insert_data_master');
 $routes->post('excercise_update_data_master', 'GymMasterController::excercise_update_data_master');
 $routes->get('/bot_setup_designer', 'Home::bot_setup_designer');
-
 // all-diet
 $routes->get('/alldiet', 'Home::alldiet');
-
 // all-workout
 $routes->get('/allworkout', 'Home::allworkout');
 $routes->post('/masterworkout_list_data', 'workoutController::masterworkout_list_data');
@@ -73,7 +65,6 @@ $routes->post('/MasterworkoutView', 'workoutController::MasterworkoutView');
 $routes->post('/workoutAvailable', 'workoutController::workoutAvailable');
 $routes->post('/AddToMasterworkout', 'workoutController::AddToMasterworkout');
 $routes->post('/MainMasterworkoutView', 'workoutController::MainMasterworkoutView');
-
 $routes->get('/EmailConversions', 'Templates_Controller::template');
 $routes->post('/template_list_data', 'Templates_Controller::template_list_data');
 $routes->post('/insert_data_t', 'Templates_Controller::insert_data_t');
@@ -92,29 +83,20 @@ $routes->post('check_email_connection', 'EmailController::check_email_connection
 $routes->get('/EmailConversions', 'Templates_Controller::template');
 $routes->post('email_link_track', 'Home::email_link_track');
 $routes->post('email_account_insert', 'EmailController::email_account_insert');
-
-
 $routes->get('/alert_setting', 'Home::alert_setting');
 $routes->post('/alert_update_data', 'Alertsetting::alert_update_data');
 $routes->post('/insert_data_alert', 'Alertsetting::insert_data');
-
 $routes->get('/add_account', 'Home::add_account');
 $routes->get('/whatapp_connection', 'Home::whatapp_connection');
 $routes->get('/phone_number', 'Home::phone_number');
 $routes->get('/asses_permissions', 'Home::asses_permissions');
-
-
-
 // post and comment
 $routes->get('/post_comments', 'Home::post_comments');
 $routes->post('/create_insert_data', 'CreateController::create_insert_data');
-$routes->post('/get_post_data', 'CreateController::get_post_data');
-
 $routes->post('/SendPostDataFB', 'CreateController::SendPostDataFB');
 // $routes->post('/ShareOfPost', 'CreateController::ShareOfPost');
 $routes->post('/ShareOfPost', 'CreateController::ShareOfPost');
 $routes->post('/schedule_insert_data', 'CreateController::schedule_insert_data');
-
 $routes->post('/list_post_pagewise', 'CreateController::list_post_pagewise');
 $routes->post('/comment_replay_send', 'CreateController::comment_replay_send');
 $routes->post('/delete_post', 'CreateController::delete_post');
@@ -122,7 +104,6 @@ $routes->post('/edit_post', 'CreateController::edit_post');
 $routes->post('/UpdatePostDataFB', 'CreateController::UpdatePostDataFB');
 $routes->post('/comment_show', 'CreateController::comment_show');
 $routes->post('/mail_get', 'EmailController::mail_get');
-
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');
 $routes->post('/update_data_2DB', 'MasterInformation::update_data_2DB');
 $routes->post('/delete_all', 'MasterInformation::delete_all');
@@ -135,9 +116,7 @@ $routes->get('/checkout', 'Razorpay::index');
 $routes->get('biometric_member_attendance', 'CronController::biometric_member_attendance');
 $routes->post('/web_integrate', 'WebAPIController::web_integrate');
 $routes->post('web_bot_integrate', 'WebAPIController::web_bot_integrate');
-
 $routes->post('web_bot_integrate_api', 'WebAPIController::web_bot_integrate_api');
-
 $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/pdf_view', 'UserInformation::pdf_view');
 	$routes->get('/allinquiry', 'Home::allinquiry');
@@ -160,25 +139,21 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/site_report', 'Home::site_report');
 	$routes->get('/performance_report', 'Home::performance_report');
 	$routes->get('/lead_module', 'Home::lead_module');
-
 	$routes->get('/attendance', 'Home::attendance');
 	$routes->post('/attandance_showdata', 'AttendanceController::attandance_showdata');
 	$routes->post('/attandance_update_data', 'AttendanceController::update_data');
 	$routes->post('/attandance_insert_data', 'AttendanceController::insert_data');
 	$routes->post('/get_data_attandance', 'AttendanceController::get_data_attandance');
 	$routes->post('/check_user_biometric_data', 'AttendanceController::check_user_biometric_data');
-
 	$routes->get('/web_settings', 'Home::web_settings');
 	$routes->post('/general_setting_verify_connection', 'CronController::general_setting_verify_connection');
 	$routes->post('/biometric_setting_disconnect', 'CronController::biometric_setting_disconnect');
-
 	$routes->get('/subscriptions', 'Home::subscriptions');
 	$routes->get('/subscription_master', 'Home::subscription_master');
 	$routes->get('/payment_method', 'Home::payment_method');
 	$routes->get('/configuration', 'Home::configuration');
 	$routes->get('/manage_audience', 'Home::manage_audience');
 	$routes->get('/integration', 'Home::integration');
-
 	$routes->get('/alert_sms', 'Home::alert_sms');
 	$routes->get('/emailsend', 'Home::emailsend');
 	$routes->post('/emailsend', 'Home::emailsend');
@@ -212,11 +187,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('project_details', 'Home::projectdetails');
 	$routes->get('que_ans', 'Home::que_ans');
 	$routes->get('pdf', 'UserInformation::pdf');
-
 	// bot
 	$routes->get('bot_messenger', 'Bot_controller::bot_messenger');
-
-
 	// food
 	$routes->post('/food_list_data_new', 'MasterInformation::food_list_data_new');
 	$routes->post('/MasterFoodInsertData', 'MasterInformation::MasterFoodInsertData');
@@ -227,9 +199,6 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/DietAvailable', 'DietController::DietAvailable');
 	$routes->post('/AddToMasterDiet', 'DietController::AddToMasterDiet');
 	$routes->post('/MainMasterDietView', 'DietController::MainMasterDietView');
-
-
-
 	$routes->post('/Food_delete_data', 'MasterInformation::Food_delete_data');
 	$routes->post('/food_list_request', 'MasterInformation::food_list_request');
 	$routes->post('/Food_request_approve', 'MasterInformation::Food_request_approve');
@@ -242,21 +211,14 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/master_exercisesubtype_update_insert', 'MasterInformation::master_exercisesubtype_update_insert');
 	$routes->post('show_task_comments', 'MasterInformation::show_task_comments');
 	// exrecise
-
-
-
-
 	$routes->post('/ExerciseRequestListData', 'ExerciseController::ExerciseRequestListData');
 	$routes->post('/master_exercise_update', 'ExerciseController::master_exercise_update');
 	$routes->post('/master_exercise_update_insert', 'ExerciseController::master_exercise_update_insert');
 	$routes->post('/exercise_delete_data', 'ExerciseController::exercise_delete_data');
 	$routes->post('/excercise_insert_data1', 'ExerciseController::excercise_insert_data1');
 	$routes->post('/exercisetype_delete_data', 'MasterInformation::exercisetype_delete_data');
-
 	$routes->post('/subtypetype_delete_data', 'MasterInformation::subtypetype_delete_data');
 	$routes->post('/master_exercisetype_update_insert', 'MasterInformation::master_exercisetype_update_insert');
-
-
 	// data module
 	$routes->get('data_module', 'Home::data_module');
 	$routes->get('add_data_module', 'Home::add_data_module');
@@ -265,8 +227,6 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('fillter_list', 'DatamoduleController::fillter_list');
 	$routes->post('import_file_data', 'DatamoduleController::import_file_data');
 	$routes->post('data_module_list_data', 'DatamoduleController::data_module_list_data');
-
-
 	//audiance module
 	$routes->post('/audience_list_data', 'AudianceController::audience_list_data');
 	$routes->post('/audience_view_data', 'AudianceController::audience_view_data');
@@ -278,13 +238,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('audience_facebook_data', 'AudianceController::audience_facebook_data');
 	$routes->post('audience_view_data_facebook', 'AudianceController::audience_view_data_facebook');
 	$routes->post('view_integrate_lead_audience', 'AudianceController::view_integrate_lead_audience');
-    $routes->post('audience_increase_data', 'AudianceController::audience_increase_data');
+	$routes->post('audience_increase_data', 'AudianceController::audience_increase_data');
 	$routes->post('edit_data_audience', 'AudianceController::edit_data_audience');
 	$routes->post('update_data_audience', 'AudianceController::update_data_audience');
-    $routes->post('audio_file', 'AudianceController::audio_file');
-
-
-
+	$routes->post('audio_file', 'AudianceController::audio_file');
 	// subscribtion master 
 	$routes->post('/subscription_master_insert', 'MasterInformation::insert_data');
 	$routes->post('/master_subscribtion_list', 'MasterInformation::subscription_list');
@@ -310,11 +267,9 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/MasterInformation_edit', 'MasterInformation::edit_data');
 	$routes->post('/MasterInformation_update', 'MasterInformation::update_data');
 	$routes->post('/MasterInformation_delete', 'MasterInformation::delete_data');
-
 	$routes->post('/getCountryData', 'MasterInformation::get_country_data');
 	$routes->post('/getStatesData', 'MasterInformation::getStatesData');
 	$routes->post('/getCitiesData', 'MasterInformation::getCitiesData');
-
 	//task_status
 	$routes->get('/task', 'Home::task');
 	$routes->post('/task_status_list_data', 'status::task_status_list_data');
@@ -326,7 +281,6 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('new_status_list_data', 'MasterInformation::new_status_list_data');
 	$routes->post('task_status_update_data', 'MasterInformation::task_status_update_data');
 	// $routes->post('task_insert_data', 'MasterInformation::task_insert_data');
-
 	// project status
 	$routes->get('/project_status', 'Home::projectstatus');
 	$routes->post('/MasterInformation_project_statuslisting', 'MasterInformation::project_status_show_list_data');
@@ -484,13 +438,11 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	// close conversion
 	// $routes->get('subscription_request','Home::close_conversion');
 	// dashboard 
-
 	$routes->post('Dashboard_dismiss_inq_report', 'DashboardController::Dashboard_dismiss_inq_report');
 	$routes->post('get_data_followup_tab_fresh', 'DashboardController::get_followup_tab_fresh');
 	$routes->post('get_data_activity_tab_fresh', 'DashboardController::get_activity_tab_fresh');
 	$routes->post('Dashboard_date_wise_data', 'DashboardController::month_year_date_wise_data');
 	$routes->post('demo_list_data', 'DashboardController::demo_list_data');
-
 	$routes->post('Dashboard_get_user_wise_pendingdata', 'DashboardController::Dashboard_get_user_wise_pendingdata');
 	$routes->post('/Performance_task', 'DashboardController::Performance_task');
 	$routes->post('Front_today_task', 'Globalsearch::today_task');
@@ -528,17 +480,14 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('searchbar_url', 'clint_support_controller::searchbar_url');
 	$routes->post('update_ticket_status', 'clint_support_controller::update_ticket_status');
 	$routes->get('/whatsapp', 'Home::whatapp');
-
 	$routes->post('bot_preview_data', 'Bot_Controller::bot_preview_data');
 	$routes->post('insert_chat_answer', 'Bot_Controller::insert_chat_answer');
 	$routes->post('chat_list', 'Bot_Controller::chat_list');
-
 	//bot setup
 	$routes->get('/messenger_bot', 'Home::messenger_bot');
 	$routes->get('/bot', 'Home::bot');
 	$routes->get('/messenger', 'Home::messenger');
-$routes->get('/bot_chat', 'Home::bot_chat');
-
+	$routes->get('/bot_chat', 'Home::bot_chat');
 	$routes->get('/bot_setup', 'Home::bot_setup');
 	$routes->get('/bot_setup_designer', 'Home::bot_setup_designer');
 	$routes->post('/bot_update', 'Bot_Controller::bot_update');
@@ -547,14 +496,12 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 	$routes->post('/messeging_bot_list', 'Bot_Controller::messeging_bot_list');
 	$routes->post('/update_data_conversion', 'Bot_Controller::update_data_conversion');
 	$routes->post('messeging_bot_list_data', 'Bot_Controller::messeging_bot_list_data');
-
 	$routes->post('bot_insert_data', 'Bot_Controller::bot_insert_data');
 	$routes->post('bot_list_data', 'Bot_Controller::bot_list_data');
 	$routes->post('duplicate_Question', 'Bot_Controller::duplicate_Question');
 	$routes->post('bot_delete_data', 'Bot_Controller::bot_delete_data');
 	$routes->post('bot_question_delete_data', 'Bot_Controller::bot_question_delete_data');
 	$routes->post('bot_particular_option_delete', 'Bot_Controller::bot_particular_option_delete');
-
 	$routes->post('update_sequence', 'Bot_Controller::update_sequence');
 	$routes->post('bot_question_edit_data', 'Bot_Controller::bot_question_edit_data');
 	$routes->post('/bot_question_update', 'Bot_Controller::bot_question_update');
@@ -564,14 +511,12 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 	$routes->post('', 'Bot_Controller::get_chat_data');
 	$routes->post('bot_preview_data', 'Bot_Controller::bot_preview_data');
 	$routes->post('insert_chat_answer', 'Bot_Controller::insert_chat_answer');
-
 	// massager code routes 
 	$routes->post('get_chat_data', 'Bot_Controller::get_chat_data');
 	$routes->post('send_chat', 'Bot_Controller::send_chat');
 	$routes->post('send_massage', 'Bot_Controller::send_massage');
 	$routes->post('delete_record', 'Bot_Controller::delete_record');
 	//new facebook
-
 	//facebook 
 	$routes->get('/newlead_module', 'Home::newlead_module');
 	$routes->post('/new_facebook_user', 'NewFaceBookController::facebook_user');
@@ -588,40 +533,36 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
 	$routes->get('/instagram_connection', 'Home::instagram_connection');
-	$routes->post('/check_fb_connection', 'FacebookController::check_fb_connection');
-	$routes->post('/facebook_user', 'FacebookController::facebook_user');
-	$routes->post('/facebook_page', 'FacebookController::facebook_page');
-	$routes->post('/pages_list_data', 'FacebookController::pages_list_data');
-	$routes->post('/deleted_pages_list_data', 'FacebookController::deleted_pages_list_data');
-	$routes->post('/updated_pages_list_data', 'FacebookController::updated_pages_list_data');
-	$routes->post('/draft_pages_list_data', 'FacebookController::draft_pages_list_data');
-	$routes->post('/delete_pages_fb', 'FacebookController::delete_pages_fb');
-	$routes->post('/facebook_form', 'FacebookController::facebook_form');
-	$routes->post('/queue_list_add', 'FacebookController::queue_list_add');
 	$routes->get('/leadlist', 'Home::leadlist');
-	$routes->post('/lead_list', 'FacebookController::lead_list');
-	$routes->post('/fb_connection_list', 'FacebookController::fb_connection_list');
-	$routes->post('/fb_permission_list', 'FacebookController::fb_permission_list');
-	$routes->post('/edit_facebook_scenarious', 'FacebookController::edit_facebook_scenarious');
-	$routes->post('/delete_fb_connection', 'FacebookController::delete_fb_connection');
-	$routes->post('/view_integrate_lead', 'FacebookController::view_integrate_lead');
-	
+
+	$routes->post('/check_fb_connection', [FacebookController::class, 'check_fb_connection']);
+	$routes->post('/facebook_user', [FacebookController::class, 'facebook_user']);
+	$routes->post('/facebook_page', [FacebookController::class, 'facebook_page']);
+	$routes->post('/pages_list_data', [FacebookController::class, 'pages_list_data']);
+	$routes->post('/deleted_pages_list_data', [FacebookController::class, 'deleted_pages_list_data']);
+	$routes->post('/updated_pages_list_data', [FacebookController::class, 'updated_pages_list_data']);
+	$routes->post('/draft_pages_list_data', [FacebookController::class, 'draft_pages_list_data']);
+	$routes->post('/delete_pages_fb', [FacebookController::class, 'delete_pages_fb']);
+	$routes->post('/facebook_form', [FacebookController::class, 'FacebookController::facebook_form']);
+	$routes->post('/queue_list_add', [FacebookController::class, 'FacebookController::queue_list_add']);
+	$routes->post('/lead_list', [FacebookController::class, 'lead_list']);
+	$routes->post('/fb_connection_list', [FacebookController::class, 'fb_connection_list']);
+	$routes->post('/fb_permission_list', [FacebookController::class, 'fb_permission_list']);
+	$routes->post('/edit_facebook_scenarious', [FacebookController::class, 'edit_facebook_scenarious']);
+	$routes->post('/delete_fb_connection', [FacebookController::class, 'delete_fb_connection']);
+	$routes->post('/view_integrate_lead', [FacebookController::class, 'view_integrate_lead']);
 	//website connection
 	$routes->get('/website_connection', 'Home::website_connection');
 	$routes->post('/add_website_connection', 'WebController::add_website_connection');
 	$routes->post('/website_connection_list', 'WebController::website_connection_list');
 	$routes->post('/delete_website_connection', 'WebController::delete_website_connection');
 	$routes->post('/website_connectionpage', 'WebController::website_connectionpage');
-
 	//linkedin integration
 	$routes->get('/linkedin_connection', 'Home::linkedin_connection');
-
 	//assign asset permission
-	$routes->post('/facebook_pageasset', 'AssetPermissionController::facebook_pageasset');
-	$routes->post('/assign_asset_permission', 'AssetPermissionController::assign_asset_permission');
-	$routes->post('/asset_permissionlisting', 'AssetPermissionController::show_list_data');
-	
-	
+	$routes->post('/facebook_pageasset', [AssetPermissionController::class, 'facebook_pageasset']);
+	$routes->post('/assign_asset_permission', [AssetPermissionController::class, 'assign_asset_permission']);
+	$routes->post('/asset_permissionlisting', [AssetPermissionController::class, 'show_list_data']);
 	// whatsapp integration 
 	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
 	$routes->post('/whatsapp_bot_id_update', 'WhatAppIntegrationController::whatsapp_bot_id_update');
@@ -639,7 +580,6 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 	$routes->post('/single_whatsapp_template_sent', 'WhatAppIntegrationController::single_whatsapp_template_sent');
 	$routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessagesHistory');
 	$routes->post('dropdown_bot_disabled', 'WhatAppIntegrationController::dropdown_bot_disabled');
-
 	$routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
 	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
 	$routes->post('/GetWhatsAppTemplateDetails', 'WhatAppIntegrationController::GetWhatsAppTemplateDetails');
@@ -649,22 +589,20 @@ $routes->get('/bot_chat', 'Home::bot_chat');
 	$routes->post('/SendWhatsAppChatMessage', 'WhatAppIntegrationController::SendWhatsAppChatMessage');
 	$routes->post('/Bracket_whatsapp_insert_data', 'WhatAppIntegrationController::Bracket_whatsapp_insert_data');
 	$routes->post('/WhatsAppSendDocumentData', 'WhatAppIntegrationController::WhatsAppSendDocumentData');
-    $routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
-    $routes->post('/sendwhatsappcamera', 'WhatAppIntegrationController::sendwhatsappcamera');
-    $routes->post('/set_variable_value', 'WhatAppIntegrationController::set_variable_value');
-    $routes->post('/bulk_set_variable_value', 'WhatAppIntegrationController::bulk_set_variable_value');
-    $routes->post('/bulk_whatsapp_template_send', 'WhatAppIntegrationController::bulk_whatsapp_template_send');
+	$routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
+	$routes->post('/sendwhatsappcamera', 'WhatAppIntegrationController::sendwhatsappcamera');
+	$routes->post('/set_variable_value', 'WhatAppIntegrationController::set_variable_value');
+	$routes->post('/bulk_set_variable_value', 'WhatAppIntegrationController::bulk_set_variable_value');
+	$routes->post('/bulk_whatsapp_template_send', 'WhatAppIntegrationController::bulk_whatsapp_template_send');
 	$routes->post('/WhatsAppConnectionEntry', 'WhatAppIntegrationController::WhatsAppConnectionEntry');
 	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
-
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
 	$routes->get('/whatsapp_connections', 'Home::whatsapp_connections');
 	$routes->get('/assign_assets', 'Home::assign_assets');
 	// $routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
-
 	// get live message
-    $routes->post('check_new_data_Available','CommonController::check_new_data_Available');
+	$routes->post('check_new_data_Available', 'CommonController::check_new_data_Available');
 	$routes->post('/SetPostDataAccountList', 'SocialPostController::SetPostDataAccountList');
 });
 // // occupation
