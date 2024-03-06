@@ -5,422 +5,216 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
    $get_asset_permission = [];
    $get_whatsappasset_permission = [];
 } else {
-
    $get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
    $get_asset_permission = get_asset_permission($_SESSION['id']);
    $get_whatsappasset_permission = get_whatsappasset_permission($_SESSION['id']);
 }
-
 ?>
-
-
-
 <div class="sidebar sidebarClose d-flex justify-content-between h-100 flex-column bg-white">
-
    <div class="main-bg-white-blur"></div>
-
    <div class="small-logo w-100 p-2">
-
       <a href="<?= base_url(); ?>">
-
          <img src="https://ajasys.com/img/favicon.png" class="w-100">
-
       </a>
-
    </div>
-
    <div class="big-logo w-100 p-4 d-flex justify-content-center">
-
       <a href="<?= base_url(); ?>" class="px-3">
-
          <img src="https://ajasys.com/img/logo.png" alt="" class="w-100">
-
       </a>
-
    </div>
-
    <nav class="navbar navbar-expand-lg bg-light py-0">
-
       <div class="container-fluid p-0 h-100">
-
          <ul class="navbar-nav w-100 h-100 justify-content-start flex-column overflow-y-scroll scroll-none">
-
             <?php if (in_array('mastercheck', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Master">
-
                      <span class="drop_icon_main">
-
                         <i class="bi bi-grid-fill lh-28"></i>
-
                      </span>
-
                      <span class="link_name">Master</span>
-
                      <i class="bx bxs-chevron-down arrow ms-auto"></i>
-
                   </a>
-
                   <div class="drop_down">
-
                      <ul>
-
                         <p class="text-white dp-title">Master</p>
                         <li> <a class="dropdown-item" href="<?= base_url(); ?>alert_setting" ?>Alert Setting</a> </li>
                         <?php if (in_array('subscription_management', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                            <li>
-
                               <a href="<?= base_url(); ?>subscription_master" class="dropdown-item">Subscription master</a>
-
                            </li>
-
                         <?php } ?>
-
                         <li class="submenu">
-
                            <p class="dropdown-item submenu-item">User Side Settings</p>
-
                            <ul class="submenu-dropdown">
-
                               <?php if (in_array('departmentinformation', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                  <li>
-
                                     <a href="<?= base_url(); ?>department" class="dropdown-item">department</a>
-
                                  </li>
-
                               <?php } ?>
-
                               <?php if (in_array('inquiry_management', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                  <li class="submenu">
-
                                     <p class="dropdown-item submenu-item">inquiry Management</p>
-
                                     <ul class="submenu-dropdown">
-
                                        <?php if (in_array('inquiry_management_child_type_access', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                           <li>
-
                                              <a href="<?= base_url(); ?>managermasterinquiry" class="dropdown-item">inquiry
-
                                                 type</a>
-
                                           </li>
-
                                        <?php } ?>
-
                                        <?php if (in_array('inquiry_management_child_status_access', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                           <li>
-
                                              <a href="<?= base_url(); ?>manageinquirystatus" class="dropdown-item">inquiry
-
                                                 status</a>
-
                                           </li>
-
                                        <?php } ?>
-
                                        <?php if (in_array('inquiry_management_child_sourcing_child_access', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                           <li>
-
                                              <a href="<?= base_url(); ?>inquiry-source-type" class="dropdown-item">inquiry source
-
                                                 type</a>
-
                                           </li>
-
                                        <?php } ?>
-
                                        <?php if (in_array('inquiry_management_child_source_child_access', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                           <li>
-
                                              <a href="<?= base_url(); ?>manage-inquiry-source" class="dropdown-item">inquiry
-
                                                 source</a>
-
                                           </li>
-
                                        <?php } ?>
-
                                        <?php if (in_array('inquiry_management_child_close_child_access', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                           <li>
-
                                              <a href="<?= base_url(); ?>manage_inquiry_close " class="dropdown-item">close
-
                                                 reasons</a>
-
                                           </li>
-
                                        <?php } ?>
-
                                     </ul>
-
                                  </li>
-
                               <?php } ?>
-
                               <?php if (in_array('accountrole', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                  <li class="submenu">
-
                                     <p class="dropdown-item submenu-item">Account</p>
-
                                     <ul class="submenu-dropdown">
-
                                        <?php if (in_array('payment_management', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                           <li>
-
                                              <a href="<?= base_url(); ?>payment_m_master" class="dropdown-item">Payment Method
-
                                                 Master</a>
-
                                           </li>
-
                                        <?php } ?>
-
                                        <?php if (in_array('voucher_child_access', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                                           <li>
-
                                              <a href="<?= base_url(); ?>voucher_type" class="dropdown-item">Voucher Type</a>
-
                                           </li>
-
                                        <?php } ?>
-
                                     </ul>
-
                                  </li>
-
                               <?php } ?>
-
                            </ul>
-
                         </li>
-
                         <?php if ((isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                            <li class="submenu">
-
                               <p class="dropdown-item submenu-item">Admin Side Settings</p>
-
                               <ul class="submenu-dropdown">
-
                                  <li>
-
                                     <a href="<?= base_url(); ?>web_settings" class="dropdown-item">General Setting</a>
-
                                  </li>
-
                                  <li>
-
                                     <a href="<?= base_url(); ?>department" class="dropdown-item">department</a>
-
                                  </li>
-
                                  <li>
-
                                     <a href="<?= base_url(); ?>user-admin-role" class="dropdown-item">User admin role</a>
-
                                  </li>
-
                                  <li class="submenu">
-
                                     <p class="dropdown-item submenu-item">inquiry Management</p>
-
                                     <ul class="submenu-dropdown">
-
                                        <li>
-
                                           <a href="<?= base_url(); ?>managermasterinquiry" class="dropdown-item">inquiry
-
                                              type</a>
-
                                        </li>
-
                                        <li>
-
                                           <a href="<?= base_url(); ?>department" class="dropdown-item">inquiry type</a>
-
                                        </li>
-
                                        <li>
-
                                           <a href="<?= base_url(); ?>manageinquirystatus" class="dropdown-item">inquiry
-
                                              status</a>
-
                                        </li>
-
                                        <li>
-
                                           <a href="<?= base_url(); ?>inquiry-source-type" class="dropdown-item">inquiry source
-
                                              type</a>
-
                                        </li>
-
                                        <li>
-
                                           <a href="<?= base_url(); ?>manage-inquiry-source" class="dropdown-item">inquiry
-
                                              source</a>
-
                                        </li>
-
                                        <li>
-
                                           <a href="<?= base_url(); ?>manage_inquiry_close " class="dropdown-item">close
-
                                              reasons</a>
-
                                        </li>
-
                                     </ul>
-
                                  </li>
-
                               </ul>
-
                            </li>
-
                         <?php } ?>
-
-
                         <li class="submenu">
-
                            <p class="dropdown-item submenu-item">GymSmart Master</p>
-
                            <ul class="submenu-dropdown">
-
                               <li>
-
                                  <a href="<?= base_url(); ?>food" class="dropdown-item">Food Master</a>
-
-
                               </li>
-
                               <li>
-
                                  <a href="<?= base_url(); ?>exercises" class="dropdown-item">Exercise Master</a>
-
                               </li>
                               <li>
-
                                  <a href="<?= base_url(); ?>alldiet" class="dropdown-item">all Diet</a>
-
                               </li>
-
                               <li>
-
                                  <a href="<?= base_url(); ?>allworkout" class="dropdown-item">all workout</a>
-
                               </li>
-
-
                            </ul>
-
                         </li>
-
-
                      </ul>
-
                   </div>
-
                </li>
-
             <?php } ?>
-
             <?php if (in_array('usercheck', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>user" data-tbs-toggle="tooltip" data-bs-title="Staff">
-
                      <span class="drop_icon_main">
-
                         <i class="fa-solid fa-people-roof lh-28"></i>
-
                      </span>
-
                      <span class="link_name">Staff</span>
-
                   </a>
-
                </li>
-
             <?php } ?>
             <?php if (in_array('attendance_check', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>attendance" data-tbs-toggle="tooltip" data-bs-title="Attendacne">
-
                      <span class="drop_icon_main">
                         <i class="fa-solid fa-clipboard-user lh-28"></i>
                         <!-- <i class="fa-solid fa-people-roof lh-28"></i> -->
-
                      </span>
-
                      <span class="link_name">Attendance</span>
-
                   </a>
-
                </li>
-
             <?php } ?>
-
             <?php if (in_array('signup_check', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>signuplist" data-tbs-toggle="tooltip" data-bs-title="Signup">
-
                      <span class="drop_icon_main">
-
                         <i class="fa-solid fa-user"></i>
-
                      </span>
-
                      <span class="link_name">Sign Up</span>
-
                   </a>
-
                </li>
-
             <?php } ?>
             <!-- <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>template"
-
                      data-tbs-toggle="tooltip" data-bs-title="template">
-
                      <span class="drop_icon_main">
-
                         <i class="fa-brands fa-sellcast lh-28"></i>
-
                      </span>
-
                      <span class="link_name">Email Tools</span>
-
                   </a>
-
                </li> -->
             <li class="main-drop ">
-
                <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Social Campaign">
-
                   <span class="drop_icon_main  ">
                      <i>
                         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 70 70" style="enable-background:new 0 0 512 512;width:78px;height:28px;" xml:space="preserve" class="">
@@ -430,21 +224,14 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         </svg>
                      </i>
                   </span>
-
                   <span class="link_name">Social Campaign</span>
-
                   <i class="bx bxs-chevron-down arrow ms-auto"></i>
-
                </a>
-
-
                <div class="drop_down">
-
                   <ul>
                      <p class="text-white dp-title"></p>
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>assign_assets" ?>Assign Assets & Permission</a> </li>
                      <li> <a class="dropdown-item" href="<?= base_url(); ?>integration" ?>Social Media Accounts</a> </li>
-
                      <?php if ((in_array('leads', $get_asset_permission) || in_array('create_scenarios', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                         <li>
                            <a class="dropdown-item" href="<?= base_url(); ?>lead_module">Lead Integration</a>
@@ -459,7 +246,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                         <a class="dropdown-item" href="<?= base_url(); ?>">Email Integration</a>
                      </li> -->
                      <?php if ((in_array('fbmessages', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                      <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>messenger">Messenger</a>
                      </li>
@@ -479,113 +265,60 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                      </li>
                      <!-- <li> <a class="dropdown-item" href="<?= base_url(); ?>email_history" ?>Email Conversion</a> </li> -->
                   </ul>
-
                </div>
-
             </li>
-
             <?php if (in_array('subscription_check', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>subscription" data-tbs-toggle="tooltip" data-bs-title="Subscriptions">
-
                      <span class="drop_icon_main">
-
                         <i class="fa-brands fa-sellcast lh-28"></i>
-
                      </span>
-
                      <span class="link_name">Subscriptions</span>
-
                   </a>
-
                </li>
-
             <?php } ?>
-
             <?php if (in_array('discount_check', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>coupon" data-tbs-toggle="tooltip" data-bs-title="Coupons">
-
                      <span class="drop_icon_main">
-
                         <i class="fa-solid fa-percent fa-fw"></i>
-
                      </span>
-
                      <span class="link_name">Coupons</span>
-
                   </a>
-
                </li>
-
             <?php } ?>
-
             <?php if (in_array('inquiry_managementcheck', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Inquiries">
-
                      <span class="drop_icon_main">
-
                         <i class="fa-solid fa-list-check lh-28"></i>
-
                      </span>
-
                      <span class="link_name">Inquiries</span>
-
                      <i class="bx bxs-chevron-down arrow ms-auto"></i>
-
                   </a>
-
                   <div class="drop_down">
-
                      <ul>
-
                         <p class="text-white dp-title">Inquiries</p>
-
                         <li>
-
                            <a href="<?= base_url(); ?>allinquiry?followup=today" class="dropdown-item">Today inq</a>
-
                         </li>
-
                         <li>
-
                            <a href="<?= base_url(); ?>allinquiry?followup=pending" class="dropdown-item">Pending inq</a>
-
                         </li>
                         <li><a class="dropdown-item" href="<?= base_url(); ?>allinquiry?followup=cnr" data-menu="allinquiry?followup=cnr">Cnr</a>
                         </li>
-
                         <li>
-
                            <a href="<?= base_url(); ?>allinquiry?followup=closerequest" class="dropdown-item">Close
-
                               Requests</a>
-
                         </li>
-
                         <?php if (in_array('all_inquiry_information', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                            <li>
-
                               <a href="<?= base_url(); ?>allinquiry" class="dropdown-item">All inq</a>
-
                            </li>
-
                         <?php } ?>
-
                      </ul>
-
                   </div>
-
                </li>
-
             <?php } ?>
             <?php if (in_array('taskcheck', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
@@ -597,149 +330,77 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                   </a>
                </li>
             <?php } ?>
-
             <?php if (in_array('inquiry_register_managementcheck', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Register">
-
                      <span class="drop_icon_main">
-
                         <i class="fa-solid fa-book-open lh-28"></i>
-
                      </span>
-
                      <span class="link_name">Register</span>
-
                      <i class="bx bxs-chevron-down arrow ms-auto"></i>
-
                   </a>
-
                   <div class="drop_down">
-
                      <ul>
-
                         <p class="text-white dp-title">Register</p>
-
                         <li>
-
                            <?php if (in_array('register_appointment_inquiry_management_information', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                               <a href="<?= base_url(); ?>allinquiry?followup=appointment" class="dropdown-item">Appointment
-
                                  Register</a>
-
                         </li>
-
                      <?php } ?>
-
                      <?php if (in_array('register_dismiss_request_inquiry_management_information', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                         <li>
-
                            <a href="<?= base_url(); ?>allinquiry?followup=dismissed" class="dropdown-item">Dismissed Inq
-
                               Register</a>
-
                         </li>
-
                      <?php } ?>
-
                      <!-- <?php if (in_array('subscription_request_register_conversion_register', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                            <li>
-
                               <a href="<?= base_url(); ?>subscription_request" class="dropdown-item">Subscription Request
-
                                  Register</a>
-
                            </li>
-
                         <?php } ?> -->
-
                      <!-- <?php if (in_array('subscription_register_conversion_register', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                            <li>
-
                               <a href="<?= base_url(); ?>subscription_register" class="dropdown-item">Subscription
-
                                  Register</a>
-
                            </li>
-
                         <?php } ?> -->
-
                      <?php if (in_array('demo_register', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                         <li>
-
                            <a href="<?= base_url(); ?>demo_register" class="dropdown-item">Demo Register</a>
-
                         </li>
-
                      <?php } ?>
-
                      </ul>
-
                   </div>
-
                </li>
-
             <?php } ?>
-
             <?php if (in_array('finance_managementcheck', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                <li class="main-drop">
-
                   <a class="drop_icon d-flex align-items-center py-2" href="javascript:void(0)" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Finance">
-
                      <span class="drop_icon_main">
-
                         <i class="fa-solid fa-indian-rupee-sign lh-28"></i>
-
                      </span>
-
                      <span class="link_name">Finance</span>
-
                      <i class="bx bxs-chevron-down arrow ms-auto"></i>
-
                   </a>
-
                   <div class="drop_down">
-
                      <ul>
-
                         <p class="text-white dp-title">Finance</p>
-
                         <?php if (in_array('invoice_inquiry_information', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                            <li>
-
                               <a href="<?= base_url(); ?>invoice" class="dropdown-item">Invoice</a>
-
                            </li>
-
                         <?php } ?>
-
                         <?php if (in_array('sales_information', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
-
                            <li>
-
                               <a href="<?= base_url(); ?>sales_register" class="dropdown-item">Sales register</a>
-
                            </li>
-
                         <?php } ?>
-
                      </ul>
-
                   </div>
-
                </li>
-
             <?php } ?>
-
             <?php if (in_array('data_module', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
                   <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>data_module" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Data Module">
@@ -750,7 +411,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                   </a>
                </li>
             <?php } ?>
-
             <?php if (in_array('client_supportcheck', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
                   <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url(); ?>supportticket" data-tbs-toggle="tooltip" data-bs-title="Client Support">
@@ -761,7 +421,6 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                   </a>
                </li>
             <?php } ?>
-
             <?php if (in_array('main_calender', $get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                <li class="main-drop">
                   <a class="drop_icon d-flex align-items-center py-2" href="<?= base_url('payment_receivable'); ?>" data-tbs-toggle="tooltip" data-bs-placement="right" data-bs-title="Calender">
@@ -772,13 +431,8 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                   </a>
                </li>
             <?php } ?>
-
-
          </ul>
-
       </div>
-
    </nav>
-
 </div>
 <?= $this->include('partials/vendor-scripts') ?>
