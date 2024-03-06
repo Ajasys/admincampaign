@@ -397,6 +397,8 @@ if (isset($response['entry'][0])) {
                                                         } elseif ($QuestionType == '8') {
                                                             $jsonarry  = json_decode($menu_message, true);
                                                             if(isset($jsonarry) && !empty($jsonarry) && isset($RecievedMessageArray['messages'][0]['interactive']['list_reply']['title'])){
+                                                                $SingleChoiseMsgID = 0;
+
                                                                 $start_dataf = $jsonarry['date_range'][0];
                                                                 $enddatef = $jsonarry['date_range'][1];
                                                                 if($jsonarry['period'][0]['future_days'] && $jsonarry['period'][0]['future_days'] != ''){
@@ -423,6 +425,7 @@ if (isset($response['entry'][0])) {
                                                                         $ComDate = $date->format('d-m-Y');
                                                                         if($ComDate == $RecievedMessageArray['messages'][0]['interactive']['list_reply']['title']){
                                                                             $QuestionValidation = 0;
+                                                                            $SingleChoiseMsgID = $item['next_questions'];
                                                                         }
                                                                     }
                                                                 }
@@ -678,7 +681,7 @@ if (isset($response['entry'][0])) {
                                                                             $ReturnResult = $Result;
                                                                             $jsonmsg = '{"body":' . json_encode(strip_tags($BotNextQuestionDataArray['question'])) . '}';
                                                                             if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                                $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '12','1', '" . $jsonmsg . "', '" . $BotNextQuestionDataArray['menu_message'] . "', '".$JsonDataStringBoat."')");
+                                                                                $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '13','1', '" . $jsonmsg . "', '" . $BotNextQuestionDataArray['menu_message'] . "', '".$JsonDataStringBoat."')");
                                                                             }
                                                                         }else{
                                                                             $elsecondiondate = 1;
@@ -855,7 +858,7 @@ if (isset($response['entry'][0])) {
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '9','1', '".$textOfbody."', '".$JsonDataStringBoat."')");
+                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `asset_file_name`, `assest_id`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '9','1', '".$textOfbody."', '".$JsonDataStringBoat."', '".$BotNextQuestionDataArray['menu_message']."')");
                                                                     }
 
 
@@ -907,7 +910,7 @@ if (isset($response['entry'][0])) {
                                                                     $ReturnResult = $Result;
                                                                     $jsonmsg = '{"body":' . json_encode(strip_tags($BotNextQuestionDataArray['question'])) . '}';
                                                                     if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '11','1', '" . $jsonmsg . "', '" . $BotNextQuestionDataArray['menu_message'] . "', '".$JsonDataStringBoat."')");
+                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '12','1', '" . $jsonmsg . "', '" . $BotNextQuestionDataArray['menu_message'] . "', '".$JsonDataStringBoat."')");
                                                                     }
                                                                 }elseif($NextQuestionType == '4'){
                                                                     $textOfbody = strip_tags($BotNextQuestionDataArray['question']);
@@ -1156,7 +1159,7 @@ if (isset($response['entry'][0])) {
                                                                     $ReturnResult = $Result;
                                                                     $jsonmsg = '{"body":' . json_encode(strip_tags($final_error_text)) . '}';
                                                                     if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '12','1', '" . $jsonmsg . "', '" . $menu_message . "', '".$JsonDataStringBoat."')");
+                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '13','1', '" . $jsonmsg . "', '" . $menu_message . "', '".$JsonDataStringBoat."')");
                                                                     }
                                                                 }else{
                                                                     $elsecondiondate == 1;
@@ -1303,7 +1306,7 @@ if (isset($response['entry'][0])) {
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '9','1', '".$textOfbody."', '".$JsonDataStringBoat."')");
+                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `asset_file_name`,`assest_id`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '9','1', '".$textOfbody."', '".$JsonDataStringBoat."', '".$menu_message."')");
                                                                     }
                                                         }elseif($QuestionType == '9'){
                                                             $parsed_data = json_decode($menu_message, true);
@@ -1352,7 +1355,7 @@ if (isset($response['entry'][0])) {
                                                             $ReturnResult = $Result;
                                                             $jsonmsg = '{"body":' . json_encode(strip_tags($final_error_text)) . '}';
                                                             if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '11','1', '" . $jsonmsg . "', '" . $menu_message . "', '".$JsonDataStringBoat."')");
+                                                                $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '12','1', '" . $jsonmsg . "', '" . $menu_message . "', '".$JsonDataStringBoat."')");
                                                             }
 
 
