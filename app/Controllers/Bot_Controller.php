@@ -2346,9 +2346,6 @@ class Bot_Controller extends BaseController
 					// continue;
 					$token = $account_value['access_token'];
 					// pre($token);
-					// $fileds = 'instagram_business_account{id,username,profile_picture_url},profile_picture_url,access_token,name,id';
-					// $url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
-					// $fb_page_list = fb_page_list($token);
 					// $fb_page_list = get_object_vars(json_decode($fb_page_list));
 					// pre($url);
 					$asset_table_name = $this->username . '_platform_assets';
@@ -2372,6 +2369,25 @@ class Bot_Controller extends BaseController
 					$IG_chat_list_html = '';
 					$return_result = array();
 					$IG_data = array();
+					if ($access_api === 'true' || $access_api === true || $access_api === 1) {
+						$fileds = 'instagram_business_account{id,username,profile_picture_url},picture,access_token,name,id';
+						$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
+						$fb_page_list_api = getSocialData($url);
+						$api_page_data = isset($fb_page_list_api['data']) ? $fb_page_list_api['data'] : array();
+						foreach($api_page_data as $pages_key => $pages_value) {
+							$insert_data = array();
+							$insert_data['asset_id'] = $pages_value['id'];
+							$isduplicate = $this->duplicate_data($insert_data, $asset_table_name);
+							if(!$isduplicate) {
+								$insert_data['platform_id'] = $account_value['id'];
+								$insert_data['master_id'] = $_SESSION['master'];
+								$insert_data['asset_type'] = 'pages';
+								$insert_data['access_token'] = $pages_value['access_token'];
+								$insert_data['name'] = $pages_value['name'];
+								// pre($_SESSION);
+							}
+						}
+					}
 					// pre($fb_page_list);
 					foreach ($fb_page_list['data'] as $key => $value) {
 						$unread_msg = 0;
@@ -2381,7 +2397,7 @@ class Bot_Controller extends BaseController
 						// 	$page_img = $value['page_img'];
 						// } else {
 						// echo $access_api.'<br>';
-						if ($access_api === 'true') {
+						if ($access_api === 'true' || $access_api === true || $access_api === 1) {
 							$url = 'https://graph.facebook.com/' . $value['asset_id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
 							$con_data = getSocialData($url);
 							if (isset($con_data['data'])) {
