@@ -552,8 +552,8 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/updated_pages_list_data', [FacebookController::class, 'updated_pages_list_data']);
 	$routes->post('/draft_pages_list_data', [FacebookController::class, 'draft_pages_list_data']);
 	$routes->post('/delete_pages_fb', [FacebookController::class, 'delete_pages_fb']);
-	$routes->post('/facebook_form', [FacebookController::class, 'FacebookController::facebook_form']);
-	$routes->post('/queue_list_add', [FacebookController::class, 'FacebookController::queue_list_add']);
+	$routes->post('/facebook_form', [FacebookController::class, 'facebook_form']);
+	$routes->post('/queue_list_add', [FacebookController::class, 'queue_list_add']);
 	$routes->post('/lead_list', [FacebookController::class, 'lead_list']);
 	$routes->post('/fb_connection_list', [FacebookController::class, 'fb_connection_list']);
 	$routes->post('/fb_permission_list', [FacebookController::class, 'fb_permission_list']);
