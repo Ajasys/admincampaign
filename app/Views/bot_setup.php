@@ -2168,7 +2168,7 @@ option {
                                     <div id="media_add"></div>
                                     <div class="img-media d-none position-relative">
                                         <img src="" height="100px" width="100px">
-                                        <div class="position-absolute media-div-close" style="top:-10px; right:-16px;"><i class="fa-solid fa-xmark"></i></div>
+                                        <div class="position-absolute media-div-close" style="top:-10px; right:-16px;"><i class="fa-solid fa-xmark  media-div-close"></i></div>
                                     </div>
                                     <div class="position-relative media-text-file d-none "><div class="file-name"></div><div class="position-absolute media-div-close" style="top:-10px; right:-16px;"><i class="fa-solid fa-xmark"></i></div></div>
                                         <svg class="media-svg" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" x="0" y="0" viewBox="0 0 682.667 682.667" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -2263,6 +2263,7 @@ option {
                         <script>
                             $(document).ready(function() {
                                 $('body').on('change', '.media-select-div', function() {
+                                    $('#media_add').hide();
                                     let file = this.files[0];
 
                                     if (file) {
@@ -2286,6 +2287,7 @@ option {
                                 $('body').on('click', '.media-div-close', function() {
                                     $(".img-media").addClass("d-none");
                                     $('.media-svg').removeClass('d-none');
+                                    $('.media-svg').show();
                                     $('.media-text-file').addClass('d-none');
                                 });
                             });
@@ -4206,7 +4208,8 @@ option {
 
     // question edit
     $("body").on('click', '.question_edit', function(e) {
-        // alert( $('.single-choice-edit-tabal').text());
+        $('#media_add').empty();
+        $('.media-svg').show();
         e.preventDefault();
         var edit_value = $(this).attr("data-id");
         var type_of_question = $(this).attr("data-type_of_question");
@@ -4219,8 +4222,7 @@ option {
             editorElement.style.backgroundImage = 'none';
         }
 
-        $("form[name='question_update_form']")[0].reset();
-
+        $('#basic-tab').click();
         if (edit_value != "") {
             $('.loader').show();
             $.ajax({
@@ -4271,6 +4273,7 @@ option {
                             var imageFileName = menu_message.imageFileName;
                             <?php $table_username = getMasterUsername(); ?>
                             if (imageFileName) {
+                                $('#media_add').empty();
                                 var imageElement = document.createElement('img');
                                 imageElement.src = 'assets/<?php echo $table_username; ?>_folder/bot_image/' + imageFileName;
                                 imageElement.style.display = "block";
@@ -4288,18 +4291,14 @@ option {
 
                         if (attachment_media_response != '') {
                             var attachment_media_response = response[0].attachment_media;
-                            console.log(attachment_media_response);
+                    
                             if (attachment_media_response) {
-
-                                var controlsm = $('.file_name_div');
-                                if(controlsm !== '') { // Compare to an empty jQuery object
-                                    $('#media_add img').addClass('d-none');
-                                }
 
                                 $('#media_add').empty();
                                 var imageElement = document.createElement('img');
                                 imageElement.src = 'assets/<?php echo $table_username; ?>_folder/bot_attachment_media/' + attachment_media_response;
                                 imageElement.style.display = "block"; 
+                                imageElement.className = "image_set"; 
                                 imageElement.style.marginBottom = "10px"; 
                                 imageElement.setAttribute('height', '100px'); 
                                 imageElement.setAttribute('width', '100px'); 
@@ -4313,7 +4312,22 @@ option {
                                 $('.media-svg').hide();
                                 // $('#media_add').reset();
 
- 
+                                $('.image_set').each(function() {
+                                    var controlsm = $(this).attr('src');
+                                    if (controlsm === '') {
+                                        $(this).addClass('d-none'); 
+                                    } else {
+                                    
+                                        var fileExtension = controlsm.split('.').pop().toLowerCase();
+                                        
+                                    
+                                        if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'webp') {
+                                            $(this).removeClass('d-none'); 
+                                        } else {
+                                            $(this).addClass('d-none');
+                                        }
+                                    }
+                                });
 
                             }
                         }
@@ -4784,23 +4798,23 @@ option {
                                 
                             }
 
-                            $('.bot_quotation_list').each(function(index) {
-                                var selectElementJumpQuestion = $(this).find('select');
+                            // $('.bot_quotation_list').each(function(index) {
+                            //     var selectElementJumpQuestion = $(this).find('select');
                                 
-                                var sub_flow_value = subFlows[index];
+                            //     var sub_flow_value = subFlows[index];
                                 
-                                selectElementJumpQuestion.find('option').each(function() {
-                                    // var bot_id = $(this).data('bot_id');
-                                    var bot_id = '<?php echo $botId?>';
-                                    // console.log(sub_flow_value);
-                                    // console.log(bot_id);
-                                    if (bot_id == sub_flow_value) {
-                                        $(this).show();
-                                    } else {
-                                        $(this).hide();
-                                    }
-                                });
-                            });
+                            //     selectElementJumpQuestion.find('option').each(function() {
+                            //         // var bot_id = $(this).data('bot_id');
+                            //         var bot_id = '<?php echo $botId?>';
+                            //         // console.log(sub_flow_value);
+                            //         // console.log(bot_id);
+                            //         if (bot_id == sub_flow_value) {
+                            //             $(this).show();
+                            //         } else {
+                            //             $(this).hide();
+                            //         }
+                            //     });
+                            // });
                         }
 
                         // console.log(menu_message.questions);
