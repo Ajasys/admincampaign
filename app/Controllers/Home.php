@@ -806,6 +806,7 @@ class Home extends BaseController
             'error_text varchar(500) NOT NULL',
             'next_questions varchar(500) NOT NULL',
             'next_bot_id int(11) NOT NULL',
+            // 'attachment_media longtext NOT NULL'
         ];
         tableCreateAndTableUpdate2($table_username . '_bot_setup', '', $columns_bot);
 
