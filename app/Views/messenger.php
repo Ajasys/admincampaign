@@ -2229,7 +2229,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         $('.massage_list_loader').hide();
 
-        $('body').on('click', '.send_massage', function() {
+        $('body').on('click', '.send_massage', function(e) {
+            e.preventDefault();
             var massage_input = $('.massage_input').val();
             var conversion_id = $(this).data("conversion_id");
             var page_access_token = $(this).data("page_token");
@@ -2267,6 +2268,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                     }
                 });
             }
+            return false;
         });
     });
 
