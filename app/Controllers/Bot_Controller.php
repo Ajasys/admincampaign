@@ -94,7 +94,7 @@ class Bot_Controller extends BaseController
 
 	public function duplicate_data($data, $table)
 	{
-		$this->db = \Config\Database::connect();
+		$this->db = DatabaseSecondConnection();
 		$i = 0;
 		$data_duplicat_Query = "";
 		$numItems = count($data);
@@ -107,7 +107,7 @@ class Bot_Controller extends BaseController
 			$i++;
 		}
 		$sql = 'SELECT * FROM ' . $table . ' WHERE ' . $data_duplicat_Query;
-		$secondDb = \Config\Database::connect('second');
+		$secondDb = DatabaseDefaultConnection();
 		$result = $secondDb->query($sql);
 		if ($result->getNumRows() > 0) {
 			return TRUE;
@@ -653,7 +653,7 @@ class Bot_Controller extends BaseController
 		$files = $_FILES;
 		if (!empty($files) && isset($_FILES["images"]["name"])) {
 			$uploadDir = 'assets/' . $this->username . '_folder/bot_image/';
-			
+
 			if (!is_dir($uploadDir)) {
 				mkdir($uploadDir, 0777, true);
 			}
@@ -682,7 +682,7 @@ class Bot_Controller extends BaseController
 
 		if (isset($_POST['attachment_media'])) {
 			$imageFileName = $_POST['attachment_media'];
-	
+
 			$uploadDirectory = 'assets/' . $this->username . '_folder/bot_attachment_media/';
 			// $uploadDirectory .= 'assets/' . $this->username . '_folder/bot_attachment_media/';
 			// pre($uploadDirectory);
@@ -1207,7 +1207,7 @@ class Bot_Controller extends BaseController
 															Skip
 														</button>
 													</div>';
-					}else {
+					} else {
 						$html .= '<div class="col-12 mb-2 mt-1" hidden>
 														<button class="btn bg-primary rounded-3 text-white skip_questioned">
 															Skip
@@ -2405,7 +2405,7 @@ class Bot_Controller extends BaseController
 							}
 						}
 					}
-
+					$this->db = DatabaseDefaultConnection();
 
 					$platform_id = $account_value['id'];
 					$master_id = $_SESSION['master'];
@@ -2687,12 +2687,14 @@ class Bot_Controller extends BaseController
 		$sender_id = $this->request->getPost('sender_id');
 		$page_id = $this->request->getPost('page_id');
 		$message = $this->request->getPost('massage');
-		// pre($sender_id);
+		// pre($attachment);
+		// die();
 
 		if ($page_access_token != '' && $action != '' && $sender_id != '' && $page_id != '') {
 			// msg send facebook api
-			$url = "https://graph.facebook.com/v19.0/$page_id/messages?access_token=$page_access_token";
-			$json_data = '{
+			if ($_POST['msg_type'] == 'text') {
+				$url = "https://graph.facebook.com/v19.0/$page_id/messages?access_token=$page_access_token";
+				$json_data = '{
 							"recipient" : {
 								"id":"' . $sender_id . '"
 							},
@@ -2703,23 +2705,80 @@ class Bot_Controller extends BaseController
 							
 						}';
 
-			$data = postSocialData($url, $json_data);
-			$return = array();
-			if (isset($data['error']['code']) && $data['error']['code'] == 10) {
-				$return['status'] = 0;
-				$return['msg'] = "You don't have permission to send messages from this page.";
-				$return['text'] = '<br><span>Request to Facebook for approval "<b>pages_messaging</b>" permission.</span>';
-			} else {
-				$time = date('h:i a');
-				$return['status'] = 1;
-				$return['msg'] = "Successfully Inserted!";
-				$return['html'] = '
+				$data = postSocialData($url, $json_data);
+				$return = array();
+				if (isset($data['error']['code']) && $data['error']['code'] == 10) {
+					$return['status'] = 0;
+					$return['msg'] = "You don't have permission to send messages from this page.";
+					$return['text'] = '<br><span>Request to Facebook for approval "<b>pages_messaging</b>" permission.</span>';
+				} else {
+					$time = date('h:i a');
+					$return['status'] = 1;
+					$return['msg'] = "Successfully Inserted!";
+					$return['html'] = '
 							<div class="d-flex mb-4 justify-content-end" >
 								<div class="col-lg-9 col-11 text-end d-flex d-inline-flex justify-content-end align-items-center">
 									<span class="me-2 text-center text-nowrap" style="font-size:12px;">' . $time . '</span> <span class="px-2 py-2 rounded-4 text-wrap text-start text-white fs-12" style="background:rgb(10, 124, 255);overflow-wrap: anywhere;">' . $message . ' </span> 
 								</div>
 							</div>';
-				$return['data'] = json_encode($data);
+					$return['data'] = json_encode($data);
+				}
+			} else if ($_POST['msg_type'] == 'document') {
+				$attachment = $this->request->getFiles('attachment');
+
+				// Set your access token and other variables
+				// $access_token = 'YOUR_PAGE_ACCESS_TOKEN';
+				// $page_id = 'YOUR_PAGE_ID';
+				// $recipient_id = 'RECIPIENT_USER_ID'; // User ID to send message to
+				$media_url = 'URL_OF_YOUR_MEDIA'; // URL of the photo or video you want to send
+
+				// Upload photo or video
+				$media_data = array(
+					'url' => $media_url,
+					'published' => 'false'
+				);
+
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/$page_id/photos?access_token=$page_access_token");
+				curl_setopt($ch, CURLOPT_POST, 1);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $media_data);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$result = curl_exec($ch);
+				curl_close($ch);
+
+				$response = json_decode($result, true);
+
+				if (isset($response['id'])) {
+					// Media uploaded successfully, now send message with attachment
+					$message_data = array(
+						'recipient' => array('id' => $sender_id),
+						'message' => array(
+							'attachment' => array(
+								'type' => 'image', // or 'video' for video
+								'payload' => array(
+									'url' => $media_url,
+									'is_reusable' => true
+								)
+							)
+						)
+					);
+
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/v12.0/me/messages?access_token=$page_access_token");
+					curl_setopt($ch, CURLOPT_POST, 1);
+					curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($message_data));
+					curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					$result = curl_exec($ch);
+					curl_close($ch);
+
+					// Handle response as per your application needs
+					$response = json_decode($result, true);
+					pre($response);
+				} else {
+					// Handle media upload failure
+					echo "Media upload failed.";
+				}
 			}
 		} else {
 			$msg = '';

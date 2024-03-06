@@ -2,7 +2,8 @@
 <?= $this->include('partials/sidebar') ?>
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
 <?php 
-$table_username = getMasterUsername();
+$table_username = session_username($_SESSION['username']);
+// echo $table_username;
 $db_connection = DatabaseDefaultConnection();
 $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
@@ -2111,6 +2112,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                 // ====kjhsdhj==
                 $('.acc_loader').hide();
                 $('.fb-refresh').removeClass('fa-spin');
+                $('.fb-refresh').removeClass('fa-fade');
                 var obj = JSON.parse(data);
                 if (action == 'account_list') {
                     $('.account_list').html(obj.chat_list_html);
@@ -2159,7 +2161,11 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.AddModelContactNO').removeClass('chatheadercolorclasswithheader');
         $(".TextInputTastbar").removeClass("d-none");
         $(".chat_bord").removeClass("chat_bordClass");
+        $('#save_btn_email').addClass('SendDocumentForFb');
+        $('#save_btn_email').removeClass('SendDocumentForWhatsApp');
     });
+
+    
 
     $(document).ready(function() {
         // massage list data
@@ -2228,6 +2234,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         $('.send_massage').data("page_token", page_access_token);
                         $('.send_massage').data("page_id", page_id);
                         $('.send_massage').data("sender_id", sender_id);
+                        $('.SendDocumentForFb').data("conversion_id", conversion_id);
+                        $('.SendDocumentForFb').data("page_token", page_access_token);
+                        $('.SendDocumentForFb').data("page_id", page_id);
+                        $('.SendDocumentForFb').data("sender_id", sender_id);
                         // $('.send_massage').attr("data-massage_id", massage_id);
                     }
                 });
@@ -2256,6 +2266,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                         sender_id: sender_id,
                         page_id: page_id,
                         massage: massage_input,
+                        msg_type : 'text',
                     },
                     success: function(data) {
                         var obj = JSON.parse(data);
@@ -2278,12 +2289,65 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
             }
             return false;
         });
+
+        $('body').on('click','.SendDocumentForFb', function (){
+            var DataFileTypeStatus = $(this).attr('DataFileTypeStatus');
+            var doctype = '';
+            var doccorrection = 0;
+            if (DataFileTypeStatus == '1') {
+                doctype = 'document';
+                doccorrection = 1;
+            }
+
+            var form = $("form[name='add_form_Email']")[0];
+            var formData = new FormData(form);
+            // var massage_input = $('.massage_input').val();
+            var conversion_id = $(this).data("conversion_id");
+            var page_access_token = $(this).data("page_token");
+            var page_id = $(this).data("page_id");
+            var sender_id = $(this).data("sender_id");
+            if (conversion_id != '' && page_access_token != '' && page_id != '') {
+                formData.append('conversion_id',conversion_id);
+                formData.append('page_access_token',page_access_token);
+                formData.append('page_id',page_id);
+                formData.append('sender_id',sender_id);
+                formData.append('msg_type','document');
+
+
+                $.ajax({
+                    method: "post",
+                    url: "<?= site_url('send_massage'); ?>",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        var obj = JSON.parse(data);
+                        if (obj.status == 0) {
+                            // iziToast.error({
+                            //     title: obj.msg,
+                            // });
+                            Swal.fire({
+                                title: obj.msg,
+                                html: obj.text,
+                                // icon: "success"
+                            });
+                        } else {
+                            $('.chat_bord').append(obj.html);
+                            scrollToBottom();
+                        }
+                        $('.massage_input').val('');
+                    }
+                });
+
+            }
+        });
     });
 
     $('body').on('click', '.fb-refresh', function(e) {
         e.stopPropagation();
         // alert();
         $(this).addClass('fa-spin');
+        $(this).addClass('fa-fade');
         list_data(true, 'account_list');
         // var collapse = $('.FbListedMessage').find('.accordion-collapse');
         // collapse.collapse('show');
@@ -2541,6 +2605,8 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
         $('.massage_input').val('');
         $('.chat_bord').html('');
         $('.AddModelContactNO').addClass('chatheadercolorclasswithheader');
+        $('#save_btn_email').addClass('SendDocumentForWhatsApp');
+        $('#save_btn_email').removeClass('SendDocumentForFb');
     });
 
 
@@ -2640,6 +2706,10 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
         // console.log(doccorrection);
 
+        // console.log(pText_add);
+        // console.log(DataSenderId);
+        // console.log(DataPhoneno);
+        // console.log(doctype);
         formData.append('attachment', pText_add);
         formData.append('DataSenderId', DataSenderId);
         formData.append('DataPhoneno', DataPhoneno);
@@ -2664,11 +2734,13 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
     $('body').on('click', '.SendImageAndPhotosClass', function() {
         $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 2);
+        $('.SendDocumentForFb').attr('DataFileTypeStatus', 2);
         $('.u_btn_Email').html('');
 
     });
     $('body').on('click', '.DocumentSelectionForSendClickEventClass', function() {
         $('.SendDocumentForWhatsApp').attr('DataFileTypeStatus', 1);
+        $('.SendDocumentForFb').attr('DataFileTypeStatus', 1);
         $('.u_btn_Email').html('');
     });
 
