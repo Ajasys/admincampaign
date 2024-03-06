@@ -3,6 +3,7 @@
 namespace App\Controllers\Campaign;
 use App\Controllers\BaseController;
 use App\Models\MasterInformationModel;
+use App\Models\CampaignModel;
 use Config\Database;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use CodeIgniter\I18n\Time;
@@ -17,6 +18,7 @@ class AudianceController extends BaseController
         $db = db_connect();
 
         $this->MasterInformationModel = new MasterInformationModel($db);
+        $this->CampaignModel = new CampaignModel($db);
 
         $this->username = session_username($_SESSION["username"]);
         $this->admin = 0;
@@ -111,7 +113,7 @@ class AudianceController extends BaseController
                     "pages_name" => $pages_name
                 ];
     
-                $result = $this->MasterInformationModel->update_entry_by_name(
+                $result = $this->CampaignModel->update_entry_by_name(
                     $edit_id,
                     $update_data,
                     $username . "_" . $table_name

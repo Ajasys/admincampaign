@@ -227,29 +227,6 @@ class MasterInformationModel extends Model
         return $result;
     }
 
-    public function update_entry_by_name($name, $data, $tablename)
-    {
-        $secondDb = DatabaseDefaultConnection();
-        $result = $secondDb
-            ->table($tablename)
-            ->where('name', $name) // Match the name column
-            ->set($data)
-            ->update();
-
-        return $result;
-    }
-    public function update_entry_by_audience_id($audience_id, $data, $tablename)
-    {
-        $secondDb = DatabaseDefaultConnection();
-        $result = $secondDb
-            ->table($tablename)
-            ->where('audience_id', $audience_id) // Match the name column
-            ->set($data)
-            ->update();
-
-        return $result;
-    }
-
     public function delete_entry($tablename,$delete_id){
 
         $result = $this->db->table($tablename)->where("id", $delete_id)->delete();
