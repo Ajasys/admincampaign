@@ -12,7 +12,7 @@ class Bot_Controller extends BaseController
 		helper('custom');
 		helper('custom1');
 		$db = db_connect();
-		$this->db = DatabaseSecondConnection();
+		$this->db = \Config\Database::connect();
 		$this->MasterInformationModel = new MasterInformationModel($db);
 		$this->username = session_username($_SESSION['username']);
 		$this->admin = 0;
@@ -94,7 +94,7 @@ class Bot_Controller extends BaseController
 
 	public function duplicate_data($data, $table)
 	{
-		$this->db = DatabaseSecondConnection();
+		$this->db = \Config\Database::connect();
 		$i = 0;
 		$data_duplicat_Query = "";
 		$numItems = count($data);
@@ -107,7 +107,7 @@ class Bot_Controller extends BaseController
 			$i++;
 		}
 		$sql = 'SELECT * FROM ' . $table . ' WHERE ' . $data_duplicat_Query;
-		$secondDb = DatabaseDefaultConnection();
+		$secondDb = \Config\Database::connect('second');
 		$result = $secondDb->query($sql);
 		if ($result->getNumRows() > 0) {
 			return TRUE;
@@ -498,7 +498,7 @@ class Bot_Controller extends BaseController
 	{
 		$table_username = getMasterUsername2();
 		$questionId = $this->request->getPost("questionId");
-		$db = DatabaseDefaultConnection();
+		$db = \Config\Database::connect('second');
 		$sql = 'SELECT * FROM ' . $table_username . '_bot_setup WHERE id = ' . $questionId;
 		$result = $db->query($sql);
 		$question_data = $result->getRowArray();
@@ -512,7 +512,7 @@ class Bot_Controller extends BaseController
 	private function insertQuestionData($question_data)
 	{
 		$table_username = getMasterUsername2();
-		$db = DatabaseDefaultConnection();
+		$db = \Config\Database::connect('second');
 		$table_name = $this->request->getPost("table");
 		$existing_records_count = $this->MasterInformationModel->get_record_count($table_name);
 		$_SESSION['records_count'] = $existing_records_count;
@@ -534,7 +534,7 @@ class Bot_Controller extends BaseController
 		$droppedSequence = $_POST['droppedSequence'];
 		$targetSequence = $_POST['targetSequence'];
 
-		$db = DatabaseDefaultConnection();
+		$db = \Config\Database::connect('second');
 		$table_username = getMasterUsername2();
 
 		$db->transStart();
@@ -598,7 +598,8 @@ class Bot_Controller extends BaseController
 				// Extract 'audioFileName'
 				$audioFileName = $menu_message['audioFileName'];
 				// Specify the directory where you want to save the audio files
-				$uploadDirectory = 'assets/bot_audio/'; // Adjust the path as needed
+				// $uploadDirectory = 'assets/bot_audio/'; 
+				$uploadDirectory = 'assets/' . $this->username . '_folder/bot_audio/';
 				// Create the upload directory if it doesn't exist
 				if (!is_dir($uploadDirectory)) {
 					mkdir($uploadDirectory, 0777, true);
@@ -627,7 +628,8 @@ class Bot_Controller extends BaseController
 				$imageFileName = $menu_message['imageFileName'];
 				// pre($imageFileName);
 				// Specify the directory where you want to save the image files
-				$uploadDirectory = 'assets/bot_image/'; // Adjust the path as needed
+				// $uploadDirectory = 'assets/bot_image/';
+				$uploadDirectory = 'assets/' . $this->username . '_folder/bot_image/'; // Adjust the path as needed
 
 				// Create the upload directory if it doesn't exist
 				if (!is_dir($uploadDirectory)) {
@@ -650,7 +652,8 @@ class Bot_Controller extends BaseController
 		}
 		$files = $_FILES;
 		if (!empty($files) && isset($_FILES["images"]["name"])) {
-			$uploadDir = 'assets/bot_image/';
+			$uploadDir = 'assets/' . $this->username . '_folder/bot_image/';
+			
 			if (!is_dir($uploadDir)) {
 				mkdir($uploadDir, 0777, true);
 			}
@@ -680,8 +683,9 @@ class Bot_Controller extends BaseController
 		if (isset($_POST['attachment_media'])) {
 			$imageFileName = $_POST['attachment_media'];
 	
-			$uploadDirectory = 'assets/bot_attachment_media/';
-			
+			$uploadDirectory = 'assets/' . $this->username . '_folder/bot_attachment_media/';
+			// $uploadDirectory .= 'assets/' . $this->username . '_folder/bot_attachment_media/';
+			// pre($uploadDirectory);
 			if (!is_dir($uploadDirectory)) {
 				mkdir($uploadDirectory, 0777, true);
 			}
@@ -975,7 +979,7 @@ class Bot_Controller extends BaseController
 	// 	$table = $_POST['table'];
 	// 	$bot_id = $_POST['bot_id'];
 	// 	$sequence = $_POST['sequence']; // Retrieve the sequence number
-	// 	$db_connection = DatabaseDefaultConnection();
+	// 	$db_connection = \Config\Database::connect('second');
 	// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence; // Retrieve the question with the specified sequence
 	// 	$resultss = $db_connection->query($sql);
 	// 	$bot_chat_data = $resultss->getResultArray();
@@ -1042,7 +1046,7 @@ class Bot_Controller extends BaseController
 		}
 
 		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
 			$sequence = 1;
 			// pre($sql);
@@ -1051,7 +1055,7 @@ class Bot_Controller extends BaseController
 		} else {
 			$sequence = isset($result) ? 1 : $sequence - 1;
 			// pre($sequence);
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 
 			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['next_questions'] != "0" && $_POST['next_questions'] != "0,0") {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
@@ -1075,7 +1079,7 @@ class Bot_Controller extends BaseController
 			// }
 
 			// Execute query
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$result = $db_connection->query($sql);
 			$bot_chat_data = $result->getResultArray();
 
@@ -2086,7 +2090,7 @@ class Bot_Controller extends BaseController
 	{
 
 		$table_username = getMasterUsername2();
-		$db_connection = DatabaseDefaultConnection();
+		$db_connection = \Config\Database::connect('second');
 		$table = '' . $table_username . '_bot_setup';
 		$column = 'answer';
 		$sql = "UPDATE $table SET $column = '' ";
@@ -2110,21 +2114,21 @@ class Bot_Controller extends BaseController
 		$sequence = $_POST['sequence'];
 
 		if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['sequence'] != 1) {
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE id = ' . $_POST['question_id'] . ' ORDER BY sequence';
 			$result = $db_connection->query($sql);
 			$questioned = $result->getRowArray();
 			// pre($questioned);
 
 		} else if ($_POST['sequence'] == 1) {
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
 			// pre($question);
 
 		} else {
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
@@ -2757,7 +2761,7 @@ class Bot_Controller extends BaseController
 		}
 
 		$query = "SELECT * FROM " . $this->username . "_bot_setup WHERE bot_id = $bot_id";
-		$db_connection = DatabaseDefaultConnection();
+		$db_connection = \Config\Database::connect('second');
 		$bot_data = $db_connection->query($query);
 		$bot_data_get = $bot_data->getResultArray();
 		$html = "";
@@ -2793,7 +2797,7 @@ class Bot_Controller extends BaseController
 
 	// public function web_bot_integrate()
 	// {
-	// 	$conn = DatabaseDefaultConnection();
+	// 	$conn = \Config\Database::connect('second');
 	//     // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
 
 	// 	$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);
@@ -2893,7 +2897,7 @@ class Bot_Controller extends BaseController
 
 	// public function web_bot_integrate()
 	// {
-	// 	$conn = DatabaseDefaultConnection();
+	// 	$conn = \Config\Database::connect('second');
 	//     // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
 
 	// 	$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);

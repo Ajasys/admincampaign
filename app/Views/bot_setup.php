@@ -2165,6 +2165,7 @@ option {
                             <div class="col-12 d-flex flex-wrap px-3">
                                 <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box position-relative overflow-hidden">
                                     <input type="file" class="media-select-div" id="media-select-div" style="width:100%; height:200px; top:0px; left:0px; opacity:0; position: absolute;">
+                                    <div id="media_add"></div>
                                     <div class="img-media d-none position-relative">
                                         <img src="" height="100px" width="100px">
                                         <div class="position-absolute media-div-close" style="top:-10px; right:-16px;"><i class="fa-solid fa-xmark"></i></div>
@@ -4218,7 +4219,7 @@ option {
             editorElement.style.backgroundImage = 'none';
         }
 
-     
+        $("form[name='question_update_form']")[0].reset();
 
         if (edit_value != "") {
             $('.loader').show();
@@ -4267,21 +4268,17 @@ option {
                         if (menu_message != '') {
                             var menu_message = JSON.parse(response[0].menu_message);
 
-                            // Extract image file name from menu_message
                             var imageFileName = menu_message.imageFileName;
-
-                            // Check if imageFileName exists
+                            <?php $table_username = getMasterUsername(); ?>
                             if (imageFileName) {
-                                // Display the image
                                 var imageElement = document.createElement('img');
-                                imageElement.src = 'assets/bot_image/' + imageFileName; // Update with your image directory path
-                                imageElement.style.display = "block"; // Ensure image is displayed as block element
-                                imageElement.style.marginBottom = "10px"; // Add margin at bottom for spacing
-                                imageElement.setAttribute('height', '100px'); // Set height
-                                imageElement.setAttribute('width', '100px'); // Set width
+                                imageElement.src = 'assets/<?php echo $table_username; ?>_folder/bot_image/' + imageFileName;
+                                imageElement.style.display = "block";
+                                imageElement.style.marginBottom = "10px";
+                                imageElement.setAttribute('height', '100px');
+                                imageElement.setAttribute('width', '100px'); 
                                 document.getElementById('image_container').appendChild(imageElement);
 
-                                // Display the image file name
                                 var fileNameElement = document.createElement('div');
                                 fileNameElement.textContent = imageFileName;
                                 document.getElementById('image_container').appendChild(fileNameElement);
@@ -4289,32 +4286,49 @@ option {
                         }
 
 
-                        if (attachment_media != '') {
-                            var attachment_media = response[0].attachment_media;
+                        if (attachment_media_response != '') {
+                            var attachment_media_response = response[0].attachment_media;
+                            console.log(attachment_media_response);
+                            if (attachment_media_response) {
 
-                            $('.media-svg').val(response[0].attachment_media);
-                            console.log(attachment_media);
+                                var controlsm = $('.file_name_div');
+                                if(controlsm !== '') { // Compare to an empty jQuery object
+                                    $('#media_add img').addClass('d-none');
+                                }
 
-                          
+                                $('#media_add').empty();
+                                var imageElement = document.createElement('img');
+                                imageElement.src = 'assets/<?php echo $table_username; ?>_folder/bot_attachment_media/' + attachment_media_response;
+                                imageElement.style.display = "block"; 
+                                imageElement.style.marginBottom = "10px"; 
+                                imageElement.setAttribute('height', '100px'); 
+                                imageElement.setAttribute('width', '100px'); 
+                                document.getElementById('media_add').appendChild(imageElement);
+
+
+                                var fileNameElement = document.createElement('div');
+                                fileNameElement.className = 'file_name_div';
+                                fileNameElement.textContent = attachment_media_response;
+                                document.getElementById('media_add').appendChild(fileNameElement);
+                                $('.media-svg').hide();
+                                // $('#media_add').reset();
+
+ 
+
+                            }
                         }
 
-
+             
                         if (menu_message != '') {
                             var menu_message = JSON.parse(response[0].menu_message);
 
-                            // Extract audio file name from menu_message
                             var audioFileName = menu_message.audioFileName;
-
-                            // Check if audioFileName exists
                             if (audioFileName) {
-
-                                // Set the source of the audio player to play the selected audio
+                                <?php $table_username = getMasterUsername(); ?>
                                 var audioPlayer = document.getElementById('audioPlayer');
-                                audioPlayer.src = 'assets/bot_audio/' + audioFileName; // Adjust the path as needed
-                                audioPlayer.style.display = 'block'; // Show the audio player
+                                audioPlayer.src = 'assets/<?php echo $table_username; ?>_folder/bot_audio/' + audioFileName;
+                                audioPlayer.style.display = 'block'; 
                             }
-
-                            // Other code to populate form fields...
                         }
 
                         $(".button_text").val(menu_message.button_text);
