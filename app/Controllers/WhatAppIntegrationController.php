@@ -476,31 +476,21 @@ class WhatAppIntegrationController extends BaseController
                                                         $bodyTextValue = $value1['example']['body_text'][0];
                                                     }
                                                 }
-                                                // $Html .= '
-                                                // <tr class="rounded-pill "  >
-                                                //         <td class="py-2 text-capitalize WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Name . '</td>
-                                                //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $Category . '</td>
-                                                //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $status . '</td>
-
-                                                //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">
-                                                //             <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
-                                                //                 ' . $Body . '
-                                                //             </div>
-                                                //         </td>
-                                                //         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" id="' . $id . '">' . $language . '</td>
-                                                //         <td class="template-creation-table-data text-center cwt-border-right p-l-25 ">
-                                                //             <span>
-                                                //                 <i class="fa fa-eye fs-16 view_template d-none" data-bs-toggle="modal" data-bs-target="#view_template" data-preview_id="2" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
-                                                //                 <i class="fa fa-clone fs-16  DuplicationTemplateClassDiv" name="' . $Name . '" id="' . $id . '"></i>
-                                                //                 <i class="fa fa-trash fs-16 Delete_template_id d-none" name="' . $Name . '" id="' . $id . '" aria-hidden="true" ng-click="openPreview_box(tem)" aria-label="Preview" md-labeled-by-tooltip="md-tooltip-10" role="button" tabindex="0"></i>
-                                                //             </span>
-                                                //         </td>
-                                                //     </tr>
-                                                // ';
+                                        
                                                 if ($value1['type'] == 'BODY') {
                                                     $Body = $value1['text'];
                                                 }
 
+                                                
+                                                if (isset($bodyTextValue) && !empty($bodyTextValue) && array_filter($bodyTextValue, 'strlen')) {
+                                                    $modified_body = $Body;
+                                                    foreach ($bodyTextValue as $index => $value) {
+                                                        $placeholder = '{{' . ($index + 1) . '}}';
+                                                        $modified_body = str_replace($placeholder, '{{' . $value . '}}', $modified_body);
+                                                    }
+                                                }
+                                            
+                                            
                                                 if ($value1['type'] == 'FOOTER') {
                                                     $footer = $value1['text'];
                                                 }
@@ -559,7 +549,7 @@ class WhatAppIntegrationController extends BaseController
 
                                                         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytextvalue="' . htmlspecialchars(json_encode($bodyTextValue)) . '" Bodytext="' . $Body . '"footertext="' . $footer . '"  id="' . $id . '" >
                                                             <div class="overflow-hidden position-relative" style="width: 400px !important;text-wrap:nowrap;text-overflow:ellipsis " >
-                                                                ' . $Body . '
+                                                                ' . $modified_body . '
                                                             </div>
                                                         </td>
                                                         <td class="py-2 WhatsAppTemplateModelViewBtn" name="' . $Name . '" data-bs-toggle="modal" data-bs-target="#view_modal" buttontext="' . $buttonvalue . '" headertext="' . $header . '"  Bodytext="' . $Body . '" Bodytextvalue="' . htmlspecialchars(json_encode($bodyTextValue)) . '"footertext="' . $footer . '"  id="' . $id . '" >' . $language . '</td>
@@ -655,7 +645,7 @@ class WhatAppIntegrationController extends BaseController
         $return_array['templatelanguage'] = $templatelanguage;
         $return_array['html'] = $Html;
         // $return_array['html1'] = $html1;
-
+      
 
         return json_encode($return_array, true);
         die();
