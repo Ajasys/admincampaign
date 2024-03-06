@@ -281,18 +281,10 @@ if (!function_exists('SendMail')) {
 if (!function_exists('getMasterUsername2')) {
     function getMasterUsername2()
     {
-        $db_connection = DatabaseDefaultConnection();
-        $master = 0;
-        if (isset($_SESSION['master'])) {
-            $master = $_SESSION['master'];
-        }
-
-        $sql = 'SELECT * FROM  master_user  WHERE id = "' . $master . '"';
-        $result = $db_connection->query($sql);
-        $resultsssss = $result->getResultArray();
-        foreach ($resultsssss as $key => $val) {
-            return $val['username'];
-        }
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        return $username;
     }
 }
 

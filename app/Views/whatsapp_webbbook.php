@@ -62,7 +62,6 @@ $db_connection = mysqli_connect(
 $messaging_product = '';
 $recipient_id = '';
 $id = '';
-writeToFile(json_encode($data));
 if (isset($response['entry'][0])) {
     $WhatsAppID = '';
     $WhatsAppStatus = '';
@@ -276,7 +275,6 @@ if (isset($response['entry'][0])) {
                                                 $NextQuestionId = '';
                                                 $menu_message = '';
                                                 $error_text = '';
-                                                writeToFile('Dishant Testinf 1');
 
                                                 if (isset($RecievedMessageArray['messages'][0]['type'])) {
                                                     $responsemessage_type = $RecievedMessageArray['messages'][0]['type'];
@@ -397,41 +395,74 @@ if (isset($response['entry'][0])) {
                                                                 $QuestionValidation = 1;
                                                             }
                                                         } elseif ($QuestionType == '8') {
-                                                            $QuestionValidation = 1;
-                                                            $datadates = json_decode($menu_message, true);
-                                                            $dateRangeValues = $datadates['date_range'];
-                                                            $dateFormate = strtoupper($datadates['date_output_format']);
-                                                            $dcount = 0;
-                                                            $startdate = '';
-                                                            $enddate = '';
-                                                            foreach ($dateRangeValues as $date) {
-                                                                $dcount++;
-                                                                if ($dcount == '1') {
-                                                                    $startdate = $date;
-                                                                    $startdate = (new \DateTime($startdate))->format('d-m-Y');
-                                                                } elseif ($dcount == '2') {
-                                                                    $enddate = $date;
-                                                                    $enddate = (new \DateTime($enddate))->format('d-m-Y');
+                                                            $jsonarry  = json_decode($menu_message, true);
+                                                            if(isset($jsonarry) && !empty($jsonarry) && isset($RecievedMessageArray['messages'][0]['interactive']['list_reply']['title'])){
+                                                                $start_dataf = $jsonarry['date_range'][0];
+                                                                $enddatef = $jsonarry['date_range'][1];
+                                                                if($jsonarry['period'][0]['future_days'] && $jsonarry['period'][0]['future_days'] != ''){
+                                                                    $future_days = $jsonarry['period'][0]['future_days'];
+                                                                    $enddatef = (new \DateTime($enddatef))->add(new \DateInterval('P'.$future_days.'D'))->format('Y-m-d');
                                                                 }
-                                                            }
-                                                            $validformate = 0;
-                                                            try {
-                                                                $dateObject = new \DateTime($RecievedMessageArray['messages'][0]['text']['body']);
-                                                                $validformate = 1;
-                                                            }catch (\Exception $e) {
-                                                                echo "Error: " . $e->getMessage();
-                                                            }
-                                                            if($validformate == '1' && $startdate !== ''){
-                                                                $dateToCheck = new \DateTime($RecievedMessageArray['messages'][0]['text']['body']);
-                                                                $startDate = new \DateTime($startdate);
-                                                                if($enddate != ''){
-                                                                    $endDate = new \DateTime($enddate);
-                                                                    if ($dateToCheck >= $startDate && $dateToCheck <= $endDate) {
-                                                                        $QuestionValidation = 0;
-                                                                    } 
-                                                                }else{
-                                                                    if ($dateToCheck >= $startDate) {
-                                                                        $QuestionValidation = 0;
+                                                                if(isset($jsonarry['period'][1]['past_days']) && $jsonarry['period'][1]['past_days'] != ''){
+                                                                    $past_days = $jsonarry['period'][1]['past_days'];
+                                                                    $start_dataf = (new \DateTime($start_dataf))->sub(new \DateInterval('P'.intval($past_days).'D'))->format('Y-m-d');
+                                                                }elseif(isset($jsonarry['period'][0]['past_days']) && $jsonarry['period'][0]['past_days'] != ''){
+                                                                    $past_days = $jsonarry['period'][0]['past_days'];
+                                                                    $start_dataf = (new \DateTime($start_dataf))->sub(new \DateInterval('P'.intval($past_days).'D'))->format('Y-m-d');
+                                                                }
+                                                                $start_dataf = \DateTime::createFromFormat('Y-m-d', $start_dataf);
+                                                                $enddatef = \DateTime::createFromFormat('Y-m-d', $enddatef);
+                                                                $interval = new \DateInterval('P1D');
+                                                                $date_range = new \DatePeriod($start_dataf, $interval, $enddatef->modify('+1 day'));
+                                                                $count  = 0;
+                                                                $arraytimeslots = '';
+                                                                foreach ($date_range as $date) {
+                                                                    $count ++ ;
+                                                                    $weekday = $date->format('D');
+                                                                    if (in_array(strtoupper($weekday), $jsonarry['weekdays'])) {
+                                                                        $ComDate = $date->format('d-m-Y');
+                                                                        if($ComDate == $RecievedMessageArray['messages'][0]['interactive']['list_reply']['title']){
+                                                                            $QuestionValidation = 0;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }else{
+                                                                $QuestionValidation = 1;
+                                                                $datadates = json_decode($menu_message, true);
+                                                                $dateRangeValues = $datadates['date_range'];
+                                                                $dateFormate = strtoupper($datadates['date_output_format']);
+                                                                $dcount = 0;
+                                                                $startdate = '';
+                                                                $enddate = '';
+                                                                foreach ($dateRangeValues as $date) {
+                                                                    $dcount++;
+                                                                    if ($dcount == '1') {
+                                                                        $startdate = $date;
+                                                                        $startdate = (new \DateTime($startdate))->format('d-m-Y');
+                                                                    } elseif ($dcount == '2') {
+                                                                        $enddate = $date;
+                                                                        $enddate = (new \DateTime($enddate))->format('d-m-Y');
+                                                                    }
+                                                                }
+                                                                $validformate = 0;
+                                                                try {
+                                                                    $dateObject = new \DateTime($RecievedMessageArray['messages'][0]['text']['body']);
+                                                                    $validformate = 1;
+                                                                }catch (\Exception $e) {
+                                                                    echo "Error: " . $e->getMessage();
+                                                                }
+                                                                if($validformate == '1' && $startdate !== ''){
+                                                                    $dateToCheck = new \DateTime($RecievedMessageArray['messages'][0]['text']['body']);
+                                                                    $startDate = new \DateTime($startdate);
+                                                                    if($enddate != ''){
+                                                                        $endDate = new \DateTime($enddate);
+                                                                        if ($dateToCheck >= $startDate && $dateToCheck <= $endDate) {
+                                                                            $QuestionValidation = 0;
+                                                                        } 
+                                                                    }else{
+                                                                        if ($dateToCheck >= $startDate) {
+                                                                            $QuestionValidation = 0;
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -472,19 +503,22 @@ if (isset($response['entry'][0])) {
                                                             }
                                                         }elseif($QuestionType == '9'){
                                                             $QuestionValidation = 1;
+                                                            $count  = 0;
+                                                            $SingleChoiseMsgID = '0';
                                                             $parsed_data = json_decode($menu_message, true);
                                                             $options_str = $parsed_data["options"];
                                                             $time_values = explode(';', $options_str);
                                                             $count  = 0;
+                                                            $arraytimeslots = '';
                                                             foreach ($time_values as $time_value) {
                                                                 $count ++ ;
-                                                                if($count == $RecievedMessageArray['messages'][0]['text']['body']){
+                                                                if($time_value == $RecievedMessageArray['messages'][0]['interactive']['list_reply']['title']){
                                                                     $QuestionValidation = 0;
+                                                                    $SingleChoiseMsgID = $item['next_questions'];
                                                                 }
-                                                            }
+                                                            }                                                            
                                                         }
                                                     } 
-
                                                     if ($QuestionValidation == '0') {
                                                         if (intval($NextQuestionId) > 0) {
                                                             if (isset($RecievedMessageArray['messages'][0]['interactive']['list_reply']['id']) && isset($SingleChoiseMsgID)) {
@@ -572,45 +606,133 @@ if (isset($response['entry'][0])) {
                                                                         $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '8','1', '" . $jsonmsg . "', '" . $BotNextQuestionDataArray['menu_message'] . "', '".$jsoneString."')");
                                                                     }
                                                                 } elseif ($NextQuestionType == '8') {
-                                                                    $textOfbody = strip_tags($BotNextQuestionDataArray['question']);
-                                                                    $textOfbody2 = strip_tags($BotNextQuestionDataArray['question']);
-                                                                    $datadates = json_decode($BotNextQuestionDataArray['menu_message'], true);
-                                                                    $dateRangeValues = $datadates['date_range'];
-                                                                    $dcount = 0;
-                                                                    $startdate = '';
-                                                                    $enddate = 'to till';
-                                                                    foreach ($dateRangeValues as $date) {
-                                                                        $dcount++;
-                                                                        if ($dcount == '1') {
-                                                                            $startdate = $date;
-                                                                        } elseif ($dcount == '2') {
-                                                                            $enddate = $date;
+                                                                    $jsonarry  = json_decode($BotNextQuestionDataArray['menu_message'], true);
+
+                                                                    $elsecondiondate = 0;
+                                                                    if(isset($jsonarry) && !empty($jsonarry)){
+                                                                        $start_dataf = $jsonarry['date_range'][0];
+                                                                        $enddatef = $jsonarry['date_range'][1];
+                                                                        if($jsonarry['period'][0]['future_days'] && $jsonarry['period'][0]['future_days'] != ''){
+                                                                            $future_days = $jsonarry['period'][0]['future_days'];
+                                                                            $enddatef = (new \DateTime($enddatef))->add(new \DateInterval('P'.$future_days.'D'))->format('Y-m-d');
                                                                         }
-                                                                    } 
-                                                                    if ($enddate != '') {
-                                                                        $textOfbody .= 'Please Enter the date between ' . (new \DateTime($startdate))->format('d-m-Y') . ' and ' . (new \DateTime($enddate))->format('d-m-Y') . ' in *' . strtoupper($datadates['date_output_format']) . '* formate.';
-                                                                        $textOfbody2 .= 'Please Enter the date between ' . (new \DateTime($startdate))->format('d-m-Y') . ' and ' . (new \DateTime($enddate))->format('d-m-Y') . ' in ' . strtoupper($datadates['date_output_format']) . ' formate.';
-                                                                    } elseif ($startdate) {
-                                                                        $textOfbody .= 'Please enter a date on or after ' . (new \DateTime($startdate))->format('d-m-Y') . ' in *' . strtoupper($datadates['date_output_format']) . '* formate.';
-                                                                        $textOfbody2 .= 'Please enter a date on or after ' . (new \DateTime($startdate))->format('d-m-Y') . ' in ' . strtoupper($datadates['date_output_format']) . ' formate.';
-                                                                    }
-                                                                    $JsonDataStringBoat = '{
-                                                                        "messaging_product": "whatsapp",
-                                                                        "recipient_type": "individual",
-                                                                        "to": "' . $sendercontact . '",
-                                                                        "type": "text",
-                                                                        "text": { 
-                                                                        "preview_url": false,
-                                                                        "body": "' . $textOfbody . '"
+                                                                        if(isset($jsonarry['period'][1]['past_days']) && $jsonarry['period'][1]['past_days'] != ''){
+                                                                            $past_days = $jsonarry['period'][1]['past_days'];
+                                                                            $start_dataf = (new \DateTime($start_dataf))->sub(new \DateInterval('P'.intval($past_days).'D'))->format('Y-m-d');
+                                                                        }elseif(isset($jsonarry['period'][0]['past_days']) && $jsonarry['period'][0]['past_days'] != ''){
+                                                                            $past_days = $jsonarry['period'][0]['past_days'];
+                                                                            $start_dataf = (new \DateTime($start_dataf))->sub(new \DateInterval('P'.intval($past_days).'D'))->format('Y-m-d');
                                                                         }
-                                                                    }';
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
-                                                                    $Result = postSocialData($url, $JsonDataStringBoat);
-                                                                    $ReturnResult = $Result;
-                                                                    $jsonmsg = '{"body":' . json_encode($textOfbody2) . '}';
-                                                                    if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
+                                                                        $start_dataf = \DateTime::createFromFormat('Y-m-d', $start_dataf);
+                                                                        $enddatef = \DateTime::createFromFormat('Y-m-d', $enddatef);
+                                                                        $interval = new \DateInterval('P1D');
+                                                                        $date_range = new \DatePeriod($start_dataf, $interval, $enddatef->modify('+1 day'));
+                                                                        $count  = 0;
+                                                                        $arraytimeslots = '';
+
+                                                                        foreach ($date_range as $date) {
+                                                                            $weekday = $date->format('D');
+                                                                            if (in_array(strtoupper($weekday), $jsonarry['weekdays'])) {
+                                                                                $count ++ ;
+
+                                                                                $ComDate = $date->format('d-m-Y');
+                                                                                $arraytimeslots .= '
+                                                                                    {
+                                                                                        "id": "' . $count . '",
+                                                                                        "title": "' . $ComDate . '",
+                                                                                        "description": ""
+                                                                                    },
+                                                                                ';
+                                                                            }
+                                                                        }
+
+
+                                                                        if(intval($count) <= 10){
+                                                                            $JsonDataStringBoat = '
+                                                                                {
+                                                                                    "messaging_product": "whatsapp",
+                                                                                    "recipient_type": "individual",
+                                                                                    "to": "' . $sendercontact . '",
+                                                                                    "type": "interactive",
+                                                                                    "interactive": {
+                                                                                    "type": "list",
+                                                                                    "body": {
+                                                                                        "text": "' . strip_tags($BotNextQuestionDataArray['question']) . '"
+                                                                                    },
+                                                                                    "action": {
+                                                                                        "button": "Select",
+                                                                                        "sections": [
+                                                                                            {
+                                                                                                "title": "Select Product",
+                                                                                                "rows": [
+                                                                                                            ' . $arraytimeslots . '
+                                                                                                ]
+                                                                                            },
+                                                                                        ]
+                                                                                    }
+                                                                                    }
+                                                                                }
+                                                                            ';
+                                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                            $Result = postSocialData($url, $JsonDataStringBoat);
+                                                                            $ReturnResult = $Result;
+                                                                            $jsonmsg = '{"body":' . json_encode(strip_tags($BotNextQuestionDataArray['question'])) . '}';
+                                                                            if (isset($ReturnResult['messages'][0]['id'])) {
+                                                                                $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '12','1', '" . $jsonmsg . "', '" . $BotNextQuestionDataArray['menu_message'] . "', '".$JsonDataStringBoat."')");
+                                                                            }
+                                                                        }else{
+                                                                            $elsecondiondate = 1;
+                                                                        }
+                                                                    }else{
+                                                                        $elsecondiondate = 1;   
                                                                     }
+
+
+
+                                                                    if($elsecondiondate == "1"){
+                                                                        $textOfbody = strip_tags($BotNextQuestionDataArray['question']);
+                                                                        $textOfbody2 = strip_tags($BotNextQuestionDataArray['question']);
+                                                                        $datadates = json_decode($BotNextQuestionDataArray['menu_message'], true);
+                                                                        $dateRangeValues = $datadates['date_range'];
+                                                                        $dcount = 0;
+                                                                        $startdate = '';
+                                                                        $enddate = 'to till';
+                                                                        foreach ($dateRangeValues as $date) {
+                                                                            $dcount++;
+                                                                            if ($dcount == '1') {
+                                                                                $startdate = $date;
+                                                                            } elseif ($dcount == '2') {
+                                                                                $enddate = $date;
+                                                                            }
+                                                                        } 
+                                                                        if ($enddate != '') {
+                                                                            $textOfbody .= 'Please Enter the date between ' . (new \DateTime($startdate))->format('d-m-Y') . ' and ' . (new \DateTime($enddate))->format('d-m-Y') . ' in *' . strtoupper($datadates['date_output_format']) . '* formate.';
+                                                                            $textOfbody2 .= 'Please Enter the date between ' . (new \DateTime($startdate))->format('d-m-Y') . ' and ' . (new \DateTime($enddate))->format('d-m-Y') . ' in ' . strtoupper($datadates['date_output_format']) . ' formate.';
+                                                                        } elseif ($startdate) {
+                                                                            $textOfbody .= 'Please enter a date on or after ' . (new \DateTime($startdate))->format('d-m-Y') . ' in *' . strtoupper($datadates['date_output_format']) . '* formate.';
+                                                                            $textOfbody2 .= 'Please enter a date on or after ' . (new \DateTime($startdate))->format('d-m-Y') . ' in ' . strtoupper($datadates['date_output_format']) . ' formate.';
+                                                                        }
+                                                                        $JsonDataStringBoat = '{
+                                                                            "messaging_product": "whatsapp",
+                                                                            "recipient_type": "individual",
+                                                                            "to": "' . $sendercontact . '",
+                                                                            "type": "text",
+                                                                            "text": { 
+                                                                            "preview_url": false,
+                                                                            "body": "' . $textOfbody . '"
+                                                                            }
+                                                                        }';
+                                                                        $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                        $Result = postSocialData($url, $JsonDataStringBoat);
+                                                                        $ReturnResult = $Result;
+                                                                        $jsonmsg = '{"body":' . json_encode($textOfbody2) . '}';
+                                                                        if (isset($ReturnResult['messages'][0]['id'])) {
+                                                                            $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
+                                                                        }
+                                                                    }
+
+
+
                                                                 }elseif ($NextQuestionType == '11') {
                                                                     $textOfbody = strip_tags($BotNextQuestionDataArray['question']);
                                                                     $textOfbody2 = strip_tags($BotNextQuestionDataArray['question']);
@@ -735,35 +857,57 @@ if (isset($response['entry'][0])) {
                                                                     if (isset($ReturnResult['messages'][0]['id'])) {
                                                                         $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '9','1', '".$textOfbody."', '".$JsonDataStringBoat."')");
                                                                     }
+
+
+
                                                                 }elseif($NextQuestionType == '9'){
-                                                                    $textOfbody = strip_tags($BotNextQuestionDataArray['question']);
-                                                                    $textOfbody1 = strip_tags($BotNextQuestionDataArray['question']);
                                                                     $parsed_data = json_decode($BotNextQuestionDataArray['menu_message'], true);
                                                                     $options_str = $parsed_data["options"];
                                                                     $time_values = explode(';', $options_str);
                                                                     $count  = 0;
+                                                                    $arraytimeslots = '';
                                                                     foreach ($time_values as $time_value) {
                                                                         $count ++ ;
-                                                                        $textOfbody .= '*'.$count.'.* '.$time_value.' ';
-                                                                        $textOfbody1 .= ''.$count.'. '.$time_value.' ';
+                                                                        $arraytimeslots .= '
+                                                                                        {
+                                                                                            "id": "' . $count . '",
+                                                                                            "title": "' . $time_value . '",
+                                                                                            "description": ""
+                                                                                        },
+                                                                        ';
                                                                     }
 
-                                                                    $JsonDataStringBoat = '{
-                                                                        "messaging_product": "whatsapp",
-                                                                        "recipient_type": "individual",
-                                                                        "to": "' . $sendercontact . '",
-                                                                        "type": "text",
-                                                                        "text": { 
-                                                                        "preview_url": false,
-                                                                        "body": "' . $textOfbody . '"
+                                                                    $JsonDataStringBoat = '
+                                                                        {
+                                                                            "messaging_product": "whatsapp",
+                                                                            "recipient_type": "individual",
+                                                                            "to": "' . $sendercontact . '",
+                                                                            "type": "interactive",
+                                                                            "interactive": {
+                                                                            "type": "list",
+                                                                            "body": {
+                                                                                "text": "' . strip_tags($BotNextQuestionDataArray['question']) . '"
+                                                                            },
+                                                                            "action": {
+                                                                                "button": "Select",
+                                                                                "sections": [
+                                                                                    {
+                                                                                        "title": "Select Product",
+                                                                                        "rows": [
+                                                                                                    ' . $arraytimeslots . '
+                                                                                        ]
+                                                                                    },
+                                                                                ]
+                                                                            }
+                                                                            }
                                                                         }
-                                                                    }';
+                                                                    ';
                                                                     $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
-                                                                    $jsonmsg = '{"body":' . json_encode($textOfbody1) . '}';
+                                                                    $jsonmsg = '{"body":' . json_encode(strip_tags($BotNextQuestionDataArray['question'])) . '}';
                                                                     if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
+                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '11','1', '" . $jsonmsg . "', '" . $BotNextQuestionDataArray['menu_message'] . "', '".$JsonDataStringBoat."')");
                                                                     }
                                                                 }elseif($NextQuestionType == '4'){
                                                                     $textOfbody = strip_tags($BotNextQuestionDataArray['question']);
@@ -796,55 +940,6 @@ if (isset($response['entry'][0])) {
                                                                         $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
                                                                     }
                                                                 } 
-                                                                
-                                                                // else if ($QuestionType == '42') {
-                                                                //     // here 
-                                                                //     if (isset($RecievedMessageArray['messages'][0]['id'])) {
-                                                                //         $jsonData = json_decode($menu_message, true);
-                                                                //         $test = $jsonData['options_value']['options'];
-                                                                //         $parts = explode(";", $test);
-                                                                //         // pre($parts);
-                                                                //         $JsonDataStringBoat = '
-                                                                //             {
-                                                                //                 "messaging_product": "whatsapp",
-                                                                //                 "recipient_type": "individual",
-                                                                //                 "to": "' . $sendercontact . '",
-                                                                //                 "type": "interactive",
-                                                                //                 "interactive": {
-                                                                //                   "type": "button",
-                                                                //                   "body": {
-                                                                //                     "text": "BUTTON_TEXT"
-                                                                //                   },
-                                                                //                   "action": {
-                                                                //                     "buttons": [';
-                                                                //         foreach ($parts as $key => $part) {
-                                                                //             $JsonDataStringBoat .= '{
-                                                                //                       "type": "reply",
-                                                                //                       "reply": {
-                                                                //                         "id": "' . $key . '",
-                                                                //                         "title": "' . $part . '"
-                                                                //                       }
-                                                                //                     },';
-                                                                //         }
-                                                                //         $JsonDataStringBoat .= '
-                                                                //                   ]
-                                                                //                 }
-                                                                //               }
-                                                                //             }';
-                                                                //         $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
-                                                                //         $Result = postSocialData($url, $JsonDataStringBoat);
-                                                                //         // new
-                                                                //         if (isset($response['entry'][0]['changes'][0]['value']['messages'][0]['interactive']['button_reply'])) {
-                                                                //             $QuestionValidation = 0;
-                                                                //         } else {
-                                                                //             $QuestionValidation = 1;
-                                                                //         }
-                                                                //         // pre($QuestionValidation);
-                                                                //         // pre($Result);
-                                                                //         // pre(filter_var($RecievedMessageArray));
-                                                                //     }
-                                                                //     // die();
-                                                                // }
                                                                 $db_connection->query("UPDATE `" . $result_value['username'] . "_platform_assets` SET `whatsapp_name`='" . $name . "', `boat_question_id` = '" . $BotNextQuestionDataArray['id'] . "' WHERE id = " . $SocialAccountDataCountArray['id'] . "");
 
                                                                 if($NextQuestionType == '22'){
@@ -992,45 +1087,127 @@ if (isset($response['entry'][0])) {
                                                                 $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '8','1', '" . $jsonmsg . "', '" . $BotNextQuestionDataArray['menu_message'] . "', '".$jsoneString."' )");
                                                             }
                                                         } elseif ($QuestionType == '8') {
-                                                            $textOfbody = strip_tags($final_error_text);
-                                                            $textOfbody2 = strip_tags($final_error_text);
-                                                            $datadates = json_decode($menu_message, true);
-                                                            $dateRangeValues = $datadates['date_range'];
-                                                            $dcount = 0;
-                                                            $startdate = '';
-                                                            $enddate = 'to till';
-                                                            foreach ($dateRangeValues as $date) {
-                                                                $dcount++;
-                                                                if ($dcount == '1') {
-                                                                    $startdate = $date;
-                                                                } elseif ($dcount == '2') {
-                                                                    $enddate = $date;
+                                                            $elsecondiondate = 0;
+
+                                                            $jsonarry  = json_decode($menu_message, true);
+                                                            if(isset($jsonarry) && !empty($jsonarry)){
+                                                                $start_dataf = $jsonarry['date_range'][0];
+                                                                $enddatef = $jsonarry['date_range'][1];
+                                                                if($jsonarry['period'][0]['future_days'] && $jsonarry['period'][0]['future_days'] != ''){
+                                                                    $future_days = $jsonarry['period'][0]['future_days'];
+                                                                    $enddatef = (new \DateTime($enddatef))->add(new \DateInterval('P'.$future_days.'D'))->format('Y-m-d');
                                                                 }
-                                                            } 
-                                                            if ($enddate != '') {
-                                                                $textOfbody .= 'Please Enter the date between ' . (new \DateTime($startdate))->format('d-m-Y') . ' and ' . (new \DateTime($enddate))->format('d-m-Y') . ' in *' . strtoupper($datadates['date_output_format']) . '* formate.';
-                                                                $textOfbody2 .= 'Please Enter the date between ' . (new \DateTime($startdate))->format('d-m-Y') . ' and ' . (new \DateTime($enddate))->format('d-m-Y') . ' in ' . strtoupper($datadates['date_output_format']) . ' formate.';
-                                                            } elseif ($startdate) {
-                                                                $textOfbody .= 'Please enter a date on or after ' . (new \DateTime($startdate))->format('d-m-Y') . ' in *' . strtoupper($datadates['date_output_format']) . '* formate.';
-                                                                $textOfbody2 .= 'Please enter a date on or after ' . (new \DateTime($startdate))->format('d-m-Y') . ' in ' . strtoupper($datadates['date_output_format']) . ' formate.';
-                                                            }
-                                                            $JsonDataStringBoat = '{
-                                                                "messaging_product": "whatsapp",
-                                                                "recipient_type": "individual",
-                                                                "to": "' . $sendercontact . '",
-                                                                "type": "text",
-                                                                "text": { 
-                                                                "preview_url": false,
-                                                                "body": "' . $textOfbody . '"
+                                                                if(isset($jsonarry['period'][1]['past_days']) && $jsonarry['period'][1]['past_days'] != ''){
+                                                                    $past_days = $jsonarry['period'][1]['past_days'];
+                                                                    $start_dataf = (new \DateTime($start_dataf))->sub(new \DateInterval('P'.intval($past_days).'D'))->format('Y-m-d');
+                                                                }elseif(isset($jsonarry['period'][0]['past_days']) && $jsonarry['period'][0]['past_days'] != ''){
+                                                                    $past_days = $jsonarry['period'][0]['past_days'];
+                                                                    $start_dataf = (new \DateTime($start_dataf))->sub(new \DateInterval('P'.intval($past_days).'D'))->format('Y-m-d');
                                                                 }
-                                                            }';
-                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
-                                                            $Result = postSocialData($url, $JsonDataStringBoat);
-                                                            $ReturnResult = $Result;
-                                                            $jsonmsg = '{"body":' . json_encode($textOfbody2) . '}';
-                                                            if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
+                                                                $start_dataf = \DateTime::createFromFormat('Y-m-d', $start_dataf);
+                                                                $enddatef = \DateTime::createFromFormat('Y-m-d', $enddatef);
+                                                                $interval = new \DateInterval('P1D');
+                                                                $date_range = new \DatePeriod($start_dataf, $interval, $enddatef->modify('+1 day'));
+                                                                $count  = 0;
+                                                                $arraytimeslots = '';
+                                                                foreach ($date_range as $date) {
+                                                                    $weekday = $date->format('D');
+                                                                    if (in_array(strtoupper($weekday), $jsonarry['weekdays'])) {
+                                                                        $count ++ ;
+                                                                        $ComDate = $date->format('d-m-Y');
+                                                                        $arraytimeslots .= '
+                                                                            {
+                                                                                "id": "' . $count . '",
+                                                                                "title": "' . $ComDate . '",
+                                                                                "description": ""
+                                                                            },
+                                                                        ';
+                                                                    }
+                                                                }
+
+                                                                if(intval($count) <= 10){
+                                                                    $JsonDataStringBoat = '
+                                                                        {
+                                                                            "messaging_product": "whatsapp",
+                                                                            "recipient_type": "individual",
+                                                                            "to": "' . $sendercontact . '",
+                                                                            "type": "interactive",
+                                                                            "interactive": {
+                                                                            "type": "list",
+                                                                            "body": {
+                                                                                "text": "' . strip_tags($final_error_text) . '"
+                                                                            },
+                                                                            "action": {
+                                                                                    "button": "Select",
+                                                                                    "sections": [
+                                                                                        {
+                                                                                            "title": "Select Product",
+                                                                                            "rows": [
+                                                                                                        ' . $arraytimeslots . '
+                                                                                            ]
+                                                                                        },
+                                                                                    ]
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    ';
+                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $Result = postSocialData($url, $JsonDataStringBoat);
+                                                                    $ReturnResult = $Result;
+                                                                    $jsonmsg = '{"body":' . json_encode(strip_tags($final_error_text)) . '}';
+                                                                    if (isset($ReturnResult['messages'][0]['id'])) {
+                                                                        $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '12','1', '" . $jsonmsg . "', '" . $menu_message . "', '".$JsonDataStringBoat."')");
+                                                                    }
+                                                                }else{
+                                                                    $elsecondiondate == 1;
+                                                                }
+                                                            }else{
+                                                                $elsecondiondate == 1;
                                                             }
+
+                                                            if($elsecondiondate == '1'){
+                                                                $textOfbody = strip_tags($final_error_text);
+                                                                $textOfbody2 = strip_tags($final_error_text);
+                                                                $datadates = json_decode($menu_message, true);
+                                                                $dateRangeValues = $datadates['date_range'];
+                                                                $dcount = 0;
+                                                                $startdate = '';
+                                                                $enddate = 'to till';
+                                                                foreach ($dateRangeValues as $date) {
+                                                                    $dcount++;
+                                                                    if ($dcount == '1') {
+                                                                        $startdate = $date;
+                                                                    } elseif ($dcount == '2') {
+                                                                        $enddate = $date;
+                                                                    }
+                                                                } 
+                                                                if ($enddate != '') {
+                                                                    $textOfbody .= 'Please Enter the date between ' . (new \DateTime($startdate))->format('d-m-Y') . ' and ' . (new \DateTime($enddate))->format('d-m-Y') . ' in *' . strtoupper($datadates['date_output_format']) . '* formate.';
+                                                                    $textOfbody2 .= 'Please Enter the date between ' . (new \DateTime($startdate))->format('d-m-Y') . ' and ' . (new \DateTime($enddate))->format('d-m-Y') . ' in ' . strtoupper($datadates['date_output_format']) . ' formate.';
+                                                                } elseif ($startdate) {
+                                                                    $textOfbody .= 'Please enter a date on or after ' . (new \DateTime($startdate))->format('d-m-Y') . ' in *' . strtoupper($datadates['date_output_format']) . '* formate.';
+                                                                    $textOfbody2 .= 'Please enter a date on or after ' . (new \DateTime($startdate))->format('d-m-Y') . ' in ' . strtoupper($datadates['date_output_format']) . ' formate.';
+                                                                }
+                                                                $JsonDataStringBoat = '{
+                                                                    "messaging_product": "whatsapp",
+                                                                    "recipient_type": "individual",
+                                                                    "to": "' . $sendercontact . '",
+                                                                    "type": "text",
+                                                                    "text": { 
+                                                                    "preview_url": false,
+                                                                    "body": "' . $textOfbody . '"
+                                                                    }
+                                                                }';
+                                                                $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                $Result = postSocialData($url, $JsonDataStringBoat);
+                                                                $ReturnResult = $Result;
+                                                                $jsonmsg = '{"body":' . json_encode($textOfbody2) . '}';
+                                                                if (isset($ReturnResult['messages'][0]['id'])) {
+                                                                    $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
+                                                                }
+                                                            }
+
+
                                                         } elseif ($QuestionType == '11') {
                                                             $textOfbody = strip_tags($final_error_text);
                                                             $textOfbody2 = strip_tags($final_error_text);
@@ -1129,34 +1306,84 @@ if (isset($response['entry'][0])) {
                                                                         $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '9','1', '".$textOfbody."', '".$JsonDataStringBoat."')");
                                                                     }
                                                         }elseif($QuestionType == '9'){
-                                                            $textOfbody = strip_tags($final_error_text);
-                                                            $textOfbody1 = strip_tags($final_error_text);
                                                             $parsed_data = json_decode($menu_message, true);
                                                             $options_str = $parsed_data["options"];
                                                             $time_values = explode(';', $options_str);
                                                             $count  = 0;
+                                                            $arraytimeslots = '';
                                                             foreach ($time_values as $time_value) {
                                                                 $count ++ ;
-                                                                $textOfbody .= '*'.$count.'.* '.$time_value.' ';
-                                                                $textOfbody1 .= ''.$count.'. '.$time_value.' ';
+                                                                $arraytimeslots .= '
+                                                                                {
+                                                                                    "id": "' . $count . '",
+                                                                                    "title": "' . $time_value . '",
+                                                                                    "description": ""
+                                                                                },
+                                                                ';
                                                             }
-                                                            $JsonDataStringBoat = '{
-                                                                "messaging_product": "whatsapp",
-                                                                "recipient_type": "individual",
-                                                                "to": "' . $sendercontact . '",
-                                                                "type": "text",
-                                                                "text": { 
-                                                                "preview_url": false,
-                                                                "body": "' . $textOfbody . '"
+
+                                                            $JsonDataStringBoat = '
+                                                                {
+                                                                    "messaging_product": "whatsapp",
+                                                                    "recipient_type": "individual",
+                                                                    "to": "' . $sendercontact . '",
+                                                                    "type": "interactive",
+                                                                    "interactive": {
+                                                                    "type": "list",
+                                                                    "body": {
+                                                                        "text": "' . strip_tags($final_error_text) . '"
+                                                                    },
+                                                                    "action": {
+                                                                        "button": "Select",
+                                                                        "sections": [
+                                                                            {
+                                                                                "title": "Select Product",
+                                                                                "rows": [
+                                                                                            ' . $arraytimeslots . '
+                                                                                ]
+                                                                            },
+                                                                        ]
+                                                                    }
+                                                                    }
                                                                 }
-                                                            }';
+                                                            ';
                                                             $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
                                                             $Result = postSocialData($url, $JsonDataStringBoat);
                                                             $ReturnResult = $Result;
-                                                            $jsonmsg = '{"body":' . json_encode($textOfbody1) . '}';
+                                                            $jsonmsg = '{"body":' . json_encode(strip_tags($final_error_text)) . '}';
                                                             if (isset($ReturnResult['messages'][0]['id'])) {
-                                                                $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
+                                                                $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`, `assest_id`, `asset_file_name`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '11','1', '" . $jsonmsg . "', '" . $menu_message . "', '".$JsonDataStringBoat."')");
                                                             }
+
+
+                                                            // $textOfbody = strip_tags($final_error_text);
+                                                            // $textOfbody1 = strip_tags($final_error_text);
+                                                            // $parsed_data = json_decode($menu_message, true);
+                                                            // $options_str = $parsed_data["options"];
+                                                            // $time_values = explode(';', $options_str);
+                                                            // $count  = 0;
+                                                            // foreach ($time_values as $time_value) {
+                                                            //     $count ++ ;
+                                                            //     $textOfbody .= '*'.$count.'.* '.$time_value.' ';
+                                                            //     $textOfbody1 .= ''.$count.'. '.$time_value.' ';
+                                                            // }
+                                                            // $JsonDataStringBoat = '{
+                                                            //     "messaging_product": "whatsapp",
+                                                            //     "recipient_type": "individual",
+                                                            //     "to": "' . $sendercontact . '",
+                                                            //     "type": "text",
+                                                            //     "text": { 
+                                                            //     "preview_url": false,
+                                                            //     "body": "' . $textOfbody . '"
+                                                            //     }
+                                                            // }';
+                                                            // $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                            // $Result = postSocialData($url, $JsonDataStringBoat);
+                                                            // $ReturnResult = $Result;
+                                                            // $jsonmsg = '{"body":' . json_encode($textOfbody1) . '}';
+                                                            // if (isset($ReturnResult['messages'][0]['id'])) {
+                                                            //     $db_connection->query("INSERT INTO `" . $result_value['username'] . "_messages`(`contact_no`, `platform_account_id`, `message_status`, `created_at`,`conversation_id`, `platform_status`, `sent_date_time`, `message_type`, `sent_recieved_status`, `message_contant`) VALUES ('" . $sendercontact . "', '" . $conversation_account_id . "','0', '" . gmdate('Y-m-d H:i:s') . "', '" . $ReturnResult['messages'][0]['id'] . "', '1', '" . gmdate('Y-m-d H:i:s') . "', '1','1', '" . $jsonmsg . "')");
+                                                            // }
                                                         }elseif($QuestionType == '4'){
                                                             $textOfbody = strip_tags($final_error_text) .'
                                                             ';
