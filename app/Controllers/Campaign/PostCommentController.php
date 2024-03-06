@@ -196,11 +196,11 @@ class PostCommentController extends BaseController
                     'access_token' => $access_token,
                     'massage' => $event_address
                 ),
-                $feed_post_array
+                // $feed_post_array
             );
 
             curl_setopt_array($curll, array(
-                CURLOPT_URL => 'https://graph.facebook.com/v19.0/' .  $data . '/feed',
+                CURLOPT_URL => 'https://graph.facebook.com/v19.0/' .  $page_id . '/feed',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
