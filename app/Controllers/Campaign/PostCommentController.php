@@ -51,7 +51,16 @@ class PostCommentController extends BaseController
 // pre($get_page_data);
 
             $page_id = '196821650189891';
+
+            if(isset($_POST['pagee_id']) && $_POST['pagee_id'] != ''){
+                $page_id = $_POST['pagee_id'];
+            }
             $access_token = 'EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+           
+            if(isset($_POST['access_tocken']) && $_POST['access_tocken'] != ''){
+                $access_token = $_POST['access_tocken'];
+            }
+           
             $event_address = $_POST['event_address'];
             $attachments = $_FILES['attachment'];
             // Initialize cURL session
