@@ -141,7 +141,7 @@ class Home extends BaseController
     }
     public function assign_assets()
     {
-        return view('assign_assets');
+        return view('campaign/assign_assets');
     }
 
     public function whatappaakash()
@@ -217,8 +217,6 @@ class Home extends BaseController
 
 
         $table_username = session_username($_SESSION['username']);
-
-
         $messages = [
             'id int(255) primary key AUTO_INCREMENT',
             'contact_no varchar(255) NOT NULL',
@@ -261,8 +259,8 @@ class Home extends BaseController
             'templatearray longtext ',
             'connection_id int(255) NOT NULL'
         ];
-
         $table = tableCreateAndTableUpdate2($table_username . '_sent_message_detail', '', $admin_sent_message_detail);
+        
         // $table_username = getMasterUsername();
         $table_name100 = $table_username . '_email_track';
         $columns100 = [
