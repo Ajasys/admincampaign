@@ -754,9 +754,23 @@ if (!empty($connections)) {
                                                                                 Template</option>
                                                                         </select>
                                                                     </div>
-                                                                    <div class="col-12 mb-3 mt-2">
+                                                                    <!-- <div class="col-12 mb-3 mt-2">
                                                                         <input type="number" id="mobile_code" class="form-control phone_number_div" minlength="10" maxlength="10" onkeyup="if (/D/g.test(this.value)) this.value = this.value.replace(/D/g,'')" placeholder="Enter Your Phone Number" name="name" required>
-                                                                    </div>
+                                                                    </div> -->
+
+
+                                                                    <div class="col-12 mb-3 mt-2">
+                                                            
+                                                                    <input type="number" minlength="10" maxlength="10" onkeyup="if (/D/g.test(this.value)) this.value = this.value.replace(/D/g,'')"
+                                                                        class="form-control main-control phone_number_div" id="mobile_code" name="phone_no" placeholder="Mobile No." value="" data-phone_id="" required='' />
+                                                                    <p class="mobilevalidationclass" style="color:red !important"></p>
+                                                            </div>
+
+
+
+
+                                                                    
+
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <select class="form-control main-control language_div" id="language" name="language" disabled required>
                                                                             <option class="fs-12" label="Language" value=""></option>
@@ -1833,6 +1847,19 @@ if (!empty($connections)) {
     </div>
     <!-- view sent msg -->
     <?= $this->include('partials/footer') ?>
+
+    <script>
+            $('.phone_number_div').on('input', function() {
+                var number = $(this).val();
+                  
+                    if (number.length > 10) {
+                        $(this).val(number.slice(0, 10));
+                    }
+
+            });
+
+</script>
+
     <script>
         $('#Template_nameId').on('input', function() {
             var templateName = $(this).val();
@@ -1918,23 +1945,23 @@ if (!empty($connections)) {
         $('body').on('click', '.WhatsAppTemplateModelViewBtn', function() {
             // $('#view_modal').modal('show');
             $('.EditTemplateButtonClass').removeClass('d-none');
-            $('.inputypeBody').val('');
+            // $('.inputypeBody').val('');
             $('.emptyname').addClass('d-none')
             $('.CheckTemplateNameAlertPTag').addClass('d-none')
             $('.Add_editModelTitle').addClass('d-none')
             $('#sendbtn').addClass('d-none')
             $('.inputypeBody').addClass('d-none')
             var Body1 = $(this).attr('Bodytext');
-            $('.msg-text-chat').text(Body1);
-
-            console.log(Body1);
+            
+            // console.log(Body1);
             var Bodytextvalue = JSON.parse($(this).attr('Bodytextvalue'));
-
+            
             for (var i = 0; i < Bodytextvalue.length; i++) {
                 var placeholder = new RegExp('{{[' + (i + 1) + ']}}', 'g');
                 Body1 = Body1.replace(placeholder, '{{' + Bodytextvalue[i] + '}}');
-
+                
             }
+            $('.msg-text-chat').text(Body1);
 
 
 
@@ -2401,7 +2428,7 @@ if (!empty($connections)) {
                 },
                 success: function(res) {
                     var response = JSON.parse(res);
-                    console.log(response);
+                    // console.log(response);
                     $('.Template_name').val(response[0].template_name);
                     $('.category_div').val(response[0].category_types);
                     $('.language_div').val(response[0].language);
@@ -2438,7 +2465,7 @@ if (!empty($connections)) {
                     reverseButtons: true
                 }).then(function(result) {
                     if (result.value) {
-                        console.log(id);
+                        // console.log(id);
                         $.ajax({
                             method: "post",
                             url: "<?= site_url('WhatsAppRTemplateDeleteRequest'); ?>",
@@ -2609,7 +2636,7 @@ if (!empty($connections)) {
                                     var bodydivvalue = $(this).val();
                                     bodydivvalues.push(bodydivvalue);
                                 });
-                                console.log(bodydivvalues);
+                                // console.log(bodydivvalues);
                                 // var bodydivvalue = $('.inputypeBody').val();
                                 // console.log(bodydivvalue);
                                 var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
@@ -2806,7 +2833,7 @@ if (!empty($connections)) {
                         var bodydivvalue = $(this).val();
                         bodydivvalues.push(bodydivvalue);
                     });
-                    console.log(bodydivvalues);
+                    // console.log(bodydivvalues);
                     var buttontype = $('select.ButtonSelctionDropDown option:selected').attr('DataStaticId');
                     var QuickArray = [];
                     if (buttontype == '1') {} else if (buttontype == '2') {
@@ -3383,6 +3410,7 @@ if (!empty($connections)) {
                     'connectionid': WhatsAppConnectionsDropDown,
                 },
                 success: function(res) {
+                    // console.log(res);
                     var data = res;
                     var name = data.name;
                     var category = data.category;
@@ -3391,11 +3419,50 @@ if (!empty($connections)) {
                     var footer = '';
                     data.components.forEach(component => {
                         var type = component.type;
+
+
+                        // if (type == 'BODY') {
+                        //     if (component.text) {
+                        //         body1 = component.text;
+                        //     }
+                        // }
+
+                        // if (type == 'BODY') {
+                        //     var body1 = component.text;
+                        //     var placeholders = body1.match(/{{\d+}}/g);
+                        //     var values = component.example.body_text[0];
+
+                        //     placeholders.forEach((placeholder, index) => {
+                        //         body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
+                        //     });
+                        //     $('.TemplateBodyClass').val(body1);
+
+                     
+                        // }
+
                         if (type == 'BODY') {
                             if (component.text) {
-                                body = component.text;
+                                var body1 = component.text;
+                                var placeholders = body1.match(/{{\d+}}/g);
+
+                                if (component.example && component.example.body_text && component.example.body_text.length > 0) {
+                                    var values = component.example.body_text[0];
+
+                                    placeholders.forEach((placeholder, index) => {
+                                        body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
+                                    });
+                                }
+
+                                $('.TemplateBodyClass').val(body1);
+                            } else {
+                            
+                                console.log("No text found in component.");
                             }
                         }
+
+
+
+
                         if (type == 'FOOTER') {
                             if (component.text) {
                                 footer = component.text;
@@ -3473,7 +3540,6 @@ if (!empty($connections)) {
                     $('.TemplateCategorySelectionDiv').selectpicker('refresh');
                     $('.TemplateLanguageDDList').val(language);
                     $('.TemplateLanguageDDList').selectpicker('refresh');
-                    $('.TemplateBodyClass').val(body);
                     $('.FotterTextDIvClass').val(footer);
                     $('.loader').hide();
                     $('.Template_name_varification').prop("disabled", true);
@@ -3551,46 +3617,43 @@ if (!empty($connections)) {
 
                         var type = component.type;
 
-                        // if (type == 'BODY') {
-                        //     var bodyvalue = component.example.body_text;
-                        //    console.log(bodyvalue);
-                        // }
-
+                
                         // if (type == 'BODY') {
                         //     var body1 = component.text;
+                        //     var placeholders = body1.match(/{{\d+}}/g);
+                        //     var values = component.example.body_text[0];
 
-                        //     $('.body_div').val(body);
-                        //     $('.msg-text-chat').text(body);
+                        //     placeholders.forEach((placeholder, index) => {
+                        //         body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
+                        //     });
+
+                        //     $('.body_div').val(body1);
+                        //     $('.msg-text-chat').text(body1);
                         // }
 
                         if (type == 'BODY') {
-                            var body1 = component.text;
-                            var placeholders = body1.match(/{{\d+}}/g);
-                            var values = component.example.body_text[0];
+                            if (component.text) {
+                                var body1 = component.text;
+                                var placeholders = body1.match(/{{\d+}}/g);
 
-                            placeholders.forEach((placeholder, index) => {
-                                body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
-                            });
+                                if (component.example && component.example.body_text && component.example.body_text.length > 0) {
+                                    var values = component.example.body_text[0];
 
+                                    placeholders.forEach((placeholder, index) => {
+                                        body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
+                                    });
+                                }
+
+                                
                             $('.body_div').val(body1);
                             $('.msg-text-chat').text(body1);
+
+                            } else {
+                            
+                                console.log("No text found in component.");
+                            }
                         }
 
-
-
-                        // if (type == 'BODY') {
-                        //     if (component.text) {
-                        //         body = component.text;
-                        //     }
-                        // }
-                        // if (type == 'BODY' && /{{(\d+)}}/g.test(component.text)) {
-                        //     body = component.text;
-                        //     $('.body_div').val(body);
-
-                        // } else {
-                        //     body = component.text;
-                        //     $('.body_div').val(body);
-                        // }
 
 
 
