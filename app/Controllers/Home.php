@@ -84,7 +84,7 @@ class Home extends BaseController
 
         $data['connections'] = $responseArray;
         $data['language_name'] = $this->MasterInformationModel->display_all_records2('master_languages');
-        return view('whatapp', $data);
+        return view('campaign/whatapp', $data);
     }
     // =====assets-permisssion-page===
     public function asses_permissions()
@@ -133,7 +133,7 @@ class Home extends BaseController
         $data['hometoaccesstoken'] = $access_token;
         // pre
         // $data = json_encode($data);
-        return view('post_comments', $data);
+        return view('campaign/post_comments', $data);
     }
     public function posts()
     {
@@ -192,7 +192,7 @@ class Home extends BaseController
     {
         $table_username = session_username($_SESSION['username']);
         $data['admin_bot'] = $this->MasterInformationModel->display_all_records2($table_username . '_bot');
-        return view('whatsapp_connections', $data);
+        return view('campaign/whatsapp_connections', $data);
     }
 
     public function redirect_link()
@@ -583,7 +583,7 @@ class Home extends BaseController
             'active int DEFAULT 0 NOT NULL',
         ];
         tableCreateAndTableUpdate2($table_name, '', $columns);
-        return view('bot');
+        return view('campaign/bot');
     }
 
     public function messenger()
@@ -692,7 +692,7 @@ class Home extends BaseController
         }
         $responseArray = json_encode($responseArray);
         $data['WhatsAppAccounts'] = $responseArray;
-        return view('messenger', $data);
+        return view('campaign/messenger', $data);
     }
 
     public function bot_chat()
@@ -783,7 +783,7 @@ class Home extends BaseController
         }
         $responseArray = json_encode($responseArray);
         $data['WhatsAppAccounts'] = $responseArray;
-        return view('bot_chat', $data);
+        return view('campaign/bot_chat', $data);
     }
 
     public function bot_installer()
@@ -845,7 +845,7 @@ class Home extends BaseController
         $data['master_bot_typeof_question'] = $this->MasterInformationModel->display_all_records2('master_bot_typeof_question');
         $data['admin_bot_setup'] = $this->MasterInformationModel->display_all_records2($table_username . '_bot_setup');
         $data['admin_bot'] = $this->MasterInformationModel->display_all_records2($table_username . '_bot');
-        return view('bot_setup', $data);
+        return view('campaign/bot_setup', $data);
     }
 
     public function bot_setup_designer()
@@ -910,7 +910,7 @@ class Home extends BaseController
         $data['admin_product'] = $this->MasterInformationModel->display_all_records2($table_username . '_product');
         $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
         $data['platform_assets'] = $this->MasterInformationModel->display_all_records2($table_username . '_platform_assets');
-        return view('manage_audience', $data);
+        return view('campaign/manage_audience', $data);
     }
     public function integration()
     {
