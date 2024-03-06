@@ -12,7 +12,9 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 use App\Controllers\Campaign\FacebookController;
-use App\Controllers\Campaign\AssetPermissionController;
+use App\Controllers\Campaign\AssetPermissionController;  
+use App\Controllers\Campaign\WhatAppIntegrationController;
+
 
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
@@ -563,39 +565,39 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/facebook_pageasset', [AssetPermissionController::class, 'facebook_pageasset']);
 	$routes->post('/assign_asset_permission', [AssetPermissionController::class, 'assign_asset_permission']);
 	$routes->post('/asset_permissionlisting', [AssetPermissionController::class, 'show_list_data']);
-	// whatsapp integration 
-	$routes->post('/whatsapp_template_insert', 'WhatAppIntegrationController::whatsapp_template_insert');
-	$routes->post('/whatsapp_bot_id_update', 'WhatAppIntegrationController::whatsapp_bot_id_update');
-	$routes->post('/wa_connextion_edit_data', 'WhatAppIntegrationController::wa_connextion_edit_data');
-	$routes->post('/master_whatsapp_list_data', 'WhatAppIntegrationController::master_whatsapp_list_data');
-	$routes->post('/whatsapp_template_delete_data', 'WhatAppIntegrationController::whatsapp_template_delete_data');
-	$routes->post('/whatsappView', 'WhatAppIntegrationController::whatsappView');
-	$routes->post('/whatsapptemplate_edit_data', 'WhatAppIntegrationController::whatsapptemplate_edit_data');
-	$routes->post('/WhatAppConnectionCheck', 'WhatAppIntegrationController::WhatAppConnectionCheck');
-	$routes->post('/SubmitWhatAppIntegrationResponse', 'WhatAppIntegrationController::SubmitWhatAppIntegrationResponse');
-	$routes->post('/GetWhatAppIntegrationInformation', 'WhatAppIntegrationController::GetWhatAppIntegrationInformation');
-	$routes->post('/GetWhatAppTemplateList', 'WhatAppIntegrationController::GetWhatAppTemplateList');
-	$routes->post('/CheckWhataAppConnection', 'WhatAppIntegrationController::CheckWhataAppConnection');
-	$routes->post('/WhatsAppRTemplateDeleteRequest', 'WhatAppIntegrationController::WhatsAppRTemplateDeleteRequest');
-	$routes->post('/single_whatsapp_template_sent', 'WhatAppIntegrationController::single_whatsapp_template_sent');
-	$routes->post('/SendMessagesHistory', 'WhatAppIntegrationController::SendMessagesHistory');
-	$routes->post('dropdown_bot_disabled', 'WhatAppIntegrationController::dropdown_bot_disabled');
-	$routes->post('/SendWhatsAppTemplate', 'WhatAppIntegrationController::SendWhatsAppTemplate');
-	$routes->post('/WhatappFileUpload', 'WhatAppIntegrationController::WhatappFileUpload');
-	$routes->post('/GetWhatsAppTemplateDetails', 'WhatAppIntegrationController::GetWhatsAppTemplateDetails');
-	$routes->post('/WhatsAppConnectionsList', 'WhatAppIntegrationController::WhatsAppConnectionsList');
-	$routes->post('/WhatsAppAccountsContactList', 'WhatAppIntegrationController::WhatsAppAccountsContactList');
-	$routes->post('/WhatsAppListConverstion', 'WhatAppIntegrationController::WhatsAppListConverstion');
-	$routes->post('/SendWhatsAppChatMessage', 'WhatAppIntegrationController::SendWhatsAppChatMessage');
-	$routes->post('/Bracket_whatsapp_insert_data', 'WhatAppIntegrationController::Bracket_whatsapp_insert_data');
-	$routes->post('/WhatsAppSendDocumentData', 'WhatAppIntegrationController::WhatsAppSendDocumentData');
-	$routes->post('/WhatsAppInsertData', 'WhatAppIntegrationController::WhatsAppInsertData');
-	$routes->post('/sendwhatsappcamera', 'WhatAppIntegrationController::sendwhatsappcamera');
-	$routes->post('/set_variable_value', 'WhatAppIntegrationController::set_variable_value');
-	$routes->post('/bulk_set_variable_value', 'WhatAppIntegrationController::bulk_set_variable_value');
-	$routes->post('/bulk_whatsapp_template_send', 'WhatAppIntegrationController::bulk_whatsapp_template_send');
-	$routes->post('/WhatsAppConnectionEntry', 'WhatAppIntegrationController::WhatsAppConnectionEntry');
-	$routes->post('/SendWhatsAppContactNumber', 'WhatAppIntegrationController::SendWhatsAppContactNumber');
+	// whatsapp integration   
+	$routes->post('/whatsapp_template_insert', [WhatAppIntegrationController::class, 'whatsapp_template_insert']);
+	$routes->post('/whatsapp_bot_id_update', [WhatAppIntegrationController::class, 'whatsapp_bot_id_update']);
+	$routes->post('/wa_connextion_edit_data', [WhatAppIntegrationController::class, 'wa_connextion_edit_data']); 
+	$routes->post('/master_whatsapp_list_data', [WhatAppIntegrationController::class, 'master_whatsapp_list_data']); 
+	$routes->post('/whatsapp_template_delete_data', [WhatAppIntegrationController::class, 'whatsapp_template_delete_data']); 
+	$routes->post('/whatsappView', [WhatAppIntegrationController::class, 'whatsappView']); 
+	$routes->post('/whatsapptemplate_edit_data', [WhatAppIntegrationController::class, 'whatsapptemplate_edit_data']); 
+	$routes->post('/WhatAppConnectionCheck', [WhatAppIntegrationController::class, 'WhatAppConnectionCheck']); 
+	$routes->post('/SubmitWhatAppIntegrationResponse',  [WhatAppIntegrationController::class, 'SubmitWhatAppIntegrationResponse']); 
+	$routes->post('/GetWhatAppIntegrationInformation',  [WhatAppIntegrationController::class, 'GetWhatAppIntegrationInformation']); 
+	$routes->post('/GetWhatAppTemplateList',  [WhatAppIntegrationController::class, 'GetWhatAppTemplateList']); 
+	$routes->post('/CheckWhataAppConnection',  [WhatAppIntegrationController::class, 'CheckWhataAppConnection']); 
+	$routes->post('/WhatsAppRTemplateDeleteRequest',  [WhatAppIntegrationController::class, 'WhatsAppRTemplateDeleteRequest']); 
+	$routes->post('/single_whatsapp_template_sent',  [WhatAppIntegrationController::class, 'single_whatsapp_template_sent']); 
+	$routes->post('/SendMessagesHistory', [WhatAppIntegrationController::class, 'SendMessagesHistory']); 
+	$routes->post('dropdown_bot_disabled', [WhatAppIntegrationController::class, 'dropdown_bot_disabled']); 
+	$routes->post('/SendWhatsAppTemplate',  [WhatAppIntegrationController::class, 'SendWhatsAppTemplate']); 
+	$routes->post('/WhatappFileUpload',  [WhatAppIntegrationController::class, 'WhatappFileUpload']);  
+	$routes->post('/GetWhatsAppTemplateDetails',  [WhatAppIntegrationController::class, 'GetWhatsAppTemplateDetails']); 
+	$routes->post('/WhatsAppConnectionsList', [WhatAppIntegrationController::class, 'WhatsAppConnectionsList']); 
+	$routes->post('/WhatsAppAccountsContactList',  [WhatAppIntegrationController::class, 'WhatsAppAccountsContactList']); 
+	$routes->post('/WhatsAppListConverstion',  [WhatAppIntegrationController::class, 'WhatsAppListConverstion']); 
+	$routes->post('/SendWhatsAppChatMessage',  [WhatAppIntegrationController::class, 'SendWhatsAppChatMessage']); 
+	$routes->post('/Bracket_whatsapp_insert_data',  [WhatAppIntegrationController::class, 'Bracket_whatsapp_insert_data']); 
+	$routes->post('/WhatsAppSendDocumentData',  [WhatAppIntegrationController::class, 'WhatsAppSendDocumentData']); 
+	$routes->post('/WhatsAppInsertData',  [WhatAppIntegrationController::class, 'WhatsAppInsertData']); 
+	$routes->post('/sendwhatsappcamera',  [WhatAppIntegrationController::class, 'sendwhatsappcamera']); 
+	$routes->post('/set_variable_value',  [WhatAppIntegrationController::class, 'set_variable_value']); 
+	$routes->post('/bulk_set_variable_value',  [WhatAppIntegrationController::class, 'bulk_set_variable_value']); 
+	$routes->post('/bulk_whatsapp_template_send',  [WhatAppIntegrationController::class, 'bulk_whatsapp_template_send']); 
+	$routes->post('/WhatsAppConnectionEntry',  [WhatAppIntegrationController::class, 'WhatsAppConnectionEntry']); 
+	$routes->post('/SendWhatsAppContactNumber', [WhatAppIntegrationController::class, 'SendWhatsAppContactNumber']); 
 	// aaksh
 	$routes->get('/whatappaakash', 'Home::whatappaakash');
 	$routes->get('/whatsapp_connections', 'Home::whatsapp_connections');
