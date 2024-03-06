@@ -80,18 +80,11 @@ if (!function_exists('compressImage')) {
 if (!function_exists('getMasterUsername')) {
     function getMasterUsername()
     {
-        $db_connection = DatabaseSecondConnection();
-        $master = 0;
-        if (isset($_SESSION['master'])) {
-            $master = $_SESSION['master'];
-        }
+        $inputString = $_SESSION['username'];
+        $parts = explode("_", $inputString);
+        $username = $parts[0];
+        return $username;
 
-        $sql = 'SELECT * FROM  master_user  WHERE id = "' . $master . '"';
-        $result = $db_connection->query($sql);
-        $resultsssss = $result->getResultArray();
-        foreach ($resultsssss as $key => $val) {
-            return $val['username'];
-        }
     }
 }
 if (!function_exists('SendMail')) {
