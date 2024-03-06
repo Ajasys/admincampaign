@@ -763,7 +763,7 @@ class Bot_Controller extends BaseController
 			$delete_sequence = $this->CampaignModel->get_sequence_by_id($table_name, $delete_id);
 			$delete_displaydata = $this->MasterInformationModel->delete_entry3($table_name, $delete_id);
 
-			$this->MasterInformationModel->delete_question_sequence($table_name, $bot_id, $delete_sequence);
+			$this->CampaignModel->delete_question_sequence($table_name, $bot_id, $delete_sequence);
 
 			$response = 1;
 		}
