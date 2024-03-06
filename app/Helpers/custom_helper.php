@@ -3011,6 +3011,16 @@ if (!function_exists('get_editData2')) {
 }
 
 
+if (!function_exists('get_editData')) {
+    function get_editData($table, $edit_id)
+    {
+        $db = DatabaseDefaultConnection();
+        $query = "SELECT * from  $table WHERE id = $edit_id";
+        $cat = $db->query($query);
+        $result = $cat->getRowArray();
+        return $result;
+    }
+}
 
 if (!function_exists('timezone')) {
     function timezone($formate = "Y-m-d")

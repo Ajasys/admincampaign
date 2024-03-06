@@ -51,7 +51,7 @@ class WhatAppIntegrationController extends BaseController
 
         $table_name = $username . '_platform_integration';
 
-        $ConnectionData = get_editData2($table_name, $connectionid);
+        $ConnectionData = get_editData($table_name, $connectionid);
         $access_token = '';
         $business_account_id = '';
         $phone_number_id = '';
@@ -251,7 +251,7 @@ class WhatAppIntegrationController extends BaseController
 
     public function GetWhatAppIntegrationInformation()
     {
-        $GetData = get_editData2('admin_generale_setting', 1);
+        $GetData = get_editData('admin_generale_setting', 1);
         $whatapp_phone_number_id = '';
         $whatapp_business_account_id = '';
         $whatapp_access_token = '';
@@ -278,7 +278,7 @@ class WhatAppIntegrationController extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
 
-        $GetData = get_editData2('' . $username . '_generale_setting', 1);
+        $GetData = get_editData('' . $username . '_generale_setting', 1);
         if (isset($GetData) && !empty($GetData)) {
             $UpdateData = $_POST;
             $response = $this->MasterInformationModel->update_entry2('1', $UpdateData, '' . $username . '_generale_setting');
@@ -1274,7 +1274,7 @@ class WhatAppIntegrationController extends BaseController
 
         $table_name = $username . '_platform_integration';
 
-        $ConnectionData = get_editData2($table_name, $connectionid);
+        $ConnectionData = get_editData($table_name, $connectionid);
         $access_token = '';
         $business_account_id = '';
         $phone_number_id = '';
@@ -1622,7 +1622,7 @@ class WhatAppIntegrationController extends BaseController
 
         $table_name = $username . '_platform_integration';
 
-        $ConnectionData = get_editData2($table_name, $connectionid);
+        $ConnectionData = get_editData($table_name, $connectionid);
         $access_token = '';
         $business_account_id = '';
         $phone_number_id = '';
@@ -1686,7 +1686,7 @@ class WhatAppIntegrationController extends BaseController
 
         $table_name = $username . '_platform_integration';
 
-        $ConnectionData = get_editData2($table_name, $connectionid);
+        $ConnectionData = get_editData($table_name, $connectionid);
         $access_token = '';
         $business_account_id = '';
         $phone_number_id = '';
@@ -1788,7 +1788,7 @@ class WhatAppIntegrationController extends BaseController
 
         $table_name = $username . '_platform_integration';
 
-        $ConnectionData = get_editData2($table_name, $connectionid);
+        $ConnectionData = get_editData($table_name, $connectionid);
         $access_token = '';
         $business_account_id = '';
         $phone_number_id = '';
@@ -2221,7 +2221,7 @@ class WhatAppIntegrationController extends BaseController
 
         $table_name = $username . '_platform_integration';
 
-        $ConnectionData = get_editData2($table_name, $conversation_account_id);
+        $ConnectionData = get_editData($table_name, $conversation_account_id);
 
         $access_token = '';
         $business_account_id = '';
@@ -2886,7 +2886,7 @@ class WhatAppIntegrationController extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
         $table_name = $username . '_platform_integration';
-        $ConnectionData = get_editData2($table_name, $DataSenderId);
+        $ConnectionData = get_editData($table_name, $DataSenderId);
         $access_token = '';
         $business_account_id = '';
         $phone_number_id = '';
@@ -2991,7 +2991,7 @@ class WhatAppIntegrationController extends BaseController
 
         $table_name = $username . '_platform_integration';
 
-        $ConnectionData = get_editData2($table_name, $DataSenderId);
+        $ConnectionData = get_editData($table_name, $DataSenderId);
 
         $access_token = '';
         $business_account_id = '';
@@ -3135,7 +3135,7 @@ class WhatAppIntegrationController extends BaseController
         $parts = explode("_", $inputString);
         $username = $parts[0];
         $table_name = $username . '_platform_integration';
-        $ConnectionData = get_editData2($table_name, $DataSenderId);
+        $ConnectionData = get_editData($table_name, $DataSenderId);
         $access_token = '';
         $business_account_id = '';
         $phone_number_id = '';
@@ -3224,7 +3224,7 @@ class WhatAppIntegrationController extends BaseController
 
                     $table_name = $username . '_platform_integration';
 
-                    $ConnectionData = get_editData2($table_name, $DataSenderId);
+                    $ConnectionData = get_editData($table_name, $DataSenderId);
 
                     $access_token = '';
                     $business_account_id = '';
