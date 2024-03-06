@@ -165,23 +165,14 @@ class AudianceController extends BaseController
 			$data_count = $get_access_token_array->getNumRows();
             $fb_account_data = $get_access_token_array->getResultArray()[0];
 			$token = $fb_account_data['access_token'];
-        
-            // Fetch user data including ad accounts
-            $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
-            $response = file_get_contents($url);
-            $data = json_decode($response, true);
-
-            // Check if 'adaccounts' data exists and iterate over each ad account
-            if (isset($data['adaccounts']['data'])) {
-                $chat_list_html = '';
-                foreach ($data['adaccounts']['data'] as $ad_account) {
-                    $account_id = $ad_account['id'];
-
-                    // Fetch custom audiences for each ad account
-                    $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+    
+                   $selectedAccountId = $_POST['selected_account_id'];
+                                    // Fetch custom audiences for each ad account
+                    $url = "https://graph.facebook.com/v19.0/$selectedAccountId/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
                     $response = file_get_contents($url);
                     // pre($response);
                     $audience_data = json_decode($response, true);
+            // }
                     // pre($audience_data);
                     // Iterate over custom audiences data and build HTML
                     foreach ($audience_data['data'] as $conversion_value) {
@@ -212,7 +203,8 @@ class AudianceController extends BaseController
                                 $chat_list_html .= '</tr>';
                                 $html .= $chat_list_html;
                     }
-                }
+                
+                
                 // $return_result['chat_list_html'] = $chat_list_html;
                 if (!empty($html)) {
                     echo $html;
@@ -220,10 +212,8 @@ class AudianceController extends BaseController
                     echo '<p style="text-align:center;">Data Not Found </p>';
                 }
                 // $i++;
-            } else {
-                // No ad account data found
-                return json_encode(['error' => 'No ad account data found']);
-            }
+            
+           
         } else {
             // Invalid action
             return json_encode(['error' => 'Invalid action']);

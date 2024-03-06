@@ -711,16 +711,30 @@ $get_facebook_page = $result->getResultArray();
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
+// Alternatively, you can call list_data function on a specific event, for example, when the ad account selection changes
+
+$(document).ready(function() {
+     list_data();
+});
+
+$('body').on('change','#adaccountselect',function(){
+     list_data(); // Call list_data() only when #adaccountselect changes
+});
    function list_data() {
+      // Get the selected ad account ID
+      var selectedAccountId = $('#adaccountselect').val(); 
+      $('.list-container').empty();
+      // Make an AJAX request
       $.ajax({
          method: "post",
          url: "<?= site_url('audience_facebook_data'); ?>",
          data: {
-            action: 'facebook_list',
+               action: 'facebook_list',
+               selected_account_id: selectedAccountId // Include the selected account ID in the request
          },
          success: function (res) {
-            $('.loader').hide();
-            datatable_view(res);
+               $('.loader').hide();
+               datatable_view(res);
          }
       });
    }
@@ -747,7 +761,7 @@ $get_facebook_page = $result->getResultArray();
 
    function datatable_view(html) {
       $('.lead_list_table').DataTable().destroy();
-      $('.audiance_list').append(html);
+      $('.audiance_list').html(html);
       var table1 = $('.lead_list_table').DataTable({
          "columnDefs": [{
             "visible": false,
@@ -758,8 +772,11 @@ $get_facebook_page = $result->getResultArray();
 
    }
 
-   // Call both functions when the page loads
-   list_data();
+  
+   
+
+
+
 
 
 
