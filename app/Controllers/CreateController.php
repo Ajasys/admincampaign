@@ -27,9 +27,26 @@ class CreateController extends BaseController
     public function SendPostDataFB()
     {
         $edit = $_POST['action'];
-        // Check if the request method is POST  
+        // Check if the request method is POST 
+        
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-         
+        //     $this->db = \Config\Database::connect('second');
+        //     $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+        //     $get_access_token_array = $this->db->query($get_token);
+        //     $data_count = $get_access_token_array->getNumRows();
+        //     $fb_account_data = $get_access_token_array->getResultArray()[0];
+        //     $token = $fb_account_data['access_token'];
+        //     // pre( $token);
+        //     $asset_table_name = $this->username . '_platform_assets';
+    
+        //     $platform_id = $fb_account_data['id'];
+        //     $master_id = $_SESSION['master'];
+        //     $get_page_data = "SELECT * FROM $asset_table_name WHERE platform_id = $platform_id AND master_id = $master_id";
+        //     // pre($platform_id);
+        //     $get_page_data = $this->db->query($get_page_data);
+        //     $get_page_data = $get_page_data->getResultArray();
+            
          
 // pre($get_page_data);
 
@@ -125,13 +142,22 @@ class CreateController extends BaseController
 
             // die();
 
-
+           
+             
+    
+    
             // Create an array to store the attachments
             $attachments_data = array();
             $feed_post_array = array();
             $attachments_data = [
                 'published' => 'false'
             ];
+            // foreach ($get_page_data as $page_data) {
+                // pre($page_data);
+    
+                // $data = $page_data['asset_id'];
+                // $access_token = $page_data['access_token'];
+
 
             // Loop through each attachment
             foreach ($attachments['tmp_name'] as $index => $tmp_name) {
@@ -139,7 +165,7 @@ class CreateController extends BaseController
                 $attachments_data["attachment"] = curl_file_create($tmp_name, $attachments['type'][$index], $attachments['name'][$index]);
                 // Set cURL options
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/photos',
+                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' .   $page_id  . '/photos',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -174,7 +200,7 @@ class CreateController extends BaseController
             );
 
             curl_setopt_array($curll, array(
-                CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/feed',
+                CURLOPT_URL => 'https://graph.facebook.com/v19.0/' .  $data . '/feed',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -206,6 +232,7 @@ class CreateController extends BaseController
             curl_close($curl);
         }
     }
+    
     public function UpdatePostDataFB()
     {
         if (isset($_POST['edit_value']) && !empty($_POST['edit_value'])) {
@@ -283,23 +310,6 @@ class CreateController extends BaseController
     public function list_post_pagewise()
     {
 
-        // $this->db = \Config\Database::connect('second');
-        // $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
-        // $get_access_token_array = $this->db->query($get_token);
-        // $data_count = $get_access_token_array->getNumRows();
-        // $fb_account_data = $get_access_token_array->getResultArray()[0];
-        // $token = $fb_account_data['access_token'];
-        // // pre( $token);
-        // $asset_table_name = $this->username . '_platform_assets';
-
-        // $platform_id = $fb_account_data['id'];
-        // $master_id = $_SESSION['master'];
-        // $get_page_data = "SELECT * FROM $asset_table_name WHERE platform_id = $platform_id AND master_id = $master_id";
-        // // pre($platform_id);
-        // $get_page_data = $this->db->query($get_page_data);
-        // $get_page_data = $get_page_data->getResultArray();
-        // pre($get_page_data);
-            
         if (isset($_POST['access_tocken'])) {
             $accesss_tocken = $_POST['access_tocken'];
         } else {
@@ -314,7 +324,7 @@ class CreateController extends BaseController
             $page_namee = $_POST['page_name'];
         } else {
             $page_namee = "";
-        }
+        }   
         if (isset($_POST['data_img'])) {
             $data_img = $_POST['data_img'];
         } else {
@@ -392,7 +402,7 @@ class CreateController extends BaseController
                             <ul class="dropdown-menu bg-transparent text-end border-0">
                                 <div class="d-flex flex-wrap bg-white border p-1 rounded-2">
                                 <div class="col-12 d-flex justify-content-start">
-                                    <button class="bg-transparent text-start ps-1 col-12 border-0 delete_post_facebook" data-delete_id="' . $value['id'] . '" data-access_token="' . $accesss_tocken_comment . '" ><i class="fa-solid fa-trash-can me-2"></i>Delete</button>
+                                    <button class="bg-transparent text-start ps-1 col-12 border-0 delete_post_facebook" data-delete_id="' . $value['id'] . '"><i class="fa-solid fa-trash-can me-2"></i>Delete</button>
                                     </div>
                                     <div class="col-12 d-flex justify-content-start">
                                     <button class="bg-transparent text-start ps-1 col-12 border-0 edit_post_facebook" data-edit_id="' . $value['id'] . '" data-page_id="' . $pagee_idd . '" data-access_token="' . $accesss_tocken_comment . '" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-trash-can me-2"></i>Edit</button>
@@ -459,8 +469,6 @@ class CreateController extends BaseController
                         <div class="my-auto btn-text">Comment</div>
                     </button>
                 </div>
-
-                
             <div class=" mb-2 mb-md-0 p-0 px-1" style="width:fit-content;data-toggle="modal" data-target="#sharemodal" >
             <div class="btn w-100 text-muted d-flex p-0 border-0" data-toggle="modal"  data-attachment_post="' . $fb_upload_img . '" data-target="#sharemodal"  id="post_commnet_modal"><i class="fa-solid fa-share mx-2 my-auto"></i><div class="my-auto">share</div></div>
         </div>
