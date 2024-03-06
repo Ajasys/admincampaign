@@ -4,16 +4,19 @@
     .btn_dark:hover {
         background-color: #e3e4e4;
     }
+
     .accordion-button-arrow::after {
         display: none !important;
     }
+
     @media (max-width:575px) {
-        .page_asset_list{
+        .page_asset_list {
             height: 80%;
         }
     }
+
     @media (min-width:1200px) {
-        .page_asset_list{
+        .page_asset_list {
             height: 91%;
         }
     }
@@ -39,7 +42,7 @@ $user_data = $user_result->getResultArray();
         <div class="mb-2">
             <div class="col-xl-12 d-flex justify-content-between flex-wrap">
                 <div class="title-1  d-flex align-items-center text-nowrap">
-                    <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 20px" ></i>
+                    <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 20px"></i>
                     <h2>Assign Assets & Permission </h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
@@ -109,7 +112,7 @@ $user_data = $user_result->getResultArray();
                         <div class="col-12 d-flex flex-wrap">
                             <!-- first-div -->
                             <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3 social-accounts main-box rounded-bottom-0" style="height:80vh">
-                                <div class="col-12 border rounded-3 bg-white position-lg-relative rounded-bottom-0" style="height:80vh">
+                                <div class="col-12 border rounded-3 bg-white position-lg-relative" style="height:80vh">
                                     <div class="chat-nav-search-bar p-2 col-12  rounded-top-3 border-bottom ">
                                         <div class="d-flex justify-content-between align-items-center ">
                                             <div class="dropdown d-flex align-items-center ps-2 ">
@@ -363,173 +366,180 @@ $user_data = $user_result->getResultArray();
                                 </div>
                             </div>
                             <!-- Pages_div -->
-                            <!-- second-div -->
-                            <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-3 col-xxl-3  social-accounts main-box rounded-bottom-0" style="height:80vh">
-                                <div class="col-12 border rounded-3 bg-white position-lg-relative rounded-bottom-0" style="height:80vh">
-                                    <div class="chat-nav-search-bar p-2 col-12  rounded-top-3 border-bottom">
-                                        <div class="d-flex justify-content-between align-items-center ">
-                                            <div class="dropdown d-flex align-items-center ps-2">
-                                                <h5 class="fs-5 fw-semibold ">Select assets</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-wrap w-100 h-100 justify-content-center align-items-center data-404">
-                                        Data not Found
-                                    </div>
-                                    <!-- pades div  -->
-                                    <div class="Pages_div page_asset_list overflow-y-scroll d-none defualt-div">
-                                        
-                                    </div>
-                                    <!-- instagram div  -->
-                                    <div class="instagram_div_to d-none defualt-div">
-                                        <!-- <div class="d-flex justify-content-between ms-3 me-3 mt-2">
-                                            <div>
-                                                <p>Search & Fliter</p>
-                                            </div>
-                                            <div><i class="bi bi-search"></i></div>
-                                        </div> -->
-                                        <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
-                                            <div class="d-flex align-items-center" style="height: 45px;">
-                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectall" style="width:18px;height:18px;">
-                                                <div class="col fs-6 fw-semibold">
-                                                    Select all
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="ms-3 me-3 mt-2 d-flex align-items-center">
-                                            <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
-                                            <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
-                                            <p>@ajasystechnologiies</p>
-                                        </div>
-                                    </div>
 
-                                    <!-- instagram div  -->
-                                    <div class="whatsapp_div_to d-none defualt-div">
-                                        <!-- <div class="d-flex justify-content-between ms-3 me-3 mt-2">
+                            <div class="d-xl-flex d-none d-lg-block col-12 col-sm-12 col-md-12 col-lg-6 col-xl-9 col-xxl-9 d-flex flex-wrap social-accounts main-page-div main-box rounded-bottom-0" style="height:80vh">
+                                <!-- second-div -->
+                                <div class="d-lg-block col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 social-accounts main-box rounded-bottom-0" style="height:73vh">
+                                    <div class="col-12 border rounded-3 bg-white position-lg-relative rounded-bottom-0" style="height:73vh">
+                                        <div class="chat-nav-search-bar p-2 col-12  rounded-top-3 border-bottom">
+                                            <div class="d-flex justify-content-between align-items-center ">
+                                                <div class="dropdown d-flex align-items-center ps-2">
+                                                    <h5 class="fs-5 fw-semibold ">Select assets</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-wrap w-100 h-100 justify-content-center align-items-center data-404">
+                                            Data not Found
+                                        </div>
+                                        <!-- pades div  -->
+                                        <div class="Pages_div page_asset_list overflow-y-scroll d-none defualt-div">
+
+                                        </div>
+                                        <!-- instagram div  -->
+                                        <div class="instagram_div_to d-none defualt-div">
+                                            <!-- <div class="d-flex justify-content-between ms-3 me-3 mt-2">
                                             <div>
                                                 <p>Search & Fliter</p>
                                             </div>
                                             <div><i class="bi bi-search"></i></div>
                                         </div> -->
-                                        <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
-                                            <div class="d-flex align-items-center" style="height: 45px;">
-                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectall" style="width:18px;height:18px;">
-                                                <div class="col fs-6 fw-semibold">
-                                                    Select all
+                                            <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
+                                                <div class="d-flex align-items-center" style="height: 45px;">
+                                                    <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectall" style="width:18px;height:18px;">
+                                                    <div class="col fs-6 fw-semibold">
+                                                        Select all
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="whatsapp_asset_list">
-                                            
-                                                
-                                            
-                                        </div>
-                                        
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- third-div -->
-                            <div class="d-none col-12 col-sm-12 col-md-12 col-lg-6 d-xl-block col-xxl-6 transcript_box  main-box rounded-bottom-0" style="height:80vh">
-                                <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3 overflow-hidden rounded-bottom-0" style="height:80vh">
-                                    <div class="chat-nav-search-bar p-2 col-12 rounded-top-3 border-bottom">
-                                        <div class="d-flex justify-content-between align-items-center ">
-                                            <div class="dropdown d-flex align-items-center ps-2 ">
-                                                <h5 class="fs-5 fw-semibold ">Assign Permission</h5>
+                                            <div class="ms-3 me-3 mt-2 d-flex align-items-center">
+                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
+                                                <img class="rounded-circle me-1" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABcCAMAAADUMSJqAAAAq1BMVEUrMUD8r0//////sk8UKD+2hEn/tFBxWkUoL0AiKTklLkAVHTEaKj9laXOkpqwhLEDfnk3m5+i7vcHppE6ZckcyNkH3rE9+YkXvp05ZXWhRR0KMa0ahd0isfklhUENPVF8zOUnJkEu/ikrQGx7PJinv8PHXmUw8QU/d3uAcIzV3e4M/M0J8LjmzHyWraG5vESGwsreVmJ7Jys1GS1gJFSu5q6/HvL80JzgAIj9vDd0LAAAEn0lEQVRogbWa22KiMBCGI+EQIBpUDhURLC1V3O3uFt3D+z/ZoqCSEENQnIuWtvD5MzNJJpkCpWHTYrJH4G5D+68ia/LA9XK2sA/5A+zScjsfFxx4sbbNh8C1mYdNwcCz8eExzQ1Dhx0F327yodBHs5PsCt+ag3jkauYmO8Oz9cDskp6c4eNBfVKZvavgs8Pw7JJenOBosDxpmrk/wmf2M9gAHIoSvhg8mpWZYwVkctFEFsFYLQ1jYsn50cxA0R1ORDDxQmMZrTRtFS2N0Ct/0f0BdgEmXcotDGL3dT7SdR2WVn4bzV/dGKlWx4P5BCzEEggOI2cE4Yiy8mcnCjERPooSIGRbOE59llzzdT+NSZd6wUerYYnmkWv+KA3VOwcJ8SJfv40+mu5Hntg3NwyHHwLVF/UfIe6NRjgQeaRB9wPc0zWIuFLoIx26EknfZFuaLPuI1yTHbK1b64gkbbrWQzuW9slZuysdVRz0ZJf0QJJOQm6ewNPkcvzCo/uhVL4jj5PfEPqOtgwMI3A1hzchwA9Pxu1q1HoU6o4bgnImLw1jELpOWz6MVCmnsM/pToDwNduQhVHgtNLJD7tnMZIyj8FR5LFjEGEvGjHi9bQzpiRmX/fF4A1vhI0Xhu7HXTHFKf0InMc3BOF4ztzaJd1iPA5fbsshMaO9y+tqxHjcEKjBBuP1SCgdAQf2uB3TUqAjXDSZcEJHPDKQR2sZCUPKzFh6PWOYHKvuD2jpwvmLvDbh0DnVqAgtxi1bVH+yKOnwVaAceXOOEHOicGxicl51LnCjFVIerFILJTy2oiQItFNXkIzEaLqwDj7aZzx2dtoOM+mlG7f9gpdNuK7V4dxN27bd1SGlFkR9eTuidN7q59jb5rqyb9+/f6svTZurRzAu1BX1jgE5K8+OYrPfn29vn7+r62mtnFDJCFe3J3WVKihg5cCrz3+8vb+//aB8XoaJekTrC79kCwWvsqUPnO+Wc57/+Xx///xD5TnrFgGcCWgdepQni8r+/vz5t75M6sMT7ErD+am4/zVr2a89LxVFcO4gAustbxBt16e3ogeRCP7w8BfBuRMXAgWPXSlnJi4RvDXlnooVtPmatOxrU83Gjjycv1ig3G5ZlSzMYtGh/MFlTgjvuUCrK7Y6E8HZ9bxfadEFf6go6oI/Us51w0nMVNBlIcrbgnMK0W54Kb1VQq+kSmgZOOv1kWzxLwO/d9siB7+94XIFGy5JOG9XVMkXbRVl4fdscuXh/bfnfeB9DxZ6wXseifSEnw5z7sDLweWPoe6BSx+gvdwFlzv6c6XLOdY1apjypqcLyk/Df4aoKBIft5I49flDspwQ0hhbRAhPHjsoFlS5aAEmXV0FS0W8I26AT3urUjm8mp424PkEFN0tC9HhvBWm2tXSZWPFtQuQybUsLm0FlWkrWGrTmqt5ngFl/MSGiCLRtLjLTq0cZfOUJhRaP7F9diie1/jL68ZfuaUcvmW5V2q4Mt0M3WwF0wtcyZJBu3/5/sS+dM93h8HEm0yD+7iBSgbBI/OQXLaWjX8q2O429mO9f9O2N7vGrrUBP/Jnu/X97P1uRu+H/wOz32TOcdH3qgAAAABJRU5ErkJggg==" alt="" style="width:30px;height:30px">
+                                                <p>@ajasystechnologiies</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <!-- Pages_div -->
-                                        <div class="Pages_div col-12 overflow-y-scroll" style="height:90vh;">
-                                            <div class="active-part1 d-none">
-                                                
-                                            </div>
-                                            <div class="d-flex flex-wrap w-100 h-100 justify-content-center align-items-center data-404">
-                                                Data not Found
-                                            </div>
-                                        </div>
-                                        <!-- instagram -->
-                                        <div class="instagram_div_to d-none col-12 overflow-y-scroll" style="height:90vh;">
+
+                                        <!-- instagram div  -->
+                                        <div class="whatsapp_div_to d-none defualt-div">
+                                            <!-- <div class="d-flex justify-content-between ms-3 me-3 mt-2">
                                             <div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Messages</p>
-                                                        <p class="ms-3">Send and respond to direct messages as the
-                                                            Instagram account.</p>
+                                                <p>Search & Fliter</p>
+                                            </div>
+                                            <div><i class="bi bi-search"></i></div>
+                                        </div> -->
+                                            <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
+                                                <div class="d-flex align-items-center" style="height: 45px;">
+                                                    <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectall" style="width:18px;height:18px;">
+                                                    <div class="col fs-6 fw-semibold">
+                                                        Select all
                                                     </div>
                                                 </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
+                                            </div>
+                                            <div class="whatsapp_asset_list">
+
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- third-div -->
+                                <div class="d-none col-12 col-sm-12 col-md-12 col-lg-12 d-xl-block col-xl-8 col-xxl-8 transcript_box main-box rounded-bottom-0" style="height:73vh">
+                                    <div class="col-12 border rounded-end-4 bg-white position-relative SetChatBackGroundClass rounded-3 overflow-hidden rounded-bottom-0" style="height:73vh">
+                                        <div class="chat-nav-search-bar p-2 col-12 rounded-top-3 border-bottom">
+                                            <div class="d-flex justify-content-between align-items-center ">
+                                                <div class="dropdown d-flex align-items-center ps-2 ">
+                                                    <h5 class="fs-5 fw-semibold ">Assign Permission</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Pages_div -->
+                                            <div class="Pages_div col-12 overflow-y-scroll" style="height:90vh;">
+                                                <div class="active-part1 d-none">
+
+                                                </div>
+                                                <div class="d-flex flex-wrap w-100 h-75 justify-content-center align-items-center data-404">
+                                                    Data not Found
+                                                </div>
+                                            </div>
+                                            <!-- instagram -->
+                                            <div class="instagram_div_to d-none col-12 overflow-y-scroll" style="height:90vh;">
+                                                <div>
+                                                    <div class="col-12 p-2 d-flex align-items-center">
+                                                        <div class="col-1">
+                                                            <label class="switch_toggle_primary">
+                                                                <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                                <span class="check_input_primary round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-11">
+                                                            <p class="col ms-3 fw-bold fs-14">Messages</p>
+                                                            <p class="ms-3">Send and respond to direct messages as the
+                                                                Instagram account.</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Post</p>
-                                                        <p class="ms-3">Create, manage or delete posts, stories and more as the Instagram account. View posts from other Instagram accounts that this account follows.</p>
+                                                    <div class="col-12 p-2 d-flex align-items-center">
+                                                        <div class="col-1">
+                                                            <label class="switch_toggle_primary">
+                                                                <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                                <span class="check_input_primary round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-11">
+                                                            <p class="col ms-3 fw-bold fs-14">Post</p>
+                                                            <p class="ms-3">Create, manage or delete posts, stories and more as the Instagram account. View posts from other Instagram accounts that this account follows.</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 p-2 d-flex align-items-center">
+                                                        <div class="col-1">
+                                                            <label class="switch_toggle_primary">
+                                                                <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
+                                                                <span class="check_input_primary round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-11">
+                                                            <p class="col ms-3 fw-bold fs-14">Comments</p>
+                                                            <p class="ms-3">Create and manage comment for the Instagram
+                                                                account.</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
+                                            </div>
+                                            <!-- whatsapp -->
+                                            <div class="whatsapp_div_to d-none col-12 ovwhatsappscroll" style="height:90vh;">
+                                                <div class="whatsapp_div_permission">
+                                                    <div class="col-12 p-2 d-flex align-items-center">
+                                                        <div class="col-1">
+                                                            <label class="switch_toggle_primary">
+                                                                <input class="toggle-checkbox fs-3 on_off_btn_Desktop" value="wh_message" type="checkbox">
+                                                                <span class="check_input_primary round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-11">
+                                                            <p class="col ms-3 fw-bold fs-14">Messages</p>
+                                                            <p class="ms-3">Send and respond to direct messages as the
+                                                                Whatsapp account.</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Comments</p>
-                                                        <p class="ms-3">Create and manage comment for the Instagram
-                                                            account.</p>
+                                                    <div class="col-12 p-2 d-flex align-items-center">
+                                                        <div class="col-1">
+                                                            <label class="switch_toggle_primary">
+                                                                <input class="toggle-checkbox fs-3 on_off_btn_Desktop" value="wh_template" type="checkbox">
+                                                                <span class="check_input_primary round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-11">
+                                                            <p class="col ms-3 fw-bold fs-14">Templates</p>
+                                                            <p class="ms-3">Create and manage as the Whatsapp account</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- whatsapp -->
-                                        <div class="whatsapp_div_to d-none col-12 ovwhatsappscroll" style="height:90vh;">
-                                            <div class="whatsapp_div_permission">
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" value="wh_message" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Messages</p>
-                                                        <p class="ms-3">Send and respond to direct messages as the
-                                                            Whatsapp account.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 p-2 d-flex align-items-center">
-                                                    <div class="col-1">
-                                                        <label class="switch_toggle_primary">
-                                                            <input class="toggle-checkbox fs-3 on_off_btn_Desktop" value="wh_template" type="checkbox">
-                                                            <span class="check_input_primary round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-11">
-                                                        <p class="col ms-3 fw-bold fs-14">Templates</p>
-                                                        <p class="ms-3">Create and manage as the Whatsapp account</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center p-1 border rounded-3 rounded-top-0">
+                                    <button type="button" class="btn btn-primary btn-sm assign_permission" id="assign_permission">Save changes</button>
                                 </div>
                             </div>
-                            </div>
+
                         </div>
                     </div>
-                    <div class="cola-12 text-end p-2">
+                    <!-- <div class="cola-12 text-end p-2">
                         <button type="button" class="btn btn-primary assign_permission" id="assign_permission">Save changes</button>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reloadPage()">Close</button>
@@ -628,22 +638,19 @@ $user_data = $user_result->getResultArray();
         $("body").on("click", ".list_asset_permission", function() {
             var type = $(this).attr('data-asset-type');
             $('#asset_type').val(type);
-            
-            if(type=='facebook')
-            {
+
+            if (type == 'facebook') {
                 var fb_check_conn = $(this).attr('data-connection-check');
-            }
-            else if(type=='whatsapp')
-            {
+            } else if (type == 'whatsapp') {
 
             }
-            
+
             $('.loader').show();
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_pageasset'); ?>",
                 data: {
-                    type:type,
+                    type: type,
                     fb_check_conn: fb_check_conn,
                     user_id: $('#select_user').val(),
                     action: 'user'
@@ -652,17 +659,14 @@ $user_data = $user_result->getResultArray();
                     $('.loader').hide();
                     var result = JSON.parse(res);
                     if (result.response == 1) {
-                        if(type=='facebook')
-                        {
+                        if (type == 'facebook') {
                             $('.page_asset_list').html(result.html);
                             $('.active-part1').html(result.permission_html);
                             selectedValues = result.permission_name.split(',');
                             $('#asset_array').val(selectedValues.join(','));
                             checkedValues = result.asset_id.split(',');
                             updateAssetIds();
-                        }
-                        else if(type=='whatsapp')
-                        {
+                        } else if (type == 'whatsapp') {
                             $('.whatsapp_asset_list').html(result.html);
                             $('.whatsapp_div_permission').html(result.permission_html);
                             selectedValues = result.permission_name.split(',');
@@ -670,8 +674,8 @@ $user_data = $user_result->getResultArray();
                             checkedValues = result.asset_id.split(',');
                             updateAssetIds();
                         }
-                       
-                        
+
+
                     } else {
                         iziToast.error({
                             title: result.message
@@ -695,7 +699,7 @@ $user_data = $user_result->getResultArray();
                         url: "<?= site_url('assign_asset_permission'); ?>",
                         data: {
                             action: 'insert',
-                            asset_type:asset_type,
+                            asset_type: asset_type,
                             user_id: userId,
                             page_id: asset_ids,
                             asset_array: asset_array,
@@ -728,6 +732,7 @@ $user_data = $user_result->getResultArray();
             }
         });
     });
+
     function list_data() {
         $('.loader').show();
         $.ajax({
@@ -749,33 +754,34 @@ $user_data = $user_result->getResultArray();
     function reloadPage() {
         location.reload(true);
     }
-    $('body').on('change','#assign_asset input',function() {
-        $('.savechanges').attr('onclick','saveChnages();');
+    $('body').on('change', '#assign_asset input', function() {
+        $('.savechanges').attr('onclick', 'saveChnages();');
     })
+
     function saveChnages() {
         var record_text = "Are you sure you want to save changes";
-    
-    Swal.fire({
-        title: 'Are you sure?',
-        text: record_text,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'CONFIRM',
-        cancelButtonText: 'CANCEL',
-        cancelButtonColor: '#6e7881',
-        confirmButtonColor: '#dd3333',
-        reverseButtons: true
-    }).then(function(result) {
-        if (result.value) {
-            // Perform your actions here when CONFIRM is clicked
-            // For now, let's just show an alert
-            alert('Changes confirmed!');
-            $('.savechanges').attr('onclick',false);
-        } else {
-            // Optional: Handle actions when CANCEL is clicked
-            alert('Changes canceled!');
-        }
-    });
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: record_text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'CONFIRM',
+            cancelButtonText: 'CANCEL',
+            cancelButtonColor: '#6e7881',
+            confirmButtonColor: '#dd3333',
+            reverseButtons: true
+        }).then(function(result) {
+            if (result.value) {
+                // Perform your actions here when CONFIRM is clicked
+                // For now, let's just show an alert
+                alert('Changes confirmed!');
+                $('.savechanges').attr('onclick', false);
+            } else {
+                // Optional: Handle actions when CANCEL is clicked
+                alert('Changes canceled!');
+            }
+        });
     }
     // $('body').on('click','.swal2-confirm',function () {
     //     // $('.savechanges').attr('onclick',false);
