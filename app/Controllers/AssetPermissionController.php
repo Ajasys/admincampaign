@@ -185,6 +185,25 @@ class AssetPermissionController extends BaseController
                 $html .= '</ul>
                 </div>';
             } else if ($type == "whatsapp") {
+
+                $asset_query = "SELECT * FROM " . $this->username . "_platform_integration Where platform_status=1";
+                $asset_result = $this->db->query($asset_query);
+                $pageresult = $asset_result->getResultArray();
+                if (isset($pageresult)) {
+                    foreach ($pageresult as $aa_key => $aa_value) {
+                        $html = '<div class="ms-3 me-3 mt-2">
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" id="selectall" value="'.$aa_value['id'].'" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
+                            <img class="rounded-circle me-1" src="https://erp.gymsmart.in/assets/image/member.png" alt="" style="width:40px;height:40px">
+                            <div class="d-flex flex-wrap col">
+                                <p class="col-12">'.$aa_value['whatsapp_name'].'</p>
+                                <p class="fs-14 text-muted ">'.$aa_value['whatsapp_number'].'</p>
+                            </div>
+                        </div>
+                    </div>';
+                    }
+                }
+
                 $assetpermission_query = "SELECT GROUP_CONCAT(`asset_id`) AS asset_ids, GROUP_CONCAT(`assetpermission_name`) AS asset_permissions 
                           FROM " . $this->username . "_platform_assetpermission 
                           WHERE `user_id` = " . $_POST['user_id'] . " 

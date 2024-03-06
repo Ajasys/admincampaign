@@ -281,19 +281,19 @@ class FaceBookController extends BaseController
                     $insert_data['fb_app_type'] = $fbdata['type'];
                     $insert_data['verification_status'] = 1;
                     $insert_data['platform_status'] = 2;
-                    $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_platform_integration');
-                    $asset_insert_data['platform_id'] = $response_status_log;
+                    $platform_id = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_platform_integration');
+                    $asset_insert_data['platform_id'] = $platform_id;
 
 
                     // for advertise assets
                     $response_ads = getSocialData('https://graph.facebook.com/v19.0/me?fields=id,name,adaccounts&access_token=' . $longLivedToken. '');        
                     foreach ($response_ads['adaccounts']['data'] as $ad_account) {
-                        $adAccountId = $ad_account['id'];
-                        $ads_insert_data['platform_id'] = $response_status_log;
+                        $adAccountId = $ad_account['account_id'];
+                        $ads_insert_data['platform_id'] = $platform_id;
                         $ads_insert_data['master_id'] = $_SESSION['master'];
                         $ads_insert_data['asset_type'] = 'ads';
                         $ads_insert_data['asset_id'] = $adAccountId;
-                        $response_status_log = $this->MasterInformationModel->insert_entry2($ads_insert_data, $this->username . '_platform_assets');
+                        $response_asset = $this->MasterInformationModel->insert_entry2($ads_insert_data, $this->username . '_platform_assets');
                         
                     }
 
