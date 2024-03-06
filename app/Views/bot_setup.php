@@ -2160,7 +2160,7 @@ option {
                             </div>
                         </div>
 
-                        <form class="col-12" name="question_update_form" enctype="multipart/form-data" method="post">
+                        <!-- <form class="col-12" name="question_update_form" enctype="multipart/form-data" method="post"> -->
                         <div class="tab-pane" id="media-edit" role="tabpanel" aria-labelledby="media-tab" tabindex="0">
                             <div class="col-12 d-flex flex-wrap px-3">
                                 <div class="col-12 my-2 d-flex flex-wrap justify-content-center p-2 media-upload-box position-relative overflow-hidden">
@@ -2256,7 +2256,7 @@ option {
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        <!-- </form> -->
 
                         
                         <script>
@@ -4288,6 +4288,17 @@ option {
                             }
                         }
 
+
+                        if (attachment_media != '') {
+                            var attachment_media = response[0].attachment_media;
+
+                            $('.media-svg').val(response[0].attachment_media);
+                            console.log(attachment_media);
+
+                          
+                        }
+
+
                         if (menu_message != '') {
                             var menu_message = JSON.parse(response[0].menu_message);
 
@@ -4669,7 +4680,7 @@ option {
                                 optionsArray.forEach(function(option, index) {
                                     var optionValue = optionsArray[index];
 
-                                    console.log(optionValue);
+                                    // console.log(optionValue);
                                     var row_numbers = index === 0 ? '' : $('.multiple_main-plan').length;
                                     var main_table_html =
                                         '<tr class="col-12 multiple_main-plan">' +
@@ -4768,7 +4779,7 @@ option {
                                     // var bot_id = $(this).data('bot_id');
                                     var bot_id = '<?php echo $botId?>';
                                     // console.log(sub_flow_value);
-                                    console.log(bot_id);
+                                    // console.log(bot_id);
                                     if (bot_id == sub_flow_value) {
                                         $(this).show();
                                     } else {
