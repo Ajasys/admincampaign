@@ -39,7 +39,7 @@ $user_data = $user_result->getResultArray();
         <div class="mb-2">
             <div class="col-xl-12 d-flex justify-content-between flex-wrap">
                 <div class="title-1  d-flex align-items-center text-nowrap">
-                    <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 20px"></i>
+                    <i class="fa-solid fa-unlock-keyhole fa-lg" style="font-size: 20px" ></i>
                     <h2>Assign Assets & Permission </h2>
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
@@ -119,7 +119,7 @@ $user_data = $user_result->getResultArray();
                                     </div>
                                     <div class="accordion" id="accordionExample">
                                         <div class="accordion-item list_asset_permission" data-asset-type="facebook">
-                                            <h2 class="accordion-header active-part pages_div" id="collapseOne_in">
+                                            <h2 class="accordion-header active-part pages_div savechanges" id="collapseOne_in">
                                                 <button id="" class="accordion-button accordion-button-arrow collapsed m-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                         <g>
@@ -187,7 +187,7 @@ $user_data = $user_result->getResultArray();
                                             </div> -->
                                         </div>
                                         <div class="accordion-item list_asset_permission" data-asset-type="instagram">
-                                            <h2 class="accordion-header active-part instagram_div">
+                                            <h2 class="accordion-header active-part instagram_div savechanges">
                                                 <button class="accordion-button accordion-button-arrow collapsed m-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                         <g>
@@ -329,7 +329,7 @@ $user_data = $user_result->getResultArray();
                                             </div> -->
                                         </div>
                                         <div class="accordion-item list_asset_permission" data-asset-type="whatsapp">
-                                            <h2 class="accordion-header whatsapp_div active-part">
+                                            <h2 class="accordion-header whatsapp_div active-part savechanges">
                                                 <button class="accordion-button accordion-button-arrow collapsed m-0 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                         <g>
@@ -377,11 +377,11 @@ $user_data = $user_result->getResultArray();
                                         Data not Found
                                     </div>
                                     <!-- pades div  -->
-                                    <div class="Pages_div page_asset_list overflow-y-scroll d-none">
-                                       
+                                    <div class="Pages_div page_asset_list overflow-y-scroll d-none defualt-div">
+                                        
                                     </div>
                                     <!-- instagram div  -->
-                                    <div class="instagram_div_to d-none">
+                                    <div class="instagram_div_to d-none defualt-div">
                                         <!-- <div class="d-flex justify-content-between ms-3 me-3 mt-2">
                                             <div>
                                                 <p>Search & Fliter</p>
@@ -404,7 +404,7 @@ $user_data = $user_result->getResultArray();
                                     </div>
 
                                     <!-- instagram div  -->
-                                    <div class="whatsapp_div_to d-none">
+                                    <div class="whatsapp_div_to d-none defualt-div">
                                         <!-- <div class="d-flex justify-content-between ms-3 me-3 mt-2">
                                             <div>
                                                 <p>Search & Fliter</p>
@@ -421,11 +421,11 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                         <div class="whatsapp_asset_list">
                                             
-                                               
+                                                
                                             
                                         </div>
-                                       
-                                       
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -443,7 +443,7 @@ $user_data = $user_result->getResultArray();
                                         <!-- Pages_div -->
                                         <div class="Pages_div col-12 overflow-y-scroll" style="height:90vh;">
                                             <div class="active-part1 d-none">
-                                               
+                                                
                                             </div>
                                             <div class="d-flex flex-wrap w-100 h-100 justify-content-center align-items-center data-404">
                                                 Data not Found
@@ -524,13 +524,16 @@ $user_data = $user_result->getResultArray();
                                         </div>
                                 </div>
                             </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="cola-12 text-end p-2">
+                        <button type="button" class="btn btn-primary assign_permission" id="assign_permission">Save changes</button>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="reloadPage()">Close</button>
-                    <button type="button" class="btn btn-primary assign_permission" id="assign_permission">Save
-                        changes</button>
+                    <!-- <button type="button" class="btn btn-primary assign_permission" id="assign_permission">Save changes</button> -->
                 </div>
             </div>
         </div>
@@ -746,4 +749,36 @@ $user_data = $user_result->getResultArray();
     function reloadPage() {
         location.reload(true);
     }
+    $('body').on('change','#assign_asset input',function() {
+        $('.savechanges').attr('onclick','saveChnages();');
+    })
+    function saveChnages() {
+        var record_text = "Are you sure you want to save changes";
+    
+    Swal.fire({
+        title: 'Are you sure?',
+        text: record_text,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'CONFIRM',
+        cancelButtonText: 'CANCEL',
+        cancelButtonColor: '#6e7881',
+        confirmButtonColor: '#dd3333',
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.value) {
+            // Perform your actions here when CONFIRM is clicked
+            // For now, let's just show an alert
+            alert('Changes confirmed!');
+            $('.savechanges').attr('onclick',false);
+        } else {
+            // Optional: Handle actions when CANCEL is clicked
+            alert('Changes canceled!');
+        }
+    });
+    }
+    // $('body').on('click','.swal2-confirm',function () {
+    //     // $('.savechanges').attr('onclick',false);
+    //     alert('khdfd');
+    // })
 </script>
