@@ -15,6 +15,7 @@ use App\Controllers\Campaign\FacebookController;
 use App\Controllers\Campaign\AssetPermissionController;  
 use App\Controllers\Campaign\WhatAppIntegrationController;
 use App\Controllers\Campaign\Bot_Controller;
+use App\Controllers\Campaign\AudianceController;
 
 
 
@@ -232,20 +233,21 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('import_file_data', 'DatamoduleController::import_file_data');
 	$routes->post('data_module_list_data', 'DatamoduleController::data_module_list_data');
 	//audiance module
-	$routes->post('/audience_list_data', 'AudianceController::audience_list_data');
-	$routes->post('/audience_view_data', 'AudianceController::audience_view_data');
-	$routes->post('/audience_show_data', 'AudianceController::audience_show_data');
-	$routes->post('audience_inquiry_data_view', 'AudianceController::view_data_audience');
-	$routes->post('audience_insert_data', 'AudianceController::audience_insert_data');
-	$routes->post('get_data_header_by_file_audience', 'AudianceController::get_data_header_by_file_audience');
-	$routes->post('import_file_data_audience', 'AudianceController::import_file_data_audience');
-	$routes->post('audience_facebook_data', 'AudianceController::audience_facebook_data');
-	$routes->post('audience_view_data_facebook', 'AudianceController::audience_view_data_facebook');
-	$routes->post('view_integrate_lead_audience', 'AudianceController::view_integrate_lead_audience');
-	$routes->post('audience_increase_data', 'AudianceController::audience_increase_data');
-	$routes->post('edit_data_audience', 'AudianceController::edit_data_audience');
-	$routes->post('update_data_audience', 'AudianceController::update_data_audience');
-	$routes->post('audio_file', 'AudianceController::audio_file');
+	$routes->post('/audience_list_data', [AudianceController::class, 'audience_list_data']);
+	$routes->post('/audience_view_data', [AudianceController::class, 'audience_view_data']);
+	$routes->post('/audience_show_data', [AudianceController::class, 'audience_show_data']);
+	$routes->post('audience_inquiry_data_view', [AudianceController::class, 'view_data_audience']);
+	$routes->post('audience_insert_data', [AudianceController::class, 'audience_insert_data']);
+	$routes->post('get_data_header_by_file_audience', [AudianceController::class, 'get_data_header_by_file_audience']);
+	$routes->post('import_file_data_audience', [AudianceController::class, 'import_file_data_audience']);
+	$routes->post('audience_facebook_data', [AudianceController::class, 'audience_facebook_data']);
+	$routes->post('audience_view_data_facebook', [AudianceController::class, 'audience_view_data_facebook']);
+	$routes->post('view_integrate_lead_audience', [AudianceController::class, 'view_integrate_lead_audience']);
+	$routes->post('audience_increase_data', [AudianceController::class, 'audience_increase_data']);
+	$routes->post('edit_data_audience', [AudianceController::class, 'edit_data_audience']);
+	$routes->post('update_data_audience', [AudianceController::class, 'update_data_audience']);
+	$routes->post('audio_file', [AudianceController::class, 'audio_file']);
+
 	// subscribtion master 
 	$routes->post('/subscription_master_insert', 'MasterInformation::insert_data');
 	$routes->post('/master_subscribtion_list', 'MasterInformation::subscription_list');

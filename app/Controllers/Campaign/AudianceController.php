@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Controllers;
-
+namespace App\Controllers\Campaign;
+use App\Controllers\BaseController;
 use App\Models\MasterInformationModel;
 use Config\Database;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -160,21 +160,17 @@ class AudianceController extends BaseController
         $html = "";
         if ($_POST['action'] == 'facebook_list') {
             $this->db = DatabaseDefaultConnection();
-			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+            $username = session_username($_SESSION['username']);
+			$get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
 			$data_count = $get_access_token_array->getNumRows();
             $fb_account_data = $get_access_token_array->getResultArray()[0];
 			$token = $fb_account_data['access_token'];
-    
                    $selectedAccountId = $_POST['selected_account_id'];
-                                    // Fetch custom audiences for each ad account
+                    // Fetch custom audiences for each ad account
                     $url = "https://graph.facebook.com/v19.0/$selectedAccountId/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
                     $response = file_get_contents($url);
-                    // pre($response);
                     $audience_data = json_decode($response, true);
-            // }
-                    // pre($audience_data);
-                    // Iterate over custom audiences data and build HTML
                     foreach ($audience_data['data'] as $conversion_value) {
                         $chat_list_html = "";
                         $lower_bound = $conversion_value['approximate_count_lower_bound'];
@@ -361,8 +357,9 @@ class AudianceController extends BaseController
         if (!empty($departmentdisplaydata)) {
             // Initialize an array to store processed audience names
             $processedAudiences = [];
+            $username = session_username($_SESSION['username']);
             $this->db = DatabaseDefaultConnection();
-			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+			$get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
 			$data_count = $get_access_token_array->getNumRows();
             $fb_account_data = $get_access_token_array->getResultArray()[0];
@@ -519,8 +516,9 @@ class AudianceController extends BaseController
         if (!empty($livedisplaydata)) {
             // Initialize an array to store processed audience names
             $processedAudiences = [];
+            $username = session_username($_SESSION['username']);
             $this->db = DatabaseDefaultConnection();
-			$get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+			$get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
 			$data_count = $get_access_token_array->getNumRows();
             $fb_account_data = $get_access_token_array->getResultArray()[0];
@@ -783,157 +781,157 @@ class AudianceController extends BaseController
                         $departmentdisplaydata,
                         true
                     );
-                //     if ($facebook_syncro == 1) {
-                //         $this->db = DatabaseDefaultConnection();
-                //         $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
-                //         $get_access_token_array = $this->db->query($get_token);
-                //         $data_count = $get_access_token_array->getNumRows();
-                //         $fb_account_data = $get_access_token_array->getResultArray()[0];
-                //         $accessToken = $fb_account_data['access_token'];
-                //         // $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$accessToken";
-                //         // $response = file_get_contents($url);
-                //         // $data = json_decode($response, true);
+                    if ($facebook_syncro == 1) {
+                        $this->db = DatabaseDefaultConnection();
+                        $get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+                        $get_access_token_array = $this->db->query($get_token);
+                        $data_count = $get_access_token_array->getNumRows();
+                        $fb_account_data = $get_access_token_array->getResultArray()[0];
+                        $accessToken = $fb_account_data['access_token'];
+                        // $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$accessToken";
+                        // $response = file_get_contents($url);
+                        // $data = json_decode($response, true);
             
-                //         // // Check if 'adaccounts' data exists and iterate over each ad account
-                //         // if (isset($data['adaccounts']['data'])) {
-                //         //     $chat_list_html = '';
-                //         //     foreach ($data['adaccounts']['data'] as $ad_account) {
-                //         //         pre($ad_account);
-                //         //         $adAccountId = $ad_account['id'];
-                //         //     }
-                //         // }
-                //         // pre($adAccountId);
-                //         // die();
-                //         $adAccountId = $ad_account_id;
-                //         $url = "https://graph.facebook.com/v19.0/$adAccountId/customaudiences";
-                //         $postData = [
-                //             'name' => $name, // Change here to use name from POST data
-                //             'subtype' => 'CUSTOM',
-                //             'description' => 'People who purchased on my website',
-                //             'customer_file_source' => 'USER_PROVIDED_ONLY',
-                //             'access_token' => $accessToken
-                //         ];
+                        // // Check if 'adaccounts' data exists and iterate over each ad account
+                        // if (isset($data['adaccounts']['data'])) {
+                        //     $chat_list_html = '';
+                        //     foreach ($data['adaccounts']['data'] as $ad_account) {
+                        //         pre($ad_account);
+                        //         $adAccountId = $ad_account['id'];
+                        //     }
+                        // }
+                        // pre($adAccountId);
+                        // die();
+                        $adAccountId = $ad_account_id;
+                        $url = "https://graph.facebook.com/v19.0/$adAccountId/customaudiences";
+                        $postData = [
+                            'name' => $name, // Change here to use name from POST data
+                            'subtype' => 'CUSTOM',
+                            'description' => 'People who purchased on my website',
+                            'customer_file_source' => 'USER_PROVIDED_ONLY',
+                            'access_token' => $accessToken
+                        ];
                         
-                //         // Initialize cURL session for creating custom audience
-                //         $curl = curl_init();
+                        // Initialize cURL session for creating custom audience
+                        $curl = curl_init();
                         
-                //         // Set cURL options for creating custom audience
-                //         curl_setopt_array($curl, [
-                //             CURLOPT_URL => $url,
-                //             CURLOPT_RETURNTRANSFER => true,
-                //             CURLOPT_POST => true,
-                //             CURLOPT_POSTFIELDS => $postData
-                //         ]);
+                        // Set cURL options for creating custom audience
+                        curl_setopt_array($curl, [
+                            CURLOPT_URL => $url,
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_POST => true,
+                            CURLOPT_POSTFIELDS => $postData
+                        ]);
                         
-                //         // Execute cURL request to create custom audience
-                //         $response = curl_exec($curl);
+                        // Execute cURL request to create custom audience
+                        $response = curl_exec($curl);
                         
-                //         // Check for errors in cURL request
-                //         if (curl_errno($curl)) {
-                //             $error = curl_error($curl);
-                //             curl_close($curl);
-                //             return "cURL Error: $error";
-                //         }
+                        // Check for errors in cURL request
+                        if (curl_errno($curl)) {
+                            $error = curl_error($curl);
+                            curl_close($curl);
+                            return "cURL Error: $error";
+                        }
                         
-                //         // Close cURL session for creating custom audience
-                //         curl_close($curl);
+                        // Close cURL session for creating custom audience
+                        curl_close($curl);
                         
-                //         // Decode the JSON response to extract the audience ID
-                //         $response_data = json_decode($response, true);
-                //         if (!empty($response_data) && isset($response_data['id'])) {
-                //             $audience_id = $response_data['id'];
-                //           // Update all rows in admin_audience with the retrieved audience_id
-                //             // $updateQuery = "UPDATE admin_audience SET audience_id = ?";
-                //             // $secondDb->query($updateQuery, [$audience_id]);
-                //             // Construct the correct URL for adding users to the custom audience
-                //             $usersUrl = "https://graph.facebook.com/v19.0/$audience_id/users?access_token=$accessToken";
+                        // Decode the JSON response to extract the audience ID
+                        $response_data = json_decode($response, true);
+                        if (!empty($response_data) && isset($response_data['id'])) {
+                            $audience_id = $response_data['id'];
+                          // Update all rows in admin_audience with the retrieved audience_id
+                            // $updateQuery = "UPDATE admin_audience SET audience_id = ?";
+                            // $secondDb->query($updateQuery, [$audience_id]);
+                            // Construct the correct URL for adding users to the custom audience
+                            $usersUrl = "https://graph.facebook.com/v19.0/$audience_id/users?access_token=$accessToken";
                         
-                //             // Reset the estimated total count
-                //             $estimated_total = 0;
+                            // Reset the estimated total count
+                            $estimated_total = 0;
                         
-                //             $allUsersData = [];
+                            $allUsersData = [];
 
-                //             foreach ($departmentdisplaydata as $record) {
-                //                 // Extract full name, email, and mobile number from the current record
-                //                 $full_name = $record['full_name'];
-                //                 $email = $record['email'];
-                //                 $mobileno = $record['mobileno'];
-                //                 $page_name = $record['pages_name'];
-                //                 // Hash the values
-                //                 $hashed_first_name = hash('sha256', $full_name);
-                //                 $hashed_email = hash('sha256', $email);
-                //                 $hashed_mobileno = hash('sha256', $mobileno);
+                            foreach ($departmentdisplaydata as $record) {
+                                // Extract full name, email, and mobile number from the current record
+                                $full_name = $record['full_name'];
+                                $email = $record['email'];
+                                $mobileno = $record['mobileno'];
+                                $page_name = $record['pages_name'];
+                                // Hash the values
+                                $hashed_first_name = hash('sha256', $full_name);
+                                $hashed_email = hash('sha256', $email);
+                                $hashed_mobileno = hash('sha256', $mobileno);
                                 
-                //                 // Construct payload data for the current user
-                //                 $userPayloadData = [
-                //                     $hashed_first_name, // Hashed first name
-                //                     $hashed_email, // Hashed email address
-                //                     $hashed_mobileno, // Hashed mobile number
-                //                     ["LDU"] // Specify LDU flag for this entry
-                //                 ];
+                                // Construct payload data for the current user
+                                $userPayloadData = [
+                                    $hashed_first_name, // Hashed first name
+                                    $hashed_email, // Hashed email address
+                                    $hashed_mobileno, // Hashed mobile number
+                                    ["LDU"] // Specify LDU flag for this entry
+                                ];
                                 
-                //                 // Add the payload data for the current user to the array
-                //                 $allUsersData[] = $userPayloadData;
-                //             }
+                                // Add the payload data for the current user to the array
+                                $allUsersData[] = $userPayloadData;
+                            }
                           
-                //             $selected_page_id = $_POST['pages_name'];
-                //             // Define the schema
-                //             $schema = ["FN", "EMAIL", "PHONE", "DATA_PROCESSING_OPTIONS"];
+                            $selected_page_id = $_POST['pages_name'];
+                            // Define the schema
+                            $schema = ["FN", "EMAIL", "PHONE", "DATA_PROCESSING_OPTIONS"];
                             
-                //             // Define the payload data
-                //             $usersPostData = [
-                //                 "schema" => $schema,
-                //                 "is_raw" => "true",
-                //                 "page_ids" => [$selected_page_id], // Add the page ID(s) here as an array
-                //                 "data" => $allUsersData // Add all users' data
-                //             ];
-                //             // pre($usersPostData);
+                            // Define the payload data
+                            $usersPostData = [
+                                "schema" => $schema,
+                                "is_raw" => "true",
+                                "page_ids" => [$selected_page_id], // Add the page ID(s) here as an array
+                                "data" => $allUsersData // Add all users' data
+                            ];
+                            // pre($usersPostData);
                             
-                //             // Convert payload data to JSON format
-                //             $usersPostDataJson = json_encode($usersPostData);
+                            // Convert payload data to JSON format
+                            $usersPostDataJson = json_encode($usersPostData);
                             
-                //             // Initialize cURL session for adding users to the custom audience
-                //             $curl_users = curl_init();
+                            // Initialize cURL session for adding users to the custom audience
+                            $curl_users = curl_init();
                             
-                //             // Set cURL options for adding users to the custom audience
-                //             curl_setopt_array($curl_users, [
-                //                 CURLOPT_URL => $usersUrl,
-                //                 CURLOPT_RETURNTRANSFER => true,
-                //                 CURLOPT_POST => true,
-                //                 CURLOPT_POSTFIELDS => http_build_query(['payload' => $usersPostDataJson]), // Pass the JSON string here as 'payload'
-                //                 CURLOPT_TIMEOUT => 60 // Set a timeout of 60 seconds for the request
-                //             ]);
+                            // Set cURL options for adding users to the custom audience
+                            curl_setopt_array($curl_users, [
+                                CURLOPT_URL => $usersUrl,
+                                CURLOPT_RETURNTRANSFER => true,
+                                CURLOPT_POST => true,
+                                CURLOPT_POSTFIELDS => http_build_query(['payload' => $usersPostDataJson]), // Pass the JSON string here as 'payload'
+                                CURLOPT_TIMEOUT => 60 // Set a timeout of 60 seconds for the request
+                            ]);
                             
-                //             // Execute cURL request to add users to the custom audience
-                //             $users_response = curl_exec($curl_users);
-                //             // pre($users_response);
+                            // Execute cURL request to add users to the custom audience
+                            $users_response = curl_exec($curl_users);
+                            // pre($users_response);
                             
-                //             // Check for errors in cURL request for adding users
-                //             if (curl_errno($curl_users)) {
-                //                 $error = curl_error($curl_users);
-                //                 curl_close($curl_users);
-                //                 // Handle the error gracefully, you can log it or display a message
-                //                 echo "cURL Error adding users: $error\n";
-                //             } else {
-                //                 // Output the response
-                //                 echo $users_response;
-                //             }
+                            // Check for errors in cURL request for adding users
+                            if (curl_errno($curl_users)) {
+                                $error = curl_error($curl_users);
+                                curl_close($curl_users);
+                                // Handle the error gracefully, you can log it or display a message
+                                echo "cURL Error adding users: $error\n";
+                            } else {
+                                // Output the response
+                                echo $users_response;
+                            }
                             
-                //             // Close cURL session for adding users to the custom audience
-                //             curl_close($curl_users);
+                            // Close cURL session for adding users to the custom audience
+                            curl_close($curl_users);
                             
-                //             // Return a message with the total estimated users added
-                //             return "All records processed successfully. Total estimated users: $estimated_total";
+                            // Return a message with the total estimated users added
+                            return "All records processed successfully. Total estimated users: $estimated_total";
 
-                //         } else {
-                //             // Handle the case when $response_data is empty or does not contain 'id'
-                //             return "Custom audience ID not available.";
-                //         }
+                        } else {
+                            // Handle the case when $response_data is empty or does not contain 'id'
+                            return "Custom audience ID not available.";
+                        }
                        
-                // } else {
-                //     // For example, you can return a message indicating that the custom audience was not created
-                //     return "Custom audience not created because pages_name is equal to 0.";
-                // }
+                } else {
+                    // For example, you can return a message indicating that the custom audience was not created
+                    return "Custom audience not created because pages_name is equal to 0.";
+                }
             } else {
                 // Data not available, return error
                 return "error";
@@ -1301,8 +1299,9 @@ class AudianceController extends BaseController
                     $result["response"] = 1;
                     $result["msg"] = "Data Inserted Success";
                 }
+                $username = session_username($_SESSION['username']);
                 $this->db = DatabaseDefaultConnection();
-                $get_token = "SELECT * FROM admin_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+                $get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
                 $get_access_token_array = $this->db->query($get_token);
                 $data_count = $get_access_token_array->getNumRows();
                 $fb_account_data = $get_access_token_array->getResultArray()[0];
