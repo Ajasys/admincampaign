@@ -449,10 +449,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                            <a class="dropdown-item" href="<?= base_url(); ?>lead_module">Lead Integration</a>
                         </li>
                      <?php } ?>
-
-                     <li>
-                        <a class="dropdown-item" href="<?= base_url(); ?>whatsapp">WhatsApp Manager</a>
-                     </li>
+                     <?php if ((in_array('wh_template', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+                        <li>
+                           <a class="dropdown-item" href="<?= base_url(); ?>whatsapp">WhatsApp Manager</a>
+                        </li>
+                     <?php } ?>
                      <!-- <li>
                         <a class="dropdown-item" href="<?= base_url(); ?>">Email Integration</a>
                      </li> -->

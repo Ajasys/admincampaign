@@ -1,10 +1,20 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
-<?php $table_username = getMasterUsername(); ?>
 <?php
+$table_username = getMasterUsername();
+$db_connection = DatabaseDefaultConnection();
 $language_name = json_decode($language_name, true);
 $connections = json_decode($connections, true);
 
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+    $get_asset_permission = [];
+} else {
+    $get_asset_permission = get_asset_permission($_SESSION['id']);
+}
+$isdisabled = "";
+if ((in_array('wh_template', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+    $isdisabled = "disabled";
+}
 if (!empty($connections)) {
 } else {
     echo '<script>window.location.href = "' . base_url() . 'whatsapp_connections' . '";</script>';
@@ -23,7 +33,6 @@ if (!empty($connections)) {
     .mobile-whatapp {
         width: 300px !important;
         height: 550px;
-        /* margin: auto; */
     }
 
     .preview-header-paragraph .user-name-chat-header {
@@ -73,16 +82,6 @@ if (!empty($connections)) {
         cursor: pointer;
     }
 
-    /* .preview-chat-section {
-    background-color: #f1ede5;
-    width: 100%;
-    height: calc(100% - 100px) !important;
-    object-fit: cover;
-    object-position: center;
-    padding: 10px;
-    position: relative;
-    overflow-y: auto;
-} */
     .preview-chat-section {
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -100,10 +99,8 @@ if (!empty($connections)) {
 
     .mobile-whatapp-body {
         padding: 10px;
-        /* height: calc(45vh - 10px); */
         background-color: #F1EDE5;
         height: 370px !important;
-        /* max-height: 30px !important; */
     }
 
     .preview-chat-paragraph {
@@ -317,8 +314,7 @@ if (!empty($connections)) {
     .add_user_role_css {
         padding: 10px;
     }
-</style>
-<style>
+
     .wa-preview-main-div-cont {
         max-width: 600px;
         margin: auto;
@@ -619,7 +615,7 @@ if (!empty($connections)) {
                     if (isset($connections) && !empty($connections)) {
                         foreach ($connections as $key => $value) {
                             echo '<option value="' . $value['id'] . '" Name = "' . $value['verified_name'] . '" PhoneNo = "' . $value['display_phone_number'] . '" class="  dropdown-item">
-                                ' . $value['verified_name'] . '</option>';
+                                    ' . $value['verified_name'] . '</option>';
                         }
                     }
                     ?>
@@ -757,20 +753,10 @@ if (!empty($connections)) {
                                                                     <!-- <div class="col-12 mb-3 mt-2">
                                                                         <input type="number" id="mobile_code" class="form-control phone_number_div" minlength="10" maxlength="10" onkeyup="if (/D/g.test(this.value)) this.value = this.value.replace(/D/g,'')" placeholder="Enter Your Phone Number" name="name" required>
                                                                     </div> -->
-
-
                                                                     <div class="col-12 mb-3 mt-2">
-                                                            
-                                                                    <input type="number" minlength="10" maxlength="10" onkeyup="if (/D/g.test(this.value)) this.value = this.value.replace(/D/g,'')"
-                                                                        class="form-control main-control phone_number_div" id="mobile_code" name="phone_no" placeholder="Mobile No." value="" data-phone_id="" required='' />
-                                                                    <p class="mobilevalidationclass" style="color:red !important;text-transform:none;"></p>
-                                                            </div>
-
-
-
-
-                                                                    
-
+                                                                        <input type="number" minlength="10" maxlength="10" onkeyup="if (/D/g.test(this.value)) this.value = this.value.replace(/D/g,'')" class="form-control main-control phone_number_div" id="mobile_code" name="phone_no" placeholder="Mobile No." value="" data-phone_id="" required='' />
+                                                                        <p class="mobilevalidationclass" style="color:red !important;text-transform:none;"></p>
+                                                                    </div>
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <select class="form-control main-control language_div" id="language" name="language" disabled required>
                                                                             <option class="fs-12" label="Language" value=""></option>
@@ -960,7 +946,7 @@ if (!empty($connections)) {
                                                                         <!-- <span class="btn-primary Template_send" data-edit_id="">Send</span>     -->
                                                                     </div>
                                                                     <div class="col-12 pt-3 border-top mb-2 text-end">
-                                                                        <span class="btn-primary Template_send" id="memberships_add_btn" name="memberships_update1" value="memberships_update1">Preview</sp>
+                                                                        <button class="btn-primary Template_send" id="memberships_add_btn" name="memberships_update1" value="memberships_update1" <?php echo $isdisabled; ?>>Preview</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1057,7 +1043,7 @@ if (!empty($connections)) {
                                                                     <label class=" pull-left full-width text-left m-b-15"><b>Note:
                                                                         </b> follow <a href="<?php echo base_url('/assets/whatsappbulkmessage.csv'); ?>" download='whatsappbulkmessage.csv' target="_blank">csv</a>
                                                                         format for
-                                                                        send bulk messages    <a href="<?php echo base_url('/assets/whatsappbulkmessage.csv'); ?>" download='whatsappbulkmessage.csv' class="text-secondary mx-1 mb-1 add_property_js add_user_role_css add_user-role-pdf">
+                                                                        send bulk messages <a href="<?php echo base_url('/assets/whatsappbulkmessage.csv'); ?>" download='whatsappbulkmessage.csv' class="text-secondary mx-1 mb-1 add_property_js add_user_role_css add_user-role-pdf">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="28" height="28" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
                                                                                 <g>
                                                                                     <path d="M496 432.011H272c-8.832 0-16-7.168-16-16v-320c0-8.832 7.168-16 16-16h224c8.832 0 16 7.168 16 16v320c0 8.832-7.168 16-16 16z" style="" fill="#eceff1" data-original="#eceff1"></path>
@@ -1068,7 +1054,6 @@ if (!empty($connections)) {
                                                                                 </g>
                                                                             </svg>
                                                                         </a> </label>
-
                                                                     <div class="col-12 mb-3 mt-2">
                                                                         <label for="" class="main-label main-label ">Upload CSV <sup class="validationn">*</sup></label>
                                                                         <input type="file" class="form-control main-control" id="import_file" name="import_file" placeholder="Details" required>
@@ -1278,14 +1263,12 @@ if (!empty($connections)) {
                                                                     </div> -->
                                                                     <div class="modal-footer justify-content-end my-1">
                                                                         <!-- <span class="btn-primary nextbutton  d-none" id="memberships_add_btn1" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">Preview</span> -->
-
-                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">Send</button>
+                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1" <?php echo $isdisabled; ?>>Send</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </form>
-                                                 
                                                 </div>
                                                 <div class="col-12 col-xl-6 d-flex px-0 px-lg-4 my-2  my-2 my-xxl-0 justify-content-center">
                                                     <!-- whatsapp   .. -->
@@ -1369,9 +1352,15 @@ if (!empty($connections)) {
                                             Facebook</button>
                                     </div>
                                     <div class="col-3 px-2">
-                                        <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
-                                            <i class="bi bi-plus PlusButtonDiv "></i>
-                                        </button>
+                                        <?php
+                                        if ((in_array('wh_template', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                                        ?>
+                                            <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
+                                                <i class="bi bi-plus PlusButtonDiv "></i>
+                                            </button>
+                                        <?php
+                                        }
+                                        ?>
                                         <p class="d-none EditBtnTemplate" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit"></p>
                                     </div>
                                 </div>
@@ -1618,7 +1607,6 @@ if (!empty($connections)) {
                                                 <option value="3">Appointment_date</option>
                                                 <option value="4">date_of_birth</option>
                                                 <option value="5">Anniversary_date</option>
-
                                             </select>
                                         </div>
                                         <textarea class="form-control main-control col-12 TemplateBodyClass body_div" id="body_id" placeholder="Type Your Body Text Here..." name="" required></textarea>
@@ -1753,8 +1741,6 @@ if (!empty($connections)) {
                                 <p class="font-size-12">The provided example values will be submitted to Facebook as part of the template submission process. If no relevant examples are provided, templates may be rejected by Facebook.</p>
                             </div> -->
                         </div>
-
-
                     </div>
                     <div class="col-6">
                         <div class="preview-chat-section rounded-0">
@@ -1816,28 +1802,27 @@ if (!empty($connections)) {
     <!-- view sent msg -->
     <?= $this->include('partials/footer') ?>
     <script>
-            $(document).ready(function() {
-        $('.Template_send').click(function() {
-            var number = $('#mobile_code').val();
-            if (number.length < 10) {
-                $('.mobilevalidationclass').text('Please enter a valid 10-digit number');
-                return false; 
-            } else {
-                $('.mobilevalidationclass').text('');
-                return true; 
-            }
+        $(document).ready(function() {
+            $('.Template_send').click(function() {
+                var number = $('#mobile_code').val();
+                if (number.length < 10) {
+                    $('.mobilevalidationclass').text('Please enter a valid 10-digit number');
+                    return false;
+                } else {
+                    $('.mobilevalidationclass').text('');
+                    return true;
+                }
+            });
+            $('.phone_number_div').on('input', function() {
+                var number = $(this).val();
+                if (number.length > 10) {
+                    $(this).val(number.slice(0, 10));
+                }
+                if (number.length == 10) {
+                    $('.mobilevalidationclass').text('');
+                }
+            });
         });
-        
-        $('.phone_number_div').on('input', function() {
-            var number = $(this).val();
-            if (number.length > 10) {
-                $(this).val(number.slice(0, 10));
-            }
-            if (number.length == 10) {
-                $('.mobilevalidationclass').text('');
-            }
-        });
-    });
         $('#Template_nameId').on('input', function() {
             var templateName = $(this).val();
             var maxLength = 512;
@@ -1929,19 +1914,13 @@ if (!empty($connections)) {
             $('#sendbtn').addClass('d-none')
             $('.inputypeBody').addClass('d-none')
             var Body1 = $(this).attr('Bodytext');
-            
             // console.log(Body1);
             var Bodytextvalue = JSON.parse($(this).attr('Bodytextvalue'));
-            
             for (var i = 0; i < Bodytextvalue.length; i++) {
                 var placeholder = new RegExp('{{[' + (i + 1) + ']}}', 'g');
                 Body1 = Body1.replace(placeholder, '{{' + Bodytextvalue[i] + '}}');
-                
             }
             $('.msg-text-chat').text(Body1);
-
-
-
             var footer = $(this).attr('footertext');
             var header = $(this).attr('headertext');
             var button = $(this).attr('buttontext');
@@ -2118,13 +2097,7 @@ if (!empty($connections)) {
             $("form[name='master_membership_update_form']").removeClass("was-validated");
         });
     </script>
-
-
-
-
-
-
-<script>
+    <script>
         $('body').on('click', '.previewbutton', function() {
             $('.Add_editModelTitle').removeClass('d-none');
             $('.EditTemplateButtonClass').addClass('d-none');
@@ -2141,8 +2114,6 @@ if (!empty($connections)) {
                 }
             }
         });
-
-
         $(document).ready(function() {
             $('.body-select-picker').change(function() {
                 var selectedValue = $(this).find(":selected").val();
@@ -2165,97 +2136,94 @@ if (!empty($connections)) {
             var SearchText = $('.MasterListDataSearchBar').val();
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
             // console.log(WhatsAppConnectionsDropDown);
-            if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== 'undefined' && WhatsAppConnectionsDropDown !== undefined) {
-                var table = 'master_whatsapp_template';
-                show_val = '<?= json_encode(array('Template_name', 'category_types', 'language', 'header', 'body', 'footer')); ?>';
-                $('.loader').show();
-                $.ajax({
-                    datatype: 'json',
-                    method: "post",
-                    url: "<?= site_url('master_whatsapp_list_data'); ?>",
-                    data: {
-                        'table': table,
-                        'show_array': show_val,
-                        'action': true,
-                        'connectionid': WhatsAppConnectionsDropDown,
-                        'searchtext': SearchText,
-                    },
-                    success: function(res) {
-                        $('.loader').hide();
-                        var response = JSON.parse(res);
-                        var template_name = response.template_name;
-                        //12-02-2024
-                        var templateBracketvalue = response.templateBracketvalue;
-                        var templatelanguage = response.templatelanguage;
-                        var bodyvalue = response.templatebody;
-                        var headervalue = response.templateheader;
-                        var footervalue = response.templatefooter;
-                        var buttonvalue = response.templateBUTTON;
-                        var variablevalue = response.bodyvarvalue;
-
-
-                        var selectDropdowns = document.getElementsByClassName("templatesnamelistddclass");
-                        for (var i = 0; i < selectDropdowns.length; i++) {
-                            var selectDropdown = selectDropdowns[i];
-                            selectDropdown.innerHTML = "";
-                            var defaultOption = document.createElement("option");
-                            defaultOption.text = "Please Select Template";
-                            defaultOption.value = "";
-                            defaultOption.disabled = true;
-                            defaultOption.selected = true;
-                            selectDropdown.add(defaultOption);
-                            for (var key in template_name) {
-                                if (template_name.hasOwnProperty(key)) {
-                                    var option = document.createElement("option");
-                                    option.text = template_name[key];
-                                    option.value = template_name[key];
-                                    option.setAttribute('DataMNo', key);
-                                    selectDropdown.add(option);
+            var isAdmin = <?php echo isset($_SESSION['admin']) && $_SESSION['admin'] == 1 ? 'true' : 'false'; ?>;
+            var hasTemplatePermission = <?php echo in_array('wh_template', $get_asset_permission) ? 'true' : 'false'; ?>;
+            if (isAdmin || hasTemplatePermission) {
+                if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== 'undefined' && WhatsAppConnectionsDropDown !== undefined) {
+                    var table = 'master_whatsapp_template';
+                    show_val = '<?= json_encode(array('Template_name', 'category_types', 'language', 'header', 'body', 'footer')); ?>';
+                    $('.loader').show();
+                    $.ajax({
+                        datatype: 'json',
+                        method: "post",
+                        url: "<?= site_url('master_whatsapp_list_data'); ?>",
+                        data: {
+                            'table': table,
+                            'show_array': show_val,
+                            'action': true,
+                            'connectionid': WhatsAppConnectionsDropDown,
+                            'searchtext': SearchText,
+                        },
+                        success: function(res) {
+                            $('.loader').hide();
+                            var response = JSON.parse(res);
+                            var template_name = response.template_name;
+                            //12-02-2024
+                            var templateBracketvalue = response.templateBracketvalue;
+                            var templatelanguage = response.templatelanguage;
+                            var bodyvalue = response.templatebody;
+                            var headervalue = response.templateheader;
+                            var footervalue = response.templatefooter;
+                            var buttonvalue = response.templateBUTTON;
+                            var variablevalue = response.bodyvarvalue;
+                            var selectDropdowns = document.getElementsByClassName("templatesnamelistddclass");
+                            for (var i = 0; i < selectDropdowns.length; i++) {
+                                var selectDropdown = selectDropdowns[i];
+                                selectDropdown.innerHTML = "";
+                                var defaultOption = document.createElement("option");
+                                defaultOption.text = "Please Select Template";
+                                defaultOption.value = "";
+                                defaultOption.disabled = true;
+                                defaultOption.selected = true;
+                                selectDropdown.add(defaultOption);
+                                for (var key in template_name) {
+                                    if (template_name.hasOwnProperty(key)) {
+                                        var option = document.createElement("option");
+                                        option.text = template_name[key];
+                                        option.value = template_name[key];
+                                        option.setAttribute('DataMNo', key);
+                                        selectDropdown.add(option);
+                                    }
                                 }
                             }
+                            $('.preview-header-VIDEO').addClass('d-none');
+                            $('.header_div').change(function() {
+                                var selectDropdown = $(this).val();
+                                var languageDropdown = templatelanguage[selectDropdown];
+                                var variablevalues = variablevalue[selectDropdown];
+                                var header = headervalue[selectDropdown];
+                                var footer = footervalue[selectDropdown];
+                                var button = buttonvalue[selectDropdown];
+                                $('.preview-chat-section-chat').slideUp(100);
+                                $('.preview-chat-section-chat').slideDown(1000);
+                                $('.language_div').val(languageDropdown);
+                                var body1 = bodyvalue[selectDropdown];
+                                var body = bodyvalue[selectDropdown];
+                                var placeholders = body.match(/{{\d+}}/g);
+                                if (!placeholders || placeholders.length === 0) {
+                                    $('.BodyValue').text(body1);
+                                } else {
+                                    placeholders.forEach((placeholder, index) => {
+                                        body = body.replace(placeholder, "{{" + variablevalues[index] + "}}");
+                                    });
+                                    $('.BodyValue').text(body);
+                                }
+                                $('.footervalue').text(footer);
+                                $('.single-button-whatsapp-template').text(button);
+                                if (isValidURL(header)) {
+                                    $('.preview-header-VIDEO').removeClass('d-none');
+                                    $('.headervalue').addClass('d-none')
+                                    $(".preview-header-VIDEO").attr('src', header).addClass("col-12 rounded-3 border border-3");
+                                } else {
+                                    $('.headervalue').text(header).css('font-weight', 'bold');
+                                    $('.preview-header-VIDEO').addClass('d-none');
+                                    $('.headervalue').removeClass('d-none')
+                                }
+                            });
+                            $('#memberships_list').html(response.html);
                         }
-
-
-
-
-                        $('.preview-header-VIDEO').addClass('d-none');
-                        $('.header_div').change(function() {
-                            var selectDropdown = $(this).val();
-                            var languageDropdown = templatelanguage[selectDropdown];
-                            var variablevalues = variablevalue[selectDropdown];
-                            var header = headervalue[selectDropdown];
-                            var footer = footervalue[selectDropdown];
-                            var button = buttonvalue[selectDropdown];
-                            $('.preview-chat-section-chat').slideUp(100);
-                            $('.preview-chat-section-chat').slideDown(1000);
-                            $('.language_div').val(languageDropdown);
-                            var body1 = bodyvalue[selectDropdown];
-                            var body = bodyvalue[selectDropdown];
-
-                            var placeholders = body.match(/{{\d+}}/g);
-                            if (!placeholders || placeholders.length === 0) {
-                                $('.BodyValue').text(body1);
-                            } else {
-                                placeholders.forEach((placeholder, index) => {
-                                    body = body.replace(placeholder, "{{" + variablevalues[index] + "}}");
-                                });
-                                $('.BodyValue').text(body);
-                            }
-                            $('.footervalue').text(footer);
-                            $('.single-button-whatsapp-template').text(button);
-                            if (isValidURL(header)) {
-                                $('.preview-header-VIDEO').removeClass('d-none');
-                                $('.headervalue').addClass('d-none')
-                                $(".preview-header-VIDEO").attr('src', header).addClass("col-12 rounded-3 border border-3");
-                            } else {
-                                $('.headervalue').text(header).css('font-weight', 'bold');
-                                $('.preview-header-VIDEO').addClass('d-none');
-                                $('.headervalue').removeClass('d-none')
-                            }
-                        });
-                        $('#memberships_list').html(response.html);
-                    }
-                });
+                    });
+                }
             }
         }
         list_data();
@@ -2270,31 +2238,36 @@ if (!empty($connections)) {
 
         function SendMessagesHistory() {
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
-            $('.loader').show();
             var FilterPhoneNumber = $('.FilterPhoneNumber').val();
             var FilterDate = $('.FilterDate').val();
             var FilterTemplateStatus = $('select.FilterTemplateStatus option:selected').val();
             var FilterTemplateName = $('select.FilterTemplateName option:selected').val();
-            if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== undefined && WhatsAppConnectionsDropDown !== "undefined") {
-                $.ajax({
-                    datatype: 'json',
-                    method: "post",
-                    url: "<?= site_url('SendMessagesHistory'); ?>",
-                    data: {
-                        'action': 'list',
-                        'connectionid': WhatsAppConnectionsDropDown,
-                        FilterPhoneNumber: FilterPhoneNumber,
-                        FilterDate: FilterDate,
-                        FilterTemplateStatus: FilterTemplateStatus,
-                        FilterTemplateName: FilterTemplateName,
-                    },
-                    success: function(res) {
-                        $('.loader').hide();
-                        var response = JSON.parse(res);
-                        $('#sentmsg_list').html(response.html1);
-                    }
-                });
-                $('.loader').hide();
+            //for permission
+            var isAdmin = <?php echo isset($_SESSION['admin']) && $_SESSION['admin'] == 1 ? 'true' : 'false'; ?>;
+            var hasTemplatePermission = <?php echo in_array('wh_template', $get_asset_permission) ? 'true' : 'false'; ?>;
+            if (isAdmin || hasTemplatePermission) {
+                $('.loader').show();
+                if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== undefined && WhatsAppConnectionsDropDown !== "undefined") {
+                    $.ajax({
+                        datatype: 'json',
+                        method: "post",
+                        url: "<?= site_url('SendMessagesHistory'); ?>",
+                        data: {
+                            'action': 'list',
+                            'connectionid': WhatsAppConnectionsDropDown,
+                            FilterPhoneNumber: FilterPhoneNumber,
+                            FilterDate: FilterDate,
+                            FilterTemplateStatus: FilterTemplateStatus,
+                            FilterTemplateName: FilterTemplateName,
+                        },
+                        success: function(res) {
+                            $('.loader').hide();
+                            var response = JSON.parse(res);
+                            $('#sentmsg_list').html(response.html1);
+                        }
+                    });
+                    $('.loader').hide();
+                }
             }
         }
         $("body").on('change', '.FilterTemplateStatus', function() {
@@ -2572,7 +2545,6 @@ if (!empty($connections)) {
             // console.log(name);
             // console.log(category);
             // alert(name+'-----------name'+category+'---------category'+language+'---------language'+body+'---------body');
-
             // console.log(name);
             if (name != '' && category != '' && language != '' && body != '') {
                 var fileInput = $('#insert_image');
@@ -2980,7 +2952,6 @@ if (!empty($connections)) {
         function replaceDynamicSequences(str) {
             var counter = 1;
             return str.replace(/{{.*?}}/g, function(match) {
-
                 return '{{' + counter++ + '}}';
             });
         }
@@ -2999,7 +2970,6 @@ if (!empty($connections)) {
         // --------------------------------------------------------------
         originalHTML = '';
         $('body').on('click', '.Template_send', function() {
-
             var bodydivvalues = [];
             $('.inputypeBody').each(function() {
                 var bodydivvalue = $(this).val();
@@ -3009,7 +2979,6 @@ if (!empty($connections)) {
             //     originalHTML = $('.preview-chat-paragraph .BodyValue').html();
             // }
             var originalHTML = $('.preview-chat-paragraph .BodyValue').html();
-
             $('.preview-chat-paragraph .msg-text-chat').html(originalHTML);
             var fullmsg = $('.preview-chat-paragraph').html();
             // var newbody = JSON.stringify(body);
@@ -3019,19 +2988,15 @@ if (!empty($connections)) {
             var countrey_code = $('.iti__selected-dial-code').text();
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
             $('.preview-chat-paragraph').html(fullmsg);
-
             if (header !== "" && phone_no !== "" && language !== "" && WhatsAppConnectionsDropDown !== '') {
-
                 $('#view_modal').modal('show');
                 $('.EditTemplateButtonClass').addClass('d-none');
                 $('.Add_editModelTitle').addClass('d-none');
                 $('.TemplateDeleteBtnDiv').addClass('d-none');
                 $('.preview-header-paragraphVIDEO').hide();
-
             } else {
                 $(".membershipDiv").addClass("was-validated");
             }
-
             $.ajax({
                 dataType: 'json',
                 method: "POST",
@@ -3041,21 +3006,15 @@ if (!empty($connections)) {
                     originalHTML: originalHTML
                 },
                 success: function(res) {
-
-
                     var modifiedHTML = res.modifiedHTML;
                     var variablevalue = res.variablevalues;
-
                     console.log(variablevalue);
                     var body = replaceDynamicSequences(modifiedHTML);
                     var regex = /\{\{([^}]+)\}\}/g;
                     var matches = [];
                     var match;
-
                     var matches = body.match(regex);
-
                     $('.inputypeBody').hide();
-
                     if (matches) {
                         $('#dynamicInputsContainer1').empty();
                         for (var i = 1; i <= matches.length; i++) {
@@ -3064,40 +3023,24 @@ if (!empty($connections)) {
                             $('.inputypeBody').show();
                         }
                     }
-
-
-
-
                     console.log(bodydivvalues);
-
                     var varvalues = $('#sendbtn').attr('varvalues');
                     $('#sendbtn').attr('varvalues', variablevalue.join(','));
-
                     $('.preview-chat-paragraph #newbody').html(modifiedHTML);
-
                 },
             });
-
-
-
         });
-
         $('.SaveBtnDiv').on('click', function(e) {
             e.preventDefault();
             var bodydivvalues = [];
             var variableValuesArray = $(this).attr('varvalues');
             bodydivvalues = variableValuesArray.split(',');
             var originalHTML = $(this).attr('modifiedhtml');
-
-
             var template_id = $('#header12 option:selected').attr('DataMNo');
             console.log(template_id);
-
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
-
             var uploade_file = $('#import_file').prop('files')[0];
-            if (uploade_file ) {
-
+            if (uploade_file) {
                 var fullmsg = $('.preview-chat-paragraph').html();
                 $('.preview-chat-paragraph').html(fullmsg);
                 var form = $("form[name='master_membership_update_form']")[0];
@@ -3109,7 +3052,6 @@ if (!empty($connections)) {
                 formData.append('template_id', template_id);
                 formData.append('action', true);
                 $('.loader').show();
-
                 $.ajax({
                     method: "post",
                     url: "bulk_whatsapp_template_send",
@@ -3118,13 +3060,11 @@ if (!empty($connections)) {
                     contentType: false,
                     success: function(data) {
                         $('.loader').hide();
-
                         $('#view_modal').modal('hide');
                         $('.header_div').html('');
                         $('.language_div').val('');
                         $('#import_file').val('');
                         if (data == 1) {
-
                             list_data();
                             $(".membershipDiv")[0].reset();
                             $(".membershipDiv").removeClass("was-validated");
@@ -3154,11 +3094,6 @@ if (!empty($connections)) {
                 $("#validationid").addClass("was-validated");
             }
         });
-
-
-        
-
-
         var SendURL;
         $('.Template_send_whatsapp').on('click', function(e) {
             e.preventDefault();
@@ -3166,22 +3101,17 @@ if (!empty($connections)) {
             var bodydivvalues = [];
             var variableValuesArray = $(this).attr('varvalues');
             bodydivvalues = variableValuesArray.split(',');
-
-
             $('.inputypeBody').each(function() {
                 var bodydivvalue = $(this).val();
                 bodydivvalues.push(bodydivvalue);
             });
-
             bodydivvalues = bodydivvalues.filter(function(value) {
                 return !(/\{\{.*\}\}/.test(value));
             });
             console.log(bodydivvalues);
             if (DataStatus === '3') {
-
                 if (!originalHTML) {
                     originalHTML = $('.preview-chat-paragraph .BodyValue').html();
-
                 }
                 var body = $('.preview-chat-paragraph .BodyValue').html();
                 $('.preview-chat-paragraph .msg-text-chat').html(body);
@@ -3194,7 +3124,6 @@ if (!empty($connections)) {
                 var countrey_code = $('.iti__selected-dial-code').text();
                 var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val()
                 $('.loader').show();
-
                 $.ajax({
                     dataType: 'json',
                     method: "POST",
@@ -3214,7 +3143,6 @@ if (!empty($connections)) {
                     success: function(res) {
                         $('.preview-chat-paragraph .BodyValue').html('');
                         $('.loader').hide();
-
                         $('#view_modal').modal('hide');
                         $('#mobile_code').val('');
                         $('.header_div').html('');
@@ -3238,12 +3166,10 @@ if (!empty($connections)) {
                     },
                 });
             } else {
-
                 var bodydivvalues = [];
                 var variableValuesArray = $(this).attr('varvalues');
                 bodydivvalues = variableValuesArray.split(',');
                 var originalHTML = $(this).attr('modifiedhtml');
-
                 // var bodydivvalues = [];
                 // $('.inputypeBody').each(function() {
                 //     var bodydivvalue = $(this).val();
@@ -3274,9 +3200,6 @@ if (!empty($connections)) {
                 // formData.append('shedualdate', shedualdate);
                 // formData.append('shedualtime', shedualtime);
                 formData.append('action', true);
-
-
-
                 $.ajax({
                     method: "post",
                     url: "bulk_whatsapp_template_send",
@@ -3317,7 +3240,6 @@ if (!empty($connections)) {
                 });
             };
         });
-       
         $('body').on('change', '.ButtonSelctionDropDown', function() {
             $('.SetButtonHTMLClass').html('');
         });
@@ -3351,11 +3273,9 @@ if (!empty($connections)) {
             $('.emptyname').hide();
             $('.CheckTemplateNameAlertPTag').hide();
             $('.Add_editModelTitle').removeClass('d-none')
-
         });
         $('body').on('click', '.EditTemplateButtonClass', function() {
             $('.Add_editModelTitle').removeClass('d-none')
-
             $('.loader').show();
             var name = $(this).attr('name');
             var id = $(this).attr('id');
@@ -3382,50 +3302,35 @@ if (!empty($connections)) {
                     var footer = '';
                     data.components.forEach(component => {
                         var type = component.type;
-
-
                         // if (type == 'BODY') {
                         //     if (component.text) {
                         //         body1 = component.text;
                         //     }
                         // }
-
                         // if (type == 'BODY') {
                         //     var body1 = component.text;
                         //     var placeholders = body1.match(/{{\d+}}/g);
                         //     var values = component.example.body_text[0];
-
                         //     placeholders.forEach((placeholder, index) => {
                         //         body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
                         //     });
                         //     $('.TemplateBodyClass').val(body1);
-
-                     
                         // }
-
                         if (type == 'BODY') {
                             if (component.text) {
                                 var body1 = component.text;
                                 var placeholders = body1.match(/{{\d+}}/g);
-
                                 if (component.example && component.example.body_text && component.example.body_text.length > 0) {
                                     var values = component.example.body_text[0];
-
                                     placeholders.forEach((placeholder, index) => {
                                         body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
                                     });
                                 }
-
                                 $('.TemplateBodyClass').val(body1);
                             } else {
-                            
                                 console.log("No text found in component.");
                             }
                         }
-
-
-
-
                         if (type == 'FOOTER') {
                             if (component.text) {
                                 footer = component.text;
@@ -3514,12 +3419,9 @@ if (!empty($connections)) {
         function replaceDynamicSequences(str) {
             var counter = 1;
             return str.replace(/{{.*?}}/g, function(match) {
-
                 return '{{' + counter++ + '}}';
             });
         }
-
-
         $('body').on('click', '.DuplicationTemplateClassDiv', function() {
             $('.loader').show();
             var name = $(this).attr('name');
@@ -3557,7 +3459,6 @@ if (!empty($connections)) {
                     var language = data.language;
                     var bodyvalue = data.components;
                     console.log(bodyvalue);
-
                     var body = '';
                     var footer = '';
                     var bodydivvalues = [];
@@ -3565,62 +3466,42 @@ if (!empty($connections)) {
                         var bodydivvalue = $(this).val();
                         bodydivvalues.push(bodydivvalue);
                     });
-
                     var body1 = $('.TemplateBodyClass').val();
                     var body = replaceDynamicSequences(body1);
-
                     var regex = /\{\{([^}]+)\}\}/g;
                     var matches = [];
                     var match;
                     while ((match = regex.exec(body1)) !== null) {
                         matches.push(match[1]);
                     }
-
                     data.components.forEach(component => {
-
                         var type = component.type;
-
-                
                         // if (type == 'BODY') {
                         //     var body1 = component.text;
                         //     var placeholders = body1.match(/{{\d+}}/g);
                         //     var values = component.example.body_text[0];
-
                         //     placeholders.forEach((placeholder, index) => {
                         //         body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
                         //     });
-
                         //     $('.body_div').val(body1);
                         //     $('.msg-text-chat').text(body1);
                         // }
-
                         if (type == 'BODY') {
                             if (component.text) {
                                 var body1 = component.text;
                                 var placeholders = body1.match(/{{\d+}}/g);
-
                                 if (component.example && component.example.body_text && component.example.body_text.length > 0) {
                                     var values = component.example.body_text[0];
-
                                     placeholders.forEach((placeholder, index) => {
                                         body1 = body1.replace(placeholder, "{{" + values[index] + "}}");
                                     });
                                 }
-
-                                
-                            $('.body_div').val(body1);
-                            $('.msg-text-chat').text(body1);
-
+                                $('.body_div').val(body1);
+                                $('.msg-text-chat').text(body1);
                             } else {
-                            
                                 console.log("No text found in component.");
                             }
                         }
-
-
-
-
-
                         if (type == 'FOOTER') {
                             if (component.text) {
                                 footer = component.text;
@@ -3694,7 +3575,6 @@ if (!empty($connections)) {
                             }
                         }
                     });
-
                     $('.Template_name_varification').val('');
                     $('.TemplateCategorySelectionDiv').val(category);
                     $('.TemplateCategorySelectionDiv').selectpicker('refresh');
@@ -3746,8 +3626,6 @@ if (!empty($connections)) {
         $('body').on('click', '.refresh-btn', function() {
             $(this).toggleClass('rounded-btn');
         });
-
-
         var body = '';
         $('#dynamicInputsContainer1').on('input', '.inputypeBody', function() {
             var inputId = $(this).attr('Dataid');
@@ -3756,7 +3634,6 @@ if (!empty($connections)) {
                 // originalHTML = $('.preview-chat-paragraph .BodyValue').html();
             }
             var originalHTML = replaceDynamicSequences(body);
-
             // var originalHTML = $('.preview-chat-paragraph ').html();
             // var bodyText1 = $(this).val();
             var regex = new RegExp("{{[" + inputId + "]}}");
@@ -3781,21 +3658,12 @@ if (!empty($connections)) {
                 }
             });
         });
-
-
-
-
-
-
-
-
         var originalHTML = '';
         $('#dynamicInputsContainer').on('input', '.inputypeBody', function() {
             var inputId = $(this).attr('Dataid');
             if (!originalHTML) {
                 originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
             }
-
             // var originalHTML = $('.preview-chat-paragraph .msg-text-chat').html();
             // var bodyText1 = $(this).val();
             var regex = new RegExp("{{[" + inputId + "]}}");
@@ -3827,7 +3695,6 @@ if (!empty($connections)) {
             $("form[name='master_membership_update_form']").removeClass("was-validated");
             list_data();
         });
-
         // $('body').on('click', '#import_btn', function (e) {
         //     e.preventDefault();
         //     var import_form = $('form[name="import_inquiry_csv"]')[0];
@@ -3839,8 +3706,6 @@ if (!empty($connections)) {
         //     });
         //     var totalData = [];
         //     var header_name = [];
-
-
         //     // if(file != ''){
         //     $.ajax({
         //         method: "post",
@@ -3890,7 +3755,6 @@ if (!empty($connections)) {
         //                 });
         //                 window.location.href = '<?= base_url('data_module') ?>';
         //             }
-
         //         },
         //     });
         // });
