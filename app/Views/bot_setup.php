@@ -5106,23 +5106,25 @@ option {
         var error_text = $('#Question_error_message').val();
 
 
-        if (tab_value == "Media") {
-            console.log(tab_value);
-            var imageFileInput = document.getElementById('media-select-div');
-            var imageFile = imageFileInput.files[0];
-            var imageFileName = imageFileInput.value.split('\\').pop(); 
+        // if (tab_value == "Media") {
+        //     // console.log(tab_value);
+        //     // var imageFileInput = document.getElementById('media-select-div');
+        //     // var imageFile = imageFileInput.files[0];
+        //     // var imageFileName = imageFileInput.value.split('\\').pop(); 
 
-            // console.log(imageFile);
-            // console.log(imageFileName);
-            var row = {
-                imageFile: imageFile,
-                imageFileName: imageFileName,
-            };
+        //     // // console.log(imageFile);
+        //     // // console.log(imageFileName);
+        //     // var row = {
+        //     //     imageFile: imageFile,
+        //     //     imageFileName: imageFileName,
+        //     // };
 
-            var options_value = JSON.stringify(row);
-            console.log(options_value);
-            zsdf();
-        }
+        //     // var options_value = JSON.stringify(row);
+        //     var attachment_media = $('.media-select-div').prop('files')[0];
+        //     // var attachment_media = attached_media ? attached_media.name : '';
+        //     // console.log(attachment_media);
+        //     // zsdf();
+        // }
 
 
         if (type_of_question == "1" || type_of_question == "5" || type_of_question == "13") {
@@ -5735,6 +5737,10 @@ option {
             }else{
                 formdata.append('next_questions', selectedOptions);
             }
+            // if(attachment_media){
+            //     formdata.append('attachment_media', attachment_media);
+            //     console.log(attachment_media);
+            // }   
 
             $('.loader').show();
             $.ajax({
@@ -8003,9 +8009,9 @@ option {
                                     </svg>
                                     <div class="img_carousel mt-3 col-12 text-center d-none">
                         <div class="position-relative">
-                            <img src="https://th.bing.com/th/id/OIP.IhiqRWFamp-enjV2csKdzwHaE8?rs=1&pid=ImgDetMain" height="150px" width="150px" class="position-relative" alt="">
+                            <img src="https://th.bing.com/th/id/OIP.IhiqRWFamp-enjV2csKdzwHaE8?rs=1&pid=ImgDetMain" height="100px" width="100px" class="position-relative" alt="">
 
-                            <div class="image_close" style="position:absolute; top:0px; right:0px;"><i class="fa-solid fa-xmark fs-3"></i></div>
+                            <div class="image_close" style="position:absolute; top:0px; right:40%;"><i class="fa-solid fa-xmark"></i></div>
                         </div>
                     </div>
                         </div>
@@ -8779,11 +8785,19 @@ option {
         });
     });
 
+    //jump question jquery
     $(document).ready(function() {
-    $('.bot_idd').change(function() {
-        var selectedBotId = $(this).val();
-        $('.question_select option').hide(); 
-        $('.question_select option[data-bot="' + selectedBotId + '"]').show(); 
+        $('.bot_idd').change(function() {
+            var selectedBotId = $(this).val();
+            $('.question_select option').hide(); 
+            $('.question_select option[data-bot="' + selectedBotId + '"]').show(); 
+        });
     });
-});
+
+    //basic image jquery
+    $("body").on("click", ".image_close", function() {
+        $(".img_carousel").addClass("d-none");
+        $('.image_svg').removeClass('d-none');
+    });
+
 </script>
