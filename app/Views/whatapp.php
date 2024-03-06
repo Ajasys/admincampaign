@@ -6,15 +6,6 @@ $db_connection = DatabaseDefaultConnection();
 $language_name = json_decode($language_name, true);
 $connections = json_decode($connections, true);
 
-if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
-    $get_asset_permission = [];
-} else {
-    $get_asset_permission = get_asset_permission($_SESSION['id']);
-}
-$isdisabled = "";
-if ((in_array('wh_template', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
-    $isdisabled = "disabled";
-}
 if (!empty($connections)) {
 } else {
     echo '<script>window.location.href = "' . base_url() . 'whatsapp_connections' . '";</script>';
@@ -25,16 +16,14 @@ if (!empty($connections)) {
         max-width: 500px;
         margin: auto;
     }
-
     body {
         text-transform: capitalize !important;
     }
-
     .mobile-whatapp {
         width: 300px !important;
         height: 550px;
+        /* margin: auto; */
     }
-
     .preview-header-paragraph .user-name-chat-header {
         font-size: 13px;
         font-family: 'poppins', sans-serif;
@@ -42,15 +31,12 @@ if (!empty($connections)) {
         text-align: left;
         font-weight: bold;
     }
-
     .preview-chat-paragraph .msg-text-chat {
         font-size: 12px;
     }
-
     .preview-footer-paragraph .user-name-chat-footer {
         font-size: 9px;
     }
-
     .preview-header-main-cont {
         display: flex;
         align-items: center;
@@ -59,36 +45,40 @@ if (!empty($connections)) {
         padding: 10px;
         color: #fff;
     }
-
     .header-image img {
         border-radius: 50%;
         max-width: 40px;
         height: auto;
     }
-
     .preview-header-text {
         flex-grow: 1;
         margin-left: 10px;
     }
-
     .wa-phone-header {
         display: flex;
     }
-
     .wa-phone-header i {
         font-size: 18px;
         margin-right: 10px;
         color: #fff;
         cursor: pointer;
     }
-
+    /* .preview-chat-section {
+    background-color: #f1ede5;
+    width: 100%;
+    height: calc(100% - 100px) !important;
+    object-fit: cover;
+    object-position: center;
+    padding: 10px;
+    position: relative;
+    overflow-y: auto;
+} */
     .preview-chat-section {
         border: 1px solid #ccc;
         border-radius: 8px;
         overflow: hidden;
         object-fit: cover;
     }
-
     .preview-chat-section-chat {
         padding: 10px;
         height: calc(45vh - 10px);
@@ -96,13 +86,13 @@ if (!empty($connections)) {
         min-height: 366px;
         max-height: 366px;
     }
-
     .mobile-whatapp-body {
         padding: 10px;
+        /* height: calc(45vh - 10px); */
         background-color: #F1EDE5;
         height: 370px !important;
+        /* max-height: 30px !important; */
     }
-
     .preview-chat-paragraph {
         margin-bottom: 10px;
         font-size: small;
@@ -113,11 +103,9 @@ if (!empty($connections)) {
         word-break: break-all;
         border-radius: 0px 30px 30px 30px;
     }
-
     .preview-chat-paragraph>p {
         word-break: break-all;
     }
-
     .single-t-text-chat {
         white-space: pre-line;
         font-size: 11px !important;
@@ -126,7 +114,6 @@ if (!empty($connections)) {
         word-break: break-word;
         font-family: 'Poppins', sans-serif;
     }
-
     .preview-chat-paragraph1 {
         margin-bottom: 10px;
         word-break: break-all;
@@ -135,11 +122,9 @@ if (!empty($connections)) {
         max-width: '100%';
         height: 'auto';
     }
-
     .preview-chat-paragraph1>* {
         margin-top: 10px;
     }
-
     .cwt-info-facebook,
     .cwt-info-whatsapp {
         padding: 10px;
@@ -148,19 +133,16 @@ if (!empty($connections)) {
         background: rgba(255, 199, 89, 0.12);
         border-radius: 4px;
     }
-
     .cwt-info-whatsapp {
         background-color: #d4edda;
         border-color: #c3e6cb;
     }
-
     .cwt-info-facebook p,
     .cwt-info-whatsapp p {
         margin: 0;
         color: #212529;
         font-size: 12px;
     }
-
     /* .preview-call-button {
         background-color: #095f54;
         color: #fff;
@@ -174,12 +156,10 @@ if (!empty($connections)) {
         text-align: center;
         cursor: pointer;
     }
-
     .whatsapp-footer {
         display: flex;
         align-items: center;
     }
-
     .whatsapp-footer input {
         flex-grow: 1;
         padding: 8px;
@@ -187,7 +167,6 @@ if (!empty($connections)) {
         border-radius: 4px;
         margin-right: 10px;
     }
-
     /* .whatsapp-footer i {
         font-size: 14px;
         margin-right: 10px;
@@ -197,17 +176,14 @@ if (!empty($connections)) {
     .whatsapp-footer-1 {
         background-color: #F1EDE5;
     }
-
     .audio-icon-tem i {
         font-size: 18px;
         color: #095f54;
         cursor: pointer;
     }
-
     .template-creation-heading {
         overflow-x: hidden;
     }
-
     .whatsapp-footer-1 i,
     .whatsapp-footer-2 i,
     .whatsapp-footer-3 i {
@@ -215,7 +191,6 @@ if (!empty($connections)) {
         color: #095f54;
         cursor: pointer;
     }
-
     .single-button-whatsapp-template {
         width: 50%;
         border: 2px solid white;
@@ -229,7 +204,6 @@ if (!empty($connections)) {
         overflow: hidden;
         font-size: 12px;
     }
-
     .single-button-whatsapp-template1 {
         width: 50%;
         border: 2px solid white;
@@ -243,7 +217,6 @@ if (!empty($connections)) {
         overflow: hidden;
         font-size: 12px;
     }
-
     .single-button-whatsapp-template2 {
         width: 50%;
         border: 2px solid white;
@@ -257,7 +230,6 @@ if (!empty($connections)) {
         overflow: hidden;
         font-size: 12px;
     }
-
     .single-button-whatsapp-template3 {
         width: 50%;
         border: 2px solid white;
@@ -271,7 +243,6 @@ if (!empty($connections)) {
         overflow: hidden;
         font-size: 12px;
     }
-
     .single-t-user-chat {
         padding: 6px 2px 6px 9px;
         font-size: 13px;
@@ -281,7 +252,6 @@ if (!empty($connections)) {
         /* overflow-wrap: break-word; */
         font-family: 'Poppins', sans-serif;
     }
-
     /* .single-t-text-chat {
         white-space: pre-line;
         font-size: 13px !important;
@@ -298,28 +268,25 @@ if (!empty($connections)) {
         word-break: break-word;
         font-family: 'Poppins', sans-serif;
     }
-
     .button {
         line-height: 1.15;
         cursor: pointer;
         font-size: 100%;
     }
-
     .col-12.mb-3.justify-content-center {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-
     .add_user_role_css {
         padding: 10px;
     }
-
+</style>
+<style>
     .wa-preview-main-div-cont {
         max-width: 600px;
         margin: auto;
     }
-
     .preview-header-paragraph .user-name-chat-header {
         font-size: 13px;
         font-family: 'poppins', sans-serif;
@@ -327,15 +294,12 @@ if (!empty($connections)) {
         text-align: left;
         font-weight: bold;
     }
-
     .preview-chat-paragraph .msg-text-chat {
         font-size: 12px;
     }
-
     .preview-footer-paragraph .user-name-chat-footer {
         font-size: 9px;
     }
-
     .preview-header-main-cont {
         display: flex;
         align-items: center;
@@ -344,18 +308,15 @@ if (!empty($connections)) {
         padding: 10px;
         color: #fff;
     }
-
     .header-image img {
         border-radius: 50%;
         max-width: 40px;
         height: auto;
     }
-
     .preview-header-text {
         flex-grow: 1;
         margin-left: 10px;
     }
-
     /* .wa-phone-header {
         display: flex;
     } */
@@ -365,14 +326,12 @@ if (!empty($connections)) {
         color: #fff;
         cursor: pointer;
     }
-
     .preview-chat-section {
         border: 1px solid #ccc;
         border-radius: 8px;
         overflow: hidden;
         object-fit: cover;
     }
-
     .preview-chat-section-chat {
         padding: 10px;
         height: auto;
@@ -380,7 +339,6 @@ if (!empty($connections)) {
         overflow-y: auto;
         background-color: #F1EDE5;
     }
-
     .preview-chat-paragraph {
         margin-bottom: 10px;
         font-size: small;
@@ -391,7 +349,6 @@ if (!empty($connections)) {
         word-break: break-all;
         border-radius: 0px 30px 30px 30px;
     }
-
     /* .preview-chat-paragraph>p {
         word-break: break-all;
     } */
@@ -403,11 +360,9 @@ if (!empty($connections)) {
         max-width: '100%';
         height: 'auto';
     }
-
     .preview-chat-paragraph1>* {
         margin-top: 10px;
     }
-
     .cwt-info-facebook,
     .cwt-info-whatsapp {
         padding: 10px;
@@ -416,19 +371,16 @@ if (!empty($connections)) {
         background: rgba(255, 199, 89, 0.12);
         border-radius: 4px;
     }
-
     .cwt-info-whatsapp {
         background-color: #d4edda;
         border-color: #c3e6cb;
     }
-
     .cwt-info-facebook p,
     .cwt-info-whatsapp p {
         margin: 0;
         color: #212529;
         font-size: 12px;
     }
-
     /* .preview-call-button {
         background-color: #095f54;
         color: #fff;
@@ -442,12 +394,10 @@ if (!empty($connections)) {
         text-align: center;
         cursor: pointer;
     }
-
     .whatsapp-footer {
         display: flex;
         align-items: center;
     }
-
     .whatsapp-footer input {
         flex-grow: 1;
         padding: 8px;
@@ -455,28 +405,23 @@ if (!empty($connections)) {
         border-radius: 4px;
         margin-right: 10px;
     }
-
     .whatsapp-footer i {
         font-size: 14px;
         margin-right: 10px;
         color: #095f54;
         cursor: pointer;
     }
-
     .whatsapp-footer-1 {
         background-color: #F1EDE5;
     }
-
     .audio-icon-tem i {
         font-size: 18px;
         color: #095f54;
         cursor: pointer;
     }
-
     .template-creation-heading {
         overflow-x: hidden;
     }
-
     .whatsapp-footer-1 i,
     .whatsapp-footer-2 i,
     .whatsapp-footer-3 i {
@@ -484,7 +429,6 @@ if (!empty($connections)) {
         color: #095f54;
         cursor: pointer;
     }
-
     /* .active-side-bar{
         background-color: red;
         color: white;
@@ -492,53 +436,43 @@ if (!empty($connections)) {
     .first-container {
         width: 102px;
     }
-
     .slide-toggle {
         width: 330px;
     }
-
     .msssege-box {
         border: 1px solid #FFC759;
         background-color: #FFF8EB;
         font-size: 12px;
     }
-
     .iti {
         width: 100%;
     }
-
     @media (max-width:575px) {
         .preview-header-VIDEO {
             width: 100%;
             height: 100%;
         }
     }
-
     @media (min-width:992px) {
         .preview-header-VIDEO {
             width: 100%;
             height: 100%;
         }
     }
-
     .mobile-footer {}
-
     .preview-chat-section {
         border-radius: 40px;
         background: #e0e0e0;
         /* box-shadow: 20px 20px 60px #e1daf882, -20px -20px 60px #e7e7e7; */
     }
-
     .rotate-arrow {
         transition: all 0.5s;
         transform: rotateY(181deg);
     }
-
     .rounded-btn {
         transition: all 0.5s;
         transform: rotate(360deg);
     }
-
     @media (max-width:575px) {
         .mobile-whatapp-body {
             padding: 10px;
@@ -547,18 +481,15 @@ if (!empty($connections)) {
             height: 100px !important;
             /* max-height: 30px !important; */
         }
-
         .mobile-whatapp {
             width: 100% !important;
             height: 451px;
         }
-
         .preview-chat-section-chat {
             max-height: 264px;
             min-height: 264px !important;
         }
     }
-
     @media (min-width:575px) {
         .mobile-whatapp-body {
             padding: 10px;
@@ -567,30 +498,25 @@ if (!empty($connections)) {
             height: 100px;
             /* max-height: 30px !important; */
         }
-
         .mobile-whatapp {
             width: 300px;
             height: 451px;
         }
-
         .preview-chat-section-chat {
             max-height: 264px;
             min-height: 264px !important;
         }
     }
-
     @media (min-width:1400px) {
         .mobile-whatapp-body {
             padding: 10px;
             background-color: #F1EDE5;
             height: 370px !important;
         }
-
         .mobile-whatapp {
             width: 300px !important;
             height: 550px;
         }
-
         /* .mobile-whatapp {
             width: 300px ;
             height: 496px;
@@ -613,9 +539,18 @@ if (!empty($connections)) {
                     <!-- 13022024 -->
                     <?php
                     if (isset($connections) && !empty($connections)) {
+                        $permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $table_username . "_platform_assetpermission WHERE FIND_IN_SET('wh_template', assetpermission_name) > 0 AND user_id =" . $_SESSION['id'] . " AND platform_type='whatsapp'";
+                        $permission_result = $db_connection->query($permission_query);
+                        $per_result = $permission_result->getResult();
+                        $perasset_data = [];
+                        if (isset($per_result[0])) {
+                            $perasset_data = explode(',', $per_result[0]->asset_id);
+                        }
                         foreach ($connections as $key => $value) {
-                            echo '<option value="' . $value['id'] . '" Name = "' . $value['verified_name'] . '" PhoneNo = "' . $value['display_phone_number'] . '" class="  dropdown-item">
-                                    ' . $value['verified_name'] . '</option>';
+                            if ((in_array($value['id'], $perasset_data)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+                                echo '<option value="' . $value['id'] . '" Name = "' . $value['verified_name'] . '" PhoneNo = "' . $value['display_phone_number'] . '" class="  dropdown-item">
+                                ' . $value['verified_name'] . '</option>';
+                            }
                         }
                     }
                     ?>
@@ -946,7 +881,7 @@ if (!empty($connections)) {
                                                                         <!-- <span class="btn-primary Template_send" data-edit_id="">Send</span>     -->
                                                                     </div>
                                                                     <div class="col-12 pt-3 border-top mb-2 text-end">
-                                                                        <button class="btn-primary Template_send" id="memberships_add_btn" name="memberships_update1" value="memberships_update1" <?php echo $isdisabled; ?>>Preview</button>
+                                                                        <span class="btn-primary Template_send" id="memberships_add_btn" name="memberships_update1" value="memberships_update1">Preview</sp>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1263,7 +1198,7 @@ if (!empty($connections)) {
                                                                     </div> -->
                                                                     <div class="modal-footer justify-content-end my-1">
                                                                         <!-- <span class="btn-primary nextbutton  d-none" id="memberships_add_btn1" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">Preview</span> -->
-                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1" <?php echo $isdisabled; ?>>Send</button>
+                                                                        <button class="btn-primary SaveBtnDiv" id="memberships_add_btn" data-edit_id="" varvalues="" name="memberships_update1" value="memberships_update1">Send</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1352,15 +1287,9 @@ if (!empty($connections)) {
                                             Facebook</button>
                                     </div>
                                     <div class="col-3 px-2">
-                                        <?php
-                                        if ((in_array('wh_template', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
-                                        ?>
-                                            <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
-                                                <i class="bi bi-plus PlusButtonDiv "></i>
-                                            </button>
-                                        <?php
-                                        }
-                                        ?>
+                                        <button class="btn-primary-rounded" id="template_data" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit">
+                                            <i class="bi bi-plus PlusButtonDiv "></i>
+                                        </button>
                                         <p class="d-none EditBtnTemplate" data-bs-toggle="modal" data-bs-target="#whatsapp_template_add_edit"></p>
                                     </div>
                                 </div>
@@ -2130,100 +2059,95 @@ if (!empty($connections)) {
                 }
             });
         });
-
         function list_data() {
             // MasterListDataSearchBarButton
             var SearchText = $('.MasterListDataSearchBar').val();
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
             // console.log(WhatsAppConnectionsDropDown);
-            var isAdmin = <?php echo isset($_SESSION['admin']) && $_SESSION['admin'] == 1 ? 'true' : 'false'; ?>;
-            var hasTemplatePermission = <?php echo in_array('wh_template', $get_asset_permission) ? 'true' : 'false'; ?>;
-            if (isAdmin || hasTemplatePermission) {
-                if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== 'undefined' && WhatsAppConnectionsDropDown !== undefined) {
-                    var table = 'master_whatsapp_template';
-                    show_val = '<?= json_encode(array('Template_name', 'category_types', 'language', 'header', 'body', 'footer')); ?>';
-                    $('.loader').show();
-                    $.ajax({
-                        datatype: 'json',
-                        method: "post",
-                        url: "<?= site_url('master_whatsapp_list_data'); ?>",
-                        data: {
-                            'table': table,
-                            'show_array': show_val,
-                            'action': true,
-                            'connectionid': WhatsAppConnectionsDropDown,
-                            'searchtext': SearchText,
-                        },
-                        success: function(res) {
-                            $('.loader').hide();
-                            var response = JSON.parse(res);
-                            var template_name = response.template_name;
-                            //12-02-2024
-                            var templateBracketvalue = response.templateBracketvalue;
-                            var templatelanguage = response.templatelanguage;
-                            var bodyvalue = response.templatebody;
-                            var headervalue = response.templateheader;
-                            var footervalue = response.templatefooter;
-                            var buttonvalue = response.templateBUTTON;
-                            var variablevalue = response.bodyvarvalue;
-                            var selectDropdowns = document.getElementsByClassName("templatesnamelistddclass");
-                            for (var i = 0; i < selectDropdowns.length; i++) {
-                                var selectDropdown = selectDropdowns[i];
-                                selectDropdown.innerHTML = "";
-                                var defaultOption = document.createElement("option");
-                                defaultOption.text = "Please Select Template";
-                                defaultOption.value = "";
-                                defaultOption.disabled = true;
-                                defaultOption.selected = true;
-                                selectDropdown.add(defaultOption);
-                                for (var key in template_name) {
-                                    if (template_name.hasOwnProperty(key)) {
-                                        var option = document.createElement("option");
-                                        option.text = template_name[key];
-                                        option.value = template_name[key];
-                                        option.setAttribute('DataMNo', key);
-                                        selectDropdown.add(option);
-                                    }
+            if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== 'undefined' && WhatsAppConnectionsDropDown !== undefined) {
+                var table = 'master_whatsapp_template';
+                show_val = '<?= json_encode(array('Template_name', 'category_types', 'language', 'header', 'body', 'footer')); ?>';
+                $('.loader').show();
+                $.ajax({
+                    datatype: 'json',
+                    method: "post",
+                    url: "<?= site_url('master_whatsapp_list_data'); ?>",
+                    data: {
+                        'table': table,
+                        'show_array': show_val,
+                        'action': true,
+                        'connectionid': WhatsAppConnectionsDropDown,
+                        'searchtext': SearchText,
+                    },
+                    success: function(res) {
+                        $('.loader').hide();
+                        var response = JSON.parse(res);
+                        var template_name = response.template_name;
+                        //12-02-2024
+                        var templateBracketvalue = response.templateBracketvalue;
+                        var templatelanguage = response.templatelanguage;
+                        var bodyvalue = response.templatebody;
+                        var headervalue = response.templateheader;
+                        var footervalue = response.templatefooter;
+                        var buttonvalue = response.templateBUTTON;
+                        var variablevalue = response.bodyvarvalue;
+                        var selectDropdowns = document.getElementsByClassName("templatesnamelistddclass");
+                        for (var i = 0; i < selectDropdowns.length; i++) {
+                            var selectDropdown = selectDropdowns[i];
+                            selectDropdown.innerHTML = "";
+                            var defaultOption = document.createElement("option");
+                            defaultOption.text = "Please Select Template";
+                            defaultOption.value = "";
+                            defaultOption.disabled = true;
+                            defaultOption.selected = true;
+                            selectDropdown.add(defaultOption);
+                            for (var key in template_name) {
+                                if (template_name.hasOwnProperty(key)) {
+                                    var option = document.createElement("option");
+                                    option.text = template_name[key];
+                                    option.value = template_name[key];
+                                    option.setAttribute('DataMNo', key);
+                                    selectDropdown.add(option);
                                 }
                             }
-                            $('.preview-header-VIDEO').addClass('d-none');
-                            $('.header_div').change(function() {
-                                var selectDropdown = $(this).val();
-                                var languageDropdown = templatelanguage[selectDropdown];
-                                var variablevalues = variablevalue[selectDropdown];
-                                var header = headervalue[selectDropdown];
-                                var footer = footervalue[selectDropdown];
-                                var button = buttonvalue[selectDropdown];
-                                $('.preview-chat-section-chat').slideUp(100);
-                                $('.preview-chat-section-chat').slideDown(1000);
-                                $('.language_div').val(languageDropdown);
-                                var body1 = bodyvalue[selectDropdown];
-                                var body = bodyvalue[selectDropdown];
-                                var placeholders = body.match(/{{\d+}}/g);
-                                if (!placeholders || placeholders.length === 0) {
-                                    $('.BodyValue').text(body1);
-                                } else {
-                                    placeholders.forEach((placeholder, index) => {
-                                        body = body.replace(placeholder, "{{" + variablevalues[index] + "}}");
-                                    });
-                                    $('.BodyValue').text(body);
-                                }
-                                $('.footervalue').text(footer);
-                                $('.single-button-whatsapp-template').text(button);
-                                if (isValidURL(header)) {
-                                    $('.preview-header-VIDEO').removeClass('d-none');
-                                    $('.headervalue').addClass('d-none')
-                                    $(".preview-header-VIDEO").attr('src', header).addClass("col-12 rounded-3 border border-3");
-                                } else {
-                                    $('.headervalue').text(header).css('font-weight', 'bold');
-                                    $('.preview-header-VIDEO').addClass('d-none');
-                                    $('.headervalue').removeClass('d-none')
-                                }
-                            });
-                            $('#memberships_list').html(response.html);
                         }
-                    });
-                }
+                        $('.preview-header-VIDEO').addClass('d-none');
+                        $('.header_div').change(function() {
+                            var selectDropdown = $(this).val();
+                            var languageDropdown = templatelanguage[selectDropdown];
+                            var variablevalues = variablevalue[selectDropdown];
+                            var header = headervalue[selectDropdown];
+                            var footer = footervalue[selectDropdown];
+                            var button = buttonvalue[selectDropdown];
+                            $('.preview-chat-section-chat').slideUp(100);
+                            $('.preview-chat-section-chat').slideDown(1000);
+                            $('.language_div').val(languageDropdown);
+                            var body1 = bodyvalue[selectDropdown];
+                            var body = bodyvalue[selectDropdown];
+                            var placeholders = body.match(/{{\d+}}/g);
+                            if (!placeholders || placeholders.length === 0) {
+                                $('.BodyValue').text(body1);
+                            } else {
+                                placeholders.forEach((placeholder, index) => {
+                                    body = body.replace(placeholder, "{{" + variablevalues[index] + "}}");
+                                });
+                                $('.BodyValue').text(body);
+                            }
+                            $('.footervalue').text(footer);
+                            $('.single-button-whatsapp-template').text(button);
+                            if (isValidURL(header)) {
+                                $('.preview-header-VIDEO').removeClass('d-none');
+                                $('.headervalue').addClass('d-none')
+                                $(".preview-header-VIDEO").attr('src', header).addClass("col-12 rounded-3 border border-3");
+                            } else {
+                                $('.headervalue').text(header).css('font-weight', 'bold');
+                                $('.preview-header-VIDEO').addClass('d-none');
+                                $('.headervalue').removeClass('d-none')
+                            }
+                        });
+                        $('#memberships_list').html(response.html);
+                    }
+                });
             }
         }
         list_data();
@@ -2235,39 +2159,33 @@ if (!empty($connections)) {
                 list_data();
             }
         });
-
         function SendMessagesHistory() {
             var WhatsAppConnectionsDropDown = $('select.WhatsAppConnectionsDropDown option:selected').val();
+            $('.loader').show();
             var FilterPhoneNumber = $('.FilterPhoneNumber').val();
             var FilterDate = $('.FilterDate').val();
             var FilterTemplateStatus = $('select.FilterTemplateStatus option:selected').val();
             var FilterTemplateName = $('select.FilterTemplateName option:selected').val();
-            //for permission
-            var isAdmin = <?php echo isset($_SESSION['admin']) && $_SESSION['admin'] == 1 ? 'true' : 'false'; ?>;
-            var hasTemplatePermission = <?php echo in_array('wh_template', $get_asset_permission) ? 'true' : 'false'; ?>;
-            if (isAdmin || hasTemplatePermission) {
-                $('.loader').show();
-                if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== undefined && WhatsAppConnectionsDropDown !== "undefined") {
-                    $.ajax({
-                        datatype: 'json',
-                        method: "post",
-                        url: "<?= site_url('SendMessagesHistory'); ?>",
-                        data: {
-                            'action': 'list',
-                            'connectionid': WhatsAppConnectionsDropDown,
-                            FilterPhoneNumber: FilterPhoneNumber,
-                            FilterDate: FilterDate,
-                            FilterTemplateStatus: FilterTemplateStatus,
-                            FilterTemplateName: FilterTemplateName,
-                        },
-                        success: function(res) {
-                            $('.loader').hide();
-                            var response = JSON.parse(res);
-                            $('#sentmsg_list').html(response.html1);
-                        }
-                    });
-                    $('.loader').hide();
-                }
+            if (WhatsAppConnectionsDropDown != '' && WhatsAppConnectionsDropDown !== undefined && WhatsAppConnectionsDropDown !== "undefined") {
+                $.ajax({
+                    datatype: 'json',
+                    method: "post",
+                    url: "<?= site_url('SendMessagesHistory'); ?>",
+                    data: {
+                        'action': 'list',
+                        'connectionid': WhatsAppConnectionsDropDown,
+                        FilterPhoneNumber: FilterPhoneNumber,
+                        FilterDate: FilterDate,
+                        FilterTemplateStatus: FilterTemplateStatus,
+                        FilterTemplateName: FilterTemplateName,
+                    },
+                    success: function(res) {
+                        $('.loader').hide();
+                        var response = JSON.parse(res);
+                        $('#sentmsg_list').html(response.html1);
+                    }
+                });
+                $('.loader').hide();
             }
         }
         $("body").on('change', '.FilterTemplateStatus', function() {
@@ -2375,7 +2293,6 @@ if (!empty($connections)) {
                 }
             });
         });
-
         function setvalue() {
             $(".CommentInoutSetValDiv").each(function() {
                 var inputval = $(this).attr('value');
@@ -2948,7 +2865,6 @@ if (!empty($connections)) {
                 });
             }
         });
-
         function replaceDynamicSequences(str) {
             var counter = 1;
             return str.replace(/{{.*?}}/g, function(match) {
@@ -3415,7 +3331,6 @@ if (!empty($connections)) {
                 },
             });
         });
-
         function replaceDynamicSequences(str) {
             var counter = 1;
             return str.replace(/{{.*?}}/g, function(match) {

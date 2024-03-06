@@ -1,13 +1,14 @@
 <?php
 // print_r($_SESSION);
 if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
-
    $get_roll_id_to_roll_duty_var = array();
    $get_asset_permission = [];
+   $get_whatsappasset_permission = [];
 } else {
 
    $get_roll_id_to_roll_duty_var = get_roll_id_to_roll($_SESSION['role']);
    $get_asset_permission = get_asset_permission($_SESSION['id']);
+   $get_whatsappasset_permission = get_whatsappasset_permission($_SESSION['id']);
 }
 
 ?>
@@ -449,7 +450,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                            <a class="dropdown-item" href="<?= base_url(); ?>lead_module">Lead Integration</a>
                         </li>
                      <?php } ?>
-                     <?php if ((in_array('wh_template', $get_asset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
+                     <?php if ((in_array('wh_template', $get_whatsappasset_permission)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) { ?>
                         <li>
                            <a class="dropdown-item" href="<?= base_url(); ?>whatsapp">WhatsApp Manager</a>
                         </li>

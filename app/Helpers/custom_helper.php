@@ -3425,7 +3425,26 @@ if (!function_exists('get_asset_permission')) {
         $get_user_role_table = $query->getResultArray();
         $userroledata = $get_user_role_table[0];
         $exp_value = array();
-        $assign_duty = array();
+        if (isset($userroledata['asset_permissions']) && !empty($userroledata['asset_permissions'])) {
+            $asset_permissions_array = explode(',', $userroledata['asset_permissions']);
+            $unique_asset_permissions = array_unique($asset_permissions_array);
+            $exp_value = $unique_asset_permissions;
+        }
+        return $exp_value;
+    }
+
+}
+
+if (!function_exists('get_whatsappasset_permission')) {
+
+    function get_whatsappasset_permission($user_id)
+    {
+        $secondDb = DatabaseDefaultConnection();
+        $username = session_username($_SESSION['username']);
+        $query = $secondDb->query('SELECT GROUP_CONCAT(DISTINCT assetpermission_name) AS asset_permissions FROM ' . $username . '_platform_assetpermission WHERE user_id =' . $user_id.' AND platform_type="whatsapp" GROUP BY user_id');
+        $get_user_role_table = $query->getResultArray();
+        $userroledata = $get_user_role_table[0];
+        $exp_value = array();
         if (isset($userroledata['asset_permissions']) && !empty($userroledata['asset_permissions'])) {
             $asset_permissions_array = explode(',', $userroledata['asset_permissions']);
             $unique_asset_permissions = array_unique($asset_permissions_array);
