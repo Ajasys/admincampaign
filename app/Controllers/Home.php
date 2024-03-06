@@ -173,7 +173,7 @@ class Home extends BaseController
     }
     public function instagram_connection()
     {
-        return view('instagram_connection');
+        return view('campaign/instagram_connection');
     }
 
     public function whatapp_connection()
@@ -182,11 +182,11 @@ class Home extends BaseController
     }
     public function website_connection()
     {
-        return view('website_connection');
+        return view('campaign/website_connection');
     }
     public function linkedin_connection()
     {
-        return view('linkedin_connection');
+        return view('campaign/linkedin_connection');
     }
     public function whatsapp_connections()
     {
@@ -913,7 +913,7 @@ class Home extends BaseController
     }
     public function integration()
     {
-        return view('integration');
+        return view('campaign/integration');
     }
     public function subscription_master()
     {
@@ -1239,7 +1239,7 @@ class Home extends BaseController
     }
     public function leadlist()
     {
-        return view('leadlist');
+        return view('campaign/leadlist');
     }
     public function projecttype()
     {
