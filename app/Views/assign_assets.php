@@ -390,7 +390,7 @@ $user_data = $user_result->getResultArray();
                                         </div> -->
                                         <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
                                             <div class="d-flex align-items-center" style="height: 45px;">
-                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectall" style="width:18px;height:18px;">
                                                 <div class="col fs-6 fw-semibold">
                                                     Select all
                                                 </div>
@@ -413,32 +413,33 @@ $user_data = $user_result->getResultArray();
                                         </div> -->
                                         <div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom alihgn-items-center">
                                             <div class="d-flex align-items-center" style="height: 45px;">
-                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectall" style="width:18px;height:18px;">
                                                 <div class="col fs-6 fw-semibold">
                                                     Select all
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <?php
-                                            $asset_query = "SELECT * FROM " . $table_username . "_platform_integration Where platform_status=1";
-                                            $asset_result = $db_connection->query($asset_query);
-                                            $pageresult = $asset_result->getResultArray();
-                                            if (isset($pageresult)) {
-                                                foreach ($pageresult as $aa_key => $aa_value) {
-                                                    ?>
-                                                    <div class="ms-3 me-3 mt-2 d-flex align-items-center">
-                                                        <input type="checkbox" id="selectall" value="<?php echo $aa_value['id']?>" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
-                                                        <img class="rounded-circle me-1" src="https://erp.gymsmart.in/assets/image/member.png" alt="" style="width:40px;height:40px">
-                                                        <div class="d-flex flex-wrap">
-                                                            <p class="col-12"><?php echo $aa_value['whatsapp_name']?></p>
-                                                            <p class="fs-14 text-muted "><?php echo $aa_value['whatsapp_number']?></p>
+                                        <div class="ms-3 me-3 mt-2">
+                                            <?php
+                                                $asset_query = "SELECT * FROM " . $table_username . "_platform_integration Where platform_status=1";
+                                                $asset_result = $db_connection->query($asset_query);
+                                                $pageresult = $asset_result->getResultArray();
+                                                if (isset($pageresult)) {
+                                                    foreach ($pageresult as $aa_key => $aa_value) {
+                                                        ?>
+                                                        <div class="d-flex align-items-center">
+                                                            <input type="checkbox" id="selectall" value="<?php echo $aa_value['id']?>" class="me-2 rounded-3 select_all_checkbox selectedId" style="width:18px;height:18px;">
+                                                            <img class="rounded-circle me-1" src="https://erp.gymsmart.in/assets/image/member.png" alt="" style="width:40px;height:40px">
+                                                            <div class="d-flex flex-wrap col">
+                                                                <p class="col-12"><?php echo $aa_value['whatsapp_name']?></p>
+                                                                <p class="fs-14 text-muted "><?php echo $aa_value['whatsapp_number']?></p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <?php
+                                                        <?php
+                                                    }
                                                 }
-                                            }
-                                        ?>
+                                            ?>
+                                        </div>
                                        
                                     </div>
                                 </div>
@@ -567,8 +568,8 @@ $user_data = $user_result->getResultArray();
     });
     $(document).ready(function() {
         list_data();
-        $('body').on('click', '#selectall', function() {
-            $('.selectedId').prop('checked', this.checked);
+        $('body').on('click', '.selectall', function() {
+            $(this).closest('.defualt-div').find('.selectedId').prop('checked', this.checked);
         });
         var checkedValues = [];
         // Function to update the asset_ids field
@@ -576,8 +577,10 @@ $user_data = $user_result->getResultArray();
             $('#asset_ids').val(checkedValues.join(','));
         }
         $(document).on('change', '.selectedId', function() {
-            var check = $('.selectedId:checked').length === $('.selectedId').length;
-            $('#selectall').prop('checked', check);
+            // var check123 = $(this).closest('.defualt-div').find('.selectedId:checked').length;
+            // alert(check123);
+            var check = $(this).closest('.defualt-div').find('.selectedId:checked').length === $(this).closest('.defualt-div').find('.selectedId').length;
+            $(this).closest('.defualt-div').find('.selectall').prop('checked', check);
             var value = $(this).val();
             if ($(this).is(':checked')) {
                 checkedValues.push(value);
@@ -590,6 +593,8 @@ $user_data = $user_result->getResultArray();
             // Update the asset_ids field
             updateAssetIds();
         });
+
+
         var selectedValues = [];
         $("body").on("click", ".toggle-checkbox", function() {
             var value = $(this).val();

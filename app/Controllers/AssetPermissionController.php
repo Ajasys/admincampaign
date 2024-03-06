@@ -36,7 +36,7 @@ class AssetPermissionController extends BaseController
             if ($type == "facebook") {
                 $html .= '<div class="cursor-pointer ps-3 account-box d-flex  flex-wrap  border-bottom align-items-center  overflow-hidden">
                             <div class="d-flex align-items-center" style="height: 45px;">
-                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox" style="width:18px;height:18px;">
+                                <input type="checkbox" id="selectall" class="me-2 rounded-3 select_all_checkbox selectall" style="width:18px;height:18px;">
                                 <div class="col fs-6 fw-semibold">
                                     Select all
                                 </div>
@@ -244,7 +244,7 @@ class AssetPermissionController extends BaseController
         }
         $resultff['html'] = $html;
         $resultff['permission_html'] = $permission_html;
-        if (isset($per_result[0]) && $per_result[0]->asset_permissions!='') {
+        if (isset($per_result[0]) && ($per_result[0]->asset_permissions!='' || $per_result[0]->asset_ids!='')) {
             $asset_permissions_array = explode(',', $per_result[0]->asset_permissions);
             $unique_asset_permissions = array_unique($asset_permissions_array);
             $asset_permissions_string = implode(',', $unique_asset_permissions);

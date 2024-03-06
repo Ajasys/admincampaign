@@ -283,6 +283,11 @@ class FaceBookController extends BaseController
                     $insert_data['platform_status'] = 2;
                     $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_platform_integration');
                     $asset_insert_data['platform_id'] = $response_status_log;
+
+
+                    // for advertise assets
+
+                    
                     $resultff['response'] = 1;
                     $resultff['message'] = $fbdata['application'] . ' facebook app connected successfully..!';
                 }
