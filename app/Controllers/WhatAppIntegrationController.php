@@ -2882,10 +2882,10 @@ public function WhatsAppListConverstion()
     $contact_no = $_POST['contact_no'];
     $conversation_account_id = $_POST['conversation_account_id'];
     $table_username = getMasterUsername2();
-    $Database = DatabaseDefaultConnection();
+    $Database = \Config\Database::connect();
     $sql = 'SELECT * FROM ' . $table_username . '_messages WHERE platform_account_id="' . $conversation_account_id . '" AND contact_no = "' . $contact_no . '"';
 
-    $db_connection = DatabaseDefaultConnection();
+    $db_connection = \Config\Database::connect();
 
     // pre($sql);
 
@@ -3075,21 +3075,9 @@ public function WhatsAppListConverstion()
                             </span>
                         </div>
                     </div>';
-
-                // $html .= ' <div class="d-flex mb-4 col-12 justify-content-START">
-                //         <div class="col-9 text-start">
-                //             <span class="px-3 py-2 rounded-3 text-white" style="background:#f3f3f3; display: inline-block; width:200px; overflow: hidden;">
-                //                 <img src="https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg" style="max-width: 100%; height: auto; vertical-align: middle;">
-                //             </span>
-                //             <span class="me-2" style="font-size:12px;">' . $formattedtime . '</span>
-
-                //         </div>
-                //     </div>';
             }
         } elseif ($msgtype == '3') {
             if ($sent_recieved_status == '2') {
-                // assets_type	  if();                 var imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'mp4', 'avi', 'mkv', 'mov', 'wmv'];
-                //21022024                  $uploadDir .= 'assets/' . $username . '_folder/WhatsAppAssets/'; base_url()
                 if ($value['assets_type'] != '') {
                     if (strpos(strtolower($value['assets_type']), 'image') !== false) {
                         $html .= '
@@ -3440,7 +3428,7 @@ public function WhatsAppListConverstion()
                 </div> ';
                 }
             }
-        } elseif ($msgtype == '8') {
+        } elseif ($msgtype == '8' || $msgtype == '12' || $msgtype == '13' ) {
             if ($sent_recieved_status == '1') {
                 //     $html .= '   <div class="d-flex mb-4 justify-content-end">
                 //     <div class="col-9 text-end">
@@ -3486,10 +3474,10 @@ public function WhatsAppListConverstion()
                         $html .= ' <div class="d-flex mb-4 justify-content-end">
                         <div class="col-9 text-end">
                         <span style="font-size:12px;">' . $formattedtime . '</span>
-                            <span class="px-3 py-2 rounded-3 text-white" style=" display: inline-block; width:200px; ">
-                            <div class="my-2 p-1 rounded" style="background:#005c4b;">' . $msgtext . '</div>';
+                            <span class="px-3 py-2 rounded-3 text-dark" style=" display: inline-block; width:200px; ">
+                            <div class="my-2 p-1 rounded" style="background:#dbf8c6;">' . $msgtext . '</div>';
                         foreach ($buttondata['single_choice_option_value'] as $item) {
-                            $html .= '<div class="my-2 p-1 text-center rounded" style="background:#005c4b;">' . $item['option'] . '</div>';
+                            $html .= '<div class="my-2 p-1 text-center rounded text-dark" style="background:#dbf8c6;">' . $item['option'] . '</div>';
                         }
                         $html .= '</span>
                                 </div>
@@ -3501,13 +3489,8 @@ public function WhatsAppListConverstion()
             if ($sent_recieved_status == '2') {
                 if (isset($value['conversation_id'])) {
                     $preid = $value['conversation_id'];
-
                     $preqry = $db_connection->query("SELECT * FROM `" . $table_username . "_messages` WHERE conversation_id = '" . $preid . "'");
                     $predataarray = $preqry->getResultArray();
-
-
-
-
                     if (isset($predataarray) && !empty($predataarray) && isset($predataarray[0]['message_contant'])) {
                         $msgtext2 = '';
                         if (is_json($predataarray[0]['message_contant'])) {
