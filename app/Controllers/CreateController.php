@@ -1056,7 +1056,7 @@ class CreateController extends BaseController
 	{
 		$cache = \Config\Services::cache();
 		$this->db = DatabaseDefaultConnection();
-		if ($_POST['action'] == 'account_list') {
+		if ($_POST['action'] == 'accoun_list') {
 
 			$integration_table_name = $this->username . '_platform_integration';
 			$get_token = "SELECT * FROM $integration_table_name WHERE platform_status = 2 AND verification_status = 1";
@@ -1131,7 +1131,7 @@ class CreateController extends BaseController
 					$return_result = array();
 					$IG_data = array();
 
-					$permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $this->username . "_platform_assetpermission WHERE FIND_IN_SET('fbmessages', assetpermission_name) > 0 AND user_id =" . $_SESSION['id'] . " AND platform_type='facebook'";
+					$permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $this->username . "_platform_assetpermission WHERE (FIND_IN_SET('fbpost', assetpermission_name) > 0 || FIND_IN_SET('fbcomments', assetpermission_name) > 0) AND user_id =" . $_SESSION['id'] . " AND platform_type='facebook'";
 					$permission_result = $this->db->query($permission_query);
 					$per_result = $permission_result->getResult();
 					$perasset_data = [];

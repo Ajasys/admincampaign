@@ -1454,6 +1454,7 @@ $user_data = $user_result->getResultArray();
             // getPagesList(fb_access_token, fb_check_conn);
 
             $('.loader').show();
+            $('.page-referesh').addClass('fa-spin');
             $.ajax({
                 type: "post",
                 url: "<?= site_url('facebook_user'); ?>",
@@ -1477,6 +1478,7 @@ $user_data = $user_result->getResultArray();
                             title: result.message
                         });
                     }
+                    $('.page-referesh').removeClass('fa-spin');
                 },
                 error: function(error) {
                     $('.loader').hide();
