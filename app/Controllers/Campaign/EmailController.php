@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Controllers;
-
-//use CodeIgniter\Database\ConnectionInterface;
+namespace App\Controllers\Campaign;
+use App\Controllers\BaseController;
 use App\Models\MasterInformationModel;
 use PhpImap\Exceptions\ConnectionException;
 use Myth\Auth\IMAP;

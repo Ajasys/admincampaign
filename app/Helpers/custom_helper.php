@@ -3203,20 +3203,6 @@ function getGeneraleData()
     return $settings_data;
 }
 
-function getConnectionData($id)
-{ 
-    $table_username = session_username($_SESSION['username']);
-    $db_connection = DatabaseDefaultConnection();
-    $query = "SELECT * FROM ".$table_username."_platform_integration WHERE id=".$id;
-    $rows = $db_connection->query($query);
-    $result = $rows->getResult();
-    if (isset($result[0])) {
-        $settings_data = get_object_vars($result[0]);
-    } else {
-        $settings_data = array();
-    }
-    return $settings_data;
-}
 
 function getSocialData($url)
 {
@@ -3395,9 +3381,6 @@ function fb_insta_page_list($access_token)
 
     return json_encode($result_array, true);
 }
-
-
-
 function fb_page_img($page_id,$access_token)
 {
     if($page_id && $access_token)
@@ -3412,7 +3395,6 @@ function fb_page_img($page_id,$access_token)
 
     return json_encode($result_array, true);
 }
-
 
 if (!function_exists('get_asset_permission')) {
 

@@ -18,8 +18,7 @@ use App\Controllers\Campaign\WebController;
 use App\Controllers\Campaign\Bot_Controller;
 use App\Controllers\Campaign\AudianceController;
 use App\Controllers\Campaign\PostCommentController;
-
-
+use App\Controllers\Campaign\EmailController;
 
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
@@ -86,10 +85,10 @@ $routes->post('fetch_email_track_data', 'Templates_Controller::fetch_email_track
 $routes->post('/allinqsmssend', 'Templates_Controller::allinq_sms_send');
 $routes->post('/bulkwhatsapp_template_sent', 'Templates_Controller::bulkwhatsapp_template_sent');
 $routes->get('email_connection', 'Home::email_connection');
-$routes->post('check_email_connection', 'EmailController::check_email_connection');
+$routes->post('check_email_connection', [EmailController::class, 'check_email_connection']);
 $routes->get('/EmailConversions', 'Templates_Controller::template');
 $routes->post('email_link_track', 'Home::email_link_track');
-$routes->post('email_account_insert', 'EmailController::email_account_insert');
+$routes->post('email_account_insert', [EmailController::class, 'email_account_insert']);
 $routes->get('/alert_setting', 'Home::alert_setting');
 $routes->post('/alert_update_data', 'Alertsetting::alert_update_data');
 $routes->post('/insert_data_alert', 'Alertsetting::insert_data');
@@ -110,7 +109,7 @@ $routes->post('/edit_post', [PostCommentController::class, 'edit_post']);
 $routes->post('/UpdatePostDataFB', [PostCommentController::class, 'UpdatePostDataFB']); 
 $routes->post('/comment_show',  [PostCommentController::class, 'comment_show']); 
 $routes->post('/SetPostDataAccountList', [PostCommentController::class, 'SetPostDataAccountList']); 
-$routes->post('/mail_get', 'EmailController::mail_get');
+$routes->post('/mail_get', [EmailController::class, 'mail_get']);
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');
 $routes->post('/update_data_2DB', 'MasterInformation::update_data_2DB');
 $routes->post('/delete_all', 'MasterInformation::delete_all');

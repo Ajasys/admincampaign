@@ -98,7 +98,7 @@ class Home extends BaseController
     }
     public function emailsend()
     {
-        return view('emailsend');
+        return view('campaign/emailsend');
     }
     public function post_comments()
     {
@@ -157,11 +157,11 @@ class Home extends BaseController
     }
     public function email_track()
     {
-        return view('email_track');
+        return view('campaign/email_track');
     }
     public function email_history_show()
     {
-        return view('email_history_show');
+        return view('campaign/email_history_show');
     }
     public function add_account()
     {
@@ -1267,7 +1267,7 @@ class Home extends BaseController
     {
         $username = session_username($_SESSION['username']);
         $data['platform_integration'] = $this->MasterInformationModel->display_all_records2($username . '_platform_integration');
-        return view('email_connection', $data);
+        return view('campaign/email_connection', $data);
     }
     public function peoplelist()
     {
