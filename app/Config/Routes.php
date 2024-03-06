@@ -14,6 +14,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
 use App\Controllers\Campaign\FacebookController;
 use App\Controllers\Campaign\AssetPermissionController;  
 use App\Controllers\Campaign\WhatAppIntegrationController;
+use App\Controllers\Campaign\WebController;
 use App\Controllers\Campaign\Bot_Controller;
 use App\Controllers\Campaign\AudianceController;
 use App\Controllers\Campaign\PostCommentController;
@@ -562,10 +563,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/view_integrate_lead', [FacebookController::class, 'view_integrate_lead']);
 	//website connection
 	$routes->get('/website_connection', 'Home::website_connection');
-	$routes->post('/add_website_connection', 'WebController::add_website_connection');
-	$routes->post('/website_connection_list', 'WebController::website_connection_list');
-	$routes->post('/delete_website_connection', 'WebController::delete_website_connection');
-	$routes->post('/website_connectionpage', 'WebController::website_connectionpage');
+	$routes->post('/add_website_connection', [WebController::class, 'add_website_connection']);
+	$routes->post('/website_connection_list', [WebController::class, 'website_connection_list']);
+	$routes->post('/delete_website_connection', [WebController::class, 'delete_website_connection']);
+	$routes->post('/website_connectionpage', [WebController::class, 'website_connectionpage']);
 	//linkedin integration
 	$routes->get('/linkedin_connection', 'Home::linkedin_connection');
 	//assign asset permission
