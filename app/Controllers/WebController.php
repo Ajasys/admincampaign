@@ -1,12 +1,8 @@
 <?php
 
-namespace App\Controllers;
-
+namespace App\Controllers\Campaign;
+use App\Controllers\BaseController;
 use App\Models\MasterInformationModel;
-use Config\Database;
-use DateInterval;
-use DateTime;
-use DateTimeZone;
 
 class WebController extends BaseController
 {

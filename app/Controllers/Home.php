@@ -169,7 +169,7 @@ class Home extends BaseController
     }
     public function facebook_connection()
     {
-        return view('facebook_connection');
+        return view('campaign/facebook_connection');
     }
     public function instagram_connection()
     {
@@ -1225,7 +1225,7 @@ class Home extends BaseController
         $username = session_username($_SESSION['username']);
         $this->db = DatabaseDefaultConnection();
         $data['product'] = $this->MasterInformationModel->display_all_records2($username . "_product");
-        return view('lead_module', $data);
+        return view('campaign/lead_module', $data);
     }
     public function newlead_module()
     {
