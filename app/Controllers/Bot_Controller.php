@@ -12,7 +12,7 @@ class Bot_Controller extends BaseController
 		helper('custom');
 		helper('custom1');
 		$db = db_connect();
-		$this->db = DatabaseSecondConnection();
+		$this->db = \Config\Database::connect();
 		$this->MasterInformationModel = new MasterInformationModel($db);
 		$this->username = session_username($_SESSION['username']);
 		$this->admin = 0;
@@ -94,7 +94,7 @@ class Bot_Controller extends BaseController
 
 	public function duplicate_data($data, $table)
 	{
-		// $this->db = DatabaseSecondConnection();
+		$this->db = \Config\Database::connect();
 		$i = 0;
 		$data_duplicat_Query = "";
 		$numItems = count($data);
@@ -107,7 +107,7 @@ class Bot_Controller extends BaseController
 			$i++;
 		}
 		$sql = 'SELECT * FROM ' . $table . ' WHERE ' . $data_duplicat_Query;
-		$secondDb = DatabaseDefaultConnection();
+		$secondDb = \Config\Database::connect('second');
 		$result = $secondDb->query($sql);
 		if ($result->getNumRows() > 0) {
 			return TRUE;
@@ -498,7 +498,7 @@ class Bot_Controller extends BaseController
 	{
 		$table_username = getMasterUsername2();
 		$questionId = $this->request->getPost("questionId");
-		$db = DatabaseDefaultConnection();
+		$db = \Config\Database::connect('second');
 		$sql = 'SELECT * FROM ' . $table_username . '_bot_setup WHERE id = ' . $questionId;
 		$result = $db->query($sql);
 		$question_data = $result->getRowArray();
@@ -512,7 +512,7 @@ class Bot_Controller extends BaseController
 	private function insertQuestionData($question_data)
 	{
 		$table_username = getMasterUsername2();
-		$db = DatabaseDefaultConnection();
+		$db = \Config\Database::connect('second');
 		$table_name = $this->request->getPost("table");
 		$existing_records_count = $this->MasterInformationModel->get_record_count($table_name);
 		$_SESSION['records_count'] = $existing_records_count;
@@ -534,7 +534,7 @@ class Bot_Controller extends BaseController
 		$droppedSequence = $_POST['droppedSequence'];
 		$targetSequence = $_POST['targetSequence'];
 
-		$db = DatabaseDefaultConnection();
+		$db = \Config\Database::connect('second');
 		$table_username = getMasterUsername2();
 
 		$db->transStart();
@@ -676,29 +676,26 @@ class Bot_Controller extends BaseController
 			}
 		}
 
-		// if ($_FILES['attachment_media']['error'] === UPLOAD_ERR_OK) {
-		// 	$audioFileName = basename($_FILES['attachment_media']['name']);
-		// 	$sourceFilePath = $_FILES['attachment_media']['tmp_name'];
 
-		// 	$uploadDirectory = 'assets/bot_attachment_media/';
+		if (isset($_POST['attachment_media'])) {
+			$imageFileName = $_POST['attachment_media'];
+	
+			$uploadDirectory = 'assets/bot_attachment_media/';
+			
+			if (!is_dir($uploadDirectory)) {
+				mkdir($uploadDirectory, 0777, true);
+			}
+			$sourceFilePath = $_FILES['attachment']['tmp_name'];
+			$targetFilePath = $uploadDirectory . $imageFileName;
 
-		// 	if (!is_dir($uploadDirectory)) {
-		// 		mkdir($uploadDirectory, 0777, true);
-		// 	}
-
-		// 	$targetFilePath = $uploadDirectory . $audioFileName;
-		// 	if (move_uploaded_file($sourceFilePath, $targetFilePath)) {
-		// 		$response['status'] = 'success';
-		// 		$response['message'] = 'Image file saved successfully.';
-		// 	} else {
-		// 		$response['status'] = 'error';
-		// 		$response['message'] = 'Error: Failed to save image file.';
-		// 	}
-		// } else {
-		// 	// Error handling if attachment_media is not provided
-		// 	$response['status'] = 'error';
-		// 	$response['message'] = 'Error: Image file not provided or upload failed.';
-		// }
+			if (move_uploaded_file($sourceFilePath, $targetFilePath)) {
+				$response['status'] = 'success';
+				$response['message'] = 'Image file saved successfully.';
+			} else {
+				$response['status'] = 'error';
+				$response['message'] = 'Error: Failed to save image file.';
+			}
+		}
 
 		if ($this->request->getPost("action") == "update") {
 			//print_r($_POST);
@@ -978,7 +975,7 @@ class Bot_Controller extends BaseController
 	// 	$table = $_POST['table'];
 	// 	$bot_id = $_POST['bot_id'];
 	// 	$sequence = $_POST['sequence']; // Retrieve the sequence number
-	// 	$db_connection = DatabaseDefaultConnection();
+	// 	$db_connection = \Config\Database::connect('second');
 	// 	$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' AND sequence = ' . $sequence; // Retrieve the question with the specified sequence
 	// 	$resultss = $db_connection->query($sql);
 	// 	$bot_chat_data = $resultss->getResultArray();
@@ -1045,7 +1042,7 @@ class Bot_Controller extends BaseController
 		}
 
 		if ($sequence == 1 || isset($_POST['fetch_first_record'])) {
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE bot_id = ' . $bot_id . ' ORDER BY sequence LIMIT 1';
 			$sequence = 1;
 			// pre($sql);
@@ -1054,7 +1051,7 @@ class Bot_Controller extends BaseController
 		} else {
 			$sequence = isset($result) ? 1 : $sequence - 1;
 			// pre($sequence);
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 
 			if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['next_questions'] != "0" && $_POST['next_questions'] != "0,0") {
 				$sql = 'SELECT * FROM ' . $table . ' WHERE  id = ' . $_POST['next_questions'] . ' ORDER BY sequence';
@@ -1078,7 +1075,7 @@ class Bot_Controller extends BaseController
 			// }
 
 			// Execute query
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$result = $db_connection->query($sql);
 			$bot_chat_data = $result->getResultArray();
 
@@ -1206,7 +1203,7 @@ class Bot_Controller extends BaseController
 															Skip
 														</button>
 													</div>';
-					} else {
+					}else {
 						$html .= '<div class="col-12 mb-2 mt-1" hidden>
 														<button class="btn bg-primary rounded-3 text-white skip_questioned">
 															Skip
@@ -2089,7 +2086,7 @@ class Bot_Controller extends BaseController
 	{
 
 		$table_username = getMasterUsername2();
-		$db_connection = DatabaseDefaultConnection();
+		$db_connection = \Config\Database::connect('second');
 		$table = '' . $table_username . '_bot_setup';
 		$column = 'answer';
 		$sql = "UPDATE $table SET $column = '' ";
@@ -2113,21 +2110,21 @@ class Bot_Controller extends BaseController
 		$sequence = $_POST['sequence'];
 
 		if (isset($_POST['next_questions']) && $_POST['next_questions'] != "undefined" && $_POST['next_questions'] != "" && $_POST['sequence'] != 1) {
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE id = ' . $_POST['question_id'] . ' ORDER BY sequence';
 			$result = $db_connection->query($sql);
 			$questioned = $result->getRowArray();
 			// pre($questioned);
 
 		} else if ($_POST['sequence'] == 1) {
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
 			// pre($question);
 
 		} else {
-			$db_connection = DatabaseDefaultConnection();
+			$db_connection = \Config\Database::connect('second');
 			$sql = 'SELECT * FROM ' . $table . ' WHERE sequence = ' . $sequence;
 			$result = $db_connection->query($sql);
 			$question = $result->getRowArray();
@@ -2354,10 +2351,6 @@ class Bot_Controller extends BaseController
 		$this->db = DatabaseDefaultConnection();
 		if ($_POST['action'] == 'account_list') {
 
-			// pre($userdata);
-			// die();
-			// $token = 'edrftgyhjk,l.;/'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-
 			$integration_table_name = $this->username . '_platform_integration';
 			$get_token = "SELECT * FROM $integration_table_name WHERE platform_status = 2 AND verification_status = 1";
 			$get_access_token_array = $this->db->query($get_token);
@@ -2375,18 +2368,17 @@ class Bot_Controller extends BaseController
 					// pre($url);
 					$asset_table_name = $this->username . '_platform_assets';
 
-
 					if ($access_api === 'true' || $access_api === true || $access_api === 1) {
 						$fileds = 'instagram_business_account{id,username,profile_picture_url},picture,access_token,name,id';
 						$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
 						$fb_page_list_api = getSocialData($url);
 						$api_page_data = isset($fb_page_list_api['data']) ? $fb_page_list_api['data'] : array();
-						foreach($api_page_data as $pages_key => $pages_value) {
+						foreach ($api_page_data as $pages_key => $pages_value) {
 							$insert_data = array();
 							$insert_data['asset_id'] = $pages_value['id'];
 							$insert_data['platform_id'] = $account_value['id'];
 							$isduplicate = $this->duplicate_data($insert_data, $asset_table_name);
-							if(!$isduplicate) {
+							if (!$isduplicate) {
 								$insert_data['platform_id'] = $account_value['id'];
 								$insert_data['master_id'] = $_SESSION['master'];
 								$insert_data['asset_type'] = 'pages';
@@ -2398,9 +2390,9 @@ class Bot_Controller extends BaseController
 								$update_data = array();
 								$update_data['asset_img'] = isset($pages_value['picture']['data']['url']) ? $pages_value['picture']['data']['url'] : '';
 								$update_data_img = $update_data['asset_img'];
-								if(!empty($update_data_img)) {
+								if (!empty($update_data_img)) {
 									$isduplicate = $this->duplicate_data($update_data, $asset_table_name);
-									if(!$isduplicate){
+									if (!$isduplicate) {
 										$update_id = $pages_value['id'];
 										$update_sql = "UPDATE `$asset_table_name` SET `asset_img`= '$update_data_img' WHERE `asset_id`= $update_id";
 										$update_sql_fire = $this->db->query($update_sql);
@@ -2431,59 +2423,69 @@ class Bot_Controller extends BaseController
 					$IG_chat_list_html = '';
 					$return_result = array();
 					$IG_data = array();
-					
+
+					$permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $this->username . "_platform_assetpermission WHERE FIND_IN_SET('fbmessages', assetpermission_name) > 0 AND user_id =" . $_SESSION['id'] . " AND platform_type='facebook'";
+					$permission_result = $this->db->query($permission_query);
+					$per_result = $permission_result->getResult();
+					$perasset_data = [];
+					if (isset($per_result[0])) {
+						$perasset_data = explode(',', $per_result[0]->asset_id);
+					}
+
 					// pre($fb_page_list);
 					foreach ($fb_page_list['data'] as $key => $value) {
-						$unread_msg = 0;
-						// pre($con_data);
-						// if (!empty($cache_data) && $access_api == false) {
-						// 	$unread_msg = $value['unread_count'];
-						// 	$page_img = $value['page_img'];
-						// } else {
-						// echo $access_api.'<br>';
-						if ($access_api === 'true' || $access_api === true || $access_api === 1) {
-							$url = 'https://graph.facebook.com/' . $value['asset_id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
-							$con_data = getSocialData($url);
-							if (isset($con_data['data'])) {
-								foreach ($con_data['data'] as $con_key => $con_value) {
-									// pre($value);
-									$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
+						if (in_array($value['id'], $perasset_data) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
+							$unread_msg = 0;
+							// pre($con_data);
+							// if (!empty($cache_data) && $access_api == false) {
+							// 	$unread_msg = $value['unread_count'];
+							// 	$page_img = $value['page_img'];
+							// } else {
+							// echo $access_api.'<br>';
+							if ($access_api === 'true' || $access_api === true || $access_api === 1) {
+								$url = 'https://graph.facebook.com/' . $value['asset_id'] . '/conversations?fields=unread_count&pretty=0&access_token=' . $value['access_token'];
+								$con_data = getSocialData($url);
+								if (isset($con_data['data'])) {
+									foreach ($con_data['data'] as $con_key => $con_value) {
+										// pre($value);
+										$unread_msg += $con_value['unread_count'] != 0 ? 1 : 0;
+									}
 								}
+								$unread_msg_data[$value['asset_id']] = $unread_msg;
+								// echo $unread_msg.'<br>';
+							} else {
+								$unread_msg = isset($cache_data[$value['asset_id']]) ? $cache_data[$value['asset_id']] : 0;
+								$unread_msg_data[$value['asset_id']] = $unread_msg;
 							}
-							$unread_msg_data[$value['asset_id']] = $unread_msg;
-							// echo $unread_msg.'<br>';
-						} else {
-							$unread_msg = isset($cache_data[$value['asset_id']]) ? $cache_data[$value['asset_id']] : 0;
-							$unread_msg_data[$value['asset_id']] = $unread_msg;
-						}
-						// $page_data = fb_page_img($value['id'], $value['access_token']);
-						// $page_data = json_decode($page_data);
-						// $page_img = $page_data->page_img;
-						$page_img = $value['asset_img'];
-						// }
+							// $page_data = fb_page_img($value['id'], $value['access_token']);
+							// $page_data = json_decode($page_data);
+							// $page_img = $page_data->page_img;
+							$page_img = $value['asset_img'];
+							// }
 
-						$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['asset_id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
+							$fb_chat_list_html .= '<div class="col-12 account-nav account-box linked-page" data-page_id="' . $value['asset_id'] . '" data-platform="messenger" data-page_access_token="' . $value['access_token'] . '" data-page_name="' . $value['name'] . '">
 										<div class=" d-flex flex-wrap justify-content-between align-items-center p-2 ms-4">
 											<a href="" class="col-4 account_icon border border-1 rounded-circle me-2 align-self-center text-center">
 												<img src="' . $page_img . '" alt="" width="45">
 											</a>
 											<p class="fs-6 fw-medium col ps-2">' . $value['name'] . '
 											</p>';
-						if ($unread_msg  != 0) {
-							$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
-						}
-						$fb_chat_list_html .= '</div>
+							if ($unread_msg  != 0) {
+								$fb_chat_list_html .= '<span class="ms-auto badge rounded-pill text-bg-success">' . $unread_msg . '</span>';
+							}
+							$fb_chat_list_html .= '</div>
 									</div>';
-						if (isset($value['instagram_business_account'])) {
-							$value['instagram_business_account']['access_token'] = $value['access_token'];
-							$value['instagram_business_account']['fb_page_id'] = $value['asset_id'];
-							$IG_data[] = $value['instagram_business_account'];
-						}
+							if (isset($value['instagram_business_account'])) {
+								$value['instagram_business_account']['access_token'] = $value['access_token'];
+								$value['instagram_business_account']['fb_page_id'] = $value['asset_id'];
+								$IG_data[] = $value['instagram_business_account'];
+							}
 
-						// if (empty($cache_data) && $access_api == false) {
-						// 	$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
-						// 	$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
-						// }
+							// if (empty($cache_data) && $access_api == false) {
+							// 	$fb_page_list['data'][$key]['unread_count'] = $unread_msg;
+							// 	$fb_page_list['data'][$key]['page_img'] = $page_data->page_img;
+							// }
+						}
 					}
 				}
 
@@ -2755,7 +2757,7 @@ class Bot_Controller extends BaseController
 		}
 
 		$query = "SELECT * FROM " . $this->username . "_bot_setup WHERE bot_id = $bot_id";
-		$db_connection = DatabaseDefaultConnection();
+		$db_connection = \Config\Database::connect('second');
 		$bot_data = $db_connection->query($query);
 		$bot_data_get = $bot_data->getResultArray();
 		$html = "";
@@ -2791,7 +2793,7 @@ class Bot_Controller extends BaseController
 
 	// public function web_bot_integrate()
 	// {
-	// 	$conn = DatabaseDefaultConnection();
+	// 	$conn = \Config\Database::connect('second');
 	//     // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
 
 	// 	$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);
@@ -2891,7 +2893,7 @@ class Bot_Controller extends BaseController
 
 	// public function web_bot_integrate()
 	// {
-	// 	$conn = DatabaseDefaultConnection();
+	// 	$conn = \Config\Database::connect('second');
 	//     // $access_token = '023jWOaMvvq5JFRPidv1lFHxorrv8ew4c93oca3ha1TR5sj67DI4zKnVdybsGqydhRtHVhA5pejpiCbxE05knjpKJNVzAad1AH07gB4ncWAHJGhQ4nEbm8IHJch2KVGZhoN9KlqO4wnCGfrFW0yfOE';
 
 	// 	$access_token = isset($_REQUEST['access_token']) ? $_REQUEST['access_token'] : (isset($_POST['access_token']) ? $_POST['access_token'] : null);
