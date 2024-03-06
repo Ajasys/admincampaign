@@ -569,26 +569,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                                 <div class="border border-2 d-none rounded-circle d-flex justify-content-center align-items-center" style="width:40px; height:40px;">
                                 </div>
                                 <div class="fs-6">
-                                    <?php
-                                    $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-                                    $fb_page_list = fb_insta_page_list($token);
-                                    $fb_page_list = get_object_vars(json_decode($fb_page_list));
-                                    $i = 0;
-                                    foreach ($fb_page_list['page_list'] as $key => $value) {
-                                        $pageprofile = fb_page_img($value->id, $value->access_token);
-                                        $img_decode = json_decode($pageprofile, true);
-                                    ?>
-                                        <div class="col-12 d-flex flex-wrap  align-items-start cursor-pointer">
-                                            <?php if (isset($value->access_token) && isset($value->id) && isset($value->name) && isset($img_decode['page_img'])) : ?>
-                                                <div class="col-12 account-box d-flex flex-wrap align-items-center my-1 p-2 border rounded-3 d-flex  <?= $i == 0 ? 'first' : ''; ?>" data-acess_token="<?php echo $value->access_token; ?>" data-pagee_id="<?php echo $value->id; ?>" data-page_name="<?php echo $value->name; ?>" data-img="<?php echo $img_decode['page_img']; ?>">
-                                                    <img class="rounded-circle me-2" src="<?php echo $img_decode['page_img']; ?>" alt="#" style="width:30px;height:30px;object-fit-container" />
-                                                    <div class="col">
-                                                        <?php echo $value->name ?>
-                                                    </div>
-                                                </div>
-                                            <?php endif; ?>
-                                        <?php $i++;
-                                    } ?>
+                                   
                                         </div>
                                 </div>
                             </div>
@@ -824,7 +805,11 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 });
             });
             $('.delete_loader').hide();
-            $('body').on('click', '.app_card_post', function() {
+
+
+           
+
+            $('body').on('click', '.account-box', function() {
                 var access_tocken = $(this).attr('data-acess_token');
                 var pagee_id = $(this).attr('data-pagee_id');
                 var page_name = $(this).attr('data-page_name');
@@ -832,7 +817,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 var data_pageasset_id = $(this).attr('data-asset-id');
                 $.ajax({
                     type: 'post',
-                    url: '<?= base_url('list_post_pagewise') ?>',
+                    url: '<?= base_url('get_post_data') ?>',
                     data: {
                         access_tocken: access_tocken,
                         pagee_id: pagee_id,
@@ -932,6 +917,9 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             setTimeout(function() {
                 $('.first').trigger('click');
             }, 300);
+
+
+
             $(".draft_create").click(function(e) {
                 //  alert("dfe");
                 e.preventDefault();
