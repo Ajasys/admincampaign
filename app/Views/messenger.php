@@ -1,8 +1,9 @@
 <?= $this->include('partials/header') ?>
 <?= $this->include('partials/sidebar') ?>
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
-<?php $table_username = getMasterUsername();
-
+<?php 
+$table_username = getMasterUsername();
+$db_connection = DatabaseDefaultConnection();
 $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
 
 ?>
@@ -689,7 +690,7 @@ $WhatsAppAccountsData = json_decode($WhatsAppAccounts, true);
                                         <?php
                                         if (isset($WhatsAppAccountsData) && !empty($WhatsAppAccountsData)) {
                                             $permission_query = "SELECT GROUP_CONCAT(DISTINCT asset_id) as asset_id FROM " . $table_username . "_platform_assetpermission WHERE FIND_IN_SET('wh_message', assetpermission_name) > 0 AND user_id =" . $_SESSION['id']." AND platform_type='whatsapp'";
-                                            $permission_result = $this->db->query($permission_query);
+                                            $permission_result = $db_connection->query($permission_query);
                                             $per_result = $permission_result->getResult();
                                             $perasset_data = [];
                                             if (isset($per_result[0])) {
