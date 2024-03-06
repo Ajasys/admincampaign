@@ -18,7 +18,7 @@ if ($query->getNumRows() > 0) {
 ?>
 <?php
 $db_connection = DatabaseDefaultConnection();
-$queryy = 'SELECT * FROM admin_platform_integration WHERE platform_status =2';
+$queryy = 'SELECT * FROM ' . $username . '_platform_integration WHERE platform_status =2';
 $result = $db_connection->query($queryy);
 $get_facebook_page = $result->getResultArray();
 
