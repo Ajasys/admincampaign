@@ -16,6 +16,7 @@ use App\Controllers\Campaign\AssetPermissionController;
 use App\Controllers\Campaign\WhatAppIntegrationController;
 use App\Controllers\Campaign\Bot_Controller;
 use App\Controllers\Campaign\AudianceController;
+use App\Controllers\Campaign\PostCommentController;
 
 
 
@@ -97,17 +98,17 @@ $routes->get('/phone_number', 'Home::phone_number');
 $routes->get('/asses_permissions', 'Home::asses_permissions');
 // post and comment
 $routes->get('/post_comments', 'Home::post_comments');
-$routes->post('/create_insert_data', 'CreateController::create_insert_data');
-$routes->post('/SendPostDataFB', 'CreateController::SendPostDataFB');
-// $routes->post('/ShareOfPost', 'CreateController::ShareOfPost');
-$routes->post('/ShareOfPost', 'CreateController::ShareOfPost');
-$routes->post('/schedule_insert_data', 'CreateController::schedule_insert_data');
-$routes->post('/list_post_pagewise', 'CreateController::list_post_pagewise');
-$routes->post('/comment_replay_send', 'CreateController::comment_replay_send');
-$routes->post('/delete_post', 'CreateController::delete_post');
-$routes->post('/edit_post', 'CreateController::edit_post');
-$routes->post('/UpdatePostDataFB', 'CreateController::UpdatePostDataFB');
-$routes->post('/comment_show', 'CreateController::comment_show');
+$routes->post('/create_insert_data',  [PostCommentController::class, 'create_insert_data']); 
+$routes->post('/SendPostDataFB',  [PostCommentController::class, 'SendPostDataFB']); 
+$routes->post('/ShareOfPost',   [PostCommentController::class, 'ShareOfPost']); 
+$routes->post('/schedule_insert_data',   [PostCommentController::class, 'schedule_insert_data']); 
+$routes->post('/list_post_pagewise',   [PostCommentController::class, 'list_post_pagewise']); 
+$routes->post('/comment_replay_send', [PostCommentController::class, 'comment_replay_send']); 
+$routes->post('/delete_post',   [PostCommentController::class, 'delete_post']); 
+$routes->post('/edit_post', [PostCommentController::class, 'edit_post']); 
+$routes->post('/UpdatePostDataFB', [PostCommentController::class, 'UpdatePostDataFB']); 
+$routes->post('/comment_show',  [PostCommentController::class, 'comment_show']); 
+$routes->post('/SetPostDataAccountList', [PostCommentController::class, 'SetPostDataAccountList']); 
 $routes->post('/mail_get', 'EmailController::mail_get');
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');
 $routes->post('/update_data_2DB', 'MasterInformation::update_data_2DB');
@@ -611,7 +612,6 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	// $routes->post('/master_whatsapp_list_data', 'WhatAppAakashController::master_whatsapp_list_data');
 	// get live message
 	$routes->post('check_new_data_Available', 'CommonController::check_new_data_Available');
-	$routes->post('/SetPostDataAccountList', 'SocialPostController::SetPostDataAccountList');
 });
 // // occupation
 // $routes->get('/occupation', 'Home::occupation');
