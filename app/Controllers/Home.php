@@ -904,7 +904,6 @@ class Home extends BaseController
         ];
         tableCreateAndTableUpdate2($table_username . '_audience', '', $columns_audience);
         // $data['project'] = $this->MasterInformationModel->display_all_records($username."_".'project'); 
-        $data['admin_subscription_master'] = $this->MasterInformationModel->display_all_records2($table_username . '_subscription_master');
         $data['admin_product'] = $this->MasterInformationModel->display_all_records2($table_username . '_product');
         $data['master_inquiry_status'] = $this->MasterInformationModel->display_all_records2('master_inquiry_status');
         $data['platform_assets'] = $this->MasterInformationModel->display_all_records2($table_username . '_platform_assets');
