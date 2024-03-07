@@ -840,7 +840,7 @@ class Followup extends BaseController
 					$all_data = $find_audience->getResultArray();
 
 					if (!empty($all_data)&& isset($all_data[0]['intrested_product']) && $all_data[0]['intrested_product'] == $intrested_product && isset($all_data[0]['inquiry_data']) && $all_data[0]['inquiry_data'] == 2) {
-						if ($result['response'] == 1) {
+						if ($result['result'] == 1) {
 							$inquiry_dataa['inquiry_id'] = $inquiry_id;
 							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
 							$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
@@ -862,7 +862,7 @@ class Followup extends BaseController
                     $all_data_live = $find_audience_live->getResultArray();
     
                     if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
-                        if ($result['response'] == 1) {
+                        if ($result['result'] == 1) {
                         $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
                         // pre($inquiry_id);
 
@@ -962,7 +962,7 @@ class Followup extends BaseController
                         $all_data_live = $find_audience_live->getResultArray();
                 
                     if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
-                        if ($result['response'] == 1) {
+                        if ($result['result'] == 1) {
                         $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
                         // pre($inquiry_id);
 
@@ -1073,7 +1073,7 @@ class Followup extends BaseController
 					$all_data_audience = $find_audience->getResultArray();
 
 					if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['inquiry_data']) && $all_data_audience[0]['inquiry_data'] == 2) {
-						if ($result['response'] == 1) {
+						if ($result['result'] == 1) {
 							$inquiry_data_audience['inquiry_id'] = $inquiry_id;
 							$inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
 							$inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
@@ -1096,7 +1096,7 @@ class Followup extends BaseController
             
             
                     if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
-                        if ($result['response'] == 1) {
+                        if ($result['result'] == 1) {
                         $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
                         // pre($inquiry_id);
 
@@ -1208,7 +1208,7 @@ class Followup extends BaseController
 					$all_data_audience = $find_audience->getResultArray();
 
 					if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['inquiry_data']) && $all_data_audience[0]['inquiry_data'] == 2) {
-						if ($result['response'] == 1) {
+						if ($result['result'] == 1) {
 							$inquiry_data_audience['inquiry_id'] = $inquiry_id;
 							$inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
 							$inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
@@ -1230,7 +1230,7 @@ class Followup extends BaseController
                     $all_data_live = $find_audience_live->getResultArray();
             
                         if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
-                            if ($result['response'] == 1) {
+                            if ($result['result'] == 1) {
                             
                             $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
                             // pre($inquiry_id);
@@ -1655,7 +1655,7 @@ class Followup extends BaseController
 					$all_data_audience = $find_audience->getResultArray();
 
 					if (!empty($all_data_audience)&& isset($all_data_audience[0]['intrested_product']) && $all_data_audience[0]['intrested_product'] == $intrested_product && isset($all_data_audience[0]['inquiry_data']) && $all_data_audience[0]['inquiry_data'] == 2) {
-						if ($result['response'] == 1) {
+						if ($result['result'] == 1) {
 							$inquiry_data_audience['inquiry_id'] = $inquiry_id;
 							$inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
 							$inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
@@ -1678,7 +1678,7 @@ class Followup extends BaseController
                 
                 
                     if (!empty($all_data_live) && isset($all_data_live[0]['intrested_product']) && $all_data_live[0]['intrested_product'] == $intrested_product && isset($all_data_live[0]['inquiry_data']) && $all_data_live[0]['inquiry_data'] == 3) {
-                        if ($result['response'] == 1) {
+                        if ($result['result'] == 1) {
                        
                         $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
                         // pre($inquiry_id);

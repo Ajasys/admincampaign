@@ -1966,6 +1966,8 @@ class Inquiryinformation extends BaseController
 					$inquiry_data_audience['name'] = $all_data_audience[0]['name'];
 					$inquiry_data_audience['source'] = $all_data_audience[0]['source'];
 					$inquiry_data_audience['inquiry_data'] = 2;
+					$inquiry_data_audience['pages_name'] = $all_data_audience[0]['pages_name'];
+					$inquiry_data_audience['facebook_syncro'] = 0;
 					$response_audience = $this->MasterInformationModel->insert_entry2($inquiry_data_audience, $this->username . "_audience");
 				}
 			} elseif ($result['result'] == 1 && $isSiteVisit_new_value == 4) {
@@ -1979,6 +1981,8 @@ class Inquiryinformation extends BaseController
 					$inquiry_dataas_audience['name'] = $all_dataas_audience[0]['name'];
 					$inquiry_dataas_audience['source'] = $all_dataas_audience[0]['source'];
 					$inquiry_dataas_audience['inquiry_data'] = 2;
+					$inquiry_dataas_audience['pages_name'] = $all_dataas_audience[0]['pages_name'];
+					$inquiry_dataas_audience['facebook_syncro'] = 0;
 					$response_audience1 = $this->MasterInformationModel->insert_entry2($inquiry_dataas_audience, $this->username . "_audience");
 				}
 			}
