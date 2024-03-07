@@ -113,12 +113,12 @@ class WhatAppAakashController extends BaseController
         $Html = '';
         if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
+                $url = MetaUrl() . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
                 $DataArray = getSocialData($url);
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
                         $ConnectionStatus = 1;
-                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components&access_token=' . $settings_data['whatapp_access_token'];
+                        $urllistdata = MetaUrl() . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components&access_token=' . $settings_data['whatapp_access_token'];
                         $responselistdata = getSocialData($urllistdata);
 
                         if (isset($responselistdata)) {
@@ -342,7 +342,7 @@ class WhatAppAakashController extends BaseController
     {
         if (isset($_POST['id']) && !empty($_POST['id'])) {
             $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-            $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?hsm_id=' . $_POST['id'] . '&name=' . $_POST['name'] . '&access_token=' . $access_token;
+            $url = MetaUrl().'135764946295075/message_templates?hsm_id=' . $_POST['id'] . '&name=' . $_POST['name'] . '&access_token=' . $access_token;
             $Result = deleteSocialData($url);
             $DeleteStatus = 0;
             if (isset($Result)) {
@@ -404,7 +404,7 @@ class WhatAppAakashController extends BaseController
 
         if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
+                $url = MetaUrl() . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
                 $DataArray = getSocialData($url);
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
@@ -445,7 +445,7 @@ class WhatAppAakashController extends BaseController
 
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
+        $url = MetaUrl().'135764946295075/message_templates?access_token=' . $access_token;
         $DataSttring = '
       {
           "name": "dishant_testing_9_52",
@@ -502,14 +502,14 @@ class WhatAppAakashController extends BaseController
 
 
         //Get All template Api
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
+        $url = MetaUrl().'135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
         $response = getSocialData($url);
         pre($response);
 
 
         die();
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
+        $url = MetaUrl().'135764946295075/message_templates?access_token=' . $access_token;
 
         $DataSttring = '
       {
@@ -608,7 +608,7 @@ class WhatAppAakashController extends BaseController
 
         $errormsg = '';
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
+        $url = MetaUrl().'135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
         $curl = curl_init();
         curl_setopt_array(
             $curl,
@@ -665,7 +665,7 @@ class WhatAppAakashController extends BaseController
 
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 
-        $url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
+        $url = MetaUrl()."156839030844055/messages?access_token=" . $access_token;
         $postData = json_encode([
             "messaging_product" => "whatsapp",
             "recipient_type" => "individual",
@@ -730,12 +730,12 @@ class WhatAppAakashController extends BaseController
         $header = '';
         if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
+                $url = MetaUrl() . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
                 $DataArray = getSocialData($url);
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
                         $ConnectionStatus = 1;
-                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['whatapp_access_token'];
+                        $urllistdata = MetaUrl() . $settings_data['whatapp_business_account_id'] . '/message_templates?fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['whatapp_access_token'];
                         $responselistdata = getSocialData($urllistdata);
                         $templateNames = [];
 

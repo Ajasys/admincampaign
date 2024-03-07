@@ -44,7 +44,7 @@ class WhatAppIntegrationController extends BaseController
         $template_id = $_POST['template_id'];
         $ReturnResult = 0;
 
-        $MetaUrl = config('App')->metaurl;
+        
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
@@ -63,7 +63,7 @@ class WhatAppIntegrationController extends BaseController
         }
 
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
-            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
 
 
             if ($uploadedFile['type'] === 'text/csv') {
@@ -83,7 +83,7 @@ class WhatAppIntegrationController extends BaseController
                         $countrey_code = $rowData[array_search('countrey_code', $csvHeaders)];
 
 
-                        $url1 = $MetaUrl . $business_account_id . "/message_templates?name=" . urlencode($template_name) . "&access_token=" . $access_token;
+                        $url1 = MetaUrl(). $business_account_id . "/message_templates?name=" . urlencode($template_name) . "&access_token=" . $access_token;
 
                         $templateDetails = json_decode(file_get_contents($url1), true);
 
@@ -346,12 +346,12 @@ class WhatAppIntegrationController extends BaseController
         $Html = '';
         if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['phone_number_id']) && isset($settings_data['business_account_id']) && isset($settings_data['access_token']) && !empty($settings_data['phone_number_id']) && !empty($settings_data['business_account_id']) && !empty($settings_data['access_token']) && $settings_data['phone_number_id'] != '0' && $settings_data['business_account_id'] != '0') {
-                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['business_account_id'] . '/?access_token=' . $settings_data['access_token'];
+                $url = MetaUrl() . $settings_data['business_account_id'] . '/?access_token=' . $settings_data['access_token'];
                 $DataArray = getSocialData($url);
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
                         $ConnectionStatus = 1;
-                        $urllistdata = 'https://graph.facebook.com/v19.0/' . $settings_data['business_account_id'] . '/message_templates?limit=500&fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['access_token'];
+                        $urllistdata = MetaUrl() . $settings_data['business_account_id'] . '/message_templates?limit=500&fields=name,status,category,language,components,quality_score&access_token=' . $settings_data['access_token'];
                         $responselistdata = getSocialData($urllistdata);
                         $templateNames = [];
 
@@ -1268,7 +1268,7 @@ class WhatAppIntegrationController extends BaseController
     public function WhatsAppRTemplateDeleteRequest()
     {
         $connectionid = $_POST['connectionid'];
-        $MetaUrl = config('App')->metaurl;
+        
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
@@ -1292,7 +1292,7 @@ class WhatAppIntegrationController extends BaseController
 
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
             if (isset($_POST['id']) && !empty($_POST['id'])) {
-                $url = $MetaUrl . $business_account_id . '/message_templates?hsm_id=' . $_POST['id'] . '&name=' . $_POST['name'] . '&access_token=' . $access_token;
+                $url = MetaUrl(). $business_account_id . '/message_templates?hsm_id=' . $_POST['id'] . '&name=' . $_POST['name'] . '&access_token=' . $access_token;
                 $Result = deleteSocialData($url);
                 if (isset($Result)) {
                     $DeleteStatus = 1;
@@ -1308,7 +1308,7 @@ class WhatAppIntegrationController extends BaseController
     {
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
         $DataSttring = '{"name":"inquirytemp121","category":"MARKETING","language":"en_US","components":[{"type":"HEADER","format":"TEXT","text":"GymSmart CRM"},{"type":"BODY","text":"Hello Mr.Kanani, Your Inquiry is now Successfully recieved by us."},{"type":"FOOTER","text":"thank you"},{"type": "BUTTONS","buttons": [{"type": "QUICK_REPLY","text": "Reply"}]}]}';
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
+        $url = MetaUrl().'135764946295075/message_templates?access_token=' . $access_token;
 
 
         // pre($url);
@@ -1364,7 +1364,7 @@ class WhatAppIntegrationController extends BaseController
 
         if (isset($settings_data) && !empty($settings_data)) {
             if (isset($settings_data['phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-                $url = 'https://graph.facebook.com/v19.0/' . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
+                $url = MetaUrl() . $settings_data['whatapp_business_account_id'] . '/?access_token=' . $settings_data['whatapp_access_token'];
                 $DataArray = getSocialData($url);
                 if (isset($DataArray) && !empty($DataArray)) {
                     if (isset($DataArray['id']) && !empty($DataArray['id'])) {
@@ -1404,7 +1404,7 @@ class WhatAppIntegrationController extends BaseController
 
 
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
+        $url = MetaUrl().'135764946295075/message_templates?access_token=' . $access_token;
 
 
         $DataSttring = '
@@ -1463,14 +1463,14 @@ class WhatAppIntegrationController extends BaseController
 
 
         //Get All template Api
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
+        $url = MetaUrl().'135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
         $response = getSocialData($url);
         pre($response);
 
 
         die();
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?access_token=' . $access_token;
+        $url = MetaUrl().'135764946295075/message_templates?access_token=' . $access_token;
 
         $DataSttring = '
       {
@@ -1569,7 +1569,7 @@ class WhatAppIntegrationController extends BaseController
 
         $errormsg = '';
         $access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
-        $url = 'https://graph.facebook.com/v19.0/135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
+        $url = MetaUrl().'135764946295075/message_templates?fields=name,status&access_token=' . $access_token;
         $curl = curl_init();
         curl_setopt_array(
             $curl,
@@ -1616,7 +1616,7 @@ class WhatAppIntegrationController extends BaseController
     public function SendWhatsAppTemplate()
     {
         $connectionid = $_POST['connectionid'];
-        $MetaUrl = config('App')->metaurl;
+        
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
@@ -1641,7 +1641,7 @@ class WhatAppIntegrationController extends BaseController
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
             if ($_POST['action'] == "insert") {
 
-                $url = $MetaUrl . $business_account_id . '/message_templates?access_token=' . $access_token;
+                $url = MetaUrl(). $business_account_id . '/message_templates?access_token=' . $access_token;
                 // pre($url);
                 // die();
                 $Result = postSocialData($url, $_POST['jsonString']);
@@ -1652,7 +1652,7 @@ class WhatAppIntegrationController extends BaseController
 
                 if ($_POST['templatename'] != '' && $_POST['templateid']) {
 
-                    $url = $MetaUrl . $_POST['templateid'] . '/?access_token=' . $access_token;
+                    $url = MetaUrl(). $_POST['templateid'] . '/?access_token=' . $access_token;
                     $Result = postSocialData($url, $_POST['jsonString']);
 
                     if (isset($Result['success'])) {
@@ -1681,7 +1681,7 @@ class WhatAppIntegrationController extends BaseController
         $connectionid = $_POST['connectionid'];
         $ReturnResult = 0;
 
-        $MetaUrl = config('App')->metaurl;
+        
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
@@ -1703,7 +1703,7 @@ class WhatAppIntegrationController extends BaseController
 
 
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
-            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
 
             $bodydivvalues = $post_data['bodydivvalues'];
             // pre($bodydivvalues);
@@ -1783,7 +1783,7 @@ class WhatAppIntegrationController extends BaseController
     {
 
         $connectionid = $_POST['connectionid'];
-        $MetaUrl = config('App')->metaurl;
+        
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
@@ -1805,7 +1805,7 @@ class WhatAppIntegrationController extends BaseController
 
 
         if ($phone_number_id != '' && $business_account_id != '' && $access_token != '') {
-            $url = $MetaUrl . $business_account_id . '/message_templates?hsm_id=' . $_POST['id'] . '&name=' . strtolower($_POST['name']) . '&access_token=' . $access_token;
+            $url = MetaUrl(). $business_account_id . '/message_templates?hsm_id=' . $_POST['id'] . '&name=' . strtolower($_POST['name']) . '&access_token=' . $access_token;
             $responselistdata = getSocialData($url);
             $resposearray = array();
             if (isset($responselistdata)) {
@@ -1828,7 +1828,7 @@ class WhatAppIntegrationController extends BaseController
     public function WhatsAppConnectionsList()
     {
 
-        $MetaUrl = config('App')->metaurl;
+        
         $html = '';
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
@@ -1853,7 +1853,7 @@ class WhatAppIntegrationController extends BaseController
                 $phone_number_id = $value['phone_number_id'];
                 $business_account_id = $value['business_account_id'];
                 $access_token = $value['access_token'];
-                $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
+                $url = MetaUrl(). $business_account_id . '/phone_numbers/?access_token=' . $access_token;
                 $DataArray = getSocialData($url);
                 if (isset($DataArray['data'])) {
                     $display_phone_number = '';
@@ -2179,7 +2179,7 @@ class WhatAppIntegrationController extends BaseController
 
     public function WhatsAppListConverstion()
     {
-        $MetaUrl = config('App')->metaurl;
+        
         $contact_no = $_POST['contact_no'];
         $conversation_account_id = $_POST['conversation_account_id'];
         $table_username = getMasterUsername2();
@@ -2216,7 +2216,7 @@ class WhatAppIntegrationController extends BaseController
                 }
             }
         }
-        $MetaUrl = config('App')->metaurl;
+        
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
@@ -2244,7 +2244,7 @@ class WhatAppIntegrationController extends BaseController
 
             if ($value['msg_read_status'] == '0' && $value['sent_recieved_status'] == '2') {
                 if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
-                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                     $JsonDataString = '
                     {
                     "messaging_product": "whatsapp",
@@ -2863,7 +2863,7 @@ class WhatAppIntegrationController extends BaseController
         $DataSenderId = $_POST['DataSenderId'];
         $DataPhoneno = $_POST['DataPhoneno'];
         $massage_input = $_POST['massage_input'];
-        $MetaUrl = config('App')->metaurl;
+        
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
@@ -2893,7 +2893,7 @@ class WhatAppIntegrationController extends BaseController
                             }';
 
 
-            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
 
             $Result = postSocialData($url, $JsonDataString);
             if (isset($Result) && !empty($Result)) {
@@ -2966,7 +2966,7 @@ class WhatAppIntegrationController extends BaseController
 
         $DataSenderId = $_POST['DataSenderId'];
         $DataPhoneno = $_POST['DataPhoneno'];
-        $MetaUrl = config('App')->metaurl;
+        
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
@@ -3006,7 +3006,7 @@ class WhatAppIntegrationController extends BaseController
                     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
                     if (move_uploaded_file(str_replace(' ', '', $filesArr["tmp_name"][$key]), $targetFilePath)) {
                         $base_url = base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . str_replace(' ', '', $fileName);
-                        $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                        $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                         if ($_POST['doctype'] == 'document') {
                             $jsonestring = '{
                                 "messaging_product": "whatsapp",
@@ -3112,7 +3112,7 @@ class WhatAppIntegrationController extends BaseController
     public function SendWhatsAppContactNumber()
     {
         $DataSenderId = $_POST['DataSenderId'];
-        $MetaUrl = config('App')->metaurl;
+        
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
         $username = $parts[0];
@@ -3157,7 +3157,7 @@ class WhatAppIntegrationController extends BaseController
                         ]
                     }
                     ';
-                    $url = $MetaUrl . $phone_number_id . "/messages/?access_token=" . $access_token . "";
+                    $url = MetaUrl(). $phone_number_id . "/messages/?access_token=" . $access_token . "";
                     $Result = postSocialData($url, $jsonestring);
                     if (isset($Result['contacts'][0]['wa_id']) && $Result['messages'][0]['id']) {
                         $contact = $Result['contacts'][0]['wa_id'];
@@ -3199,7 +3199,7 @@ class WhatAppIntegrationController extends BaseController
                 $targetFile = $targetDirectory . $ImgeName;
                 $PhotoNname = $ImgeName;
                 if (file_put_contents($targetFile, $imageData) !== false) {
-                    $MetaUrl = config('App')->metaurl;
+                    
                     $inputString = $_SESSION['username'];
                     $parts = explode("_", $inputString);
                     $username = $parts[0];
@@ -3222,7 +3222,7 @@ class WhatAppIntegrationController extends BaseController
 
                     if ($access_token != '' && $business_account_id != '' && $phone_number_id != '') {
                         $base_url = base_url() . 'assets/' . $username . '_folder/WhatsAppAssets/' . $ImgeName;
-                        $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                        $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                         $jsonestring = '{
                             "messaging_product": "whatsapp",
                             "recipient_type": "individual",

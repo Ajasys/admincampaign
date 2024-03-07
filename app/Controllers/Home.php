@@ -27,7 +27,7 @@ class Home extends BaseController
     public function whatapp()
     {
         $responseArray = array();
-        $MetaUrl = config('App')->metaurl;
+        
         $html = '';
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
@@ -48,7 +48,7 @@ class Home extends BaseController
                 $phone_number_id = $value['phone_number_id'];
                 $business_account_id = $value['business_account_id'];
                 $access_token = $value['access_token'];
-                $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
+                $url = MetaUrl(). $business_account_id . '/phone_numbers/?access_token=' . $access_token;
                 $DataArray = getSocialData($url);
                 if (isset($DataArray['data'])) {
                     $display_phone_number = '';
@@ -589,7 +589,7 @@ class Home extends BaseController
         $table_username = getMasterUsername2();
         $db_connection = DatabaseDefaultConnection();
         $responseArray = array();
-        $MetaUrl = config('App')->metaurl;
+        
         $html = '';
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
@@ -618,7 +618,7 @@ class Home extends BaseController
                 $phone_number_id = $value['phone_number_id'];
                 $business_account_id = $value['business_account_id'];
                 $access_token = $value['access_token'];
-                $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
+                $url = MetaUrl(). $business_account_id . '/phone_numbers/?access_token=' . $access_token;
                 $DataArray = getSocialData($url);
                 if (isset($DataArray['data'])) {
                     $display_phone_number = '';
@@ -698,7 +698,7 @@ class Home extends BaseController
         $table_username = getMasterUsername2();
         $db_connection = DatabaseDefaultConnection();
         $responseArray = array();
-        $MetaUrl = config('App')->metaurl;
+        
         $html = '';
         $inputString = $_SESSION['username'];
         $parts = explode("_", $inputString);
@@ -721,7 +721,7 @@ class Home extends BaseController
                     $phone_number_id = $value['phone_number_id'];
                     $business_account_id = $value['business_account_id'];
                     $access_token = $value['access_token'];
-                    $url = $MetaUrl . $business_account_id . '/phone_numbers/?access_token=' . $access_token;
+                    $url = MetaUrl(). $business_account_id . '/phone_numbers/?access_token=' . $access_token;
                     $DataArray = getSocialData($url);
                     if (isset($DataArray['data'])) {
                         $display_phone_number = '';

@@ -7,6 +7,10 @@ function DatabaseSecondConnection()
 {
     return \Config\Database::connect('second');
 }
+function MetaUrl()
+{
+    return config('App')->metaurl;
+}
 if(!function_exists("customErrorHandlerCheck")) {
     function customErrorHandlerCheck($errno = "", $errstr = "", $errfile = "", $errline = "")
     {
@@ -3278,7 +3282,7 @@ function WhatsAppConnectionCheck(){
     $ConnectionStatus = 0;
     if(isset($settings_data) && !empty($settings_data)){
         if (isset($settings_data['whatapp_phone_number_id']) && isset($settings_data['whatapp_business_account_id']) && isset($settings_data['whatapp_access_token']) && !empty($settings_data['whatapp_phone_number_id']) && !empty($settings_data['whatapp_business_account_id']) && !empty($settings_data['whatapp_access_token']) && $settings_data['whatapp_phone_number_id'] != '0' && $settings_data['whatapp_business_account_id'] != '0') {
-            $url = 'https://graph.facebook.com/v19.0/'.$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
+            $url = MetaUrl().$settings_data['whatapp_business_account_id'].'/?access_token='.$settings_data['whatapp_access_token'];
             $DataArray =  getSocialData($url);
             if(isset($DataArray) && !empty($DataArray)){
                 if(isset($DataArray['id']) && !empty($DataArray['id'])){
@@ -3329,7 +3333,7 @@ function deleteSocialData($url)
 
 function fb_page_list($access_token)
 {
-    $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token);
+    $result = getSocialData(MetaUrl().'me/accounts?access_token=' . $access_token);
    
     $errorMsg = 'Something Went wrong..!';
     if (isset($result['error']['message'])) {
@@ -3361,7 +3365,7 @@ function fb_page_list($access_token)
 }
 function fb_insta_page_list($access_token)
 {
-    $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token.'&field=ccess_token&field=access_token&field=,access_token&fields=instagram_business_account{id,username},access_token,name,id');
+    $result = getSocialData(MetaUrl().'me/accounts?access_token=' . $access_token.'&field=ccess_token&field=access_token&field=,access_token&fields=instagram_business_account{id,username},access_token,name,id');
    
     $errorMsg = 'Something Went wrong..!';
     if (isset($result['error']['message'])) {
@@ -3395,7 +3399,7 @@ function fb_page_img($page_id,$access_token)
 {
     if($page_id && $access_token)
     {
-        $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
+        $response_pictures = getSocialData(MetaUrl() . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
         $result_array['page_img'] = $response_pictures['data']['url'];
     }
     else

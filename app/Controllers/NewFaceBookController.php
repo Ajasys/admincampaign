@@ -88,7 +88,7 @@ class NewFaceBookController extends BaseController
         curl_setopt_array(
             $curl,
             array(
-                CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $user_id . '/picture?redirect=false&&access_token=' . $longLivedToken . '',
+                CURLOPT_URL => MetaUrl() . $user_id . '/picture?redirect=false&&access_token=' . $longLivedToken . '',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -148,7 +148,7 @@ class NewFaceBookController extends BaseController
                     curl_setopt_array(
                         $curl,
                         array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id=225501013967437&client_secret=ce8e76fd079722356c9122f4e92bb150&fb_exchange_token=' . $aa_value['access_token'] . '',
+                            CURLOPT_URL => MetaUrl().'oauth/access_token?grant_type=fb_exchange_token&client_id=225501013967437&client_secret=ce8e76fd079722356c9122f4e92bb150&fb_exchange_token=' . $aa_value['access_token'] . '',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -206,7 +206,7 @@ class NewFaceBookController extends BaseController
                     curl_setopt_array(
                         $curl,
                         array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v19.0/oauth/access_token?grant_type=fb_exchange_token&client_id=225501013967437&client_secret=ce8e76fd079722356c9122f4e92bb150&fb_exchange_token=' . $aa_value['access_token'] . '',
+                            CURLOPT_URL => MetaUrl().'oauth/access_token?grant_type=fb_exchange_token&client_id=225501013967437&client_secret=ce8e76fd079722356c9122f4e92bb150&fb_exchange_token=' . $aa_value['access_token'] . '',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -253,7 +253,7 @@ class NewFaceBookController extends BaseController
             curl_setopt_array(
                 $curl,
                 array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/leadgen_forms?access_token=' . $access_token . '',
+                    CURLOPT_URL => MetaUrl() . $page_id . '/leadgen_forms?access_token=' . $access_token . '',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -342,7 +342,7 @@ class NewFaceBookController extends BaseController
                 curl_setopt_array(
                     $curl,
                     array(
-                        CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
+                        CURLOPT_URL => MetaUrl() . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => '',
                         CURLOPT_MAXREDIRS => 10,
@@ -399,7 +399,7 @@ class NewFaceBookController extends BaseController
                     curl_setopt_array(
                         $curl,
                         array(
-                            CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
+                            CURLOPT_URL => MetaUrl() . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '',
                             CURLOPT_RETURNTRANSFER => true,
                             CURLOPT_ENCODING => '',
                             CURLOPT_MAXREDIRS => 10,
@@ -856,7 +856,7 @@ class NewFaceBookController extends BaseController
             foreach ($count_lead as $aa_key => $row) {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $row['lead_id'] . '?access_token=' . $row['page_access_token'] . '',
+                    CURLOPT_URL => MetaUrl() . $row['lead_id'] . '?access_token=' . $row['page_access_token'] . '',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,

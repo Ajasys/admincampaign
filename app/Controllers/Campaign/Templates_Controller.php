@@ -41,7 +41,7 @@ class Templates_Controller extends BaseController
 	
 		$access_token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L';
 	
-		$url = "https://graph.facebook.com/v19.0/156839030844055/messages?access_token=" . $access_token;
+		$url = MetaUrl()."156839030844055/messages?access_token=" . $access_token;
 		$ReturnResult = 0; 
 	
 		foreach ($phone_nos as $phone_no) {

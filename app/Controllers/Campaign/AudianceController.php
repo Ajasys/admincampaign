@@ -170,7 +170,7 @@ class AudianceController extends BaseController
 			$token = $fb_account_data['access_token'];
                    $selectedAccountId = $_POST['selected_account_id'];
                     // Fetch custom audiences for each ad account
-                    $url = "https://graph.facebook.com/v19.0/$selectedAccountId/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+                    $url = MetaUrl()."$selectedAccountId/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
                     $response = file_get_contents($url);
                     $audience_data = json_decode($response, true);
                     foreach ($audience_data['data'] as $conversion_value) {
@@ -390,7 +390,7 @@ class AudianceController extends BaseController
                     foreach ($data['adaccounts']['data'] as $ad_account) {
                         $account_id = $ad_account['id'];
                         // Fetch custom audiences for each ad account
-                        $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+                        $url = MetaUrl()."$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
                         $response = file_get_contents($url);
                         $audience_datas = json_decode($response, true);
                         // pre($audience_datas);
@@ -407,7 +407,7 @@ class AudianceController extends BaseController
                     }
 
                     foreach ($matching_audience_ids as $key => $audience_id) {
-                        $usersUrls[$ii]['url'] = "https://graph.facebook.com/v19.0/$audience_id/users?access_token=$token";
+                        $usersUrls[$ii]['url'] = MetaUrl()."$audience_id/users?access_token=$token";
                         $usersUrls[$ii]['audience_id'] = $audience_id;
                         $usersUrls[$ii]['name'] = $matching_audience_names[$key];
                         $ii++;
@@ -550,7 +550,7 @@ class AudianceController extends BaseController
                     foreach ($data['adaccounts']['data'] as $ad_account) {
                         $account_id = $ad_account['id'];
                         // Fetch custom audiences for each ad account
-                        $url = "https://graph.facebook.com/v19.0/$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+                        $url = MetaUrl()."$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
                         $response = file_get_contents($url);
                         $audience_datas = json_decode($response, true);
                         // pre($audience_datas);
@@ -567,7 +567,7 @@ class AudianceController extends BaseController
                     }
 
                     foreach ($matching_audience_ids as $key => $audience_id) {
-                        $replaceUrls[$ii]['url'] = "https://graph.facebook.com/v19.0/$audience_id/usersreplace?access_token=$token";
+                        $replaceUrls[$ii]['url'] = MetaUrl()."$audience_id/usersreplace?access_token=$token";
                         $replaceUrls[$ii]['audience_id'] = $audience_id;
                         $replaceUrls[$ii]['name'] = $matching_audience_names[$key];
                         $ii++;
@@ -805,7 +805,7 @@ class AudianceController extends BaseController
                         // pre($adAccountId);
                         // die();
                         $adAccountId = $ad_account_id;
-                        $url = "https://graph.facebook.com/v19.0/$adAccountId/customaudiences";
+                        $url = MetaUrl()."$adAccountId/customaudiences";
                         $postData = [
                             'name' => $name, // Change here to use name from POST data
                             'subtype' => 'CUSTOM',
@@ -846,7 +846,7 @@ class AudianceController extends BaseController
                             // $updateQuery = "UPDATE admin_audience SET audience_id = ?";
                             // $secondDb->query($updateQuery, [$audience_id]);
                             // Construct the correct URL for adding users to the custom audience
-                            $usersUrl = "https://graph.facebook.com/v19.0/$audience_id/users?access_token=$accessToken";
+                            $usersUrl = MetaUrl()."$audience_id/users?access_token=$accessToken";
                         
                             // Reset the estimated total count
                             $estimated_total = 0;

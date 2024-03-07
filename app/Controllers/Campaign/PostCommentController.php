@@ -174,7 +174,7 @@ class PostCommentController extends BaseController
                 $attachments_data["attachment"] = curl_file_create($tmp_name, $attachments['type'][$index], $attachments['name'][$index]);
                 // Set cURL options
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' .   $page_id  . '/photos',
+                    CURLOPT_URL => MetaUrl() .   $page_id  . '/photos',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -209,7 +209,7 @@ class PostCommentController extends BaseController
             );
 
             curl_setopt_array($curll, array(
-                CURLOPT_URL => 'https://graph.facebook.com/v19.0/' .  $page_id . '/feed',
+                CURLOPT_URL => MetaUrl() .  $page_id . '/feed',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -264,7 +264,7 @@ class PostCommentController extends BaseController
         } else {
             $message = '';
         }
-        $response = postSocialData('https://graph.facebook.com/v19.0/' . $edit_post_id . '?message=' . $message . '&access_token=' . $access_token . '', '');
+        $response = postSocialData(MetaUrl() . $edit_post_id . '?message=' . $message . '&access_token=' . $access_token . '', '');
 
         // $attached_media = array();
         // foreach ($attachments['tmp_name'] as $index => $tmp_name) {
@@ -342,14 +342,14 @@ class PostCommentController extends BaseController
 
 
         //get comment
-        $response = getSocialData('https://graph.facebook.com/v19.0/' . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
+        $response = getSocialData(MetaUrl() . $pagee_idd . '/feed?access_token=' . $accesss_tocken . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
         
         $fb_page_list = $response;
 
         $html = "";
 
         foreach ($fb_page_list['data'] as $key => $value) {
-            $url = 'https://graph.facebook.com/v19.0/' . $value['id'] . '?fields=attachments&access_token=' . $accesss_tocken . '';
+            $url = MetaUrl() . $value['id'] . '?fields=attachments&access_token=' . $accesss_tocken . '';
             $data = getSocialData($url);
             // $time = strtotime($data[0]['created_time']);    
             // $accesss_tocken_comment = 'EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD';
@@ -508,16 +508,16 @@ class PostCommentController extends BaseController
         } else {
             $access_token = '';
         }
-        // $gjfgh = getSocialData('https://graph.facebook.com/v19.0/'.$post_idd.'?fields=attachments&access_token='.$access_token.'
+        // $gjfgh = getSocialData(MetaUrl().$post_idd.'?fields=attachments&access_token='.$access_token.'
         // ');
-        $url = 'https://graph.facebook.com/v19.0/' . $post_idd . '?fields=attachments&access_token=' . $access_token . '';
+        $url = MetaUrl() . $post_idd . '?fields=attachments&access_token=' . $access_token . '';
 
         $data = getSocialData($url);
         $comments_responce = getSocialData('https://graph.facebook.com/v13.0/' . $post_idd . '/comments?fields=from,message,created_time&access_token=' . $access_token . '');
         $like_comment_count = "";
         $comments_html = "";
         $img_show_comment = "";
-        $like_comment = getSocialData('https://graph.facebook.com/v19.0/' . $post_idd . '?fields=comments.limit(0).summary(true),likes.limit(0).summary(true)&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD', '');
+        $like_comment = getSocialData(MetaUrl() . $post_idd . '?fields=comments.limit(0).summary(true),likes.limit(0).summary(true)&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD', '');
 
         // Decode JSON response
         // $data = json_decode($url, true);
@@ -722,7 +722,7 @@ class PostCommentController extends BaseController
         } else {
             $accesss_tocken = "";
         }
-        $response = getSocialData('https://graph.facebook.com/v19.0/' . $data_edit_id . '?message=testing&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD');
+        $response = getSocialData(MetaUrl() . $data_edit_id . '?message=testing&access_token=EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD');
         if (isset($response['message']) && !empty($response['message'])) {
             $message_return = $response['message'];
         } else {
@@ -918,7 +918,7 @@ class PostCommentController extends BaseController
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $delete_post_id . '',
+            CURLOPT_URL => MetaUrl() . $delete_post_id . '',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -940,7 +940,7 @@ class PostCommentController extends BaseController
 
     // public function SendPostDataFB(){
     //     // pre('Dishant');
-    //     $url = 'https://graph.facebook.com/v19.0/196821650189891/photos/?access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
+    //     $url = MetaUrl().'196821650189891/photos/?access_token=EAADNF4vVgk0BO9zvep9aAEl9lvfRQUuPLHDS1S42aVomuXuwiictibNEvU4Ni7uaAcuZB2oZC1Y9rFUSgcpOWtecoYtJXrpLipby9bfxokFR1cOsXN1ZBuFIDbeIl53XJpl1mjhCZA2C6H5wQwzQGPDqtWOoc8gCOkIZBidwoT3G2n7I6KUuahJHypU50NzSAPjlVKXgZD';
     //     $json = '{
 
 
@@ -1030,7 +1030,7 @@ class PostCommentController extends BaseController
                         $post_data_json = json_encode($post_data);
                         
                         // Set cURL options for the request
-                        $url = "https://graph.facebook.com/v19.0/$page_id/feed/?access_token=$access_token";
+                        $url = MetaUrl()."$page_id/feed/?access_token=$access_token";
                         $Result = postSocialData($url, $post_data_json);
                         pre($Result);
     
@@ -1078,7 +1078,7 @@ class PostCommentController extends BaseController
 
 	// 				if ($access_api === 'true' || $access_api === true || $access_api === 1) {
 	// 					$fileds = 'instagram_business_account{id,username,profile_picture_url},picture,access_token,name,id';
-	// 					$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
+	// 					$url = MetaUrl().'me/accounts?access_token=' . $token . '&fields=' . $fileds;
 	// 					$fb_page_list_api = getSocialData($url);
 	// 					$api_page_data = isset($fb_page_list_api['data']) ? $fb_page_list_api['data'] : array();
 	// 					foreach ($api_page_data as $pages_key => $pages_value) {
@@ -1234,14 +1234,14 @@ class PostCommentController extends BaseController
 		
 
 	// 		// if ($_POST['api'] === true) {
-    //             $response = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/feed?access_token=' . $page_access_token . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
+    //             $response = getSocialData(MetaUrl() . $page_id . '/feed?access_token=' . $page_access_token . '&fields=admin_creator,message,full_picture,created_time,instagram_business_account');
         
     //             $fb_page_list = $response;
         
     //             $html = "";
         
     //             foreach ($fb_page_list['data'] as $key => $value) {
-    //                 $url = 'https://graph.facebook.com/v19.0/' . $value['id'] . '?fields=attachments&access_token=' . $page_access_token . '';
+    //                 $url = MetaUrl() . $value['id'] . '?fields=attachments&access_token=' . $page_access_token . '';
     //                 $data = getSocialData($url);
     //                 // $time = strtotime($data[0]['created_time']);    
     //                 $accesss_tocken_comment = 'EAADNF4vVgk0BOxhE65gYKna00bR9EF9KFNJZCYhHaFUATLZBIBlKEvCWZBdvfj5HLx3Pu4tFcpuciQRHZCZCxuySq7VBDdzmifCb7M16wr2X1DGSZCjiSZAwhLMvq6zS9BgB6A92JxzZAZBEVo9SWr2JUXhvEZCTEc9qzZAPbjGdBZBVtjnJuZARm5r7S40aNTKVauqjiqYZCwCekZD';

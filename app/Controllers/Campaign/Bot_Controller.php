@@ -2455,7 +2455,7 @@ class Bot_Controller extends BaseController
 
 					if ($access_api === 'true' || $access_api === true || $access_api === 1) {
 						$fileds = 'instagram_business_account{id,username,profile_picture_url},picture,access_token,name,id';
-						$url = 'https://graph.facebook.com/v19.0/me/accounts?access_token=' . $token . '&fields=' . $fileds;
+						$url = MetaUrl().'me/accounts?access_token=' . $token . '&fields=' . $fileds;
 						$fb_page_list_api = getSocialData($url);
 						$api_page_data = isset($fb_page_list_api['data']) ? $fb_page_list_api['data'] : array();
 						foreach ($api_page_data as $pages_key => $pages_value) {
@@ -2694,7 +2694,7 @@ class Bot_Controller extends BaseController
 			$page_access_token = $_POST['page_access_token'];
 			// $massage_id = $_POST['id'];
 
-			$url = "https://graph.facebook.com/v19.0/$conversion_id/messages?access_token=$page_access_token&fields=id,message,created_time,from,full_picture";
+			$url = MetaUrl()."$conversion_id/messages?access_token=$page_access_token&fields=id,message,created_time,from,full_picture";
 			// $response = file_get_contents($url);
 			$massage_data = getSocialData($url);
 			// pre($url);
@@ -2774,7 +2774,7 @@ class Bot_Controller extends BaseController
 		if ($page_access_token != '' && $action != '' && $sender_id != '' && $page_id != '') {
 			// msg send facebook api
 			if ($_POST['msg_type'] == 'text') {
-				$url = "https://graph.facebook.com/v19.0/$page_id/messages?access_token=$page_access_token";
+				$url = MetaUrl()."$page_id/messages?access_token=$page_access_token";
 				$json_data = '{
 							"recipient" : {
 								"id":"' . $sender_id . '"

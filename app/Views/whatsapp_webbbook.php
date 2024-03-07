@@ -200,7 +200,7 @@ if (isset($response['entry'][0])) {
         curl_close($curl);
         return json_decode($response, true);
     }
-    $MetaUrl = 'https://graph.facebook.com/v19.0/';
+    MetaUrl()= MetaUrl();
     if (isset($response['entry'][0]['changes'][0]['value'])) {
         $RecievedMessageArray = $response['entry'][0]['changes'][0]['value'];
         if (isset($response['entry'][0]['changes'][0]['value']['metadata'])) {
@@ -342,7 +342,7 @@ if (isset($response['entry'][0])) {
                                                 }
                                                 if ($QuestionType != '' && $QuestionName != '') { //  1 - Means Same Question AND 0 - Means Next Question
                                                     if (isset($RecievedMessageArray['messages'][0]['id'])) {
-                                                        $url1 = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                        $url1 = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                         $JsonDataString1 = '
                                                             {
                                                             "messaging_product": "whatsapp",
@@ -547,7 +547,7 @@ if (isset($response['entry'][0])) {
                                                                         "body": "' . strip_tags($BotNextQuestionDataArray['question']) . '"
                                                                         }
                                                                     }';
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     $jsonmsg = '{"body":' . json_encode($textOfbody) . '}';
@@ -601,7 +601,7 @@ if (isset($response['entry'][0])) {
                                                                             }
                                                                         }
                                                                     ';
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $jsoneString);
                                                                     $ReturnResult = $Result;
                                                                     $jsonmsg = '{"body":' . json_encode(strip_tags($BotNextQuestionDataArray['question'])) . '}';
@@ -676,7 +676,7 @@ if (isset($response['entry'][0])) {
                                                                                     }
                                                                                 }
                                                                             ';
-                                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                             $Result = postSocialData($url, $JsonDataStringBoat);
                                                                             $ReturnResult = $Result;
                                                                             $jsonmsg = '{"body":' . json_encode(strip_tags($BotNextQuestionDataArray['question'])) . '}';
@@ -725,7 +725,7 @@ if (isset($response['entry'][0])) {
                                                                             "body": "' . $textOfbody . '"
                                                                             }
                                                                         }';
-                                                                        $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                        $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                         $Result = postSocialData($url, $JsonDataStringBoat);
                                                                         $ReturnResult = $Result;
                                                                         $jsonmsg = '{"body":' . json_encode($textOfbody2) . '}';
@@ -762,7 +762,7 @@ if (isset($response['entry'][0])) {
                                                                         "body": "' . $textOfbody . '"
                                                                         }
                                                                     }';
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     $jsonmsg = '{"body":' . json_encode($textOfbody2) . '}';
@@ -790,7 +790,7 @@ if (isset($response['entry'][0])) {
                                                                         "body": "' . $textOfbody . '"
                                                                         }
                                                                     }';
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     $jsonmsg = '{"body":' . json_encode($textOfbody) . '}';
@@ -813,7 +813,7 @@ if (isset($response['entry'][0])) {
                                                                             }
                                                                         }
                                                                         ';
-                                                                        $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                        $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                         $Result = postSocialData($url, $JsonDataStringBoat);
                                                                         $ReturnResult = $Result;
                                                                         if (isset($ReturnResult['messages'][0]['id'])) {
@@ -854,7 +854,7 @@ if (isset($response['entry'][0])) {
                                                                                 }
                                                                             }';
 
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     if (isset($ReturnResult['messages'][0]['id'])) {
@@ -905,7 +905,7 @@ if (isset($response['entry'][0])) {
                                                                             }
                                                                         }
                                                                     ';
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     $jsonmsg = '{"body":' . json_encode(strip_tags($BotNextQuestionDataArray['question'])) . '}';
@@ -935,7 +935,7 @@ if (isset($response['entry'][0])) {
                                                                         "body": "' . $textOfbody . '"
                                                                         }
                                                                     }';
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     $jsonmsg = '{"body":' . json_encode($textOfbody1) . '}';
@@ -991,7 +991,7 @@ if (isset($response['entry'][0])) {
                                                                 "body": "' . strip_tags($final_error_text) . '"
                                                                 }
                                                             }';
-                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                             $Result = postSocialData($url, $JsonDataStringBoat);
                                                             $ReturnResult = $Result;
                                                             $jsonmsg = '{"body":' . json_encode(strip_tags($final_error_text)) . '}';
@@ -1032,7 +1032,7 @@ if (isset($response['entry'][0])) {
                                                                 "body": "' . strip_tags($final_error_text) . '"
                                                                 }
                                                             }';
-                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                             $Result = postSocialData($url, $JsonDataStringBoat);
                                                             $ReturnResult = $Result;
                                                             $jsonmsg = '{"body":' . json_encode(strip_tags($final_error_text)) . '}';
@@ -1082,7 +1082,7 @@ if (isset($response['entry'][0])) {
                                                                     }
                                                                 }
                                                             ';
-                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                             $Result = postSocialData($url, $jsoneString);
                                                             $ReturnResult = $Result;
                                                             $jsonmsg = '{"body":' . json_encode(strip_tags($final_error_text)) . '}';
@@ -1154,7 +1154,7 @@ if (isset($response['entry'][0])) {
                                                                             }
                                                                         }
                                                                     ';
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     $jsonmsg = '{"body":' . json_encode(strip_tags($final_error_text)) . '}';
@@ -1201,7 +1201,7 @@ if (isset($response['entry'][0])) {
                                                                     "body": "' . $textOfbody . '"
                                                                     }
                                                                 }';
-                                                                $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                 $Result = postSocialData($url, $JsonDataStringBoat);
                                                                 $ReturnResult = $Result;
                                                                 $jsonmsg = '{"body":' . json_encode($textOfbody2) . '}';
@@ -1237,7 +1237,7 @@ if (isset($response['entry'][0])) {
                                                                 "body": "' . $textOfbody . '"
                                                                 }
                                                             }';
-                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                             $Result = postSocialData($url, $JsonDataStringBoat);
                                                             $ReturnResult = $Result;
                                                             $jsonmsg = '{"body":' . json_encode($textOfbody2) . '}';
@@ -1260,7 +1260,7 @@ if (isset($response['entry'][0])) {
                                                                     }
                                                                 }
                                                                 ';
-                                                                $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                 $Result = postSocialData($url, $JsonDataStringBoat);
                                                                 $ReturnResult = $Result;
                                                                 if (isset($ReturnResult['messages'][0]['id'])) {
@@ -1302,7 +1302,7 @@ if (isset($response['entry'][0])) {
                                                                                 }
                                                                             }';
 
-                                                                    $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                                    $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                                     $Result = postSocialData($url, $JsonDataStringBoat);
                                                                     $ReturnResult = $Result;
                                                                     if (isset($ReturnResult['messages'][0]['id'])) {
@@ -1350,7 +1350,7 @@ if (isset($response['entry'][0])) {
                                                                     }
                                                                 }
                                                             ';
-                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                             $Result = postSocialData($url, $JsonDataStringBoat);
                                                             $ReturnResult = $Result;
                                                             $jsonmsg = '{"body":' . json_encode(strip_tags($final_error_text)) . '}';
@@ -1380,7 +1380,7 @@ if (isset($response['entry'][0])) {
                                                             //     "body": "' . $textOfbody . '"
                                                             //     }
                                                             // }';
-                                                            // $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                            // $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                             // $Result = postSocialData($url, $JsonDataStringBoat);
                                                             // $ReturnResult = $Result;
                                                             // $jsonmsg = '{"body":' . json_encode($textOfbody1) . '}';
@@ -1411,7 +1411,7 @@ if (isset($response['entry'][0])) {
                                                                 "body": "' . $textOfbody . '"
                                                                 }
                                                             }';
-                                                            $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                            $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                             $Result = postSocialData($url, $JsonDataStringBoat);
                                                             $ReturnResult = $Result;
                                                             $jsonmsg = '{"body":' . json_encode($textOfbody1) . '}';
@@ -1442,7 +1442,7 @@ if (isset($response['entry'][0])) {
                                                         //                 }
                                                         //             }';
 
-                                                        //         $url = $MetaUrl . $phone_number_id . "/messages?access_token=" . $access_token;
+                                                        //         $url = MetaUrl(). $phone_number_id . "/messages?access_token=" . $access_token;
                                                         //         $Result = postSocialData($url, $JsonDataStringBoat);
 
                                                         //     }

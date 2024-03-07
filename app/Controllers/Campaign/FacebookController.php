@@ -28,7 +28,7 @@ class FacebookController extends BaseController
         $action = $this->request->getPost("action");
         $access_token = $this->request->getPost("access_token");
         $access_token = trim($access_token);
-        $result = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $access_token);
+        $result = getSocialData(MetaUrl().'me/accounts?access_token=' . $access_token);
         $errorMsg = 'Something Went wrong..!';
         if (isset($result['error']['message'])) {
             $errorMsg = $result['error']['message'];
@@ -39,7 +39,7 @@ class FacebookController extends BaseController
         if (isset($result['data']) && is_array($result['data']) && $result['data'] != '') {
             $numberOfPages = count($result['data']);
             if ($numberOfPages > 0) {
-                $appresult = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' . $access_token . '&access_token=' . $access_token);
+                $appresult = getSocialData(MetaUrl().'debug_token?input_token=' . $access_token . '&access_token=' . $access_token);
                 if (isset($appresult['data'])) {
                     $fbdata = $appresult['data'];
                 }
@@ -134,7 +134,7 @@ class FacebookController extends BaseController
         if ($action == "user" && $fb_access_token) {
             $html .= '<option value="0">Select Page</option>';
             if (isset($fb_access_token) && $fb_check_conn == 1) {
-                $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
+                $pageresult = getSocialData(MetaUrl().'me/accounts?access_token=' . $fb_access_token);
                 foreach ($pageresult['data'] as $aa_key => $aa_value) {
                     $longLivedAccessToken = $aa_value['access_token'];
                     $html .= '<option value="' . $aa_value['id'] . '" data-access_token="' . $longLivedAccessToken . '" data-page_name="' . $aa_value['name'] . '">' . $aa_value['name'] . '</option>';
@@ -200,7 +200,7 @@ class FacebookController extends BaseController
                         $resultff['message'] = $Msg;
                     }
                 } else {
-                    $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
+                    $pageresult = getSocialData(MetaUrl().'me/accounts?access_token=' . $fb_access_token);
                     foreach ($pageresult['data'] as $aa_key => $aa_value) {
                         if ((in_array($aa_value['id'], $perasset_data)) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
                             $longLivedAccessToken = $aa_value['access_token'];
@@ -221,10 +221,10 @@ class FacebookController extends BaseController
             $response = $this->request->getPost("response");
             $longLivedToken = $this->request->getPost("longLivedToken");
             $userinformation = $this->request->getPost("userinformation");
-            $appresult = getSocialData('https://graph.facebook.com/v19.0/debug_token?input_token=' . $longLivedToken . '&access_token=' . $longLivedToken);
+            $appresult = getSocialData(MetaUrl().'debug_token?input_token=' . $longLivedToken . '&access_token=' . $longLivedToken);
             if (isset($appresult['data'])) {
                 $fbdata = $appresult['data'];
-                $profile_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $appresult['data']['user_id'] . '/picture?redirect=false&&access_token=' . $longLivedToken . '');
+                $profile_pictures = getSocialData(MetaUrl() . $appresult['data']['user_id'] . '/picture?redirect=false&&access_token=' . $longLivedToken . '');
 
                 $query = $this->db->query('SELECT * FROM ' . $this->username . '_platform_integration WHERE fb_app_id = "' . $fbdata['app_id'] . '" AND platform_status=2');
                 $count_num = $query->getNumRows();
@@ -241,7 +241,7 @@ class FacebookController extends BaseController
                     }
 
                     //store updated page assets
-                    $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $longLivedToken);
+                    $pageresult = getSocialData(MetaUrl().'me/accounts?access_token=' . $longLivedToken);
                     $permission_query = "SELECT GROUP_CONCAT(`asset_id`)as pageasset_id FROM `admin_platform_assets` WHERE `platform_id`=" . $result_facebook_data['id'];
                     $permission_result = $this->db->query($permission_query);
                     $per_result = $permission_result->getResult();
@@ -261,7 +261,7 @@ class FacebookController extends BaseController
                     foreach ($pageresult['data'] as $aa_value) {
                         if (!in_array($aa_value['id'], $perasset_data)) {
                             // Add page
-                            $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $aa_value['id'] . '/picture?redirect=false&&access_token=' . $aa_value['access_token'] . '');
+                            $response_pictures = getSocialData(MetaUrl() . $aa_value['id'] . '/picture?redirect=false&&access_token=' . $aa_value['access_token'] . '');
                             $asset_insert_data['platform_id'] = $result_facebook_data['id'];
                             $asset_insert_data['master_id'] = $_SESSION['master'];
                             $asset_insert_data['asset_type'] = 'pages';
@@ -286,7 +286,7 @@ class FacebookController extends BaseController
 
 
                     // for advertise assets
-                    $response_ads = getSocialData('https://graph.facebook.com/v19.0/me?fields=id,name,adaccounts&access_token=' . $longLivedToken. '');        
+                    $response_ads = getSocialData(MetaUrl().'me?fields=id,name,adaccounts&access_token=' . $longLivedToken. '');        
                     foreach ($response_ads['adaccounts']['data'] as $ad_account) {
                         $adAccountId = $ad_account['account_id'];
                         $ads_insert_data['platform_id'] = $platform_id;
@@ -320,7 +320,7 @@ class FacebookController extends BaseController
 
                 if ($connection_id > 0) {
                     //store updated page assets
-                    $pageresult = getSocialData('https://graph.facebook.com/v19.0/me/accounts?access_token=' . $fb_access_token);
+                    $pageresult = getSocialData(MetaUrl().'me/accounts?access_token=' . $fb_access_token);
                     $asset_query = "SELECT GROUP_CONCAT(`asset_id`)as pageasset_id FROM `admin_platform_assets` WHERE `platform_id`=" . $connection_id;
                     $asset_result = $this->db->query($asset_query);
                     $assetper_result = $asset_result->getResult();
@@ -340,7 +340,7 @@ class FacebookController extends BaseController
                     foreach ($pageresult['data'] as $aa_value) {
                         if (!in_array($aa_value['id'], $asset_data)) {
                             // Add page
-                            $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $aa_value['id'] . '/picture?redirect=false&&access_token=' . $aa_value['access_token'] . '');
+                            $response_pictures = getSocialData(MetaUrl() . $aa_value['id'] . '/picture?redirect=false&&access_token=' . $aa_value['access_token'] . '');
                             $asset_insert_data['platform_id'] = $connection_id;
                             $asset_insert_data['master_id'] = $_SESSION['master'];
                             $asset_insert_data['asset_type'] = 'pages';
@@ -391,7 +391,7 @@ class FacebookController extends BaseController
         $page_id = $this->request->getPost("page_id");
         $access_token = $this->request->getPost("access_token");
         try {
-            $result = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/leadgen_forms?access_token=' . $access_token . '');
+            $result = getSocialData(MetaUrl() . $page_id . '/leadgen_forms?access_token=' . $access_token . '');
             $html .= '<option value="0">Select Form</option>';
             if (isset($result['data'])) {
                 foreach ($result['data'] as $result_key => $result_value) {
@@ -446,7 +446,7 @@ class FacebookController extends BaseController
                 $insert_data['form_id'] = $form_id;
                 $insert_data['form_name'] = $form_name;
                 $insert_data['is_status'] = $is_status;
-                $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
+                $response_pictures = getSocialData(MetaUrl() . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
                 $insert_data['page_img'] = $response_pictures['data']['url'];
                 $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_fb_pages');
                 $result_array['id'] = $response_status_log;
@@ -486,7 +486,7 @@ class FacebookController extends BaseController
                     $insert_data['form_id'] = $form_id;
                     $insert_data['form_name'] = $form_name;
                     $insert_data['is_status'] = $is_status;
-                    $response_pictures = getSocialData('https://graph.facebook.com/v19.0/' . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
+                    $response_pictures = getSocialData(MetaUrl() . $page_id . '/picture?redirect=false&&access_token=' . $access_token . '');
                     $insert_data['page_img'] = $response_pictures['data']['url'];
                     $response_status_log = $this->MasterInformationModel->insert_entry2($insert_data, $this->username . '_fb_pages');
                     $result_array['page_profile'] = $response_pictures['data']['url'];
@@ -1069,7 +1069,7 @@ class FacebookController extends BaseController
             foreach ($count_lead as $aa_key => $row) {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://graph.facebook.com/v19.0/' . $row['lead_id'] . '?access_token=' . $row['page_access_token'] . '',
+                    CURLOPT_URL => MetaUrl() . $row['lead_id'] . '?access_token=' . $row['page_access_token'] . '',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -1549,7 +1549,7 @@ class FacebookController extends BaseController
     public function fb_permission_list()
     {
         if (isset($_POST['access_token'])) {
-            $result = getSocialData('https://graph.facebook.com/v19.0/me/permissions?access_token=' . $_POST['access_token']);
+            $result = getSocialData(MetaUrl().'me/permissions?access_token=' . $_POST['access_token']);
             if (isset($result['data'])) {
                 $tableHtml = '<table style="width: 100%;">';
                 $tableHtml .= '<tr><th>Permission</th><th>Status</th></tr>';
