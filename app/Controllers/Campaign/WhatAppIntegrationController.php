@@ -155,7 +155,9 @@ class WhatAppIntegrationController extends BaseController
                                     foreach ($Result['messages'] as $message) {
                                         $WhatsApp_Message_id = $message['id'];
                                         $WhatsApp_Response = $message['message_status'];
-                                        $cuurrenttime = date('Y-m-d H:i:s');
+                                        // $cuurrenttime = date('Y-m-d H:i:s');
+                                        $cuurrenttime = gmdate('Y-m-d H:i:s');
+
                                         $sql = "INSERT INTO " . $username . "_sent_message_detail (receiver_number,Template_name,template_id, Whatsapp_Message_id, WhatsApp_Response, Createdat, connection_id) VALUES ('$receiver_number','$template_name','$template_id','$WhatsApp_Message_id', '$WhatsApp_Response', '$cuurrenttime', '$connectionid')";
                                         $db_connection->query($sql);
                                     }
@@ -3370,11 +3372,11 @@ class WhatAppIntegrationController extends BaseController
                 $product_Name = 'Leam Management';
             }
             $placeholders = array(
-                '{{Name}}' => $name,
-                '{{product_Name}}' => $product_Name,
-                '{{Appointment_date}}' => $appointment_date,
+                '{{name}}' => $name,
+                '{{product_name}}' => $product_Name,
+                '{{appointment_date}}' => $appointment_date,
                 '{{date_of_birth}}' => $dob,
-                '{{Anniversary_date}}' => $anni_date,
+                '{{anniversary_date}}' => $anni_date,
             );
 
             $modifiedHTML = $originalHTML;

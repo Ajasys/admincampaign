@@ -1531,11 +1531,11 @@ if (!empty($connections)) {
                                         <div class="col-6">
                                             <select class="form-select form-select-sm col-12 my-1 body-select-picker" aria-label="Small select example">
                                                 <option selected>Add Variable</option>
-                                                <option value="1">Name</option>
-                                                <option value="2">product_Name </option>
-                                                <option value="3">Appointment_date</option>
+                                                <option value="1">name</option>
+                                                <option value="2">product_name </option>
+                                                <option value="3">appointment_date</option>
                                                 <option value="4">date_of_birth</option>
-                                                <option value="5">Anniversary_date</option>
+                                                <option value="5">anniversary_date</option>
                                             </select>
                                         </div>
                                         <textarea class="form-control main-control col-12 TemplateBodyClass body_div" id="body_id" placeholder="Type Your Body Text Here..." name="" required></textarea>
