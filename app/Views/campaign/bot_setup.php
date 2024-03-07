@@ -17,6 +17,110 @@ $admin_bot = json_decode($admin_bot, true);
 ?>
 
 <style>
+
+      /*the container must be positioned relative:*/
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  display: inline-block;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+    text-wrap: nowrap;
+  overflow: hidden;
+  border: 1px solid #0000001c;
+  background-color: white;
+  border-radius:8px 8px 8px 8px;
+}
+
+.select-selected-bottom-rounded {
+  border-radius: 8px 8px 8px 8px;
+}
+
+.select-selected-bottom-square {
+  border-radius: 8px 8px 0px 0px;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 45%;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 25%;
+}
+
+/*set the styling and height for the list when the select box is open (active), the overflow-y property controls the scrolling:*/
+.select-items{  
+    text-wrap: nowrap;
+    background-color: white;
+  border: 1px solid #0000001c;
+  border-radius: 0px 0px 8px 8px;
+  min-height: 50px;
+  max-height: 150px;
+  overflow: auto;
+  position: absolute;
+ 
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: black;
+  padding: 5px 16px;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover{
+    background-color: var(--bs-dropdown-link-hover-bg);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+} 
+.same-as-selected {
+  color: white!important;
+  background-color: var(--first-color)!important;
+box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+}
+
+.select-items::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+}
+
+.select-items::-webkit-scrollbar-track {
+  background:transparent;
+
+}
+ 
+.select-items::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
+ /* / // background-color: gray; / */
+}
+
+
     .fs-12 {
         font-size: 12px;
     }
@@ -1021,8 +1125,8 @@ option {
                             <span><b>Live Agent</b></span>
                         </div>
                         <form class="needs-validation col-12 d-flex flex-wrap" name="add_form" method="POST" novalidate>
-                            <div class="col-12 d-flex flex-wrap p-3 d-none">
-                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add d-none" data-qu="Talk to out live agent">
+                            <div class="col-12 d-flex flex-wrap p-3">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-5 col-xl-4 col-xxl-3 p-2 question_add" data-qu="Talk to out live agent">
                                     <div class="col-12 bot-box p-2 border rounded-3 d-flex flex-wrap align-items-center justify-content-center " draggable="true">
                                         <div class="col-12 d-flex flex-wrap justify-content-center">
                                             <i class="fa-solid fa-headphones icon"></i>
@@ -5088,6 +5192,31 @@ option {
                             $(".contact_div").append(contact_table_html);
                         }
 
+                        if (type_of_question == 36) {
+                            var menu_message = JSON.parse(response[0].menu_message);
+                            var weekdays = menu_message.weekdays;
+                            var human_slot_from_timing = menu_message.human_slot_from_timing;
+                            var human_slot_to_timing = menu_message.human_slot_to_timing;
+                            var human_timezone = menu_message.human_timezone;
+                            var out_of_office_message = menu_message.out_of_office_message;
+                            var sub_flow = menu_message.sub_flow;
+                            var jump_question = menu_message.jump_question;
+                            var first_busy_message = menu_message.first_busy_message;
+                            var second_busy_message = menu_message.second_busy_message;
+                            var third_busy_message = menu_message.third_busy_message;
+
+                            console.log(human_slot_from_timing);
+                            $('.human_slot_from_timing').val(human_slot_from_timing);
+                            $('.human_slot_to_timing').val(human_slot_to_timing);
+                            $('.human_timezone').val(human_timezone);
+                            $('.out_of_office_message').val(out_of_office_message);
+                            $('.sub_flow').val(sub_flow);
+                            $('.jump_question').val(jump_question);
+                            $('.first_busy_message').val(first_busy_message);
+                            $('.second_busy_message').val(second_busy_message);
+                            $('.third_busy_message').val(third_busy_message);
+                        }
+
                         if (type_of_question == 41) {
                             var menu_message = JSON.parse(response[0].menu_message);
                             var cartArray = menu_message.cart;
@@ -5646,9 +5775,10 @@ option {
 
         if (type_of_question == "36") {
             var rowData = [];
-            var checkedDays = $('.human_days_val:checked').map(function() {
+            var checkedDays = $('.human_days_val input[type="checkbox"]:checked').map(function() {
                 return $(this).val();
             }).get();
+           
 
             var human_slot_from_timing = $(".human_slot_from_timing").val();
             var human_slot_to_timing = $(".human_slot_to_timing").val();
@@ -5659,18 +5789,19 @@ option {
             var first_busy_message = $(".first_busy_message").val();
             var second_busy_message = $(".second_busy_message").val();
             var third_busy_message = $(".third_busy_message").val();
-
+           
             var row = {
+                weekdays: checkedDays,
                 human_slot_from_timing: human_slot_from_timing,
                 human_slot_to_timing: human_slot_to_timing,
                 human_timezone: human_timezone,
                 out_of_office_message: out_of_office_message,
-                human_bot_flow: human_bot_flow,
-                human_question_select: human_question_select,
+                sub_flow: human_bot_flow,
+                jump_question: human_question_select,
                 first_busy_message: first_busy_message,
                 second_busy_message: second_busy_message,
                 third_busy_message: third_busy_message
-            };
+            };         
             var options_value = JSON.stringify(row);
         }
 
@@ -8180,45 +8311,31 @@ option {
                             </div>
                             <div class="col-12 d-flex mt-2">
                                 <span class="pe-4 human_days_val">
-                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
+                                    <input class="form-check-input fw-bold" type="checkbox" id="" value="SUN" checked>
                                     <span class="ms-1 fs-14">SUN</span>
                                 </span>
                                 <span class="pe-4 human_days_val">
-                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
+                                    <input class="form-check-input fw-bold" type="checkbox" id="" value="MON" checked>
                                     <span class="ms-1 fs-14">MON</span>
                                 </span>
                                 <span class="pe-4 human_days_val">
-                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
+                                    <input class="form-check-input fw-bold" type="checkbox" id="" value="TUE" checked>
                                     <span class="ms-1 fs-14">TUE</span>
                                 </span>
                                 <span class="pe-4 human_days_val">
-                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
+                                    <input class="form-check-input fw-bold" type="checkbox" id="" value="WED" checked>
                                     <span class="ms-1 fs-14">WED</span>
                                 </span>
                                 <span class="pe-4 human_days_val">
-                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
+                                    <input class="form-check-input fw-bold" type="checkbox" id="" value="THU" checked>
                                     <span class="ms-1 fs-14">THU</span>
                                 </span>
                                 <span class="pe-4 human_days_val">
-                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
+                                    <input class="form-check-input fw-bold" type="checkbox" id="" value="FRI" checked>
                                     <span class="ms-1 fs-14">FRI</span>
                                 </span>
                                 <span class="pe-4 human_days_val">
-                                    <span class="pen-tick rounded-1 d-inline-block text-center text-white">
-                                        <i class="fa-solid fa-check"></i>
-                                    </span>
+                                    <input class="form-check-input fw-bold" type="checkbox" id="" value="SAT" checked>
                                     <span class="ms-1 fs-14">SAT</span>
                                 </span>
                             </div>
@@ -8386,7 +8503,7 @@ option {
                                     <input type="text" class="border form-control form-main main-control out_of_office_message" placeholder="Message" value="Sorry, all our agents are offline now.">
                                 </div>
                             </div>
-                            <div class="col-12 mt-3">
+                            <div class="row col-12 mt-3">
                                 <label class="fs-14 f-w-500 text-left full-width m-t-5 mb-1">Jump to a question in out of office case <i class="fa fa-info-circle m-l-10" title="Reference data answered in previous questions anywhere in the bot flow. E.g. Name"></i></label>
                                 <div class="col-12 d-flex">
                                     <div class="col-4 me-2">
@@ -8408,9 +8525,7 @@ option {
                                             if (isset($admin_bot_setup)) {
                                                 foreach ($admin_bot_setup as $type_key => $type_value) {
 
-
                                                     if ($type_value['bot_id'] == $botId) {
-
                                                         echo '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
                                                     }
                                                 }

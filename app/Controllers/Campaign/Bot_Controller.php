@@ -1088,8 +1088,8 @@ class Bot_Controller extends BaseController
 
 			// Retrieve parent-child data
 			$sql_parent_child = 'SELECT parent.id AS parent_id, child.id AS child_id, child.question, parent.answer
-				FROM admin_bot_setup AS child
-				JOIN admin_bot_setup AS parent ON child.type_of_question = parent.next_question_id
+				FROM '.$table.' AS child
+				JOIN '.$table.' AS parent ON child.type_of_question = parent.next_question_id
 				WHERE parent.bot_id = ' . $bot_id . '
 				ORDER BY parent.sequence LIMIT 1;';
 			// pre($sql_parent_child);
@@ -1203,7 +1203,7 @@ class Bot_Controller extends BaseController
 						// pre($value['attachment_media']);
 						$html .= '<div class="col">
 									<div class="col-12 mb-2">
-										<img src="assets/admin_folder/bot_attachment_media/'.$value['attachment_media'].'" height="100px" width="100px" style="display: block; margin-bottom: 10px;">
+										<img src="assets/'.$this->username.'_folder/bot_attachment_media/'.$value['attachment_media'].'" height="100px" width="100px" style="display: block; margin-bottom: 10px;">
 										<span class="p-1 rounded-3 d-inline-block bg-white px-3 conversion_id" data-sequence="' . $value['sequence'] . '" data-conversation-id="' . $value['id'] . '">
 											' . $value['question'] . '
 										</span>';
@@ -2891,6 +2891,48 @@ class Bot_Controller extends BaseController
 		return json_encode($return);
 	}
 
+	// public function bot_id_to_quotation()
+	// {
+
+	// 	if (isset($_POST['id']) && !empty($_POST['id'])) {
+	// 		$bot_id = $_POST['id'];
+	// 	} else {
+	// 		$bot_id = "";
+	// 	}
+
+	// 	$query = "SELECT * FROM " . $this->username . "_bot_setup WHERE bot_id = $bot_id";
+	// 	$db_connection = DatabaseDefaultConnection();
+	// 	$bot_data = $db_connection->query($query);
+	// 	$bot_data_get = $bot_data->getResultArray();
+	// 	$html = "";
+	// 	$i = 1;
+
+	// 	if (isset($_POST['row_counter'])) {
+	// 		$row_counter = $_POST['row_counter'];
+	// 	} else {
+	// 		$row_counter = '1';
+	// 	}
+
+	// 	$html .= '<select class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_flow_' . $row_counter . ' question_select_second_' . $i . '_' . $row_counter . ' occupation_add" id="question_flow_' . $row_counter . '" aria-label="Default select example">
+	// 	<option value="0">No Jump</option>';
+
+	// 	if (isset($bot_data_get)) {
+	// 		foreach ($bot_data_get as $type_key => $type_value) {
+	// 			$html .= '<option value="' . $type_value["id"] . '">' . $type_value["question"] . '</option>';
+	// 		}
+	// 	}
+
+	// 	$html .= '</select>';
+
+	// 	// Increment $i and update it in the session
+	// 	$i++;
+
+
+	// 	$result['html'] = $html;
+	// 	return json_encode($result);
+	// 	die();
+	// }
+
 	public function bot_id_to_quotation()
 	{
 
@@ -2913,7 +2955,7 @@ class Bot_Controller extends BaseController
 			$row_counter = '1';
 		}
 
-		$html .= '<select class="click-select OccupationInputClass position-relative form-control main-control from-main selectpicker question_select_second question_flow_' . $row_counter . ' question_select_second_' . $i . '_' . $row_counter . ' occupation_add" id="question_flow_' . $row_counter . '" aria-label="Default select example">
+		$html .= '<div class="custom-select col-11" ><select class="click-select OccupationInputClass  human_question_select question_select_second question_flow_' . $row_counter . ' question_select_second_' . $i . '_' . $row_counter . ' occupation_add" id="question_flow_' . $row_counter . '" aria-label="Default select example">
 		<option value="0">No Jump</option>';
 
 		if (isset($bot_data_get)) {
@@ -2922,9 +2964,78 @@ class Bot_Controller extends BaseController
 			}
 		}
 
-		$html .= '</select>';
+		$html .= '</select></div>';
 
-		// Increment $i and update it in the session
+		$html .= '<script>
+		var x, i, j, l, ll, selElmnt, a, b, c;
+		x = document.getElementsByClassName("custom-select");
+		l = x.length;
+		for (i = 0; i < l; i++) {
+		selElmnt = x[i].getElementsByTagName("select")[0];
+		ll = selElmnt.length;
+		a = document.createElement("DIV");
+		a.setAttribute("class", "select-selected select-selected-bottom-rounded");
+		a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+		x[i].appendChild(a);
+		b = document.createElement("DIV");
+		b.setAttribute("class", "select-items select-hide");
+		for (j = 1; j < ll; j++) {
+		c = document.createElement("DIV");
+		c.innerHTML = selElmnt.options[j].innerHTML;
+		c.addEventListener("click", function(e) {
+			var y, i, k, s, h, sl, yl;
+			s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+			sl = s.length;
+			h = this.parentNode.previousSibling;
+			for (i = 0; i < sl; i++) {
+				if (s.options[i].innerHTML == this.innerHTML) {
+				s.selectedIndex = i;
+				h.innerHTML = this.innerHTML;
+				y = this.parentNode.getElementsByClassName("same-as-selected");
+				yl = y.length;
+				for (k = 0; k < yl; k++) {
+				y[k].removeAttribute("class");
+				}
+				this.setAttribute("class", "same-as-selected");
+				break;
+				}
+			}
+			h.click();
+		});
+		b.appendChild(c);
+		}
+		x[i].appendChild(b);
+		a.addEventListener("click", function(e) {
+			e.stopPropagation();
+			closeAllSelect(this);
+			this.nextSibling.classList.toggle("select-hide");
+			this.classList.toggle("select-arrow-active");
+			this.classList.toggle("select-selected-bottom-square");
+		});
+		}
+		function closeAllSelect(elmnt) {
+		var x, y, i, xl, yl, arrNo = [];
+		x = document.getElementsByClassName("select-items");
+		y = document.getElementsByClassName("select-selected");
+		xl = x.length;
+		yl = y.length;
+		for (i = 0; i < yl; i++) {
+		if (elmnt == y[i]) {
+			arrNo.push(i)
+		} else {
+			y[i].classList.remove("select-arrow-active");
+			y[i].classList.remove("select-selected-bottom-square");
+		}
+		}
+		for (i = 0; i < xl; i++) {
+		if (arrNo.indexOf(i)) {
+			x[i].classList.add("select-hide");
+		}
+		}
+		}
+		document.addEventListener("click", closeAllSelect); 
+		</script>';
+		
 		$i++;
 
 
