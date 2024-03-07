@@ -19,6 +19,7 @@ use App\Controllers\Campaign\Bot_Controller;
 use App\Controllers\Campaign\AudianceController;
 use App\Controllers\Campaign\PostCommentController;
 use App\Controllers\Campaign\EmailController;
+use App\Controllers\Campaign\Templates_Controller;
 
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
@@ -71,24 +72,28 @@ $routes->post('/MasterworkoutView', 'workoutController::MasterworkoutView');
 $routes->post('/workoutAvailable', 'workoutController::workoutAvailable');
 $routes->post('/AddToMasterworkout', 'workoutController::AddToMasterworkout');
 $routes->post('/MainMasterworkoutView', 'workoutController::MainMasterworkoutView');
-$routes->get('/EmailConversions', 'Templates_Controller::template');
-$routes->post('/template_list_data', 'Templates_Controller::template_list_data');
-$routes->post('/insert_data_t', 'Templates_Controller::insert_data_t');
-$routes->post('/edit_data_t', 'Templates_Controller::edit_data_t');
-$routes->post('/update_data_t', 'Templates_Controller::update_data_t');
-$routes->post('template_delete_data', 'Templates_Controller::template_delete_data');
+
 $routes->get('email_history', 'Home::email_fetch');
 $routes->get('email_track', 'Home::email_track');
-$routes->post('show_data_email', 'Templates_Controller::show_data_email');
+
 $routes->get('email_history_show', 'Home::email_history_show');
-$routes->post('fetch_email_track_data', 'Templates_Controller::fetch_email_track_data');
-$routes->post('/allinqsmssend', 'Templates_Controller::allinq_sms_send');
-$routes->post('/bulkwhatsapp_template_sent', 'Templates_Controller::bulkwhatsapp_template_sent');
+
 $routes->get('email_connection', 'Home::email_connection');
-$routes->post('check_email_connection', [EmailController::class, 'check_email_connection']);
-$routes->get('/EmailConversions', 'Templates_Controller::template');
 $routes->post('email_link_track', 'Home::email_link_track');
+$routes->get('/EmailConversions', [Templates_Controller::class, 'template']);
+$routes->post('/template_list_data', [Templates_Controller::class, 'template_list_data']);
+$routes->post('/insert_data_t', [Templates_Controller::class, 'insert_data_t']);
+$routes->post('/edit_data_t', [Templates_Controller::class, 'edit_data_t']);
+$routes->post('/update_data_t', [Templates_Controller::class, 'update_data_t']);
+$routes->post('template_delete_data', [Templates_Controller::class, 'template_delete_data']);
+$routes->post('fetch_email_track_data', [Templates_Controller::class, 'fetch_email_track_data']);
+$routes->post('/allinqsmssend', [Templates_Controller::class, 'allinq_sms_send']);
+$routes->post('/bulkwhatsapp_template_sent', [Templates_Controller::class, 'bulkwhatsapp_template_sent']);
+$routes->post('check_email_connection', [EmailController::class, 'check_email_connection']);
+$routes->get('/EmailConversions', [Templates_Controller::class, 'template']);
+$routes->post('show_data_email', [Templates_Controller::class, 'show_data_email']);
 $routes->post('email_account_insert', [EmailController::class, 'email_account_insert']);
+
 $routes->get('/alert_setting', 'Home::alert_setting');
 $routes->post('/alert_update_data', 'Alertsetting::alert_update_data');
 $routes->post('/insert_data_alert', 'Alertsetting::insert_data');
