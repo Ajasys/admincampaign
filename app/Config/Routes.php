@@ -20,6 +20,7 @@ use App\Controllers\Campaign\AudianceController;
 use App\Controllers\Campaign\PostCommentController;
 use App\Controllers\Campaign\EmailController;
 use App\Controllers\Campaign\Templates_Controller;
+use App\Controllers\Campaign\WebAPIController;
 
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
@@ -125,9 +126,7 @@ $routes->post('/food_master_update_data', 'MasterInformation::food_master_update
 $routes->post('/login_insert_data', 'Userlogin::insert_data');
 $routes->get('/checkout', 'Razorpay::index');
 $routes->get('biometric_member_attendance', 'CronController::biometric_member_attendance');
-$routes->post('/web_integrate', 'WebAPIController::web_integrate');
-$routes->post('web_bot_integrate', 'WebAPIController::web_bot_integrate');
-$routes->post('web_bot_integrate_api', 'WebAPIController::web_bot_integrate_api');
+
 $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/pdf_view', 'UserInformation::pdf_view');
 	$routes->get('/allinquiry', 'Home::allinquiry');
@@ -543,6 +542,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('/new_facebook_form', 'NewFaceBookController::facebook_form');
 	$routes->post('/new_queue_list_add', 'NewFaceBookController::queue_list_add');
 	// $routes->post('/lead_list', 'NewFaceBookController::lead_list');
+
+	$routes->post('/web_integrate', [WebAPIController::class, 'web_integrate']);
+	$routes->post('web_bot_integrate', [WebAPIController::class, 'web_bot_integrate']);
+	$routes->post('web_bot_integrate_api', [WebAPIController::class, 'web_bot_integrate_api']);
 
 	// =====facebook-connection======
 	$routes->get('/facebook_connection', 'Home::facebook_connection');

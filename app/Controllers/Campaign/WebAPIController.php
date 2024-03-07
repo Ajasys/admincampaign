@@ -1,6 +1,6 @@
 <?php
-
-namespace App\Controllers;
+namespace App\Controllers\Campaign;
+use App\Controllers\BaseController;
 
 use App\Models\MasterInformationModel;
 use Config\Database;
