@@ -85,6 +85,19 @@ $get_facebook_page = $result->getResultArray();
       display: flex;
       justify-content: end;
    }
+   input:valid:focus {
+       box-shadow: 0 0 0 0px rgba(var(--bs-success-rgb), .25);
+   }
+   .form-check-input:checked {
+      background-color: var(--first-color) !important;
+      border: 0px;
+   }
+   .form-check-input:focus {
+      box-shadow: 0 0 0 0px rgb(153 96 255 / 25%)!important;
+   }
+   /* .form-check-input.is-valid, .was-validated .form-check-input:valid {
+      border-color: #dee2e6;
+   } */
 </style>
 <div class="main-dashbord p-2">
    <div class="container-fluid p-0">
@@ -427,8 +440,9 @@ $get_facebook_page = $result->getResultArray();
                </div>
                <div class="col-12 mt-3">
                   <div class="main-selectpicker">
-                     <label for="#"><input type="checkbox" class="me-2" id="per_face_drop" name="option"
-                           value="">Facebook Synchronize<sup class="validationn">*</sup></label>
+                     <label for="#">
+                        <input type="checkbox" class="me-2 form-check-input" id="per_face_drop" name="option"
+                           value="" required="">Facebook Synchronize<sup class="validationn">*</sup></label>
                      <div class="col-12 d-none platform_selecter mt-2 ">
                         <div class="main-selectpicker fs-12 col-6">
                            <select id="pages_name"
@@ -473,12 +487,12 @@ $get_facebook_page = $result->getResultArray();
                         <div
                            class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
                            style="width:30px;height:30px;">2</div>
-                           Synchronize Data With Social Media
+                           Synchronize Data With Social Media <sup class="validationn">*</sup>
                      </h6>
                      <div class="col-12 mt-1 ms-5">
                         <div class="main-selectpicker ">
-                           <label for="#"><input type="checkbox" class="me-2 per_face_drop_1" id="per_face_drop" name="option"
-                                 value="">Facebook</label>
+                           <label for="#"><input type="checkbox" class="me-2 per_face_drop_1 form-check-input" id="per_face_drop" name="option"
+                                 value="" required="">Facebook</label>
                            <div class="col-12 d-none platform_selecter mt-2 ">
                               <div class="main-selectpicker fs-12 col-6">
                                  <select id="pages_namess"
@@ -862,7 +876,7 @@ $('body').on('change','#adaccountselect',function(){
     console.log(ad_account_id);
 
     // Validate form fields
-    if (intrested_product != "" && inquiry_status != "" && name != "") {
+    if (intrested_product != "" && inquiry_status != "" && name != "" && $facebook_syncro == 0) {
         var formData = new FormData();
         formData.append('action', 'insert');
         formData.append('table', 'audience');
@@ -920,11 +934,17 @@ $('body').on('change','#adaccountselect',function(){
             if (selectpicker_valid) {
                 if ($(this).val() == 0 || $(this).val() == '') {
                     $(this).closest("div").addClass('selectpicker-validation');
+                    $(this).closest("input").addClass('selectpicker-validation');
+                    $(this).closest("input").addClass('border-danger');
                 } else {
                     $(this).closest("div").removeClass('selectpicker-validation');
+                    $(this).closest("input").removeClass('selectpicker-validation');
+                    $(this).closest("input").removeClass('border-danger');
                 }
             } else {
                 $(this).closest("div").removeClass('selectpicker-validation');
+                $(this).closest("input").removeClass('selectpicker-validation');
+                $(this).closest("input").removeClass('border-danger');
             }
         });
     }
@@ -1260,7 +1280,7 @@ $('body').on('change','#adaccountselect',function(){
       import_formdata.append('pages_name', pages_name);
       var ad_account_id = $('#adaccountselect').val();
       import_formdata.append('ad_account_id', ad_account_id);
-      if (name != "") {
+      if (name != "" && $facebook_syncro == 0) {
          // Send the AJAX request
          $.ajax({
             method: "post",
@@ -1288,6 +1308,26 @@ $('body').on('change','#adaccountselect',function(){
       } else {
          $('.loader').hide();
          $("form[name='import_inquiry_csv']").addClass("was-validated");
+         $(form).find('.selectpicker').each(function () {
+            // Check if the selectpicker has the required attribute
+            var selectpicker_valid = $(this).prop('required') ? 1 : 0;
+            if (selectpicker_valid) {
+                if ($(this).val() == 0 || $(this).val() == '') {
+                    $(this).closest("div").addClass('selectpicker-validation');
+                    $(this).closest("input").addClass('selectpicker-validation');
+                    $(this).closest("input").addClass('border-danger');
+
+                } else {
+                    $(this).closest("div").removeClass('selectpicker-validation');
+                    $(this).closest("input").removeClass('selectpicker-validation');
+                    $(this).closest("input").removeClass('border-danger');
+                }
+            } else {
+                $(this).closest("div").removeClass('selectpicker-validation');
+                $(this).closest("input").removeClass('selectpicker-validation');
+                $(this).closest("input").removeClass('border-danger');
+            }
+        });
       }
    });
 
@@ -1320,8 +1360,7 @@ $('body').on('change','#adaccountselect',function(){
             $('#lead_list_modal .created_at').text(leadData.time_created);
             $('#lead_list_modal .last_updated').text(leadData.time_updated);
             $('#lead_list_modal .source').text(leadData.name);
-            // $('.edt').attr('disabled', true)
-
+            $('.edt').attr('data-edit_id', leadData.id);
          },
          error: function (error) {
             $('.loader').hide();
@@ -1377,4 +1416,5 @@ $('body').on('change','#adaccountselect',function(){
 //         $('.platform_selecter1').addClass('d-none');
 //      }
 //   })
+
 </script>
