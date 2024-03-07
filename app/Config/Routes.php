@@ -15,6 +15,7 @@ use App\Controllers\Campaign\FacebookController;
 use App\Controllers\Campaign\AssetPermissionController;  
 use App\Controllers\Campaign\WhatAppIntegrationController;
 use App\Controllers\Campaign\WebController;
+use App\Controllers\Campaign\WhatsappWebhook;
 use App\Controllers\Campaign\Bot_Controller;
 use App\Controllers\Campaign\AudianceController;
 use App\Controllers\Campaign\PostCommentController;
@@ -39,6 +40,11 @@ $routes->set404Override();
  */
 // We get a performance increase by specifying the default  
 // route since we don't have to scan directories.3
+
+//campaign webhooks routes
+$routes->match(['get','post'], '/whatsapp_webbbook', [WhatsappWebhook::class, 'whatsapp_webbbook']);
+
+
 $routes->post('convertToPdf', 'Quatation_Controller::convertToPdf');
 $routes->post('GymQuatationCard', 'Quatation_Controller::GymQuatationCard');
 $routes->post('leadmgtCard', 'Quatation_Controller::leadmgtCard');
