@@ -50,7 +50,7 @@ if (isset($resultdata[0])) {
                                 <!-- facebook -->
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('facebook_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -65,12 +65,12 @@ if (isset($resultdata[0])) {
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Facebook</h5>
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
                                                 <!-- 
                                                 <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">2</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -89,7 +89,7 @@ if (isset($resultdata[0])) {
                                 </div>
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('whatsapp_connections') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 176 176" style="enable-background:new 0 0 512 512" xml:space="preserve" class="hovered-paths">
@@ -110,11 +110,11 @@ if (isset($resultdata[0])) {
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">WhatsApp</h5>
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
                                                 <!-- <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -133,7 +133,7 @@ if (isset($resultdata[0])) {
                                 </div>
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                 <a href="<?= base_url('instagram_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class="col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
@@ -163,12 +163,12 @@ if (isset($resultdata[0])) {
                                                 </svg>
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Instagram</h5>
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
                                                 <!-- 
                                                 <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
@@ -182,7 +182,7 @@ if (isset($resultdata[0])) {
                                 </div>
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('email_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -196,12 +196,12 @@ if (isset($resultdata[0])) {
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Email</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
                                                 <!-- 
                                                 <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -220,7 +220,7 @@ if (isset($resultdata[0])) {
                                 </div>
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('linkedin_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
@@ -234,12 +234,12 @@ if (isset($resultdata[0])) {
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">LinkedIn</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
                                                 <!-- 
                                                 <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
@@ -255,7 +255,7 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="45" height="45" viewBox="0 0 48 48">
@@ -274,12 +274,12 @@ if (isset($resultdata[0])) {
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">YouTube</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
                                                 <!-- 
                                                 <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
@@ -294,7 +294,7 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48">
@@ -323,12 +323,12 @@ if (isset($resultdata[0])) {
                                                     Business</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
                                                 <!-- 
                                                 <div class=" text-success d-flex flex-wrap align-items-end"><span class="fs-10 badge rounded-pill inqq_cunt bg-success mx-1">0</span>
                                                     <div class="align-baseline fs-12">connections</div>
                                                 </div> -->
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
@@ -344,7 +344,7 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 50 50">
@@ -354,9 +354,9 @@ if (isset($resultdata[0])) {
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Twitter</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             0
@@ -371,7 +371,7 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('website_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
@@ -386,9 +386,9 @@ if (isset($resultdata[0])) {
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Website</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -408,7 +408,7 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('justdail_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 588 154" style="height: 20px;width: 80px;" xml:space="preserve">
@@ -431,9 +431,9 @@ if (isset($resultdata[0])) {
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Justdail</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -453,7 +453,7 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('indiamart_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
                                             </div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
@@ -461,9 +461,9 @@ if (isset($resultdata[0])) {
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">IndiaMart</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -483,16 +483,16 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('magicbrick_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                             <img src="<?= base_url(); ?>assets/images/websiteImage/magicbrics.png" alt="" style="height: 45; width:100px;">
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">MagicBricks</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -512,16 +512,16 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('softwaresuggest_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                             <img class="ms-4 ps-1" src="<?= base_url(); ?>assets/images/websiteImage/softwaresuggest.png" alt="" style="height: 35; width:110px;">
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Software Suggest</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -541,16 +541,16 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('99acres_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <img src="<?= base_url(); ?>assets/images/websiteImage/99acress.png" alt="" style="height: 35; width:35px;">
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">99 acres</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -570,15 +570,15 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('wordpress_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <img src="<?= base_url(); ?>assets/images/websiteImage/wordpress.png" alt="" style="height: 45; width:100px;">
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Wordpress</h5>
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -598,16 +598,16 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('tradeindia_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                             <img src="<?= base_url(); ?>assets/images/websiteImage/tradeindia.png" alt="" style="height: 45; width:100px;">
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Trade India.</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php
@@ -627,16 +627,16 @@ if (isset($resultdata[0])) {
 
                                 <div class=" d-flex justify-content-center col-12 col-md-6 col-lg-4 col-xl-3 my-2">
                                     <a href="<?= base_url('googleads_connection') ?>">
-                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-between inti-card" style="width:200px;height:200px;">
+                                        <div class="col-9 bg-white border rounded-3 d-flex flex-wrap flex-column justify-content-center inti-card" style="width:200px;height:200px;">
                                             <div class="d-flex justify-content-end align-items-center" style="font-size:10px"></div>
                                             <div class=" col-12 d-inline-flex justify-content-center flex-wrap mt-3">
                                                 <img src="<?= base_url(); ?>assets/images/websiteImage/googleads.png" alt="" style="height: 45; width:40px;">
                                                 <h5 class="text-center col-12 text-dark text-center mt-2">Google Ads</h5>
 
                                             </div>
-                                            <div class="d-flex  p-2 align-items-end justify-content-end" style="height: 40px;">
+                                            <div class="d-flex  p-2 align-items-end justify-content-center" style="height: 40px;">
 
-                                                <div class="d-flex justify-content-end align-items-center" style="font-size:10px">
+                                                <div class="d-flex justify-content-end align-items-center" style="font-size:12px">
                                                     <span class="fw-bold  text-success  rounded-pill">
                                                         <span class="badge rounded-pill inqq_cunt bg-success mx-1">
                                                             <?php

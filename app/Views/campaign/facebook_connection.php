@@ -45,7 +45,7 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                     <i class="fa-brands fa-facebook transition-5 icon2 rounded-circle" style="font-size: 35px;color: #3a559f;"></i>
                     <h2>Facebook Connections</h2>
                 </div>
-                <div class="d-flex align-items-center justify-content-end  col-1">
+                <div class="d-flex align-items-center justify-content-end  col-2">
                     <button data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#fbCntModal" class="btn-primary-rounded mx-2">
                         <i class="bi bi-plus"></i>
                     </button>
