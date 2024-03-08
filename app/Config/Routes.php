@@ -23,7 +23,6 @@ use App\Controllers\Campaign\PostCommentController;
 use App\Controllers\Campaign\EmailController;
 use App\Controllers\Campaign\Templates_Controller;
 use App\Controllers\Campaign\WebAPIController;
-use App\Controllers\Campaign\CreateController;
 
 
 
@@ -125,7 +124,10 @@ $routes->post('/edit_post', [PostCommentController::class, 'edit_post']);
 $routes->post('/UpdatePostDataFB', [PostCommentController::class, 'UpdatePostDataFB']);
 $routes->post('/comment_show',  [PostCommentController::class, 'comment_show']);
 $routes->post('/SetPostDataAccountList', [PostCommentController::class, 'SetPostDataAccountList']);
+$routes->post('/get_post_data', [PostCommentController::class, 'get_post_data']);
+
 $routes->post('/mail_get', [EmailController::class, 'mail_get']);
+
 $routes->post('/insert_data_2DB', 'MasterInformation::insert_data_2DB');
 $routes->post('/update_data_2DB', 'MasterInformation::update_data_2DB');
 $routes->post('/delete_all', 'MasterInformation::delete_all');
@@ -561,7 +563,6 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->get('/facebook_connection', 'Home::facebook_connection');
 	$routes->get('/instagram_connection', 'Home::instagram_connection');
 	$routes->get('/leadlist', 'Home::leadlist');
-	$routes->post('/get_post_data', [CreateController::class, 'get_post_data']);
 
 	$routes->post('/check_fb_connection', [FacebookController::class, 'check_fb_connection']);
 	$routes->post('/facebook_user', [FacebookController::class, 'facebook_user']);
