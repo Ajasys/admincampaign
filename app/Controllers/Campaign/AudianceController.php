@@ -79,51 +79,53 @@ class AudianceController extends BaseController
         }
     }
 
-    public function edit_data_audience()
-    {
-        if ($this->request->getPost("action") == "edit") {
-            $edit_id = $this->request->getPost("edit_id");
-            $table_name = $this->request->getPost("table");
-            $username = session_username($_SESSION["username"]);
-            $departmentEditdata = $this->MasterInformationModel->edit_entry2(
-                $username . "_" . $table_name,
-                $edit_id
-            );
-            return json_encode($departmentEditdata, true);
-        }
-        die();
-    }
-    public function update_data_audience()
-    {
-        $post_data = $this->request->getPost();
-        $edit_id = $_POST["edit_id"];
-        $table_name = $this->request->getPost("table");
-        $username = session_username($_SESSION["username"]);
-        $action_name = $this->request->getPost("action");
-        $new_name = $_POST["name"];
-        $inquiry_data = $_POST["inquiry_data"];
-        $pages_name = $_POST["pages_name"];
+    // public function edit_data_audience()
+    // {
+    //     if ($this->request->getPost("action") == "edit") {
+    //         $edit_id = $this->request->getPost("edit_id");
+    //         $table_name = $this->request->getPost("table");
+    //         $username = session_username($_SESSION["username"]);
+    //         $departmentEditdata = $this->MasterInformationModel->edit_entry2(
+    //             $username . "_" . $table_name,
+    //             $edit_id
+    //         );
+    //         return json_encode($departmentEditdata, true);
+    //     }
+    //     die();
+    // }
 
-        $response = 0;
-        if ($action_name == "update") {
-            if (!empty($post_data)) {
-                $update_data = [
-                    "name" => $new_name,
-                    "inquiry_data" => $inquiry_data,
-                    "pages_name" => $pages_name
-                ];
     
-                $result = $this->CampaignModel->update_entry_by_name(
-                    $edit_id,
-                    $update_data,
-                    $username . "_" . $table_name
-                );
-                $response = 1;
-            }
-        }
-        echo $response;
-        die();
-    }
+    // public function update_data_audience()
+    // {
+    //     $post_data = $this->request->getPost();
+    //     $edit_id = $_POST["edit_id"];
+    //     $table_name = $this->request->getPost("table");
+    //     $username = session_username($_SESSION["username"]);
+    //     $action_name = $this->request->getPost("action");
+    //     $new_name = $_POST["name"];
+    //     $inquiry_data = $_POST["inquiry_data"];
+    //     $pages_name = $_POST["pages_name"];
+
+    //     $response = 0;
+    //     if ($action_name == "update") {
+    //         if (!empty($post_data)) {
+    //             $update_data = [
+    //                 "name" => $new_name,
+    //                 "inquiry_data" => $inquiry_data,
+    //                 "pages_name" => $pages_name
+    //             ];
+    
+    //             $result = $this->CampaignModel->update_entry_by_name(
+    //                 $edit_id,
+    //                 $update_data,
+    //                 $username . "_" . $table_name
+    //             );
+    //             $response = 1;
+    //         }
+    //     }
+    //     echo $response;
+    //     die();
+    // }
     public function view_integrate_lead_audience()
     {
         // Retrieve POST data
@@ -314,6 +316,7 @@ class AudianceController extends BaseController
 
         return $result;
     }
+
     public function fetchAudienceData($master_username)
     {
         $first_db = DatabaseDefaultConnection();
@@ -963,14 +966,14 @@ class AudianceController extends BaseController
                 !empty($userEditdata["intrested_product"])
             ) {
                 $inquiry_type_name = IdToFieldGetData(
-                    "product_name",
-                    "id=" . $userEditdata["intrested_product"] . "",
-                    "admin_product"
+                    "name",
+                    "id=" . $userEditdata["intrested_site"],
+                    $username . "_audience"
                 );
                 $inquiry_details =
-                    isset($inquiry_type_name["product_name"]) &&
-                    !empty($inquiry_type_name["product_name"])
-                        ? $inquiry_type_name["product_name"]
+                    isset($inquiry_type_name["name"]) &&
+                    !empty($inquiry_type_name["name"])
+                        ? $inquiry_type_name["name"]
                         : "";
             }
             $userEditdata["inquiry_type_name"] = $inquiry_details;
@@ -1414,5 +1417,128 @@ class AudianceController extends BaseController
             }
         }
     }
+    public function edit_data_audience()
+    {
+        if ($this->request->getPost("action") == "edit") {
+            $ad_account_id = $this->request->getPost("ad_account_id");
+            // pre($_POST);
+            // die();
+            // Assuming you're using CodeIgniter and retrieving data via $_POST
+            $username = session_username($_SESSION['username']);
+            $this->db = DatabaseDefaultConnection();
+            $get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+            $get_access_token_array = $this->db->query($get_token);
+            $data_count = $get_access_token_array->getNumRows();
+            $fb_account_data = $get_access_token_array->getResultArray()[0];
+            $token = $fb_account_data['access_token'];
+            $edit_id = $this->request->getPost('edit_id'); // Retrieve edit_id from POST data
+            $account_id = $ad_account_id;
+            $url = MetaUrl()."$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+            $response = file_get_contents($url);
+            $audience_datas = json_decode($response, true);
+
+            // Initialize variables to hold audience name and ID
+            $audience_name = '';
+            $audience_id = '';
+
+            // Iterate through audience data to find the matching ID
+            foreach ($audience_datas['data'] as $audience_data) {
+                if ($audience_data['id'] == $edit_id) {
+                    $audience_name = $audience_data['name'];
+                    $audience_id = $audience_data['id'];
+                    break; // Stop iterating once the matching ID is found
+                }
+            }
+
+            // Return both audience name and ID in JSON format
+            echo json_encode(['audience_name' => $audience_name, 'audience_id' => $audience_id]);
+        }
+    }
+        public function updateSyncname($audience_name,$new_name)
+        {
+            $db = DatabaseDefaultConnection();
+            $result = $db
+                ->table($this->username . '_audience')
+                ->where('name', $audience_name)
+                ->set('name', $new_name)
+                ->update();
+
+            return $result;
+        }
+        public function update_data_audience()
+        {
+            // Retrieve necessary data from POST request
+            // pre($_POST);
+            // die();
+            $edit_id = $this->request->getPost('edit_id'); // Retrieve edit_id from POST data
+            $ad_account_id = $this->request->getPost("ad_account_id");
+            $new_name = $this->request->getPost("new_name");
+            $username = session_username($_SESSION['username']);
+            $this->db = DatabaseDefaultConnection();
+            $get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+            $get_access_token_array = $this->db->query($get_token);
+            $data_count = $get_access_token_array->getNumRows();
+            $fb_account_data = $get_access_token_array->getResultArray()[0];
+            $token = $fb_account_data['access_token'];
+            $account_id = $ad_account_id;
+            $url = MetaUrl()."$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+            $response = file_get_contents($url);
+            $audience_datas = json_decode($response, true);
+
+            // Initialize variables to hold audience name and ID
+            $audience_name = '';
+            $audience_id = '';
+
+            // Iterate through audience data to find the matching ID
+            foreach ($audience_datas['data'] as $audience_data) {
+                if ($audience_data['id'] == $edit_id) {
+                    $audience_name = $audience_data['name'];
+                    break; 
+                }
+            }
+            // Construct the URL to update the audience name via Facebook Graph API
+            $url = "https://graph.facebook.com/v19.0/$edit_id";
+            // pre($url);
+            // die();
+            // Data to be sent in the cURL request
+            $data = array(
+                'name' => $new_name,
+                'access_token' => $token
+            );
+
+            // Initialize cURL session
+            $ch = curl_init();
+
+            // Set cURL options
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            // Execute cURL request
+            $response = curl_exec($ch);
+
+            // Check for errors
+            if($response === false) {
+                $error_message = curl_error($ch);
+                // Handle error
+                echo json_encode(['error' => $error_message]);
+            } else {
+                // Decode the JSON response
+                $decoded_response = json_decode($response, true);
+                // Check if the update was successful
+                if (isset($decoded_response['success'])) {
+                    // Return success response
+                    echo json_encode(['success' => true]);
+                    $this->updateSyncname($audience_name,$new_name);
+                } else {
+                    // Handle unsuccessful update
+                    echo json_encode(['error' => 'Failed to update audience name']);
+                }
+            }
+
+            // Close cURL session
+            curl_close($ch);
+        }
 }
 ?>

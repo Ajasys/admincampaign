@@ -241,36 +241,6 @@ $get_facebook_page = $result->getResultArray();
             </div>
          </div>
       </div>
-      <div class="row second-page px-3 justify-content-end">
-         <div class="col-12 border bg-white rounded-2 d-flex flex-wrap justify-content-end">
-            <div class="col-12 px-3 py-2 ">
-               <div class="title-1 justify-content-center align-items-center">
-                  <i class="bi bi-people"></i>
-                  <h2>Audiences</h2>
-               </div>
-               <div class="w-100 overflow-x-auto scroll-small row_none">
-                  <table class="w-100 main-table audience_list_table">
-                     <thead>
-                        <tr>
-                           <th class="p-2 text-nowrap"><span>Created Date </span></th>
-                           <th class="p-2 text-nowrap"><span>Lead Id </span></th>
-                           <th class="p-2 text-nowrap"><span>Name </span></th>
-                           <th class="p-2 text-nowrap"><span>Mobile no </span></th>
-                           <th class="p-2 text-nowrap"><span>Plateform </span></th>
-                           <th class="p-2 text-nowrap"><span>Inquiry Id </span></th>
-                        </tr>
-                     </thead>
-                     <tbody class="audiance_product_wise">
-                     </tbody>
-                  </table>
-               </div>
-            </div>
-            <div class="col-2 text-end mt-1 mb-2">
-               <button id="audiunse_back_btn" type="button" class="btn-primary"><i
-                     class="bi bi-arrow-90deg-left fs-6"></i> Back</button>
-            </div>
-         </div>
-      </div>
    </div>
 </div>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="audience_filter" aria-labelledby="offcanvasRightLabel">
@@ -716,7 +686,7 @@ $get_facebook_page = $result->getResultArray();
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-secondary close_container" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary update_btn page_reload" data-edit_id>Update</button>
+            <button type="button" class="btn btn-primary update_btn page_reload" data-edit_id="">Update</button>
          </div>
       </div>
    </div>
@@ -794,57 +764,57 @@ $('body').on('change','#adaccountselect',function(){
 
 
 
-   // view data 
-   $('body').on('click', '.audiance_view', function (e) {
-      // alert("fd");
-      var edit_value = $(this).attr("data-view_id");
-      if (edit_value != "") {
-         $.ajax({
-            type: "post",
-            url: "<?= site_url('audience_view_data'); ?>",
-            data: {
-               action: 'view',
-               view_id: edit_value,
-               table: 'audience',
-            },
-            success: function (res) {
-               $('.loader').hide();
-               var response = JSON.parse(res);
-               $('.lead_list_modal .name').text(response.name);
-               $('.lead_list_modal .type').text(response.source);
-               $('.lead_list_modal .size').text(response.sub_count);
-               // $('.lead_list_modal .created_at').text(response.created_at);
-               dateString = response.created_at;
-               var parts = dateString.split(' ');
-               var datePart = parts[0];
-               var timePart = parts[1];
-               var dateComponents = datePart.split('-');
-               var year = dateComponents[0];
-               var month = dateComponents[1];
-               var day = dateComponents[2];
-               var newDateFormat = day + '-' + month + '-' + year + ' ' + timePart;
-               $('.lead_list_modal .created_at').text(newDateFormat);
-               dateStrings = response.updated_at;
-               var parts = dateStrings.split(' ');
-               var datePart = parts[0];
-               var timePart = parts[1];
-               var dateComponents = datePart.split('-');
-               var year = dateComponents[0];
-               var month = dateComponents[1];
-               var day = dateComponents[2];
-               var newDateFormatupdate = day + '-' + month + '-' + year + ' ' + timePart;
-               $('.lead_list_modal .last_updated').text(newDateFormatupdate);
-               $('.lead_list_modal .source').text(response.inquiry_type_name); // Update the element with class 'source' with the inquiry_type_name value
-               $('.edt').attr('data-edit_id', response.id);
-               $('.selectpicker').selectpicker('refresh');
-               // $('.edt').attr('disabled', false)
-            },
-         });
-      } else {
-         $('.loader').hide();
-         alert("Data Not Edit.");
-      }
-   });
+   // // view data 
+   // $('body').on('click', '.audiance_view', function (e) {
+   //    // alert("fd");
+   //    var edit_value = $(this).attr("data-view_id");
+   //    if (edit_value != "") {
+   //       $.ajax({
+   //          type: "post",
+   //          url: "<?= site_url('audience_view_data'); ?>",
+   //          data: {
+   //             action: 'view',
+   //             view_id: edit_value,
+   //             table: 'audience',
+   //          },
+   //          success: function (res) {
+   //             $('.loader').hide();
+   //             var response = JSON.parse(res);
+   //             $('.lead_list_modal .name').text(response.name);
+   //             $('.lead_list_modal .type').text(response.source);
+   //             $('.lead_list_modal .size').text(response.sub_count);
+   //             // $('.lead_list_modal .created_at').text(response.created_at);
+   //             dateString = response.created_at;
+   //             var parts = dateString.split(' ');
+   //             var datePart = parts[0];
+   //             var timePart = parts[1];
+   //             var dateComponents = datePart.split('-');
+   //             var year = dateComponents[0];
+   //             var month = dateComponents[1];
+   //             var day = dateComponents[2];
+   //             var newDateFormat = day + '-' + month + '-' + year + ' ' + timePart;
+   //             $('.lead_list_modal .created_at').text(newDateFormat);
+   //             dateStrings = response.updated_at;
+   //             var parts = dateStrings.split(' ');
+   //             var datePart = parts[0];
+   //             var timePart = parts[1];
+   //             var dateComponents = datePart.split('-');
+   //             var year = dateComponents[0];
+   //             var month = dateComponents[1];
+   //             var day = dateComponents[2];
+   //             var newDateFormatupdate = day + '-' + month + '-' + year + ' ' + timePart;
+   //             $('.lead_list_modal .last_updated').text(newDateFormatupdate);
+   //             $('.lead_list_modal .source').text(response.inquiry_type_name); // Update the element with class 'source' with the inquiry_type_name value
+   //             $('.edt').attr('data-edit_id', response.id);
+   //             $('.selectpicker').selectpicker('refresh');
+   //             // $('.edt').attr('disabled', false)
+   //          },
+   //       });
+   //    } else {
+   //       $('.loader').hide();
+   //       alert("Data Not Edit.");
+   //    }
+   // });
    $(document).ready(function () {
       // Listen for change event on radio buttons
       $("input[name='flexRadioDefault']").change(function () {
@@ -873,10 +843,9 @@ $('body').on('change','#adaccountselect',function(){
     var facebook_syncro = $("#per_face_drop").is(":checked") ? 1 : 0; // Check if the checkbox is checked
     var pages_name = $("#pages_name").val(); // Get the selected option value
     var ad_account_id = $('#adaccountselect').val();
-    console.log(ad_account_id);
 
     // Validate form fields
-    if (intrested_product != "" && inquiry_status != "" && name != "" && $facebook_syncro == 0) {
+    if (intrested_product != "" && inquiry_status != "" && name != "") {
         var formData = new FormData();
         formData.append('action', 'insert');
         formData.append('table', 'audience');
@@ -949,84 +918,84 @@ $('body').on('change','#adaccountselect',function(){
         });
     }
 });
-   $('body').on('click', '.edt', function (e) {
-      e.preventDefault();
-      var edit_value = $(this).attr("data-edit_id");
-      $('.loader').show();
-      $.ajax({
-         type: "post",
-         url: "<?= site_url('edit_data_audience'); ?>",
-         data: {
-            action: 'edit',
-            edit_id: edit_value,
-            table: 'audience'
-         },
-         success: function (res) {
-            $('.loader').hide();
-            $('.selectpicker').selectpicker('refresh');
-            var response = JSON.parse(res);
-            console.log(response);
-            $('.update_btn').attr('data-edit_id', response[0].name);
-            $('.edt').attr('data-name', response.name); // Update data-name attribute
-            // Optionally, you can update other attributes as needed
+   // $('body').on('click', '.edt', function (e) {
+   //    e.preventDefault();
+   //    var edit_value = $(this).attr("data-edit_id");
+   //    $('.loader').show();
+   //    $.ajax({
+   //       type: "post",
+   //       url: "<?= site_url('edit_data_audience'); ?>",
+   //       data: {
+   //          action: 'edit',
+   //          edit_id: edit_value,
+   //          table: 'audience'
+   //       },
+   //       success: function (res) {
+   //          $('.loader').hide();
+   //          $('.selectpicker').selectpicker('refresh');
+   //          var response = JSON.parse(res);
+   //          console.log(response);
+   //          $('.update_btn').attr('data-edit_id', response[0].name);
+   //          $('.edt').attr('data-name', response.name); // Update data-name attribute
+   //          // Optionally, you can update other attributes as needed
 
-            // Update other elements with the received data
-            $('.name_audience').val(response[0].name);
-            $('input[name="option1"][value="' + response[0].inquiry_data + '"]').prop('checked', true);
-            if (response[0].pages_name === "0") {
-               $('input[name="option_facebook"]').prop('checked', false);
-            } else {
-               $('input[name="option_facebook"]').prop('checked', true);
-            }
-            $('#crm_pages').val(response[0].pages_name);
-            $('#crm_pages').selectpicker('refresh');
-         },
-         error: function (error) {
-            $('.loader').hide();
-         }
-      });
-   });
-   $('body').on('click', '.update_btn', function (e) {
-      e.preventDefault();
-      var update_id = $(this).attr("data-edit_id");
-      var new_name = $("#new_name").val(); // Get the new name from the input field
-      var inquiry_data = $("input[name='option1']:checked").val();
-      var pages_name = $("#crm_pages").val(); // Get the selected option value
-      var formdata = new FormData();
-      formdata.append('action', 'update');
-      formdata.append('edit_id', update_id);
-      formdata.append('table', 'audience');
-      formdata.append('name', new_name); // Append the new name to the form data
-      formdata.append('inquiry_data', inquiry_data); // Append the radio button value to the form data
-      formdata.append('pages_name', pages_name); // Append the radio button value to the form data
-      $('.loader').show();
-      $.ajax({
-         method: "post",
-         url: "<?= site_url('update_data_audience'); ?>",
-         data: formdata,
-         processData: false,
-         contentType: false,
-         success: function (res) {
-            if (res != "error") {
-               $('.loader').hide();
-               $('.btn-close').trigger('click');
-               iziToast.success({
-                  title: 'Update Successfully'
-               });
-               location.reload(true);
-               list_data();
-            } else {
-               $('.loader').hide();
-               iziToast.error({
-                  title: 'Duplicate data'
-               });
-            }
-         },
-         error: function (error) {
-            $('.loader').hide();
-         }
-      });
-   });
+   //          // Update other elements with the received data
+   //          $('.name_audience').val(response[0].name);
+   //          $('input[name="option1"][value="' + response[0].inquiry_data + '"]').prop('checked', true);
+   //          if (response[0].pages_name === "0") {
+   //             $('input[name="option_facebook"]').prop('checked', false);
+   //          } else {
+   //             $('input[name="option_facebook"]').prop('checked', true);
+   //          }
+   //          $('#crm_pages').val(response[0].pages_name);
+   //          $('#crm_pages').selectpicker('refresh');
+   //       },
+   //       error: function (error) {
+   //          $('.loader').hide();
+   //       }
+   //    });
+   // });
+   // $('body').on('click', '.update_btn', function (e) {
+   //    e.preventDefault();
+   //    var update_id = $(this).attr("data-edit_id");
+   //    var new_name = $("#new_name").val(); // Get the new name from the input field
+   //    var inquiry_data = $("input[name='option1']:checked").val();
+   //    var pages_name = $("#crm_pages").val(); // Get the selected option value
+   //    var formdata = new FormData();
+   //    formdata.append('action', 'update');
+   //    formdata.append('edit_id', update_id);
+   //    formdata.append('table', 'audience');
+   //    formdata.append('name', new_name); // Append the new name to the form data
+   //    formdata.append('inquiry_data', inquiry_data); // Append the radio button value to the form data
+   //    formdata.append('pages_name', pages_name); // Append the radio button value to the form data
+   //    $('.loader').show();
+   //    $.ajax({
+   //       method: "post",
+   //       url: "<?= site_url('update_data_audience'); ?>",
+   //       data: formdata,
+   //       processData: false,
+   //       contentType: false,
+   //       success: function (res) {
+   //          if (res != "error") {
+   //             $('.loader').hide();
+   //             $('.btn-close').trigger('click');
+   //             iziToast.success({
+   //                title: 'Update Successfully'
+   //             });
+   //             location.reload(true);
+   //             list_data();
+   //          } else {
+   //             $('.loader').hide();
+   //             iziToast.error({
+   //                title: 'Duplicate data'
+   //             });
+   //          }
+   //       },
+   //       error: function (error) {
+   //          $('.loader').hide();
+   //       }
+   //    });
+   // });
 
  function increaseAudienceData() {
     $.ajax({
@@ -1280,7 +1249,7 @@ $('body').on('change','#adaccountselect',function(){
       import_formdata.append('pages_name', pages_name);
       var ad_account_id = $('#adaccountselect').val();
       import_formdata.append('ad_account_id', ad_account_id);
-      if (name != "" && $facebook_syncro == 0) {
+      if (name != "" ) {
          // Send the AJAX request
          $.ajax({
             method: "post",
@@ -1361,6 +1330,7 @@ $('body').on('change','#adaccountselect',function(){
             $('#lead_list_modal .last_updated').text(leadData.time_updated);
             $('#lead_list_modal .source').text(leadData.name);
             $('.edt').attr('data-edit_id', leadData.id);
+            $('.selectpicker').selectpicker('refresh');
          },
          error: function (error) {
             $('.loader').hide();
@@ -1368,6 +1338,90 @@ $('body').on('change','#adaccountselect',function(){
          }
       });
    }
+   
+            $('.edt').on('click', function() {
+               var editId = $(this).data("edit_id");
+               var ad_account_id = $('#adaccountselect').val();
+
+               // Assuming you've made an AJAX request to fetch the current name
+               $.ajax({
+                  type: "POST",
+                  url: "<?= site_url('edit_data_audience'); ?>",
+                  data: {
+                        action: 'edit',
+                        edit_id: editId,
+                        ad_account_id: ad_account_id
+                  },
+                  success: function(response) {
+                        var audienceData = JSON.parse(response);
+                        // console.log(audienceData);
+                        var audienceName = audienceData.audience_name;
+                        var audienceId = audienceData.audience_id;
+                        // Set the fetched audience name to the appropriate element in your view
+                        $('#new_name').val(audienceName);
+                        // Set the data-edit_id attribute of the update button
+                        $('.update_btn').attr('data-edit_id', audienceId);
+                  }
+               });
+            });
+
+            $('.update_btn').on('click', function() {
+               var editId = $(this).data("edit_id");
+               var newName = $('#new_name').val();
+               var ad_account_id = $('#adaccountselect').val();
+               // Assuming you've made an AJAX request to save the edited name
+               $.ajax({
+                  type: "POST",
+                  url: "<?= site_url('update_data_audience'); ?>",
+                  data: {
+                        new_name: newName,
+                        edit_id: editId,
+                        ad_account_id: ad_account_id
+                  },
+                  success: function(response) {
+                        if (response != "error") {
+                           $('.loader').hide();
+                           console.log(response);
+                           $('.btn-close').trigger('click');
+                           iziToast.success({
+                              title: 'Update Successfully'
+                           });
+                           list_data();
+                        } else {
+                           $('.loader').hide();
+                           iziToast.error({
+                              title: 'Duplicate data'
+                           });
+                        }
+                  },
+                  error: function (error) {
+                        $('.loader').hide();
+                        console.error(error); // Log the error message
+                        // Handle error display to the user
+                  }
+               });
+            });
+         $('.close_container').click(function(e) {
+            location.reload(true);
+         });
+        // Handle save changes button click
+      //   $('.update_btn ').on('click', function() {
+      //       var newName = $('#new_name').val();
+      //       // Assuming you've made an AJAX request to save the edited name
+      //       $.ajax({
+      //           type: "POST",
+      //           url: "update_audience_name.php", // PHP script to update the name
+      //           data: {
+      //               new_name: newName
+      //           },
+      //           success: function(response) {
+      //               // Handle success
+      //               console.log(response);
+      //               // Optionally, you can close the modal or perform other actions
+      //           }
+      //       });
+      //   });
+
    $('body').on('click', '.audiance_show_data', function () {
       $(this).addClass('audiance_show_data_active');
       $(this).siblings('.audiance_show_data').removeClass('audiance_show_data_active');
