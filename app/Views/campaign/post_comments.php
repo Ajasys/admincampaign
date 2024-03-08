@@ -773,16 +773,16 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
                 var response = JSON.parse(res);
                 $('.loader').hide();
                 $('#comments_list').html(response.comments_html);
-                var swiper = new Swiper(".mySwiper", {
-                    pagination: {
-                        el: ".swiper-pagination",
-                        type: "fraction",
-                    },
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
-                });
+                // var swiper = new Swiper(".mySwiper", {
+                //     pagination: {
+                //         el: ".swiper-pagination",
+                //         type: "fraction",
+                //     },
+                //     navigation: {
+                //         nextEl: ".swiper-button-next",
+                //         prevEl: ".swiper-button-prev",
+                //     },
+                // });
                 $('.img_show_comment').html(response.img_show_comment);
                 $('.like_comment_count').html(response.like_comment_count);
                 $('.like_count').hide();
@@ -861,16 +861,16 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             success: function(res) {
                 var result = JSON.parse(res);
                 $('.loader').hide();
-                var swiper = new Swiper(".mySwiper", {
-                    pagination: {
-                        el: ".swiper-pagination",
-                        type: "fraction",
-                    },
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
-                });
+                // var swiper = new Swiper(".mySwiper", {
+                //     pagination: {
+                //         el: ".swiper-pagination",
+                //         type: "fraction",
+                //     },
+                //     navigation: {
+                //         nextEl: ".swiper-button-next",
+                //         prevEl: ".swiper-button-prev",
+                //     },
+                // });
                 $('.massage_list_loader').hide();
                 $('#demo_list_data').html(result.html);
             }
@@ -1295,16 +1295,16 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
-    var swiper = new Swiper(".mySwiper", {
-        pagination: {
-            el: ".swiper-pagination",
-            type: "fraction",
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    });
+    // var swiper = new Swiper(".mySwiper", {
+    //     pagination: {
+    //         el: ".swiper-pagination",
+    //         type: "fraction",
+    //     },
+    //     navigation: {
+    //         nextEl: ".swiper-button-next",
+    //         prevEl: ".swiper-button-prev",
+    //     },
+    // });
     // $('body').on('click','.drop-text',function(){
     //     var text = $(this).text();
     //     var getid = $(this).attr('data-id');
