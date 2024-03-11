@@ -591,7 +591,7 @@ $get_facebook_page = $result->getResultArray();
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="fw-bold mb-2 mian fs-5">Update your customer list custom audience</h5>
-            <button type="button" class="btn-close close_container" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close close_container" id="main_close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class="modal-body">
             <p id="active" class="fs-14">Changing your customer list custom audience will also update any ad sets or
@@ -701,7 +701,28 @@ $get_facebook_page = $result->getResultArray();
 <?= $this->include('partials/vendor-scripts') ?>
 <script>
 // Alternatively, you can call list_data function on a specific event, for example, when the ad account selection changes
+   function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 60 * 60 * 1000));
+        var expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
 
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
       $(document).ready(function() {
          list_data();
       });
@@ -719,7 +740,7 @@ $get_facebook_page = $result->getResultArray();
          // collapse.collapse('show');
 
       });
-   function list_data() {
+   function list_data(api = false,action = 'facebook_list') {
       // Get the selected ad account ID
       var selectedAccountId = $('#adaccountselect').val(); 
       $('.list-container').empty();
@@ -728,16 +749,33 @@ $get_facebook_page = $result->getResultArray();
          method: "post",
          url: "<?= site_url('audience_facebook_data'); ?>",
          data: {
-               action: 'facebook_list',
+               action: action,
+               api: api,
                selected_account_id: selectedAccountId // Include the selected account ID in the request
          },
+         beforeSend: function() {
+                if (api == false) {
+                    if (action == 'facebook_list') {
+                        $('.loader').show();
+                        // var selectedAccountId = getCookie('adaccountselect');
+                    } 
+                }
+            },
          success: function (res) {
                $('.fb-refresh').removeClass('fa-spin');
                $('.fb-refresh').removeClass('fa-fade');
                $('.loader').hide();
+               setCookie('adaccountselect', selectedAccountId, 30);
                datatable_view(res);
          }
       });
+   }
+   var selectedAccountId = getCookie('adaccountselect');
+   // console.log(selectedAccountId);
+   if(selectedAccountId){
+      $('#adaccountselect').val(selectedAccountId);
+      $('.selectpicker').selectpicker('refresh');
+
    }
 
    function list_dataa() {
