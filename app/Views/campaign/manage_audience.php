@@ -112,14 +112,14 @@ $get_facebook_page = $result->getResultArray();
                   <i class="fa-solid fa-arrows-rotate fs-5  text-primary fb-refresh" data-api="true"></i>
                </button>
                <div class="col-8 ">
-                  <div class="main-selectpicker fs-12">
-                     <select id="adaccountselect" class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12 adaccountselect">
+                  <div class="main-selectpicker ">
+                     <select id="adaccountselect" class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control adaccountselect">
                         <?php
                            if (isset($platform_assets)) {
                               foreach ($platform_assets as $type_key => $type_value) {
-                                 // Check if masterid is 12 and asset_type is 'ads'
+                                 // Check if and asset_type is 'ads'
                                  if ($type_value["asset_type"] == 'ads') {
-                                    echo '<option class="dropdown-item" value="act_' . $type_value["asset_id"] . '">act_' . $type_value["asset_id"] . '</option>';
+                                    echo '<option class="dropdown-item fs-14" value="act_' . $type_value["asset_id"] . '">'.$type_value["name"].'(' . $type_value["asset_id"] . ')</option>';
                                  }
                               }
                         }
