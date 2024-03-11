@@ -893,13 +893,10 @@ class Booking extends BaseController
 							// pre($inquiry_id);
 							if (!empty($existing_entry)) {
 								$inquiry_data_live['inquiry_status'] = 12;
-								$inquiry_data_live['name'] = $all_data_live[0]['name'];
-								$inquiry_data_live['source'] = $all_data_live[0]['source'];
 								$inquiry_data_live['inquiry_data'] = 3;
-								$inquiry_data_live['pages_name'] = $all_data_live[0]['pages_name'];
 								$inquiry_data_live['facebook_syncro'] = 0;
 								$response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
-							} else {
+							} 
 									// pre('mital');
 								// Insert new entry into the audience table
 								$inquiry_data_live['inquiry_id'] = $inquiry_id;
@@ -910,12 +907,11 @@ class Booking extends BaseController
 								$inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
 								$inquiry_data_live['name'] = $all_data_live[0]['name'];
 								$inquiry_data_live['source'] = $all_data_live[0]['source'];
-								$inquiry_data_live['inquiry_data'] = 3;
+								$inquiry_data_live['inquiry_data'] = 2;
 								$inquiry_data_live['pages_name'] = $all_data_live[0]['pages_name'];
 								$inquiry_data_live['facebook_syncro'] = 0;
 								$response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
 								
-							}
                         }
                     }
 					// } else {

@@ -466,37 +466,12 @@ class AudianceController extends BaseController
 
     public function livefetchAudienceData($master_username)
     {
-       
         $first_db = DatabaseDefaultConnection();
         $query = "SELECT name, email, mobileno FROM " . $master_username . "_audience WHERE facebook_syncro = 0 AND inquiry_data = 3";
         $result = $first_db->query($query);
         return $result->getResultArray();
     }
-    public function audience_increase_data()
-    {
-        $first_db = \Config\Database::connect();
-        $master_data = $this->MasterInformationModel->display_all_records2('master_user');
-        $master_data = json_decode($master_data, true);
-    
-        foreach ($master_data as $key => $value) {
-            $master_username = $value['username'];
-        if ($first_db->tableExists($master_username . "_audience")) {
-            $departmentdisplaydata = $this->fetchAudienceData($master_username);
-            if (!empty($departmentdisplaydata)) {
-                $this->audience_add_data($departmentdisplaydata);
-            } else {
-                echo "No records found to process";
-            }
-    
-            $livedisplaydata = $this->livefetchAudienceData($master_username);
-            if (!empty($livedisplaydata)) {
-                $this->audience_live_data($livedisplaydata);
-            } else {
-                echo "No records found to process";
-            }
-        }
-        }
-    }
+   
      public function audience_add_data($departmentdisplaydata)
     {
 
@@ -827,7 +802,29 @@ class AudianceController extends BaseController
             return "No records found to process";
         }
     }
-      
+    public function audience_increase_data()
+    {
+        $master_data = $this->MasterInformationModel->display_all_records2('master_user');
+        $master_data = json_decode($master_data, true);
+    
+        foreach ($master_data as $key => $value) {
+            $master_username = $value['username'];
+            // Fetch audience data
+            $departmentdisplaydata = $this->fetchAudienceData($master_username);
+            if (!empty($departmentdisplaydata)) {
+                $this->audience_add_data($departmentdisplaydata);
+            } else {
+                echo "No records found to process";
+            }
+    
+            $livedisplaydata = $this->livefetchAudienceData($master_username);
+            if (!empty($livedisplaydata)) {
+                $this->audience_live_data($livedisplaydata);
+            } else {
+                echo "No records found to process";
+            }
+        }
+    }
     public function audience_insert_data()
     {
         $post_data = $this->request->getPost();

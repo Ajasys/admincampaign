@@ -777,7 +777,24 @@ $get_facebook_page = $result->getResultArray();
       $('.selectpicker').selectpicker('refresh');
 
    }
-
+   function list_data() {
+      // Get the selected ad account ID
+      var selectedAccountId = $('#adaccountselect').val(); 
+      $('.list-container').empty();
+      // Make an AJAX request
+      $.ajax({
+         method: "post",
+         url: "<?= site_url('audience_facebook_data'); ?>",
+         data: {
+               action: 'facebook_list',
+               selected_account_id: selectedAccountId // Include the selected account ID in the request
+         },
+         success: function (res) {
+               $('.loader').hide();
+               datatable_view(res);
+         }
+      });
+   }
    function list_dataa() {
       show_val = '<?= json_encode(array('created_time', 'ad_id')); ?>';
 
