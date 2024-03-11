@@ -2005,7 +2005,6 @@ class Inquiryinformation extends BaseController
 					// pre($inquiry_id);
 
 					if (!empty($existing_entry)) {
-						$inquiry_data_live['inquiry_status'] = 11;
 						$inquiry_data_live['inquiry_data'] = 3;
 						$inquiry_data_live['facebook_syncro'] = 0;
 						$response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
@@ -2031,7 +2030,6 @@ class Inquiryinformation extends BaseController
 					$existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
 					// pre($inquiry_id);
 					if (!empty($existing_entry)) {
-						$inquiry_dataas_live['inquiry_status'] = 4;
 						$inquiry_dataas_live['inquiry_data'] = 4; 
 						$inquiry_dataas_live['facebook_syncro'] = 0;
 						$response_alert2 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");

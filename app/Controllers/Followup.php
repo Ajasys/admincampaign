@@ -867,7 +867,6 @@ class Followup extends BaseController
                         // pre($inquiry_id);
 
                         if (!empty($existing_entry)) {
-                            $inquiry_data_live['inquiry_status'] = 8;
                             $inquiry_data_live['inquiry_data'] = 3;
                             $inquiry_data_live['facebook_syncro'] = 0;
                             $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
@@ -962,7 +961,6 @@ class Followup extends BaseController
                         // pre($inquiry_id);
 
                         if (!empty($existing_entry)) {
-                            $inquiry_data_live['inquiry_status'] = 7;
                             $inquiry_data_live['inquiry_data'] = 3;
                             $inquiry_data_live['facebook_syncro'] = 0;
                             $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
@@ -1093,7 +1091,6 @@ class Followup extends BaseController
                         // pre($inquiry_id);
 
                         if (!empty($existing_entry)) {
-                            $inquiry_data_live['inquiry_status'] = 6;
                             $inquiry_data_live['inquiry_data'] = 3;
                             $inquiry_data_live['facebook_syncro'] = 0;
                             $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
@@ -1225,7 +1222,6 @@ class Followup extends BaseController
                             // pre($inquiry_id);
 
                             if (!empty($existing_entry)) {
-                                $inquiry_data_live['inquiry_status'] = 9;
                                 $inquiry_data_live['inquiry_data'] = 3;
                                 $inquiry_data_live['facebook_syncro'] = 0;
                                 $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
@@ -1443,7 +1439,6 @@ class Followup extends BaseController
                             // pre($inquiry_id);
 
                             if (!empty($existing_entry)) {
-                                $inquiry_data_live['inquiry_status'] = 3;
                                 $inquiry_data_live['inquiry_data'] = 3;
                                 $inquiry_data_live['facebook_syncro'] = 0;
                                 $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
@@ -1471,7 +1466,6 @@ class Followup extends BaseController
                         // pre($inquiry_id);
 
                         if (!empty($existing_entry)) {
-                            $inquiry_dataas_live['inquiry_status'] = 10;
                             $inquiry_dataas_live['inquiry_data'] = 3;
                             $inquiry_dataas_live['facebook_syncro'] = 0;
                             $response_alert2 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");
@@ -1661,7 +1655,6 @@ class Followup extends BaseController
                         $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
                         // pre($inquiry_id);
                         if (!empty($existing_entry)) {
-                            $inquiry_data_live['inquiry_status'] = 17;
                             $inquiry_data_live['inquiry_data'] = 3;
                             $inquiry_data_live['facebook_syncro'] = 0;
                             $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
@@ -1823,24 +1816,24 @@ class Followup extends BaseController
                         $existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
                         // pre($inquiry_id);
                         if (!empty($existing_entry)) {
-                            $inquiry_data_live['inquiry_status'] = 2;
                             $inquiry_data_live['inquiry_data'] = 3;
 						    $inquiry_data_live['facebook_syncro'] = 0;
                             $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
-                        } 
-                        $inquiry_data_live['inquiry_id'] = $inquiry_id;
-                        $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
-                        $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
-                        $inquiry_data_live['email'] = $inquiry_data['email'];
-                        $inquiry_data_live['inquiry_status'] = 2;
-                        $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
-                        $inquiry_data_live['name'] = $all_data_live[0]['name'];
-                        $inquiry_data_live['source'] = $all_data_live[0]['source'];
-                        $inquiry_data_live['inquiry_data'] = 2;
-                        $inquiry_data_live['pages_name'] = $all_data_live[0]['pages_name'];
-                        $inquiry_data_live['facebook_syncro'] = 0;
-                        $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live, $this->username . "_audience");
-                    }
+                            } 
+                        }
+                        $inquiry_data_live1['inquiry_id'] = $inquiry_id;
+                        $inquiry_data_live1['full_name'] = $inquiry_data['full_name'];
+                        $inquiry_data_live1['mobileno'] = $inquiry_data['mobileno'];
+                        $inquiry_data_live1['email'] = $inquiry_data['email'];
+                        $inquiry_data_live1['inquiry_status'] = 2;
+                        $inquiry_data_live1['intrested_product'] = $inquiry_data['intrested_product'];
+                        $inquiry_data_live1['name'] = $all_data_live[0]['name'];
+                        $inquiry_data_live1['source'] = $all_data_live[0]['source'];
+                        $inquiry_data_live1['inquiry_data'] = 2;
+                        $inquiry_data_live1['pages_name'] = $all_data_live[0]['pages_name'];
+                        $inquiry_data_live1['facebook_syncro'] = 0;
+                        $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_data_live1, $this->username . "_audience");
+                    
                 } elseif ($result['result'] == 1) {
                     if (!empty($all_dataas_live) && isset($all_dataas_live[0]['inquiry_data']) && $all_dataas_live[0]['inquiry_data'] == 3) {
                        
@@ -1850,22 +1843,28 @@ class Followup extends BaseController
 
                         if (!empty($existing_entry)) {
                             $inquiry_dataas_live['inquiry_status'] = 13;
-                            $inquiry_dataas_live['inquiry_data'] = 3;
+                            // $inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
+                            // $inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
+                            $inquiry_dataas_live['inquiry_data'] = 2;
+                            // $inquiry_dataas_live['pages_name'] = $all_dataas_live[0]['pages_name'];
 						    $inquiry_dataas_live['facebook_syncro'] = 0;
                             $response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_dataas_live, $this->username . "_audience");
-                        } 
-                        $inquiry_dataas_live1['inquiry_id'] = $inquiry_id;
-                        $inquiry_dataas_live1['full_name'] = $inquiry_data['full_name'];
-                        $inquiry_dataas_live1['mobileno'] = $inquiry_data['mobileno'];
-                        $inquiry_dataas_live1['email'] = $inquiry_data['email'];
-                        $inquiry_dataas_live1['inquiry_status'] = 13;
-                        $inquiry_dataas_live1['intrested_product'] = $inquiry_data['intrested_product'];
-                        $inquiry_dataas_live1['name'] = $all_dataas_live[0]['name'];
-                        $inquiry_dataas_live1['source'] = $all_dataas_live[0]['source'];
-                        $inquiry_dataas_live1['inquiry_data'] = 2;
-                        $inquiry_dataas_live1['pages_name'] = $all_dataas_live[0]['pages_name'];
-                        $inquiry_dataas_live1['facebook_syncro'] = 0;
-                        $response_alert1 = $this->MasterInformationModel->insert_entry2($inquiry_dataas_live, $this->username . "_audience");
+                        }
+                            // Insert new entry into the audience table
+                            $inquiry_dataas_live['inquiry_id'] = $inquiry_id;
+                            $inquiry_dataas_live['full_name'] = $inquiry_data['full_name'];
+                            $inquiry_dataas_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_dataas_live['email'] = $inquiry_data['email'];
+                            $inquiry_dataas_live['inquiry_status'] = 13;
+                            $inquiry_dataas_live['intrested_product'] = $inquiry_data['intrested_product'];
+                            $inquiry_dataas_live['name'] = $all_dataas_live[0]['name'];
+                            $inquiry_dataas_live['source'] = $all_dataas_live[0]['source'];
+                            $inquiry_dataas_live['inquiry_data'] = 3;
+                            $inquiry_dataas_live['pages_name'] = $all_dataas_live[0]['pages_name'];
+						    $inquiry_dataas_live['facebook_syncro'] = 0;
+                            $response_alert1 = $this->MasterInformationModel->insert_entry($inquiry_dataas_live, $this->username . "_audience");
+                            
+                        
                     }
                 }
             }else{

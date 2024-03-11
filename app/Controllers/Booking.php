@@ -892,7 +892,6 @@ class Booking extends BaseController
 							$existing_entry = $this->MasterInformationModel->get_entry_by_id($inquiry_id, $this->username . "_audience");
 							// pre($inquiry_id);
 							if (!empty($existing_entry)) {
-								$inquiry_data_live['inquiry_status'] = 12;
 								$inquiry_data_live['inquiry_data'] = 3;
 								$inquiry_data_live['facebook_syncro'] = 0;
 								$response_alert1 = $this->MasterInformationModel->update_entry4($inquiry_id, $inquiry_data_live, $this->username . "_audience");
