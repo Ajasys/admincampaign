@@ -286,14 +286,15 @@ class FacebookController extends BaseController
 
 
                     // for advertise assets
-                    $response_ads = getSocialData(MetaUrl().'me?fields=id,name,adaccounts&access_token=' . $longLivedToken. '');        
-                    foreach ($response_ads['adaccounts']['data'] as $ad_account) {
+                    $response_ads = getSocialData(MetaUrl().'/me/adaccounts?fields=account_id,name&access_token=' . $longLivedToken. '');        
+                    foreach ($response_ads['data'] as $ad_account) {
                         $adAccountId = $ad_account['account_id'];
                         $ads_insert_data['platform_id'] = $platform_id;
                         $ads_insert_data['master_id'] = $_SESSION['master'];
                         $ads_insert_data['asset_type'] = 'ads';
                         $ads_insert_data['asset_id'] = $adAccountId;
-                        $response_asset = $this->MasterInformationModel->insert_entry2($ads_insert_data, $this->username . '_platform_assets');
+                        $ads_insert_data['name'] = $ad_account['name'];
+                        $response_asset = $this->MasterInformationModel->insert_entry($ads_insert_data, $this->username . '_platform_assets');
                         
                     }
 

@@ -107,20 +107,25 @@ $get_facebook_page = $result->getResultArray();
                <i class="bi bi-people"></i>
                <h2> Manage Audiences</h2>
             </div>
-            <div class="col-6 col-lg-2">
-               <div class="main-selectpicker fs-12">
-                  <select id="adaccountselect" class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12 adaccountselect">
-                     <?php
-                        if (isset($platform_assets)) {
-                           foreach ($platform_assets as $type_key => $type_value) {
-                              // Check if masterid is 12 and asset_type is 'ads'
-                              if ($type_value["master_id"] == 12 && $type_value["asset_type"] == 'ads') {
-                                 echo '<option class="dropdown-item" value="act_' . $type_value["asset_id"] . '">act_' . $type_value["asset_id"] . '</option>';
+            <div class="d-flex flex-wrap col-3 justify-content-end">
+               <button class="bg-white border text-center py-2 px-2 rounded-3 d-flex align-items-center mx-2">
+                  <i class="fa-solid fa-arrows-rotate fs-5  text-primary fb-refresh" data-api="true"></i>
+               </button>
+               <div class="col-8 ">
+                  <div class="main-selectpicker fs-12">
+                     <select id="adaccountselect" class="selectpicker form-control form-main WhatsAppConnectionsDropDown main-control fs-12 adaccountselect">
+                        <?php
+                           if (isset($platform_assets)) {
+                              foreach ($platform_assets as $type_key => $type_value) {
+                                 // Check if masterid is 12 and asset_type is 'ads'
+                                 if ($type_value["asset_type"] == 'ads') {
+                                    echo '<option class="dropdown-item" value="act_' . $type_value["asset_id"] . '">act_' . $type_value["asset_id"] . '</option>';
+                                 }
                               }
-                           }
-                     }
-                     ?>
-                  </select>
+                        }
+                        ?>
+                     </select>
+                  </div>
                </div>
             </div>
          </div>
@@ -697,13 +702,23 @@ $get_facebook_page = $result->getResultArray();
 <script>
 // Alternatively, you can call list_data function on a specific event, for example, when the ad account selection changes
 
-$(document).ready(function() {
-     list_data();
-});
+      $(document).ready(function() {
+         list_data();
+      });
 
-$('body').on('change','#adaccountselect',function(){
-     list_data(); // Call list_data() only when #adaccountselect changes
-});
+      $('body').on('change','#adaccountselect',function(){
+         list_data(); // Call list_data() only when #adaccountselect changes
+      });
+      $('body').on('click', '.fb-refresh', function(e) {
+         e.stopPropagation();
+         // alert();
+         $(this).addClass('fa-spin');
+         $(this).addClass('fa-fade');
+         list_data();
+         // var collapse = $('.FbListedMessage').find('.accordion-collapse');
+         // collapse.collapse('show');
+
+      });
    function list_data() {
       // Get the selected ad account ID
       var selectedAccountId = $('#adaccountselect').val(); 
@@ -717,6 +732,8 @@ $('body').on('change','#adaccountselect',function(){
                selected_account_id: selectedAccountId // Include the selected account ID in the request
          },
          success: function (res) {
+               $('.fb-refresh').removeClass('fa-spin');
+               $('.fb-refresh').removeClass('fa-fade');
                $('.loader').hide();
                datatable_view(res);
          }
@@ -1401,7 +1418,7 @@ $('body').on('change','#adaccountselect',function(){
                   }
                });
             });
-         $('.close_container').click(function(e) {
+         $('#main_close').click(function(e) {
             location.reload(true);
          });
         // Handle save changes button click
