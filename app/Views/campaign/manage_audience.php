@@ -240,6 +240,7 @@ $get_facebook_page = $result->getResultArray();
                         <button type="button" class="btn-primary me-2 Cancle_Btn close_container">Cancel</button>
                         <button type="button" class="btn-primary me-2 Cancle_Btn  edt chake-button" data-edit_id=""
                            data-bs-toggle="modal" data-bs-target="#Edit_custom">Edit</button>
+                        <button type="button" class="btn-primary me-2 Delete_btn" data-edit_id="">Delete</button>
                      </div>
                   </div>
                </div>
@@ -427,7 +428,9 @@ $get_facebook_page = $result->getResultArray();
                               <?php
                               if (isset($platform_assets)) {
                                     foreach ($platform_assets as $type_key => $type_value) {
+                                       if ($type_value["asset_type"] == 'pages') {
                                        echo '<option class="dropdown-item" value="' . $type_value["asset_id"] . '">' . $type_value["name"] . '</option>';
+                                       }
                                     }
                                  }
                               ?>
@@ -477,7 +480,9 @@ $get_facebook_page = $result->getResultArray();
                                     <?php
                                     if (isset($platform_assets)) {
                                        foreach ($platform_assets as $type_key => $type_value) {
+                                          if ($type_value["asset_type"] == 'pages') {
                                           echo '<option class="dropdown-item" value="' . $type_value["asset_id"] . '">' . $type_value["name"] . '</option>';
+                                          }
                                        }
                                     }
                                  ?>
@@ -1402,6 +1407,7 @@ $get_facebook_page = $result->getResultArray();
             $('#lead_list_modal .last_updated').text(leadData.time_updated);
             $('#lead_list_modal .source').text(leadData.name);
             $('.edt').attr('data-edit_id', leadData.id);
+            $('.Delete_btn').attr('data-edit_id', leadData.id);
             $('.selectpicker').selectpicker('refresh');
          },
          error: function (error) {
@@ -1542,5 +1548,51 @@ $get_facebook_page = $result->getResultArray();
 //         $('.platform_selecter1').addClass('d-none');
 //      }
 //   })
+$('body').on('click', '.Delete_btn', function (e) {
+      e.preventDefault();
+      var editId = $(this).data("edit_id");
+      console.log(editId);
+      var ad_account_id = $('#adaccountselect').val();
+      var record_text = "Are you sure you want to Delete this?";
+      var name = $(this).attr("name");
+      if (editId != '') {
+         Swal.fire({
+            title: 'Are you sure?',
+            text: record_text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'CONFIRM',
+            cancelButtonText: 'CANCEL',
+            cancelButtonColor: '#6e7881',
+            confirmButtonColor: '#dd3333',
+            reverseButtons: true
+         }).then(function (result) {
+            if (result.value) {
+               // console.log(id);
+               $.ajax({
+                  method: "post",
+                  url: "<?= site_url('delete_audiences'); ?>",
+                  data: {
+                     editId: editId,
+                     ad_account_id: ad_account_id,
+                  },
+                  success: function (res) {
+                     if (res == '0') {
+                        iziToast.error({
+                           title: "Can't Deleted"
+                        });
+                     } else {
+                        iziToast.error({
+                           title: 'Deleted Successfully'
+                        });
+                     }
+                     $(".btn-close").trigger("click");
+                     list_data();
+                  }
+               });
+            }
+         });
+      }
+   });
 
 </script>

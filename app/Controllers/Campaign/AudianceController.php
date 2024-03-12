@@ -1731,5 +1731,84 @@ class AudianceController extends BaseController
             // Close cURL session
             curl_close($ch);
         }
+
+        public function deleteallname($audience_name)
+        {
+            $db = DatabaseDefaultConnection();
+            $result = $db
+                ->table($this->username . '_audience')
+                ->where('name', $audience_name)
+                ->delete();
+    
+            return $result;
+        }
+        public function delete_audiences()
+        {
+            $edit_id = $_POST["editId"]; // Retrieve edit_id from POST data
+            $ad_account_id = $_POST["ad_account_id"];
+            $username = session_username($_SESSION['username']);
+            $this->db = DatabaseDefaultConnection();
+            $get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+            $get_access_token_array = $this->db->query($get_token);
+            $data_count = $get_access_token_array->getNumRows();
+            $fb_account_data = $get_access_token_array->getResultArray()[0];
+            $token = $fb_account_data['access_token'];
+            $account_id = $ad_account_id;
+                $urls = MetaUrl()."$account_id/customaudiences?fields=id,account_id,name,time_created,time_updated,subtype,approximate_count_lower_bound,approximate_count_upper_bound&access_token=$token";
+                $response = file_get_contents($urls);
+                $audience_datas = json_decode($response, true);
+    
+                // Initialize variables to hold audience name and ID
+                $audience_name = '';
+                $audience_id = '';
+    
+                // Iterate through audience data to find the matching ID
+                foreach ($audience_datas['data'] as $audience_data) {
+                    if ($audience_data['id'] == $edit_id) {
+                        $audience_name = $audience_data['name'];
+                        break; 
+                    }
+                }
+            // Construct the URL to delete the audience via Facebook Graph API
+            $url = MetaUrl() . "/$edit_id";
+            
+            // Initialize cURL session
+            $ch = curl_init();
+        
+            // Set cURL options
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Authorization: Bearer ' . $token,
+            ));
+        
+            // Execute cURL request
+            $response = curl_exec($ch);
+            // pre($response);
+            // die();
+            // Check for errors
+            if($response === false) {
+                $error_message = curl_error($ch);
+                // Handle error
+                echo json_encode(['error' => $error_message]);
+            } else {
+                // Decode the JSON response
+                $decoded_response = json_decode($response, true);
+                // Check if the deletion was successful
+                if (isset($decoded_response['success']) && $decoded_response['success'] == true) {
+                    // Return success response
+                    echo json_encode(['success' => true]);
+                    $this->deleteallname($audience_name);
+                    // Optionally, you can perform additional actions here after successful deletion
+                } else {
+                    // Handle unsuccessful deletion
+                    echo json_encode(['error' => 'Failed to delete audience']);
+                }
+            }
+        
+            // Close cURL session
+            curl_close($ch);
+        }
 }
 ?>
