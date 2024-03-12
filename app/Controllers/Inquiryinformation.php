@@ -124,6 +124,7 @@ class Inquiryinformation extends BaseController
 							$inquiry_datas_audience['inquiry_id'] = $response;
 							$inquiry_datas_audience['full_name'] = $insert_data['full_name'];
 							$inquiry_datas_audience['mobileno'] = $insert_data['mobileno'];
+							$inquiry_datas_audience['country_code'] = $insert_data['country_code'];
 							$inquiry_datas_audience['email'] = $insert_data['email'];
 							$inquiry_datas_audience['inquiry_status'] = 1;
 							$inquiry_datas_audience['intrested_product'] = $insert_data['intrested_product'];
@@ -145,6 +146,7 @@ class Inquiryinformation extends BaseController
 							$inquiry_data_live['inquiry_id'] = $response;
 							$inquiry_data_live['full_name'] = $insert_data['full_name'];
 							$inquiry_data_live['mobileno'] = $insert_data['mobileno'];
+							$inquiry_data_live['country_code'] = $insert_data['country_code'];
 							$inquiry_data_live['email'] = $insert_data['email'];
 							$inquiry_data_live['inquiry_status'] = 1;
 							$inquiry_data_live['intrested_product'] = $insert_data['intrested_product'];
@@ -1960,6 +1962,7 @@ class Inquiryinformation extends BaseController
 					$inquiry_data_audience['inquiry_id'] = $inquiry_id;
 					$inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
 					$inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
+					$inquiry_data_audience['country_code'] = $inquiry_data['country_code'];
 					$inquiry_data_audience['email'] = $inquiry_data['email'];
 					$inquiry_data_audience['inquiry_status'] = 11;
 					$inquiry_data_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1975,6 +1978,7 @@ class Inquiryinformation extends BaseController
 					$inquiry_dataas_audience['inquiry_id'] = $inquiry_id;
 					$inquiry_dataas_audience['full_name'] = $inquiry_data['full_name'];
 					$inquiry_dataas_audience['mobileno'] = $inquiry_data['mobileno'];
+					$inquiry_dataas_audience['country_code'] = $inquiry_data['country_code'];
 					$inquiry_dataas_audience['email'] = $inquiry_data['email'];
 					$inquiry_dataas_audience['inquiry_status'] = 4;
 					$inquiry_dataas_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -2013,6 +2017,7 @@ class Inquiryinformation extends BaseController
 						$inquiry_data_live['inquiry_id'] = $inquiry_id;
 						$inquiry_data_live['full_name'] = $inquiry_data['full_name'];
 						$inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+						$inquiry_data_live['country_code'] = $inquiry_data['country_code'];
 						$inquiry_data_live['email'] = $inquiry_data['email'];
 						$inquiry_data_live['inquiry_status'] = 11;
 						$inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
@@ -2039,6 +2044,7 @@ class Inquiryinformation extends BaseController
 						$inquiry_dataas_live['inquiry_id'] = $inquiry_id;
 						$inquiry_dataas_live['full_name'] = $inquiry_data['full_name'];
 						$inquiry_dataas_live['mobileno'] = $inquiry_data['mobileno'];
+						$inquiry_dataas_live['country_code'] = $inquiry_data['country_code'];
 						$inquiry_dataas_live['email'] = $inquiry_data['email'];
 						$inquiry_dataas_live['inquiry_status'] = 4;
 						$inquiry_dataas_live['intrested_product'] = $inquiry_data['intrested_product'];

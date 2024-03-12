@@ -844,6 +844,7 @@ class Followup extends BaseController
 							$inquiry_dataa['inquiry_id'] = $inquiry_id;
 							$inquiry_dataa['full_name'] = $inquiry_data['full_name'];
 							$inquiry_dataa['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_dataa['country_code'] = $inquiry_data['country_code'];
 							$inquiry_dataa['email'] = $inquiry_data['email'];
 							$inquiry_dataa['inquiry_status'] = 8;
 							$inquiry_dataa['intrested_product'] = $inquiry_data['intrested_product'];
@@ -875,6 +876,7 @@ class Followup extends BaseController
                             $inquiry_data_live['inquiry_id'] = $inquiry_id;
                             $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
                             $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_live['country_code'] = $inquiry_data['country_code'];
                             $inquiry_data_live['email'] = $inquiry_data['email'];
                             $inquiry_data_live['inquiry_status'] = 8;
                             $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
@@ -938,6 +940,7 @@ class Followup extends BaseController
                             $audience_data['inquiry_id'] = $inquiry_id;
                             $audience_data['full_name'] = $inquiry_data['full_name'];
                             $audience_data['mobileno'] = $inquiry_data['mobileno'];
+                            $audience_data['country_code'] = $inquiry_data['country_code'];
                             $audience_data['email'] = $inquiry_data['email'];
                             $audience_data['inquiry_status'] = 7;
                             $audience_data['intrested_product'] = $intrested_product;
@@ -969,6 +972,7 @@ class Followup extends BaseController
                             $inquiry_data_live['inquiry_id'] = $inquiry_id;
                             $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
                             $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_live['country_code'] = $inquiry_data['country_code'];
                             $inquiry_data_live['email'] = $inquiry_data['email'];
                             $inquiry_data_live['inquiry_status'] = 7;
                             $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1067,6 +1071,7 @@ class Followup extends BaseController
 							$inquiry_data_audience['inquiry_id'] = $inquiry_id;
 							$inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
 							$inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_audience['country_code'] = $inquiry_data['country_code'];
 							$inquiry_data_audience['email'] = $inquiry_data['email'];
 							$inquiry_data_audience['inquiry_status'] = 6;
 							$inquiry_data_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1100,6 +1105,7 @@ class Followup extends BaseController
                             $inquiry_data_live['inquiry_id'] = $inquiry_id;
                             $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
                             $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_live['country_code'] = $inquiry_data['country_code'];
                             $inquiry_data_live['email'] = $inquiry_data['email'];
                             $inquiry_data_live['inquiry_status'] = 6;
                             $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1198,6 +1204,7 @@ class Followup extends BaseController
 							$inquiry_data_audience['inquiry_id'] = $inquiry_id;
 							$inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
 							$inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_audience['country_code'] = $inquiry_data['country_code'];
 							$inquiry_data_audience['email'] = $inquiry_data['email'];
 							$inquiry_data_audience['inquiry_status'] = 9;
 							$inquiry_data_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1231,6 +1238,7 @@ class Followup extends BaseController
                                 $inquiry_data_live['inquiry_id'] = $inquiry_id;
                                 $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
                                 $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                                $inquiry_data_live['country_code'] = $inquiry_data['country_code'];
                                 $inquiry_data_live['email'] = $inquiry_data['email'];
                                 $inquiry_data_live['inquiry_status'] = 9;
                                 $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1395,6 +1403,7 @@ class Followup extends BaseController
                             $inquiry_data_audience['inquiry_id'] = $inquiry_id;
                             $inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
                             $inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_audience['country_code'] = $inquiry_data['country_code'];
                             $inquiry_data_audience['email'] = $inquiry_data['email'];
                             $inquiry_data_audience['inquiry_status'] =3;
                             $inquiry_data_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1410,6 +1419,7 @@ class Followup extends BaseController
                             $inquiry_dataas_audience['inquiry_id'] = $inquiry_id;
                             $inquiry_dataas_audience['full_name'] = $inquiry_data['full_name'];
                             $inquiry_dataas_audience['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_dataas_audience['country_code'] = $inquiry_data['country_code'];
                             $inquiry_dataas_audience['email'] = $inquiry_data['email'];
                             $inquiry_dataas_audience['inquiry_status'] = 10;
                             $inquiry_dataas_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1448,6 +1458,7 @@ class Followup extends BaseController
                                 $inquiry_data_live['inquiry_id'] = $inquiry_id;
                                 $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
                                 $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                                $inquiry_data_live['country_code'] = $inquiry_data['country_code'];
                                 $inquiry_data_live['email'] = $inquiry_data['email'];
                                 $inquiry_data_live['inquiry_status'] = 3;
                                 $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1475,6 +1486,7 @@ class Followup extends BaseController
                             $inquiry_dataas_live['inquiry_id'] = $inquiry_id;
                             $inquiry_dataas_live['full_name'] = $inquiry_data['full_name'];
                             $inquiry_dataas_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_dataas_live['country_code'] = $inquiry_data['country_code'];
                             $inquiry_dataas_live['email'] = $inquiry_data['email'];
                             $inquiry_dataas_live['inquiry_status'] = 10;
                             $inquiry_dataas_live['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1631,6 +1643,7 @@ class Followup extends BaseController
 							$inquiry_data_audience['inquiry_id'] = $inquiry_id;
 							$inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
 							$inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_audience['country_code'] = $inquiry_data['country_code'];
 							$inquiry_data_audience['email'] = $inquiry_data['email'];
 							$inquiry_data_audience['inquiry_status'] = 17;
 							$inquiry_data_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1664,6 +1677,7 @@ class Followup extends BaseController
                             $inquiry_data_live['inquiry_id'] = $inquiry_id;
                             $inquiry_data_live['full_name'] = $inquiry_data['full_name'];
                             $inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_data_live['country_code'] = $inquiry_data['country_code'];
                             $inquiry_data_live['email'] = $inquiry_data['email'];
                             $inquiry_data_live['inquiry_status'] = 17;
                             $inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1773,6 +1787,7 @@ class Followup extends BaseController
                         $inquiry_data_audience['inquiry_id'] = $inquiry_id;
                         $inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
                         $inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
+                        $inquiry_data_audience['country_code'] = $inquiry_data['country_code'];
                         $inquiry_data_audience['email'] = $inquiry_data['email'];
                         $inquiry_data_audience['inquiry_status'] = 2;
                         $inquiry_data_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1788,6 +1803,7 @@ class Followup extends BaseController
                         $inquiry_dataas_audience['inquiry_id'] = $inquiry_id;
                         $inquiry_dataas_audience['full_name'] = $inquiry_data['full_name'];
                         $inquiry_dataas_audience['mobileno'] = $inquiry_data['mobileno'];
+                        $inquiry_dataas_audience['country_code'] = $inquiry_data['country_code'];
                         $inquiry_dataas_audience['email'] = $inquiry_data['email'];
                         $inquiry_dataas_audience['inquiry_status'] = 13;
                         $inquiry_dataas_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1824,6 +1840,7 @@ class Followup extends BaseController
                         $inquiry_data_live1['inquiry_id'] = $inquiry_id;
                         $inquiry_data_live1['full_name'] = $inquiry_data['full_name'];
                         $inquiry_data_live1['mobileno'] = $inquiry_data['mobileno'];
+                        $inquiry_data_live1['country_code'] = $inquiry_data['country_code'];
                         $inquiry_data_live1['email'] = $inquiry_data['email'];
                         $inquiry_data_live1['inquiry_status'] = 2;
                         $inquiry_data_live1['intrested_product'] = $inquiry_data['intrested_product'];
@@ -1854,6 +1871,7 @@ class Followup extends BaseController
                             $inquiry_dataas_live['inquiry_id'] = $inquiry_id;
                             $inquiry_dataas_live['full_name'] = $inquiry_data['full_name'];
                             $inquiry_dataas_live['mobileno'] = $inquiry_data['mobileno'];
+                            $inquiry_dataas_live['country_code'] = $inquiry_data['country_code'];
                             $inquiry_dataas_live['email'] = $inquiry_data['email'];
                             $inquiry_dataas_live['inquiry_status'] = 13;
                             $inquiry_dataas_live['intrested_product'] = $inquiry_data['intrested_product'];

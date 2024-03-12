@@ -870,6 +870,7 @@ class Booking extends BaseController
 								$inquiry_data_audience['inquiry_id'] = $inquiry_id;
 								$inquiry_data_audience['full_name'] = $inquiry_data['full_name'];
 								$inquiry_data_audience['mobileno'] = $inquiry_data['mobileno'];
+								$inquiry_data_audience['country_code'] = $inquiry_data['country_code'];
 								$inquiry_data_audience['email'] = $inquiry_data['email'];
 								$inquiry_data_audience['inquiry_status'] =12;
 								$inquiry_data_audience['intrested_product'] = $inquiry_data['intrested_product'];
@@ -901,6 +902,7 @@ class Booking extends BaseController
 								$inquiry_data_live['inquiry_id'] = $inquiry_id;
 								$inquiry_data_live['full_name'] = $inquiry_data['full_name'];
 								$inquiry_data_live['mobileno'] = $inquiry_data['mobileno'];
+								$inquiry_data_live['country_code'] = $inquiry_data['country_code'];
 								$inquiry_data_live['email'] = $inquiry_data['email'];
 								$inquiry_data_live['inquiry_status'] = 12;
 								$inquiry_data_live['intrested_product'] = $inquiry_data['intrested_product'];
