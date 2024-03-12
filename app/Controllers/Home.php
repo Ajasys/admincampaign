@@ -894,6 +894,7 @@ class Home extends BaseController
             'created_at datetime NOT NULL DEFAULT current_timestamp()',
             'updated_at timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()',
             'mobileno varchar(11) NOT NULL',
+            'country_code varchar(10) NOT NULL DEFAULT 91',
             'email varchar(255) NOT NULL',
             'address varchar(255) NOT NULL',
             'source varchar(255) NOT NULL',
