@@ -461,7 +461,7 @@ class AudianceController extends BaseController
     public function fetchAudienceData($master_username)
     {
         $first_db = DatabaseDefaultConnection();
-        $query = "SELECT name, email, mobileno FROM " . $master_username . "_audience WHERE facebook_syncro = 0 AND inquiry_data = 2";
+        $query = "SELECT name, email, mobileno,country_code FROM " . $master_username . "_audience WHERE facebook_syncro = 0 AND inquiry_data = 2";
         $result = $first_db->query($query);
         return $result->getResultArray();
     }
@@ -469,7 +469,7 @@ class AudianceController extends BaseController
     public function livefetchAudienceData($master_username)
     {
         $first_db = DatabaseDefaultConnection();
-        $query = "SELECT name, email, mobileno FROM " . $master_username . "_audience WHERE facebook_syncro = 0 AND inquiry_data = 3";
+        $query = "SELECT name, email, mobileno,country_code FROM " . $master_username . "_audience WHERE facebook_syncro = 0 AND inquiry_data = 3";
         $result = $first_db->query($query);
         return $result->getResultArray();
     }
@@ -549,11 +549,17 @@ class AudianceController extends BaseController
                             $first_name = $record['name']; // Assuming 'name' is the correct key for first_name
                             $email = $record['email'];
                             $mobileno = $record['mobileno'];
-                
+                            $country_code = $record['country_code'];
+
+                            $phone_number = preg_replace("/[^0-9]/", "", $mobileno); // Remove symbols, letters, and leading zeroes
+
+                            if (!empty($country_code)) {
+                                $phone_number = "+" . $country_code . $phone_number;
+                            }
                             // Hash the values
                             $hashed_first_name = hash('sha256', $first_name);
                             $hashed_email = hash('sha256', $email);
-                            $hashed_mobileno = hash('sha256', $mobileno);
+                            $hashed_mobileno = hash('sha256', $phone_number);
                 
                             // Construct payload data for the current user
                             $userPayloadData = [
@@ -709,11 +715,17 @@ class AudianceController extends BaseController
                             $first_name = $record['name']; // Assuming 'name' is the correct key for first_name
                             $email = $record['email'];
                             $mobileno = $record['mobileno'];
-                
+                            $country_code = $record['country_code'];
+
+                            $phone_number = preg_replace("/[^0-9]/", "", $mobileno); // Remove symbols, letters, and leading zeroes
+
+                            if (!empty($country_code)) {
+                                $phone_number = "+" . $country_code . $phone_number;
+                            }
                             // Hash the values
                             $hashed_first_name = hash('sha256', $first_name);
                             $hashed_email = hash('sha256', $email);
-                            $hashed_mobileno = hash('sha256', $mobileno);
+                            $hashed_mobileno = hash('sha256', $phone_number);
                 
                             // Construct payload data for the current user
                             $userPayloadData = [
@@ -827,6 +839,9 @@ class AudianceController extends BaseController
             }
         }
     }
+    // function startsWith($haystack, $needle) {
+    //     return $needle === "" || strpos($haystack, $needle) === 0;
+    // }
     public function audience_insert_data()
     {
         $post_data = $this->request->getPost();
@@ -890,9 +905,11 @@ class AudianceController extends BaseController
                     foreach ($departmentdisplaydata as &$row) {
                         // Extract the 'id' value
                         $inquiry_id = $row["id"];
-
+                        // $merged_mobile = $row["country_code"] . $row["mobileno"];
                         // Remove the 'id' from the row
                         unset($row["id"]);
+                        // unset($row["country_code"]);
+                        // unset($row["mobileno"]);
 
                         // Merge the data
                         $merged_data = array_merge($row, $insert_data, [
@@ -1005,11 +1022,17 @@ class AudianceController extends BaseController
                                 $full_name = $record['full_name'];
                                 $email = $record['email'];
                                 $mobileno = $record['mobileno'];
-                                $page_name = $pages_name;
+                                $country_code = $record['country_code'];
+
+                                $phone_number = preg_replace("/[^0-9]/", "", $mobileno); // Remove symbols, letters, and leading zeroes
+
+                                if (!empty($country_code)) {
+                                    $phone_number = "+" . $country_code . $phone_number;
+                                }
                                 // Hash the values
                                 $hashed_first_name = hash('sha256', $full_name);
                                 $hashed_email = hash('sha256', $email);
-                                $hashed_mobileno = hash('sha256', $mobileno);
+                                $hashed_mobileno = hash('sha256', $phone_number);
                                 
                                 // Construct payload data for the current user
                                 $userPayloadData = [
@@ -1022,7 +1045,6 @@ class AudianceController extends BaseController
                                 // Add the payload data for the current user to the array
                                 $allUsersData[] = $userPayloadData;
                             }
-                          
                             $selected_page_id = $_POST['pages_name'];
                             // Define the schema
                             $schema = ["FN", "EMAIL", "PHONE", "DATA_PROCESSING_OPTIONS"];
@@ -1500,15 +1522,33 @@ class AudianceController extends BaseController
                 foreach ($rowsss as $key => $row) {
                     if ($key != 0) { // Skip the first row which contains headers
                         // Extract email from the current record
-                        $email = $row[0]; // Assuming the first column contains email addresses
-                        // Hash the values
-                        $hashed_email = hash('sha256', $email);
+                        // $email = $row[0]; // Assuming the first column contains email addresses
+                        $mobileno_or_email = $row[1]; // Assuming the second column contains mobile numbers or email addresses
+        
+                        // Check if the value looks like an email address
+                        if (filter_var($mobileno_or_email, FILTER_VALIDATE_EMAIL)) {
+                            // If it's an email address, hash it
+                            $hashed_value = hash('sha256', $mobileno_or_email);
+                        } else {
+                            // If it's not an email address, it's considered a mobile number
+                            // Remove symbols, letters, and leading zeroes from the mobile number
+                            $phone_number = preg_replace("/[^0-9]/", "", $mobileno_or_email);
+                            
+                            // If the country code is specified, add it to the phone number
+                            if (!empty($country_code)) {
+                                $phone_number = "+" . $country_code . $phone_number;
+                            }
+                            
+                            // Hash the mobile number
+                            $hashed_value = hash('sha256', $phone_number);
+                        }
+                
                         // Construct payload data for the current user
                         $userPayloadData = [
-                            $hashed_email, // Hashed email address
+                            $hashed_value, // Hashed mobile number or email address
                             ["LDU"]        // Specify LDU flag for this entry
                         ];
-                        
+                
                         // Add the payload data for the current user to the array
                         $allUsersData[] = $userPayloadData;
                     }
