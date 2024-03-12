@@ -264,9 +264,11 @@ class AudianceController extends BaseController
         if ($_POST['action'] == 'facebook_list') {
             $this->db = DatabaseDefaultConnection(); // Assuming you have a function to establish a database connection
             $username = session_username($_SESSION['username']); // Assuming you have a function to get the session username
-            $query = "SELECT name FROM " . $username . "_audience WHERE facebook_syncro = 1";
+            $query = "SELECT name, inquiry_data FROM " . $username . "_audience WHERE facebook_syncro = 1";
             $result = $this->db->query($query); // Assuming $this->db is a valid database connection object
             $departmentdisplaydata = $result->getResultArray();
+            // pre($departmentdisplaydata);
+            // die();
             $departmentNames = array_column($departmentdisplaydata, 'name');
             $get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
             $get_access_token_array = $this->db->query($get_token);
@@ -876,6 +878,7 @@ class AudianceController extends BaseController
                 // Check if there are results
                 if ($result->getNumRows() > 0) {
                     $departmentdisplaydata = $result->getResultArray();
+                    $audiancedisplaydata = $result->getResultArray();
 
                     // Insert the retrieved data along with the insert_data into the audience table
                     $audience_table_name = $username . "_audience";
@@ -995,12 +998,14 @@ class AudianceController extends BaseController
                         
                             $allUsersData = [];
 
-                            foreach ($departmentdisplaydata as $record) {
+                            foreach ($audiancedisplaydata as $record) {
+                                // pre($audiancedisplaydata);
+                                // continue;
                                 // Extract full name, email, and mobile number from the current record
                                 $full_name = $record['full_name'];
                                 $email = $record['email'];
                                 $mobileno = $record['mobileno'];
-                                $page_name = $record['pages_name'];
+                                $page_name = $pages_name;
                                 // Hash the values
                                 $hashed_first_name = hash('sha256', $full_name);
                                 $hashed_email = hash('sha256', $email);
@@ -1063,7 +1068,7 @@ class AudianceController extends BaseController
                             
                             // Close cURL session for adding users to the custom audience
                             curl_close($curl_users);
-                            
+                            pre($users_response);
                             // Return a message with the total estimated users added
                             return "All records processed successfully. Total estimated users: $estimated_total";
 

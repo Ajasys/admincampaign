@@ -730,16 +730,6 @@ $get_facebook_page = $result->getResultArray();
       $('body').on('change','#adaccountselect',function(){
          list_data(); // Call list_data() only when #adaccountselect changes
       });
-      $('body').on('click', '.fb-refresh', function(e) {
-         e.stopPropagation();
-         // alert();
-         $(this).addClass('fa-spin');
-         $(this).addClass('fa-fade');
-         list_data();
-         // var collapse = $('.FbListedMessage').find('.accordion-collapse');
-         // collapse.collapse('show');
-
-      });
    function list_data(api = false,action = 'facebook_list') {
       // Get the selected ad account ID
       var selectedAccountId = $('#adaccountselect').val(); 
@@ -770,6 +760,16 @@ $get_facebook_page = $result->getResultArray();
          }
       });
    }
+   $('body').on('click', '.fb-refresh', function(e) {
+        e.stopPropagation();
+        // alert();
+        $(this).addClass('fa-spin');
+        $(this).addClass('fa-fade');
+        list_data(true, 'facebook_list');
+        // var collapse = $('.FbListedMessage').find('.accordion-collapse');
+        // collapse.collapse('show');
+
+    });
    var selectedAccountId = getCookie('adaccountselect');
    // console.log(selectedAccountId);
    if(selectedAccountId){
@@ -1473,9 +1473,9 @@ $get_facebook_page = $result->getResultArray();
                   }
                });
             });
-         $('#main_close').click(function(e) {
-            location.reload(true);
-         });
+         // $('#main_close').click(function(e) {
+         //    location.reload(true);
+         // });
         // Handle save changes button click
       //   $('.update_btn ').on('click', function() {
       //       var newName = $('#new_name').val();
