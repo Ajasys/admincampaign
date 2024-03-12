@@ -473,7 +473,18 @@ class AudianceController extends BaseController
         $result = $first_db->query($query);
         return $result->getResultArray();
     }
-   
+    public function deleteSyncStatus($audience_name)
+    {
+        $db = DatabaseDefaultConnection();
+        $result = $db
+            ->table($this->username . '_audience')
+            ->where('name', $audience_name)
+            ->where('facebook_syncro', 0) // Add condition for facebook = 0
+            ->where('inquiry_data', 3) // Add condition for inquiry_data = 3
+            ->delete();
+    
+        return $result;
+    }
      public function audience_add_data($departmentdisplaydata)
     {
 
@@ -712,7 +723,6 @@ class AudianceController extends BaseController
                         $full_name = $record['name']; // Assuming 'name' is the correct key
                         if ($usersUrl['name'] == $full_name) {
                             // Access other data using correct keys
-                            $first_name = $record['name']; // Assuming 'name' is the correct key for first_name
                             $email = $record['email'];
                             $mobileno = $record['mobileno'];
                             $country_code = $record['country_code'];
@@ -723,13 +733,11 @@ class AudianceController extends BaseController
                                 $phone_number = "+" . $country_code . $phone_number;
                             }
                             // Hash the values
-                            $hashed_first_name = hash('sha256', $first_name);
                             $hashed_email = hash('sha256', $email);
                             $hashed_mobileno = hash('sha256', $phone_number);
                 
                             // Construct payload data for the current user
                             $userPayloadData = [
-                                $hashed_first_name, // Hashed first name
                                 $hashed_email, // Hashed email address
                                 $hashed_mobileno, // Hashed mobile number
                             ];
@@ -751,7 +759,7 @@ class AudianceController extends BaseController
                             "estimated_num_total" => count($allUsersData) // Use the count of processed users
                         ],
                         "payload" => [
-                            "schema" => ["FN", "EMAIL", "PHONE"],
+                            "schema" => ["EMAIL_SHA256", "PHONE_SHA256"],
                             "data" => $allUsersData
                         ]
                     ];
