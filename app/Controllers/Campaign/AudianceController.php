@@ -653,7 +653,7 @@ class AudianceController extends BaseController
 			$data_count = $get_access_token_array->getNumRows();
             $fb_account_data = $get_access_token_array->getResultArray()[0];
 			$token = $fb_account_data['access_token'];
-            // $token = 'EAADNF4vVgk0BO1ccPa76TE5bpAS8jV8wTZAptaYZAq4ZAqwTDR4CxGPGJgHQWnhrEl0o55JLZANbGCvxRaK02cLn7TSeh8gAylebZB0uhtFv1CMURbZCZAs7giwk5WFZClCcH9BqJdKqLQZAl6QqtRAxujedHbB5X8A7s4owW5dj17Y41VGsQASUDOnZAOAnn2PZA2L'; // Replace with your Facebook access token
+            // $token = ''; // Replace with your Facebook access token
             // Fetch user data including ad accounts
             $url = "https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cadaccounts&access_token=$token";
             $response = file_get_contents($url);
@@ -695,7 +695,7 @@ class AudianceController extends BaseController
                     }
 
                     foreach ($matching_audience_ids as $key => $audience_id) {
-                        $replaceUrls[$ii]['url'] = MetaUrl()."$audience_id/usersreplace?access_token=$token";
+                        $replaceUrls[$ii]['url'] = MetaUrl()."$audience_id/users?access_token=$token";
                         $replaceUrls[$ii]['audience_id'] = $audience_id;
                         $replaceUrls[$ii]['name'] = $matching_audience_names[$key];
                         $ii++;
@@ -768,13 +768,12 @@ class AudianceController extends BaseController
                     curl_setopt_array($curl_users, [
                         CURLOPT_URL => $usersUrl['url'],
                         CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_POST => true,
+                        CURLOPT_CUSTOMREQUEST => "DELETE", // Specify the request method as DELETE
                         CURLOPT_POSTFIELDS => $payloadJson, // Pass the JSON string here as 'payload'
                         CURLOPT_HTTPHEADER => [
                             'Content-Type: application/json',
                         ],
                     ]);
-                
                     // Execute cURL request to add users to the custom audience
                     $users_response = curl_exec($curl_users);
                     // pre($users_response);
@@ -800,7 +799,7 @@ class AudianceController extends BaseController
                         } else {
                             // Update the database to mark the audience as synced with Facebook
                             $audience_name = $usersUrl['name'];
-                            $this->updateSyncStatus($audience_name);
+                            $this->deleteSyncStatus($audience_name);
                         }
                     }
                 
