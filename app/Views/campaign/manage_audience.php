@@ -702,7 +702,7 @@ $get_facebook_page = $result->getResultArray();
    </div>
 </div>
 </div>
-<!-- audience add modal -->
+<!-- audience replace modal -->
 <div class="modal fade" id="audience-add-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
