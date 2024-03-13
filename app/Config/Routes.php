@@ -264,6 +264,10 @@ $routes->group('', ['filter' => 'authlogin'], function ($routes) {
 	$routes->post('edit_data_audience', [AudianceController::class, 'edit_data_audience']);
 	$routes->post('update_data_audience', [AudianceController::class, 'update_data_audience']);
 	$routes->post('audio_file', [AudianceController::class, 'audio_file']);
+	$routes->post('get_data_audience', [AudianceController::class, 'get_data_audience']);
+	$routes->post('add_customer_audience', [AudianceController::class, 'add_customer_audience']);
+	$routes->post('get_data_add_audience', [AudianceController::class, 'get_data_add_audience']);
+	$routes->post('replace_customer_audience', [AudianceController::class, 'replace_customer_audience']);
 
 	// subscribtion master 
 	$routes->post('/subscription_master_insert', 'MasterInformation::insert_data');

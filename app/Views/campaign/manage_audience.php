@@ -602,27 +602,27 @@ $get_facebook_page = $result->getResultArray();
             <p id="active" class="fs-14">Changing your customer list custom audience will also update any ad sets or
                lookalike audiences that use it. This won't reset your campaign learning phase.
             </p>
-            <!-- <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+            <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3 replace_customers" data-edit_id="" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#audience-add-modal">
                <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
-                     class="fa-regular fa-circle-user fs-1"></i></div>
+                  class="fa-regular fa-circle-user fs-1"></i></div>
                <div class="mt-2 write-div">
                   <div class="fw-bold" id="active">Replace customers</div>
                   <div id="active" class="fs-14">Upload a new list that will replace the users in your existing
                      audience.
                   </div>
                </div>
-            </div> -->
+            </div>
             <!----add customer--->
-            <!-- <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
+            <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3 add_customer" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#exampleModalToggle3">
                <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
-                     class="fa-solid fa-circle-plus fs-1"></i></div>
+                  class="fa-solid fa-circle-plus fs-1"></i></div>
                <div class="mt-2 write-div">
                   <div class="fw-bold" id="active">Add Customer</div>
-                  <div id="active" class="fs-14">Upload a new list that will replace the users in your existing
+                  <div id="active" class="fs-14">Upload a new list that will users in your existing
                      audience.
                   </div>
                </div>
-            </div> -->
+            </div>
             <!---------remove customer-------------->
             <!-- <div class="border rounded border-2 p-lg-3 p-2 d-flex m-0 mt-2 m-lg-3">
                <div class="icon-div rounded p-lg-3 p-2 text-center justify-content-center"><i
@@ -701,6 +701,198 @@ $get_facebook_page = $result->getResultArray();
       </div>
    </div>
 </div>
+</div>
+<!-- audience add modal -->
+<div class="modal fade" id="audience-add-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Replace Customer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <div class=" bg-white rounded-2  col-12">
+               <form class="needs-validation" name="import_audience" method="POST" novalidate="">
+                  <div class="col-12 mt-2 mb-3">
+                     <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
+                        <div
+                           class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
+                           style="width:30px;height:30px;">3</div>
+                        Prepare your file Data
+                     </h6>
+                     <div class="col-12 d-flex flex-wrap">
+                        <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;">
+                        </div>
+                        <div class="col">
+                           <span class="py-1 px-2 border fs-10 me-2 fw-medium">Email</span>
+                           <span class="py-1 px-2 border fs-10 mx-2 fw-medium">Phone Number</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
+                        <div
+                           class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
+                           style="width:30px;height:30px;">4</div>
+                        Inq file upload <sup class="validationn">*
+                     </h6>
+                     <div class="col-12 d-flex flex-wrap">
+                        <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
+                        <div class="col">
+                           <input type="file" class="form-control main-control get_exel_file" name="import_file"
+                              placeholder="Details" required="" accept=".xls,.xlsx">
+                        </div>
+                        <button class=" btn-primary import_btn mx-2 import_audience" type="submit" id="import_audience"
+                           name="import_btn" disabled>Import</button>
+                     </div>
+                  </div>
+               </form>
+               <div class="col-12 mt-4 custom_exel d-flex flex-wrap">
+                  <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
+                  <div class="col">
+                     <div class="d-flex justify-content-between align-items-center my-2 flex-wrap w-100 mt-2">
+                        <div class="title-1">
+                           <i class="fa-solid fa-table-columns"></i>
+                           <label for="" class="form-label main-label">File Column Handling</label>
+                        </div>
+                        <div class="title-side-icons column-btn">
+                           <!-- <button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add" aria-controls="column_add">
+                              + Add Column
+                              </button> -->
+                        </div>
+                     </div>
+                     <form name="column_data_form" id="column_data_form" class="needs-validation" method="POST"
+                        novalidate="">
+                        <div class="mt-3 file_columns">
+                           <div class="text-center">
+                              <span class="fs-6">File Not Imported</span>
+                           </div>
+                        </div>
+                        <!-- <div class="mt-3 custome_column">
+                           <div class="text-start">
+                               <span class="fs-6">Custome Columns</span>
+                           </div>
+                           
+                           </div> -->
+                     </form>
+                     <!-- <div class="justify-content-between d-flex">
+                        <button class=" btn-primary custome_col" type="submit" id="custome_col" name="custome_col">Add Custome
+                            Column</button>
+                        <button class=" btn-primary import_btn" type="submit" id="import_btn" name="import_btn">Import
+                            Data</button>
+                        </div> -->
+                  </div>
+               </div>
+               <div class="d-flex justify-content-between align-items-center my-2 mt-4 flex-wrap w-100 mt-2">
+                  <div class="title-side-icons column-btn">
+                     <!-- <button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add" aria-controls="column_add">
+                        + Add Column
+                        </button> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button class="btn btn-primary removed_customer" data-edit_id="">Replace Customer</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- third modal -->
+<div class="modal fade" id="exampleModalToggle3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Customer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <div class=" bg-white rounded-2  col-12">
+               <form class="needs-validation" name="import_audience_added" method="POST" novalidate="">
+                  <div class="col-12 mt-2 mb-3">
+                     <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
+                        <div
+                           class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
+                           style="width:30px;height:30px;">3</div>
+                        Prepare your file Data
+                     </h6>
+                     <div class="col-12 d-flex flex-wrap">
+                        <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;">
+                        </div>
+                        <div class="col">
+                           <span class="py-1 px-2 border fs-10 me-2 fw-medium">Email</span>
+                           <span class="py-1 px-2 border fs-10 mx-2 fw-medium">Phone Number</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <h6 for="" class="form-label main-label mb-1 d-flex flex-wrap align-items-center">
+                        <div
+                           class="rounded-circle border text-primary align-items-center justify-content-center d-flex border-4 fs-6 me-2"
+                           style="width:30px;height:30px;">4</div>
+                        Inq file upload <sup class="validationn">*
+                     </h6>
+                     <div class="col-12 d-flex flex-wrap">
+                        <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
+                        <div class="col">
+                           <input type="file" class="form-control main-control get_exel_file" name="import_file"
+                              placeholder="Details" required="" accept=".xls,.xlsx">
+                        </div>
+                        <button class=" btn-primary import_btn mx-2 import_audience_added" type="submit" id="import_audience_added"
+                           name="import_btn" disabled>Import</button>
+                     </div>
+                  </div>
+               </form>
+               <div class="col-12 mt-4 custom_exel d-flex flex-wrap">
+                  <div class="rounded-circle fs-6 me-2" style="width:30px;height:30px;"></div>
+                  <div class="col">
+                     <div class="d-flex justify-content-between align-items-center my-2 flex-wrap w-100 mt-2">
+                        <div class="title-1">
+                           <i class="fa-solid fa-table-columns"></i>
+                           <label for="" class="form-label main-label">File Column Handling</label>
+                        </div>
+                        <div class="title-side-icons column-btn">
+                           <!-- <button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add" aria-controls="column_add">
+                              + Add Column
+                              </button> -->
+                        </div>
+                     </div>
+                     <form name="column_data_form" id="column_data_form" class="needs-validation" method="POST"
+                        novalidate="">
+                        <div class="mt-3 file_columns">
+                           <div class="text-center">
+                              <span class="fs-6">File Not Imported</span>
+                           </div>
+                        </div>
+                        <!-- <div class="mt-3 custome_column">
+                           <div class="text-start">
+                               <span class="fs-6">Custome Columns</span>
+                           </div>
+                           
+                           </div> -->
+                     </form>
+                     <!-- <div class="justify-content-between d-flex">
+                        <button class=" btn-primary custome_col" type="submit" id="custome_col" name="custome_col">Add Custome
+                            Column</button>
+                        <button class=" btn-primary import_btn" type="submit" id="import_btn" name="import_btn">Import
+                            Data</button>
+                        </div> -->
+                  </div>
+               </div>
+               <div class="d-flex justify-content-between align-items-center my-2 mt-4 flex-wrap w-100 mt-2">
+                  <div class="title-side-icons column-btn">
+                     <!-- <button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add" aria-controls="column_add">
+                        + Add Column
+                        </button> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button class="btn btn-primary added_customer" data-edit_id="">Add Customer</button>
+         </div>
+      </div>
+   </div>
 </div>
 <?= $this->include('partials/footer') ?>
 <?= $this->include('partials/vendor-scripts') ?>
@@ -1149,6 +1341,12 @@ $get_facebook_page = $result->getResultArray();
       // alert('mital');
 
    });
+   $('body').on('change', '.remove_exel_file', function () {
+      // alert('LKJC');
+      // $('.import_btn').attr('disabled', false);
+      $(this).closest('.inq_file').find('.import_btn').attr('disabled', false);
+      // alert('');
+   });
    $('body').on('click', '#import_inquiry_csv_btn', function (e) {
       e.preventDefault();
       var form = $('form[name="import_inquiry_csv"]')[0];
@@ -1439,6 +1637,10 @@ $get_facebook_page = $result->getResultArray();
                         $('#new_name').val(audienceName);
                         // Set the data-edit_id attribute of the update button
                         $('.update_btn').attr('data-edit_id', audienceId);
+                        $('.replace_customers').attr('data-edit_id', audienceId);
+                        $('.removed_customer').attr('data-edit_id', audienceId);
+                        $('.added_customer').attr('data-edit_id', audienceId);
+                        $('.add_customer').attr('data-edit_id', audienceId);
                   }
                });
             });
@@ -1479,6 +1681,135 @@ $get_facebook_page = $result->getResultArray();
                   }
                });
             });
+            $('body').on('click', '#import_audience', function (e) {
+      e.preventDefault();
+      var form = $('form[name="import_audience"]')[0];
+      var formdata = new FormData(form);
+      var file = $('#import_file').val();
+      if (file != '') {
+         $.ajax({
+            method: "post",
+            url: "<?= site_url('get_data_audience'); ?>",
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+               var responce = JSON.parse(res);
+               $('.loader').hide();
+               $('.file_columns').html(responce.html);
+               $('.selectpicker').selectpicker('refresh');
+               $('.removed_customer').attr('disabled', false);
+               $('.import_btn').prop('disabled', false);
+               $('.custome_col').prop('disabled', false);
+            },
+         });
+      }
+   });
+
+   $('body').on('click', '.removed_customer', function (e) {
+      e.preventDefault();
+      var import_form = $('form[name="import_audience"]')[0];
+      var col_data_form = $('form[name="column_data_form"]')[0];
+      var import_formdata = new FormData(import_form);
+      var col_data_formdata = new FormData(col_data_form);
+     
+      var editId = $(this).data("edit_id");
+      var ad_account_id = $('#adaccountselect').val();
+      import_formdata.append('edit_id', editId);
+      import_formdata.append('ad_account_id', ad_account_id);
+      // Iterate over the FormData object and append its data to import_formdata
+      col_data_formdata.forEach(function (value, key) {
+         import_formdata.append(key, value);
+      });
+         // Send the AJAX request
+         $.ajax({
+            method: "post",
+            url: "<?= site_url('replace_customer_audience'); ?>",
+            data: import_formdata,
+            processData: false,
+            contentType: false,
+            beforeSend: function (f) {
+               $('.loader').show();
+            },
+            success: function (res) {
+               $('.loader').hide();
+               $('.btn-close').trigger('click');
+               $('.selectpicker').selectpicker('refresh');
+               iziToast.success({
+                  title: 'data imported successfully'
+               });
+   
+               // location.reload(true);
+               list_data();
+   
+            },
+         });
+      
+   });
+   $('body').on('click', '#import_audience_added', function (e) {
+      e.preventDefault();
+      var form = $('form[name="import_audience_added"]')[0];
+      var formdata = new FormData(form);
+      var file = $('#import_file').val();
+      if (file != '') {
+         $.ajax({
+            method: "post",
+            url: "<?= site_url('get_data_add_audience'); ?>",
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+               var responce = JSON.parse(res);
+               $('.loader').hide();
+               $('.file_columns').html(responce.html);
+               $('.selectpicker').selectpicker('refresh');
+               $('.added_customer').attr('disabled', false);
+               $('.import_btn').prop('disabled', false);
+               $('.custome_col').prop('disabled', false);
+            },
+         });
+      }
+   });
+   $('body').on('click', '.added_customer', function (e) {
+      e.preventDefault();
+      var import_form = $('form[name="import_audience_added"]')[0];
+      var col_data_form = $('form[name="column_data_form"]')[0];
+      var import_formdata = new FormData(import_form);
+      var col_data_formdata = new FormData(col_data_form);
+     
+      var editId = $(this).data("edit_id");
+      var ad_account_id = $('#adaccountselect').val();
+      import_formdata.append('edit_id', editId);
+      import_formdata.append('ad_account_id', ad_account_id);
+      // Iterate over the FormData object and append its data to import_formdata
+      col_data_formdata.forEach(function (value, key) {
+         import_formdata.append(key, value);
+      });
+         // Send the AJAX request
+         $.ajax({
+            method: "post",
+            url: "<?= site_url('add_customer_audience'); ?>",
+            data: import_formdata,
+            processData: false,
+            contentType: false,
+            beforeSend: function (f) {
+               $('.loader').show();
+            },
+            success: function (res) {
+               $('.loader').hide();
+               $('.btn-close').trigger('click');
+               $('.selectpicker').selectpicker('refresh');
+               iziToast.success({
+                  title: 'data imported successfully'
+               });
+   
+               // location.reload(true);
+               list_data();
+   
+            },
+         });
+      
+   });
          // $('#main_close').click(function(e) {
          //    location.reload(true);
          // });

@@ -1608,6 +1608,430 @@ class AudianceController extends BaseController
             }
         }
     }
+
+    public function get_data_audience()
+    {
+        $return_array = [];
+        $html = "";
+        $btn_html = "";
+
+        if (isset($_FILES["import_file"])) {
+            if ($_FILES["import_file"]["error"] === UPLOAD_ERR_OK) {
+                $db_connection = DatabaseDefaultConnection();
+                $tmpFilePath = $_FILES["import_file"]["tmp_name"];
+                $spreadsheet = IOFactory::load($tmpFilePath); // Load the uploaded Excel file
+                $worksheet = $spreadsheet->getActiveSheet();
+                $highestColumn = $worksheet->getHighestColumn();
+                $headerRow = $worksheet->rangeToArray(
+                    "A1:" . $highestColumn . "1",
+                    null,
+                    true,
+                    false
+                );
+                // pre($headerRow);
+                $query = $db_connection
+                    ->table($this->username . "_audience")
+                    ->get();
+                // if ($query->getNumRows() > 0) {
+                $columnNames = $query->getFieldNames();
+                // } else {
+                //     $columnNames = array();
+                // }
+                $btn_html .= '<button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add_form" aria-controls="column_add_form">
+                                + Add Column
+                            </button>';
+                // pre($columnNames);
+                $html .= '<div class="col-12 d-sm-flex d-none flex-wrap mb-2">
+                                <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 text-center">
+                                    <span class="fs-6">From</span>
+                                </div>
+                                <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 text-center">
+                                    <span class="fs-6">to</span>
+                                </div>
+                            </div>';
+                $i = 0;
+                foreach ($headerRow[0] as $value) {
+                    if ($value != "") {
+                        $noSpaces_value = preg_replace("/\s+/", "", $value);
+                        $html .=
+                            '<div class="col-12 d-flex flex-wrap mb-2">
+                            <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1">
+                                <input type="text" class="form-control main-control" id="' .
+                            $noSpaces_value .
+                            '_file" name="" placeholder="File Column name" value="' .
+                            $noSpaces_value .
+                            '" readonly required>
+                            </div>
+                            <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">
+                                <span class="mx-auto col-1">to</span>
+                                <div class="main-selectpicker col-11 dropdown">
+                                    <input type="text" id="list" class="form-control list main-control dropdown-toggle file_columns_input" data-bs-toggle="dropdown" aria-expanded="false"  name="' .
+                            $i .
+                            '" id="' .
+                            $noSpaces_value .
+                            '" placeholder="' .
+                            $noSpaces_value .
+                            '">
+                                    <ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">';
+                                    foreach ($columnNames as $columnName) {
+                                        // Check if column name should be excluded
+                                        if (
+                                            strpos($columnName, "id") === false &&
+                                            strpos($columnName, "date") === false &&
+                                            strpos($columnName, "status") === false &&
+                                            strpos($columnName, "type") === false &&
+                                            strpos($columnName, "amount") === false &&
+                                            strpos($columnName, "inquiry") === false &&
+                                            strpos($columnName, "buy") === false &&
+                                            strpos($columnName, "pay") === false &&
+                                            strpos($columnName, "created") === false &&
+                                            strpos($columnName, "head") === false &&
+                                            strpos($columnName, "unit") === false &&
+                                            strpos($columnName, "follow") === false &&
+                                            strpos($columnName, "is") === false &&
+                                            strpos($columnName, "tooltip") === false &&
+                                            strpos($columnName, "site_") === false &&
+                                            strpos($columnName, "area_") === false &&
+                                            $columnName !== "name" // Exclude "name" field
+                                        ) {
+                                            // Add column name to dropdown list
+                                            $html .= '<li><button class="dropdown-item list_item" type="button"><span>' . $columnName . '</span></button></li>';
+                                        }
+                                    }
+                        $html .= '</ul>
+                                </div>
+                            </div>
+                        </div>';
+                        $i++;
+                    }
+                }
+            } else {
+                $html =
+                    "File upload error. Error code: " .
+                    $_FILES["import_file"]["error"];
+            }
+        }
+
+        $return_array["html"] = $html;
+        $return_array["btn_html"] = $btn_html;
+        return json_encode($return_array, JSON_FORCE_OBJECT);
+    }
+
+    public function replace_customer_audience()
+    {
+        // Ensure that ad_account_id and edit_id are available
+        $ad_account_id = $_POST["ad_account_id"];
+        $edit_id = $_POST["edit_id"];
+    
+        // Check if the import_file was uploaded successfully
+        if (isset($_FILES["import_file"]) && $_FILES["import_file"]["error"] === UPLOAD_ERR_OK) {
+            $tmpFilePath = $_FILES["import_file"]["tmp_name"];
+    
+            // Load the uploaded Excel file
+            $spreadsheet = IOFactory::load($tmpFilePath);
+            $worksheet = $spreadsheet->getActiveSheet();
+            $rowsss = array_map('str_getcsv', file($tmpFilePath));
+            $username = session_username($_SESSION['username']);
+            $this->db = DatabaseDefaultConnection();
+            $get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+            $get_access_token_array = $this->db->query($get_token);
+            $data_count = $get_access_token_array->getNumRows();
+            $fb_account_data = $get_access_token_array->getResultArray()[0];
+            $accessToken = $fb_account_data['access_token'];
+            $usersUrl= MetaUrl()."$edit_id/usersreplace?access_token=$accessToken";
+            // Prepare the data for API request
+            $allUsersData = [];
+            foreach ($rowsss as $key => $row) {
+                if ($key != 0) { // Skip the first row which contains headers
+                    // Extract email or mobile number from the current record
+                    $mobileno_or_email = $row[1]; // Assuming the second column contains mobile numbers or email addresses
+                    $hashed_value = ''; // Initialize hashed value
+    
+                    // Check if the value looks like an email address
+                    if (filter_var($mobileno_or_email, FILTER_VALIDATE_EMAIL)) {
+                        // If it's an email address, hash it
+                        $hashed_value = hash('sha256', $mobileno_or_email);
+                    } else {
+                        // If it's not an email address, it's considered a mobile number
+                        // Remove symbols, letters, and leading zeroes from the mobile number
+                        $phone_number = preg_replace("/[^0-9]/", "", $mobileno_or_email);
+    
+                        // Hash the mobile number
+                        $hashed_value = hash('sha256', $phone_number);
+                    }
+    
+                    // Construct payload data for the current user
+                    $userPayloadData = [
+                        $hashed_value, // Hashed mobile number or email address
+                    ];
+    
+                    // Add the payload data for the current user to the array
+                    $allUsersData[] = $userPayloadData;
+                }
+            }
+    
+            // Define the schema
+            $schema = ["EMAIL"];
+            $sessions_id = hexdec(substr(uniqid(), 0, 16));
+                // Construct the payload
+                $payload = [
+                    "session" => [
+                        "session_id" => $sessions_id,
+                        "batch_seq" => 1, // Adjust this as necessary
+                        "last_batch_flag" => true,
+                        "estimated_num_total" => count($allUsersData) // Use the count of processed users
+                    ],
+                    "payload" => [
+                        "schema" => $schema,
+                        "data" => $allUsersData
+                    ]
+                ];
+    
+            // Convert data to JSON
+            $payloadJson = json_encode($payload);
+            pre($payloadJson);
+    
+            // Initialize cURL session for POST request
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => $usersUrl, // Replace "your_api_endpoint_url" with the actual API endpoint URL
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $payloadJson, // Pass the JSON string as payload
+                CURLOPT_HTTPHEADER => [
+                    'Content-Type: application/json',
+                ],
+            ]);
+    
+            // Execute the POST request
+            $response = curl_exec($curl);
+    
+            // Check for errors
+            if (curl_errno($curl)) {
+                $error = curl_error($curl);
+                curl_close($curl);
+                // Handle the error gracefully, you can log it or display a message
+                echo "cURL Error: $error\n";
+            } else {
+                // Output the response
+                echo $response;
+            }
+    
+            // Close cURL session
+            curl_close($curl);
+    
+            // Return a message indicating successful processing
+            return "All records processed successfully.";
+        }
+    }
+
+    public function get_data_add_audience()
+    {
+        $return_array = [];
+        $html = "";
+        $btn_html = "";
+
+        if (isset($_FILES["import_file"])) {
+            if ($_FILES["import_file"]["error"] === UPLOAD_ERR_OK) {
+                $db_connection = DatabaseDefaultConnection();
+                $tmpFilePath = $_FILES["import_file"]["tmp_name"];
+                $spreadsheet = IOFactory::load($tmpFilePath); // Load the uploaded Excel file
+                $worksheet = $spreadsheet->getActiveSheet();
+                $highestColumn = $worksheet->getHighestColumn();
+                $headerRow = $worksheet->rangeToArray(
+                    "A1:" . $highestColumn . "1",
+                    null,
+                    true,
+                    false
+                );
+                // pre($headerRow);
+                $query = $db_connection
+                    ->table($this->username . "_audience")
+                    ->get();
+                // if ($query->getNumRows() > 0) {
+                $columnNames = $query->getFieldNames();
+                // } else {
+                //     $columnNames = array();
+                // }
+                $btn_html .= '<button class="btn-primary add" type="button" data-bs-toggle="modal" data-bs-target="#column_add_form" aria-controls="column_add_form">
+                                + Add Column
+                            </button>';
+                // pre($columnNames);
+                $html .= '<div class="col-12 d-sm-flex d-none flex-wrap mb-2">
+                                <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 text-center">
+                                    <span class="fs-6">From</span>
+                                </div>
+                                <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 text-center">
+                                    <span class="fs-6">to</span>
+                                </div>
+                            </div>';
+                $i = 0;
+                foreach ($headerRow[0] as $value) {
+                    if ($value != "") {
+                        $noSpaces_value = preg_replace("/\s+/", "", $value);
+                        $html .=
+                            '<div class="col-12 d-flex flex-wrap mb-2">
+                            <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1">
+                                <input type="text" class="form-control main-control" id="' .
+                            $noSpaces_value .
+                            '_file" name="" placeholder="File Column name" value="' .
+                            $noSpaces_value .
+                            '" readonly required>
+                            </div>
+                            <div class="bulk-action select col-sm-6 col-12 px-1 mt-lg-0 mb-1 d-flex align-items-center">
+                                <span class="mx-auto col-1">to</span>
+                                <div class="main-selectpicker col-11 dropdown">
+                                    <input type="text" id="list" class="form-control list main-control dropdown-toggle file_columns_input" data-bs-toggle="dropdown" aria-expanded="false"  name="' .
+                            $i .
+                            '" id="' .
+                            $noSpaces_value .
+                            '" placeholder="' .
+                            $noSpaces_value .
+                            '">
+                                    <ul class="dropdown-menu dropdown-menu-end w-100 column_list" id="column_list">';
+                                    foreach ($columnNames as $columnName) {
+                                        // Check if column name should be excluded
+                                        if (
+                                            strpos($columnName, "id") === false &&
+                                            strpos($columnName, "date") === false &&
+                                            strpos($columnName, "status") === false &&
+                                            strpos($columnName, "type") === false &&
+                                            strpos($columnName, "amount") === false &&
+                                            strpos($columnName, "inquiry") === false &&
+                                            strpos($columnName, "buy") === false &&
+                                            strpos($columnName, "pay") === false &&
+                                            strpos($columnName, "created") === false &&
+                                            strpos($columnName, "head") === false &&
+                                            strpos($columnName, "unit") === false &&
+                                            strpos($columnName, "follow") === false &&
+                                            strpos($columnName, "is") === false &&
+                                            strpos($columnName, "tooltip") === false &&
+                                            strpos($columnName, "site_") === false &&
+                                            strpos($columnName, "area_") === false &&
+                                            $columnName !== "name" // Exclude "name" field
+                                        ) {
+                                            // Add column name to dropdown list
+                                            $html .= '<li><button class="dropdown-item list_item" type="button"><span>' . $columnName . '</span></button></li>';
+                                        }
+                                    }
+                        $html .= '</ul>
+                                </div>
+                            </div>
+                        </div>';
+                        $i++;
+                    }
+                }
+            } else {
+                $html =
+                    "File upload error. Error code: " .
+                    $_FILES["import_file"]["error"];
+            }
+        }
+
+        $return_array["html"] = $html;
+        $return_array["btn_html"] = $btn_html;
+        return json_encode($return_array, JSON_FORCE_OBJECT);
+    }
+    public function add_customer_audience()
+    {
+        // Ensure that ad_account_id and edit_id are available
+        $ad_account_id = $_POST["ad_account_id"];
+        $edit_id = $_POST["edit_id"];
+    
+        // Check if the import_file was uploaded successfully
+        if (isset($_FILES["import_file"]) && $_FILES["import_file"]["error"] === UPLOAD_ERR_OK) {
+            $tmpFilePath = $_FILES["import_file"]["tmp_name"];
+    
+            // Load the uploaded Excel file
+            $spreadsheet = IOFactory::load($tmpFilePath);
+            $worksheet = $spreadsheet->getActiveSheet();
+            $rowsss = array_map('str_getcsv', file($tmpFilePath));
+            $username = session_username($_SESSION['username']);
+            $this->db = DatabaseDefaultConnection();
+            $get_token = "SELECT * FROM " . $this->username . "_platform_integration WHERE platform_status = 2 AND verification_status = 1";
+            $get_access_token_array = $this->db->query($get_token);
+            $data_count = $get_access_token_array->getNumRows();
+            $fb_account_data = $get_access_token_array->getResultArray()[0];
+            $accessToken = $fb_account_data['access_token'];
+            $usersUrl= MetaUrl()."$edit_id/users?access_token=$accessToken";
+            // Prepare the data for API request
+            $allUsersData = [];
+            foreach ($rowsss as $key => $row) {
+                if ($key != 0) { // Skip the first row which contains headers
+                    // Extract email or mobile number from the current record
+                    $mobileno_or_email = $row[1]; // Assuming the second column contains mobile numbers or email addresses
+                    $hashed_value = ''; // Initialize hashed value
+    
+                    // Check if the value looks like an email address
+                    if (filter_var($mobileno_or_email, FILTER_VALIDATE_EMAIL)) {
+                        // If it's an email address, hash it
+                        $hashed_value = hash('sha256', $mobileno_or_email);
+                    } else {
+                        // If it's not an email address, it's considered a mobile number
+                        // Remove symbols, letters, and leading zeroes from the mobile number
+                        $phone_number = preg_replace("/[^0-9]/", "", $mobileno_or_email);
+    
+                        // Hash the mobile number
+                        $hashed_value = hash('sha256', $phone_number);
+                    }
+    
+                    // Construct payload data for the current user
+                    $userPayloadData = [
+                        $hashed_value, // Hashed mobile number or email address
+                        ["LDU"]
+                    ];
+    
+                    // Add the payload data for the current user to the array
+                    $allUsersData[] = $userPayloadData;
+                }
+            }
+    
+            // Define the schema
+            $schema = ["EMAIL","DATA_PROCESSING_OPTIONS"];
+            $payload = [
+                "schema" => $schema,
+                "is_raw" => "true",
+                "page_ids" => [110707855263314], // Add the page ID(s) here as an array
+                "data" => $allUsersData // Add all users' data
+            ];
+    
+            // Convert data to JSON
+            $payloadJson = json_encode($payload);
+            // pre($payloadJson);
+    
+            // Initialize cURL session for POST request
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => $usersUrl, // Replace "your_api_endpoint_url" with the actual API endpoint URL
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => http_build_query(['payload' => $payloadJson]),
+                CURLOPT_HTTPHEADER => [
+                    'Content-Type: application/json',
+                ],
+            ]);
+    
+            // Execute the POST request
+            $response = curl_exec($curl);
+    
+            // Check for errors
+            if (curl_errno($curl)) {
+                $error = curl_error($curl);
+                curl_close($curl);
+                // Handle the error gracefully, you can log it or display a message
+                echo "cURL Error: $error\n";
+            } else {
+                // Output the response
+                echo $response;
+            }
+    
+            // Close cURL session
+            curl_close($curl);
+    
+            // Return a message indicating successful processing
+            return "All records processed successfully.";
+        }
+    }
     public function edit_data_audience()
     {
         if ($this->request->getPost("action") == "edit") {
