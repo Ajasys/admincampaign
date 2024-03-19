@@ -1133,6 +1133,9 @@ class Home extends BaseController
     {
         return view('user-activity');
     }
+    public function event_manager(){
+        return view('campaign/event_manager');
+    }
     public function supportticket()
     {
         if (in_array('client_supportcheck', $this->get_roll_id_to_roll_duty_var) || (isset($_SESSION['admin']) && $_SESSION['admin'] == 1)) {
